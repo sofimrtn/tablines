@@ -1,5 +1,7 @@
 package es.ctic.tabels
 
+case class S (patternList: List[Pattern], templateList : List[Template])
+
 case class Pattern (letE : LetWhereExpression,var lBindE : List[BindingExpresion] = List() , 
 					lPatternM : List[PatternMatch], whereE : LetWhereExpression) {
   
