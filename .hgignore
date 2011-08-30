@@ -2,3 +2,5 @@ syntax: glob
 tabels-core/project/boot
 tabels-core/project/target
 tabels-core/target
+project/boot
+target
