@@ -29,4 +29,8 @@ case class Expression (exp: String) extends Evaluable
 
 case class Assignment(v : Var, e : Expression) extends Evaluable
 
-abstract class Evaluable
+trait Evaluable{
+	def grammarEvaluation( evaluationContext : EvaluationContext, dataSource: DataSource): Event = {
+		return new Event(new BindingList)
+	}
+}
