@@ -12,4 +12,6 @@ case class Event (bindingsList : BindingList)
 
 case class Binding(label : String  , value : CellValue)
 
-case class BindingList(bindingsList : List[Binding] = List()) 
+case class BindingList(bindingsList : List[Binding] = List())
+
+case class EvaluationContext
