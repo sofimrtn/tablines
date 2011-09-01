@@ -2,9 +2,14 @@ package es.ctic.tabels
 
 abstract class Interpreter {
   
-  type RDFgraph
-  
-  def interpret(root : S, dataSource: DataSource) : RDFgraph 
+  def interpret(root : S, dataSource: DataSource) : RDFGraph = {
+    
+    var evContext = new EvaluationContext()
+
+    root.grammarEvaluation(evContext, dataSource)
+	  
+    return new RDFGraph
+  }
 
 }
 
@@ -14,4 +19,4 @@ case class Binding(label : String  , value : CellValue)
 
 case class BindingList(bindingsList : List[Binding] = List())
 
-case class EvaluationContext
+case class EvaluationContext(pointList : List[Point] = List() , eventList: List[Event] = List())
