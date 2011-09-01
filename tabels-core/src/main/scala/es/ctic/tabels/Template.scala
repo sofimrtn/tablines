@@ -1,8 +1,9 @@
 package es.ctic.tabels
 
+
+case class RDFGraph
+
 abstract class Template {
-  
-	type RDFGraph
-	
+  	
 	def instantiate : RDFGraph
 }
