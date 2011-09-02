@@ -1,9 +1,10 @@
 package es.ctic.tabels
 
+abstract class Statement
 
-case class RDFGraph
+abstract class StatementList
 
 abstract class Template {
   	
-	def instantiate : RDFGraph
+	def instantiate : StatementList
 }
