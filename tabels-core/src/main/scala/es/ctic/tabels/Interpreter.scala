@@ -2,13 +2,12 @@ package es.ctic.tabels
 
 abstract class Interpreter {
   
-  def interpret(root : S, dataSource: DataSource) : RDFGraph = {
+  def interpret(root : S, dataSource: DataSource,dataOut : DataOutput) = {
     
     var evContext = new EvaluationContext()
 
     root.grammarEvaluation(evContext, dataSource)
 	  
-    return new RDFGraph
   }
 
 }
