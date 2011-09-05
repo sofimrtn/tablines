@@ -1,10 +1,13 @@
 package es.ctic.tabels
 
-abstract class Statement
+case class Statement
 
-abstract class StatementList
+case class StatementList
 
-abstract class Template {
+case class Template(eventList : List[Event]) {
   	
-	def instantiate : StatementList
+	def instantiate()/*:StatemenList*/ = {
+	
+	  eventList.foreach(event => event.bindingsList.bindingsList.foreach(binding => print(binding.label)))
+	}
 }
