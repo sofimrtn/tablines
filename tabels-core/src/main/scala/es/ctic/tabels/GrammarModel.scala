@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-case class S (patternList: List[Pattern], templateList : List[Template]) extends Evaluable
+case class S (var patternList: List[Pattern], var templateList : List[Template]) extends Evaluable
 
 case class Pattern (letE : LetWhereExpression,var lBindE : List[BindingExpresion] = List() , 
 					lPatternM : List[PatternMatch], whereE : LetWhereExpression) extends Evaluable
