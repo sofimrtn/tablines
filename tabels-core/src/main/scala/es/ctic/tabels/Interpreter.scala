@@ -1,21 +1,19 @@
 package es.ctic.tabels
 
-abstract class Interpreter {
+case class Interpreter {
   
   def interpret(root : S, dataSource: DataSource,dataOut : DataOutput) = {
     
     var evContext = new EvaluationContext()
-
-    root.grammarEvaluation(evContext, dataSource)
-	  
+    evContext.eventList :::= root.grammarEvaluation(evContext, dataSource)
+    val template = new Template(evContext.eventList)
+	template.instantiate()  
   }
 
 }
 
-case class Event (bindingsList : BindingList)
+case class Event (bindingList : List[Binding])
 
-case class Binding(label : String  , value : CellValue)
+case class Binding(label : String  , value : String)
 
-case class BindingList(bindingsList : List[Binding] = List())
-
-case class EvaluationContext(pointList : List[Point] = List() , eventList: List[Event] = List())
+case class EvaluationContext(pointList : List[Point] = List() , var eventList: List[Event] = List())
