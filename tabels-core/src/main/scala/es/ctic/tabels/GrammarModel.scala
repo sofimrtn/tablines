@@ -17,15 +17,31 @@ case class Dimension (dim : String) extends Evaluable
 
 case class FilterCondition (cond : String) extends Evaluable
 
-case class Position (pos : String) extends Evaluable
+case class Position (pos : String) extends Evaluable{
+  
+	def accept(vis : Visitor) = {
+	    
+	    vis.visit(this)
+	  }
+}
 
 case class StopCondition (cond: String) extends Evaluable
 
-case class Var (name : String) extends Evaluable
+case class Var (name : String) extends Evaluable{
+	
+  def accept(vis : Visitor) = {
+    
+    vis.visit(this)
+  }
+}
+
+
 
 case class Tupple( varList: List[Var]) extends Evaluable
 
 case class Expression (exp: String) extends Evaluable
 
 case class Assingment(v : Var, e : Expression) extends Evaluable
+
+
 
