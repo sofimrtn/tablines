@@ -11,11 +11,9 @@ case class Template(eventList : List[Event], dataOut: DataOutput) {
 	  
 	  eventList.foreach(event => event.bindingList.foreach(binding =>
 	    							{
-	    							  dataOut.generateOutput(new Statement(binding.label,"http://example/friends", binding.value)) 
+	    							  dataOut.generateOutput(new Statement(binding.label.name,"http://example/friends", binding.value)) 
 	    							  println(dataOut.asInstanceOf[JenaDataOutput].model)
-	    							 }
-	    							)
-	    				)
+	    							 }))
 	}
 	  					
 }

@@ -4,10 +4,11 @@ import scala.collection.mutable.ListBuffer
 case class Interpreter {
   
   def interpret(root : S, dataSource: DataSource, dataOut : DataOutput) = {
-    
     //FIX IT//
+    var visitor = new VisitorEvaluate(dataSource) 
     var evContext = new EvaluationContext()
-    evContext.buffList += root.grammarEvaluation(evContext, dataSource)
+    
+   
     evContext.eventList= evContext.buffList.toList 
    
     val template = new Template(evContext.eventList, dataOut)
@@ -18,7 +19,7 @@ case class Interpreter {
 
 case class Event (bindingList : List[Binding])
 
-case class Binding(label : String  , value : String)
+case class Binding(label : Var  , value : String)
 
 class EvaluationContext(pointList : List[Point] = List() , var eventList: List[Event] = null){
 	var buffList = new ListBuffer[Event]
