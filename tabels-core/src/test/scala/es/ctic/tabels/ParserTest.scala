@@ -10,10 +10,10 @@ import scala.util.parsing.input.CharSequenceReader
 class TabelsParserTest extends TabelsParser with JUnitSuite {
     
     @Test def parseVariable() {
-        assertParse(variable, "?x", Var("?x"))
-        assertParse(variable, "?X", Var("?X"))
-        assertParse(variable, "?xx", Var("?xx"))
-        assertParse(variable, "?x0y", Var("?x0y"))
+        assertParse(variable, "?x", Variable("?x"))
+        assertParse(variable, "?X", Variable("?X"))
+        assertParse(variable, "?xx", Variable("?xx"))
+        assertParse(variable, "?x0y", Variable("?x0y"))
         assertFail (variable, "")
         assertFail (variable, "?")
         assertFail (variable, "??x")

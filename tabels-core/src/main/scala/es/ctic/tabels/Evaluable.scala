@@ -21,7 +21,7 @@ trait Evaluable{
      case _:LetWhereExpression  => 
        var bList =new ListBuffer[Binding]
        this.asInstanceOf[LetWhereExpression].sentList.foreach(sent =>
-         						bList += new Binding(sent.v.name, sent.e.exp))
+         						bList += new Binding(sent.variable.name, sent.expression.exp))
          						
        return new Event(bList.toList)   
        
