@@ -54,8 +54,9 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   override def visit(patternMatch : PatternMatch){
   
     val point = new Point("horas.xls", "Hoja1", 0, 0)
-    val binding = new Binding(patternMatch.variable, dataSource.getValue(point).getContent)
-    val event = new Event(new Bindings)
+    var bindings = new Bindings
+    bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent)
+    val event = new Event(bindings)
     println(patternMatch)
     buffEventList += event
   }
