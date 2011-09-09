@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-object TEMP1 extends Template(List(TripleTemplate(Variable("?x"),"http://example/name", Variable("?name")),TripleTemplate(Variable("?x"),"http://example/type", "http://foaf:person")))
+object TEMP1 extends Template(List(TripleTemplate(Right(Variable("?x")),Left(Resource("http://example/name")), Right(Variable("?name"))),TripleTemplate(Right(Variable("?x")),Left(Resource("http://example/type")), Left(Resource("http://foaf:person")))))
 object AST1 extends PatternMatch(List(),Position("A1"),null, Variable("?x"),null ) 
 object ROOT	extends S(List(Pattern(lPatternM = List(AST1))), List(TEMP1))	
 object DS1 extends ExcelDataSource(List("horas.xls"))

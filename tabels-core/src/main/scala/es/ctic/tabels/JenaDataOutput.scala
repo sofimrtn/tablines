@@ -6,12 +6,26 @@ class JenaDataOutput extends DataOutput{
   val model : Model = ModelFactory.createDefaultModel()
   
   def generateOutput(statement: Statement){ 
-    
-    //FIX ME//
-    val s = model.createResource(statement.subject)
-    val p = model.createProperty(statement.property)
-    val o = model.createLiteral(statement.obj)
-    model.add(model.createStatement(s,p,o))
+   model.add(model.createStatement(createSubject(statement.subject),createProperty(statement.property),createObject(statement.obj)))
+  }
+  
+  private def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
+    s match {
+    	case Resource(uri) => model.createResource(uri) 
+    }
+  }
+
+  private def createProperty(s : RDFNode) : com.hp.hpl.jena.rdf.model.Property = {
+    s match {
+    	case Resource(uri) => model.createProperty(uri) 
+    }
+  }
+
+  private def createObject(s : RDFNode) : com.hp.hpl.jena.rdf.model.RDFNode = {
+    s match {
+    	case Resource(uri) => model.createResource(uri) 
+    	case Literal(value) => model.createLiteral(value)
+    }
   }
 
 }
