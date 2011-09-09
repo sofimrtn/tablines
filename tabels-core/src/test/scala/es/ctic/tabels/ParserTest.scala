@@ -28,6 +28,17 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (position, "1")
         assertFail (position, "1A")
     }
+    
+     @Test def parsePatternMatch() {
+        assertParse(patternMatch, "?X in cell A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
+        assertParse(patternMatch, "?X    in  cell   A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
+        assertParse(patternMatch, "?X IN CELL A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
+        assertFail (patternMatch, "")
+        assertFail (patternMatch, "?X")
+        assertFail (patternMatch, "A1")
+        assertFail (patternMatch, "IN CELL")
+        assertFail (patternMatch, "IN CELL A1")
+    }
 
     // auxiliary methods inspired by
     // http://henkelmann.eu/2011/01/29/an_introduction_to_scala_parser_combinators-part_3_unit_tests
