@@ -65,15 +65,15 @@ class VisitorToString extends AbstractVisitor{
   
     pattMatch.variable.accept(this)
     print("  in CELL ")
-    pattMatch.pos.accept(this)
+    pattMatch.position.accept(this)
   }
   
   override def visit(v : Variable){
     print(v.name)
   }
   
-  override def visit(pos : Position){
-    print(pos.position)
+  override def visit(position : Position){
+    print(position.position)
   }
   
 }

@@ -10,7 +10,7 @@ case class LetWhereExpression(sentList : List[Assignment]) extends Evaluable
 case class BindingExpresion(dim : Dimension, filterCondList: List[FilterCondition] = List(), 
 		pos : Position = null, stopCond : StopCondition = null, variable: Variable = null) extends Evaluable
 
-case class PatternMatch(filterCondList: List[FilterCondition] = List(), pos : Position = null, 
+case class PatternMatch(filterCondList: List[FilterCondition] = List(), position : Position = null, 
 		stopCond : StopCondition = null, variable: Variable = null, tupple : Tuple = null) extends Evaluable
 
 case class Dimension (dim : String) extends Evaluable
