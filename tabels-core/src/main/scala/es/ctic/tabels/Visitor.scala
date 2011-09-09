@@ -55,7 +55,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   
     val point = new Point("horas.xls", "Hoja1", 0, 0)
     val binding = new Binding(patternMatch.variable, dataSource.getValue(point).getContent)
-    val event = new Event(List(binding))
+    val event = new Event(new Bindings)
     println(patternMatch)
     buffEventList += event
   }

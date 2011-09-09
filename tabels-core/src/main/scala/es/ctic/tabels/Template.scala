@@ -7,7 +7,7 @@ case class Statement(subject: RDFNode, property: RDFNode, obj:RDFNode){
 
 case class Template(triples : List[TripleTemplate]) {
   	
-	def instantiate(bindingList : List[Binding], dataOut: DataOutput) = {
+	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
 	
 	 triples.foreach(t => t.instantiate(bindingList, dataOut)) 
 	}
@@ -16,17 +16,18 @@ case class Template(triples : List[TripleTemplate]) {
 
 case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Variable], o : Either[RDFNode, Variable]) {
 	
-	def instantiate(bindingList : List[Binding], dataOut: DataOutput) = {
+	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
 	  
 	  dataOut.generateOutput(new Statement(substitute(s, bindingList) ,substitute(p, bindingList), substitute(o, bindingList))) 
 	  
 	}
 	
-	def substitute(x : Either[RDFNode, Variable], bindingList : List[Binding]) : RDFNode = {
+	def substitute(x : Either[RDFNode, Variable], bindingList : Bindings) : RDFNode = {
 	  
 	   x match {
 	   	case Left(rdfNode) => rdfNode
-	   	case Right(variable) => Resource("hola")
+	   	//FIX ME: variables can also be literals
+	   	case Right(variable) => Resource(bindingList.getBinding(variable))
 	   }
 	}
 
