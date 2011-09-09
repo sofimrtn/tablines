@@ -4,7 +4,7 @@ abstract class DataSource{
 
   def getValue(point : Point) : CellValue
   def getFiles() : List[String]
-  def getTabs(file : String) : List[String]
+  def getTabs(file : String) : scala.collection.mutable.Seq[String]
   
   
 }
