@@ -41,11 +41,22 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   def events :List[Event] = buffEventList.toList
   private val buffEventList = new ListBuffer[Event]
   
+  override def visit(s : S){
+	
+	s.patternList.foreach(p => p.accept(this))
+  }
+  
+  override def visit(pattern : Pattern){
+	
+	pattern.lPatternM.foreach(p => p.accept(this))
+  }
+  
   override def visit(patternMatch : PatternMatch){
   
     val point = new Point("horas.xls", "Hoja1", 0, 0)
     val binding = new Binding(patternMatch.variable, dataSource.getValue(point).getContent)
     val event = new Event(List(binding))
+    println(patternMatch)
     buffEventList += event
   }
   

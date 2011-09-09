@@ -1,7 +1,11 @@
 package es.ctic.tabels
 
+object TEMP1 extends Template(List(TripleTemplate(Variable("?x"),"http://example/name", Variable("?name")),TripleTemplate(Variable("?x"),"http://example/type", "http://foaf:person")))
 object AST1 extends PatternMatch(List(),Position("A1"),null, Variable("?x"),null ) 
-object DS1 extends ExcelDataSource(List("horas.xls")) 
+object ROOT	extends S(List(Pattern(lPatternM = List(AST1))), List(TEMP1))	
+object DS1 extends ExcelDataSource(List("horas.xls"))
+object DSO1 extends JenaDataOutput
 object VIS1 extends VisitorToString()
 object VIS2 extends VisitorEvaluate(DS1)
-object POINT extends Point("horas.xls", "Hoja1" , 0, 0)
+object P extends Point("horas.xls", "Hoja1" , 0, 0)
+object INT extends Interpreter()

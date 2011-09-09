@@ -4,16 +4,21 @@ case class Statement(subject: String, property: String, obj:String){
 
 }
 
-case class Template(eventList : List[Event], dataOut: DataOutput) {
+case class Template(triples : List[TripleTemplate]) {
   	
-	def instantiate() = {
+	def instantiate(bindingList : List[Binding], dataOut: DataOutput) = {
 	
-	  
-	  eventList.foreach(event => event.bindingList.foreach(binding =>
-	    							{
-	    							  dataOut.generateOutput(new Statement(binding.label.name,"http://example/friends", binding.value)) 
-	    							  println(dataOut.asInstanceOf[JenaDataOutput].model)
-	    							 }))
+	 triples.foreach(t => t.instantiate(bindingList, dataOut)) 
 	}
 	  					
+}
+
+case class TripleTemplate(s : Any, p : Any, o : Any) {
+	
+	def instantiate(bindingList : List[Binding], dataOut: DataOutput) = {
+	  
+	  dataOut.generateOutput(new Statement(s.toString,p.toString, o.toString)) 
+	  
+	}
+
 }

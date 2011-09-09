@@ -6,13 +6,14 @@ case class Interpreter {
   def interpret(root : S, dataSource: DataSource, dataOut : DataOutput) = {
     //FIX IT//
     var visitor = new VisitorEvaluate(dataSource) 
-    var evContext = new EvaluationContext()
     
+    visitor.visit(root)
+     
+    println(visitor.events)
    
-    evContext.eventList= evContext.buffList.toList 
-   
-    val template = new Template(evContext.eventList, dataOut)
-	template.instantiate()  
+    // FIXME: do not instantiate ALL templates for EACH event, be selective
+    for ( t <- root.templateList ; e <- visitor.events ) t.instantiate(e.bindingList, dataOut)
+      
   }
 
 }
