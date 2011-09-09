@@ -11,10 +11,10 @@ abstract class Visitor {
   def visit(filtCond : FilterCondition)
   def visit(pos : Position)
   def visit(sCond : StopCondition)
-  def visit(v : Var)
-  def visit(tupple : Tupple)
+  def visit(v : Variable)
+  def visit(tupple : Tuple)
   def visit(exp : Expression)
-  def visit(assing : Assingment)
+  def visit(assing : Assignment)
 
 }
 
@@ -28,10 +28,10 @@ class AbstractVisitor extends Visitor{
   override def visit(filtCond : FilterCondition) = {}
   override def visit(pos : Position) = {}
   override def visit(sCond : StopCondition) = {}
-  override def visit(v : Var) = {}
-  override def visit(tupple : Tupple) = {}
+  override def visit(v : Variable) = {}
+  override def visit(tupple : Tuple) = {}
   override def visit(exp : Expression) = {}
-  override def visit(assing : Assingment) = {}
+  override def visit(assing : Assignment) = {}
 }
 
 
@@ -68,12 +68,12 @@ class VisitorToString extends AbstractVisitor{
     pattMatch.pos.accept(this)
   }
   
-  override def visit(v : Var){
+  override def visit(v : Variable){
     print(v.name)
   }
   
   override def visit(pos : Position){
-    print(pos.pos)
+    print(pos.position)
   }
   
 }

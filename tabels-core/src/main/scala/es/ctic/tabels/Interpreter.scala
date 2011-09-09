@@ -19,7 +19,7 @@ case class Interpreter {
 
 case class Event (bindingList : List[Binding])
 
-case class Binding(label : Var  , value : String)
+case class Binding(label : Variable  , value : String)
 
 class EvaluationContext(pointList : List[Point] = List() , var eventList: List[Event] = null){
 	var buffList = new ListBuffer[Event]
