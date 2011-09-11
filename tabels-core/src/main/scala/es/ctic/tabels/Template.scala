@@ -5,7 +5,7 @@ case class Statement(subject: RDFNode, property: RDFNode, obj:RDFNode){
 
 }
 
-case class Template(triples : List[TripleTemplate]) {
+case class Template(triples : Seq[TripleTemplate] = List()) {
   	
 	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
 	
