@@ -23,6 +23,10 @@ class TabelsParser extends JavaTokenParsers {
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
 	// language grammar
+	
+	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	
+	def pattern : Parser[Pattern] = rep1(patternMatch) ^^ { Pattern(_) }
 
 	def patternMatch : Parser[PatternMatch] = variable~(IN_CELL~>position) ^^
         { case v~p => PatternMatch(variable = v, position = p) }

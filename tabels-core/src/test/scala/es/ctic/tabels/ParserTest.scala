@@ -47,6 +47,16 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(eitherRDFNodeOrVariable, "?x", Right(Variable("?x")))
 		assertFail (eitherRDFNodeOrVariable, "")
 	}
+	
+	@Test def parseStart() {
+		// FIXME: test some programs
+		assertParse(start, "", S())
+	}
+	
+	@Test def parsePattern() {
+        assertParse(pattern, "?X in cell A1", Pattern(List(PatternMatch(variable = Variable("?X"), position = Position("A1")))))
+		assertFail (pattern, "")
+	}
     
      @Test def parsePatternMatch() {
         assertParse(patternMatch, "?X in cell A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
