@@ -20,7 +20,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     return ExcelCellValue(cell)
   }
   
-  override def getTabs(filename : String) : scala.collection.mutable.Seq[String] = {
+  override def getTabs(filename : String) : Seq[String] = {
 	 
     val workbook : Workbook = Workbook.getWorkbook(new File (filename) )
     val sheetNames : Array[String] = workbook.getSheetNames()
