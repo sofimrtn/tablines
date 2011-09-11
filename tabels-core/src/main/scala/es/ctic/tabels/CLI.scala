@@ -11,7 +11,7 @@ object CLI extends Logging {
 	  	logger.info("And... Tabular Bells!")
 		val files : Seq[File] = if (args.isEmpty) filesCurrentDirectory else args.map(new File(_))
 		val dataSource : DataSource = new ExcelDataSource(files)
-		logger.debug("Found these input files: " + dataSource.getFiles())
+		logger.debug("Found these input files: " + dataSource.filenames)
 		val dataOutput : JenaDataOutput = new JenaDataOutput()
 		val interpreter : Interpreter = new Interpreter()
 		

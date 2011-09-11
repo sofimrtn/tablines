@@ -8,7 +8,9 @@ import grizzled.slf4j.Logging
 
 class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
   
-  val files : Seq[File] = fl
+	private val files : Seq[File] = fl
+	
+	val filenames : Seq[String] = files.map(_.getName())
   
   override def getValue(point : Point) : CellValue = {
 	logger.debug("Getting value at " + point)
@@ -18,11 +20,9 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     return ExcelCellValue(cell)
   }
   
-  override def getFiles() : Seq[String] = files.map(_.getName())
-
-  override def getTabs(file : String) : scala.collection.mutable.Seq[String] = {
+  override def getTabs(filename : String) : scala.collection.mutable.Seq[String] = {
 	 
-    val workbook : Workbook = Workbook.getWorkbook(new File (file) )
+    val workbook : Workbook = Workbook.getWorkbook(new File (filename) )
     val sheetNames : Array[String] = workbook.getSheetNames()
     val listSheets : java.util.List[String] = new java.util.LinkedList()
     sheetNames.foreach(sheet => listSheets.add(sheet))

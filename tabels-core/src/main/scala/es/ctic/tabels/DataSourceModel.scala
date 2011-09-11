@@ -3,8 +3,8 @@ package es.ctic.tabels
 abstract class DataSource {
 
   def getValue(point : Point) : CellValue
-  def getFiles() : Seq[String]
-  def getTabs(file : String) : scala.collection.mutable.Seq[String]
+  val filenames : Seq[String]
+  def getTabs(filename : String) : scala.collection.mutable.Seq[String]
   
   
 }
