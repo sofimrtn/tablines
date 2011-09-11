@@ -17,7 +17,10 @@ object CLI extends Logging {
 		
 		logger.debug("Parsing Tabels program")
 		val parser = new TabelsParser()
-		val program : S = parser.parseProgram("?x in cell A1 { ?x <http://example.org/> <http://foo.org/> . }") // FIXME
+		val program : S = parser.parseProgram("""
+			?x in cell A1
+			{ ?x <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://xmlns.com/foaf/0.1/Person> . }
+			""") // FIXME
 
 		logger.debug("Interpreting AST: " + program)
 		interpreter.interpret(program, dataSource, dataOutput)
