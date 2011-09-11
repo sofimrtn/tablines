@@ -55,12 +55,16 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   
   override def visit(patternMatch : PatternMatch){
   	logger.debug("Visting pattern match")
-    val point = new Point("horas.xls", "Hoja1", 0, 0)
-    var bindings = new Bindings
-    bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent)
-    val event = new Event(bindings)
-    println(patternMatch)
-    buffEventList += event
+	// FIXME: this code does not manage context
+	for (file <- dataSource.getFiles() ; tab <- dataSource.getTabs(file)) {
+		logger.debug("Matching with file " + file + " and tab "+ tab)
+    	val point = new Point(file, tab, 0, 0)
+    	var bindings = new Bindings
+    	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent)
+    	val event = new Event(bindings)
+    	println(patternMatch)
+    	buffEventList += event
+	}
   }
   
   /*override def visit(v : Var){

@@ -1,9 +1,9 @@
 package es.ctic.tabels
 
-abstract class DataSource{
+abstract class DataSource {
 
   def getValue(point : Point) : CellValue
-  def getFiles() : List[String]
+  def getFiles() : Seq[String]
   def getTabs(file : String) : scala.collection.mutable.Seq[String]
   
   

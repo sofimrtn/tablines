@@ -6,9 +6,9 @@ import java.util.Arrays
 import grizzled.slf4j.Logging
 
 
-class ExcelDataSource(fl : Seq[String]) extends DataSource with Logging {
+class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
   
-  val files : Seq[String] = fl
+  val files : Seq[File] = fl
   
   override def getValue(point : Point) : CellValue = {
 	logger.debug("Getting value at " + point)
@@ -18,9 +18,8 @@ class ExcelDataSource(fl : Seq[String]) extends DataSource with Logging {
     return ExcelCellValue(cell)
   }
   
-  override def getFiles() : List[String]={
-   return List()
-  }
+  override def getFiles() : Seq[String] = files.map(_.getName())
+
   override def getTabs(file : String) : scala.collection.mutable.Seq[String] = {
 	 
     val workbook : Workbook = Workbook.getWorkbook(new File (file) )
