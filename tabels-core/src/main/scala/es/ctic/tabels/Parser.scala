@@ -18,7 +18,7 @@ class TabelsParser extends JavaTokenParsers {
 
 	def rdfLiteral : Parser[Literal] = stringLiteral ^^ { quotedString => Literal(quotedString.slice(1,quotedString.length-1)) } // FIXME: other literals
 
-	def uriRef : Parser[Resource] = "<" ~> """[a-zA-Z0-9:/\.\?\-]+""".r <~ ">" ^^ Resource // FIXME: use a better RE
+	def uriRef : Parser[Resource] = "<" ~> """[a-zA-Z0-9:#/\.\?\-]+""".r <~ ">" ^^ Resource // FIXME: use a better RE
 	
 	def rdfNode : Parser[RDFNode] = uriRef | rdfLiteral
 	
