@@ -28,7 +28,13 @@ case class Dimension (dim : String) extends Evaluable
 
 case class FilterCondition (cond : String) extends Evaluable
 
-case class Position (position : String) extends Evaluable{
+case class Position (row : Int, col: Int) extends Evaluable {
+	
+	override def toString() : String = intToAlpha(col) + row
+	
+	def intToAlpha(i : Int) : String = {
+		return ('A' + i % 26).toString // FIXME: does not work with > 26
+	}
   
 	def accept(vis : Visitor) = {
 	    

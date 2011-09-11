@@ -58,7 +58,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 	// FIXME: this code does not manage context
 	for (file <- dataSource.filenames ; tab <- dataSource.getTabs(file)) {
 		logger.debug("Matching with file " + file + " and tab "+ tab)
-    	val point = new Point(file, tab, 0, 0)
+    	val point = new Point(file, tab, patternMatch.position.row, patternMatch.position.col)
     	var bindings = new Bindings
     	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent)
     	val event = new Event(bindings)
@@ -91,7 +91,7 @@ class VisitorToString extends AbstractVisitor{
   }
   
   override def visit(position : Position){
-    print(position.position)
+    print(position)
   }
   
 }
