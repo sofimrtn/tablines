@@ -1,8 +1,9 @@
 package es.ctic.tabels
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.HashMap
+import grizzled.slf4j.Logging
 
-case class Interpreter {
+class Interpreter extends Logging {
   
   def interpret(root : S, dataSource: DataSource, dataOut : DataOutput) = {
     //FIX IT//
@@ -10,7 +11,7 @@ case class Interpreter {
     
     visitor.visit(root)
      
-    println(visitor.events)
+    logger.debug("List of events: " + visitor.events)
    
     // FIXME: do not instantiate ALL templates for EACH event, be selective
     for ( t <- root.templateList ; e <- visitor.events ) t.instantiate(e.bindingList, dataOut)
