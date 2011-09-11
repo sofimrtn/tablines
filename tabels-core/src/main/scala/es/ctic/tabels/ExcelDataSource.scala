@@ -1,17 +1,21 @@
 package es.ctic.tabels
+
 import java.io.File
 import jxl._
 import java.util.Arrays
+import grizzled.slf4j.Logging
 
-class ExcelDataSource(fl : Seq[String]) extends DataSource{
+
+class ExcelDataSource(fl : Seq[String]) extends DataSource with Logging {
   
   val files : Seq[String] = fl
   
   override def getValue(point : Point) : CellValue = {
+	logger.debug("Getting value at " + point)
     val workbook : Workbook = Workbook.getWorkbook(new File (point.path) )
 	val sheet : Sheet = workbook.getSheet(point.tab)
-	val a1 : Cell = sheet.getCell(point.col, point.row)
-    return new ExcelCellValue(a1)
+	val cell : Cell = sheet.getCell(point.col, point.row)
+    return ExcelCellValue(cell)
   }
   
   override def getFiles() : List[String]={

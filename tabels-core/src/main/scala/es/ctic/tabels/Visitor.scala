@@ -1,5 +1,7 @@
 package es.ctic.tabels
+
 import scala.collection.mutable.ListBuffer
+import grizzled.slf4j.Logging
 
 abstract class Visitor {
   def visit(s : S)
@@ -18,7 +20,7 @@ abstract class Visitor {
 
 }
 
-class AbstractVisitor extends Visitor{
+class AbstractVisitor extends Visitor with Logging {
   override def visit(s : S) = {}
   override def visit(patt : Pattern) = {}
   override def visit(lwexp : LetWhereExpression) = {}
@@ -41,18 +43,18 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   def events :List[Event] = buffEventList.toList
   private val buffEventList = new ListBuffer[Event]
   
-  override def visit(s : S){
-	
+  override def visit(s : S) {
+	logger.debug("Visiting root node")
 	s.patternList.foreach(p => p.accept(this))
   }
   
   override def visit(pattern : Pattern){
-	
+	logger.debug("Visting pattern")
 	pattern.lPatternM.foreach(p => p.accept(this))
   }
   
   override def visit(patternMatch : PatternMatch){
-  
+  	logger.debug("Visting pattern match")
     val point = new Point("horas.xls", "Hoja1", 0, 0)
     var bindings = new Bindings
     bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent)
