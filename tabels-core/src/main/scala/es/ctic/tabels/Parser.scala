@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import scala.util.parsing.combinator._
+import scala.util.parsing.input.CharSequenceReader
 
 class TabelsParser extends JavaTokenParsers {
 	
@@ -34,7 +35,17 @@ class TabelsParser extends JavaTokenParsers {
 	def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
 	
 	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ Template
-	
-}
 
-object testParser extends TabelsParser
+	// parsing methods
+	
+	protected def parse[T](p : Parser[T], input: String) : T = {
+        val phraseParser = phrase(p)
+        phraseParser(new CharSequenceReader(input)) match {
+            case Success(t,_)     => t
+            case NoSuccess(msg,_) => throw new IllegalArgumentException("Could not parse '" + input + "': " + msg)
+        }		
+	}
+	
+	def parseProgram(input : String) : S = parse(start, input)
+
+}

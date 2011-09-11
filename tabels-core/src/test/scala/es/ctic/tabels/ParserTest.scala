@@ -1,11 +1,8 @@
 package es.ctic.tabels
 
 import org.scalatest.junit.JUnitSuite
-import scala.collection.mutable.ListBuffer
 import org.junit.Test
 import org.junit.Assert._
-import scala.util.parsing.combinator._
-import scala.util.parsing.input.CharSequenceReader
 
 class TabelsParserTest extends TabelsParser with JUnitSuite {
     
@@ -85,23 +82,20 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (template, "")
 		assertFail (template, "{ }")
 	}
+	
+	// auxiliary methods
 
-    // auxiliary methods inspired by
-    // http://henkelmann.eu/2011/01/29/an_introduction_to_scala_parser_combinators-part_3_unit_tests
     private def assertParse[T](p:Parser[T], input:String, expectedValue: T) = {
-        val phraseParser = phrase(p)
-        phraseParser(new CharSequenceReader(input)) match {
-            case Success(t,_)     => assertEquals("While parsing '" + input + "'", expectedValue, t)
-            case NoSuccess(msg,_) => throw new IllegalArgumentException("Could not parse '" + input + "': " + msg)
-        }
+		assertEquals("While parsing '" + input + "'", expectedValue, parse(p, input))
     }
 
-    private def assertFail[T](p:Parser[T],input:String) = {
-        val phraseParser = phrase(p)
-        phraseParser(new CharSequenceReader(input)) match {
-            case Success(t,_)     => fail()
-            case NoSuccess(msg,_) => msg
-        }
+    private def assertFail[T](p:Parser[T], input:String) = {
+		try {
+			parse(p, input)
+			fail("Should not have parsed '" + input + "'")
+		} catch {
+			case e => // expected
+		}
     }
 
 }
