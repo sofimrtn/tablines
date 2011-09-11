@@ -3,9 +3,9 @@ import java.io.File
 import jxl._
 import java.util.Arrays
 
-class ExcelDataSource(fl : List[String]) extends DataSource{
+class ExcelDataSource(fl : Seq[String]) extends DataSource{
   
-  val files = fl
+  val files : Seq[String] = fl
   
   override def getValue(point : Point) : CellValue = {
     val workbook : Workbook = Workbook.getWorkbook(new File (point.path) )
