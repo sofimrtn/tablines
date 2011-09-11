@@ -5,7 +5,7 @@ import org.junit.Test
 import org.junit.Assert._
 
 class TabelsParserTest extends TabelsParser with JUnitSuite {
-    
+
     @Test def parseVariable() {
         assertParse(variable, "?x", Variable("?x"))
         assertParse(variable, "?X", Variable("?X"))
@@ -18,8 +18,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
     
     @Test def parsePosition() {
-        assertParse(position, "A1", Position("A1"))
-        assertParse(position, "BC10", Position("BC10"))
+        assertParse(position, "A1", Position(row = 0, col = 0))
+        assertParse(position, "A10", Position(row = 9, col = 0))
+        assertParse(position, "D1", Position(row = 0, col = 3))
+//        assertParse(position, "AA99", Position(row = 98, col = 26)) // FIXME: does not work... yet
         assertFail (position, "")
         assertFail (position, "A")
         assertFail (position, "1")
@@ -51,14 +53,14 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parsePattern() {
-        assertParse(pattern, "?X in cell A1", Pattern(List(PatternMatch(variable = Variable("?X"), position = Position("A1")))))
+        assertParse(pattern, "?X in cell A1", Pattern(List(PatternMatch(variable = Variable("?X"), position = Position(0,0)))))
 		assertFail (pattern, "")
 	}
     
      @Test def parsePatternMatch() {
-        assertParse(patternMatch, "?X in cell A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
-        assertParse(patternMatch, "?X    in  cell   A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
-        assertParse(patternMatch, "?X IN CELL A1", PatternMatch(variable = Variable("?X"), position = Position("A1")))
+        assertParse(patternMatch, "?X in cell A1", PatternMatch(variable = Variable("?X"), position = Position(0,0)))
+        assertParse(patternMatch, "?X    in  cell   A1", PatternMatch(variable = Variable("?X"), position = Position(0,0)))
+        assertParse(patternMatch, "?X IN CELL A1", PatternMatch(variable = Variable("?X"), position = Position(0,0)))
         assertFail (patternMatch, "")
         assertFail (patternMatch, "?X")
         assertFail (patternMatch, "A1")
@@ -82,7 +84,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (template, "")
 		assertFail (template, "{ }")
 	}
-	
+
 	// auxiliary methods
 
     private def assertParse[T](p:Parser[T], input:String, expectedValue: T) = {

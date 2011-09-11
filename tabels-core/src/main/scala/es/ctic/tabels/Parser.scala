@@ -11,7 +11,8 @@ class TabelsParser extends JavaTokenParsers {
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 
-    def position : Parser[Position] = """([A-Z]+)([0-9]+)""".r ^^ { posAsString => new Position(0,0) } // FIXME
+    def position : Parser[Position] = ("""[A-Z]""".r ~ """[0-9]+""".r) ^^
+		{ case c~r => new Position(row = r.toInt - 1, col = c.charAt(0) - 'A') } // FIXME: does not work for cols > Z
 
 	// RDF
 
