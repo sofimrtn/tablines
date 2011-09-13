@@ -33,7 +33,22 @@ case class Position (row : Int, col: Int) extends Evaluable {
 	override def toString() : String = intToAlpha(col) + (row+1)
 	
 	def intToAlpha(i : Int) : String = {
-		return ('A' + i).toChar.toString // FIXME: does not work with > 26
+		
+		
+		var value:Double = (i / 26)-1
+		var resto :Double = i % 26  
+		var alphaCol : String = ""
+		  
+		while(value >= 0)
+		{
+			
+			alphaCol += (resto + 'A').toChar.toString
+			resto = value % 26
+			value= (value / 26)-1
+		}
+		alphaCol += (resto + 'A').toChar.toString
+		
+		return alphaCol.reverse
 	}
   
 	def accept(vis : Visitor) = {
