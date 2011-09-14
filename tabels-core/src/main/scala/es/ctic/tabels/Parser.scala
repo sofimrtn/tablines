@@ -5,26 +5,29 @@ import scala.util.parsing.input.CharSequenceReader
 
 class TabelsParser extends JavaTokenParsers {
 	
-	// language terminal symbols
-
-	def IN_CELL : Parser[String] = """(in +cell)|(IN +CELL)""".r
-    
-    def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
-
-    def ColToNumber(col : String) : Int = {
+	//parser utility
+  
+	def ColToNumber(col : String) : Int = {
 	  var num :Double = 0
 	  var index :Int = col.length()
 	  
 	  col.foreach(c  =>{if(index>1) num += scala.math.pow(26 , index-1)*(c - 'A'+1); 
 	  					else num += (c - 'A')
 	  					index-=1;})
-	  
-	  println("num "+ num)
+	  					
 	  return num.toInt
 	}
 	
+	// language terminal symbols
+
+	def IN_CELL : Parser[String] = """(in +cell)|(IN +CELL)""".r
+    
+    def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
+	
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => new Position(row = r.toInt - 1, col = ColToNumber(c)) }
+	
+	def dimension : Parser[Dimension] = """rows|cols""".r ^^ Dimension
 
 	// RDF
 
@@ -39,9 +42,12 @@ class TabelsParser extends JavaTokenParsers {
 	// language grammar
 	
 	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
-	
-	def pattern : Parser[Pattern] = rep1(patternMatch) ^^ { Pattern(_) }
+	//FIX ME : This code requires both patternMatch AND Binding Expression 
+	def pattern : Parser[Pattern] = rep1(patternMatch) ~ rep1(bindingExpresion) ^^ { case pm ~ be=> Pattern(lPatternM = pm,lBindE = be)}
 
+	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension  ^^
+        { case v~d => BindingExpresion(variable = v, dim = d) }
+	
 	def patternMatch : Parser[PatternMatch] = variable~(IN_CELL~>position) ^^
         { case v~p => PatternMatch(variable = v, position = p) }
 

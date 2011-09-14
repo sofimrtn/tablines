@@ -16,9 +16,9 @@ case class Template(triples : Seq[TripleTemplate] = List()) {
 
 case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Variable], o : Either[RDFNode, Variable]) {
 	
-	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
+	def instantiate(bindingList : Bindings, dataOutput: DataOutput) = {
 	  
-	  dataOut.generateOutput(new Statement(substitute(s, bindingList) ,substitute(p, bindingList), substitute(o, bindingList))) 
+	  dataOutput.generateOutput(new Statement(substitute(s, bindingList) ,substitute(p, bindingList), substitute(o, bindingList))) 
 	  
 	}
 	

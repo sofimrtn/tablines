@@ -2,8 +2,8 @@ package es.ctic.tabels
 
 case class S (patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
-case class Pattern (lPatternM : Seq[PatternMatch], letE : LetWhereExpression = LetWhereExpression(), lBindE : List[BindingExpresion] = List() , 
-					whereE : LetWhereExpression = LetWhereExpression() ) extends Evaluable{
+case class Pattern (lPatternM : Seq[PatternMatch] = List(), letE : LetWhereExpression = LetWhereExpression(), lBindE : Seq[BindingExpresion] = List() , 
+					whereE : LetWhereExpression = LetWhereExpression(), pattern: Pattern = null ) extends Evaluable{
   
 	def accept(vis : Visitor) = {
 	    
@@ -13,7 +13,13 @@ case class Pattern (lPatternM : Seq[PatternMatch], letE : LetWhereExpression = L
 case class LetWhereExpression(sentList : Seq[Assignment] = List()) extends Evaluable
 
 case class BindingExpresion(dim : Dimension, filterCondList: Seq[FilterCondition] = List(), 
-		pos : Position = null, stopCond : StopCondition = null, variable: Variable = null) extends Evaluable
+		pos : Position = null, stopCond : StopCondition = null, variable: Variable = null) extends Evaluable {
+  
+  def accept(vis : Visitor) = {
+	    
+	    vis.visit(this)
+	  }
+}
 
 case class PatternMatch(filterCondList: Seq[FilterCondition] = List(), position : Position = null, 
 		stopCond : StopCondition = null, variable: Variable = null, tupple : Tuple = null) extends Evaluable{
@@ -33,10 +39,9 @@ case class Position (row : Int, col: Int) extends Evaluable {
 	override def toString() : String = intToAlpha(col) + (row+1)
 	
 	def intToAlpha(i : Int) : String = {
-		
-		
-		var value:Double = (i / 26)-1
-		var resto :Double = i % 26  
+			
+		var value : Double = (i / 26)-1
+		var resto : Double = i % 26  
 		var alphaCol : String = ""
 		  
 		while(value >= 0)
@@ -44,7 +49,7 @@ case class Position (row : Int, col: Int) extends Evaluable {
 			
 			alphaCol += (resto + 'A').toChar.toString
 			resto = value % 26
-			value= (value / 26)-1
+			value = (value / 26)-1
 		}
 		alphaCol += (resto + 'A').toChar.toString
 		

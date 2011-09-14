@@ -28,6 +28,21 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     sheetNames.foreach(sheet => listSheets.add(sheet))
     return scala.collection.JavaConversions.asScalaBuffer(listSheets)
 }
+  
+  override def getRows(filename : String, tabName : String) : Int = {
+    
+    val workbook : Workbook = Workbook.getWorkbook(new File (filename))
+    val sheet : Sheet = workbook.getSheet(tabName)
+
+    return sheet.getRows()
+}
+  override def getCols(filename : String, tabName : String) : Int = {
+    
+    val workbook : Workbook = Workbook.getWorkbook(new File (filename))
+    val sheet : Sheet = workbook.getSheet(tabName)
+
+    return sheet.getColumns()
+}
 
 case class ExcelCellValue (cell : Cell) extends CellValue {
 
