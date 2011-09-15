@@ -5,7 +5,8 @@ abstract class DataSource {
   def getValue(point : Point) : CellValue
   val filenames : Seq[String]
   def getTabs(filename : String) : Seq[String]
-  
+  def getRows(filename : String, tabName : String) : Int
+  def getCols(filename : String, tabName : String) : Int
   
 }
 

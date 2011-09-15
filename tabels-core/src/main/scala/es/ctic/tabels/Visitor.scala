@@ -50,7 +50,36 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   
   override def visit(pattern : Pattern){
 	logger.debug("Visting pattern")
-	pattern.lPatternM.foreach(p => p.accept(this))
+	//FIX ME
+	pattern.lBindE.foreach(p => p.accept(this))
+	
+  }
+  
+  override def visit(bindExp : BindingExpresion) = {
+    logger.debug("Visting binding expression")
+    // FIXME: this code does not manage context
+	for (file <- dataSource.filenames ; tab <- dataSource.getTabs(file)) {
+	  bindExp.dim.dim match{
+	    case "rows" => for (row <- 0 until dataSource.getRows(file,tab) ){
+	    					val point = new Point(file, tab, row, 0)// FIXME: this code does not manage context
+	    					var bindings = new Bindings
+					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent)
+					    	val event = new Event(bindings)
+					    	println(bindExp)
+					    	buffEventList += event
+					    	bindExp.lPatternM.foreach(p => p.accept(this))
+	    			}
+	    case "cols" => for (col <- 0 until dataSource.getCols(file,tab) ){
+	    					val point = new Point(file, tab, 0, col)// FIXME: this code does not manage context
+	    					var bindings = new Bindings
+					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent)
+					    	val event = new Event(bindings)
+					    	println(bindExp)
+					    	buffEventList += event
+					    	bindExp.lPatternM.foreach(p => p.accept(this))
+	    			}
+	  }
+	}
   }
   
   override def visit(patternMatch : PatternMatch){

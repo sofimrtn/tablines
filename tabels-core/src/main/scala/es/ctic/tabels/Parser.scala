@@ -42,13 +42,15 @@ class TabelsParser extends JavaTokenParsers {
 	// language grammar
 	
 	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
-	//FIX ME : This code requires both patternMatch AND Binding Expression 
-	def pattern : Parser[Pattern] = rep1(patternMatch) ~ rep1(bindingExpresion) ^^ { case pm ~ be=> Pattern(lPatternM = pm,lBindE = be)}
-
-	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension  ^^
-        { case v~d => BindingExpresion(variable = v, dim = d) }
 	
-	def patternMatch : Parser[PatternMatch] = variable~(IN_CELL~>position) ^^
+	//FIX ME : This code requires both patternMatch AND Binding Expression 
+	def pattern : Parser[Pattern] = rep1(bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
+	rep1(patternMatch) ^^ { pm => Pattern(lPatternM = pm)}
+
+	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension ~ rep(patternMatch) ^^
+        { case v~d~p => BindingExpresion(variable = v, dim = d,lPatternM = p) }
+	
+	def patternMatch : Parser[PatternMatch] = variable ~ (IN_CELL ~> position) ^^
         { case v~p => PatternMatch(variable = v, position = p) }
 
 	def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
