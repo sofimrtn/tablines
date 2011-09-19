@@ -62,7 +62,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 	    					val point = new Point(file, tab, row, 0)// FIXME: this code does not manage context
 	    					var bindings = new Bindings
 					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
-					    	val event = new Event(bindings)
+					    	val event = new Event(bindings, List(bindExp.variable))
 					    	println(bindExp)
 					    	buffEventList += event
 					    	bindExp.lBindE.foreach(p => p.accept(this))
@@ -72,7 +72,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 	    					val point = new Point(file, tab, 0, col)// FIXME: this code does not manage context
 	    					var bindings = new Bindings
 					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
-					    	val event = new Event(bindings)
+					    	val event = new Event(bindings, List(bindExp.variable))
 					    	println(bindExp)
 					    	buffEventList += event
 					    	bindExp.lBindE.foreach(p => p.accept(this))
@@ -90,7 +90,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
     	val point = new Point(file, tab, patternMatch.position.row, patternMatch.position.col)
     	var bindings = new Bindings
     	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
-    	val event = new Event(bindings)
+    	val event = new Event(bindings, List(patternMatch.variable))
     	println(patternMatch)
     	buffEventList += event
 	}

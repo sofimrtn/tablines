@@ -14,13 +14,13 @@ class Interpreter extends Logging {
     logger.debug("List of events: " + visitor.events)
    
     // FIXME: do not instantiate ALL templates for EACH event, be selective
-    for ( t <- root.templateList ; e <- visitor.events ) t.instantiate(e.bindingList, dataOut)
+    for ( t <- root.templateList ; e <- visitor.events ) t.instantiate(e.bindings, dataOut)
       
   }
 
 }
 
-case class Event (bindingList : Bindings)
+case class Event(bindings : Bindings, lastBoundVariables : Seq[Variable])
 
 class Bindings {
  
