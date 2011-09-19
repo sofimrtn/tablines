@@ -1,5 +1,7 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.Dimension._
+
 case class S (patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
 case class Pattern (lBindE : Seq[BindingExpresion]  , letE : LetWhereExpression = LetWhereExpression(),  
@@ -12,7 +14,7 @@ case class Pattern (lBindE : Seq[BindingExpresion]  , letE : LetWhereExpression 
 }
 case class LetWhereExpression(sentList : Seq[Assignment] = List()) extends Evaluable
 
-case class BindingExpresion(pattern:Pattern = null,dim : Dimension, filterCondList: Seq[FilterCondition] = List(), 
+case class BindingExpresion(pattern:Pattern = null, dimension : Dimension, filterCondList: Seq[FilterCondition] = List(), 
 		pos : Position = null, stopCond : StopCondition = null, variable: Variable = null,lPatternM : Seq[PatternMatch] = List(),lBindE : Seq[BindingExpresion]  ) extends Evaluable {
   
   def accept(vis : Visitor) = {
@@ -29,8 +31,6 @@ case class PatternMatch(filterCondList: Seq[FilterCondition] = List(), position 
 	    vis.visit(this)
 	  }
 }
-
-case class Dimension (dim : String) extends Evaluable
 
 case class FilterCondition (cond : String) extends Evaluable
 

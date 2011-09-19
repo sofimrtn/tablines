@@ -1,5 +1,7 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.Dimension._
+
 import org.scalatest.junit.JUnitSuite
 import org.junit.Test
 import org.junit.Assert._
@@ -29,10 +31,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
 
 	@Test def parseDimension() {
-		assertParse(dimension, "rows", Dimension("rows"))
-		assertParse(dimension, "Cols", Dimension("Cols"))
-		assertParse(dimension, "SHEETS", Dimension("SHEETS"))
-		assertParse(dimension, "fILES", Dimension("fILES"))
+		assertParse(dimension, "rows", rows)
+		assertParse(dimension, "Cols", cols)
+		assertParse(dimension, "SHEETS", sheets)
+		assertParse(dimension, "fILES", files)
 		assertFail (dimension, "")
 		assertFail (dimension, "pages")
 	}
@@ -63,8 +65,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	
 	@Test def parsePattern() {
         assertParse(pattern, "?X in cell A1", Pattern(lBindE= List(), lPatternM = List(PatternMatch(variable = Variable("?X"), position = Position(0,0))) ))
-        assertParse(pattern, "For ?y in rows \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))))
-		assertParse(pattern, "For ?y in rows \n For ?z in cols \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))), variable = Variable("?y"), dim = Dimension("rows")))))
+        assertParse(pattern, "For ?y in rows \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?y"), dimension = rows, lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))))
+		assertParse(pattern, "For ?y in rows \n For ?z in cols \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?z"), dimension = cols, lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))), variable = Variable("?y"), dimension = rows))))
 		assertFail (pattern, "For ?y in rows")
         assertFail (pattern, "")
 	}

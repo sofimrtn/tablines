@@ -1,5 +1,7 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.Dimension._
+
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
@@ -20,7 +22,7 @@ class TabelsParser extends JavaTokenParsers {
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
-	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ Dimension
+	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.valueOf(d.toLowerCase).get }
 
 	// RDF
 
@@ -41,9 +43,9 @@ class TabelsParser extends JavaTokenParsers {
 	rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
 
 	def bindingExpresion : Parser[BindingExpresion] = (FOR ~> variable <~ IN) ~ dimension ~ rep1(bindingExpresion) ^^
-        { case v~d~p => BindingExpresion(variable = v, dim = d,lBindE = p) }|
+        { case v~d~p => BindingExpresion(variable = v, dimension = d,lBindE = p) }|
         ("For" ~> variable <~ "in") ~ dimension ~ rep1(patternMatch) ^^
-        { case v~d~p => BindingExpresion(variable = v, dim = d,lPatternM = p, lBindE=List()) }
+        { case v~d~p => BindingExpresion(variable = v, dimension = d,lPatternM = p, lBindE=List()) }
        
 	
 	def patternMatch : Parser[PatternMatch] = variable ~ (IN ~> CELL ~> position) ^^

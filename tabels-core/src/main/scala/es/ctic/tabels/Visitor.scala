@@ -9,7 +9,6 @@ abstract class Visitor {
   def visit(lwexp : LetWhereExpression)
   def visit(bindExp : BindingExpresion)
   def visit(pattMatch : PatternMatch)
-  def visit(dim : Dimension)
   def visit(filtCond : FilterCondition)
   def visit(pos : Position)
   def visit(sCond : StopCondition)
@@ -26,7 +25,6 @@ class AbstractVisitor extends Visitor with Logging {
   override def visit(lwexp : LetWhereExpression) = {}
   override def visit(bindExp : BindingExpresion) = {}
   override def visit(pattMatch : PatternMatch) = {}
-  override def visit(dim : Dimension) = {}
   override def visit(filtCond : FilterCondition) = {}
   override def visit(pos : Position) = {}
   override def visit(sCond : StopCondition) = {}
@@ -59,8 +57,8 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
     logger.debug("Visting binding expression")
     // FIXME: this code does not manage context
 	for (file <- dataSource.filenames ; tab <- dataSource.getTabs(file)) {
-	  bindExp.dim.dim match{
-	    case "rows" => for (row <- 0 until dataSource.getRows(file,tab) ){
+	  bindExp.dimension match{
+	    case Dimension.rows => for (row <- 0 until dataSource.getRows(file,tab) ){
 	    					val point = new Point(file, tab, row, 0)// FIXME: this code does not manage context
 	    					var bindings = new Bindings
 					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent)
@@ -70,7 +68,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 					    	bindExp.lBindE.foreach(p => p.accept(this))
 					    	bindExp.lPatternM.foreach(p => p.accept(this))
 	    			}
-	    case "cols" => for (col <- 0 until dataSource.getCols(file,tab) ){
+	    case Dimension.cols => for (col <- 0 until dataSource.getCols(file,tab) ){
 	    					val point = new Point(file, tab, 0, col)// FIXME: this code does not manage context
 	    					var bindings = new Bindings
 					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent)
