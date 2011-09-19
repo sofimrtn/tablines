@@ -5,19 +5,6 @@ import scala.util.parsing.input.CharSequenceReader
 
 class TabelsParser extends JavaTokenParsers {
 	
-	//parser utility
-  
-	def ColToNumber(col : String) : Int = {
-	  var num :Double = 0
-	  var index :Int = col.length()
-	  
-	  col.foreach(c  =>{if(index>1) num += scala.math.pow(26 , index-1)*(c - 'A'+1); 
-	  					else num += (c - 'A')
-	  					index-=1;})
-	  					
-	  return num.toInt
-	}
-	
 	// language terminal symbols
 
 	def IN_CELL : Parser[String] = """(in +cell)|(IN +CELL)""".r
@@ -25,7 +12,7 @@ class TabelsParser extends JavaTokenParsers {
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
-		{ case c~r => new Position(row = r.toInt - 1, col = ColToNumber(c)) }
+		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
 	def dimension : Parser[Dimension] = """rows|cols""".r ^^ Dimension
 
