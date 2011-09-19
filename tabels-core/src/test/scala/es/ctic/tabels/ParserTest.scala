@@ -28,6 +28,15 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (position, "1A")
     }
 
+	@Test def parseDimension() {
+		assertParse(dimension, "rows", Dimension("rows"))
+		assertParse(dimension, "Cols", Dimension("Cols"))
+		assertParse(dimension, "SHEETS", Dimension("SHEETS"))
+		assertParse(dimension, "fILES", Dimension("fILES"))
+		assertFail (dimension, "")
+		assertFail (dimension, "pages")
+	}
+
 	@Test def parseRdfLiteral() {
 		assertParse(rdfLiteral, "\"hello\"", Literal("hello"))
 		assertFail (rdfLiteral, "")
