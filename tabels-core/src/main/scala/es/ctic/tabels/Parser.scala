@@ -44,7 +44,7 @@ class TabelsParser extends JavaTokenParsers {
 
 	def bindingExpresion : Parser[BindingExpresion] = (FOR ~> variable <~ IN) ~ dimension ~ rep1(bindingExpresion) ^^
         { case v~d~p => BindingExpresion(variable = v, dimension = d,lBindE = p) }|
-        ("For" ~> variable <~ "in") ~ dimension ~ rep1(patternMatch) ^^
+        (FOR ~> variable <~ IN) ~ dimension ~ rep1(patternMatch) ^^
         { case v~d~p => BindingExpresion(variable = v, dimension = d,lPatternM = p, lBindE=List()) }
        
 	
