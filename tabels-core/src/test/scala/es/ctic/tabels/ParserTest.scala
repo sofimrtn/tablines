@@ -93,7 +93,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	
 	@Test def parseTemplate() {
 		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c . }",
-			Template(List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
+			Template(Set(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			              TripleTemplate(Right(Variable("?a")), Right(Variable("?b")), Right(Variable("?c"))))))
 		assertFail (template, "")
 		assertFail (template, "{ }")

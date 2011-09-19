@@ -1,6 +1,6 @@
 package es.ctic.tabels
+import scala.collection.immutable.HashMap
 import scala.collection.mutable.ListBuffer
-import scala.collection.mutable.HashMap
 import grizzled.slf4j.Logging
 
 class Interpreter extends Logging {
@@ -14,30 +14,51 @@ class Interpreter extends Logging {
     logger.debug("List of events: " + visitor.events)
    
     // FIXME: do not instantiate ALL templates for EACH event, be selective
-    for ( t <- root.templateList ; e <- visitor.events ) t.instantiate(e.bindings, dataOut)
-      
+    for ( t <- root.templateList ; e <- visitor.events ) {
+		logger.debug("Considering instantiation of template " + t + " for event " + e)
+		if ( t.variables subsetOf e.bindings.variables ) {
+			if ( e.lastBoundVariables subsetOf t.variables ) {
+				t.instantiate(e.bindings, dataOut)				
+			} else {
+				logger.debug("The template " + t + " is not relevant for event " + e)
+			}
+		} else {
+			logger.debug("The template " + t + " cannot be instantiated for event " + e + " because there are unbound variables")
+		}
+     }
   }
 
 }
 
-case class Event(bindings : Bindings, lastBoundVariables : Seq[Variable])
+case class Event(bindings : Bindings, lastBoundVariables : Set[Variable])
 
-class Bindings {
- 
-  case class Binding(value : String, point: Point)
+case class Binding(value : String, point: Point)
 
-  var bindings = new HashMap[Variable, Binding]
+case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
 
-  def isBound(variable : Variable) : Boolean = bindings.contains(variable)
+  def variables : Set[Variable] = bindingsMap.keySet
+
+  def isBound(variable : Variable) : Boolean = bindingsMap.contains(variable)
   
-  def getValue(variable : Variable) : String = bindings.get(variable).get.value // throws exception if unbound
+  def getValue(variable : Variable) : String = bindingsMap.get(variable).get.value // throws exception if unbound
 
-  def getPoint(variable : Variable) : Point = bindings.get(variable).get.point // throws exception if unbound
+  def getPoint(variable : Variable) : Point = bindingsMap.get(variable).get.point // throws exception if unbound
   
-  def addBinding(variable : Variable, value : String, point: Point) = bindings.put(variable, Binding(value, point))
-  
+  def addBinding(variable : Variable, value : String, point: Point) : Bindings =
+	Bindings(bindingsMap + (variable -> Binding(value, point)))
+
 }
 
-class EvaluationContext(pointList : List[Point] = List() , var eventList: List[Event] = null){
-	var buffList = new ListBuffer[Event]
+class EvaluationContext /* (pointList : List[Point] = List() , var eventList: List[Event] = null) */ {
+
+//	var buffList = new ListBuffer[Event]
+
+	var bindings : Bindings = new Bindings
+	
+  	def addBinding(variable : Variable, value : String, point: Point) = {
+		bindings = bindings.addBinding(variable, value, point)
+	}
+
+
+
 }

@@ -53,7 +53,7 @@ class TabelsParser extends JavaTokenParsers {
 
 	def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
 	
-	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ Template
+	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ (triples => Template(triples toSet))
 
 	// parsing methods
 	
