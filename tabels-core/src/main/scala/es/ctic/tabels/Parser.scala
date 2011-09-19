@@ -44,11 +44,14 @@ class TabelsParser extends JavaTokenParsers {
 	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
 	
 	//FIX ME : This code requires both patternMatch AND Binding Expression 
-	def pattern : Parser[Pattern] = rep1(bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
-	rep1(patternMatch) ^^ { pm => Pattern(lPatternM = pm)}
+	def pattern : Parser[Pattern] = rep1(""~>bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
+	rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
 
-	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension ~ rep(patternMatch) ^^
-        { case v~d~p => BindingExpresion(variable = v, dim = d,lPatternM = p) }
+	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension ~ rep1(bindingExpresion) ^^
+        { case v~d~p => BindingExpresion(variable = v, dim = d,lBindE = p) }|
+        ("For" ~> variable <~ "in") ~ dimension ~ rep1(patternMatch) ^^
+        { case v~d~p => BindingExpresion(variable = v, dim = d,lPatternM = p, lBindE=List()) }
+       
 	
 	def patternMatch : Parser[PatternMatch] = variable ~ (IN_CELL ~> position) ^^
         { case v~p => PatternMatch(variable = v, position = p) }

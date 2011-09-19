@@ -67,6 +67,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 					    	val event = new Event(bindings)
 					    	println(bindExp)
 					    	buffEventList += event
+					    	bindExp.lBindE.foreach(p => p.accept(this))
 					    	bindExp.lPatternM.foreach(p => p.accept(this))
 	    			}
 	    case "cols" => for (col <- 0 until dataSource.getCols(file,tab) ){
@@ -76,6 +77,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 					    	val event = new Event(bindings)
 					    	println(bindExp)
 					    	buffEventList += event
+					    	bindExp.lBindE.foreach(p => p.accept(this))
 					    	bindExp.lPatternM.foreach(p => p.accept(this))
 	    			}
 	  }

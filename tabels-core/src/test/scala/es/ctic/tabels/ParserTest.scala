@@ -21,7 +21,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertParse(position, "A1", Position(row = 0, col = 0))
         assertParse(position, "A10", Position(row = 9, col = 0))
         assertParse(position, "D1", Position(row = 0, col = 3))
-//        assertParse(position, "AA99", Position(row = 98, col = 26)) // FIXME: does not work... yet
+        assertParse(position, "AA99", Position(row = 98, col = 26)) 
         assertFail (position, "")
         assertFail (position, "A")
         assertFail (position, "1")
@@ -53,8 +53,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parsePattern() {
-        assertParse(pattern, "?X in cell A1", Pattern(List(PatternMatch(variable = Variable("?X"), position = Position(0,0)))))
-		assertFail (pattern, "")
+        assertParse(pattern, "?X in cell A1", Pattern(lBindE= List(), lPatternM = List(PatternMatch(variable = Variable("?X"), position = Position(0,0))) ))
+        assertParse(pattern, "For ?y in rows \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))))
+		assertParse(pattern, "For ?y in rows \n For ?z in cols \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))), variable = Variable("?y"), dim = Dimension("rows")))))
+		assertFail (pattern, "For ?y in rows")
+        assertFail (pattern, "")
 	}
     
      @Test def parsePatternMatch() {

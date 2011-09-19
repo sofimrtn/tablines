@@ -2,7 +2,7 @@ package es.ctic.tabels
 
 case class S (patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
-case class Pattern (lBindE : Seq[BindingExpresion] = List() , letE : LetWhereExpression = LetWhereExpression(),  
+case class Pattern (lBindE : Seq[BindingExpresion]  , letE : LetWhereExpression = LetWhereExpression(),  
 					whereE : LetWhereExpression = LetWhereExpression(), patternList: Seq[Pattern] = List(),lPatternM : Seq[PatternMatch] = List() ) extends Evaluable{
   
 	def accept(vis : Visitor) = {
@@ -12,8 +12,8 @@ case class Pattern (lBindE : Seq[BindingExpresion] = List() , letE : LetWhereExp
 }
 case class LetWhereExpression(sentList : Seq[Assignment] = List()) extends Evaluable
 
-case class BindingExpresion(dim : Dimension, filterCondList: Seq[FilterCondition] = List(), 
-		pos : Position = null, stopCond : StopCondition = null, variable: Variable = null,lPatternM : Seq[PatternMatch] = List(),lBindE : Seq[BindingExpresion] = List() ) extends Evaluable {
+case class BindingExpresion(pattern:Pattern = null,dim : Dimension, filterCondList: Seq[FilterCondition] = List(), 
+		pos : Position = null, stopCond : StopCondition = null, variable: Variable = null,lPatternM : Seq[PatternMatch] = List(),lBindE : Seq[BindingExpresion]  ) extends Evaluable {
   
   def accept(vis : Visitor) = {
 	    
