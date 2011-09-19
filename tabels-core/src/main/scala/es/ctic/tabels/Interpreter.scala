@@ -22,15 +22,19 @@ class Interpreter extends Logging {
 
 case class Event (bindingList : Bindings)
 
-case class Binding(label : Variable  , value : String)
-
-class Bindings(){
+class Bindings {
  
-  var bindings = new HashMap[Variable, String]
+  case class Binding(value : String, point: Point)
+
+  var bindings = new HashMap[Variable, Binding]
+
+  def isBound(variable : Variable) : Boolean = bindings.contains(variable)
   
-  def getBinding(variable : Variable) : String = bindings.getOrElse(variable,"FIX ME")
+  def getValue(variable : Variable) : String = bindings.get(variable).get.value // throws exception if unbound
+
+  def getPoint(variable : Variable) : Point = bindings.get(variable).get.point // throws exception if unbound
   
-  def addBinding(variable : Variable, value : String) = bindings.put(variable, value)
+  def addBinding(variable : Variable, value : String, point: Point) = bindings.put(variable, Binding(value, point))
   
 }
 

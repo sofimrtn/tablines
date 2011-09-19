@@ -27,7 +27,7 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 	   x match {
 	   	case Left(rdfNode) => rdfNode
 	   	//FIX ME: variables can also be literals
-	   	case Right(variable) => Resource(bindingList.getBinding(variable))
+	   	case Right(variable) => Resource(bindingList.getValue(variable))
 	   }
 	}
 

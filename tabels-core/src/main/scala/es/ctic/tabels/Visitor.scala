@@ -61,7 +61,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 	    case Dimension.rows => for (row <- 0 until dataSource.getRows(file,tab) ){
 	    					val point = new Point(file, tab, row, 0)// FIXME: this code does not manage context
 	    					var bindings = new Bindings
-					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent)
+					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
 					    	val event = new Event(bindings)
 					    	println(bindExp)
 					    	buffEventList += event
@@ -71,7 +71,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 	    case Dimension.cols => for (col <- 0 until dataSource.getCols(file,tab) ){
 	    					val point = new Point(file, tab, 0, col)// FIXME: this code does not manage context
 	    					var bindings = new Bindings
-					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent)
+					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
 					    	val event = new Event(bindings)
 					    	println(bindExp)
 					    	buffEventList += event
@@ -89,7 +89,7 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 		logger.debug("Matching with file " + file + " and tab "+ tab)
     	val point = new Point(file, tab, patternMatch.position.row, patternMatch.position.col)
     	var bindings = new Bindings
-    	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent)
+    	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
     	val event = new Event(bindings)
     	println(patternMatch)
     	buffEventList += event
