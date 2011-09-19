@@ -54,8 +54,16 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	
 	@Test def parsePattern() {
         assertParse(pattern, "?X in cell A1", Pattern(lBindE= List(), lPatternM = List(PatternMatch(variable = Variable("?X"), position = Position(0,0))) ))
-        assertParse(pattern, "For ?y in rows \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))))
-		assertParse(pattern, "For ?y in rows \n For ?z in cols \n ?x in cell A1", Pattern(lBindE = List( BindingExpresion(lBindE = List( BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))), variable = Variable("?y"), dim = Dimension("rows")))))
+        assertParse(pattern, "For ?y in rows \n ?x in cell A1", 
+            Pattern(lBindE = List( 
+                BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), 
+                    lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))))
+		assertParse(pattern, "For ?y in rows \n For ?z in cols \n ?x in cell A1", 
+		    Pattern(lBindE = List( 
+		        BindingExpresion(lBindE = List( 
+		            BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), 
+		                lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))), 
+		        variable = Variable("?y"), dim = Dimension("rows")))))
 		assertFail (pattern, "For ?y in rows")
         assertFail (pattern, "")
 	}
@@ -69,6 +77,20 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (patternMatch, "A1")
         assertFail (patternMatch, "IN CELL")
         assertFail (patternMatch, "IN CELL A1")
+    }
+    
+    @Test def parseBindingExpresion(){
+       assertParse(bindingExpresion, "For ?y in rows \n ?x in cell A1",
+           BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), 
+               lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))
+       assertParse(bindingExpresion, "For ?y in rows  For ?z in cols  ?x in cell A1", 
+           BindingExpresion(lBindE = List(
+               BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), 
+            		   lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))),
+           variable = Variable("?y"), dim = Dimension("rows")))
+           
+        assertFail (bindingExpresion, "For ?y in rows")
+        assertFail (bindingExpresion, "For ?y in rows  For ?z in cols")
     }
 
 	@Test def parseTripleTemplate() {
