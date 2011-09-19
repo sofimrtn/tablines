@@ -22,7 +22,7 @@ class TabelsParser extends JavaTokenParsers {
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
-	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.valueOf(d.toLowerCase).get }
+	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 
 	// RDF
 
