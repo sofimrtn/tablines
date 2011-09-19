@@ -4,10 +4,12 @@ import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
 class TabelsParser extends JavaTokenParsers {
-	
+
 	// language terminal symbols
 
-	def IN_CELL : Parser[String] = """(in +cell)|(IN +CELL)""".r
+	def CELL = "cell".ignoreCase
+	def FOR  = "for".ignoreCase
+	def IN   = "in".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -34,13 +36,13 @@ class TabelsParser extends JavaTokenParsers {
 	def pattern : Parser[Pattern] = rep1(""~>bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
 	rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
 
-	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension ~ rep1(bindingExpresion) ^^
+	def bindingExpresion : Parser[BindingExpresion] = (FOR ~> variable <~ IN) ~ dimension ~ rep1(bindingExpresion) ^^
         { case v~d~p => BindingExpresion(variable = v, dim = d,lBindE = p) }|
         ("For" ~> variable <~ "in") ~ dimension ~ rep1(patternMatch) ^^
         { case v~d~p => BindingExpresion(variable = v, dim = d,lPatternM = p, lBindE=List()) }
        
 	
-	def patternMatch : Parser[PatternMatch] = variable ~ (IN_CELL ~> position) ^^
+	def patternMatch : Parser[PatternMatch] = variable ~ (IN ~> CELL ~> position) ^^
         { case v~p => PatternMatch(variable = v, position = p) }
 
 	def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
@@ -59,4 +61,14 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def parseProgram(input : String) : S = parse(start, input)
 
+
+	// trick from http://stackoverflow.com/questions/6080437/case-insensitive-scala-parser-combinator
+	
+	class CaseInsensitiveKeyword(str: String) {
+	  def ignoreCase: Parser[String] = ("""(?i)\Q""" + str + """\E""").r
+	}
+
+	implicit def pimpString(str: String): CaseInsensitiveKeyword = new CaseInsensitiveKeyword(str)	
+	
+	
 }
