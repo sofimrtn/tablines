@@ -1,33 +1,28 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.Dimension._
+
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
 class TabelsParser extends JavaTokenParsers {
-	
-	//parser utility
-  
-	def ColToNumber(col : String) : Int = {
-	  var num :Double = 0
-	  var index :Int = col.length()
-	  
-	  col.foreach(c  =>{if(index>1) num += scala.math.pow(26 , index-1)*(c - 'A'+1); 
-	  					else num += (c - 'A')
-	  					index-=1;})
-	  					
-	  return num.toInt
-	}
-	
+
 	// language terminal symbols
 
-	def IN_CELL : Parser[String] = """(in +cell)|(IN +CELL)""".r
+	def CELL = "cell".ignoreCase
+	def FOR  = "for".ignoreCase
+	def IN   = "in".ignoreCase
+	def ROWS = "rows".ignoreCase
+	def COLS = "cols".ignoreCase
+	def SHEETS = "sheets".ignoreCase // aka: "tabs"
+	def FILES = "files".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
-		{ case c~r => new Position(row = r.toInt - 1, col = ColToNumber(c)) }
+		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
-	def dimension : Parser[Dimension] = """rows|cols""".r ^^ Dimension
+	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 
 	// RDF
 
@@ -47,18 +42,18 @@ class TabelsParser extends JavaTokenParsers {
 	def pattern : Parser[Pattern] = rep1(""~>bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
 	rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
 
-	def bindingExpresion : Parser[BindingExpresion] = ("For" ~> variable <~ "in") ~ dimension ~ rep1(bindingExpresion) ^^
-        { case v~d~p => BindingExpresion(variable = v, dim = d,lBindE = p) }|
-        ("For" ~> variable <~ "in") ~ dimension ~ rep1(patternMatch) ^^
-        { case v~d~p => BindingExpresion(variable = v, dim = d,lPatternM = p, lBindE=List()) }
+	def bindingExpresion : Parser[BindingExpresion] = (FOR ~> variable <~ IN) ~ dimension ~ rep1(bindingExpresion) ^^
+        { case v~d~p => BindingExpresion(variable = v, dimension = d,lBindE = p) }|
+        (FOR ~> variable <~ IN) ~ dimension ~ rep1(patternMatch) ^^
+        { case v~d~p => BindingExpresion(variable = v, dimension = d,lPatternM = p, lBindE=List()) }
        
 	
-	def patternMatch : Parser[PatternMatch] = variable ~ (IN_CELL ~> position) ^^
+	def patternMatch : Parser[PatternMatch] = variable ~ (IN ~> CELL ~> position) ^^
         { case v~p => PatternMatch(variable = v, position = p) }
 
 	def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
 	
-	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ Template
+	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ (triples => Template(triples toSet))
 
 	// parsing methods
 	
@@ -72,4 +67,14 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def parseProgram(input : String) : S = parse(start, input)
 
+
+	// trick from http://stackoverflow.com/questions/6080437/case-insensitive-scala-parser-combinator
+	
+	class CaseInsensitiveKeyword(str: String) {
+	  def ignoreCase: Parser[String] = ("""(?i)\Q""" + str + """\E""").r
+	}
+
+	implicit def pimpString(str: String): CaseInsensitiveKeyword = new CaseInsensitiveKeyword(str)	
+	
+	
 }
