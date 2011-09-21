@@ -19,12 +19,16 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
-				For ?x in rows 
-					?y in cell A1 
-					?v in cell A5
-				{ ?x <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#person> .
-				  ?x <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#related> ?y .
-				  ?x <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#nonRelated> ?v .	}
+			For ?x in sheets
+				For ?z in rows	
+					For ?w in cols
+						?y in cell A1 
+						?v in cell A5
+				{ ?z <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#type>?v .
+				  ?z <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#related>?y .
+				  ?z <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#Nonrelated>?w .
+				 
+				  	}
 				""") // FIXME
 
 			logger.debug("Interpreting AST: " + program)

@@ -1,5 +1,6 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.Dimension._
 import scala.collection.mutable.ListBuffer
 import grizzled.slf4j.Logging
 
@@ -40,8 +41,10 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   val dataSource : DataSource = dS
   def events :List[Event] = buffEventList.toList
   private val buffEventList = new ListBuffer[Event]
-
-  val evaluationContext : EvaluationContext = new EvaluationContext()
+  
+  private var bindings = Bindings(Map())
+  private var evaluationContext = EvaluationContext(Map())
+  private var varStack : scala.collection.mutable.Stack[Variable] = new scala.collection.mutable.Stack()
   
   override def visit(s : S) {
 	logger.debug("Visiting root node")
@@ -52,50 +55,72 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
 	logger.debug("Visting pattern")
 	//FIX ME
 	pattern.lBindE.foreach(p => p.accept(this))
+	pattern.lPatternM.foreach(p => p.accept(this))
 	
   }
   
   override def visit(bindExp : BindingExpresion) = {
     logger.debug("Visting binding expression")
     // FIXME: this code does not manage context
-	for (file <- dataSource.filenames ; tab <- dataSource.getTabs(file)) {
+	for (file <- dataSource.filenames ) {
+	  evaluationContext = evaluationContext.addDimension(Dimension.files,file)
+	  varStack = varStack.push(bindExp.variable)
 	  bindExp.dimension match{
-	    case Dimension.rows => for (row <- 0 until dataSource.getRows(file,tab) ){
-	    					val point = new Point(file, tab, row, 0)// FIXME: this code does not manage context
-	    					var bindings = new Bindings
-					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+	    case Dimension.rows => for (row <- 0 until dataSource.getRows(file,evaluationContext.getValue(Dimension.sheets))){
+	    					val evContext = evaluationContext.addDimension(Dimension.rows, row.toString())
+	    					val point = new Point(file, evContext.getValue(Dimension.sheets), evContext.getValue(Dimension.rows).toInt, evContext.getValue(Dimension.cols).toInt)// FIXME: this code does not manage context
+	    					bindings = bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
 					    	val event = new Event(bindings, Set(bindExp.variable))
-					    	println(bindExp)
 					    	buffEventList += event
+					    	evaluationContext = evContext
 					    	bindExp.lBindE.foreach(p => p.accept(this))
 					    	bindExp.lPatternM.foreach(p => p.accept(this))
+					    	for(index<-0 until varStack.indexOf(bindExp.variable,0))
+					   			bindings = bindings.removeBinding(varStack.pop())
+					    	evaluationContext = evaluationContext.removeDimension(Dimension.rows)
 	    			}
-	    case Dimension.cols => for (col <- 0 until dataSource.getCols(file,tab) ){
-	    					val point = new Point(file, tab, 0, col)// FIXME: this code does not manage context
-	    					var bindings = new Bindings
-					    	bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+	    case Dimension.cols => for (col <- 0 until dataSource.getCols(file,evaluationContext.getValue(Dimension.sheets))){
+	    					val evContext = evaluationContext.addDimension(Dimension.cols, col.toString())
+	    					println("columna: \n"+evContext.getValue(Dimension.cols).toInt)
+	    					val point = new Point(file, evContext.getValue(Dimension.sheets), evContext.getValue(Dimension.rows).toInt, evContext.getValue(Dimension.cols).toInt)// FIXME: this code does not manage context
+	    					bindings = bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
 					    	val event = new Event(bindings, Set(bindExp.variable))
-					    	println(bindExp)
 					    	buffEventList += event
+					    	evaluationContext = evContext.addDimension(Dimension.files,file)
 					    	bindExp.lBindE.foreach(p => p.accept(this))
 					    	bindExp.lPatternM.foreach(p => p.accept(this))
+					    	for(index<-0 until varStack.indexOf(bindExp.variable,0))
+					   			bindings = bindings.removeBinding(varStack.pop())
+					    	evaluationContext = evaluationContext.removeDimension(Dimension.cols)
 	    			}
+	    case Dimension.sheets => for (sheet <- dataSource.getTabs(file) ){
+	    					val evContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString())
+	    					val point = new Point(file, evContext.getValue(Dimension.sheets), evContext.getValue(Dimension.rows).toInt, evContext.getValue(Dimension.cols).toInt)// FIXME: this code does not manage context
+	    					bindings = bindings.addBinding(bindExp.variable, sheet, point)
+					    	val event = new Event(bindings, Set(bindExp.variable))
+					    	buffEventList += event
+					    	evaluationContext = evContext
+					    	bindExp.lBindE.foreach(p => p.accept(this))
+					    	bindExp.lPatternM.foreach(p => p.accept(this))
+					    	for(index<-0 until varStack.indexOf(bindExp.variable,0)){
+					   			bindings = bindings.removeBinding(varStack.pop())}
+	    					evaluationContext = evaluationContext.removeDimension(Dimension.sheets)
+	      			}
 	  }
 	}
   }
   
   override def visit(patternMatch : PatternMatch){
-  	logger.debug("Visting pattern match")
+	  	logger.debug("Visting pattern match")
 	// FIXME: this code does not manage context
-	for (file <- dataSource.filenames ; tab <- dataSource.getTabs(file)) {
-		logger.debug("Matching with file " + file + " and tab "+ tab)
-    	val point = new Point(file, tab, patternMatch.position.row, patternMatch.position.col)
-    	var bindings = new Bindings
-    	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
+  		val evContext = evaluationContext	
+  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evContext.getValue(Dimension.sheets))
+		val point = new Point(evContext.getValue(Dimension.files), evContext.getValue(Dimension.sheets), patternMatch.position.row, patternMatch.position.col)
+    	bindings = 	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
     	val event = new Event(bindings, Set(patternMatch.variable))
-    	println(patternMatch)
-    	buffEventList += event
-	}
+    	varStack = varStack.push(patternMatch.variable)
+	  	buffEventList += event
+    	
   }
   
   /*override def visit(v : Var){

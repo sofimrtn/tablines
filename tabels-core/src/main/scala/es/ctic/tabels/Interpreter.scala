@@ -1,4 +1,6 @@
 package es.ctic.tabels
+
+import es.ctic.tabels.Dimension._
 import scala.collection.immutable.HashMap
 import scala.collection.mutable.ListBuffer
 import grizzled.slf4j.Logging
@@ -46,19 +48,30 @@ case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
   
   def addBinding(variable : Variable, value : String, point: Point) : Bindings =
 	Bindings(bindingsMap + (variable -> Binding(value, point)))
+  
+  def removeBinding(variable : Variable) : Bindings =
+	Bindings(bindingsMap - (variable))
+  
+  def clear : Bindings = Bindings(Map())
 
 }
 
-class EvaluationContext /* (pointList : List[Point] = List() , var eventList: List[Event] = null) */ {
+case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMap()) {
 
-//	var buffList = new ListBuffer[Event]
-
-	var bindings : Bindings = new Bindings
+	def dimensiones : Set[Dimension] = dimensionMap.keySet
 	
-  	def addBinding(variable : Variable, value : String, point: Point) = {
-		bindings = bindings.addBinding(variable, value, point)
+	def getValue(dimension : Dimension) : String = {
+	  if(dimensionMap.contains(dimension))
+	    dimensionMap.get(dimension).get // throws exception if unbound
+	  else "0"
 	}
+	
+	def addDimension(dimension : Dimension, value : String) : EvaluationContext =
+		EvaluationContext(dimensionMap + (dimension -> value))
+		
+	def removeDimension(dimension : Dimension) : EvaluationContext =
+		EvaluationContext(dimensionMap - (dimension))
 
 
-
+	
 }
