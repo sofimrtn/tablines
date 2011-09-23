@@ -1,5 +1,6 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.Dimension._
 import org.scalatest.junit.JUnitSuite
 import org.junit.Test
 import org.junit.Assert._
@@ -65,14 +66,14 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertParse(pattern, "?X in cell A1", Pattern(lBindE= List(), lPatternM = List(PatternMatch(variable = Variable("?X"), position = Position(0,0))) ))
         assertParse(pattern, "For ?y in rows \n ?x in cell A1", 
             Pattern(lBindE = List( 
-                BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), 
+                BindingExpresion(lBindE = List(), variable = Variable("?y"), dimension = Dimension.rows, 
                     lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))))
 		assertParse(pattern, "For ?y in rows \n For ?z in cols \n ?x in cell A1", 
 		    Pattern(lBindE = List( 
 		        BindingExpresion(lBindE = List( 
-		            BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), 
+		            BindingExpresion(lBindE = List(), variable = Variable("?z"), dimension = Dimension.cols, 
 		                lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))), 
-		        variable = Variable("?y"), dim = Dimension("rows")))))
+		        variable = Variable("?y"), dimension = Dimension.rows))))
 		assertFail (pattern, "For ?y in rows")
         assertFail (pattern, "")
 	}
@@ -90,13 +91,13 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     
     @Test def parseBindingExpresion(){
        assertParse(bindingExpresion, "For ?y in rows \n ?x in cell A1",
-           BindingExpresion(lBindE = List(), variable = Variable("?y"), dim = Dimension("rows"), 
+           BindingExpresion(lBindE = List(), variable = Variable("?y"), dimension = Dimension.rows, 
                lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0)))))
        assertParse(bindingExpresion, "For ?y in rows  For ?z in cols  ?x in cell A1", 
            BindingExpresion(lBindE = List(
-               BindingExpresion(lBindE = List(), variable = Variable("?z"), dim = Dimension("cols"), 
+               BindingExpresion(lBindE = List(), variable = Variable("?z"), dimension = Dimension.cols, 
             		   lPatternM = List(PatternMatch(variable = Variable("?x"), position = Position(0,0))))),
-           variable = Variable("?y"), dim = Dimension("rows")))
+           variable = Variable("?y"), dimension = Dimension.rows))
            
         assertFail (bindingExpresion, "For ?y in rows")
         assertFail (bindingExpresion, "For ?y in rows  For ?z in cols")
@@ -113,7 +114,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	
 	@Test def parseTemplate() {
 		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c . }",
-			Template(List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
+			Template(Set(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			              TripleTemplate(Right(Variable("?a")), Right(Variable("?b")), Right(Variable("?c"))))))
 		assertFail (template, "")
 		assertFail (template, "{ }")
