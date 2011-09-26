@@ -36,15 +36,11 @@ class AbstractVisitor extends Visitor with Logging {
 }
 
 
-class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
+case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],evaluationContext: EvaluationContext) extends AbstractVisitor{
  
-  val dataSource : DataSource = dS
-  def events :List[Event] = buffEventList.toList
-  private val buffEventList = new ListBuffer[Event]
+ 
   
-  private var bindings = Bindings(Map())
-  private var evaluationContext = EvaluationContext(Map())
-  private var varStack : scala.collection.mutable.Stack[Variable] = new scala.collection.mutable.Stack()
+  
   
   override def visit(s : S) {
 	logger.debug("Visiting root node")
@@ -60,66 +56,73 @@ class VisitorEvaluate(dS : DataSource) extends AbstractVisitor{
   }
   
   override def visit(bindExp : BindingExpresion) = {
+    var newEvaluationContext: EvaluationContext = evaluationContext
     logger.debug("Visting binding expression")
-    // FIXME: this code does not manage context
-	for (file <- dataSource.filenames ) {
-	  evaluationContext = evaluationContext.addDimension(Dimension.files,file)
-	  varStack = varStack.push(bindExp.variable)
+    
+	
+	  
+	  
 	  bindExp.dimension match{
-	    case Dimension.rows => for (row <- 0 until dataSource.getRows(file,evaluationContext.getValue(Dimension.sheets))){
-	    					val evContext = evaluationContext.addDimension(Dimension.rows, row.toString())
-	    					val point = new Point(file, evContext.getValue(Dimension.sheets), evContext.getValue(Dimension.rows).toInt, evContext.getValue(Dimension.cols).toInt)// FIXME: this code does not manage context
-	    					bindings = bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
-					    	val event = new Event(bindings, Set(bindExp.variable))
-					    	buffEventList += event
-					    	evaluationContext = evContext
-					    	bindExp.lBindE.foreach(p => p.accept(this))
-					    	bindExp.lPatternM.foreach(p => p.accept(this))
-					    	for(index<-0 until varStack.indexOf(bindExp.variable,0))
-					   			bindings = bindings.removeBinding(varStack.pop())
-					    	evaluationContext = evaluationContext.removeDimension(Dimension.rows)
-	    			}
-	    case Dimension.cols => for (col <- 0 until dataSource.getCols(file,evaluationContext.getValue(Dimension.sheets))){
-	    					val evContext = evaluationContext.addDimension(Dimension.cols, col.toString())
-	    					println("columna: \n"+evContext.getValue(Dimension.cols).toInt)
-	    					val point = new Point(file, evContext.getValue(Dimension.sheets), evContext.getValue(Dimension.rows).toInt, evContext.getValue(Dimension.cols).toInt)// FIXME: this code does not manage context
-	    					bindings = bindings.addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
-					    	val event = new Event(bindings, Set(bindExp.variable))
-					    	buffEventList += event
-					    	evaluationContext = evContext.addDimension(Dimension.files,file)
-					    	bindExp.lBindE.foreach(p => p.accept(this))
-					    	bindExp.lPatternM.foreach(p => p.accept(this))
-					    	for(index<-0 until varStack.indexOf(bindExp.variable,0))
-					   			bindings = bindings.removeBinding(varStack.pop())
-					    	evaluationContext = evaluationContext.removeDimension(Dimension.cols)
-	    			}
-	    case Dimension.sheets => for (sheet <- dataSource.getTabs(file) ){
-	    					val evContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString())
-	    					val point = new Point(file, evContext.getValue(Dimension.sheets), evContext.getValue(Dimension.rows).toInt, evContext.getValue(Dimension.cols).toInt)// FIXME: this code does not manage context
-	    					bindings = bindings.addBinding(bindExp.variable, sheet, point)
-					    	val event = new Event(bindings, Set(bindExp.variable))
-					    	buffEventList += event
-					    	evaluationContext = evContext
-					    	bindExp.lBindE.foreach(p => p.accept(this))
-					    	bindExp.lPatternM.foreach(p => p.accept(this))
-					    	for(index<-0 until varStack.indexOf(bindExp.variable,0)){
-					   			bindings = bindings.removeBinding(varStack.pop())}
-	    					evaluationContext = evaluationContext.removeDimension(Dimension.sheets)
-	      			}
+	    case Dimension.rows => for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
+	    					val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
+	    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+					    	events += event
+					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	
+					}
+	    case Dimension.cols => for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
+	    					val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
+	    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+					    	events += event
+					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					}
+	    case Dimension.sheets => for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
+	    					
+	    					val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
+	    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, sheet, point)
+	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+					    	events += event
+					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					}
+	    case Dimension.files => for (file <- dataSource.filenames ){
+	    					
+	    					val point = new Point(file, evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
+	    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, file, point)
+	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+					    	events += event
+					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+					}
 	  }
-	}
+	  
+	
   }
   
   override def visit(patternMatch : PatternMatch){
 	  	logger.debug("Visting pattern match")
 	// FIXME: this code does not manage context
-  		val evContext = evaluationContext	
-  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evContext.getValue(Dimension.sheets))
-		val point = new Point(evContext.getValue(Dimension.files), evContext.getValue(Dimension.sheets), patternMatch.position.row, patternMatch.position.col)
-    	bindings = 	bindings.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
-    	val event = new Event(bindings, Set(patternMatch.variable))
-    	varStack = varStack.push(patternMatch.variable)
-	  	buffEventList += event
+  		var row: Int = 0
+  		var col:Int = 0
+  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
+  		
+		if(patternMatch.position.row == -1 | patternMatch.position.col== -1){
+			row = evaluationContext.getValue(Dimension.rows).toInt
+			col = evaluationContext.getValue(Dimension.cols).toInt
+		}
+		else{
+			row = patternMatch.position.row
+			col = patternMatch.position.col
+		}
+	  	
+	  	val point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+		val newEvaluationContext = 	evaluationContext.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
+    	val event = new Event(newEvaluationContext.bindings, Set(patternMatch.variable))
+    	events += event
     	
   }
   
