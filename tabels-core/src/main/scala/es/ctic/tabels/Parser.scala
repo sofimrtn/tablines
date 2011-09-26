@@ -49,9 +49,11 @@ class TabelsParser extends JavaTokenParsers {
        
 	
 	def patternMatch : Parser[PatternMatch] = variable ~ (IN ~> CELL ~> position) ^^
-        { case v~p => PatternMatch(variable = v, position = p) }
-
-	def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
+        { case v~p => PatternMatch(variable = v, position = p) }|
+        variable <~ (IN ~> CELL) ^^
+        { case v => PatternMatch(variable = v, position = Position(-1,-1)) }
+	
+    def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
 	
 	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ (triples => Template(triples toSet))
 
