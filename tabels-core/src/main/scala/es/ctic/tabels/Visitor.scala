@@ -56,8 +56,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     var newEvaluationContext: EvaluationContext = evaluationContext
     logger.debug("Visting binding expression")
     
-    
-	 bindExp.dimension match{
+    bindExp.dimension match{
 	    case Dimension.rows =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
 	    							BindingExpresion(dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
 	    						} else {
@@ -128,23 +127,14 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  	
 	  	val point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
 	  	patternMatch.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
-	  	
 	  	val newEvaluationContext = 	evaluationContext.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
     	val event = new Event(newEvaluationContext.bindings, Set(patternMatch.variable))
     	events += event
     	
   }
+ }
   
-  /*override def visit(v : Var){
-    print(v.name)
-  }
-  
-  override def visit(pos : Position){
-    print(pos.pos)
-  }
-*/
-}
-
+ 
 class VisitorToString extends AbstractVisitor{
   
   override def visit(pattMatch : PatternMatch){
