@@ -16,6 +16,10 @@ class TabelsParser extends JavaTokenParsers {
 	def COLS = "cols".ignoreCase
 	def SHEETS = "sheets".ignoreCase // aka: "tabs"
 	def FILES = "files".ignoreCase
+	def IGNORE = "ignore".ignoreCase
+	def BLANKS = "blanks".ignoreCase
+	def FILTER = "filter".ignoreCase
+	def BY = "by".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -23,6 +27,10 @@ class TabelsParser extends JavaTokenParsers {
 		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
+	
+	//FIX ME: I accept everything as a regular expression. Use a better RE
+	def filterCondition : Parser[FilterCondition] = (IGNORE~>BLANKS)^^{b => FilterCondition("""\s*""")}|
+	((FILTER ~> BY) ~> """.*""".r) ^^ { re => FilterCondition(re)}
 
 	// RDF
 
@@ -38,7 +46,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
 	
-	//FIX ME : This code requires both patternMatch AND Binding Expression 
+	
 	def pattern : Parser[Pattern] = rep1(""~>bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
 	rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
 
@@ -48,10 +56,10 @@ class TabelsParser extends JavaTokenParsers {
         { case v~d~p => BindingExpresion(variable = v, dimension = d,lPatternM = p, lBindE=List()) }
        
 	
-	def patternMatch : Parser[PatternMatch] = variable ~ (IN ~> CELL ~> position) ^^
-        { case v~p => PatternMatch(variable = v, position = p) }|
-        variable <~ (IN ~> CELL) ^^
-        { case v => PatternMatch(variable = v, position = Position(-1,-1)) }
+	def patternMatch : Parser[PatternMatch] = (variable ~ (IN ~> CELL ~> position)) ~ rep(filterCondition) ^^
+        { case v~p~fc => PatternMatch(variable = v, position = p, filterCondList= fc) }|
+        (variable <~ (IN ~> CELL)) ~ rep(filterCondition)^^
+        { case v~fc => PatternMatch(variable = v, position = Position(-1,-1), filterCondList= fc) }
 	
     def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
 	

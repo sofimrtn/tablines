@@ -39,9 +39,6 @@ class AbstractVisitor extends Visitor with Logging {
 case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],evaluationContext: EvaluationContext) extends AbstractVisitor{
  
  
-  
-  
-  
   override def visit(s : S) {
 	logger.debug("Visiting root node")
 	s.patternList.foreach(p => p.accept(this))
@@ -59,10 +56,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     var newEvaluationContext: EvaluationContext = evaluationContext
     logger.debug("Visting binding expression")
     
-	
-	  
-	  
-	  bindExp.dimension match{
+	 bindExp.dimension match{
 	    case Dimension.rows => for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	    					val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
 	    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
@@ -105,7 +99,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(patternMatch : PatternMatch){
 	  	logger.debug("Visting pattern match")
-	// FIXME: this code does not manage context
+	
   		var row: Int = 0
   		var col:Int = 0
   		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
@@ -120,7 +114,9 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		}
 	  	
 	  	val point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
-		val newEvaluationContext = 	evaluationContext.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
+	  	patternMatch.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
+	  	
+	  	val newEvaluationContext = 	evaluationContext.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
     	val event = new Event(newEvaluationContext.bindings, Set(patternMatch.variable))
     	events += event
     	

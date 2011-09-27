@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
+import scala.util.matching.Regex
 
 case class S (patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
@@ -32,7 +33,16 @@ case class PatternMatch(filterCondList: Seq[FilterCondition] = List(), position 
 	  }
 }
 
-case class FilterCondition (cond : String) extends Evaluable
+case class FilterCondition (condition : String) extends Evaluable {
+  
+  def filterValue(value : String): Boolean = {
+    val cond = new Regex("""("""+condition+""")""")
+    value match {
+      case cond(regularExp) => false
+      case _ => true
+    }
+  }
+}
 
 case class Position (row : Int, col: Int) extends Evaluable {
 	
