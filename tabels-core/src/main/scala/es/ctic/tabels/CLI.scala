@@ -19,11 +19,10 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
-			For ?f in files
-				For ?x in sheets
+			
 					For ?w in cols
 						For ?z in rows	
-							?v in cell ignore blanks
+							?v in cell ignore blanks filter by [a-zA-Z\s]*
 						
 				{ ?w <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#related>?v .}
 				""") // FIXME

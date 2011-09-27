@@ -56,42 +56,55 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     var newEvaluationContext: EvaluationContext = evaluationContext
     logger.debug("Visting binding expression")
     
+    
 	 bindExp.dimension match{
-	    case Dimension.rows => for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
-	    					val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
-	    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
-	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
-					    	events += event
-					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	    case Dimension.rows =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	    							BindingExpresion(dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
+	    						} else {
+	      	      					for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
+	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
+				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+								    	events += event
+								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	
-					}
-	    case Dimension.cols => for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
-	    					val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
-	    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
-	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
-					    	events += event
-					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					}
-	    case Dimension.sheets => for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
-	    					
-	    					val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
-	    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, sheet, point)
-	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
-					    	events += event
-					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					}
+	      	      					}
+	    						}
+	    case Dimension.cols =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	    							BindingExpresion(dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
+	    						} else {
+	      	      					for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
+	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
+				    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+								    	events += event
+								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	      	      					}
+	    						}
+	    case Dimension.sheets =>if( !evaluationContext.dimensiones.contains(Dimension.files)){
+	    							BindingExpresion(dimension = Dimension.files, lBindE= Seq(bindExp)).accept(this)
+	    						} else {
+	      	      					for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
+	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
+				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, sheet, point)
+				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+								    	events += event
+								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	      	      					}
+	    						}
+	    
 	    case Dimension.files => for (file <- dataSource.filenames ){
-	    					
-	    					val point = new Point(file, evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
-	    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, file, point)
-	    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
-					    	events += event
-					    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-					}
+	    					 			val point = new Point(file, evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
+				    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, file, point)
+				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+								    	events += event
+								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	    							}
+	    						
 	  }
 	  
 	
