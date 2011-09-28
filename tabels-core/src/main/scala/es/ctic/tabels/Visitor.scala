@@ -58,7 +58,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     
     bindExp.dimension match{
 	    case Dimension.rows =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    							BindingExpresion(dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
+	    							BindingExpresion(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
 	    						} else {
 	      	      					for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
@@ -71,7 +71,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	      	      					}
 	    						}
 	    case Dimension.cols =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    							BindingExpresion(dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
+	    							BindingExpresion(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
 	    						} else {
 	      	      					for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
@@ -83,7 +83,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	      	      					}
 	    						}
 	    case Dimension.sheets =>if( !evaluationContext.dimensiones.contains(Dimension.files)){
-	    							BindingExpresion(dimension = Dimension.files, lBindE= Seq(bindExp)).accept(this)
+	    							BindingExpresion(variable = Variable("?_FILE"),dimension = Dimension.files, lBindE= Seq(bindExp)).accept(this)
 	    						} else {
 	      	      					for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
@@ -110,27 +110,50 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   }
   
   override def visit(patternMatch : PatternMatch){
-	  	logger.debug("Visting pattern match")
-	
-  		var row: Int = 0
-  		var col:Int = 0
-  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
-  		
-		if(patternMatch.position.row == -1 | patternMatch.position.col== -1){
-			row = evaluationContext.getValue(Dimension.rows).toInt
-			col = evaluationContext.getValue(Dimension.cols).toInt
-		}
-		else{
-			row = patternMatch.position.row
-			col = patternMatch.position.col
-		}
 	  	
-	  	val point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
-	  	patternMatch.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
-	  	val newEvaluationContext = 	evaluationContext.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
-    	val event = new Event(newEvaluationContext.bindings, Set(patternMatch.variable))
-    	events += event
-    	
+	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	    		BindingExpresion(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lPatternM= Seq(patternMatch)).accept(this)
+	    }else{ 
+	  	
+		  	logger.debug("Visting pattern match")
+		  	var newEvaluationContext: EvaluationContext = evaluationContext
+	  		var row: Int = 0
+	  		var col:Int = 0
+	  		  		
+	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
+	  		
+			if(patternMatch.position.row == -1 | patternMatch.position.col== -1){
+				row = evaluationContext.getValue(Dimension.rows).toInt
+				col = evaluationContext.getValue(Dimension.cols).toInt
+			}
+			else{
+				row = patternMatch.position.row
+				col = patternMatch.position.col
+			}
+		  	
+		  	var point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+		  	patternMatch.tuple match{
+		  	  case null =>{}
+		  	  case _ =>{patternMatch.tuple.variables.foreach(v =>{
+			  	  			//patternMatch.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
+			  	  			newEvaluationContext = 	newEvaluationContext.addBinding(v, dataSource.getValue(point).getContent, point)
+			  		  		patternMatch.tuple.tupleType match{
+				  		  		case TupleType.horizontal => col += 1
+				  		  		case TupleType.vertical => row += 1
+			  	  			}
+			  		  		point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+		  	  			})
+		  	  	  		val event = new Event(newEvaluationContext.bindings, Set(patternMatch.tuple.variables:_*))
+		  		  		events += event
+		  		  		return
+		  		  		}
+		  	}
+		  	patternMatch.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
+		  	newEvaluationContext = 	evaluationContext.addBinding(patternMatch.variable, dataSource.getValue(point).getContent, point)
+	    	val event = new Event(newEvaluationContext.bindings, Set(patternMatch.variable))
+	    	events += event
+	    	
+	  }
   }
  }
   

@@ -17,7 +17,7 @@ case class Pattern (lBindE : Seq[BindingExpresion]  , letE : LetWhereExpression 
 case class LetWhereExpression(sentList : Seq[Assignment] = List()) extends Evaluable
 
 case class BindingExpresion(dimension : Dimension, filterCondList: Seq[FilterCondition] = List(), 
-		pos : Position = null, stopCond : StopCondition = null, variable: Variable = Variable("?0"),lPatternM : Seq[PatternMatch] = List(),lBindE : Seq[BindingExpresion] = List() ) extends Evaluable {
+		pos : Position = null, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),lPatternM : Seq[PatternMatch] = List(),lBindE : Seq[BindingExpresion] = List() ) extends Evaluable {
   
   def accept(vis : Visitor) = {
 	    

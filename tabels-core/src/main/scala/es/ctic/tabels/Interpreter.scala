@@ -21,7 +21,7 @@ class Interpreter extends Logging {
     for ( t <- root.templateList ; e <- events ) {
 		logger.debug("Considering instantiation of template " + t + " for event " + e)
 		if ( t.variables subsetOf e.bindings.variables ) {
-			if ( e.lastBoundVariables subsetOf t.variables ) {
+			if ( (e.lastBoundVariables subsetOf t.variables) | (t.variables subsetOf e.bindings.variables) ) {
 				t.instantiate(e.bindings, dataOut)				
 			} else {
 				logger.debug("The template " + t + " is not relevant for event " + e)
