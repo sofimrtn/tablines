@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
+import es.ctic.tabels.TupleType._
 
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
@@ -20,9 +21,15 @@ class TabelsParser extends JavaTokenParsers {
 	def BLANKS = "blanks".ignoreCase
 	def FILTER = "filter".ignoreCase
 	def BY = "by".ignoreCase
+	def TUPLE = "@tuple".ignoreCase
+	def AS = "as".ignoreCase
+	def HORIZONTAL = "horizontal".ignoreCase
+	def VERTICAL = "vertical".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
+    def tupleType: Parser[TupleType] = AS ~> (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
+    
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
@@ -46,9 +53,8 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
 	
-	
 	def pattern : Parser[Pattern] = rep1(""~>bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
-	rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
+		rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
 
 	def bindingExpresion : Parser[BindingExpresion] = (FOR ~> variable <~ IN) ~ dimension ~ rep1(bindingExpresion) ^^
         { case v~d~p => BindingExpresion(variable = v, dimension = d,lBindE = p) }|
@@ -59,8 +65,16 @@ class TabelsParser extends JavaTokenParsers {
 	def patternMatch : Parser[PatternMatch] = (variable ~ (IN ~> CELL ~> position)) ~ rep(filterCondition) ^^
         { case v~p~fc => PatternMatch(variable = v, position = p, filterCondList= fc) }|
         (variable <~ (IN ~> CELL)) ~ rep(filterCondition)^^
-        { case v~fc => PatternMatch(variable = v, position = Position(-1,-1), filterCondList= fc) }
+        { case v~fc => PatternMatch(variable = v, position = Position(-1,-1), filterCondList= fc) }|
+        (tuple ~ position ~ rep(filterCondition)) ^^
+        { case v~p~fc => PatternMatch(tuple = v, position = p, filterCondList= fc) }|
+        (tuple ~ rep(filterCondition)) ^^
+        { case v~fc => PatternMatch(tuple = v, position = Position(-1,-1), filterCondList= fc) }
 	
+    def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
+    	{case vs~tt => Tuple(vs,tt)}
+    
+   
     def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
 	
 	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ (triples => Template(triples toSet))

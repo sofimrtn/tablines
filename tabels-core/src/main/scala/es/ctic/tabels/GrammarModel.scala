@@ -55,6 +55,7 @@ case class Position (row : Int, col: Int) extends Evaluable {
 	  }
 }
 
+
 case class StopCondition (cond: String) extends Evaluable
 
 case class Variable (name : String) extends Evaluable{
