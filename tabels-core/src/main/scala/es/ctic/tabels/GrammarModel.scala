@@ -6,25 +6,32 @@ import scala.util.matching.Regex
 
 case class S (patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
-case class Pattern (lBindE : Seq[BindingExpresion]  , letE : LetWhereExpression = LetWhereExpression(),  
-					whereE : LetWhereExpression = LetWhereExpression(), patternList: Seq[Pattern] = List(),lPatternM : Seq[PatternMatch] = List() ) extends Evaluable{
+case class Pattern ( concretePattern : Either[BindingExpression,LetWhereExpression] ) extends Evaluable{
+ 
+	def accept(vis : Visitor) = {
+	    
+	    vis.visit(this)
+	  }
+}
+case class LetWhereExpression(filterCondList: Seq[FilterCondition] = List(), position : Option[Position] , 
+		 tupleOrVariable: Either[Tuple,Variable], childPatterns: Seq[Pattern] = Seq()) extends Evaluable{
   
 	def accept(vis : Visitor) = {
 	    
 	    vis.visit(this)
 	  }
 }
-case class LetWhereExpression(sentList : Seq[Assignment] = List()) extends Evaluable
 
-case class BindingExpresion(dimension : Dimension, filterCondList: Seq[FilterCondition] = List(), 
-		pos : Position = null, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),lPatternM : Seq[PatternMatch] = List(),lBindE : Seq[BindingExpresion] = List() ) extends Evaluable {
+case class BindingExpression(dimension : Dimension, filterCondList: Seq[FilterCondition] = List(), 
+		pos : Position = null, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),
+		childPatterns: Seq[Pattern] = Seq() ) extends Evaluable {
   
   def accept(vis : Visitor) = {
 	    
 	    vis.visit(this)
 	  }
 }
-
+/*Forget about PatternMatch, from now on LetWhereExpresion will be the binding leaf node
 case class PatternMatch(filterCondList: Seq[FilterCondition] = List(), position : Position = null, 
 		stopCond : StopCondition = null, variable: Variable = null, tuple : Tuple = null) extends Evaluable{
   
@@ -33,7 +40,7 @@ case class PatternMatch(filterCondList: Seq[FilterCondition] = List(), position 
 	    vis.visit(this)
 	  }
 }
-
+*/
 case class FilterCondition (condition : String) extends Evaluable {
   
   def filterValue(value : String): Boolean = {
@@ -68,7 +75,13 @@ case class Variable (name : String) extends Evaluable{
 
 
 
-case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType) extends Evaluable
+case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType) extends Evaluable {
+	
+	def accept(vis : Visitor) = {
+    
+	vis.visit(this)
+  }
+}
 
 case class Expression (exp: String) extends Evaluable
 

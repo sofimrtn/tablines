@@ -20,11 +20,10 @@ object CLI extends Logging {
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
 			
-					For ?w in rows	
-						@tuple[?a,?v] as horizontal ignore blanks
+				For ?w in rows	
+					@tuple[?a,?v] as horizontal
 							
-				{ ?w <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#related>?v .
-				  }
+				{ ?w <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#related>?v .}
 				""") // FIXME
 
 			logger.debug("Interpreting AST: " + program)
