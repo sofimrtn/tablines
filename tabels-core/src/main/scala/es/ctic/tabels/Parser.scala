@@ -53,23 +53,18 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
 	
-	def pattern : Parser[Pattern] = rep1(""~>bindingExpresion) ^^ { case be => Pattern(lBindE = be)}|
-		rep1(""~>patternMatch) ^^ { pm => Pattern(lPatternM = pm, lBindE=List())}
+	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
+		letWhereExpression ^^ { pm => Pattern(Right(pm))}
 
-	def bindingExpresion : Parser[BindingExpresion] = (FOR ~> variable <~ IN) ~ dimension ~ rep1(bindingExpresion) ^^
-        { case v~d~p => BindingExpresion(variable = v, dimension = d,lBindE = p) }|
-        (FOR ~> variable <~ IN) ~ dimension ~ rep1(patternMatch) ^^
-        { case v~d~p => BindingExpresion(variable = v, dimension = d,lPatternM = p, lBindE=List()) }
+	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~ rep(pattern) ^^
+        { case v~d~p => BindingExpression(variable = v, dimension = d, childPatterns = p) }
        
 	
-	def patternMatch : Parser[PatternMatch] = (variable ~ (IN ~> CELL ~> position)) ~ rep(filterCondition) ^^
-        { case v~p~fc => PatternMatch(variable = v, position = p, filterCondList= fc) }|
-        (variable <~ (IN ~> CELL)) ~ rep(filterCondition)^^
-        { case v~fc => PatternMatch(variable = v, position = Position(-1,-1), filterCondList= fc) }|
-        (tuple ~ position ~ rep(filterCondition)) ^^
-        { case v~p~fc => PatternMatch(tuple = v, position = p, filterCondList= fc) }|
-        (tuple ~ rep(filterCondition)) ^^
-        { case v~fc => PatternMatch(tuple = v, position = Position(-1,-1), filterCondList= fc) }
+	def letWhereExpression : Parser[LetWhereExpression] = 
+		(variable ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition)) ^^
+        { case v~p~fc => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc) }|
+        (tuple ~opt(position) ~ rep(filterCondition)) ^^
+        { case t~p~fc => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc) }
 	
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}

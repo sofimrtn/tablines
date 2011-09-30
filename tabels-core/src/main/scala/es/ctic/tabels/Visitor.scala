@@ -8,8 +8,8 @@ abstract class Visitor {
   def visit(s : S)
   def visit(patt : Pattern)
   def visit(lwexp : LetWhereExpression)
-  def visit(bindExp : BindingExpresion)
-  def visit(pattMatch : PatternMatch)
+  def visit(bindExp : BindingExpression)
+ // def visit(pattMatch : PatternMatch)
   def visit(filtCond : FilterCondition)
   def visit(pos : Position)
   def visit(sCond : StopCondition)
@@ -24,8 +24,8 @@ class AbstractVisitor extends Visitor with Logging {
   override def visit(s : S) = {}
   override def visit(patt : Pattern) = {}
   override def visit(lwexp : LetWhereExpression) = {}
-  override def visit(bindExp : BindingExpresion) = {}
-  override def visit(pattMatch : PatternMatch) = {}
+  override def visit(bindExp : BindingExpression) = {}
+  //override def visit(pattMatch : PatternMatch) = {}
   override def visit(filtCond : FilterCondition) = {}
   override def visit(pos : Position) = {}
   override def visit(sCond : StopCondition) = {}
@@ -47,51 +47,53 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   override def visit(pattern : Pattern){
 	logger.debug("Visting pattern")
 	//FIX ME
-	pattern.lBindE.foreach(p => p.accept(this))
-	pattern.lPatternM.foreach(p => p.accept(this))
+	
+	pattern.concretePattern match{
+	  case Left(binding) => binding.accept(this)
+	  case Right(let) => let.accept(this)
+	}
+	
+	
 	
   }
   
-  override def visit(bindExp : BindingExpresion) = {
+  override def visit(bindExp : BindingExpression) = {
     var newEvaluationContext: EvaluationContext = evaluationContext
     logger.debug("Visting binding expression")
     
     bindExp.dimension match{
 	    case Dimension.rows =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    							BindingExpresion(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
+	    							BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	    						} else {
 	      	      					for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
 				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
-								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	
 	      	      					}
 	    						}
 	    case Dimension.cols =>if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    							BindingExpresion(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lBindE= Seq(bindExp)).accept(this)
+	    							BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	    						} else {
 	      	      					for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
 				    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
-								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	      	      					}
 	    						}
 	    case Dimension.sheets =>if( !evaluationContext.dimensiones.contains(Dimension.files)){
-	    							BindingExpresion(variable = Variable("?_FILE"),dimension = Dimension.files, lBindE= Seq(bindExp)).accept(this)
+	    							BindingExpression(variable = Variable("?_FILE"),dimension = Dimension.files, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	    						} else {
 	      	      					for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
 				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, sheet, point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
-								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	      	      					}
 	    						}
 	    
@@ -100,19 +102,64 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 				    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, file, point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
-								    	bindExp.lBindE.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-								    	bindExp.lPatternM.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	    							}
 	    						
 	  }
 	  
 	
   }
-  
+  override def visit(letWhereExpression : LetWhereExpression){
+	  	
+	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	    		BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, childPatterns = Seq(Pattern(Right(letWhereExpression)))).accept(this)
+	    }else{ 
+	  	
+		  	logger.debug("Visting let/where expression" + letWhereExpression)
+		  	var newEvaluationContext: EvaluationContext = evaluationContext
+	  		var row: Int = 0
+	  		var col:Int = 0
+	  		  		
+	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
+	  		
+			letWhereExpression.position match{
+		  	  case Some(p) =>	row = p.row
+								col = p.col
+		  	  case None =>		row = evaluationContext.getValue(Dimension.rows).toInt
+								col = evaluationContext.getValue(Dimension.cols).toInt
+		  	}
+	  		
+	  				  	
+		  	var point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+
+		  	letWhereExpression.tupleOrVariable match{
+		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
+			  	  					//letWhereExpression.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
+		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, dataSource.getValue(point).getContent, point)
+		  		  					tuple.tupleType match{
+		  		  						case TupleType.horizontal => col += 1
+		  		  						case TupleType.vertical => row += 1
+		  		  					}
+		  		  					point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+		  	  						})
+		  	  						val event = new Event(newEvaluationContext.bindings, Set(tuple.variables:_*))
+		  		  					events += event
+		  	  case Right(variable) =>letWhereExpression.filterCondList.foreach(filter => 	
+		  	    					if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
+					  	newEvaluationContext = 	evaluationContext.addBinding(variable, dataSource.getValue(point).getContent, point)
+				    	val event = new Event(newEvaluationContext.bindings, Set(variable))
+				    	events += event
+		  	}
+		  	letWhereExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	 	    	
+	  }
+  }
+ }
+ /* 
   override def visit(patternMatch : PatternMatch){
 	  	
 	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    		BindingExpresion(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lPatternM= Seq(patternMatch)).accept(this)
+	    		BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, lPatternM= Seq(patternMatch)).accept(this)
 	    }else{ 
 	  	
 		  	logger.debug("Visting pattern match")
@@ -156,15 +203,16 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  }
   }
  }
-  
+  */
  
 class VisitorToString extends AbstractVisitor{
   
-  override def visit(pattMatch : PatternMatch){
+  override def visit(letWhereExpression : LetWhereExpression){
   
-    pattMatch.variable.accept(this)
-    print("  in CELL ")
-    pattMatch.position.accept(this)
+   letWhereExpression.tupleOrVariable fold(_.accept(this),_ accept(this))
+       
+   letWhereExpression.position map( _.accept(this))
+      
   }
   
   override def visit(v : Variable){
