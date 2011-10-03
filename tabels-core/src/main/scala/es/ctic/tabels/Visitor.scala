@@ -67,7 +67,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    						} else {
 	      	      					for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
-				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, Literal(dataSource.getValue(point).getContent), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
 								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
@@ -79,7 +79,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    						} else {
 	      	      					for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
-				    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, dataSource.getValue(point).getContent, point)
+				    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, Literal(dataSource.getValue(point).getContent), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
 								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
@@ -90,7 +90,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    						} else {
 	      	      					for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
 	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
-				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, sheet, point)
+				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, Literal(sheet), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
 								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
@@ -99,7 +99,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    
 	    case Dimension.files => for (file <- dataSource.filenames ){
 	    					 			val point = new Point(file, evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
-				    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, file, point)
+				    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, Literal(file), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
 								    	bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
@@ -135,7 +135,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	letWhereExpression.tupleOrVariable match{
 		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
 			  	  					//letWhereExpression.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
-		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, dataSource.getValue(point).getContent, point)
+		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, Literal(dataSource.getValue(point).getContent), point)
 		  		  					tuple.tupleType match{
 		  		  						case TupleType.horizontal => col += 1
 		  		  						case TupleType.vertical => row += 1
@@ -146,7 +146,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  		  					events += event
 		  	  case Right(variable) =>letWhereExpression.filterCondList.foreach(filter => 	
 		  	    					if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
-					  	newEvaluationContext = 	evaluationContext.addBinding(variable, dataSource.getValue(point).getContent, point)
+					  	newEvaluationContext = 	evaluationContext.addBinding(variable, Literal(dataSource.getValue(point).getContent), point)
 				    	val event = new Event(newEvaluationContext.bindings, Set(variable))
 				    	events += event
 		  	}

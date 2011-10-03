@@ -12,12 +12,15 @@ class JenaDataOutput extends DataOutput{
   private def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
     s match {
     	case Resource(uri) => model.createResource(uri) 
+    	case Literal(value) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the subject of a triple" )
+    						
     }
   }
 
   private def createProperty(s : RDFNode) : com.hp.hpl.jena.rdf.model.Property = {
     s match {
     	case Resource(uri) => model.createProperty(uri) 
+    	case Literal(value) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the predicate of a triple" )
     }
   }
 

@@ -14,7 +14,7 @@ case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMa
 	  else "0"
 	}
 	
-	def addBinding(variable : Variable, value : String, point: Point) : EvaluationContext =
+	def addBinding(variable : Variable, value : RDFNode, point: Point) : EvaluationContext =
 	EvaluationContext(dimensionMap, bindings.addBinding(variable,value, point))
 		
 	
@@ -25,7 +25,7 @@ case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMa
 		EvaluationContext(dimensionMap - (dimension), bindings)
 }
 
-case class Binding(value : String, point: Point)
+case class Binding(value : RDFNode, point: Point)
 
 case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
 
@@ -33,11 +33,11 @@ case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
 
   def isBound(variable : Variable) : Boolean = bindingsMap.contains(variable)
   
-  def getValue(variable : Variable) : String = bindingsMap.get(variable).get.value // throws exception if unbound
+  def getValue(variable : Variable) : RDFNode = bindingsMap.get(variable).get.value // throws exception if unbound
 
   def getPoint(variable : Variable) : Point = bindingsMap.get(variable).get.point // throws exception if unbound
   
-  def addBinding(variable : Variable, value : String, point: Point) : Bindings =
+  def addBinding(variable : Variable, value : RDFNode, point: Point) : Bindings =
 	Bindings(bindingsMap + (variable -> Binding(value, point)))
   
   def removeBinding(variable : Variable) : Bindings =

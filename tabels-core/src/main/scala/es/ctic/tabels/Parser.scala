@@ -25,6 +25,7 @@ class TabelsParser extends JavaTokenParsers {
 	def AS = "as".ignoreCase
 	def HORIZONTAL = "horizontal".ignoreCase
 	def VERTICAL = "vertical".ignoreCase
+	def LET = "let".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -61,9 +62,9 @@ class TabelsParser extends JavaTokenParsers {
        
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
-		(variable ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition)) ^^
+		((LET ~> variable) ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition)) ^^
         { case v~p~fc => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc) }|
-        (tuple ~opt(position) ~ rep(filterCondition)) ^^
+        ((LET ~> tuple) ~opt(position) ~ rep(filterCondition)) ^^
         { case t~p~fc => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc) }
 	
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^

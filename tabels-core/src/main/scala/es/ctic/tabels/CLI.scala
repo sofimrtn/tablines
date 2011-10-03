@@ -20,10 +20,13 @@ object CLI extends Logging {
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
 			
-				For ?w in rows	
-					@tuple[?a,?v] as horizontal
+				For ?idCoil in rows	
+					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth] as horizontal
 							
-				{ ?w <http://http://www.w3.org/1999/02/22-rdf-syntax-ns#related>?v .}
+				{ <idCoil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> .
+				  <idCoil> <http://ontorule-project.eu/resources/steel#previousAction> ?codeOutput .
+			      <idCoil> <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth .
+			    }
 				""") // FIXME
 
 			logger.debug("Interpreting AST: " + program)
