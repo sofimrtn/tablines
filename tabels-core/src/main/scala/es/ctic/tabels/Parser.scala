@@ -65,7 +65,9 @@ class TabelsParser extends JavaTokenParsers {
 		((LET ~> variable) ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition)) ^^
         { case v~p~fc => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc) }|
         ((LET ~> tuple) ~opt(position) ~ rep(filterCondition)) ^^
-        { case t~p~fc => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc) }
+        { case t~p~fc => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc) }|
+        (LET ~> variable) ~ ("=" ~>variable) ^^
+        {case v1~v2 => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(Expression(v2))) }
 	
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}

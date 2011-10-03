@@ -42,9 +42,15 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 
 }
 
-abstract class RDFNode()
+abstract class RDFNode(){
+	def getValue : String
+}
+case class Literal(value : String) extends RDFNode{
+  
+	def getValue:String = value
+}
 
-case class Literal(value : String) extends RDFNode
-
-case class Resource(uri : String) extends RDFNode
-
+case class Resource(uri : String) extends RDFNode{
+  
+	def getValue:String = uri
+}
