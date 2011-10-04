@@ -148,15 +148,11 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	    					if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
 					  	
 		  	    					letWhereExpression.expression match{
-		  	    					case Some(expr) => newEvaluationContext = 	newEvaluationContext.addBinding(variable, Literal(evaluationContext.bindings.getValue(expr.getVariable).getValue), point)
-		  	    					case None => newEvaluationContext = 	newEvaluationContext.addBinding(variable, Literal(dataSource.getValue(point).getContent), point)
+			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.getValue, point)
+			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, Literal(dataSource.getValue(point).getContent), point)
 		  	  						}
-		  	    					
-		  	  
-		  	  	  
-				    	
-		  	    		val event = new Event(newEvaluationContext.bindings, Set(variable))
-				    	events += event
+		  	    					val event = new Event(newEvaluationContext.bindings, Set(variable))
+		  	    					events += event
 		  	}
 		  	letWhereExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	 	    	

@@ -86,6 +86,7 @@ case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType) exten
 case class Expression (variable : Variable) extends Evaluable {
   
   def getVariable : Variable = variable
+  def getValue : RDFNode = Resource ("http://ontorule-project.eu/resources/steel/idCoil/" + variable.name)
 }
 	
 

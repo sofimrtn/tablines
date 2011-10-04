@@ -19,14 +19,14 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
-			
+			let @tuple[?idCoilTitle,?codeOutputTitle,?steelGradeTitle,?productTypeTitle,?minWidthTitle,?maxWidthTitle] as horizontal
 				For ?idCoil in rows	
 					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth] as horizontal
-			          let ?idCoilAsResource = ?idCoil
+			          let ?idCoilAsResource = RESOURCE(?idCoil)
 							
-				{ <idCoil> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> .
-				  <idCoil> <http://ontorule-project.eu/resources/steel#previousAction> ?codeOutput .
-			      <idCoil> <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth .
+				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> .
+				  ?idCoilAsResource <http://ontorule-project.eu/resources/steel#previousAction> ?codeOutput .
+			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth .
 				 
 			    }
 				""") // FIXME

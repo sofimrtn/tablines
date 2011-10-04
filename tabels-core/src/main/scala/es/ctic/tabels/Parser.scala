@@ -62,13 +62,15 @@ class TabelsParser extends JavaTokenParsers {
        
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
-		((LET ~> variable) ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition)) ^^
-        { case v~p~fc => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc) }|
-        ((LET ~> tuple) ~opt(position) ~ rep(filterCondition)) ^^
-        { case t~p~fc => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc) }|
-        (LET ~> variable) ~ ("=" ~>variable) ^^
-        {case v1~v2 => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(Expression(v2))) }
+		((LET ~> variable) ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition))~ rep(pattern) ^^
+        { case v~p~fc~pat => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc, childPatterns = pat) }|
+        ((LET ~> tuple) ~opt(position) ~ rep(filterCondition))~ rep(pattern) ^^
+        { case t~p~fc~pat => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc, childPatterns = pat) }|
+        (LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
+        {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
 	
+    def expression: Parser[Expression] = ("RESOURCE(" ~> variable <~ ")") ^^ {case v => Expression(v)}
+    
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}
     
