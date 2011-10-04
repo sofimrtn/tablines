@@ -22,11 +22,13 @@ object CLI extends Logging {
 			let @tuple[?idCoilTitle,?codeOutputTitle,?steelGradeTitle,?productTypeTitle,?minWidthTitle,?maxWidthTitle] as horizontal
 				For ?idCoil in rows	
 					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth] as horizontal
-			          let ?idCoilAsResource = RESOURCE(?idCoil)
+			          let ?idCoilAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#coil)
+						let ?orderAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#order)
+							let ?steelGradeAsResource = RESOURCE(?steelGrade, http://ontorule-project.eu/resources/steel#)
 							
 				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> .
-				  ?idCoilAsResource <http://ontorule-project.eu/resources/steel#previousAction> ?codeOutput .
-			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth .
+				  ?idCoilAsResource <http://ontorule-project.eu/resources/steel#order> ?orderAsResource .
+			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource .
 				 
 			    }
 				""") // FIXME

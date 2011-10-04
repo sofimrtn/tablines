@@ -83,10 +83,10 @@ case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType) exten
   }
 }
 
-case class Expression (variable : Variable) extends Evaluable {
+case class Expression (variable : Variable, param : String) extends Evaluable {
   
   def getVariable : Variable = variable
-  def getValue : RDFNode = Resource ("http://ontorule-project.eu/resources/steel/idCoil/" + variable.name)
+  def getResource(value : String) : RDFNode = Resource (param.concat(value))
 }
 	
 
