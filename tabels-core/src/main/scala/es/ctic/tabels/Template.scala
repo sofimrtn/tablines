@@ -54,3 +54,5 @@ case class Resource(uri : String) extends RDFNode{
   
 	def getValue:String = uri
 }
+
+object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")

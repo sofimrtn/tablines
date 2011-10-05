@@ -26,6 +26,7 @@ class TabelsParser extends JavaTokenParsers {
 	def HORIZONTAL = "horizontal".ignoreCase
 	def VERTICAL = "vertical".ignoreCase
 	def LET = "let".ignoreCase
+	def A = "a".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -76,11 +77,15 @@ class TabelsParser extends JavaTokenParsers {
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}
     
+	def verbTemplate : Parser[Either[RDFNode, Variable]] =
+		uriRef ^^ { Left(_) } |
+		A ^^ { _ => Left(RDF_TYPE) } |
+		variable ^^ { Right (_) }
    
 	def objectsTemplate : Parser[List[Either[RDFNode, Variable]]] = rep1sep(eitherRDFNodeOrVariable, ",")
 
 	def predicateObjectsTemplate : Parser[List[Tuple2[ Either[RDFNode, Variable], Either[RDFNode, Variable] ]]] =
-	   rep1sep((eitherRDFNodeOrVariable ~ objectsTemplate) ^^ { case pred~objs => for (obj <- objs) yield (pred,obj) }, ";") ^^ { _ flatten }
+	   rep1sep((verbTemplate ~ objectsTemplate) ^^ { case pred~objs => for (obj <- objs) yield (pred,obj) }, ";") ^^ { _ flatten }
 
 	def triplesSameSubjectTemplate : Parser[List[TripleTemplate]] =
 	  eitherRDFNodeOrVariable~predicateObjectsTemplate ^^

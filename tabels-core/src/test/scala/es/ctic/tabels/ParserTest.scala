@@ -100,6 +100,14 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (bindingExpression, "For ?y in rows  For ?z in cols")
     }
 
+	@Test def parseVerbTemplate() {
+		assertParse(verbTemplate, "<http://example.org/>", Left(Resource("http://example.org/")))
+		assertParse(verbTemplate, "a", Left(RDF_TYPE))
+		assertParse(verbTemplate, "?x", Right(Variable("?x")))
+		assertFail (verbTemplate, "")
+		assertFail (verbTemplate, "\"hello\"")
+	}
+	
 	@Test def parseObjectsTemplate() {
 		assertParse(objectsTemplate, "?x", List(Right(Variable("?x"))))
 		assertParse(objectsTemplate, "<http://example.org/>", List(Left(Resource("http://example.org/"))))
@@ -113,8 +121,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	@Test def parsePredicateObjectsTemplate() {
 		assertParse(predicateObjectsTemplate, "?x ?y",
 			List((Right(Variable("?x")), Right(Variable("?y")))))
-		assertParse(predicateObjectsTemplate, "<http://example.org/> ?y",
-			List((Left(Resource("http://example.org/")), Right(Variable("?y")))))
+		assertParse(predicateObjectsTemplate, "<http://example.org/> \"Hello\"",
+			List((Left(Resource("http://example.org/")), Left(Literal("Hello")))))
+		assertParse(predicateObjectsTemplate, "a <http://example.org/>",
+			List((Left(RDF_TYPE), Left(Resource("http://example.org/")))))
 		assertParse(predicateObjectsTemplate, "?x ?y ; ?a ?b",
 			List((Right(Variable("?x")), Right(Variable("?y"))),
 		         (Right(Variable("?a")), Right(Variable("?b")))))
