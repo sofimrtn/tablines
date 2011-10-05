@@ -26,9 +26,9 @@ object CLI extends Logging {
 						let ?orderAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#order)
 							let ?steelGradeAsResource = RESOURCE(?steelGrade, http://ontorule-project.eu/resources/steel#)
 							
-				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> .
-				  ?idCoilAsResource <http://ontorule-project.eu/resources/steel#order> ?orderAsResource .
-			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource .
+				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> ;
+				                    <http://ontorule-project.eu/resources/steel#order> ?orderAsResource ;
+			                        <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource
 				 
 			    }
 				""") // FIXME
