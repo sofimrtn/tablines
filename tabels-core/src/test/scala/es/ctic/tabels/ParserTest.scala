@@ -94,18 +94,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (pattern, "For ?y in rows")
         assertFail (pattern, "")
 	}
-    
-     @Test def parseletWhereExpression() {
-        assertParse(letWhereExpression, "let ?X in cell A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(Position(0,0))))
-        assertParse(letWhereExpression, "LET ?X    in  cell   A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(Position(0,0))))
-        assertParse(letWhereExpression, "Let  ?X IN CELL A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(Position(0,0))))
-        assertFail (letWhereExpression, "")
-        assertFail (letWhereExpression, "?X")
-        assertFail (letWhereExpression, "A1")
-        assertFail (letWhereExpression, "IN CELL")
-        assertFail (letWhereExpression, "IN CELL A1")
-    }
-    
+	
     @Test def parseBindingExpression(){
        assertParse(bindingExpression, "For ?y in rows \n let ?x in cell A1",
            BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
@@ -119,6 +108,25 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (bindingExpression, "For ?y in rows  For ?z in cols")
     }
 
+     @Test def parseLetWhereExpression() {
+        assertParse(letWhereExpression, "let ?X in cell A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(Position(0,0))))
+        assertParse(letWhereExpression, "LET ?X    in  cell   A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(Position(0,0))))
+        assertParse(letWhereExpression, "Let  ?X IN CELL A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(Position(0,0))))
+        assertFail (letWhereExpression, "")
+        assertFail (letWhereExpression, "?X")
+        assertFail (letWhereExpression, "A1")
+        assertFail (letWhereExpression, "IN CELL")
+        assertFail (letWhereExpression, "IN CELL A1")
+    }
+    
+    @Test def parseExpression(){
+	    assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(variable = Variable("?y"), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
+        assertParse(expression, "RESourCE (?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(variable = Variable("?y"), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
+        assertFail(expression, "RESourC (?y, <http://ontorule-project.eu/resources/steeldata#coil>)")
+        assertFail(expression, "RESOURCE (y, <http://ontorule-project.eu/resources/steeldata#coil>)")
+        assertFail(expression, "RESOURCE (?y, http://ontorule-project.eu/resources/steeldata#coil>)")
+   }
+    
 	@Test def parseVerbTemplate() {
 		prefixes += ("foo" -> Resource("http://example.org/"))
 		assertParse(verbTemplate, "<http://example.org/>", Left(Resource("http://example.org/")))
