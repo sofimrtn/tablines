@@ -100,17 +100,52 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (bindingExpression, "For ?y in rows  For ?z in cols")
     }
 
-	@Test def parseTripleTemplate() {
-		assertParse(tripleTemplate, "?x ?y ?z .", TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))))
-		assertParse(tripleTemplate, "?x <http://example.org/> \"hello\" .", TripleTemplate(Right(Variable("?x")), Left(Resource("http://example.org/")), Left(Literal("hello"))))
-		assertFail (tripleTemplate, "")
-		assertFail (tripleTemplate, ".")
-		assertFail (tripleTemplate, "?x . ")
-		assertFail (tripleTemplate, "?x ?y ?z")
+	@Test def parseObjectsTemplate() {
+		assertParse(objectsTemplate, "?x", List(Right(Variable("?x"))))
+		assertParse(objectsTemplate, "<http://example.org/>", List(Left(Resource("http://example.org/"))))
+		assertParse(objectsTemplate, "?x, ?y", List(Right(Variable("?x")), Right(Variable("?y"))))
+		assertFail (objectsTemplate, "")
+		assertFail (objectsTemplate, "?x ?y")
+		assertFail (objectsTemplate, "?x ; ?y")
+		assertFail (objectsTemplate, "?x . ?y")
 	}
 	
+	@Test def parsePredicateObjectsTemplate() {
+		assertParse(predicateObjectsTemplate, "?x ?y",
+			List((Right(Variable("?x")), Right(Variable("?y")))))
+		assertParse(predicateObjectsTemplate, "<http://example.org/> ?y",
+			List((Left(Resource("http://example.org/")), Right(Variable("?y")))))
+		assertParse(predicateObjectsTemplate, "?x ?y ; ?a ?b",
+			List((Right(Variable("?x")), Right(Variable("?y"))),
+		         (Right(Variable("?a")), Right(Variable("?b")))))
+		assertParse(predicateObjectsTemplate, "?x ?y , ?z ; ?a ?b",
+			List((Right(Variable("?x")), Right(Variable("?y"))),
+			     (Right(Variable("?x")), Right(Variable("?z"))),
+		         (Right(Variable("?a")), Right(Variable("?b")))))
+		assertFail (predicateObjectsTemplate, "")
+		assertFail (predicateObjectsTemplate, "?x")
+		assertFail (predicateObjectsTemplate, "?x , ?y")
+		assertFail (predicateObjectsTemplate, "?x . ?y")
+	}
+	
+	@Test def parseTriplesSameSubjectTemplate() {
+		assertParse(triplesSameSubjectTemplate, "?x ?y ?z",
+			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z")))))
+		assertParse(triplesSameSubjectTemplate, "?x <http://example.org/> \"hello\"",
+			List(TripleTemplate(Right(Variable("?x")), Left(Resource("http://example.org/")), Left(Literal("hello")))))
+		assertParse(triplesSameSubjectTemplate, "?x ?y ?z ; ?a ?b",
+			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
+			     TripleTemplate(Right(Variable("?x")), Right(Variable("?a")), Right(Variable("?b")))))
+		assertFail (triplesSameSubjectTemplate, "")
+		assertFail (triplesSameSubjectTemplate, "?x")
+		assertFail (triplesSameSubjectTemplate, "?x ?y")
+		assertFail (triplesSameSubjectTemplate, "?x ?y ?a ?b")
+		assertFail (triplesSameSubjectTemplate, "?x . ")
+		assertFail (triplesSameSubjectTemplate, ".")
+	}
+
 	@Test def parseTemplate() {
-		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c . }",
+		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c }",
 			Template(Set(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			              TripleTemplate(Right(Variable("?a")), Right(Variable("?b")), Right(Variable("?c"))))))
 		assertFail (template, "")

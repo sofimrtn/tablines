@@ -77,9 +77,17 @@ class TabelsParser extends JavaTokenParsers {
     	{case vs~tt => Tuple(vs,tt)}
     
    
-    def tripleTemplate : Parser[TripleTemplate] = eitherRDFNodeOrVariable~eitherRDFNodeOrVariable~eitherRDFNodeOrVariable<~"." ^^ { case s~p~o => TripleTemplate(s, p, o) }
+	def objectsTemplate : Parser[List[Either[RDFNode, Variable]]] = rep1sep(eitherRDFNodeOrVariable, ",")
+
+	def predicateObjectsTemplate : Parser[List[Tuple2[ Either[RDFNode, Variable], Either[RDFNode, Variable] ]]] =
+	   rep1sep((eitherRDFNodeOrVariable ~ objectsTemplate) ^^ { case pred~objs => for (obj <- objs) yield (pred,obj) }, ";") ^^ { _ flatten }
+
+	def triplesSameSubjectTemplate : Parser[List[TripleTemplate]] =
+	  eitherRDFNodeOrVariable~predicateObjectsTemplate ^^
+	  { case subj~predObjs => for ((pred,obj) <- predObjs) yield TripleTemplate(subj,pred,obj) }
 	
-	def template : Parser[Template] = "{" ~> rep1(tripleTemplate) <~ "}" ^^ (triples => Template(triples toSet))
+	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
+	  { triples => Template((triples flatten) toSet) }
 
 	// parsing methods
 	
