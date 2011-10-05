@@ -2,17 +2,17 @@ package es.ctic.tabels
 
 abstract class Expression {
   
-  def evaluate(bindings : Bindings) : RDFNode
+  def evaluate(evaluationContext : EvaluationContext) : RDFNode
 
 }
 
 case class VariableReference(variable:Variable) extends Expression{
 	
-	override def evaluate(bindings: Bindings) = bindings.getValue(variable)
+	override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable)
 
 }
 
-case class ResourceExpression(variable:Variable, uri : String) extends Expression {
+case class ResourceExpression(variable:Variable, uri : Resource) extends Expression {
 	
-	override def evaluate(bindings : Bindings) = Resource(uri + bindings.getValue(variable).getValue)
+	override def evaluate(evaluationContext : EvaluationContext) = uri + evaluationContext.bindings.getValue(variable).getValue
 }
