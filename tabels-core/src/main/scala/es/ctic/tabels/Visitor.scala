@@ -148,7 +148,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	    					if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
 					  	
 		  	    					letWhereExpression.expression match{
-			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.getValue(dataSource.getValue(point).getContent), point)
+			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.evaluate(newEvaluationContext), point)
 			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, Literal(dataSource.getValue(point).getContent), point)
 		  	  						}
 		  	    					val event = new Event(newEvaluationContext.bindings, Set(variable))
