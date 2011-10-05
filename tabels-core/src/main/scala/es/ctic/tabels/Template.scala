@@ -33,8 +33,7 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 	
 	private def substitute(x : Either[RDFNode, Variable], bindingList : Bindings) : RDFNode = {
 	   x match {
-	   	case Left(rdfNode) => rdfNode
-	   	//FIX ME: variables can also be literals
+	   	case Left(rdfNode)   => rdfNode
 	   	case Right(variable) => bindingList.getValue(variable)
 	   }
 	}
