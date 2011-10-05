@@ -120,11 +120,19 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
     
     @Test def parseExpression(){
-	    assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(variable = Variable("?y"), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
+	    
+      //ResourceExpression
+    	assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(variable = Variable("?y"), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
         assertParse(expression, "RESourCE (?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(variable = Variable("?y"), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
         assertFail(expression, "RESourC (?y, <http://ontorule-project.eu/resources/steeldata#coil>)")
         assertFail(expression, "RESOURCE (y, <http://ontorule-project.eu/resources/steeldata#coil>)")
         assertFail(expression, "RESOURCE (?y, http://ontorule-project.eu/resources/steeldata#coil>)")
+      
+      //VariableReference
+        assertParse(expression, "?y", VariableReference(Variable("?y")))
+        assertFail(expression, "y")
+        
+        
    }
     
 	@Test def parseVerbTemplate() {

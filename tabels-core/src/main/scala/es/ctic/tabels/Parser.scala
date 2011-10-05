@@ -83,7 +83,8 @@ class TabelsParser extends JavaTokenParsers {
         {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
 	
     def expression: Parser[Expression] = ((RESOURCE <~"(") ~> variable )~ (","~> iriRef <~")") ^^ 
-    {case v~u => ResourceExpression(variable = v, uri = u)}
+    {case v~u => ResourceExpression(variable = v, uri = u)}|
+    variable ^^ VariableReference
     
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
