@@ -7,8 +7,12 @@ import es.ctic.tabels.Operator._
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
+import scala.collection._
+
 class TabelsParser extends JavaTokenParsers {
 
+	val prefixes = mutable.HashMap.empty[String, Resource]
+	
 	// language terminal symbols
 
 	def CELL = "cell".ignoreCase
@@ -40,8 +44,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 	
-	def operator : Parser[Operator] = (RESOURCE) ^^ { o => Operator.withName(o.toLowerCase) }
-	
+		
 	//FIX ME: I accept everything as a regular expression. Use a better RE
 	def filterCondition : Parser[FilterCondition] = (IGNORE~>BLANKS)^^{b => FilterCondition("""\s*""")}|
 	((FILTER ~> BY) ~> """.*""".r) ^^ { re => FilterCondition(re)}
@@ -50,15 +53,19 @@ class TabelsParser extends JavaTokenParsers {
 
 	def rdfLiteral : Parser[Literal] = stringLiteral ^^ { quotedString => Literal(quotedString.slice(1,quotedString.length-1)) } // FIXME: other literals
 
-	def uriRef : Parser[Resource] = "<" ~> """[a-zA-Z0-9:#/\.\?\-]+""".r <~ ">" ^^ Resource // FIXME: use a better RE
+	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
 	
-	def rdfNode : Parser[RDFNode] = uriRef | rdfLiteral
+	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^ { case prefix~local => prefixes(prefix) + local }
+		
+	def rdfNode : Parser[RDFNode] = iriRef | curieRef | rdfLiteral
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	def start : Parser[S] = rep(prefixDecl)~>rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	
+	def prefixDecl = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^ { case prefix~ns => prefixes += (prefix -> ns) }
 	
 	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
 		letWhereExpression ^^ { pm => Pattern(Right(pm))}
@@ -75,18 +82,23 @@ class TabelsParser extends JavaTokenParsers {
         (LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
         {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
 	
-    def expression: Parser[Expression] = ((operator <~"(") ~ variable )~ (","~> rep1sep("""[a-zA-Z0-9:#/\.\?\-]+""".r , ",")<~")") ^^ 
-    {case op~v~u => Expression(operator=op, v, args = u)}
+    def expression: Parser[Expression] = ((RESOURCE <~"(") ~> variable )~ (","~> iriRef <~")") ^^ 
+    {case v~u => ResourceExpression(variable = v, uri = u)}
     
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}
     
-   
+    def verbTemplate : Parser[Either[RDFNode, Variable]] =
+		iriRef ^^ { Left(_) } |
+		curieRef ^^ { Left(_) } |
+		A ^^ { _ => Left(RDF_TYPE) } |
+		variable ^^ { Right (_) }
+       
 	def objectsTemplate : Parser[List[Either[RDFNode, Variable]]] = rep1sep(eitherRDFNodeOrVariable, ",")
 
 	def predicateObjectsTemplate : Parser[List[Tuple2[ Either[RDFNode, Variable], Either[RDFNode, Variable] ]]] =
-	   rep1sep((eitherRDFNodeOrVariable ~ objectsTemplate) ^^ { case pred~objs => for (obj <- objs) yield (pred,obj) }, ";") ^^ { _ flatten }
+		rep1sep((verbTemplate ~ objectsTemplate) ^^ { case pred~objs => for (obj <- objs) yield (pred,obj) }, ";") ^^ { _ flatten }
 
 	def triplesSameSubjectTemplate : Parser[List[TripleTemplate]] =
 	  eitherRDFNodeOrVariable~predicateObjectsTemplate ^^
