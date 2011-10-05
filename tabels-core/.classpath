@@ -10,5 +10,6 @@
 	<classpathentry kind="lib" path="lib/scalatest-1.6.1.jar"/>
 	<classpathentry kind="lib" path="lib/scalatest-1.6.1-tests.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/grizzled-slf4j.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>
