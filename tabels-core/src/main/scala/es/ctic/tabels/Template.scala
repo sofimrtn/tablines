@@ -50,6 +50,7 @@ case class Literal(value : String) extends RDFNode {
 
 case class Resource(uri : String) extends RDFNode {
 	def getValue:String = uri
+	def +(suffix : String) : Resource = Resource(this.uri + suffix)
 }
 
 object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")

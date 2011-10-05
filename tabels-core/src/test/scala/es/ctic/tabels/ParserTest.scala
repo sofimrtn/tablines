@@ -45,10 +45,19 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (rdfLiteral, "?x")
 	}
 
-	@Test def parseUriRef() {
+	@Test def parseIriRef() {
 		assertParse(iriRef, "<http://example.org/>", Resource("http://example.org/"))
 		assertFail(iriRef, "http://example.org/")
 		assertFail(iriRef, "<http://example.org/> <http://example.com>")
+	}
+	
+	@Test def parseCurieRef() {
+		prefixes += ("foo" -> Resource("http://example.org/"))
+		assertParse(curieRef, "foo:bar", Resource("http://example.org/bar"))
+		assertFail(curieRef,  "")
+		assertFail(curieRef,  "foo")
+		assertFail(curieRef,  "foo:")
+		assertFail(curieRef,  ":bar") // FIXME: default namespace should be allowed
 	}
 	
 	@Test def parseEitherRDFNodeOrVariable() {
@@ -61,6 +70,15 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	@Test def parseStart() {
 		// FIXME: test some programs
 		assertParse(start, "", S())
+	}
+	
+	@Test def parsePrefixDecl() {
+		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", Map("foo" -> Resource("http://example.org/")))
+		assertEquals(Resource("http://example.org/"), prefixes("foo"))
+		assertFail (prefixDecl, "")
+		assertFail (prefixDecl, "PREFIX foo:")
+		assertFail (prefixDecl, "PREFIX <http://example.org/>")
+		assertFail (prefixDecl, "PREFIX : <http://example.org/>") // FIXME: default namespace should be allowed
 	}
 	
 	@Test def parsePattern() {
@@ -102,8 +120,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
 
 	@Test def parseVerbTemplate() {
+		prefixes += ("foo" -> Resource("http://example.org/"))
 		assertParse(verbTemplate, "<http://example.org/>", Left(Resource("http://example.org/")))
 		assertParse(verbTemplate, "a", Left(RDF_TYPE))
+		assertParse(verbTemplate, "foo:bar", Left(Resource("http://example.org/bar")))
 		assertParse(verbTemplate, "?x", Right(Variable("?x")))
 		assertFail (verbTemplate, "")
 		assertFail (verbTemplate, "\"hello\"")

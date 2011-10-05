@@ -6,7 +6,11 @@ import es.ctic.tabels.TupleType._
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
+import scala.collection._
+
 class TabelsParser extends JavaTokenParsers {
+	
+	val prefixes = mutable.HashMap.empty[String, Resource]
 
 	// language terminal symbols
 
@@ -27,6 +31,7 @@ class TabelsParser extends JavaTokenParsers {
 	def VERTICAL = "vertical".ignoreCase
 	def LET = "let".ignoreCase
 	def A = "a".ignoreCase
+	def PREFIX = "prefix".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -46,14 +51,18 @@ class TabelsParser extends JavaTokenParsers {
 	def rdfLiteral : Parser[Literal] = stringLiteral ^^ { quotedString => Literal(quotedString.slice(1,quotedString.length-1)) } // FIXME: other literals
 
 	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
+	
+	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^ { case prefix~local => prefixes(prefix) + local }
 		
-	def rdfNode : Parser[RDFNode] = iriRef | rdfLiteral
+	def rdfNode : Parser[RDFNode] = iriRef | curieRef | rdfLiteral
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	def start : Parser[S] = rep(prefixDecl)~>rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	
+	def prefixDecl = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^ { case prefix~ns => prefixes += (prefix -> ns) }
 	
 	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
 		letWhereExpression ^^ { pm => Pattern(Right(pm))}
@@ -79,6 +88,7 @@ class TabelsParser extends JavaTokenParsers {
     
 	def verbTemplate : Parser[Either[RDFNode, Variable]] =
 		iriRef ^^ { Left(_) } |
+		curieRef ^^ { Left(_) } |
 		A ^^ { _ => Left(RDF_TYPE) } |
 		variable ^^ { Right (_) }
    
