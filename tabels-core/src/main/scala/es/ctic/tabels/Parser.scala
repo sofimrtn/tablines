@@ -2,6 +2,7 @@ package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
 import es.ctic.tabels.TupleType._
+import es.ctic.tabels.Operator._
 
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
@@ -26,6 +27,7 @@ class TabelsParser extends JavaTokenParsers {
 	def HORIZONTAL = "horizontal".ignoreCase
 	def VERTICAL = "vertical".ignoreCase
 	def LET = "let".ignoreCase
+	def RESOURCE = "resource".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -35,6 +37,8 @@ class TabelsParser extends JavaTokenParsers {
 		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
+	
+	def operator : Parser[Operator] = (RESOURCE) ^^ { o => Operator.withName(o.toLowerCase) }
 	
 	//FIX ME: I accept everything as a regular expression. Use a better RE
 	def filterCondition : Parser[FilterCondition] = (IGNORE~>BLANKS)^^{b => FilterCondition("""\s*""")}|
@@ -69,8 +73,8 @@ class TabelsParser extends JavaTokenParsers {
         (LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
         {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
 	
-    def expression: Parser[Expression] = ("RESOURCE(" ~> variable )~ (","~> """[a-zA-Z0-9:#/\.\?\-]+""".r <~")") ^^ 
-    {case v~u => Expression(v, u)}
+    def expression: Parser[Expression] = ((operator <~"(") ~ variable )~ (","~> rep1sep("""[a-zA-Z0-9:#/\.\?\-]+""".r , ",")<~")") ^^ 
+    {case op~v~u => Expression(operator=op, v, args = u)}
     
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^

@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
+import es.ctic.tabels.Operator._
 import es.ctic.tabels.TupleType._
 import scala.util.matching.Regex
 
@@ -83,11 +84,7 @@ case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType) exten
   }
 }
 
-case class Expression (variable : Variable, param : String) extends Evaluable {
 
-  def getResource(value : String) : RDFNode = Resource (param.concat(value))
-
-}
 	
 
 

@@ -19,15 +19,15 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
-			
+			    prefix steel: <http://ontorule-project.eu/resources/steel#>
 				For ?idCoil in rows	
 					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp ] as horizontal
 			          let ?idCoilAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#coil)
 						let ?orderAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#order)
 							let ?steelGradeAsResource = RESOURCE(?steelGrade, http://ontorule-project.eu/resources/steel#)
 							
-				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> ;
-				  <http://ontorule-project.eu/resources/steel#order> ?orderAsResource ;
+				{ ?idCoilAsResource a steel:Coil ;
+				  steel:order ?orderAsResource ;
 			      <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource ;
 			      <http://ontorule-project.eu/resources/steel#codeOutput> ?codeOutput ;
 			      <http://ontorule-project.eu/resources/steel#identifier> ?idCoil.
