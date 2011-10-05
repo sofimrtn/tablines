@@ -19,17 +19,35 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
 			val program : S = parser.parseProgram("""
-			let @tuple[?idCoilTitle,?codeOutputTitle,?steelGradeTitle,?productTypeTitle,?minWidthTitle,?maxWidthTitle] as horizontal
+			
 				For ?idCoil in rows	
-					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth] as horizontal
+					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp ] as horizontal
 			          let ?idCoilAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#coil)
 						let ?orderAsResource = RESOURCE(?idCoil, http://ontorule-project.eu/resources/steeldata#order)
 							let ?steelGradeAsResource = RESOURCE(?steelGrade, http://ontorule-project.eu/resources/steel#)
 							
-				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> ;
-				                    <http://ontorule-project.eu/resources/steel#order> ?orderAsResource ;
-			                        <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource
-				 
+				{ ?idCoilAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Coil> .
+				  ?idCoilAsResource <http://ontorule-project.eu/resources/steel#order> ?orderAsResource .
+			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource .
+			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#codeOutput> ?codeOutput .
+			      ?idCoilAsResource <http://ontorule-project.eu/resources/steel#identifier> ?idCoil.
+			      
+				  ?orderAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Order>.
+				  ?orderAsResource <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#widthMax> ?maxWidth .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#originalCoilThicknessMin> ?minThick .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#originalCoilThicknessMax> ?maxThick.
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#zincThicknessMin> ?minZincThick .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#zincThicknessMax> ?maxZincThick .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#weightMin> ?minWeight .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#weightMax> ?maxWeight .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#skinPassElongationMin> ?minElongation .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#skinPassElongationMax> ?maxElongation .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#yieldStrengthMin> ?minYieldStr .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#yieldStrengthMax> ?maxYieldStr .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#temperatureMin> ?minEndTemp .
+			      ?orderAsResource <http://ontorule-project.eu/resources/steel#temperatureMax> ?maxEndTemp .
+				  
 			    }
 				""") // FIXME
 
