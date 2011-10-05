@@ -46,8 +46,9 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 
 	@Test def parseUriRef() {
-		assertParse(uriRef, "<http://example.org/>", Resource("http://example.org/"))
-		assertFail(uriRef, "http://example.org/")
+		assertParse(iriRef, "<http://example.org/>", Resource("http://example.org/"))
+		assertFail(iriRef, "http://example.org/")
+		assertFail(iriRef, "<http://example.org/> <http://example.com>")
 	}
 	
 	@Test def parseEitherRDFNodeOrVariable() {

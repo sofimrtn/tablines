@@ -45,9 +45,9 @@ class TabelsParser extends JavaTokenParsers {
 
 	def rdfLiteral : Parser[Literal] = stringLiteral ^^ { quotedString => Literal(quotedString.slice(1,quotedString.length-1)) } // FIXME: other literals
 
-	def uriRef : Parser[Resource] = "<" ~> """[a-zA-Z0-9:#/\.\?\-]+""".r <~ ">" ^^ Resource // FIXME: use a better RE
-	
-	def rdfNode : Parser[RDFNode] = uriRef | rdfLiteral
+	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
+		
+	def rdfNode : Parser[RDFNode] = iriRef | rdfLiteral
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
@@ -78,7 +78,7 @@ class TabelsParser extends JavaTokenParsers {
     	{case vs~tt => Tuple(vs,tt)}
     
 	def verbTemplate : Parser[Either[RDFNode, Variable]] =
-		uriRef ^^ { Left(_) } |
+		iriRef ^^ { Left(_) } |
 		A ^^ { _ => Left(RDF_TYPE) } |
 		variable ^^ { Right (_) }
    
