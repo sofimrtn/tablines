@@ -26,13 +26,12 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 	}
 	
 	def instantiate(bindingList : Bindings, dataOutput: DataOutput) = {
-	  
-	  dataOutput.generateOutput(new Statement(substitute(s, bindingList) ,substitute(p, bindingList), substitute(o, bindingList))) 
-	  
+	  dataOutput.generateOutput(new Statement(substitute(s, bindingList),
+	                                          substitute(p, bindingList),
+	                                          substitute(o, bindingList))) 
 	}
 	
-	def substitute(x : Either[RDFNode, Variable], bindingList : Bindings) : RDFNode = {
-	  
+	private def substitute(x : Either[RDFNode, Variable], bindingList : Bindings) : RDFNode = {
 	   x match {
 	   	case Left(rdfNode) => rdfNode
 	   	//FIX ME: variables can also be literals
@@ -42,16 +41,15 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 
 }
 
-abstract class RDFNode(){
+abstract class RDFNode() {
 	def getValue : String
 }
-case class Literal(value : String) extends RDFNode{
-  
+
+case class Literal(value : String) extends RDFNode {
 	def getValue:String = value
 }
 
-case class Resource(uri : String) extends RDFNode{
-  
+case class Resource(uri : String) extends RDFNode {
 	def getValue:String = uri
 }
 
