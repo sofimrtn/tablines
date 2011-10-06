@@ -53,15 +53,7 @@ case class FilterCondition (condition : String) extends Evaluable {
   }
 }
 
-case class Position (row : Int, col: Int) extends Evaluable {
-	
-	override def toString() : String = columnConverter.intToAlpha(col) + (row+1)
-	
-	def accept(vis : Visitor) = {
-	    
-	    vis.visit(this)
-	  }
-}
+
 
 
 case class StopCondition (cond: String) extends Evaluable

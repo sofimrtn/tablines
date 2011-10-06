@@ -34,13 +34,17 @@ class TabelsParser extends JavaTokenParsers {
 	def RESOURCE = "resource".ignoreCase
 	def A = "a".ignoreCase
 	def PREFIX = "prefix".ignoreCase
+	def PLACED = "placed".ignoreCase
+	def WITH = "with".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
     def tupleType: Parser[TupleType] = AS ~> (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
     
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
-		{ case c~r => new Position(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }
+		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
+		((PLACED ~> WITH) ~> variable) ^^
+		{ case v => VariableRelativePosition(v) }
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 	

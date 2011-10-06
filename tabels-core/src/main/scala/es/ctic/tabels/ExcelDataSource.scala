@@ -28,7 +28,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 	logger.debug("Getting value at " + point)
     val workbook : Workbook = getWorkbook(new File (point.path) )
 	val sheet : Sheet = workbook.getSheet(point.tab)
-	val cell : Cell = sheet.getCell(point.row, point.col)
+	val cell : Cell = sheet.getCell(point.col, point.row)
     return ExcelCellValue(cell)
   }
   

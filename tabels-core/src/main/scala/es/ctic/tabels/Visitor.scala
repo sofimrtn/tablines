@@ -66,7 +66,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    							BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	    						} else {
 	      	      					for (row <- 0 until dataSource.getRows(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
-	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, evaluationContext.getValue(Dimension.cols).toInt)
+	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.cols).toInt, row)
 				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.rows, row.toString()).addBinding(bindExp.variable, Literal(dataSource.getValue(point).getContent), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
@@ -78,7 +78,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    							BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	    						} else {
 	      	      					for (col <- 0 until dataSource.getCols(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets))){
-	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, col)
+	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), col, evaluationContext.getValue(Dimension.rows).toInt)
 				    					newEvaluationContext = evaluationContext.addDimension(Dimension.cols, col.toString()).addBinding(bindExp.variable, Literal(dataSource.getValue(point).getContent), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
@@ -89,7 +89,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    							BindingExpression(variable = Variable("?_FILE"),dimension = Dimension.files, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	    						} else {
 	      	      					for (sheet <- dataSource.getTabs(evaluationContext.getValue(Dimension.files)) ){
-	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
+	      	      						val point = new Point(evaluationContext.getValue(Dimension.files), sheet, evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
 				    				   	newEvaluationContext = evaluationContext.addDimension(Dimension.sheets, sheet.toString()).addBinding(bindExp.variable, Literal(sheet), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
@@ -98,7 +98,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    						}
 	    
 	    case Dimension.files => for (file <- dataSource.filenames ){
-	    					 			val point = new Point(file, evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.rows).toInt, evaluationContext.getValue(Dimension.cols).toInt)
+	    					 			val point = new Point(file, evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
 				    					newEvaluationContext = evaluationContext.addDimension(Dimension.files, file).addBinding(bindExp.variable, Literal(file), point)
 				    					val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 								    	events += event
@@ -123,14 +123,14 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
 	  		
 			letWhereExpression.position match{
-		  	  case Some(p) =>	row = p.row
-								col = p.col
+		  	  case Some(p) =>	row = p.getRow(evaluationContext)
+								col = p.getCol(evaluationContext)
 		  	  case None =>		row = evaluationContext.getValue(Dimension.rows).toInt
 								col = evaluationContext.getValue(Dimension.cols).toInt
 		  	}
 	  		
 	  				  	
-		  	var point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+		  	var point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), col, row)
 
 		  	letWhereExpression.tupleOrVariable match{
 		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
@@ -140,7 +140,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  		  						case TupleType.horizontal => col += 1
 		  		  						case TupleType.vertical => row += 1
 		  		  					}
-		  		  					point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), row, col)
+		  		  					point = Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), col, row)
 		  	  						})
 		  	  						val event = new Event(newEvaluationContext.bindings, Set(tuple.variables:_*))
 		  		  					events += event
