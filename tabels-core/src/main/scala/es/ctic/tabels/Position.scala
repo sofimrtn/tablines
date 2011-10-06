@@ -1,5 +1,7 @@
 package es.ctic.tabels
 
+import es.ctic.tabels.RelativePos._
+
 abstract class Position(r: Int, c : Int) extends Evaluable {
   
 	val row = r
@@ -21,7 +23,7 @@ case class FixedPosition (override val row : Int , override val col: Int) extend
 	  }
 }
 
-case class VariableRelativePosition (variable : Variable) extends Position(0,0) {
+case class WithVariablePosition (variable : Variable) extends Position(0,0) {
 	
 	override def toString() : String = columnConverter.intToAlpha(col) + (row+1)
 	
@@ -33,14 +35,36 @@ case class VariableRelativePosition (variable : Variable) extends Position(0,0) 
 	  }
 }
 
-case class RelativePosition (variable : Variable) extends Position(0,0) {
+case class RelativePosition (relativity : RelativePos, reference:Position, displacement: Int) extends Position(0,0) {
 	
 	override def toString() : String = columnConverter.intToAlpha(col) + (row+1)
-	//FIX ME: I'm not sure where the problem comes from but columns and rows are crossed at these point 
-	override def getRow(evaluationContext: EvaluationContext) : Int = evaluationContext.bindings.getPoint(variable).row
-	override def getCol(evaluationContext: EvaluationContext) : Int = evaluationContext.bindings.getPoint(variable).col
+	
+	override def getRow(evaluationContext: EvaluationContext) : Int ={
+	 
+	  println("posicion row\n" + reference.getCol(evaluationContext))
+	  
+	  relativity match{
+	    case RelativePos.top =>  (reference.getRow(evaluationContext)) - displacement
+	    case RelativePos.bottom =>  (reference.getRow(evaluationContext)) + displacement
+	    case _=> reference.getRow(evaluationContext)
+	  }
+	}
+	
+	override def getCol(evaluationContext: EvaluationContext) : Int = {
+		
+	  println("posicion col \n" + reference.getCol(evaluationContext))
+	  
+	  relativity match{
+	    case RelativePos.left =>  (reference.getCol(evaluationContext)) - displacement
+	    case RelativePos.right =>  (reference.getCol(evaluationContext)) + displacement
+	    case _=> reference.getCol(evaluationContext)
+	  }
+	  
+	  
+	}
 	override def accept(vis : Visitor) = {
 	    
 	    vis.visit(this)
 	  }
 }
+

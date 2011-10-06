@@ -2,13 +2,13 @@ package es.ctic.tabels
 
 // enumerations are explained in sect 20.8 of the Scala book
 
-object RelativityEnum extends Enumeration {
+object RelativePos extends Enumeration {
 
-	type RelativityEnum = Value
+	type RelativePos = Value
 	
 	val left = Value("left")
 	val right = Value("right")
-	val top = Value("top") // aka: "tabs"
+	val top = Value("top") 
 	val bottom = Value("bottom")
 
 }

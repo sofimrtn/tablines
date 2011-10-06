@@ -23,13 +23,15 @@ object CLI extends Logging {
 				For ?idCoil in rows	
 					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp ] as horizontal
 			          let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
-						let ?prueba in cell placed with ?productType
+						
 						let ?orderAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#order>)
 							let ?steelGradeAsResource = RESOURCE(?steelGrade, <http://ontorule-project.eu/resources/steel#>)
 								let ?asignacion = ?codeOutput
+									let ?prueba in cell is located left placed with ?steelGrade
 							
 				{ 
 			      steel:steelGrade <http://ontorule-project.eu/resources/steel#steelGrade> ?prueba.
+			    
 				  ?idCoilAsResource a steel:Coil ;
 				  steel:order ?orderAsResource ;
 			      <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource ;

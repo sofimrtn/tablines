@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
+import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
 import es.ctic.tabels.Operator._
 
@@ -36,6 +37,12 @@ class TabelsParser extends JavaTokenParsers {
 	def PREFIX = "prefix".ignoreCase
 	def PLACED = "placed".ignoreCase
 	def WITH = "with".ignoreCase
+	def IS = "is".ignoreCase
+	def LOCATED = "located".ignoreCase
+	def LEFT = "left".ignoreCase
+	def RIGHT = "right".ignoreCase
+	def TOP = "top".ignoreCase
+	def BOTTOM = "bottom".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -44,7 +51,9 @@ class TabelsParser extends JavaTokenParsers {
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
 		((PLACED ~> WITH) ~> variable) ^^
-		{ case v => VariableRelativePosition(v) }
+		{ case v => WithVariablePosition(v) }|
+		((IS ~> LOCATED)~>(LEFT|RIGHT|BOTTOM|TOP) ~ position) ^^
+		{ case r~p => RelativePosition(RelativePos.withName(r),p,1) }
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 	
