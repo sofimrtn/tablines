@@ -50,10 +50,10 @@ class TabelsParser extends JavaTokenParsers {
     
     def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
-		((PLACED ~> WITH) ~> variable) ^^
+		( variable) ^^
 		{ case v => WithVariablePosition(v) }|
-		((IS ~> LOCATED)~>(LEFT|RIGHT|BOTTOM|TOP) ~ position) ^^
-		{ case r~p => RelativePosition(RelativePos.withName(r),p,1) }
+		("""[0-9]+""".r ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position) ^^
+		{ case d~r~p => RelativePosition(RelativePos.withName(r),p,d.toInt) }
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 	
@@ -88,7 +88,7 @@ class TabelsParser extends JavaTokenParsers {
        
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
-		((LET ~> variable) ~ (IN ~> CELL ~>opt(position)) ~ rep(filterCondition))~ rep(pattern) ^^
+		((LET ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ rep(filterCondition))~ rep(pattern) ^^
         { case v~p~fc~pat => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc, childPatterns = pat) }|
         ((LET ~> tuple) ~opt(position) ~ rep(filterCondition))~ rep(pattern) ^^
         { case t~p~fc~pat => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc, childPatterns = pat) }|
