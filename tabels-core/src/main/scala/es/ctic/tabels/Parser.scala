@@ -3,7 +3,6 @@ package es.ctic.tabels
 import es.ctic.tabels.Dimension._
 import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
-import es.ctic.tabels.Operator._
 
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader

@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-abstract class Expression {
+abstract class Expression extends EvaluableExpression{
   
   def evaluate(evaluationContext : EvaluationContext) : RDFNode
 

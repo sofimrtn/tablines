@@ -1,7 +1,6 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
-import es.ctic.tabels.Operator._
 import es.ctic.tabels.TupleType._
 import scala.util.matching.Regex
 
@@ -24,7 +23,7 @@ case class LetWhereExpression(filterCondList: Seq[FilterCondition] = List(), pos
 }
 
 case class BindingExpression(dimension : Dimension, filterCondList: Seq[FilterCondition] = List(), 
-		pos : Position = null, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),
+		pos : Option[Position] = None, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),
 		childPatterns: Seq[Pattern] = Seq() ) extends Evaluable {
   
   def accept(vis : Visitor) = {

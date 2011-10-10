@@ -14,6 +14,8 @@ case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMa
 	  else "0"
 	}
 	
+//	def getReferencePosition : Point
+	
 	def addBinding(variable : Variable, value : RDFNode, point: Point) : EvaluationContext =
 	EvaluationContext(dimensionMap, bindings.addBinding(variable,value, point))
 		

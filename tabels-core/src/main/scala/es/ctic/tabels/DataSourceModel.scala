@@ -10,7 +10,14 @@ abstract class DataSource {
   
 }
 
-case class Point(path : String, tab: String, col: Int, row: Int)
+case class Point(path : String, tab: String, col: Int, row: Int){
+  
+  def RightPoint : Point = Point(path,tab,col+1,row)
+  def LeftPoint : Point = Point(path,tab,col-1,row)
+  def TopPoint : Point = Point(path,tab,col,row-1)
+  def BottomPoint : Point = Point(path,tab,col,row+1)
+}
+	
 
 abstract class CellValue{
   
