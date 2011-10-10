@@ -1,4 +1,6 @@
 package es.ctic.tabels
+import es.ctic.tabels.Dimension._
+
 
 abstract class DataSource {
 
@@ -7,6 +9,7 @@ abstract class DataSource {
   def getTabs(filename : String) : Seq[String]
   def getRows(filename : String, tabName : String) : Int
   def getCols(filename : String, tabName : String) : Int
+  def getDimensionRange(dimension:Dimension, evaluationContext: EvaluationContext):Seq[String]
   
 }
 
