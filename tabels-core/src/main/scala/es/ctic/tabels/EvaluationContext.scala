@@ -35,7 +35,12 @@ case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
 
   def isBound(variable : Variable) : Boolean = bindingsMap.contains(variable)
   
-  def getValue(variable : Variable) : RDFNode = bindingsMap.get(variable).get.value // throws exception if unbound
+  def getValue(variable : Variable) : RDFNode = 
+    
+    if(isBound(variable))
+    	bindingsMap.get(variable).get.value
+    else throw new UnboundVariableException(variable)
+   
 
   def getPoint(variable : Variable) : Point = bindingsMap.get(variable).get.point // throws exception if unbound
   

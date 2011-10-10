@@ -58,7 +58,7 @@ object CLI extends Logging {
 
 		  	val program : S = parser.parseProgram("""
 			    prefix steel: <http://ontorule-project.eu/resources/steel#>
-				For ?idCoil in rows	
+				For ?idCoil in rows
 					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp ] as horizontal
 			          let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
 						let ?orderAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#order>)

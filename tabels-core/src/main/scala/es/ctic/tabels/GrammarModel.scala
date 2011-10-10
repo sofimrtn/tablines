@@ -22,7 +22,7 @@ case class LetWhereExpression(filterCondList: Seq[FilterCondition] = List(), pos
 	  }
 }
 
-case class BindingExpression(dimension : Dimension, filterCondList: Seq[FilterCondition] = List(), 
+case class BindingExpression(dimension : Dimension, filter: Option[Expression] = None, 
 		pos : Option[Position] = None, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),
 		childPatterns: Seq[Pattern] = Seq() ) extends Evaluable {
   

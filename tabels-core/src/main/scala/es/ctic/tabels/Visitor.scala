@@ -80,9 +80,11 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  }
 		
     	newEvaluationContext = newEvaluationContext.addBinding(bindExp.variable, Literal(value), point)
-		val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
-		events += event
-		bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+    	if(bindExp.filter.isEmpty || bindExp.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
+	    	val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
+			events += event
+			bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+		}
       }
 	}
 	  

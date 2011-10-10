@@ -42,15 +42,38 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 
 abstract class RDFNode() {
 	def getValue : String
+	//FIX ME
+	def asBoolean : Literal
+	
 }
 
-case class Literal(value : String) extends RDFNode {
+case class Literal(value : String, rdfType: Resource = XSD_STRING) extends RDFNode {
+	
 	def getValue:String = value
+	def truthValue : Boolean = this.asBoolean == LITERAL_TRUE
+	
+	override def asBoolean : Literal = {
+		if(rdfType == XSD_BOOLEAN){
+		  return this
+		}
+		else{//FIX ME be smarter in true decision
+		  if(value!="")
+		    return LITERAL_TRUE
+		    else{
+		      return LITERAL_FALSE
+		    }
+		}
+	}
 }
 
 case class Resource(uri : String) extends RDFNode {
 	def getValue:String = uri
+	override def asBoolean : Literal = LITERAL_TRUE
 	def +(suffix : String) : Resource = Resource(this.uri + suffix)
 }
 
 object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+object XSD_STRING extends Resource("http://www.w3.org/2001/XMLSchema#string")
+object XSD_BOOLEAN extends Resource("http://www.w3.org/2001/XMLSchema#boolean")
+object LITERAL_TRUE extends Literal("true", XSD_BOOLEAN)
+object LITERAL_FALSE extends Literal("false", XSD_BOOLEAN)

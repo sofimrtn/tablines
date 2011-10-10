@@ -82,8 +82,8 @@ class TabelsParser extends JavaTokenParsers {
 	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
 		letWhereExpression ^^ { pm => Pattern(Right(pm))}
 
-	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~ rep(pattern) ^^
-        { case v~d~p => BindingExpression(variable = v, dimension = d, childPatterns = p) }
+	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~opt(FILTER ~> expression) ~ rep(pattern) ^^
+        { case v~d~f~p => BindingExpression(variable = v, dimension = d, childPatterns = p, filter = f) }
        
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
