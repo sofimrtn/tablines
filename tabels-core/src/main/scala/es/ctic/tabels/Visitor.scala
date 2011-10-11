@@ -70,8 +70,9 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	} 
     else {
       for (dimensionIterator <- dataSource.getDimensionRange(bindExp.dimension, evaluationContext)){
-    	newEvaluationContext = evaluationContext.addDimension(bindExp.dimension, dimensionIterator)
-        val point = new Point(evaluationContext.getValue(Dimension.files), evaluationContext.getValue(Dimension.sheets), evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
+    	logger.debug("Iteration through " + bindExp.dimension+" in position "+dimensionIterator )
+        newEvaluationContext = evaluationContext.addDimension(bindExp.dimension, dimensionIterator)
+        val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
 		val value = bindExp.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(point).getContent
 		    case Dimension.cols =>	dataSource.getValue(point).getContent
@@ -110,7 +111,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 								
 		  	}
 	  		
-	  				  	
+	  		var event : Event = null		  	
 		  	letWhereExpression.tupleOrVariable match{
 		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
 			  	  					//letWhereExpression.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
@@ -121,20 +122,20 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  		  					}
 		  		  					
 		  	  						})
-		  	  						val event = new Event(newEvaluationContext.bindings, Set(tuple.variables:_*))
-		  		  					events += event
-		  	  case Right(variable) =>letWhereExpression.filterCondList.foreach(filter => 	
-		  	    					if(!filter.filterValue(dataSource.getValue(position).getContent)){return})
-					  	
-		  	    					letWhereExpression.expression match{
+		  	  						event = Event(newEvaluationContext.bindings, Set(tuple.variables:_*))
+		  		  					
+		  	  case Right(variable) =>letWhereExpression.expression match{
 			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.evaluate(newEvaluationContext), position)
 			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, Literal(dataSource.getValue(position).getContent), position)
 		  	  						}
-		  	    					val event = new Event(newEvaluationContext.bindings, Set(variable))
-		  	    					events += event
+		  	    					
+			  	  					event = Event(newEvaluationContext.bindings, Set(variable))
+			  	    					
 		  	}
-		  	letWhereExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-	 	    	
+		  	if(letWhereExpression.filter.isEmpty || letWhereExpression.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
+		  	  events += event
+		  	  letWhereExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+		  	}
 	  }
   }
  }

@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
+import scala.util.matching.Regex
 import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
 
@@ -42,6 +43,7 @@ class TabelsParser extends JavaTokenParsers {
 	def RIGHT = "right".ignoreCase
 	def TOP = "top".ignoreCase
 	def BOTTOM = "bottom".ignoreCase
+	def MATCHES = "matches".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -87,17 +89,22 @@ class TabelsParser extends JavaTokenParsers {
        
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
-		((LET ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ rep(filterCondition))~ rep(pattern) ^^
-        { case v~p~fc~pat => LetWhereExpression(tupleOrVariable = Right(v), position = p, filterCondList= fc, childPatterns = pat) }|
-        ((LET ~> tuple) ~opt(position) ~ rep(filterCondition))~ rep(pattern) ^^
-        { case t~p~fc~pat => LetWhereExpression(tupleOrVariable = Left(t), position = p, filterCondList= fc, childPatterns = pat) }|
+		((LET ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
+        { case v~p~fc~pat => LetWhereExpression(tupleOrVariable = Right(v), position = p, filter = fc, childPatterns = pat) }|
+        ((LET ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
+        { case t~p~fc~pat => LetWhereExpression(tupleOrVariable = Left(t), position = p, filter = fc, childPatterns = pat) }|
         (LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
         {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
 	
-    def expression: Parser[Expression] = ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
-    {case v~u => ResourceExpression(expression = v, uri = u)}|
-    variable ^^ VariableReference
-    
+    def regex : Parser[Regex] =
+      ("""\".*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
+      
+    def expression: Parser[Expression] = 
+      ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
+      		{case v~u => ResourceExpression(expression = v, uri = u)}|		
+       variable ^^ VariableReference |
+       ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
+      		{case e~r => RegexExpression(expression = e, re = r)}
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}

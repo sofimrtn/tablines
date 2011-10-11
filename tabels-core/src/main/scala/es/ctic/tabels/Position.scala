@@ -42,8 +42,8 @@ case class RelativePosition (relativity : RelativePos, reference:Position, displ
 	  relativity match{
 	    case RelativePos.top =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col,(reference.getPosition(evaluationContext)).row - displacement)
 	    case RelativePos.bottom =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col,(reference.getPosition(evaluationContext)).row + displacement)
-	    case RelativePos.left =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col,(reference.getPosition(evaluationContext)).col - displacement)
-	    case RelativePos.right =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col,(reference.getPosition(evaluationContext)).col + displacement)
+	    case RelativePos.left =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col - displacement,(reference.getPosition(evaluationContext)).row)
+	    case RelativePos.right =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col + displacement,(reference.getPosition(evaluationContext)).row)
 	  }
 	
 	}

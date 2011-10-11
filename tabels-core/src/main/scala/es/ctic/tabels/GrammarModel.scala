@@ -13,7 +13,7 @@ case class Pattern ( concretePattern : Either[BindingExpression,LetWhereExpressi
 	    vis.visit(this)
 	  }
 }
-case class LetWhereExpression(filterCondList: Seq[FilterCondition] = List(), position : Option[Position] = None , 
+case class LetWhereExpression(filter: Option[Expression] = None, position : Option[Position] = None , 
 		 tupleOrVariable: Either[Tuple,Variable], childPatterns: Seq[Pattern] = Seq(), expression: Option[Expression]= None) extends Evaluable{
   
 	def accept(vis : Visitor) = {
