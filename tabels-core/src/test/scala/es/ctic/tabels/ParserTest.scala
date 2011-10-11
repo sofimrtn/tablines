@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
+import scala.util.matching.Regex
 import org.scalatest.junit.JUnitSuite
 import org.junit.Test
 import org.junit.Assert._
@@ -119,6 +120,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (letWhereExpression, "IN CELL A1")
     }
     
+    @Test def parseRegex(){
+      assertFail(regex, "\"(hola\"")
+    }
+     
     @Test def parseExpression(){
 	    
       //ResourceExpression
@@ -131,7 +136,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
       //VariableReference
         assertParse(expression, "?y", VariableReference(Variable("?y")))
         assertFail(expression, "y")
-        
+       
+      //RegexExpression
+        //This test can't be done because Regex does not support the equal operation between regular expressions
+        //assertParse(expression, "matches (?y, \"hola\")", RegexExpression(VariableReference(Variable("?y")),new Regex("hola")))
+        assertFail(expression, "matches (?y, \"(hola\")")
         
    }
     
