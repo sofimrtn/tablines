@@ -17,23 +17,28 @@ case class ResourceExpression(expression:Expression, uri : Resource) extends Exp
   override def evaluate(evaluationContext : EvaluationContext) = uri + expression.evaluate(evaluationContext).getValue
   }
 
-case class RegexExpression(expression : Expression , re : Regex) extends Expression{
-  
-	override def evaluate(evaluationContext : EvaluationContext) ={ 
-	   
-	  println("evaluamos expresion: " + expression.evaluate(evaluationContext).getValue)
-	/*  expression.evaluate(evaluationContext).getValue match{
-	  case re(_) => LITERAL_TRUE
-	  case _ => LITERAL_FALSE
-	}*/
-	 expression.evaluate(evaluationContext).getValue.matches(re.toString()) match{
-	    case true =>  LITERAL_TRUE
-	    case false => LITERAL_FALSE
-	  }
-	}
-	}
-
 case class LiteralExpression( literal : String) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = Literal(value = literal)
 }
+
+case class RegexExpression(expression : Expression , re : Regex) extends Expression{
+  
+	override def evaluate(evaluationContext : EvaluationContext) =
+	   
+	 expression.evaluate(evaluationContext).getValue.matches(re.toString()) match{
+	    case true =>  LITERAL_TRUE
+	    case false => LITERAL_FALSE
+	  }
+}
+
+case class NotExpression(expression:Expression) extends Expression{
+  
+  override def evaluate(evaluationContext:EvaluationContext) = 
+    
+	 if (expression.evaluate(evaluationContext).asBoolean.truthValue)
+	    LITERAL_FALSE
+	 else
+		LITERAL_TRUE
+}
+

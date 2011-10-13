@@ -58,9 +58,24 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   }
   
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
- 
+  
+  def calculateNewEvaluationContext(bindingExpression: BindingExpression, dimensionIterator: String) : EvaluationContext = {
+     
+     val newEvaluationContext = evaluationContext.addDimension(bindingExpression.dimension, dimensionIterator)
+     val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
+     val value = bindingExpression.dimension match{
+		    case Dimension.rows =>	dataSource.getValue(point).getContent
+		    case Dimension.cols =>	dataSource.getValue(point).getContent
+			case Dimension.sheets =>dimensionIterator
+			case Dimension.files =>	dimensionIterator
+	}
+		
+    return newEvaluationContext.addBinding(bindingExpression.variable, Literal(value), point)
+  }
+  
+  
   override def visit(bindExp : BindingExpression) = {
-    var newEvaluationContext: EvaluationContext = evaluationContext
+   
     logger.debug("Visting binding expression " + bindExp.dimension)
     
     val requiredDimension = requiredDimensionMap(bindExp.dimension)
@@ -69,25 +84,19 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  BindingExpression(variable = Variable("?_" + requiredDimension), dimension = requiredDimension, childPatterns = Seq(Pattern(Left(bindExp)))).accept(this)
 	} 
     else {
-      for (dimensionIterator <- dataSource.getDimensionRange(bindExp.dimension, evaluationContext)){
+      val dimensionValues = dataSource.getDimensionRange(bindExp.dimension, evaluationContext)
+      val evaluationContexts = dimensionValues map (calculateNewEvaluationContext(bindExp, _))
+      val pairsMap = dimensionValues zip evaluationContexts
+      val filteredPairs = pairsMap takeWhile(pair => bindExp.stopCond.isEmpty ||bindExp.stopCond.get.evaluate(pair._2).asBoolean.truthValue) filter
+      						(pair => bindExp.filter.isEmpty ||bindExp.filter.get.evaluate(pair._2).asBoolean.truthValue)
+      
+      for ((dimensionIterator, newEvaluationContext) <- filteredPairs){
     	logger.debug("Iteration through " + bindExp.dimension+" in position "+dimensionIterator )
-        newEvaluationContext = evaluationContext.addDimension(bindExp.dimension, dimensionIterator)
-        val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
-		val value = bindExp.dimension match{
-		    case Dimension.rows =>	dataSource.getValue(point).getContent
-		    case Dimension.cols =>	dataSource.getValue(point).getContent
-			case Dimension.sheets =>dimensionIterator
-			case Dimension.files =>	dimensionIterator
-		  }
-		
-    	newEvaluationContext = newEvaluationContext.addBinding(bindExp.variable, Literal(value), point)
-    	if(bindExp.filter.isEmpty || bindExp.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
-    		
+    	        		
 	    	val event = new Event(newEvaluationContext.bindings, Set(bindExp.variable))
 			events += event
 			bindExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-		}
-      }
+	 }
 	}
 	  
 	

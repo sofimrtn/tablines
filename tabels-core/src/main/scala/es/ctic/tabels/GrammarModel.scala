@@ -23,7 +23,7 @@ case class LetWhereExpression(filter: Option[Expression] = None, position : Opti
 }
 
 case class BindingExpression(dimension : Dimension, filter: Option[Expression] = None, 
-		pos : Option[Position] = None, stopCond : StopCondition = null, variable: Variable = Variable("?_BLANK"),
+		pos : Option[Position] = None, stopCond : Option[Expression] = None, variable: Variable = Variable("?_BLANK"),
 		childPatterns: Seq[Pattern] = Seq() ) extends Evaluable {
   
   def accept(vis : Visitor) = {

@@ -44,6 +44,8 @@ class TabelsParser extends JavaTokenParsers {
 	def TOP = "top".ignoreCase
 	def BOTTOM = "bottom".ignoreCase
 	def MATCHES = "matches".ignoreCase
+	def WHILE = "while".ignoreCase
+	def UNTIL = "until".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -59,10 +61,6 @@ class TabelsParser extends JavaTokenParsers {
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 	
 		
-	//FIX ME: I accept everything as a regular expression. Use a better RE
-	def filterCondition : Parser[FilterCondition] = (IGNORE~>BLANKS)^^{b => FilterCondition("""\s*""")}|
-	((FILTER ~> BY) ~> """.*""".r) ^^ { re => FilterCondition(re)}
-
 	// RDF
 
 	def rdfLiteral : Parser[Literal] = stringLiteral ^^ { quotedString => Literal(quotedString.slice(1,quotedString.length-1)) } // FIXME: other literals
@@ -84,12 +82,12 @@ class TabelsParser extends JavaTokenParsers {
 	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
 		letWhereExpression ^^ { pm => Pattern(Right(pm))}
 
-	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~opt(FILTER ~> expression) ~ rep(pattern) ^^
-        { case v~d~f~p => BindingExpression(variable = v, dimension = d, childPatterns = p, filter = f) }
+	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~filterCondition~ stopCondition ~ rep(pattern) ^^
+        { case v~d~f~s~p => BindingExpression(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }
        
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
-		((LET ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
+		((LET ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(pattern) ^^
         { case v~p~fc~pat => LetWhereExpression(tupleOrVariable = Right(v), position = p, filter = fc, childPatterns = pat) }|
         ((LET ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
         { case t~p~fc~pat => LetWhereExpression(tupleOrVariable = Left(t), position = p, filter = fc, childPatterns = pat) }|
@@ -98,13 +96,21 @@ class TabelsParser extends JavaTokenParsers {
 	
     def regex : Parser[Regex] =
       ("""\".*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
+    
+    def stopCondition : Parser[Option[Expression]] =
+      opt((WHILE ~> expression)|(UNTIL ~> expression)^^{case e =>NotExpression(expression = e) })
+     
+    def filterCondition : Parser[Option[Expression]] = 
+      opt(FILTER ~> expression)
+      
       
     def expression: Parser[Expression] = 
       ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
       		{case v~u => ResourceExpression(expression = v, uri = u)}|		
-       variable ^^ VariableReference |
-       ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
+      variable ^^ VariableReference |
+      ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
       		{case e~r => RegexExpression(expression = e, re = r)}
+      
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}
