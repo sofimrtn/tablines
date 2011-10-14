@@ -10,17 +10,20 @@ abstract class Expression extends EvaluableExpression{
 case class VariableReference(variable:Variable) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable)
-  }
+
+}
 
 case class AddVariableExpression(variable : Variable, expression: Expression) extends Expression{
   
-  override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable) + expression.evaluate(evaluationContext).getValue
-  }
+  override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable) + expression.evaluate(evaluationContext).asString.value
+
+}
 
 case class ResourceExpression(expression:Expression, uri : Resource) extends Expression {
   
-  override def evaluate(evaluationContext : EvaluationContext) = uri + expression.evaluate(evaluationContext).getValue
-  }
+  override def evaluate(evaluationContext : EvaluationContext) = uri + expression.evaluate(evaluationContext).asString.value
+
+}
 
 case class LiteralExpression( literal : String) extends Expression{
   
@@ -31,7 +34,7 @@ case class RegexExpression(expression : Expression , re : Regex) extends Express
   
 	override def evaluate(evaluationContext : EvaluationContext) =
 	   
-	 expression.evaluate(evaluationContext).getValue.matches(re.toString()) match{
+	 expression.evaluate(evaluationContext).asString.value.matches(re.toString()) match{
 	    case true =>  LITERAL_TRUE
 	    case false => LITERAL_FALSE
 	  }
