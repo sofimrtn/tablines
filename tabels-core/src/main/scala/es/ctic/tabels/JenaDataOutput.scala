@@ -28,11 +28,12 @@ class JenaDataOutput extends DataOutput{
   def createObject(s : RDFNode) : com.hp.hpl.jena.rdf.model.RDFNode = {
     s match {
     	case Resource(uri) => model.createResource(uri) 
-    	case Literal(value, XSD_STRING, "") => model.createLiteral(value)
-    	case Literal(value, XSD_STRING, langTag) => model.createLiteral(value, langTag)
+    	case Literal(value, XSD_STRING, "") => model.createLiteral(value) // untyped
+    	case Literal(value, XSD_STRING, langTag) => model.createLiteral(value, langTag) // with language tag
     	case Literal(value, XSD_BOOLEAN, _) => model.createTypedLiteral(value, XSDDatatype.XSDboolean)
     	case Literal(value, XSD_INT, _) => model.createTypedLiteral(value, XSDDatatype.XSDint)
     	case Literal(value, XSD_DOUBLE, _) => model.createTypedLiteral(value, XSDDatatype.XSDdouble)
+    	case Literal(value, XSD_FLOAT, _) => model.createTypedLiteral(value, XSDDatatype.XSDfloat)
     }
   }
 

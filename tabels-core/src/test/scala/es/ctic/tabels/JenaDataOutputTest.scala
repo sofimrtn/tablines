@@ -36,6 +36,15 @@ class JenaDataOutputTest extends JUnitSuite {
       assertEquals(XSD_DOUBLE.uri, output.asLiteral.getDatatypeURI)
   }
 
+  @Test def createFloatLiteralObject {
+      val input = Literal("3.1415", XSD_FLOAT)
+      val output = jenaDataOutput.createObject(input)
+      assertTrue(output.isLiteral)
+      assertEquals("3.1415", output.asLiteral.getString)
+      assertEquals("", output.asLiteral.getLanguage)
+      assertEquals(XSD_FLOAT.uri, output.asLiteral.getDatatypeURI)
+  }
+
   @Test def createIntLiteralObject {
       val input = Literal("3", XSD_INT)
       val output = jenaDataOutput.createObject(input)
