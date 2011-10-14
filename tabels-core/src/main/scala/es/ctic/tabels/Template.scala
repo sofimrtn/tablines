@@ -48,7 +48,7 @@ abstract class RDFNode() {
 	
 }
 
-case class Literal(value : String, rdfType: Resource = XSD_STRING) extends RDFNode {
+case class Literal(value : String, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
 	
 	def getValue:String = value
 	def truthValue : Boolean = this.asBoolean == LITERAL_TRUE

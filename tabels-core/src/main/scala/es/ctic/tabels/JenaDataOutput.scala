@@ -1,5 +1,6 @@
 package es.ctic.tabels
 import com.hp.hpl.jena.rdf.model.{Model,ModelFactory}
+import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 
 class JenaDataOutput extends DataOutput{
 
@@ -9,25 +10,29 @@ class JenaDataOutput extends DataOutput{
    model.add(model.createStatement(createSubject(statement.subject),createProperty(statement.property),createObject(statement.obj)))
   }
   
-  private def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
+  def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
     s match {
     	case Resource(uri) => model.createResource(uri) 
-    	case Literal(value, _) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the subject of a triple" )
+    	case Literal(value, _, _) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the subject of a triple" )
     						
     }
   }
 
-  private def createProperty(s : RDFNode) : com.hp.hpl.jena.rdf.model.Property = {
+  def createProperty(s : RDFNode) : com.hp.hpl.jena.rdf.model.Property = {
     s match {
     	case Resource(uri) => model.createProperty(uri) 
-    	case Literal(value, _) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the predicate of a triple" )
+    	case Literal(value, _, _) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the predicate of a triple" )
     }
   }
 
-  private def createObject(s : RDFNode) : com.hp.hpl.jena.rdf.model.RDFNode = {
+  def createObject(s : RDFNode) : com.hp.hpl.jena.rdf.model.RDFNode = {
     s match {
     	case Resource(uri) => model.createResource(uri) 
-    	case Literal(value, _) => model.createLiteral(value)
+    	case Literal(value, XSD_STRING, "") => model.createLiteral(value)
+    	case Literal(value, XSD_STRING, langTag) => model.createLiteral(value, langTag)
+    	case Literal(value, XSD_BOOLEAN, _) => model.createTypedLiteral(value, XSDDatatype.XSDboolean)
+    	case Literal(value, XSD_INT, _) => model.createTypedLiteral(value, XSDDatatype.XSDint)
+    	case Literal(value, XSD_DOUBLE, _) => model.createTypedLiteral(value, XSDDatatype.XSDdouble)
     }
   }
 

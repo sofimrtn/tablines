@@ -38,9 +38,21 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (dimension, "")
 		assertFail (dimension, "pages")
 	}
+	
+	@Test def parseQuotedString() {
+	    assertParse(quotedString, "\"hello\"", "hello")
+	    assertFail (quotedString, "")
+	}
+	
+	@Test def parseLangTag() {
+	    assertParse(langTag, "en", "en")
+	    assertParse(langTag, "en-US", "en-US")
+	    assertFail (langTag, "")
+	}
 
 	@Test def parseRdfLiteral() {
 		assertParse(rdfLiteral, "\"hello\"", Literal("hello"))
+		assertParse(rdfLiteral, "\"hello\"@en", Literal("hello", langTag = "en"))
 		assertParse(rdfLiteral, "\"5.3\"^^<http://www.w3.org/2001/XMLSchema#double>", Literal("5.3", XSD_DOUBLE))
 		assertParse(rdfLiteral, "3", Literal("3", rdfType = XSD_INT))
 		assertParse(rdfLiteral, "3.1415", Literal("3.1415", rdfType = XSD_DOUBLE))

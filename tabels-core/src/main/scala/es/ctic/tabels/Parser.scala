@@ -14,7 +14,7 @@ class TabelsParser extends JavaTokenParsers {
 
 	val prefixes = mutable.HashMap.empty[String, Resource]
 	
-	// language terminal symbols
+	// keywords
 
 	def CELL = "cell".ignoreCase
 	def FOR  = "for".ignoreCase
@@ -68,10 +68,15 @@ class TabelsParser extends JavaTokenParsers {
 		
 	// RDF
 
+    def quotedString : Parser[String] =
+         stringLiteral ^^ { s => s.slice(1,s.length-1) }
+         
+    def langTag : Parser[String] = """[a-zA-Z][a-zA-Z\-]*""".r
+
 	def rdfLiteral : Parser[Literal] =
-	   (stringLiteral ^^ { quotedString => quotedString.slice(1,quotedString.length-1)}) ~ opt("^^" ~> iriRef) ^^
-	     { case asString~None          => Literal(asString)
-	       case asString~Some(rdfType) => Literal(asString, rdfType) } |
+       quotedString ~ ("^^" ~> iriRef) ^^ { case value~rdfType => Literal(value, rdfType = rdfType) } |
+       quotedString ~ ("@" ~> langTag) ^^ { case value~langTag => Literal(value, langTag = langTag) } |
+       quotedString ^^ { value => Literal(value) } |
 	   decimalNumber ^^ { asString => Literal(asString, rdfType = if (asString contains ".") XSD_DOUBLE else XSD_INT) } |
 	   TRUE ^^ { x => LITERAL_TRUE } |
 	   FALSE ^^ { x => LITERAL_FALSE }
@@ -159,7 +164,6 @@ class TabelsParser extends JavaTokenParsers {
 	}
 	
 	def parseProgram(input : String) : S = parse(start, input)
-
 
 	// trick from http://stackoverflow.com/questions/6080437/case-insensitive-scala-parser-combinator
 	
