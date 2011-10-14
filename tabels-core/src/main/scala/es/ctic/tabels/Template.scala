@@ -50,9 +50,10 @@ abstract class RDFNode() {
 
 case class Literal(value : String, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
 	
-	def getValue:String = value
-	def truthValue : Boolean = this.asBoolean == LITERAL_TRUE
+	def truthValue : Boolean = Set("true", "1") contains this.asBoolean.value
+
 	override def +(suffix : String) : Literal = Literal(this.value + suffix)
+
 	override def asBoolean : Literal = {
 		if(rdfType == XSD_BOOLEAN){
 		  return this
