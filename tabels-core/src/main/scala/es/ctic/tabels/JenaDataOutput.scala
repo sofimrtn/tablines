@@ -34,6 +34,7 @@ class JenaDataOutput extends DataOutput{
     	case Literal(value, XSD_INT, _) => model.createTypedLiteral(value, XSDDatatype.XSDint)
     	case Literal(value, XSD_DOUBLE, _) => model.createTypedLiteral(value, XSDDatatype.XSDdouble)
     	case Literal(value, XSD_FLOAT, _) => model.createTypedLiteral(value, XSDDatatype.XSDfloat)
+    	case Literal(value, XSD_DECIMAL, _) => model.createTypedLiteral(value, XSDDatatype.XSDdecimal)
     }
   }
 

@@ -77,7 +77,7 @@ class TabelsParser extends JavaTokenParsers {
        quotedString ~ ("^^" ~> iriRef) ^^ { case value~rdfType => Literal(value, rdfType = rdfType) } |
        quotedString ~ ("@" ~> langTag) ^^ { case value~langTag => Literal(value, langTag = langTag) } |
        quotedString ^^ { value => Literal(value) } |
-	   decimalNumber ^^ { asString => Literal(asString, rdfType = if (asString contains ".") XSD_DOUBLE else XSD_INT) } |
+	   decimalNumber ^^ { asString => Literal(asString, rdfType = if (asString contains ".") XSD_DECIMAL else XSD_INT) } |
 	   TRUE ^^ { x => LITERAL_TRUE } |
 	   FALSE ^^ { x => LITERAL_FALSE }
 
