@@ -93,7 +93,10 @@ object CLI extends Logging {
 			logger.debug("Writing output (" + dataOutput.model.size + " triples)")
 			dataOutput.model.write(System.out, "RDF/XML")
 		} catch {
-			case e : Exception => logger.error("While running Tabels", e)
+		    case e : TabelsException =>
+		      logger.error("User error", e)
+		      System.err.println(e.getMessage)
+			case e : Exception => logger.error("Internal error", e)
 		}
 	}
 

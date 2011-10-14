@@ -159,7 +159,7 @@ class TabelsParser extends JavaTokenParsers {
         val phraseParser = phrase(p)
         phraseParser(new CharSequenceReader(input)) match {
             case Success(t,_)     => t
-            case NoSuccess(msg,_) => throw new IllegalArgumentException("Could not parse '" + input + "': " + msg)
+            case NoSuccess(msg,next) => throw new ParseException(input, msg, next.pos.line, next.pos.column)
         }		
 	}
 	
