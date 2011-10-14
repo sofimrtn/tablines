@@ -32,7 +32,6 @@ class TabelsParser extends JavaTokenParsers {
 	def HORIZONTAL = "horizontal".ignoreCase
 	def VERTICAL = "vertical".ignoreCase
 	def LET = "let".ignoreCase
-	def RESOURCE = "resource".ignoreCase
 	def A = "a".ignoreCase
 	def PREFIX = "prefix".ignoreCase
 	def PLACED = "placed".ignoreCase
@@ -47,6 +46,11 @@ class TabelsParser extends JavaTokenParsers {
 	def WHILE = "while".ignoreCase
 	def UNTIL = "until".ignoreCase
     def ADD = "add".ignoreCase
+    
+    // functions
+	def RESOURCE = "resource".ignoreCase
+    def TRUE = "true".ignoreCase
+    def FALSE = "false".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -64,7 +68,13 @@ class TabelsParser extends JavaTokenParsers {
 		
 	// RDF
 
-	def rdfLiteral : Parser[Literal] = stringLiteral ^^ { quotedString => Literal(quotedString.slice(1,quotedString.length-1)) } // FIXME: other literals
+	def rdfLiteral : Parser[Literal] =
+	   (stringLiteral ^^ { quotedString => quotedString.slice(1,quotedString.length-1)}) ~ opt("^^" ~> iriRef) ^^
+	     { case asString~None          => Literal(asString)
+	       case asString~Some(rdfType) => Literal(asString, rdfType) } |
+	   decimalNumber ^^ { asString => Literal(asString, rdfType = if (asString contains ".") XSD_DOUBLE else XSD_INT) } |
+	   TRUE ^^ { x => LITERAL_TRUE } |
+	   FALSE ^^ { x => LITERAL_FALSE }
 
 	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
 	

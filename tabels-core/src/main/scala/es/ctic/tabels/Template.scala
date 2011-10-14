@@ -76,5 +76,7 @@ case class Resource(uri : String) extends RDFNode {
 object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
 object XSD_STRING extends Resource("http://www.w3.org/2001/XMLSchema#string")
 object XSD_BOOLEAN extends Resource("http://www.w3.org/2001/XMLSchema#boolean")
+object XSD_INT extends Resource("http://www.w3.org/2001/XMLSchema#int")
+object XSD_DOUBLE extends Resource("http://www.w3.org/2001/XMLSchema#double")
 object LITERAL_TRUE extends Literal("true", XSD_BOOLEAN)
 object LITERAL_FALSE extends Literal("false", XSD_BOOLEAN)
