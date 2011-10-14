@@ -12,6 +12,11 @@ case class VariableReference(variable:Variable) extends Expression{
   override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable)
   }
 
+case class AddVariableExpression(variable : Variable, expression: Expression) extends Expression{
+  
+  override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable) + expression.evaluate(evaluationContext).getValue
+  }
+
 case class ResourceExpression(expression:Expression, uri : Resource) extends Expression {
   
   override def evaluate(evaluationContext : EvaluationContext) = uri + expression.evaluate(evaluationContext).getValue

@@ -46,6 +46,7 @@ class TabelsParser extends JavaTokenParsers {
 	def MATCHES = "matches".ignoreCase
 	def WHILE = "while".ignoreCase
 	def UNTIL = "until".ignoreCase
+    def ADD = "add".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -75,7 +76,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(prefixDecl)~>rep(pattern)~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	def start : Parser[S] = rep(prefixDecl)~>rep("{" ~> pattern <~"}")~rep(template) ^^ { case ps~ts => S(ps,ts) }
 	
 	def prefixDecl = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^ { case prefix~ns => prefixes += (prefix -> ns) }
 	
@@ -95,7 +96,7 @@ class TabelsParser extends JavaTokenParsers {
         {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
 	
     def regex : Parser[Regex] =
-      ("""\".*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
+      ("""\"[^"]*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
     
     def stopCondition : Parser[Option[Expression]] =
       opt((WHILE ~> expression)|(UNTIL ~> expression)^^{case e =>NotExpression(expression = e) })
@@ -109,7 +110,11 @@ class TabelsParser extends JavaTokenParsers {
       		{case v~u => ResourceExpression(expression = v, uri = u)}|		
       variable ^^ VariableReference |
       ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
-      		{case e~r => RegexExpression(expression = e, re = r)}
+      		{case e~r => RegexExpression(expression = e, re = r)}|
+      ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
+      		{case v~e => AddVariableExpression(v, e)}|
+      ("\""~>"""[a-zA-Z0-9 _]+""".r <~"\"") ^^ LiteralExpression
+      		
       
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^

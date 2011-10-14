@@ -18,87 +18,80 @@ object CLI extends Logging {
 		
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
-/*			val program : S = parser.parseProgram("""
-			    prefix steel: <http://ontorule-project.eu/resources/steel#>
-				For ?idCoil in rows	
-					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp ] as horizontal
-			          let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
-						let ?orderAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#order>)
-							let ?steelGradeAsResource = RESOURCE(?steelGrade, <http://ontorule-project.eu/resources/steel#>)
-								let ?asignacion = ?codeOutput
-									let ?prueba is located 2 right ?idCoil
-							
-				{ 
-			      steel:steelGrade <http://ontorule-project.eu/resources/steel#steelGrade> ?prueba.
-			    
-				  ?idCoilAsResource a steel:Coil ;
-				  steel:order ?orderAsResource ;
-			      <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource ;
-			      <http://ontorule-project.eu/resources/steel#codeOutput> ?codeOutput ;
-			      <http://ontorule-project.eu/resources/steel#identifier> ?idCoil.
-			      
-				  ?orderAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Order>;
-				  <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth ;
-			      <http://ontorule-project.eu/resources/steel#widthMax> ?maxWidth ;
-			      <http://ontorule-project.eu/resources/steel#originalCoilThicknessMin> ?minThick ;
-			      <http://ontorule-project.eu/resources/steel#originalCoilThicknessMax> ?maxThick ;
-			      <http://ontorule-project.eu/resources/steel#zincThicknessMin> ?minZincThick ;
-			      <http://ontorule-project.eu/resources/steel#zincThicknessMax> ?maxZincThick ;
-			      <http://ontorule-project.eu/resources/steel#weightMin> ?minWeight ;
-			      <http://ontorule-project.eu/resources/steel#weightMax> ?maxWeight ;
-			      <http://ontorule-project.eu/resources/steel#skinPassElongationMin> ?minElongation ;
-			      <http://ontorule-project.eu/resources/steel#skinPassElongationMax> ?maxElongation ;
-			      <http://ontorule-project.eu/resources/steel#yieldStrengthMin> ?minYieldStr ;
-			      <http://ontorule-project.eu/resources/steel#yieldStrengthMax> ?maxYieldStr ;
-			      <http://ontorule-project.eu/resources/steel#temperatureMin> ?minEndTemp ;
-			      <http://ontorule-project.eu/resources/steel#temperatureMax> ?maxEndTemp 
-				  
-			    }
-				""") // FIXME*/
+
 
 		  	val program : S = parser.parseProgram("""
 			    prefix steel: <http://ontorule-project.eu/resources/steel#>
-				For ?idCoil in rows filter matches(?idCoil , "[0-9]*" ) while matches(?idCoil, "[a-z]+" )
-					let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp ] as horizontal
+		  	    {
+		  	    for ?FILE in files filter matches(?FILE , "PruebaSencilla.xls")
+		  			For ?idCoil in rows filter matches(?idCoil , "[0-9]*" ) until matches(?idCoil, "\s" )
+		  				let @tuple[?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight, ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr, ?minEndTemp, ?maxEndTemp] as horizontal
+			        		let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
+		  						let ?orderAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#order>)
+									let ?steelGradeAsResource = RESOURCE(?steelGrade, <http://ontorule-project.eu/resources/steel#>)
+										let ?asignacion = ?codeOutput
+											let ?prueba is located 1 right ?idCoil
+		  		}
+		  	    {
+		  	    for ?FILE in files filter matches(?FILE , "points.xls")
+		  			For ?idCoil in rows filter matches(?idCoil , "[0-9]*" )	until matches(?idCoil, "\s")
+		  	    
+					let @tuple[?idCoil,?xPos,?yieldStrength,?flattenerElongation,?skinPassElongation,?tractionLimit,?width,?weight,?thickness,?coatingBottom,?coatingTop,?endHeatingTemp] as horizontal
 			          let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
-						let ?orderAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#order>)
-							let ?steelGradeAsResource = RESOURCE(?steelGrade, <http://ontorule-project.eu/resources/steel#>)
-								let ?asignacion = ?codeOutput
-									let ?prueba is located 1 right ?idCoil
-							
+						let ?idSamplep= ADD(?idCoil,"_") 
+		  					let ?idSamplePoint= ADD(?idSamplep, ?xPos)
+								let ?idSamplePointAsResource = RESOURCE(?idSamplePoint, <http://ontorule-project.eu/resources/steel#sp>)
+		  		}
+		  	    
 				{ 
-			      steel:steelGrade <http://ontorule-project.eu/resources/steel#steelGrade> ?prueba.
+			     steel:steelGrade <http://ontorule-project.eu/resources/steel#steelGrade> ?prueba.
 			    
-				  ?idCoilAsResource a steel:Coil ;
-				  steel:order ?orderAsResource ;
-			      <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource ;
-			      <http://ontorule-project.eu/resources/steel#codeOutput> ?codeOutput ;
-			      <http://ontorule-project.eu/resources/steel#identifier> ?idCoil.
-			      
-				  ?orderAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Order>;
-				  <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth ;
-			      <http://ontorule-project.eu/resources/steel#widthMax> ?maxWidth ;
-			      <http://ontorule-project.eu/resources/steel#originalCoilThicknessMin> ?minThick ;
-			      <http://ontorule-project.eu/resources/steel#originalCoilThicknessMax> ?maxThick ;
-			      <http://ontorule-project.eu/resources/steel#zincThicknessMin> ?minZincThick ;
-			      <http://ontorule-project.eu/resources/steel#zincThicknessMax> ?maxZincThick ;
-			      <http://ontorule-project.eu/resources/steel#weightMin> ?minWeight ;
-			      <http://ontorule-project.eu/resources/steel#weightMax> ?maxWeight ;
-			      <http://ontorule-project.eu/resources/steel#skinPassElongationMin> ?minElongation ;
-			      <http://ontorule-project.eu/resources/steel#skinPassElongationMax> ?maxElongation ;
-			      <http://ontorule-project.eu/resources/steel#yieldStrengthMin> ?minYieldStr ;
-			      <http://ontorule-project.eu/resources/steel#yieldStrengthMax> ?maxYieldStr ;
-			      <http://ontorule-project.eu/resources/steel#temperatureMin> ?minEndTemp ;
-			      <http://ontorule-project.eu/resources/steel#temperatureMax> ?maxEndTemp 
+				 ?idCoilAsResource a steel:Coil ;
+					  steel:order ?orderAsResource ;
+				      <http://ontorule-project.eu/resources/steel#steelGrade> ?steelGradeAsResource ;
+				      <http://ontorule-project.eu/resources/steel#codeOutput> ?codeOutput ;
+				      <http://ontorule-project.eu/resources/steel#identifier> ?idCoil.
+		  	    
+		  	     ?orderAsResource <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://ontorule-project.eu/resources/steel#Order>;
+					  <http://ontorule-project.eu/resources/steel#widthMin> ?minWidth ;
+				      <http://ontorule-project.eu/resources/steel#widthMax> ?maxWidth ;
+				      <http://ontorule-project.eu/resources/steel#originalCoilThicknessMin> ?minThick ;
+				      <http://ontorule-project.eu/resources/steel#originalCoilThicknessMax> ?maxThick ;
+				      <http://ontorule-project.eu/resources/steel#zincThicknessMin> ?minZincThick ;
+				      <http://ontorule-project.eu/resources/steel#zincThicknessMax> ?maxZincThick ;
+				      <http://ontorule-project.eu/resources/steel#weightMin> ?minWeight ;
+				      <http://ontorule-project.eu/resources/steel#weightMax> ?maxWeight ;
+				      <http://ontorule-project.eu/resources/steel#skinPassElongationMin> ?minElongation ;
+				      <http://ontorule-project.eu/resources/steel#skinPassElongationMax> ?maxElongation ;
+				      <http://ontorule-project.eu/resources/steel#yieldStrengthMin> ?minYieldStr ;
+				      <http://ontorule-project.eu/resources/steel#yieldStrengthMax> ?maxYieldStr ;
+				      <http://ontorule-project.eu/resources/steel#temperatureMin> ?minEndTemp ;
+				      <http://ontorule-project.eu/resources/steel#temperatureMax> ?maxEndTemp 
+			  
+				}
+		  	    
+		  	    { 
+		  	    
+			    ?idSamplePointAsResource a steel:SamplingPoint ;
+			  			steel:flattenerElongation ?flattenerElongation;
+					    steel:topCoatingThickness ?coatingTop;
+					    steel:bottomCoatingThickness ?coatingBottom;
+					    steel:originalCoilThickness ?thickness;
+					    steel:yieldStrength ?yieldStrength;
+					    steel:skinPassElongation ?skinPassElongation;
+					    steel:inCoil ?idCoilAsResource;
+					    steel:lengthScope ?tractionLimit;
+					    steel:temperature ?endHeatingTemp;
+					    steel:position ?xPos
 				  
-			    }
+				}
 				""")
 		  	
 			logger.debug("Interpreting AST: " + program)
 			interpreter.interpret(program, dataSource, dataOutput)
 
 			logger.debug("Writing output (" + dataOutput.model.size + " triples)")
-			dataOutput.model.write(System.out, "N3")
+			dataOutput.model.write(System.out, "RDF/XML")
 		} catch {
 			case e : Exception => logger.error("While running Tabels", e)
 		}

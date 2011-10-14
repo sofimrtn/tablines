@@ -61,7 +61,8 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   def calculateNewEvaluationContext(bindingExpression: BindingExpression, dimensionIterator: String) : EvaluationContext = {
      
-     val newEvaluationContext = evaluationContext.addDimension(bindingExpression.dimension, dimensionIterator)
+    
+	 val newEvaluationContext = evaluationContext.addDimension(bindingExpression.dimension, dimensionIterator)
      val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
      val value = bindingExpression.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(point).getContent
@@ -88,7 +89,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       val evaluationContexts = dimensionValues map (calculateNewEvaluationContext(bindExp, _))
       val pairsMap = dimensionValues zip evaluationContexts
       val filteredPairs = pairsMap takeWhile(pair => bindExp.stopCond.isEmpty ||bindExp.stopCond.get.evaluate(pair._2).asBoolean.truthValue) filter
-      						(pair => bindExp.filter.isEmpty ||bindExp.filter.get.evaluate(pair._2).asBoolean.truthValue)
+      					(pair => bindExp.filter.isEmpty ||bindExp.filter.get.evaluate(pair._2).asBoolean.truthValue)
       
       for ((dimensionIterator, newEvaluationContext) <- filteredPairs){
     	logger.debug("Iteration through " + bindExp.dimension+" in position "+dimensionIterator )

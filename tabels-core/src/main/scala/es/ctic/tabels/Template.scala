@@ -44,6 +44,7 @@ abstract class RDFNode() {
 	def getValue : String
 	//FIX ME
 	def asBoolean : Literal
+	def +(suffix : String) : RDFNode
 	
 }
 
@@ -51,7 +52,7 @@ case class Literal(value : String, rdfType: Resource = XSD_STRING) extends RDFNo
 	
 	def getValue:String = value
 	def truthValue : Boolean = this.asBoolean == LITERAL_TRUE
-	
+	override def +(suffix : String) : Literal = Literal(this.value + suffix)
 	override def asBoolean : Literal = {
 		if(rdfType == XSD_BOOLEAN){
 		  return this
@@ -69,7 +70,7 @@ case class Literal(value : String, rdfType: Resource = XSD_STRING) extends RDFNo
 case class Resource(uri : String) extends RDFNode {
 	def getValue:String = uri
 	override def asBoolean : Literal = LITERAL_TRUE
-	def +(suffix : String) : Resource = Resource(this.uri + suffix)
+	override def +(suffix : String) : Resource = Resource(this.uri + suffix)
 }
 
 object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
