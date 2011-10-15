@@ -42,6 +42,7 @@ object XSD_INT extends Resource("http://www.w3.org/2001/XMLSchema#int")
 object XSD_DOUBLE extends Resource("http://www.w3.org/2001/XMLSchema#double")
 object XSD_FLOAT extends Resource("http://www.w3.org/2001/XMLSchema#float")
 object XSD_DECIMAL extends Resource("http://www.w3.org/2001/XMLSchema#decimal")
+object XSD_DATE extends Resource("http://www.w3.org/2001/XMLSchema#date")
 object LITERAL_TRUE extends Literal("true", XSD_BOOLEAN)
 object LITERAL_FALSE extends Literal("false", XSD_BOOLEAN)
 

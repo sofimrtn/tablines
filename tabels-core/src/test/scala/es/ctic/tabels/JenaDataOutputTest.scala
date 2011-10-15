@@ -72,5 +72,14 @@ class JenaDataOutputTest extends JUnitSuite {
       assertEquals(XSD_BOOLEAN.uri, output.asLiteral.getDatatypeURI)
   }
 
+  @Test def createDateLiteralObject {
+      val input = Literal("2011-10-25", XSD_DATE)
+      val output = jenaDataOutput.createObject(input)
+      assertTrue(output.isLiteral)
+      assertEquals("2011-10-25", output.asLiteral.getString)
+      assertEquals("", output.asLiteral.getLanguage)
+      assertEquals(XSD_DATE.uri, output.asLiteral.getDatatypeURI)
+  }
+
 }
 
