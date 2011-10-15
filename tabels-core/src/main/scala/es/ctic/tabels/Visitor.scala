@@ -64,14 +64,14 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     
 	 val newEvaluationContext = evaluationContext.addDimension(bindingExpression.dimension, dimensionIterator)
      val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
-     val value = bindingExpression.dimension match{
+     val value : Literal = bindingExpression.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(point).getContent
 		    case Dimension.cols =>	dataSource.getValue(point).getContent
-			case Dimension.sheets =>dimensionIterator
-			case Dimension.files =>	dimensionIterator
+			case Dimension.sheets =>Literal(dimensionIterator)
+			case Dimension.files =>	Literal(dimensionIterator)
 	}
 		
-    return newEvaluationContext.addBinding(bindingExpression.variable, Literal(value), point)
+    return newEvaluationContext.addBinding(bindingExpression.variable, value, point)
   }
   
   
@@ -125,7 +125,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	letWhereExpression.tupleOrVariable match{
 		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
 			  	  					//letWhereExpression.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
-		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, Literal(dataSource.getValue(position).getContent), position)
+		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, dataSource.getValue(position).getContent, position)
 		  		  					tuple.tupleType match{
 		  		  						case TupleType.horizontal => position = position.RightPoint
 		  		  						case TupleType.vertical => position = position.BottomPoint
@@ -136,7 +136,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  		  					
 		  	  case Right(variable) =>letWhereExpression.expression match{
 			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.evaluate(newEvaluationContext), position)
-			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, Literal(dataSource.getValue(position).getContent), position)
+			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, dataSource.getValue(position).getContent, position)
 		  	  						}
 		  	    					
 			  	  					event = Event(newEvaluationContext.bindings, Set(variable))

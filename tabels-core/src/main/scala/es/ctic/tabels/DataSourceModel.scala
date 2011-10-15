@@ -24,6 +24,6 @@ case class Point(path : String, tab: String, col: Int, row: Int){
 
 abstract class CellValue{
   
-  def getContent : String
+  def getContent : Literal
   
 }

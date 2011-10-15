@@ -85,10 +85,38 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 					}
     }
   }
-  
-case class ExcelCellValue (cell : Cell) extends CellValue {
-
-  override def getContent : String =  cell.getContents()
 
 }
+  
+case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
+    
+    val decimalPattern = """[0-9]*\.[0-9]+""".r
+    val intPattern = """[0-9]+""".r
+    val decimalFormatPattern = """(#,##)?0\.(0)+""".r
+    
+  override def getContent : Literal =
+    if (cell.getCellFormat == null) Literal(cell.getContents)
+    else cell.getCellFormat.getFormat.getFormatString match {
+        case "" => autodetectFormat
+        case "@" => Literal(cell.getContents, XSD_STRING)
+        case "0" => Literal(cell.getContents, XSD_INT)
+        case decimalFormatPattern(_,_) => Literal(cell.getContents, XSD_DECIMAL)
+        case str if str endsWith "%" => Literal(cell.getContents.dropRight(1), XSD_DECIMAL)
+        case str if str contains "$" => Literal(cell.getContents.drop(1), XSD_DECIMAL)
+        case "d-mmm-yy" => Literal(cell.getContents, XSD_DATE) // FIXME: parse date
+        case x => logger.info("Unrecognized cell format: '" + x + "'")
+                  return Literal(cell.getContents, XSD_STRING)
+    }
+    
+    /**
+     * When there is no formatting information, this method does it
+     * best to parse the cell value
+     *
+     */
+    def autodetectFormat : Literal = cell.getContents match {
+        case decimalPattern() => Literal(cell.getContents, XSD_DECIMAL)
+        case intPattern() => Literal(cell.getContents, XSD_INT)
+        case x => Literal(cell.getContents, XSD_STRING)
+    }
+    
 }
