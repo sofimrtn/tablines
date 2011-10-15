@@ -7,7 +7,7 @@ case class Template(triples : Set[TripleTemplate] = Set()) extends Logging {
 	val variables : Set[Variable] = triples flatMap (_.variables)
   	
 	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
-		logger.info("Instantiating template " + this + " with bindings " + bindingList)
+		logger.debug("Instantiating template " + this + " with bindings " + bindingList)
 	 	triples.foreach(t => t.instantiate(bindingList, dataOut)) 
 	}
 	  					
