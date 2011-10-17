@@ -157,7 +157,7 @@ class VisitorToString extends AbstractVisitor{
   
    letWhereExpression.tupleOrVariable fold(_.accept(this),_ accept(this))
        
-   letWhereExpression.position map( _.accept(this))
+   letWhereExpression.position map( _.toString)
       
   }
   
