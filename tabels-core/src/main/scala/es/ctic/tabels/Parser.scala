@@ -129,15 +129,19 @@ class TabelsParser extends JavaTokenParsers {
       opt(FILTER ~> expression)
       
       
-    def expression: Parser[Expression] = 
-      ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
-      		{case v~u => ResourceExpression(expression = v, uri = u)}|		
-      variable ^^ VariableReference |
-      ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
-      		{case e~r => RegexExpression(expression = e, re = r)}|
-      ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
-      		{case v~e => AddVariableExpression(v, e)}|
-      rdfLiteral ^^ LiteralExpression
+    def expression : Parser[Expression] = 
+        variable ^^ VariableReference |
+        rdfLiteral ^^ LiteralExpression |
+        functionExpression
+      
+    def functionExpression : Parser[Expression] =
+        ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
+    		{case v~u => ResourceExpression(expression = v, uri = u)} |		
+        ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
+    		{case e~r => RegexExpression(expression = e, re = r)} |
+        ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
+    		{case v~e => AddVariableExpression(v, e)}
+
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}

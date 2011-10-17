@@ -150,15 +150,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
       assertFail(regex, "\"(hola\"")
     }
      
-    @Test def parseExpression(){
-	    
-      //ResourceExpression
-    	assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
-        assertParse(expression, "RESourCE (?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
-        assertFail(expression, "RESourC (?y, <http://ontorule-project.eu/resources/steeldata#coil>)")
-        assertFail(expression, "RESOURCE (y, <http://ontorule-project.eu/resources/steeldata#coil>)")
-        assertFail(expression, "RESOURCE (?y, http://ontorule-project.eu/resources/steeldata#coil>)")
-      
+    @Test def parseExpression(){	    
       //VariableReference
         assertParse(expression, "?y", VariableReference(Variable("?y")))
         assertFail(expression, "y")
@@ -166,12 +158,20 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         // LiteralExpression
         assertParse(expression, "10", LiteralExpression(Literal("10", XSD_INT)))
         assertParse(expression, "\"hello\"", LiteralExpression(Literal("hello")))
-       
+     }
+     
+     @Test def parseFunctionExpression() {  
+        //ResourceExpression
+      	assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
+          assertParse(expression, "RESourCE (?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
+          assertFail(expression, "RESourC (?y, <http://ontorule-project.eu/resources/steeldata#coil>)")
+          assertFail(expression, "RESOURCE (y, <http://ontorule-project.eu/resources/steeldata#coil>)")
+          assertFail(expression, "RESOURCE (?y, http://ontorule-project.eu/resources/steeldata#coil>)")
+
       //RegexExpression
         //This test can't be done because Regex does not support the equal operation between regular expressions
         //assertParse(expression, "matches (?y, \"hola\")", RegexExpression(VariableReference(Variable("?y")),new Regex("hola")))
-        assertFail(expression, "matches (?y, \"(hola\")")
-        
+        assertFail(expression, "matches (?y, \"(hola\")")        
    }
     
 	@Test def parseVerbTemplate() {
