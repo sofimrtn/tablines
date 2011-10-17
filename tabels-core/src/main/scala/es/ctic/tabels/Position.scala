@@ -4,7 +4,7 @@ import es.ctic.tabels.RelativePos._
 
 abstract class Position extends EvaluablePosition {
   
-	def getPosition(evaluationContext: EvaluationContext) : Point
+	def calculatePoint(evaluationContext: EvaluationContext) : Point
 
 }
 
@@ -12,7 +12,7 @@ case class FixedPosition (row : Int, col: Int) extends Position {
 	
 	override def toString() : String = columnConverter.intToAlpha(col) + (row+1)
 	
-	override def getPosition(evaluationContext: EvaluationContext) : Point =
+	override def calculatePoint(evaluationContext: EvaluationContext) : Point =
 	  Point(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets),col,row)
 	
 }
@@ -21,7 +21,7 @@ case class WithVariablePosition (variable : Variable) extends Position {
 	
 	override def toString() : String = variable.toString
 	
-	override def getPosition(evaluationContext: EvaluationContext) : Point =
+	override def calculatePoint(evaluationContext: EvaluationContext) : Point =
 	  evaluationContext.bindings.getPoint(variable)
 
 }
@@ -30,8 +30,8 @@ case class RelativePosition (relativity : RelativePos, reference:Position, displ
 	
 	override def toString() : String = displacement.toString + " " + relativity + " " + reference.toString
 	
-	override def getPosition(evaluationContext: EvaluationContext) : Point = {
-	    val referencePoint : Point = reference.getPosition(evaluationContext)
+	override def calculatePoint(evaluationContext: EvaluationContext) : Point = {
+	    val referencePoint : Point = reference.calculatePoint(evaluationContext)
 	    relativity match {
 	        case RelativePos.top => referencePoint.moveVertically(-displacement)
 	        case RelativePos.bottom => referencePoint.moveVertically(displacement)

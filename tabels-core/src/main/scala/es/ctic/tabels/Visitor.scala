@@ -115,7 +115,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
 	  		
 			var position : Point = letWhereExpression.position match{
-		  	  case Some(p) =>	p.getPosition(evaluationContext)
+		  	  case Some(p) =>	p.calculatePoint(evaluationContext)
 								
 		  	  case None =>		Point(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets),evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
 								
