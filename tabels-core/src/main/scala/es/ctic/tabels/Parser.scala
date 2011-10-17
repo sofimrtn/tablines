@@ -58,11 +58,12 @@ class TabelsParser extends JavaTokenParsers {
 	
     def tupleType: Parser[TupleType] = AS ~> (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
     
-    def position : Parser[Position] = ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
+    def position : Parser[Position] =
+        ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
-		( variable) ^^
+		variable ^^
 		{ case v => WithVariablePosition(v) }|
-		(displacement ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position) ^^
+		displacement ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position ^^
 		{ case d~r~p => RelativePosition(RelativePos.withName(r.toLowerCase),p,d) }
 		
 	def displacement : Parser[Int] = opt("""[0-9]+""".r ^^ (_ toInt)) ^^ (_ getOrElse(1))
