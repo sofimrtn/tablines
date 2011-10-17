@@ -2,9 +2,10 @@ package es.ctic.tabels
 import com.hp.hpl.jena.rdf.model.{Model,ModelFactory}
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 
-class JenaDataOutput extends DataOutput{
+class JenaDataOutput(prefixes : Map[String,Resource] = Map()) extends DataOutput {
 
   val model : Model = ModelFactory.createDefaultModel()
+  prefixes.foreach { case (prefix,ns) => model.setNsPrefix(prefix, ns.uri) }
   
   def generateOutput(statement: Statement){ 
    model.add(model.createStatement(createSubject(statement.subject),createProperty(statement.property),createObject(statement.obj)))
