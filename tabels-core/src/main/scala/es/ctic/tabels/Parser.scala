@@ -47,10 +47,10 @@ class TabelsParser extends JavaTokenParsers {
 	def MATCHES = "matches".ignoreCase
 	def WHILE = "while".ignoreCase
 	def UNTIL = "until".ignoreCase
-    def ADD = "add".ignoreCase
     
     // functions
 	def RESOURCE = "resource".ignoreCase
+    def ADD = "add".ignoreCase
     def TRUE = "true".ignoreCase
     def FALSE = "false".ignoreCase
     
@@ -58,6 +58,10 @@ class TabelsParser extends JavaTokenParsers {
 	
     def tupleType: Parser[TupleType] = AS ~> (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
     
+	def displacement : Parser[Int] = opt("""[0-9]+""".r ^^ (_ toInt)) ^^ (_ getOrElse(1))
+	
+	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
+	
     def position : Parser[Position] =
         ("""[A-Z]+""".r ~ """[0-9]+""".r) ^^
 		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
@@ -66,10 +70,6 @@ class TabelsParser extends JavaTokenParsers {
 		displacement ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position ^^
 		{ case d~r~p => RelativePosition(RelativePos.withName(r.toLowerCase),p,d) }
 		
-	def displacement : Parser[Int] = opt("""[0-9]+""".r ^^ (_ toInt)) ^^ (_ getOrElse(1))
-	
-	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
-	
 		
 	// RDF
 
@@ -138,11 +138,12 @@ class TabelsParser extends JavaTokenParsers {
       ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
       		{case v~e => AddVariableExpression(v, e)}|
       ("\""~>"""[a-zA-Z0-9 _]+""".r <~"\"") ^^ LiteralExpression
-      		
-      
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}
+    	
+    	
+    // templates
     
     def verbTemplate : Parser[Either[RDFNode, Variable]] =
 		iriRef ^^ { Left(_) } |
@@ -161,6 +162,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten) toSet) }
+
 
 	// parsing methods
 	

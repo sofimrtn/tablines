@@ -19,20 +19,6 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (variable, "?0")
     }
     
-    @Test def parsePosition() {
-        assertParse(position, "A1", FixedPosition(row = 0, col = 0))
-        assertParse(position, "A10", FixedPosition(row = 9, col = 0))
-        assertParse(position, "D1", FixedPosition(row = 0, col = 3))
-        assertParse(position, "AA99", FixedPosition(row = 98, col = 26)) 
-        assertParse(position, "?x", WithVariablePosition(Variable("?x")))
-        assertParse(position, "3 Left ?y", RelativePosition(RelativePos.left, WithVariablePosition(Variable("?y")), 3))
-        assertParse(position, "RIGHT ?y", RelativePosition(RelativePos.right, WithVariablePosition(Variable("?y")), 1))
-        assertFail (position, "")
-        assertFail (position, "A")
-        assertFail (position, "1")
-        assertFail (position, "1A")
-    }
-    
     @Test def parseDisplacement() {
         assertParse(displacement, "3", 3)
         assertParse(displacement, "", 1)
@@ -47,6 +33,20 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (dimension, "pages")
 	}
 	
+    @Test def parsePosition() {
+        assertParse(position, "A1", FixedPosition(row = 0, col = 0))
+        assertParse(position, "A10", FixedPosition(row = 9, col = 0))
+        assertParse(position, "D1", FixedPosition(row = 0, col = 3))
+        assertParse(position, "AA99", FixedPosition(row = 98, col = 26)) 
+        assertParse(position, "?x", WithVariablePosition(Variable("?x")))
+        assertParse(position, "3 Left ?y", RelativePosition(RelativePos.left, WithVariablePosition(Variable("?y")), 3))
+        assertParse(position, "RIGHT ?y", RelativePosition(RelativePos.right, WithVariablePosition(Variable("?y")), 1))
+        assertFail (position, "")
+        assertFail (position, "A")
+        assertFail (position, "1")
+        assertFail (position, "1A")
+    }
+    
 	@Test def parseQuotedString() {
 	    assertParse(quotedString, "\"hello\"", "hello")
 	    assertFail (quotedString, "")
