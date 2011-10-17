@@ -59,6 +59,8 @@ case class StopCondition (cond: String) extends Evaluable
 
 case class Variable (name : String) extends Evaluable{
 	
+  override def toString() : String = name	
+	
   def accept(vis : Visitor) = {
     
     vis.visit(this)
