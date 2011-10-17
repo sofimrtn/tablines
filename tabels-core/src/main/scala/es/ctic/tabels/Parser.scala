@@ -62,8 +62,10 @@ class TabelsParser extends JavaTokenParsers {
 		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
 		( variable) ^^
 		{ case v => WithVariablePosition(v) }|
-		("""[0-9]+""".r ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position) ^^
-		{ case d~r~p => RelativePosition(RelativePos.withName(r.toLowerCase),p,d.toInt) }
+		(displacement ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position) ^^
+		{ case d~r~p => RelativePosition(RelativePos.withName(r.toLowerCase),p,d) }
+		
+	def displacement : Parser[Int] = opt("""[0-9]+""".r ^^ (_ toInt)) ^^ (_ getOrElse(1))
 	
 	def dimension : Parser[Dimension] = (ROWS|COLS|SHEETS|FILES) ^^ { d => Dimension.withName(d.toLowerCase) }
 	

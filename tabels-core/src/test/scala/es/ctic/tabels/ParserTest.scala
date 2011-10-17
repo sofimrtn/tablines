@@ -26,10 +26,16 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertParse(position, "AA99", FixedPosition(row = 98, col = 26)) 
         assertParse(position, "?x", WithVariablePosition(Variable("?x")))
         assertParse(position, "3 Left ?y", RelativePosition(RelativePos.left, WithVariablePosition(Variable("?y")), 3))
+        assertParse(position, "RIGHT ?y", RelativePosition(RelativePos.right, WithVariablePosition(Variable("?y")), 1))
         assertFail (position, "")
         assertFail (position, "A")
         assertFail (position, "1")
         assertFail (position, "1A")
+    }
+    
+    @Test def parseDisplacement() {
+        assertParse(displacement, "3", 3)
+        assertParse(displacement, "", 1)
     }
 
 	@Test def parseDimension() {
