@@ -31,11 +31,12 @@ case class RelativePosition (relativity : RelativePos, reference:Position, displ
 	override def toString() : String = displacement.toString + " " + relativity + " " + reference.toString
 	
 	override def getPosition(evaluationContext: EvaluationContext) : Point = {
-	  relativity match {
-	    case RelativePos.top =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col,(reference.getPosition(evaluationContext)).row - displacement)
-	    case RelativePos.bottom =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col,(reference.getPosition(evaluationContext)).row + displacement)
-	    case RelativePos.left =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col - displacement,(reference.getPosition(evaluationContext)).row)
-	    case RelativePos.right =>  Point((reference.getPosition(evaluationContext)).path,(reference.getPosition(evaluationContext)).tab,(reference.getPosition(evaluationContext)).col + displacement,(reference.getPosition(evaluationContext)).row)
+	    val referencePoint : Point = reference.getPosition(evaluationContext)
+	    relativity match {
+	        case RelativePos.top => referencePoint.moveVertically(-displacement)
+	        case RelativePos.bottom => referencePoint.moveVertically(displacement)
+	        case RelativePos.left => referencePoint.moveHorizontally(-displacement)
+	        case RelativePos.right => referencePoint.moveHorizontally(displacement)
 	  }
 	
 	}

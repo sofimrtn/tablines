@@ -15,10 +15,13 @@ abstract class DataSource {
 
 case class Point(path : String, tab: String, col: Int, row: Int){
   
-  def RightPoint : Point = Point(path,tab,col+1,row)
-  def LeftPoint : Point = Point(path,tab,col-1,row)
-  def TopPoint : Point = Point(path,tab,col,row-1)
-  def BottomPoint : Point = Point(path,tab,col,row+1)
+  def RightPoint : Point = moveHorizontally(1)
+  def LeftPoint : Point = moveHorizontally(-1)
+  def TopPoint : Point = moveVertically(-1)
+  def BottomPoint : Point = moveVertically(1)
+  
+  def moveHorizontally(delta : Int) : Point = Point(path, tab, col, row + delta)
+  def moveVertically(delta : Int) : Point = Point(path, tab, col + delta, row)
 }
 	
 
