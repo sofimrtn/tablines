@@ -24,6 +24,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertParse(position, "A10", FixedPosition(row = 9, col = 0))
         assertParse(position, "D1", FixedPosition(row = 0, col = 3))
         assertParse(position, "AA99", FixedPosition(row = 98, col = 26)) 
+        assertParse(position, "?x", WithVariablePosition(Variable("?x")))
+        assertParse(position, "3 Left ?y", RelativePosition(RelativePos.left, WithVariablePosition(Variable("?y")), 3))
         assertFail (position, "")
         assertFail (position, "A")
         assertFail (position, "1")
