@@ -25,9 +25,10 @@ case class ResourceExpression(expression:Expression, uri : Resource) extends Exp
 
 }
 
-case class LiteralExpression( literal : String) extends Expression{
-  
-  override def evaluate(evaluationContext : EvaluationContext) = Literal(value = literal)
+case class LiteralExpression(literal : Literal) extends Expression{
+    
+  override def evaluate(evaluationContext : EvaluationContext) = literal
+
 }
 
 case class RegexExpression(expression : Expression , re : Regex) extends Expression{

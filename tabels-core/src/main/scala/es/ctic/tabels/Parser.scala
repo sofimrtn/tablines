@@ -137,7 +137,7 @@ class TabelsParser extends JavaTokenParsers {
       		{case e~r => RegexExpression(expression = e, re = r)}|
       ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
       		{case v~e => AddVariableExpression(v, e)}|
-      ("\""~>"""[a-zA-Z0-9 _]+""".r <~"\"") ^^ LiteralExpression
+      rdfLiteral ^^ LiteralExpression
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
     	{case vs~tt => Tuple(vs,tt)}

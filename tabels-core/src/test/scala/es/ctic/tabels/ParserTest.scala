@@ -162,6 +162,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
       //VariableReference
         assertParse(expression, "?y", VariableReference(Variable("?y")))
         assertFail(expression, "y")
+        
+        // LiteralExpression
+        assertParse(expression, "10", LiteralExpression(Literal("10", XSD_INT)))
+        assertParse(expression, "\"hello\"", LiteralExpression(Literal("hello")))
        
       //RegexExpression
         //This test can't be done because Regex does not support the equal operation between regular expressions
