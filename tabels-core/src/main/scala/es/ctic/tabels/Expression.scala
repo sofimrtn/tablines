@@ -50,3 +50,25 @@ case class NotExpression(expression:Expression) extends Expression{
 		LITERAL_TRUE
 }
 
+/* *Type change expressions  * */
+case class BooleanE(expression: Expression) extends Expression{
+  
+  override def evaluate(evaluationContext : EvaluationContext) =  Literal(expression.evaluate(evaluationContext).asBoolean.value, XSD_BOOLEAN)
+}
+
+case class StringE(expression: Expression) extends Expression{
+  
+  override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluate(evaluationContext).asString.value, XSD_STRING)
+}
+
+case class IntE(expression : Expression) extends Expression{
+  
+  override def evaluate(evaluationContext:EvaluationContext) = {
+    val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
+    expression.evaluate(evaluationContext).asString.value match{
+    	case  decimalExpression()=>  Literal(expression.evaluate(evaluationContext).asString.value, XSD_INT)
+    	case _ => throw new InvalidTypeFunctionException("Is not posible to generate Int RDF type with this Literal") 
+  }
+  }   
+	
+}

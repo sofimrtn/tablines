@@ -13,3 +13,5 @@ class ParseException(input_ : String, msg : String, lineNumber_ : Int, column_ :
 class TemplateInstantiationException(msg:String) extends TabelsException(msg)
 
 class UnboundVariableException(variable: Variable) extends TabelsException("Found unbound variable " + variable)
+
+class InvalidTypeFunctionException(msg:String) extends TabelsException(msg)
