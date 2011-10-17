@@ -10,6 +10,8 @@ import scala.util.parsing.input.CharSequenceReader
 
 import scala.collection._
 
+import java.io.File
+
 class TabelsParser extends JavaTokenParsers {
 
 	val prefixes = mutable.HashMap.empty[String, Resource]
@@ -164,6 +166,13 @@ class TabelsParser extends JavaTokenParsers {
 	}
 	
 	def parseProgram(input : String) : S = parse(start, input)
+	
+	def parseProgram(file : File) : S = {
+	    val source = scala.io.Source.fromFile(file)
+        val lines = source.mkString
+        source.close()
+        return parseProgram(lines)
+	}
 
 	// trick from http://stackoverflow.com/questions/6080437/case-insensitive-scala-parser-combinator
 	
