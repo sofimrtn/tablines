@@ -20,8 +20,8 @@ case class Point(path : String, tab: String, col: Int, row: Int){
   def TopPoint : Point = moveVertically(-1)
   def BottomPoint : Point = moveVertically(1)
   
-  def moveHorizontally(delta : Int) : Point = Point(path, tab, col, row + delta)
-  def moveVertically(delta : Int) : Point = Point(path, tab, col + delta, row)
+  def moveHorizontally(delta : Int) : Point = Point(path, tab, col + delta, row)
+  def moveVertically(delta : Int) : Point = Point(path, tab, col, row + delta)
 }
 	
 
