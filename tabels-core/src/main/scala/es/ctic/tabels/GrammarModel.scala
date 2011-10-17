@@ -4,7 +4,7 @@ import es.ctic.tabels.Dimension._
 import es.ctic.tabels.TupleType._
 import scala.util.matching.Regex
 
-case class S (patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
+case class S (prefixes : Seq[(String,Resource)] = List(), patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
 case class Pattern ( concretePattern : Either[BindingExpression,LetWhereExpression] ) extends Evaluable{
  

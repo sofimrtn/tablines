@@ -92,7 +92,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parsePrefixDecl() {
-		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", Map("foo" -> Resource("http://example.org/")))
+		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", ("foo" -> Resource("http://example.org/")))
 		assertEquals(Resource("http://example.org/"), prefixes("foo"))
 		assertFail (prefixDecl, "")
 		assertFail (prefixDecl, "PREFIX foo:")

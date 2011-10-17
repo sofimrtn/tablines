@@ -93,9 +93,13 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(prefixDecl)~>rep("{" ~> pattern <~"}")~rep(template) ^^ { case ps~ts => S(ps,ts) }
+	def start : Parser[S] = rep(prefixDecl) ~ rep("{" ~> pattern <~"}") ~ rep(template) ^^
+	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
 	
-	def prefixDecl = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^ { case prefix~ns => prefixes += (prefix -> ns) }
+	def prefixDecl : Parser[(String,Resource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
+	    { case prefix~ns => prefixes += (prefix -> ns)
+	                        (prefix -> ns)
+	    }
 	
 	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
 		letWhereExpression ^^ { pm => Pattern(Right(pm))}
