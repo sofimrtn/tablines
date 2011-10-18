@@ -4,7 +4,8 @@ import grizzled.slf4j.Logging
 import java.io.File
 
 object CLI extends Logging {
-	
+
+	val defaultTabelsFilename = "transform.tabels"
 	lazy val excelFilesCurrentDirectory : Seq[File] = new File(".").listFiles()filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined)
   
 	def main(args: Array[String]) {
@@ -17,7 +18,7 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
 			val parser = new TabelsParser()
 
-            val programFile = new File("transform.tabels")
+            val programFile = new File(defaultTabelsFilename)
             val program = parser.parseProgram(programFile)
 		  	
 			logger.debug("Interpreting AST: " + program)
