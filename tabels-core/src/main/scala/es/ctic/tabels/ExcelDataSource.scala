@@ -94,8 +94,28 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
     val intPattern = """[0-9]+""".r
     val decimalFormatPattern = """^(?:#,##)?0(?:\.0+)?(?:;.*)?$""".r
     
-  override def getContent : Literal =
-    if (cell.getCellFormat == null) Literal(cell.getContents)      
+  override def getContent : Literal ={
+    logger.info("Actual cell type is: " + cell.getType())
+    cell.getType() match{
+	  case CellType.NUMBER => val value = cell.asInstanceOf[NumberCell].getValue()
+	  						if(value == value.toInt)
+	  							Literal(value.toInt.toString, XSD_INT)
+	  						else Literal(value.toString, XSD_DECIMAL)
+	  case CellType.LABEL =>Literal(cell.asInstanceOf[LabelCell].getString(), XSD_STRING)
+	  case CellType.BOOLEAN => Literal(cell.asInstanceOf[BooleanCell].getValue().toString, XSD_BOOLEAN)
+	  case CellType.NUMBER_FORMULA =>val value = cell.asInstanceOf[NumberFormulaCell].getValue()
+	  						if(value == value.toInt)
+	  							Literal(value.toInt.toString, XSD_INT)
+	  						else Literal(value.toString, XSD_DECIMAL)
+	  case CellType.BOOLEAN_FORMULA => Literal(cell.asInstanceOf[BooleanFormulaCell].getValue().toString, XSD_BOOLEAN)
+	  case CellType.STRING_FORMULA =>Literal(cell.asInstanceOf[StringFormulaCell].getString(), XSD_STRING)
+	  case CellType.DATE =>Literal(cell.asInstanceOf[DateCell].getDate(), XSD_DATE)
+	  case CellType.DATE_FORMULA =>Literal(cell.asInstanceOf[DateFormulaCell].getDate(), XSD_DATE)
+	  case CellType.EMPTY => autodetectFormat
+	
+	}
+    }
+    /*if (cell.getCellFormat == null) Literal(cell.getContents)      
     else cell.getCellFormat.getFormat.getFormatString match {
         case "" => autodetectFormat
         case "@" => Literal(cell.getContents, XSD_STRING)
@@ -107,7 +127,7 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
         case "d-mmm-yy" => Literal(cell.getContents, XSD_DATE) // FIXME: parse date
         case x => logger.info("Unrecognized cell format: '" + x + "'")
                   return Literal(cell.getContents, XSD_STRING)
-    }
+    }*/
     
     /**
      * When there is no formatting information, this method does it
@@ -115,8 +135,8 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
      *
      */
     def autodetectFormat : Literal = cell.getContents match {
-        case decimalPattern() => Literal(cell.getContents, XSD_DECIMAL)
         case intPattern() => Literal(cell.getContents, XSD_INT)
+        case decimalPattern() => Literal(cell.getContents, XSD_DECIMAL)
         case x => Literal(cell.getContents, XSD_STRING)
     }
     

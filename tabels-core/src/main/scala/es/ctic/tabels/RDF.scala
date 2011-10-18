@@ -8,9 +8,9 @@ abstract class RDFNode() {
 	
 }
 
-case class Literal(value : String, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
+case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
 	
-	def truthValue : Boolean = Set("true", "1") contains this.asBoolean.value
+	def truthValue : Boolean = Set("true", "1") contains this.asBoolean.value.toString
 
 	override def +(suffix : String) : Literal = Literal(this.value + suffix)
 
@@ -21,8 +21,8 @@ case class Literal(value : String, rdfType: Resource = XSD_STRING, langTag : Str
      */
 	override def asBoolean : Literal = rdfType match {
 	    case XSD_BOOLEAN => this
-	    case XSD_STRING =>  if (value.length > 0) LITERAL_TRUE else LITERAL_FALSE
-	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => if (value.toDouble == 0.0) LITERAL_FALSE else LITERAL_TRUE
+	    case XSD_STRING =>  if (value.toString.length > 0) LITERAL_TRUE else LITERAL_FALSE
+	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => if (value.toString.toDouble == 0.0) LITERAL_FALSE else LITERAL_TRUE
 	}
 	
 	override def asString : Literal = Literal(value)
