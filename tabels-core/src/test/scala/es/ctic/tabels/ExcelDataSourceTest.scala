@@ -22,11 +22,29 @@ class ExcelDataSourceIntegrationTest extends JUnitSuite {
 	}
 	
 	@Test def getCols {
-		assertEquals(1, dataSource.getCols(filename1, sheet1))
+		assertEquals(2, dataSource.getCols(filename1, sheet1))
 	}
 	
 	@Test def getRows {
-		assertEquals(1, dataSource.getRows(filename1, sheet1))
+		assertEquals(10, dataSource.getRows(filename1, sheet1))
+	}
+	
+	@Test def getValue {
+		assertEquals(Literal("Formatted"), dataSource.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
+
+		assertEquals(Literal("3.1415", XSD_DECIMAL), dataSource.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
+		assertEquals(Literal("3", XSD_INT), dataSource.getValue(Point(filename1, sheet1, row = 2, col = 1)).getContent)
+		assertEquals(Literal("3.01", XSD_DECIMAL), dataSource.getValue(Point(filename1, sheet1, row = 3, col = 1)).getContent)
+		assertEquals(Literal("-5", XSD_INT), dataSource.getValue(Point(filename1, sheet1, row = 4, col = 1)).getContent)
+		assertEquals(Literal("38281827", XSD_INT), dataSource.getValue(Point(filename1, sheet1, row = 5, col = 1)).getContent)
+
+		assertEquals(Literal("6", XSD_INT), dataSource.getValue(Point(filename1, sheet1, row = 6, col = 1)).getContent)
+		assertEquals(Literal("0.31", XSD_DECIMAL), dataSource.getValue(Point(filename1, sheet1, row = 7, col = 1)).getContent)
+
+		assertEquals(Literal("2011-10-13", XSD_DATE), dataSource.getValue(Point(filename1, sheet1, row = 8, col = 1)).getContent)
+
+		assertEquals(Literal("6", XSD_INT), dataSource.getValue(Point(filename1, sheet1, row = 9, col = 1)).getContent)
+		assertEquals(Literal("9", XSD_STRING), dataSource.getValue(Point(filename1, sheet1, row = 10, col = 1)).getContent)
 	}
 	
 }
