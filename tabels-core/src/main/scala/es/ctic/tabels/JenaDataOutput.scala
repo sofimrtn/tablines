@@ -29,8 +29,8 @@ class JenaDataOutput(prefixes : Map[String,Resource] = Map()) extends DataOutput
   def createObject(s : RDFNode) : com.hp.hpl.jena.rdf.model.RDFNode = {
     s match {
     	case Resource(uri) => model.createResource(uri) 
-    	case Literal(value, XSD_STRING, "") => model.createLiteral(value) // untyped
-    	case Literal(value, XSD_STRING, langTag) => model.createLiteral(value, langTag) // with language tag
+    	case Literal(value, XSD_STRING, "") => model.createLiteral(value.toString) // untyped
+    	case Literal(value, XSD_STRING, langTag) => model.createLiteral(value.toString, langTag) // with language tag
     	case Literal(value, XSD_BOOLEAN, _) => model.createTypedLiteral(value, XSDDatatype.XSDboolean)
     	case Literal(value, XSD_INT, _) => model.createTypedLiteral(value, XSDDatatype.XSDint)
     	case Literal(value, XSD_DOUBLE, _) => model.createTypedLiteral(value, XSDDatatype.XSDdouble)
