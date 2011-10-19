@@ -8,7 +8,7 @@ import java.io.File
 class ExcelDataSourceIntegrationTest extends JUnitSuite {
 	
 	var dataSource : ExcelDataSource = null
-	val filename1 = "src/test/resources/es/ctic/tabels/Test1.xls"
+	val filename1 : String = this.getClass.getResource("/es/ctic/tabels/Test1.xls").getFile
 	val sheet1 = "Hoja1"
 	
 	@Before def setUp {
