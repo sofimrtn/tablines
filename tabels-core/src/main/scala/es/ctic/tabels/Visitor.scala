@@ -9,7 +9,8 @@ abstract class Visitor {
   def visit(patt : Pattern)
   def visit(lwexp : LetWhereExpression)
   def visit(bindExp : BindingExpression)
- // def visit(pattMatch : PatternMatch)
+  def visit(dimensionExp :SetInDimensionExpression)
+  def visit(pattMatch : MatchExpression)
   def visit(filtCond : FilterCondition)
   def visit(pos : Position)
   def visit(sCond : StopCondition)
@@ -25,7 +26,8 @@ class AbstractVisitor extends Visitor with Logging {
   override def visit(patt : Pattern) = {}
   override def visit(lwexp : LetWhereExpression) = {}
   override def visit(bindExp : BindingExpression) = {}
-  //override def visit(pattMatch : PatternMatch) = {}
+  override def visit(dimensionExp :SetInDimensionExpression)= {}
+  override def visit(pattMatch : MatchExpression) = {}
   override def visit(filtCond : FilterCondition) = {}
   override def visit(pos : Position) = {}
   override def visit(sCond : StopCondition) = {}
@@ -59,19 +61,19 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
-  def calculateNewEvaluationContext(bindingExpression: BindingExpression, dimensionIterator: String) : EvaluationContext = {
+  def calculateNewEvaluationContext(dimensionExpression: DimensionExpression, dimensionIterator: String) : EvaluationContext = {
      
     
-	 val newEvaluationContext = evaluationContext.addDimension(bindingExpression.dimension, dimensionIterator)
+	 val newEvaluationContext = evaluationContext.addDimension(dimensionExpression.dimension, dimensionIterator)
      val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
-     val value : Literal = bindingExpression.dimension match{
+     val value : Literal = dimensionExpression.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(point).getContent
 		    case Dimension.cols =>	dataSource.getValue(point).getContent
 			case Dimension.sheets =>Literal(dimensionIterator)
 			case Dimension.files =>	Literal(dimensionIterator)
 	}
 		
-    return newEvaluationContext.addBinding(bindingExpression.variable, value, point)
+    return newEvaluationContext.addBinding(dimensionExpression.variable, value, point)
   }
   
   
@@ -102,6 +104,27 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  
 	
   }
+  
+  override def visit(setDimensionExp : SetInDimensionExpression) = {
+   
+    logger.debug("Visting binding expression " + setDimensionExp.dimension)
+    
+    val requiredDimension = requiredDimensionMap(setDimensionExp.dimension)
+    
+    if( requiredDimension!=null && !evaluationContext.dimensiones.contains(requiredDimension)){
+	  BindingExpression(variable = Variable("?_" + requiredDimension), dimension = requiredDimension, childPatterns = Seq(Pattern(Left(setDimensionExp)))).accept(this)
+	} 
+    else {
+     
+      val newEvaluationContext = calculateNewEvaluationContext(setDimensionExp, setDimensionExp.fixedDimension )    
+      val event = new Event(newEvaluationContext.bindings, Set(setDimensionExp.variable))
+      events += event
+	  setDimensionExp.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+    }
+	  
+	
+  }
+  
   override def visit(letWhereExpression : LetWhereExpression){
 	  	
 	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
@@ -122,7 +145,41 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	}
 	  		
 	  		var event : Event = null		  	
-		  	letWhereExpression.tupleOrVariable match{
+		  	letWhereExpression.expression match{
+			  	    case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(letWhereExpression.variable, expr.evaluate(newEvaluationContext), position)
+			  	    case None => newEvaluationContext = newEvaluationContext.addBinding(letWhereExpression.variable, dataSource.getValue(position).getContent, position)
+		  	  	}
+		  	    					
+			event = Event(newEvaluationContext.bindings, Set(letWhereExpression.variable))
+			  	    					
+		  	
+		  	if(letWhereExpression.filter.isEmpty || letWhereExpression.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
+		  	  events += event
+		  	  letWhereExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+		  	}
+	  }
+  }
+  override def visit(matchExpression : MatchExpression){
+	  	
+	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	    		BindingExpression(variable = Variable("?_SHEET"), dimension = Dimension.sheets, childPatterns = Seq(Pattern(Right(matchExpression)))).accept(this)
+	    }else{ 
+	  	
+		  	logger.debug("Visting match expression" + matchExpression)
+		  	var newEvaluationContext: EvaluationContext = evaluationContext
+	  		 
+	  		  		
+	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
+	  		
+			var position : Point = matchExpression.position match{
+		  	  case Some(p) =>	p.calculatePoint(evaluationContext)
+								
+		  	  case None =>		Point(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets),evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
+								
+		  	}
+	  		
+	  		var event : Event = null		  	
+		  	matchExpression.tupleOrVariable match{
 		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
 			  	  					//letWhereExpression.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
 		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, dataSource.getValue(position).getContent, position)
@@ -134,7 +191,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	  						})
 		  	  						event = Event(newEvaluationContext.bindings, Set(tuple.variables:_*))
 		  		  					
-		  	  case Right(variable) =>letWhereExpression.expression match{
+		  	  case Right(variable) =>matchExpression.expression match{
 			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.evaluate(newEvaluationContext), position)
 			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, dataSource.getValue(position).getContent, position)
 		  	  						}
@@ -142,20 +199,23 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 			  	  					event = Event(newEvaluationContext.bindings, Set(variable))
 			  	    					
 		  	}
-		  	if(letWhereExpression.filter.isEmpty || letWhereExpression.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
+		  	if(matchExpression.filter.isEmpty || matchExpression.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
 		  	  events += event
-		  	  letWhereExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+		  	  matchExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 		  	}
 	  }
   }
+ 
  }
+
+ 
 
  
 class VisitorToString extends AbstractVisitor{
   
   override def visit(letWhereExpression : LetWhereExpression){
   
-   letWhereExpression.tupleOrVariable fold(_.accept(this),_ accept(this))
+  letWhereExpression.variable.accept(this)
        
    letWhereExpression.position map( _.toString)
       

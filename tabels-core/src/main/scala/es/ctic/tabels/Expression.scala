@@ -61,7 +61,7 @@ case class StringE(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluate(evaluationContext).asString.value, XSD_STRING)
 }
-
+//FIX ME: Type control
 case class IntE(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {

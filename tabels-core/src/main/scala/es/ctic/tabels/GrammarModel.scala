@@ -6,41 +6,59 @@ import scala.util.matching.Regex
 
 case class S (prefixes : Seq[(String,Resource)] = List(), patternList: Seq[Pattern] = List(), templateList : Seq[Template] = List()) extends Evaluable
 
-case class Pattern ( concretePattern : Either[BindingExpression,LetWhereExpression] ) extends Evaluable{
+case class Pattern ( concretePattern : Either[DimensionExpression,VariableAssignationExpression] ) extends Evaluable{
  
 	def accept(vis : Visitor) = {
 	    
 	    vis.visit(this)
 	  }
 }
+/*
+ * 
+ * group of Classes designed to assign values to variables from different sources or methods
+ * 
+ */
+abstract class VariableAssignationExpression extends Evaluable {
+	
+  def accept(vis : Visitor)
+}
 case class LetWhereExpression(filter: Option[Expression] = None, position : Option[Position] = None , 
-		 tupleOrVariable: Either[Tuple,Variable], childPatterns: Seq[Pattern] = Seq(), expression: Option[Expression]= None) extends Evaluable{
+		 variable: Variable, childPatterns: Seq[Pattern] = Seq(), expression: Option[Expression]= None) extends VariableAssignationExpression{
   
-	def accept(vis : Visitor) = {
-	    
-	    vis.visit(this)
-	  }
+	override def accept(vis : Visitor) =  vis.visit(this)
+	  
 }
 
-case class BindingExpression(dimension : Dimension, filter: Option[Expression] = None, 
-		pos : Option[Position] = None, stopCond : Option[Expression] = None, variable: Variable = Variable("?_BLANK"),
-		childPatterns: Seq[Pattern] = Seq() ) extends Evaluable {
+case class MatchExpression(filter: Option[Expression] = None, position : Option[Position] = None , 
+		 tupleOrVariable: Either[Tuple,Variable], childPatterns: Seq[Pattern] = Seq(), expression: Option[Expression]= None) extends VariableAssignationExpression{
   
-  def accept(vis : Visitor) = {
-	    
-	    vis.visit(this)
-	  }
+	override def accept(vis : Visitor) = vis.visit(this)
 }
-/*Forget about PatternMatch, from now on LetWhereExpresion will be the binding leaf node
-case class PatternMatch(filterCondList: Seq[FilterCondition] = List(), position : Position = null, 
-		stopCond : StopCondition = null, variable: Variable = null, tuple : Tuple = null) extends Evaluable{
+
+/*
+ * 
+ *
+ * 
+ */
+abstract class DimensionExpression(dim : Dimension, v : Variable) extends Evaluable {
+  val dimension = dim	
+  val variable = v
+  def accept(vis : Visitor)
+}
+
+case class BindingExpression(override val dimension : Dimension, filter: Option[Expression] = None, 
+		pos : Option[Position] = None, stopCond : Option[Expression] = None, override val variable: Variable = Variable("?_BLANK"),
+		childPatterns: Seq[Pattern] = Seq() ) extends DimensionExpression(dimension,variable) {
   
-	def accept(vis : Visitor) = {
-	    
-	    vis.visit(this)
-	  }
+  override def accept(vis : Visitor) = vis.visit(this)
 }
-*/
+
+case class SetInDimensionExpression(override val dimension : Dimension, fixedDimension: String, override val variable: Variable = Variable("?_BLANK"),
+		childPatterns: Seq[Pattern] = Seq() ) extends DimensionExpression (dimension, variable){
+  
+  override def accept(vis : Visitor) = vis.visit(this)
+}
+
 case class FilterCondition (condition : String) extends Evaluable {
   
   def filterValue(value : String): Boolean = {
@@ -51,9 +69,6 @@ case class FilterCondition (condition : String) extends Evaluable {
     }
   }
 }
-
-
-
 
 case class StopCondition (cond: String) extends Evaluable
 

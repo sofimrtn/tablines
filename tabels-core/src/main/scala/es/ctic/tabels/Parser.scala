@@ -47,6 +47,8 @@ class TabelsParser extends JavaTokenParsers {
 	def MATCHES = "matches".ignoreCase
 	def WHILE = "while".ignoreCase
 	def UNTIL = "until".ignoreCase
+	def MATCH = "match".ignoreCase
+    def SET = "set".ignoreCase
     
     // functions
 	def RESOURCE = "resource".ignoreCase
@@ -105,19 +107,27 @@ class TabelsParser extends JavaTokenParsers {
 	    }
 	
 	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
-		letWhereExpression ^^ { pm => Pattern(Right(pm))}
+		setInDimensionExpression ^^ {set => Pattern(Left(set))}|
+		letWhereExpression ^^ { pm => Pattern(Right(pm))}|
+		matchExpression ^^ { pm => Pattern(Right(pm))}
 
 	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~filterCondition~ stopCondition ~ rep(pattern) ^^
         { case v~d~f~s~p => BindingExpression(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }
-       
+    
+	def setInDimensionExpression : Parser[SetInDimensionExpression] = (SET ~> variable <~ IN) ~ dimension ~ quotedString ~ rep(pattern) ^^
+        { case v~d~s~p => SetInDimensionExpression(variable = v, dimension = d, childPatterns = p, fixedDimension = s) }
+      
 	
 	def letWhereExpression : Parser[LetWhereExpression] = 
-		((LET ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(pattern) ^^
-        { case v~p~fc~pat => LetWhereExpression(tupleOrVariable = Right(v), position = p, filter = fc, childPatterns = pat) }|
-        ((LET ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
-        { case t~p~fc~pat => LetWhereExpression(tupleOrVariable = Left(t), position = p, filter = fc, childPatterns = pat) }|
-        (LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
-        {case v1~exp~pat => LetWhereExpression(tupleOrVariable = Right(v1), expression = Some(exp),childPatterns = pat) }
+		(LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
+        {case v1~exp~pat => LetWhereExpression(variable = v1, expression = Some(exp),childPatterns = pat) }
+        
+    def matchExpression : Parser[MatchExpression] = 
+		((MATCH ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(pattern) ^^
+        { case v~p~fc~pat => MatchExpression(tupleOrVariable = Right(v), position = p, filter = fc, childPatterns = pat) }|
+        ((MATCH ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
+        { case t~p~fc~pat => MatchExpression(tupleOrVariable = Left(t), position = p, filter = fc, childPatterns = pat) }
+       
 	
     def regex : Parser[Regex] =
       ("""\"[^"]*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
