@@ -30,7 +30,7 @@ case class LetWhereExpression(filter: Option[Expression] = None, position : Opti
 }
 
 case class MatchExpression(filter: Option[Expression] = None, position : Option[Position] = None , 
-		 tupleOrVariable: Either[Tuple,Variable], childPatterns: Seq[Pattern] = Seq(), expression: Option[Expression]= None) extends VariableAssignationExpression{
+		 tuple: Tuple, childPatterns: Seq[Pattern] = Seq(), expression: Option[Expression]= None) extends VariableAssignationExpression{
   
 	override def accept(vis : Visitor) = vis.visit(this)
 }
@@ -84,7 +84,7 @@ case class Variable (name : String) extends Evaluable{
 
 
 
-case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType) extends Evaluable {
+case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType = TupleType.horizontal) extends Evaluable {
 	
 	def accept(vis : Visitor) = {
     

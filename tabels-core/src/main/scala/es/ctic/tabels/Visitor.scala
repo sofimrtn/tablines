@@ -179,27 +179,23 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	}
 	  		
 	  		var event : Event = null		  	
-		  	matchExpression.tupleOrVariable match{
-		  	  case Left(tuple) =>	tuple.variables.foreach(v =>{
-			  	  					//letWhereExpression.filterCondList.foreach(filter => 	if(!filter.filterValue(dataSource.getValue(point).getContent)){return})
-		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, dataSource.getValue(position).getContent, position)
-		  		  					tuple.tupleType match{
+		  	
+		  	 matchExpression.tuple.variables.foreach(v =>{
+		  		  					val node : RDFNode=  matchExpression.expression match{
+			  	    					case Some(expr) => expr.evaluate(newEvaluationContext)
+			  	    					case None => dataSource.getValue(position).getContent
+		  	  						}
+		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, node, position)
+		  		  					matchExpression.tuple.tupleType match{
 		  		  						case TupleType.horizontal => position = position.RightPoint
 		  		  						case TupleType.vertical => position = position.BottomPoint
 		  		  					}
 		  		  					
-		  	  						})
-		  	  						event = Event(newEvaluationContext.bindings, Set(tuple.variables:_*))
+		  	  					})
+		  	event = Event(newEvaluationContext.bindings, Set(matchExpression.tuple.variables:_*))
 		  		  					
-		  	  case Right(variable) =>matchExpression.expression match{
-			  	    					case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(variable, expr.evaluate(newEvaluationContext), position)
-			  	    					case None => newEvaluationContext = newEvaluationContext.addBinding(variable, dataSource.getValue(position).getContent, position)
-		  	  						}
-		  	    					
-			  	  					event = Event(newEvaluationContext.bindings, Set(variable))
-			  	    					
-		  	}
-		  	if(matchExpression.filter.isEmpty || matchExpression.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
+		  	 
+			if(matchExpression.filter.isEmpty || matchExpression.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
 		  	  events += event
 		  	  matchExpression.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 		  	}

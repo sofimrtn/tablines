@@ -124,9 +124,9 @@ class TabelsParser extends JavaTokenParsers {
         
     def matchExpression : Parser[MatchExpression] = 
 		((MATCH ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(pattern) ^^
-        { case v~p~fc~pat => MatchExpression(tupleOrVariable = Right(v), position = p, filter = fc, childPatterns = pat) }|
+        { case v~p~fc~pat => MatchExpression(tuple = Tuple(Seq(v)), position = p, filter = fc, childPatterns = pat) }|
         ((MATCH ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
-        { case t~p~fc~pat => MatchExpression(tupleOrVariable = Left(t), position = p, filter = fc, childPatterns = pat) }
+        { case t~p~fc~pat => MatchExpression(tuple = t, position = p, filter = fc, childPatterns = pat) }
        
 	
     def regex : Parser[Regex] =
