@@ -109,41 +109,41 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parsePattern() {
-        assertParse(pattern, "let ?X in cell A1", Pattern(concretePattern = Right(LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))))
-        assertParse(pattern, "For ?y in rows \n let ?x in cell A1", 
+        assertParse(pattern, "match ?X in cell A1", Pattern(concretePattern = Right(MatchExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))))
+        assertParse(pattern, "For ?y in rows \n match ?x in cell A1", 
             Pattern(concretePattern = Left(BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
-                childPatterns = Seq(Pattern( concretePattern = Right(LetWhereExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))))
-		assertParse(pattern, "For ?y in rows \n For ?z in cols \n let ?x in cell A1", 
+                childPatterns = Seq(Pattern( concretePattern = Right(MatchExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))))
+		assertParse(pattern, "For ?y in rows \n For ?z in cols \n match ?x in cell A1", 
 		    Pattern(concretePattern = Left(BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
                 childPatterns = Seq(Pattern(concretePattern = Left(BindingExpression(variable = Variable("?z"), dimension = Dimension.cols, 
-                childPatterns = Seq(Pattern(concretePattern = Right(LetWhereExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))))))))
+                childPatterns = Seq(Pattern(concretePattern = Right(MatchExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))))))))
 		    
 		assertFail (pattern, "For ?y in rows")
         assertFail (pattern, "")
 	}
 	
     @Test def parseBindingExpression(){
-       assertParse(bindingExpression, "For ?y in rows \n let ?x in cell A1",
+       assertParse(bindingExpression, "For ?y in rows \n match ?x in cell A1",
            BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
-                childPatterns = Seq(Pattern( concretePattern = Right(LetWhereExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))
-       assertParse(bindingExpression, "For ?y in rows  For ?z in cols let ?x in cell A1", 
+                childPatterns = Seq(Pattern( concretePattern = Right(MatchExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))
+       assertParse(bindingExpression, "For ?y in rows  For ?z in cols match ?x in cell A1", 
            BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
                 childPatterns = Seq(Pattern(concretePattern = Left(BindingExpression(variable = Variable("?z"), dimension = Dimension.cols, 
-                childPatterns = Seq(Pattern(concretePattern = Right(LetWhereExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))))))
+                childPatterns = Seq(Pattern(concretePattern = Right(MatchExpression(tupleOrVariable = Right(Variable("?x")), position = Some(FixedPosition(0,0))))))))))))
            
         assertFail (bindingExpression, "For ?y in rows")
         assertFail (bindingExpression, "For ?y in rows  For ?z in cols")
     }
 
-     @Test def parseLetWhereExpression() {
-        assertParse(letWhereExpression, "let ?X in cell A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))
-        assertParse(letWhereExpression, "LET ?X    in  cell   A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))
-        assertParse(letWhereExpression, "Let  ?X IN CELL A1", LetWhereExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))
-        assertFail (letWhereExpression, "")
-        assertFail (letWhereExpression, "?X")
-        assertFail (letWhereExpression, "A1")
-        assertFail (letWhereExpression, "IN CELL")
-        assertFail (letWhereExpression, "IN CELL A1")
+     @Test def parseVariableAssignationExpression() {
+        assertParse(matchExpression, "match ?X in cell A1", MatchExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))
+        assertParse(matchExpression, "MATCH ?X    in  cell   A1", MatchExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))
+        assertParse(matchExpression, "Match  ?X IN CELL A1", MatchExpression(tupleOrVariable = Right(Variable("?X")), position = Some(FixedPosition(0,0))))
+        assertFail (matchExpression, "")
+        assertFail (matchExpression, "?X")
+        assertFail (matchExpression, "A1")
+        assertFail (matchExpression, "IN CELL")
+        assertFail (matchExpression, "IN CELL A1")
     }
     
     @Test def parseRegex(){
