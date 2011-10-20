@@ -3,6 +3,8 @@ package es.ctic.tabels
 import grizzled.slf4j.Logging
 
 case class Template(triples : Set[TripleTemplate] = Set()) extends Logging {
+    
+    override def toString() = "{" + (triples map (_.toString) mkString ".\n") + "} "
 	
 	val variables : Set[Variable] = triples flatMap (_.variables)
   	
@@ -14,6 +16,8 @@ case class Template(triples : Set[TripleTemplate] = Set()) extends Logging {
 }
 
 case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Variable], o : Either[RDFNode, Variable]) {
+    
+    override def toString() = s.toString + " " + p.toString + " " + o.toString // FIXME
 	
 	val variables : Set[Variable] = Set(s,p,o) flatMap {
 		case Left(_) => None
