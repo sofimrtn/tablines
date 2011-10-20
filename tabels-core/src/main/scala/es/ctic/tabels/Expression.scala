@@ -1,7 +1,7 @@
 package es.ctic.tabels
 import scala.util.matching.Regex
 
-abstract class Expression extends EvaluableExpression{
+abstract class Expression {
   
   def evaluate(evaluationContext : EvaluationContext) : RDFNode
 

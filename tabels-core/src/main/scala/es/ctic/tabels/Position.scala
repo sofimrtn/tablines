@@ -2,7 +2,7 @@ package es.ctic.tabels
 
 import es.ctic.tabels.RelativePos._
 
-abstract class Position extends EvaluablePosition {
+abstract class Position {
   
 	def calculatePoint(evaluationContext: EvaluationContext) : Point
 
