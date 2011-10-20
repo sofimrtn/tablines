@@ -98,7 +98,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(prefixDecl) ~ rep("{" ~> pattern <~"}") ~ rep(template) ^^
+	def start : Parser[S] = rep(prefixDecl) ~ rep("{" ~> tabelsStatement <~"}") ~ rep(template) ^^
 	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
 	
 	def prefixDecl : Parser[(String,Resource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
@@ -106,27 +106,27 @@ class TabelsParser extends JavaTokenParsers {
 	                        (prefix -> ns)
 	    }
 	
-	def pattern : Parser[Pattern] = bindingExpression ^^ {bind => Pattern(Left(bind))}|
-		setInDimensionExpression ^^ {set => Pattern(Left(set))}|
-		letWhereExpression ^^ { pm => Pattern(Right(pm))}|
-		matchExpression ^^ { pm => Pattern(Right(pm))}
+	def tabelsStatement : Parser[TabelsStatement] =iteratorStatement ^^ {bind => TabelsStatement(Left(bind))}|
+		setInDimensionStatement ^^ {set => TabelsStatement(Left(set))}|
+		letStatement ^^ { pm => TabelsStatement(Right(pm))}|
+		matchStatement ^^ { pm => TabelsStatement(Right(pm))}
 
-	def bindingExpression : Parser[BindingExpression] = (FOR ~> variable <~ IN) ~ dimension ~filterCondition~ stopCondition ~ rep(pattern) ^^
-        { case v~d~f~s~p => BindingExpression(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }
+	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ rep(tabelsStatement) ^^
+        { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }
     
-	def setInDimensionExpression : Parser[SetInDimensionExpression] = (SET ~> variable <~ IN) ~ dimension ~ quotedString ~ rep(pattern) ^^
-        { case v~d~s~p => SetInDimensionExpression(variable = v, dimension = d, childPatterns = p, fixedDimension = s) }
+	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ quotedString ~ rep(tabelsStatement) ^^
+        { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, childPatterns = p, fixedDimension = s) }
       
 	
-	def letWhereExpression : Parser[LetWhereExpression] = 
-		(LET ~> variable) ~ ("=" ~>expression)~ rep(pattern) ^^
-        {case v1~exp~pat => LetWhereExpression(variable = v1, expression = Some(exp),childPatterns = pat) }
+	def letStatement : Parser[LetStatement] = 
+		(LET ~> variable) ~ ("=" ~>expression)~ rep(tabelsStatement) ^^
+        {case v1~exp~pat => LetStatement(variable = v1, expression = Some(exp),childPatterns = pat) }
         
-    def matchExpression : Parser[MatchExpression] = 
-		((MATCH ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(pattern) ^^
-        { case v~p~fc~pat => MatchExpression(tuple = Tuple(Seq(v)), position = p, filter = fc, childPatterns = pat) }|
-        ((MATCH ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(pattern) ^^
-        { case t~p~fc~pat => MatchExpression(tuple = t, position = p, filter = fc, childPatterns = pat) }
+    def matchStatement : Parser[MatchStatement] = 
+		((MATCH ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(tabelsStatement) ^^
+        { case v~p~fc~pat => MatchStatement(tuple = Tuple(Seq(v)), position = p, filter = fc, childPatterns = pat) }|
+        ((MATCH ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(tabelsStatement) ^^
+        { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, childPatterns = pat) }
        
 	
     def regex : Parser[Regex] =

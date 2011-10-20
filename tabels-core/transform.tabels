@@ -15,7 +15,7 @@ set ?FILE in files "PruebaSencilla.xls"
 }
 
 {
-set ?FILE in files "points.xls"
+Set ?FILE in files "points.xls"
     For ?idCoil in rows filter matches(?idCoil , "[0-9]*" ) until matches(?idCoil, "\s")
         match @tuple[?idCoil,?xPos,?yieldStrength,?flattenerElongation,?skinPassElongation,
                    ?tractionLimit,?width,?weight,?thickness,?coatingBottom,

@@ -108,42 +108,42 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (prefixDecl, "PREFIX : <http://example.org/>") // FIXME: default namespace should be allowed
 	}
 	
-	@Test def parsePattern() {
-        assertParse(pattern, "match ?X in cell A1", Pattern(concretePattern = Right(MatchExpression(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))))
-        assertParse(pattern, "For ?y in rows \n match ?x in cell A1", 
-            Pattern(concretePattern = Left(BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
-                childPatterns = Seq(Pattern( concretePattern = Right(MatchExpression(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))
-		assertParse(pattern, "For ?y in rows \n For ?z in cols \n match ?x in cell A1", 
-		    Pattern(concretePattern = Left(BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
-                childPatterns = Seq(Pattern(concretePattern = Left(BindingExpression(variable = Variable("?z"), dimension = Dimension.cols, 
-                childPatterns = Seq(Pattern(concretePattern = Right(MatchExpression(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))))))
+	@Test def parseTabelsStatement() {
+        assertParse(tabelsStatement, "match ?X in cell A1",TabelsStatement(concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))))
+        assertParse(tabelsStatement, "For ?y in rows \n match ?x in cell A1", 
+            TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
+                childPatterns = Seq(TabelsStatement( concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))
+		assertParse(tabelsStatement, "For ?y in rows \n For ?z in cols \n match ?x in cell A1", 
+		    TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
+                childPatterns = Seq(TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
+                childPatterns = Seq(TabelsStatement(concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))))))
 		    
-		assertFail (pattern, "For ?y in rows")
-        assertFail (pattern, "")
+		assertFail (tabelsStatement, "For ?y in rows")
+        assertFail (tabelsStatement, "")
 	}
 	
-    @Test def parseBindingExpression(){
-       assertParse(bindingExpression, "For ?y in rows \n match ?x in cell A1",
-           BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
-                childPatterns = Seq(Pattern( concretePattern = Right(MatchExpression(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))
-       assertParse(bindingExpression, "For ?y in rows  For ?z in cols match ?x in cell A1", 
-           BindingExpression(variable = Variable("?y"), dimension = Dimension.rows, 
-                childPatterns = Seq(Pattern(concretePattern = Left(BindingExpression(variable = Variable("?z"), dimension = Dimension.cols, 
-                childPatterns = Seq(Pattern(concretePattern = Right(MatchExpression(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))))
+    @Test def parseIteratorStatement(){
+       assertParse(iteratorStatement, "For ?y in rows \n match ?x in cell A1",
+           IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
+                childPatterns = Seq(TabelsStatement( concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))
+       assertParse(iteratorStatement, "For ?y in rows  For ?z in cols match ?x in cell A1", 
+           IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
+                childPatterns = Seq(TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
+                childPatterns = Seq(TabelsStatement(concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))))
            
-        assertFail (bindingExpression, "For ?y in rows")
-        assertFail (bindingExpression, "For ?y in rows  For ?z in cols")
+        assertFail (iteratorStatement, "For ?y in rows")
+        assertFail (iteratorStatement, "For ?y in rows  For ?z in cols")
     }
 
-     @Test def parseVariableAssignationExpression() {
-        assertParse(matchExpression, "match ?X in cell A1", MatchExpression(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
-        assertParse(matchExpression, "MATCH ?X    in  cell   A1", MatchExpression(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
-        assertParse(matchExpression, "Match  ?X IN CELL A1", MatchExpression(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
-        assertFail (matchExpression, "")
-        assertFail (matchExpression, "?X")
-        assertFail (matchExpression, "A1")
-        assertFail (matchExpression, "IN CELL")
-        assertFail (matchExpression, "IN CELL A1")
+     @Test def parseVariableAssignationStatement() {
+        assertParse(matchStatement, "match ?X in cell A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
+        assertParse(matchStatement, "MATCH ?X    in  cell   A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
+        assertParse(matchStatement, "Match  ?X IN CELL A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
+        assertFail (matchStatement, "")
+        assertFail (matchStatement, "?X")
+        assertFail (matchStatement, "A1")
+        assertFail (matchStatement, "IN CELL")
+        assertFail (matchStatement, "IN CELL A1")
     }
     
     @Test def parseRegex(){
