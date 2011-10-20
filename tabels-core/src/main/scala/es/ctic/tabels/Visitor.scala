@@ -6,35 +6,19 @@ import grizzled.slf4j.Logging
 
 abstract class Visitor {
   def visit(s : S)
-  def visit(patt : TabelsStatement)
   def visit(lwexp : LetStatement)
   def visit(iteratorStatement : IteratorStatement)
   def visit(dimensionExp :SetInDimensionStatement)
   def visit(pattMatch : MatchStatement)
-  def visit(filtCond : FilterCondition)
-  def visit(pos : Position)
-  def visit(sCond : StopCondition)
-  def visit(v : Variable)
-  def visit(tupple : Tuple)
-  def visit(exp : Expression)
-  def visit(assing : Assignment)
 
 }
 
 class AbstractVisitor extends Visitor with Logging {
   override def visit(s : S) = {}
-  override def visit(patt : TabelsStatement) = {}
   override def visit(lwexp : LetStatement) = {}
   override def visit(iteratorStatement : IteratorStatement) = {}
   override def visit(dimensionExp :SetInDimensionStatement)= {}
   override def visit(pattMatch : MatchStatement) = {}
-  override def visit(filtCond : FilterCondition) = {}
-  override def visit(pos : Position) = {}
-  override def visit(sCond : StopCondition) = {}
-  override def visit(v : Variable) = {}
-  override def visit(tupple : Tuple) = {}
-  override def visit(exp : Expression) = {}
-  override def visit(assing : Assignment) = {}
 }
 
 
@@ -45,19 +29,6 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	logger.debug("Visiting root node")
 	s.statementList.foreach(p => p.accept(this))
   }
-  
- /* override def visit(statement : TabelsStatement){
-	logger.debug("Visting statement")
-	//FIX ME
-	
-	statement.concreteStatement match{
-	  case Left(binding) => binding.accept(this)
-	  case Right(let) => let.accept(this)
-	}
-	
-	
-	
-  }*/
   
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
@@ -217,23 +188,38 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
  
 
  
-class VisitorToString extends AbstractVisitor{
+class VisitorToString extends AbstractVisitor {
+    
+    val str = new StringBuilder()
+ 
+    override def toString() = str.toString
+    
+    override def visit(start : S) {
+        start.prefixes foreach { case (prefix,ns) => str append ("PREFIX " + prefix + ": <" + ns.toString + ">\n") }
+        start.statementList foreach { _.accept(this) }
+        start.templateList foreach (template => str append (template toString))
+    }
+    
+    override def visit(stmt : LetStatement) {
+        str append "LET ...\n" // FIXME
+        stmt.position map( _.toString) // FIXME
+        stmt.childPatterns foreach { _.accept(this) }
+    }
+    
+    override def visit(stmt : MatchStatement) {
+        str append "MATCH ...\n" // FIXME
+        stmt.childPatterns foreach { _.accept(this) }
+    }
   
-  override def visit(letStatement : LetStatement){
-  
-  letStatement.variable.accept(this)
-       
-   letStatement.position map( _.toString)
-      
-  }
-  
-  override def visit(v : Variable){
-    print(v.name)
-  }
-  
-  override def visit(position : Position){
-    print(position)
-  }
+    override def visit(stmt : IteratorStatement) {
+        str append "FOR ...\n" // FIXME
+        stmt.childPatterns foreach { _.accept(this) }
+    }
+    
+    override def visit(stmt : SetInDimensionStatement) {
+        str append "SET ...\n"// FIXME
+        stmt.childPatterns foreach { _.accept(this) }
+    }
   
 }
 
