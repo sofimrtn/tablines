@@ -106,11 +106,8 @@ class TabelsParser extends JavaTokenParsers {
 	                        (prefix -> ns)
 	    }
 	
-	def tabelsStatement : Parser[TabelsStatement] =iteratorStatement ^^ {bind => TabelsStatement(Left(bind))}|
-		setInDimensionStatement ^^ {set => TabelsStatement(Left(set))}|
-		letStatement ^^ { pm => TabelsStatement(Right(pm))}|
-		matchStatement ^^ { pm => TabelsStatement(Right(pm))}
-
+	def tabelsStatement : Parser[TabelsStatement] =iteratorStatement | setInDimensionStatement | letStatement | matchStatement 
+	
 	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ rep(tabelsStatement) ^^
         { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }
     

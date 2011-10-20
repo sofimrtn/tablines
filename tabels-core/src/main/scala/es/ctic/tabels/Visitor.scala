@@ -46,7 +46,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	s.statementList.foreach(p => p.accept(this))
   }
   
-  override def visit(statement : TabelsStatement){
+ /* override def visit(statement : TabelsStatement){
 	logger.debug("Visting statement")
 	//FIX ME
 	
@@ -57,7 +57,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	
 	
 	
-  }
+  }*/
   
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
@@ -82,12 +82,12 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(iteratorStatement : IteratorStatement) = {
    
-    logger.debug("Visting binding expression " + iteratorStatement.dimension)
+    logger.debug("Visting Iterator statement " + iteratorStatement.dimension)
     
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
     if( requiredDimension!=null && !evaluationContext.dimensiones.contains(requiredDimension)){
-	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(TabelsStatement(Left(iteratorStatement)))).accept(this)
+	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(iteratorStatement)).accept(this)
 	} 
     else {
       val dimensionValues = dataSource.getDimensionRange(iteratorStatement.dimension, evaluationContext)
@@ -118,7 +118,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     val requiredDimension = requiredDimensionMap(setDimensionStatement.dimension)
     
     if( requiredDimension!=null && !evaluationContext.dimensiones.contains(requiredDimension)){
-	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(TabelsStatement(Left(setDimensionStatement)))).accept(this)
+	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(setDimensionStatement)).accept(this)
 	} 
     else {
      
@@ -138,10 +138,10 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   override def visit(letStatement : LetStatement){
 	  	
 	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(TabelsStatement(Right(letStatement)))).accept(this)
+	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(letStatement)).accept(this)
 	    }else{ 
 	  	
-		  	logger.debug("Visting let/where expression" + letStatement)
+		  	logger.debug("Visting let statement" + letStatement)
 		  	var newEvaluationContext: EvaluationContext = evaluationContext
 	  		 
 	  		  		
@@ -172,10 +172,10 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   override def visit(matchStatement : MatchStatement){
 	  	
 	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
-	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(TabelsStatement(Right(matchStatement)))).accept(this)
+	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(matchStatement)).accept(this)
 	    }else{ 
 	  	
-		  	logger.debug("Visting match expression" + matchStatement)
+		  	logger.debug("Visting match statement" + matchStatement)
 		  	var newEvaluationContext: EvaluationContext = evaluationContext
 	  		 
 	  		  		
