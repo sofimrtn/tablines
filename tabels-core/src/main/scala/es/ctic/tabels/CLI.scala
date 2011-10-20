@@ -27,7 +27,9 @@ object CLI extends Logging {
 			val dataSource : DataSource = new ExcelDataSource(spreadsheetFiles)
 			logger.debug("Processing these input files: " + dataSource.filenames)
 		
-			logger.debug("Interpreting AST: " + program)
+		    val visitorToString = new VisitorToString()
+		    program.accept(visitorToString)
+			logger.debug("Interpreting AST: " + visitorToString.toString)
 			val interpreter : Interpreter = new Interpreter()
 			val dataOutput : JenaDataOutput = new JenaDataOutput(Map() ++ program.prefixes)
 			interpreter.interpret(program, dataSource, dataOutput)
