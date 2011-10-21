@@ -2,14 +2,14 @@ package es.ctic.tabels
 
 import grizzled.slf4j.Logging
 
-case class Template(triples : Set[TripleTemplate] = Set()) extends Logging {
+case class Template(triples : Seq[TripleTemplate] = Seq()) extends Logging {
     
     override def toString() = toAbbrString(Seq())
     
     def toAbbrString(prefixes : Seq[(String,Resource)]) =
         "{\n" + (triples map ("    " + _.toAbbrString(prefixes)) mkString " .\n") + "\n}\n"
 	
-	val variables : Set[Variable] = triples flatMap (_.variables)
+	val variables : Set[Variable] = triples.toSet[TripleTemplate] flatMap (_.variables)
   	
 	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
 		logger.debug("Instantiating template " + this + " with bindings " + bindingList)
