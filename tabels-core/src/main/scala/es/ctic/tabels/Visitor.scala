@@ -197,7 +197,7 @@ class VisitorToString extends AbstractVisitor {
     override def visit(start : S) {
         start.prefixes foreach { case (prefix,ns) => str append ("PREFIX " + prefix + ": <" + ns.toString + ">\n") }
         start.statementList foreach { _.accept(this) }
-        start.templateList foreach (template => str append (template toString))
+        start.templateList foreach (template => str append (template.toAbbrString(start.prefixes)))
     }
     
     override def visit(stmt : LetStatement) {

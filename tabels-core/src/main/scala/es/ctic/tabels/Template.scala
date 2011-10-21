@@ -4,7 +4,10 @@ import grizzled.slf4j.Logging
 
 case class Template(triples : Set[TripleTemplate] = Set()) extends Logging {
     
-    override def toString() = "{" + (triples map (_.toString) mkString ".\n") + "} "
+    override def toString() = toAbbrString(Seq())
+    
+    def toAbbrString(prefixes : Seq[(String,Resource)]) =
+        "{\n" + (triples map ("    " + _.toAbbrString(prefixes)) mkString " .\n") + "\n}\n"
 	
 	val variables : Set[Variable] = triples flatMap (_.variables)
   	
@@ -17,7 +20,21 @@ case class Template(triples : Set[TripleTemplate] = Set()) extends Logging {
 
 case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Variable], o : Either[RDFNode, Variable]) {
     
-    override def toString() = s.toString + " " + p.toString + " " + o.toString // FIXME
+    override def toString() = toAbbrString(Seq())
+    
+    def toAbbrString(prefixes : Seq[(String,Resource)]) : String =
+        rdfNodeOrVariableToString(s, prefixes) + " " +
+        rdfNodeOrVariableToString(p, prefixes) + " " +
+        rdfNodeOrVariableToString(o, prefixes)
+        
+    def rdfNodeOrVariableToString(rdfNodeOrVariable : Either[RDFNode, Variable],
+                                  prefixes : Seq[(String,Resource)]) : String =
+        rdfNodeOrVariable match {
+            case Left(resource : Resource) => resource.toAbbrString(prefixes)
+            case Left(literal : Literal) => literal.toString
+            case Right(variable) => variable.toString
+        }
+        
 	
 	val variables : Set[Variable] = Set(s,p,o) flatMap {
 		case Left(_) => None

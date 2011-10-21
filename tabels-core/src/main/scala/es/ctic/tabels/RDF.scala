@@ -9,6 +9,8 @@ abstract class RDFNode() {
 }
 
 case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
+    
+    override def toString() = "\"" + value.toString + "\"" // FIXME
 	
 	def truthValue : Boolean = Set("true", "1") contains this.asBoolean.value.toString
 
@@ -30,6 +32,15 @@ case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String
 }
 
 case class Resource(uri : String) extends RDFNode {
+    
+    override def toString() = "<" + uri + ">"
+    
+    def toAbbrString(prefixes : Seq[(String,Resource)]) : String = toCurie(prefixes) getOrElse toString()
+    
+    def toCurie(prefixes : Seq[(String,Resource)]) : Option[String] =
+        if (this == RDF_TYPE) Some("a")
+        else prefixes find (uri startsWith _._2.uri) map { case (prefix, ns) => uri.replace(ns.uri, prefix + ":") }
+    
 	override def asBoolean : Literal = LITERAL_TRUE
 	override def asString : Literal = Literal(uri)
 	override def +(suffix : String) : Resource = Resource(this.uri + suffix)
