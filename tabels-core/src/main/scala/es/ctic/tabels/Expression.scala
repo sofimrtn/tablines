@@ -61,19 +61,19 @@ case class ConcatExpression(expressions: Seq[Expression]) extends Expression{
 }
 
 /* *Type change expressions  * */
-case class BooleanE(expression: Expression) extends Expression{
+case class BooleanExpression(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) =  Literal(expression.evaluate(evaluationContext).asBoolean.value, XSD_BOOLEAN)
 }
 
-case class StringE(expression: Expression) extends Expression{
+case class StringExpression(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluate(evaluationContext).asString.value, XSD_STRING)
 }
-case class getRowExpression()
+
 
 //FIX ME: Type control
-case class IntE(expression : Expression) extends Expression{
+case class IntExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
@@ -84,7 +84,7 @@ case class IntE(expression : Expression) extends Expression{
   }   
 	
 }
-case class FloatE(expression : Expression) extends Expression{
+case class FloatExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
@@ -96,7 +96,7 @@ case class FloatE(expression : Expression) extends Expression{
 	
 }
 
-case class DecimalE(expression : Expression) extends Expression{
+case class DecimalExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
@@ -107,4 +107,6 @@ case class DecimalE(expression : Expression) extends Expression{
   }   
 	
 }
+
+
 
