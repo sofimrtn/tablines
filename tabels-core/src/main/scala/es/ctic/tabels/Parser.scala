@@ -49,7 +49,7 @@ class TabelsParser extends JavaTokenParsers {
 	def UNTIL = "until".ignoreCase
 	def MATCH = "match".ignoreCase
     def SET = "set".ignoreCase
-    
+    def CONCAT = "concat".ignoreCase
     // functions
 	def RESOURCE = "resource".ignoreCase
     def ADD = "add".ignoreCase
@@ -147,7 +147,9 @@ class TabelsParser extends JavaTokenParsers {
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
         ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
-    		{case v~e => AddVariableExpression(v, e)}
+    		{case v~e => AddVariableExpression(v, e)}|
+    	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
+    		{e => ConcatExpression(e)}
 
     
     def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^

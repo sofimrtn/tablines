@@ -51,6 +51,15 @@ case class NotExpression(expression:Expression) extends Expression{
 		LITERAL_TRUE
 }
 
+case class ConcatExpression(expressions: Seq[Expression]) extends Expression{
+  
+   override def evaluate(evaluationContext:EvaluationContext): RDFNode ={
+	var result : String = ""
+    expressions.foreach( exp => result += exp.evaluate(evaluationContext).asString.value.toString)
+    return Literal(result, XSD_STRING). asInstanceOf[RDFNode]
+  }
+}
+
 /* *Type change expressions  * */
 case class BooleanE(expression: Expression) extends Expression{
   
@@ -61,6 +70,8 @@ case class StringE(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluate(evaluationContext).asString.value, XSD_STRING)
 }
+case class getRowExpression()
+
 //FIX ME: Type control
 case class IntE(expression : Expression) extends Expression{
   
@@ -96,3 +107,4 @@ case class DecimalE(expression : Expression) extends Expression{
   }   
 	
 }
+
