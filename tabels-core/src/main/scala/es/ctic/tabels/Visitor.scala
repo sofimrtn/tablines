@@ -162,10 +162,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  		var event : Event = null		  	
 		  	
 		  	 matchStatement.tuple.variables.foreach(v =>{
-		  		  					val node : RDFNode=  matchStatement.expression match{
-			  	    					case Some(expr) => expr.evaluate(newEvaluationContext)
-			  	    					case None => dataSource.getValue(position).getContent
-		  	  						}
+		  		  					val node : RDFNode = dataSource.getValue(position).getContent
 		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, node, position)
 		  		  					matchStatement.tuple.tupleType match{
 		  		  						case TupleType.horizontal => position = position.RightPoint

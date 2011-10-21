@@ -33,7 +33,7 @@ case class LetStatement(filter: Option[Expression] = None, position : Option[Pos
 }
 
 case class MatchStatement(filter: Option[Expression] = None, position : Option[Position] = None , 
-		 tuple: Tuple, childPatterns: Seq[TabelsStatement] = Seq(), expression: Option[Expression]= None) extends VariableAssignationStatement{
+		 tuple: Tuple, childPatterns: Seq[TabelsStatement] = Seq()) extends VariableAssignationStatement{
   
 	override def accept(vis : Visitor) = vis.visit(this)
 }
