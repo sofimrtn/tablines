@@ -8,7 +8,7 @@ class PrettyPrint extends AbstractVisitor {
     override def toString() = str.toString
     
     override def visit(start : S) {
-        start.prefixes foreach { case (prefix,ns) => str append ("PREFIX " + prefix + ": <" + ns.toString + ">\n") }
+        start.prefixes foreach { case (prefix,ns) => str append ("PREFIX " + prefix + ": " + ns.toString + "\n") }
         start.statementList foreach {
             indent = 0
             _.accept(this)
