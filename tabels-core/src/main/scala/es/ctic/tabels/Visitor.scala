@@ -25,31 +25,27 @@ class AbstractVisitor extends Visitor with Logging {
 case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],evaluationContext: EvaluationContext) extends AbstractVisitor{
  
  
-  override def visit(s : S) {
-	logger.debug("Visiting root node")
-	s.statementList.foreach(p => p.accept(this))
-  }
-  
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
   def calculateNewEvaluationContext(dimensionStatement: DimensionStatement, dimensionIterator: String) : EvaluationContext = {
-     
-    
 	 val newEvaluationContext = evaluationContext.addDimension(dimensionStatement.dimension, dimensionIterator)
-     val point = new Point(newEvaluationContext.getValue(Dimension.files), newEvaluationContext.getValue(Dimension.sheets), newEvaluationContext.getValue(Dimension.cols).toInt, newEvaluationContext.getValue(Dimension.rows).toInt)
+     val cursor : Point = newEvaluationContext.cursor
      val value : Literal = dimensionStatement.dimension match{
-		    case Dimension.rows =>	dataSource.getValue(point).getContent
-		    case Dimension.cols =>	dataSource.getValue(point).getContent
+		    case Dimension.rows =>	dataSource.getValue(cursor).getContent
+		    case Dimension.cols =>	dataSource.getValue(cursor).getContent
 			case Dimension.sheets =>Literal(dimensionIterator)
 			case Dimension.files =>	Literal(dimensionIterator)
 	}
 	dimensionStatement.variable match{
-	  case Some(v) => newEvaluationContext.addBinding(dimensionStatement.variable.get, value, point).addBinding(v, value, point)
+	  case Some(v) => newEvaluationContext.addBinding(dimensionStatement.variable.get, value, cursor).addBinding(v, value, cursor)
 	  case None => newEvaluationContext
 	}
-    
-  }
+  }  
   
+  override def visit(s : S) {
+	logger.debug("Visiting root node")
+	s.statementList.foreach(p => p.accept(this))
+  }
   
   override def visit(iteratorStatement : IteratorStatement) = {
    
@@ -119,10 +115,8 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
 	  		
 			var position : Point = letStatement.position match{
-		  	  case Some(p) =>	p.calculatePoint(evaluationContext)
-								
-		  	  case None =>		Point(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets),evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
-								
+		  	  case Some(p) =>	p.calculatePoint(evaluationContext)					
+		  	  case None =>		evaluationContext.cursor
 		  	}
 	  		
 	  		var event : Event = null		  	
@@ -153,9 +147,8 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
 	  		
 			var position : Point = matchStatement.position match{
-		  	  case Some(p) =>	p.calculatePoint(evaluationContext)
-								
-		  	  case None =>		Point(evaluationContext.getValue(Dimension.files),evaluationContext.getValue(Dimension.sheets),evaluationContext.getValue(Dimension.cols).toInt, evaluationContext.getValue(Dimension.rows).toInt)
+		  	  case Some(p) =>	p.calculatePoint(evaluationContext)								
+		  	  case None =>		evaluationContext.cursor
 								
 		  	}
 	  		
