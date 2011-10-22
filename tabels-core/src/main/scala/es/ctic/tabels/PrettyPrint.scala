@@ -24,8 +24,14 @@ class PrettyPrint extends AbstractVisitor {
     }
     
     override def visit(stmt : MatchStatement) {
-        str append (" " * indent) append "MATCH ... "
-        // FIXME
+        str append (" " * indent) append "MATCH "
+        if (stmt.tuple.variables.size == 1) {
+            str append stmt.tuple.variables(0).toString() append " "
+        } else {
+            str append stmt.tuple.toString() append " "
+        }
+        str append (stmt.position map ("AT " + _) getOrElse "")
+        str append (stmt.filter map ("FILTER " + _) getOrElse "")
         str append "\n"
         visitChildPatterns(stmt.childPatterns, false)
     }
