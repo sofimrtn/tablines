@@ -39,8 +39,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertParse(position, "D1", FixedPosition(row = 0, col = 3))
         assertParse(position, "AA99", FixedPosition(row = 98, col = 26)) 
         assertParse(position, "?x", WithVariablePosition(Variable("?x")))
-        assertParse(position, "3 Left ?y", RelativePosition(RelativePos.left, WithVariablePosition(Variable("?y")), 3))
-        assertParse(position, "RIGHT ?y", RelativePosition(RelativePos.right, WithVariablePosition(Variable("?y")), 1))
+        assertParse(position, "3 Left OF ?y", RelativePosition(RelativePos.left, WithVariablePosition(Variable("?y")), 3))
+        assertParse(position, "RIGHT of ?y", RelativePosition(RelativePos.right, WithVariablePosition(Variable("?y")), 1))
         assertFail (position, "")
         assertFail (position, "A")
         assertFail (position, "1")
@@ -108,37 +108,38 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (prefixDecl, "PREFIX : <http://example.org/>") // FIXME: default namespace should be allowed
 	}
 	
-	@Test def parseTabelsStatement() {
-        assertParse(tabelsStatement, "match ?X in cell A1",TabelsStatement(concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))))
-        assertParse(tabelsStatement, "For ?y in rows \n match ?x in cell A1", 
-            TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
-                childPatterns = Seq(TabelsStatement( concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))
-		assertParse(tabelsStatement, "For ?y in rows \n For ?z in cols \n match ?x in cell A1", 
-		    TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
-                childPatterns = Seq(TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
-                childPatterns = Seq(TabelsStatement(concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))))))
+	@Test def parseTabelsStatements() {
+		assertParse(tabelsStatement, "For ?y in rows \n For ?z in cols \n match ?x at A1", 
+		    IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
+                childPatterns = Seq(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
+                    childPatterns = Seq(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))
 		    
-		assertFail (tabelsStatement, "For ?y in rows")
         assertFail (tabelsStatement, "")
 	}
 	
     @Test def parseIteratorStatement(){
-       assertParse(iteratorStatement, "For ?y in rows \n match ?x in cell A1",
-           IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
-                childPatterns = Seq(TabelsStatement( concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))
-       assertParse(iteratorStatement, "For ?y in rows  For ?z in cols match ?x in cell A1", 
-           IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
-                childPatterns = Seq(TabelsStatement(concreteStatement = Left(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
-                childPatterns = Seq(TabelsStatement(concreteStatement = Right(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))))))
-           
-        assertFail (iteratorStatement, "For ?y in rows")
-        assertFail (iteratorStatement, "For ?y in rows  For ?z in cols")
+        assertParse(iteratorStatement, "For ?y in rows",
+            IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows))
+                           
+        assertFail (matchStatement, "")
+        assertFail (iteratorStatement, "For ?y")
     }
 
-     @Test def parseVariableAssignationStatement() {
-        assertParse(matchStatement, "match ?X in cell A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
-        assertParse(matchStatement, "MATCH ?X    in  cell   A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
-        assertParse(matchStatement, "Match  ?X IN CELL A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
+    @Test def parseSetInDimensionStatement {
+        assertParse(setInDimensionStatement, "in files \"foo.csv\"", SetInDimensionStatement(Dimension.files, "foo.csv"))
+        assertParse(setInDimensionStatement, "set ?x in sheets \"Sheet1\"", SetInDimensionStatement(Dimension.sheets, "Sheet1", variable = Some(Variable("?x"))))
+        assertFail (setInDimensionStatement, "")
+    }
+    
+    @Test def parseLetStatement {
+        assertParse(letStatement, "let ?x = 10", LetStatement(Variable("?x"), LiteralExpression(Literal("10", XSD_INT))))
+        assertFail (letStatement, "")
+    }
+
+    @Test def parseMatchStatement() {
+        assertParse(matchStatement, "match ?X", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = None))
+        assertParse(matchStatement, "match ?X at A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"))), position = Some(FixedPosition(0,0))))
+        assertParse(matchStatement, "match [?X,?Y] IN VERTICAL at A1", MatchStatement(tuple = Tuple(Seq(Variable("?X"), Variable("?Y")), TupleType.vertical), position = Some(FixedPosition(0,0))))
         assertFail (matchStatement, "")
         assertFail (matchStatement, "?X")
         assertFail (matchStatement, "A1")
@@ -173,6 +174,12 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         //assertParse(expression, "matches (?y, \"hola\")", RegexExpression(VariableReference(Variable("?y")),new Regex("hola")))
         assertFail(expression, "matches (?y, \"(hola\")")        
    }
+   
+    @Test def parseTuple {
+        assertParse(tuple, "[?a]", Tuple(Seq(Variable("?a")), TupleType.horizontal))
+        assertParse(tuple, "[?a, ?b] in vertical", Tuple(Seq(Variable("?a"), Variable("?b")), TupleType.vertical))
+        assertFail (tuple, "")
+    }
     
 	@Test def parseVerbTemplate() {
 		prefixes += ("foo" -> Resource("http://example.org/"))
@@ -232,7 +239,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 
 	@Test def parseTemplate() {
 		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c }",
-			Template(Set(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
+			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			              TripleTemplate(Right(Variable("?a")), Right(Variable("?b")), Right(Variable("?c"))))))
 		assertFail (template, "")
 		assertFail (template, "{ }")

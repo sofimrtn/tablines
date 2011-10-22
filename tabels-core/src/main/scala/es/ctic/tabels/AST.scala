@@ -72,7 +72,7 @@ case class Variable (name : String) {
 
 case class Tuple(variables : Seq[Variable] = Seq(), tupleType : TupleType = TupleType.horizontal) {
     
-    override def toString() = "(" + (variables map (_.toString) mkString ",") + ") AS " + tupleType
+    override def toString() = "[" + (variables map (_.toString) mkString ",") + "] IN " + tupleType
     
 }
 

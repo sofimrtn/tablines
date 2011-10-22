@@ -18,7 +18,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// keywords
 
-	def CELL = "cell".ignoreCase
+//	def CELL = "cell".ignoreCase
 	def FOR  = "for".ignoreCase
 	def IN   = "in".ignoreCase
 	def ROWS = "rows".ignoreCase
@@ -29,17 +29,18 @@ class TabelsParser extends JavaTokenParsers {
 	def BLANKS = "blanks".ignoreCase
 	def FILTER = "filter".ignoreCase
 	def BY = "by".ignoreCase
-	def TUPLE = "@tuple".ignoreCase
 	def AS = "as".ignoreCase
+	def AT = "at".ignoreCase
+	def OF = "of".ignoreCase
 	def HORIZONTAL = "horizontal".ignoreCase
 	def VERTICAL = "vertical".ignoreCase
 	def LET = "let".ignoreCase
 	def A = "a".ignoreCase
 	def PREFIX = "prefix".ignoreCase
-	def PLACED = "placed".ignoreCase
-	def WITH = "with".ignoreCase
-	def IS = "is".ignoreCase
-	def LOCATED = "located".ignoreCase
+//	def PLACED = "placed".ignoreCase
+//	def WITH = "with".ignoreCase
+//	def IS = "is".ignoreCase
+//	def LOCATED = "located".ignoreCase
 	def LEFT = "left".ignoreCase
 	def RIGHT = "right".ignoreCase
 	def TOP = "top".ignoreCase
@@ -58,7 +59,7 @@ class TabelsParser extends JavaTokenParsers {
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
-    def tupleType: Parser[TupleType] = AS ~> (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
+    def tupleType: Parser[TupleType] = (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
     
 	def displacement : Parser[Int] = opt("""[0-9]+""".r ^^ (_ toInt)) ^^ (_ getOrElse(1))
 	
@@ -69,7 +70,7 @@ class TabelsParser extends JavaTokenParsers {
 		{ case c~r => FixedPosition(row = r.toInt - 1, col = columnConverter.alphaToInt(c)) }|
 		variable ^^
 		{ case v => WithVariablePosition(v) }|
-		displacement ~ (LEFT|RIGHT|BOTTOM|TOP) ~ position ^^
+		displacement ~ ((LEFT|RIGHT|BOTTOM|TOP) <~ OF) ~ position ^^
 		{ case d~r~p => RelativePosition(RelativePos.withName(r.toLowerCase),p,d) }
 		
 		
@@ -120,9 +121,9 @@ class TabelsParser extends JavaTokenParsers {
         {case v1~exp~pat => LetStatement(variable = v1, expression = exp, childPatterns = pat) }
         
     def matchStatement : Parser[MatchStatement] = 
-		((MATCH ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(tabelsStatement) ^^
+		(MATCH ~> variable) ~ opt(AT ~> position) ~ filterCondition ~ rep(tabelsStatement) ^^
         { case v~p~fc~pat => MatchStatement(tuple = Tuple(Seq(v)), position = p, filter = fc, childPatterns = pat) }|
-        ((MATCH ~> tuple) ~opt(position) ~ opt(FILTER ~> expression))~ rep(tabelsStatement) ^^
+        (MATCH ~> tuple) ~ opt(AT ~> position) ~ filterCondition ~ rep(tabelsStatement) ^^
         { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, childPatterns = pat) }
        
 	
@@ -150,8 +151,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case v~e => AddVariableExpression(v, e)}
 
     
-    def tuple : Parser[Tuple] = ((TUPLE <~ "[") ~> (rep1sep(variable,",")<~ "]"))  ~ tupleType   ^^
-    	{case vs~tt => Tuple(vs,tt)}
+    def tuple : Parser[Tuple] = ("[" ~> rep1sep(variable,",") <~ "]") ~ opt(IN ~> tupleType) ^^
+    	{ case vars~direction => Tuple(vars,direction getOrElse TupleType.horizontal) }
     	
     	
     // templates
