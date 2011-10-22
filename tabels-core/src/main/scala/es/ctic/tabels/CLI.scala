@@ -1,7 +1,7 @@
 package es.ctic.tabels
 
 import grizzled.slf4j.Logging
-import java.io.File
+import java.io.{File,FileOutputStream,OutputStream}
 import org.apache.commons.cli.{Options,CommandLineParser,PosixParser,CommandLine,HelpFormatter}
 import scala.collection.JavaConversions
 
@@ -13,6 +13,7 @@ object CLI extends Logging {
 	def main(args: Array[String]) {
 	    val options = new Options()
 	    options.addOption("t", true, "path to the Tabels program")
+	    options.addOption("o", true, "path to the output RDF file")
 	    val cliParser = new PosixParser();
 		try {
             val cmd : CommandLine = cliParser.parse(options, args)
@@ -35,7 +36,9 @@ object CLI extends Logging {
 			interpreter.interpret(program, dataSource, dataOutput)
 
 			logger.debug("Writing output (" + dataOutput.model.size + " triples)")
-			dataOutput.model.write(System.out, "RDF/XML")
+			val os : OutputStream = if (cmd hasOption "o") new FileOutputStream(cmd getOptionValue "o") else System.out
+			dataOutput.model.write(os, "RDF/XML")
+			if (cmd hasOption "o") { os.close() }
 		} catch {
 		    case e : org.apache.commons.cli.ParseException =>
 		      System.err.println(e.getMessage)
