@@ -28,7 +28,7 @@ case class WithVariablePosition (variable : Variable) extends Position {
 
 case class RelativePosition (relativity : RelativePos, reference:Position, displacement: Int) extends Position {
 	
-	override def toString() : String = displacement.toString + " " + relativity + " " + reference.toString
+	override def toString() : String = displacement.toString + " " + relativity + " OF " + reference.toString
 	
 	override def calculatePoint(evaluationContext: EvaluationContext) : Point = {
 	    val referencePoint : Point = reference.calculatePoint(evaluationContext)
