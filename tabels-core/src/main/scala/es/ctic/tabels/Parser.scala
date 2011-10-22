@@ -117,7 +117,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def letStatement : Parser[LetStatement] = 
 		(LET ~> variable) ~ ("=" ~>expression)~ rep(tabelsStatement) ^^
-        {case v1~exp~pat => LetStatement(variable = v1, expression = Some(exp),childPatterns = pat) }
+        {case v1~exp~pat => LetStatement(variable = v1, expression = exp, childPatterns = pat) }
         
     def matchStatement : Parser[MatchStatement] = 
 		((MATCH ~> variable) ~ (((IN ~> CELL)|(PLACED ~> WITH)|(IS ~> LOCATED)) ~>opt(position)) ~ filterCondition)~ rep(tabelsStatement) ^^

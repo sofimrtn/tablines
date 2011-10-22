@@ -104,34 +104,17 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(letStatement : LetStatement){
 	  	
-	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)){
+	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)) {
 	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(letStatement)).accept(this)
-	    }else{ 
-	  	
+	    } else { 
 		  	logger.debug("Visting let statement" + letStatement)
-		  	var newEvaluationContext: EvaluationContext = evaluationContext
-	  		 
-	  		  		
 	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
-	  		
-			var position : Point = letStatement.position match{
-		  	  case Some(p) =>	p.calculatePoint(evaluationContext)					
-		  	  case None =>		evaluationContext.cursor
-		  	}
-	  		
-	  		var event : Event = null		  	
-		  	letStatement.expression match{
-			  	    case Some(expr) => newEvaluationContext = newEvaluationContext.addBinding(letStatement.variable, expr.evaluate(newEvaluationContext), position)
-			  	    case None => newEvaluationContext = newEvaluationContext.addBinding(letStatement.variable, dataSource.getValue(position).getContent, position)
-		  	  	}
-		  	    					
-			event = Event(newEvaluationContext.bindings, Set(letStatement.variable))
-			  	    					
-		  	
-		  	if(letStatement.filter.isEmpty || letStatement.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
-		  	  events += event
-		  	  letStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-		  	}
+			var cursor : Point = evaluationContext.cursor // FIXME: may fail for LET stmts at file or sheet level
+			val value = letStatement.expression.evaluate(evaluationContext)
+			val newEvaluationContext = evaluationContext.addBinding(letStatement.variable, value, cursor)
+			val event = Event(newEvaluationContext.bindings, Set(letStatement.variable))
+            events += event
+            letStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	  }
   }
   override def visit(matchStatement : MatchStatement){

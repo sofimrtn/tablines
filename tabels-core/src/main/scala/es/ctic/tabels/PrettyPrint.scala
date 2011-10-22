@@ -18,7 +18,7 @@ class PrettyPrint extends AbstractVisitor {
     
     override def visit(stmt : LetStatement) {
         str append (" " * indent) append "LET "
-        str append stmt.variable append " = " append stmt.expression.get
+        str append stmt.variable append " = " append stmt.expression
         str append "\n"
         visitChildPatterns(stmt.childPatterns, false)
     }

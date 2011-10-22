@@ -25,8 +25,9 @@ abstract class TabelsStatement extends ASTNode
  */
 abstract class VariableAssignationStatement extends TabelsStatement
 
-case class LetStatement(filter: Option[Expression] = None, position : Option[Position] = None , 
-		 variable: Variable, childPatterns: Seq[TabelsStatement] = Seq(), expression: Option[Expression]= None) extends VariableAssignationStatement{
+case class LetStatement(variable: Variable, 
+                        expression: Expression,
+                        childPatterns: Seq[TabelsStatement] = Seq()) extends VariableAssignationStatement{
   
 	override def accept(vis : Visitor) =  vis.visit(this)
 	  
