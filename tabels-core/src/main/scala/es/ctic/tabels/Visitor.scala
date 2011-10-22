@@ -102,21 +102,17 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	
   }
   
-  override def visit(letStatement : LetStatement){
-	  	
-	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)) {
-	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(letStatement)).accept(this)
-	    } else { 
-		  	logger.debug("Visting let statement" + letStatement)
-	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
-			var cursor : Point = evaluationContext.cursor // FIXME: may fail for LET stmts at file or sheet level
-			val value = letStatement.expression.evaluate(evaluationContext)
-			val newEvaluationContext = evaluationContext.addBinding(letStatement.variable, value, cursor)
-			val event = Event(newEvaluationContext.bindings, Set(letStatement.variable))
-            events += event
-            letStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
-	  }
-  }
+    override def visit(letStatement : LetStatement){
+        logger.debug("Visting let statement" + letStatement)
+        logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
+	    var cursor : Point = evaluationContext.cursor // FIXME: may fail for LET stmts at file or sheet level
+	    val value = letStatement.expression.evaluate(evaluationContext)
+	    val newEvaluationContext = evaluationContext.addBinding(letStatement.variable, value, cursor)
+	    val event = Event(newEvaluationContext.bindings, Set(letStatement.variable))
+        events += event
+        letStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+    }
+  
   override def visit(matchStatement : MatchStatement){
 	  	
 	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)){
