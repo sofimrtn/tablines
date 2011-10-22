@@ -120,9 +120,6 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    }else{ 
 	  	
 		  	logger.debug("Visting match statement" + matchStatement)
-		  	var newEvaluationContext: EvaluationContext = evaluationContext
-	  		 
-	  		  		
 	  		logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
 	  		
 			var position : Point = matchStatement.position match{
@@ -131,21 +128,20 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 								
 		  	}
 	  		
-	  		var event : Event = null		  	
-		  	
+		  	var newEvaluationContext: EvaluationContext = evaluationContext
 		  	 matchStatement.tuple.variables.foreach(v =>{
-		  		  					val node : RDFNode = dataSource.getValue(position).getContent
-		  		  					newEvaluationContext = 	newEvaluationContext.addBinding(v, node, position)
+		  		  					val value = dataSource.getValue(position).getContent
+		  		  					newEvaluationContext = newEvaluationContext.addBinding(v, value, position)
 		  		  					matchStatement.tuple.tupleType match{
 		  		  						case TupleType.horizontal => position = position.RightPoint
 		  		  						case TupleType.vertical => position = position.BottomPoint
 		  		  					}
 		  		  					
 		  	  					})
-		  	event = Event(newEvaluationContext.bindings, Set(matchStatement.tuple.variables:_*))
+		  	val event = Event(newEvaluationContext.bindings, Set(matchStatement.tuple.variables:_*))
 		  		  					
 		  	 
-			if(matchStatement.filter.isEmpty || matchStatement.filter.get.evaluate(newEvaluationContext).asBoolean.truthValue){
+			if (matchStatement.filter map (_.evaluate(newEvaluationContext).asBoolean.truthValue) getOrElse true) {
 		  	  events += event
 		  	  matchStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 		  	}
