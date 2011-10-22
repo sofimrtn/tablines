@@ -15,3 +15,5 @@ class TemplateInstantiationException(msg:String) extends TabelsException(msg)
 class UnboundVariableException(variable: Variable) extends TabelsException("Found unbound variable " + variable)
 
 class InvalidTypeFunctionException(msg:String) extends TabelsException(msg)
+
+class NoInputFiles extends TabelsException("No input file(s) selected")

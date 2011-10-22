@@ -25,6 +25,7 @@ object CLI extends Logging {
             val program = parser.parseProgram(programFile)		  	
 
 			val spreadsheetFiles : Seq[File] = if (cmd.getArgs isEmpty) excelFilesCurrentDirectory else cmd.getArgs.map(new File(_))
+			if (spreadsheetFiles.isEmpty) throw new NoInputFiles()
 			val dataSource : DataSource = new ExcelDataSource(spreadsheetFiles)
 			logger.debug("Processing these input files: " + dataSource.filenames)
 		
