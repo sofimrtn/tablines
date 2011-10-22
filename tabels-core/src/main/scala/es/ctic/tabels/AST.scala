@@ -18,6 +18,12 @@ case class S (prefixes : Seq[(String,Resource)] = List(), statementList: Seq[Tab
 
 abstract class TabelsStatement extends ASTNode
 
+case class BlockStatement(childStatements : Seq[TabelsStatement]) extends TabelsStatement {
+
+	override def accept(vis : Visitor) =  vis.visit(this)
+    
+}
+
 /*
  * 
  * group of Classes designed to assign values to variables from different sources or methods
@@ -33,8 +39,8 @@ case class LetStatement(variable: Variable,
 	  
 }
 
-case class MatchStatement(filter: Option[Expression] = None, position : Option[Position] = None , 
-		 tuple: Tuple, childPatterns: Seq[TabelsStatement] = Seq()) extends VariableAssignationStatement{
+case class MatchStatement(tuple: Tuple, filter: Option[Expression] = None, position : Option[Position] = None , 
+		 childPatterns: Seq[TabelsStatement] = Seq()) extends VariableAssignationStatement{
   
 	override def accept(vis : Visitor) = vis.visit(this)
 }

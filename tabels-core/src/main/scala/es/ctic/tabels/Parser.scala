@@ -99,7 +99,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(prefixDecl) ~ rep("{" ~> tabelsStatement <~"}") ~ rep(template) ^^
+	def start : Parser[S] = rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
 	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
 	
 	def prefixDecl : Parser[(String,Resource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
@@ -107,7 +107,9 @@ class TabelsParser extends JavaTokenParsers {
 	                        (prefix -> ns)
 	    }
 	
-	def tabelsStatement : Parser[TabelsStatement] =iteratorStatement | setInDimensionStatement | letStatement | matchStatement 
+	def tabelsStatement : Parser[TabelsStatement] = blockStatement | iteratorStatement | setInDimensionStatement | letStatement | matchStatement 
+	
+	def blockStatement : Parser[BlockStatement] = "{" ~> rep1sep(tabelsStatement, ";") <~ "}" ^^ { BlockStatement(_) }
 	
 	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ rep(tabelsStatement) ^^
         { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }

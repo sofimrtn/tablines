@@ -6,6 +6,7 @@ import grizzled.slf4j.Logging
 
 abstract class Visitor {
   def visit(s : S)
+  def visit(stmt : BlockStatement)
   def visit(lwexp : LetStatement)
   def visit(iteratorStatement : IteratorStatement)
   def visit(dimensionExp :SetInDimensionStatement)
@@ -15,6 +16,7 @@ abstract class Visitor {
 
 class AbstractVisitor extends Visitor with Logging {
   override def visit(s : S) = {}
+  override def visit(stmt : BlockStatement) = {}
   override def visit(lwexp : LetStatement) = {}
   override def visit(iteratorStatement : IteratorStatement) = {}
   override def visit(dimensionExp :SetInDimensionStatement)= {}
@@ -46,6 +48,11 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	logger.debug("Visiting root node")
 	s.statementList.foreach(p => p.accept(this))
   }
+  
+    override def visit(stmt : BlockStatement) = {
+        // evaluates its children in independent evaluation contexts
+        stmt.childStatements.foreach(p => p.accept(VisitorEvaluate(dataSource,events,evaluationContext)))      
+    }
   
   override def visit(iteratorStatement : IteratorStatement) = {
    

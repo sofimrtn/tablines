@@ -16,6 +16,16 @@ class PrettyPrint extends AbstractVisitor {
         start.templateList foreach (template => str append (template.toAbbrString(start.prefixes)))
     }
     
+    override def visit(stmt : BlockStatement) {
+        str append "{ "
+        str append (stmt.childStatements map { subStmt =>
+            val pp = new PrettyPrint
+            subStmt.accept(pp)
+            pp.toString
+        } mkString " ; ")
+        str append " }\n"
+    }
+    
     override def visit(stmt : LetStatement) {
         str append (" " * indent) append "LET "
         str append stmt.variable append " = " append stmt.expression
