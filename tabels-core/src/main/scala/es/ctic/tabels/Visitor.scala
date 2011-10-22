@@ -57,7 +57,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
-    if( requiredDimension!=null && !evaluationContext.dimensiones.contains(requiredDimension)){
+    if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
 	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(iteratorStatement)).accept(this)
 	} 
     else {
@@ -88,7 +88,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     
     val requiredDimension = requiredDimensionMap(setDimensionStatement.dimension)
     
-    if( requiredDimension!=null && !evaluationContext.dimensiones.contains(requiredDimension)){
+    if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
 	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(setDimensionStatement)).accept(this)
 	} 
     else {
@@ -108,7 +108,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(letStatement : LetStatement){
 	  	
-	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)){
 	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(letStatement)).accept(this)
 	    }else{ 
 	  	
@@ -142,7 +142,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   }
   override def visit(matchStatement : MatchStatement){
 	  	
-	  	if( !evaluationContext.dimensiones.contains(Dimension.sheets)){
+	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)){
 	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(matchStatement)).accept(this)
 	    }else{ 
 	  	
