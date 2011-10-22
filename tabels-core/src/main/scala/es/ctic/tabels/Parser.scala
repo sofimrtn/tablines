@@ -121,10 +121,10 @@ class TabelsParser extends JavaTokenParsers {
         {case v1~exp~pat => LetStatement(variable = v1, expression = exp, childPatterns = pat) }
         
     def matchStatement : Parser[MatchStatement] = 
-		(MATCH ~> variable) ~ opt(AT ~> position) ~ filterCondition ~ rep(tabelsStatement) ^^
-        { case v~p~fc~pat => MatchStatement(tuple = Tuple(Seq(v)), position = p, filter = fc, childPatterns = pat) }|
-        (MATCH ~> tuple) ~ opt(AT ~> position) ~ filterCondition ~ rep(tabelsStatement) ^^
+		(MATCH ~> variableOrTuple) ~ opt(AT ~> position) ~ filterCondition ~ rep(tabelsStatement) ^^
         { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, childPatterns = pat) }
+        
+    def variableOrTuple : Parser[Tuple] = variable ^^ { v => Tuple(Seq(v)) } | tuple
        
 	
     def regex : Parser[Regex] =
