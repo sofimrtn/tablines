@@ -61,7 +61,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
     if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
-	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(iteratorStatement)).accept(this)
+	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, nestedStatement = Some(iteratorStatement)).accept(this)
 	} 
     else {
       val dimensionValues = dataSource.getDimensionRange(iteratorStatement.dimension, evaluationContext)
@@ -78,7 +78,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    				   events += event
 	    	case None =>			   
     		}
-			iteratorStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+			iteratorStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 	 }
 	}
 	  
@@ -92,7 +92,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     val requiredDimension = requiredDimensionMap(setDimensionStatement.dimension)
     
     if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
-	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, childPatterns = Seq(setDimensionStatement)).accept(this)
+	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, nestedStatement = Some(setDimensionStatement)).accept(this)
 	} 
     else {
      
@@ -103,7 +103,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       	case None =>	
       }
       	
-	  setDimensionStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+	  setDimensionStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
     }
 	  
 	
@@ -117,13 +117,13 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	    val newEvaluationContext = evaluationContext.addBinding(letStatement.variable, value, cursor)
 	    val event = Event(newEvaluationContext.bindings, Set(letStatement.variable))
         events += event
-        letStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+        letStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
     }
   
   override def visit(matchStatement : MatchStatement){
 	  	
 	  	if( !evaluationContext.dimensions.contains(Dimension.sheets)){
-	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, childPatterns = Seq(matchStatement)).accept(this)
+	    		IteratorStatement(variable = Some(Variable("?_SHEET")), dimension = Dimension.sheets, nestedStatement = Some(matchStatement)).accept(this)
 	    }else{ 
 	  	
 		  	logger.debug("Visting match statement" + matchStatement)
@@ -150,7 +150,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	 
 			if (matchStatement.filter map (_.evaluate(newEvaluationContext).asBoolean.truthValue) getOrElse true) {
 		  	  events += event
-		  	  matchStatement.childPatterns.foreach(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
+		  	  matchStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 		  	}
 	  }
   }

@@ -111,8 +111,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	@Test def parseTabelsStatements() {
 		assertParse(tabelsStatement, "For ?y in rows \n For ?z in cols \n match ?x at A1", 
 		    IteratorStatement(variable = Some(Variable("?y")), dimension = Dimension.rows, 
-                childPatterns = Seq(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
-                    childPatterns = Seq(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))
+                nestedStatement = Some(IteratorStatement(variable = Some(Variable("?z")), dimension = Dimension.cols, 
+                    nestedStatement = Some(MatchStatement(tuple = Tuple(Seq(Variable("?x"))), position = Some(FixedPosition(0,0))))))))
 		    
         assertFail (tabelsStatement, "")
 	}

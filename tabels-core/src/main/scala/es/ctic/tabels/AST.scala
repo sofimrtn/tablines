@@ -33,14 +33,14 @@ abstract class VariableAssignationStatement extends TabelsStatement
 
 case class LetStatement(variable: Variable, 
                         expression: Expression,
-                        childPatterns: Seq[TabelsStatement] = Seq()) extends VariableAssignationStatement{
+                        nestedStatement: Option[TabelsStatement] = None) extends VariableAssignationStatement{
   
 	override def accept(vis : Visitor) =  vis.visit(this)
 	  
 }
 
 case class MatchStatement(tuple: Tuple, filter: Option[Expression] = None, position : Option[Position] = None , 
-		 childPatterns: Seq[TabelsStatement] = Seq()) extends VariableAssignationStatement{
+		 nestedStatement: Option[TabelsStatement] = None) extends VariableAssignationStatement{
   
 	override def accept(vis : Visitor) = vis.visit(this)
 }
@@ -57,13 +57,13 @@ abstract class DimensionStatement extends TabelsStatement {
 
 case class IteratorStatement(override val dimension : Dimension, filter: Option[Expression] = None, 
 		pos : Option[Position] = None, stopCond : Option[Expression] = None, override val variable: Option[Variable] = None,
-		childPatterns: Seq[TabelsStatement] = Seq() ) extends DimensionStatement {
+		nestedStatement: Option[TabelsStatement] = None ) extends DimensionStatement {
   
   override def accept(vis : Visitor) = vis.visit(this)
 }
 
 case class SetInDimensionStatement(override val dimension : Dimension, fixedDimension: String, override val variable: Option[Variable] = None,
-		childPatterns: Seq[TabelsStatement] = Seq() ) extends DimensionStatement {
+		nestedStatement: Option[TabelsStatement] = None ) extends DimensionStatement {
   
   override def accept(vis : Visitor) = vis.visit(this)
 }

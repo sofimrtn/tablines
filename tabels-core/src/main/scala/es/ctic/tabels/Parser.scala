@@ -111,20 +111,20 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def blockStatement : Parser[BlockStatement] = "{" ~> rep1sep(tabelsStatement, ";") <~ "}" ^^ { BlockStatement(_) }
 	
-	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ rep(tabelsStatement) ^^
-        { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, childPatterns = p, filter = f, stopCond = s) }
+	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
+        { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, filter = f, stopCond = s, nestedStatement = p) }
     
-	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ quotedString ~ rep(tabelsStatement) ^^
-        { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, childPatterns = p, fixedDimension = s) }
+	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ quotedString ~ opt(tabelsStatement) ^^
+        { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
       
 	
 	def letStatement : Parser[LetStatement] = 
-		(LET ~> variable) ~ ("=" ~>expression)~ rep(tabelsStatement) ^^
-        {case v1~exp~pat => LetStatement(variable = v1, expression = exp, childPatterns = pat) }
+		(LET ~> variable) ~ ("=" ~>expression) ~ opt(tabelsStatement) ^^
+        {case v1~exp~pat => LetStatement(variable = v1, expression = exp, nestedStatement = pat) }
         
     def matchStatement : Parser[MatchStatement] = 
-		(MATCH ~> variableOrTuple) ~ opt(AT ~> position) ~ filterCondition ~ rep(tabelsStatement) ^^
-        { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, childPatterns = pat) }
+		(MATCH ~> variableOrTuple) ~ opt(AT ~> position) ~ filterCondition ~ opt(tabelsStatement) ^^
+        { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, nestedStatement = pat) }
         
     def variableOrTuple : Parser[Tuple] = variable ^^ { v => Tuple(Seq(v)) } | tuple
        

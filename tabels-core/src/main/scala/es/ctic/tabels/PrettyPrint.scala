@@ -1,9 +1,9 @@
 package es.ctic.tabels
  
-class PrettyPrint extends AbstractVisitor {
+class PrettyPrint(indent_ : Int = 0) extends AbstractVisitor {
     
     val str = new StringBuilder()
-    var indent : Int = 0
+    var indent = indent_
  
     override def toString() = str.toString
     
@@ -13,28 +13,27 @@ class PrettyPrint extends AbstractVisitor {
             indent = 0
             _.accept(this)
         }
-        start.templateList foreach (template => str append (template.toAbbrString(start.prefixes)))
+        start.templateList foreach (template => str append "\n" append (template.toAbbrString(start.prefixes)))
     }
     
     override def visit(stmt : BlockStatement) {
         str append "{ "
         str append (stmt.childStatements map { subStmt =>
-            val pp = new PrettyPrint
+            val pp = new PrettyPrint(indent+4)
             subStmt.accept(pp)
             pp.toString
         } mkString " ; ")
-        str append " }\n"
+        str append (" " * indent) append "}"
     }
     
     override def visit(stmt : LetStatement) {
-        str append (" " * indent) append "LET "
+        str append "\n" append (" " * indent) append "LET "
         str append stmt.variable append " = " append stmt.expression
-        str append "\n"
-        visitChildPatterns(stmt.childPatterns, false)
+        visitNestedStatement(stmt.nestedStatement, false)
     }
     
     override def visit(stmt : MatchStatement) {
-        str append (" " * indent) append "MATCH "
+        str append "\n" append (" " * indent) append "MATCH "
         if (stmt.tuple.variables.size == 1) {
             str append stmt.tuple.variables(0).toString() append " "
         } else {
@@ -42,34 +41,31 @@ class PrettyPrint extends AbstractVisitor {
         }
         str append (stmt.position map ("AT " + _) getOrElse "")
         str append (stmt.filter map ("FILTER " + _) getOrElse "")
-        str append "\n"
-        visitChildPatterns(stmt.childPatterns, false)
+        visitNestedStatement(stmt.nestedStatement, false)
     }
   
     override def visit(stmt : IteratorStatement) {
-        str append (" " * indent) append "FOR "
+        str append "\n" append (" " * indent) append "FOR "
         str append (stmt.variable map (_ + " IN ") getOrElse "")
         str append stmt.dimension
         str append (stmt.filter map (" FILTER " + _) getOrElse "")
         str append (stmt.stopCond map (" UNTIL " + _) getOrElse "")
-        str append "\n"
-        visitChildPatterns(stmt.childPatterns, true)
+        visitNestedStatement(stmt.nestedStatement, true)
     }
     
     override def visit(stmt : SetInDimensionStatement) {
-        str append (" " * indent)
+        str append "\n" append (" " * indent)
         str append (stmt.variable map ("SET " + _ + " ") getOrElse "")
         str append "IN " append stmt.dimension append " \"" append stmt.fixedDimension append "\""
-        str append "\n"
-        visitChildPatterns(stmt.childPatterns, true)
+        visitNestedStatement(stmt.nestedStatement, true)
     }
     
-    def visitChildPatterns(stmts : Seq[TabelsStatement], increaseIndent : Boolean) {
+    def visitNestedStatement(stmts : Option[TabelsStatement], increaseIndent : Boolean) {
         val oldIndent = indent
         if (increaseIndent) {
             indent += 4
         }
-        stmts foreach { _.accept(this) }
+        stmts map { _.accept(this) }
         indent = oldIndent
     }
   
