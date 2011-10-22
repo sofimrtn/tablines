@@ -17,3 +17,5 @@ class UnboundVariableException(variable: Variable) extends TabelsException("Foun
 class InvalidTypeFunctionException(msg:String) extends TabelsException(msg)
 
 class NoInputFiles extends TabelsException("No input file(s) selected")
+
+class InvalidInputFile(filename:String) extends TabelsException("Unable to read input file " + filename)

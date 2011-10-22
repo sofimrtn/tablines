@@ -3,6 +3,7 @@ package es.ctic.tabels
 import java.io.File
 import scala.collection.mutable.HashMap
 import jxl._
+import jxl.read.biff.BiffException
 import java.util.Arrays
 
 import es.ctic.tabels.Dimension._
@@ -18,11 +19,18 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 	private val workbooks = new HashMap[File, Workbook]()
 	
 	private def getWorkbook(file : File) : Workbook = {
-	   workbooks.get(file) match {
-	     case Some(workbook) => return workbook
-	     case None => val workbook = Workbook.getWorkbook(file)
-	                  workbooks.put(file, workbook)
-	                  return workbook
+	    try {
+	        workbooks.get(file) match {
+                case Some(workbook) => return workbook
+                case None =>
+                    val workbook = Workbook.getWorkbook(file)
+	                workbooks.put(file, workbook)
+	                return workbook
+            }
+        } catch {
+            case e : BiffException =>
+                logger.error("While reading Excel workbook", e)
+                throw new InvalidInputFile(file.getName)
 	   }
 	}
   
