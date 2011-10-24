@@ -35,8 +35,7 @@ case class ResourceExpression(expression:Expression, uri : Resource) extends Exp
 case class LiteralExpression(literal : Literal) extends Expression{
     
   override def evaluate(evaluationContext : EvaluationContext) = literal
-  override def prettyPrint = literal.toString
-
+  override def prettyPrint =  literal.toString
 }
 
 case class RegexExpression(expression : Expression , re : Regex) extends Expression{
@@ -63,22 +62,34 @@ case class NotExpression(expression:Expression) extends Expression{
 
 }
 
+case class ConcatExpression(expressions: Seq[Expression]) extends Expression{
+  
+   override def evaluate(evaluationContext:EvaluationContext): RDFNode ={
+	var result : String = ""
+    expressions.foreach( exp => result += exp.evaluate(evaluationContext).asString.value.toString)
+    return Literal(result, XSD_STRING). asInstanceOf[RDFNode]
+  }
+   override def prettyPrint = "concat(" + expressions.map(_ toString).mkString(",") + ")"
+}
+
 /* *Type change expressions  * */
-case class BooleanE(expression: Expression) extends Expression{
+case class BooleanExpression(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) =  Literal(expression.evaluate(evaluationContext).asBoolean.value, XSD_BOOLEAN)
   override def prettyPrint = "boolean(" + expression.toString + ")"
   
 }
 
-case class StringE(expression: Expression) extends Expression{
+case class StringExpression(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluate(evaluationContext).asString.value, XSD_STRING)
   override def prettyPrint = "string(" + expression.toString + ")"
 
 }
+
+
 //FIX ME: Type control
-case class IntE(expression : Expression) extends Expression{
+case class IntExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
@@ -90,7 +101,7 @@ case class IntE(expression : Expression) extends Expression{
   override def prettyPrint = "int(" + expression.toString + ")"
 	
 }
-case class FloatE(expression : Expression) extends Expression{
+case class FloatExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
@@ -103,7 +114,7 @@ case class FloatE(expression : Expression) extends Expression{
 	
 }
 
-case class DecimalE(expression : Expression) extends Expression{
+case class DecimalExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
@@ -115,3 +126,6 @@ case class DecimalE(expression : Expression) extends Expression{
   override def prettyPrint = "decimal(" + expression.toString + ")"
 	
 }
+
+
+

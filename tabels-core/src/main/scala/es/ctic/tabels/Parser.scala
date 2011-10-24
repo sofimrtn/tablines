@@ -18,7 +18,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// keywords
 
-//	def CELL = "cell".ignoreCase
+	def CELL = "cell".ignoreCase
 	def FOR  = "for".ignoreCase
 	def IN   = "in".ignoreCase
 	def ROWS = "rows".ignoreCase
@@ -56,6 +56,11 @@ class TabelsParser extends JavaTokenParsers {
     def ADD = "add".ignoreCase
     def TRUE = "true".ignoreCase
     def FALSE = "false".ignoreCase
+    def CONCAT = "concat".ignoreCase
+    def INT = "int".ignoreCase
+    def DECIMAL = "decimal".ignoreCase
+    def FLOAT = "float".ignoreCase
+    def BOOLEAN = "boolean".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -150,7 +155,17 @@ class TabelsParser extends JavaTokenParsers {
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
         ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
-    		{case v~e => AddVariableExpression(v, e)}
+    		{case v~e => AddVariableExpression(v, e)}|
+    	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
+    		{e => ConcatExpression(e)}|
+    	(INT ~> "("~>expression<~")")^^
+    		{IntExpression}|
+    	(FLOAT ~> "("~>expression<~")")^^
+    		{FloatExpression}|
+    	(DECIMAL ~> "("~>expression<~")")^^
+    		{DecimalExpression}|
+    	(BOOLEAN ~> "("~>expression<~")")^^
+    		{BooleanExpression}
 
     
     def tuple : Parser[Tuple] = ("[" ~> rep1sep(variable,",") <~ "]") ~ opt(IN ~> tupleType) ^^
