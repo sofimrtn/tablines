@@ -61,6 +61,7 @@ class TabelsParser extends JavaTokenParsers {
     def DECIMAL = "decimal".ignoreCase
     def FLOAT = "float".ignoreCase
     def BOOLEAN = "boolean".ignoreCase
+    def JOIN = "join".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -158,6 +159,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case v~e => AddVariableExpression(v, e)}|
     	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
     		{e => ConcatExpression(e)}|
+    	(JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
+    		{case re~qs => StringJoinExpression(re, qs)}|
     	(INT ~> "("~>expression<~")")^^
     		{IntExpression}|
     	(FLOAT ~> "("~>expression<~")")^^
