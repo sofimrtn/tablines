@@ -61,7 +61,10 @@ case class NotExpression(expression:Expression) extends Expression{
     override def prettyPrint = "not(" + expression.toString + ")"
 
 }
-
+/*
+ * STRING FUNCTIONS
+ * 
+ */
 case class ConcatExpression(expressions: Seq[Expression]) extends Expression{
   
    override def evaluate(evaluationContext:EvaluationContext): RDFNode ={
@@ -81,6 +84,20 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
    override def prettyPrint = "string join(" + expressions.map(_ toString).mkString(",")  + " , "+ separator + ")"
 }
 
+case class SubStringExpression(expression: Expression, index : Int) extends Expression{
+  
+   override def evaluate(evaluationContext:EvaluationContext): RDFNode =
+	
+    return Literal(expression.evaluate(evaluationContext).asString.value.toString.substring(index), XSD_STRING). asInstanceOf[RDFNode]
+  
+   override def prettyPrint = "substring(" + expression.toString  + " , "+ index + ")"
+}
+
+case class StringLengthExpression(expression: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  return Literal (expression.evaluate(evaluationContext).asString.value.toString.length, XSD_INT)
+}
 /* *Type change expressions  * */
 case class BooleanExpression(expression: Expression) extends Expression{
   
