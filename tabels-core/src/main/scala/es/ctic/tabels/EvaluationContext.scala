@@ -26,6 +26,19 @@ case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMa
 		
 	def removeDimension(dimension : Dimension) : EvaluationContext =
 		EvaluationContext(dimensionMap - (dimension), bindings)
+
+
+    def getDimensionRange(dimension : Dimension, dataSource : DataSource) : Seq[String] = {
+        lazy val filename = dimensionMap(Dimension.files)
+      	lazy val sheet = dimensionMap(Dimension.sheets)
+        dimension match {
+            case Dimension.files => dataSource.filenames
+            case Dimension.sheets => return dataSource.getTabs(filename)
+		    case Dimension.rows => return List.range(0, dataSource.getRows(filename,sheet)) map (_.toString)
+		    case Dimension.cols => return List.range(0, dataSource.getCols(filename,sheet)) map (_.toString)
+	    }
+	}
+
 }
 
 case class Binding(value : RDFNode, point: Point)

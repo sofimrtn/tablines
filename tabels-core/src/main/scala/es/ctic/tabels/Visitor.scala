@@ -64,7 +64,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, nestedStatement = Some(iteratorStatement)).accept(this)
 	} 
     else {
-      val dimensionValues = dataSource.getDimensionRange(iteratorStatement.dimension, evaluationContext)
+      val dimensionValues = evaluationContext.getDimensionRange(iteratorStatement.dimension, dataSource)
       val evaluationContexts = dimensionValues map (calculateNewEvaluationContext(iteratorStatement, _))
       val pairsMap = dimensionValues zip evaluationContexts
       val filteredPairs = pairsMap takeWhile(pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluate(pair._2).asBoolean.truthValue) filter

@@ -64,34 +64,6 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 
     return sheet.getColumns()
 }
-  override def getDimensionRange(dimension : Dimension, evaluationContext:EvaluationContext):Seq[String] = {
-	
-	
-    dimension match{
-      case Dimension.files => filenames
-      
-      case _ => val workbook : Workbook = getWorkbook(new File (evaluationContext.dimensionMap(Dimension.files)) )
-      			val sheetNames : Array[String] = workbook.getSheetNames()
-      				
-      			var dim: scala.collection.mutable.Seq[String] = scala.collection.mutable.Seq()
-      			return dimension match{
-      
-				  case Dimension.sheets => val listSheets : java.util.List[String] = new java.util.LinkedList()
-				      							sheetNames.foreach(sheet => listSheets.add(sheet))
-				      							return scala.collection.JavaConversions.asScalaBuffer(listSheets)
-				  case Dimension.rows =>val sheet : Sheet = workbook.getSheet(evaluationContext.dimensionMap(Dimension.sheets)) 
-				        					for( x <- 0 until sheet.getRows()){
-				    	  						dim = dim :+ x.toString()
-				    	  						}
-				      						return dim
-				  case Dimension.cols =>val sheet : Sheet = workbook.getSheet(evaluationContext.dimensionMap(Dimension.sheets)) 
-				      						for( x <- 0 until sheet.getColumns()){
-				    	  						dim = dim :+ x.toString()
-				    	  						}
-				      						return dim
-					}
-    }
-  }
 
 }
   
