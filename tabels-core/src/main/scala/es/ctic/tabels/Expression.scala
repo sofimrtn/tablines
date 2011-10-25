@@ -79,7 +79,7 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
   
    override def evaluate(evaluationContext:EvaluationContext): RDFNode =
 	
-    return Literal(expressions.map(_.evaluate(evaluationContext).asString.value.toString).mkString(separator.evaluate(evaluationContext).asString.value.toString), XSD_STRING). asInstanceOf[RDFNode]
+    Literal(expressions.map(_.evaluate(evaluationContext).asString.value.toString).mkString(separator.evaluate(evaluationContext).asString.value.toString), XSD_STRING). asInstanceOf[RDFNode]
   
    override def prettyPrint = "string join(" + expressions.map(_ toString).mkString(",")  + " , "+ separator + ")"
 }
@@ -98,9 +98,19 @@ case class SubStringExpression(expression: Expression, index : Int) extends Expr
 case class StringLengthExpression(expression: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
-	  return Literal (expression.evaluate(evaluationContext).asString.value.toString.length, XSD_INT)
+	  Literal (expression.evaluate(evaluationContext).asString.value.toString.length, XSD_INT)
 	
 	override def prettyPrint = "length(" + expression.toString  + ")"
+}
+
+case class ContainsExpression(container: Expression, content: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  if(container.evaluate(evaluationContext).asString.value.toString.contains(content.evaluate(evaluationContext).asString.value.toString))
+		   LITERAL_TRUE
+	  else LITERAL_FALSE
+	
+	override def prettyPrint = "contains(" + container.toString  +", "+ content.toString  + ")"
 }
 
 /* *Type change expressions  * */
