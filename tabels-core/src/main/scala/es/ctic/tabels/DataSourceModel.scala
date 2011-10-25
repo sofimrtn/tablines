@@ -24,8 +24,22 @@ case class Point(path : String, tab: String, col: Int, row: Int){
 }
 	
 
-abstract class CellValue{
+abstract class CellValue {
   
+    val decimalPattern = """[0-9]*\.[0-9]+""".r
+    val intPattern = """[0-9]+""".r
+
   def getContent : Literal
+
+  /**
+   * When there is no formatting information, this method does it
+   * best to parse the cell value
+   *
+   */
+  def autodetectFormat(rawStringValue : String) : Literal = rawStringValue match {
+      case intPattern() => Literal(rawStringValue, XSD_INT)
+      case decimalPattern() => Literal(rawStringValue, XSD_DECIMAL)
+      case x => Literal(rawStringValue, XSD_STRING)
+  }
   
 }

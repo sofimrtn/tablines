@@ -53,6 +53,6 @@ case class CSVTable(matrix : Seq[Array[String]]) {
 
 case class CSVCellValue(value : String) extends CellValue {
   
-    override def getContent : Literal = Literal(value) // FIXME: types
+    override def getContent : Literal = autodetectFormat(value)
   
 }
