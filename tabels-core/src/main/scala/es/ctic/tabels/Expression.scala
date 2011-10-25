@@ -86,10 +86,12 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
 
 case class SubStringExpression(expression: Expression, index : Int) extends Expression{
   
-   override def evaluate(evaluationContext:EvaluationContext): RDFNode =
+   override def evaluate(evaluationContext:EvaluationContext): RDFNode ={
 	
-    return Literal(expression.evaluate(evaluationContext).asString.value.toString.substring(index), XSD_STRING). asInstanceOf[RDFNode]
-  
+	if (expression.evaluate(evaluationContext).asString.value.toString.length >0)
+    	Literal(expression.evaluate(evaluationContext).asString.value.toString.substring(index), XSD_STRING). asInstanceOf[RDFNode]
+	else Literal("", XSD_STRING). asInstanceOf[RDFNode]
+   }
    override def prettyPrint = "substring(" + expression.toString  + " , "+ index + ")"
 }
 
@@ -97,7 +99,10 @@ case class StringLengthExpression(expression: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
 	  return Literal (expression.evaluate(evaluationContext).asString.value.toString.length, XSD_INT)
+	
+	override def prettyPrint = "length(" + expression.toString  + ")"
 }
+
 /* *Type change expressions  * */
 case class BooleanExpression(expression: Expression) extends Expression{
   
