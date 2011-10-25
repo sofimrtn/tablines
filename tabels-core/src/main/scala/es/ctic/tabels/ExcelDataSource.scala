@@ -2,6 +2,7 @@ package es.ctic.tabels
 
 import java.io.File
 import scala.collection.mutable.HashMap
+import collection.JavaConversions._
 import jxl._
 import java.util.Arrays
 import jxl.read.biff.BiffException
@@ -45,9 +46,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 	 
     val workbook : Workbook = getWorkbook(new File (filename) )
     val sheetNames : Array[String] = workbook.getSheetNames()
-    val listSheets : java.util.List[String] = new java.util.LinkedList()
-    sheetNames.foreach(sheet => listSheets.add(sheet))
-    return scala.collection.JavaConversions.asScalaBuffer(listSheets)
+    return sheetNames
 }
   
   override def getRows(filename : String, tabName : String) : Int = {
