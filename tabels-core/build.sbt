@@ -20,7 +20,7 @@ libraryDependencies += "net.sf.opencsv" % "opencsv" % "2.0"
 
 libraryDependencies += "com.hp.hpl.jena" % "jena" % "2.6.4"
 
-libraryDependencies += "commons-cli" % "commons-cli" % "1.1"
+libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
 
 //managedStyle := ManagedStyle.Maven
 
