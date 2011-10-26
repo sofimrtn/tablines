@@ -69,6 +69,7 @@ class TabelsParser extends JavaTokenParsers {
     def ENDSWITH = "endswith".ignoreCase
     def SUBSTRINGBEFORE = "substringbefore".ignoreCase
     def SUBSTRINGAFTER = "substringafter".ignoreCase
+    def REPLACE = "replace".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -182,6 +183,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case container ~suffix => SubstringBeforeExpression(container, suffix)}|
     	(SUBSTRINGAFTER~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~prefix => SubstringAfterExpression(container, prefix)}|
+    	(REPLACE~> "("~>(expression<~",")~(regex<~"," )~ (expression<~")"))^^
+    		{case input ~ re ~ replacement => ReplaceExpression(input, re, replacement)}|
     	(INT ~> "("~>expression<~")")^^
     		{IntExpression}|
     	(FLOAT ~> "("~>expression<~")")^^

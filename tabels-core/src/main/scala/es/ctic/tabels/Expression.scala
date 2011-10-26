@@ -149,6 +149,21 @@ case class ContainsExpression(container: Expression, content: Expression) extend
 	override def prettyPrint = "contains(" + container.toString  +", "+ content.toString  + ")"
 }
 
+case class ReplaceExpression(input: Expression,pattern : Regex, replacement: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode ={
+	  var lit :String = input.evaluate(evaluationContext).asString.value.toString
+	  for(p<-pattern findAllIn(input.evaluate(evaluationContext).asString.value.toString)) {
+		  lit = lit.replaceAllLiterally(p, replacement.evaluate(evaluationContext).asString.value.toString)
+	    
+	    
+	}
+	 Literal(lit) 
+	}
+	
+	override def prettyPrint = "contains(" + input.toString  +", "+ replacement.toString  + ")"
+}
+
 /* *Type change expressions  * */
 case class BooleanExpression(expression: Expression) extends Expression{
   
