@@ -2,6 +2,7 @@ package es.ctic.tabels
 
 import java.io.File
 import scala.collection.mutable.HashMap
+import collection.JavaConversions._
 import jxl._
 import java.util.Arrays
 import jxl.read.biff.BiffException
@@ -45,9 +46,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 	 
     val workbook : Workbook = getWorkbook(new File (filename) )
     val sheetNames : Array[String] = workbook.getSheetNames()
-    val listSheets : java.util.List[String] = new java.util.LinkedList()
-    sheetNames.foreach(sheet => listSheets.add(sheet))
-    return scala.collection.JavaConversions.asScalaBuffer(listSheets)
+    return sheetNames
 }
   
   override def getRows(filename : String, tabName : String) : Int = {
@@ -69,8 +68,6 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
   
 case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
     
-    val decimalPattern = """[0-9]*\.[0-9]+""".r
-    val intPattern = """[0-9]+""".r
     val decimalFormatPattern = """^(?:#,##)?0(?:\.0+)?(?:;.*)?$""".r
     
   override def getContent : Literal ={
@@ -90,7 +87,7 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
 	  case CellType.STRING_FORMULA =>Literal(cell.asInstanceOf[StringFormulaCell].getString(), XSD_STRING)
 	  case CellType.DATE =>Literal(cell.asInstanceOf[DateCell].getDate(), XSD_DATE)
 	  case CellType.DATE_FORMULA =>Literal(cell.asInstanceOf[DateFormulaCell].getDate(), XSD_DATE)
-	  case CellType.EMPTY => autodetectFormat
+	  case CellType.EMPTY => autodetectFormat(cell.getContents)
 	
 	}
     }
@@ -107,16 +104,5 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
         case x => logger.info("Unrecognized cell format: '" + x + "'")
                   return Literal(cell.getContents, XSD_STRING)
     }*/
-    
-    /**
-     * When there is no formatting information, this method does it
-     * best to parse the cell value
-     *
-     */
-    def autodetectFormat : Literal = cell.getContents match {
-        case intPattern() => Literal(cell.getContents, XSD_INT)
-        case decimalPattern() => Literal(cell.getContents, XSD_DECIMAL)
-        case x => Literal(cell.getContents, XSD_STRING)
-    }
     
 }
