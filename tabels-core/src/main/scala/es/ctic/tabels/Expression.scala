@@ -103,6 +103,16 @@ case class StringLengthExpression(expression: Expression) extends Expression
 	override def prettyPrint = "length(" + expression.toString  + ")"
 }
 
+case class StartsWithExpression(container: Expression, start: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  if(container.evaluate(evaluationContext).asString.value.toString.startsWith(start.evaluate(evaluationContext).asString.value.toString))
+		   LITERAL_TRUE
+	  else LITERAL_FALSE
+	
+	override def prettyPrint = "contains(" + container.toString  +", "+ start.toString  + ")"
+}
+
 case class ContainsExpression(container: Expression, content: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =

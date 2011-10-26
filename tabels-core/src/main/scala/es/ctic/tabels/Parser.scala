@@ -65,6 +65,7 @@ class TabelsParser extends JavaTokenParsers {
     def SUBSTRING = "substring".ignoreCase
     def STRINGLENGTH = "length". ignoreCase
     def CONTAINS = "contains".ignoreCase
+    def STARTSWITH = "startswith".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -170,6 +171,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case re => StringLengthExpression(re)}|
     	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~content => ContainsExpression(container, content)}|
+    	(STARTSWITH~> "("~>(expression<~",") ~ expression<~")")^^
+    		{case container ~start => StartsWithExpression(container, start)}|
     	(INT ~> "("~>expression<~")")^^
     		{IntExpression}|
     	(FLOAT ~> "("~>expression<~")")^^
