@@ -20,11 +20,11 @@ class IntETest extends JUnitSuite {
   
   @Test def evaluate{
     val evaluationContext: EvaluationContext = null
-    assertEquals(Literal("1",XSD_INT) , IntE(LiteralExpression(Literal("1"))).evaluate(evaluationContext))
-    assertEquals(Literal("345.56",XSD_INT) , IntE(LiteralExpression(Literal("345.56"))).evaluate(evaluationContext))
-    assertEquals(Literal("345,56",XSD_INT) , IntE(LiteralExpression(Literal("345,56"))).evaluate(evaluationContext))
-    assertEquals(Literal("23.345,56",XSD_INT) , IntE(LiteralExpression(Literal("23.345,56"))).evaluate(evaluationContext))
-    assertEquals(Literal("23.223.345,56",XSD_INT) , IntE(LiteralExpression(Literal("23.223.345,56"))).evaluate(evaluationContext))
+    assertEquals(Literal("1",XSD_INT) , IntExpression(LiteralExpression(Literal("1"))).evaluate(evaluationContext))
+    assertEquals(Literal("345.56",XSD_INT) , IntExpression(LiteralExpression(Literal("345.56"))).evaluate(evaluationContext))
+    assertEquals(Literal("345,56",XSD_INT) , IntExpression(LiteralExpression(Literal("345,56"))).evaluate(evaluationContext))
+    assertEquals(Literal("23.345,56",XSD_INT) , IntExpression(LiteralExpression(Literal("23.345,56"))).evaluate(evaluationContext))
+    assertEquals(Literal("23.223.345,56",XSD_INT) , IntExpression(LiteralExpression(Literal("23.223.345,56"))).evaluate(evaluationContext))
   }
 
 }
