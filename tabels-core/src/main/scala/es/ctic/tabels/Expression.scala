@@ -110,7 +110,33 @@ case class StartsWithExpression(container: Expression, start: Expression) extend
 		   LITERAL_TRUE
 	  else LITERAL_FALSE
 	
-	override def prettyPrint = "contains(" + container.toString  +", "+ start.toString  + ")"
+	override def prettyPrint = "startswith(" + container.toString  +", "+ start.toString  + ")"
+}
+
+case class SubstringBeforeExpression(container: Expression, subString: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  Literal(container.evaluate(evaluationContext).asString.value.toString.stripSuffix(subString.evaluate(evaluationContext).asString.value.toString), XSD_STRING)
+		   
+	override def prettyPrint = "substringbefore(" + container.toString  +", "+ subString.toString  + ")"
+}
+
+case class SubstringAfterExpression(container: Expression, subString: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  Literal(container.evaluate(evaluationContext).asString.value.toString.stripPrefix(subString.evaluate(evaluationContext).asString.value.toString), XSD_STRING)
+		   
+	override def prettyPrint = "substringafter(" + container.toString  +", "+ subString.toString  + ")"
+}
+
+case class EndsWithExpression(container: Expression, end: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  if(container.evaluate(evaluationContext).asString.value.toString.endsWith(end.evaluate(evaluationContext).asString.value.toString))
+		   LITERAL_TRUE
+	  else LITERAL_FALSE
+	
+	override def prettyPrint = "endswith(" + container.toString  +", "+ end.toString  + ")"
 }
 
 case class ContainsExpression(container: Expression, content: Expression) extends Expression
