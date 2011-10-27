@@ -161,7 +161,23 @@ case class ReplaceExpression(input: Expression,pattern : Regex, replacement: Exp
 	 Literal(lit) 
 	}
 	
-	override def prettyPrint = "contains(" + input.toString  +", "+ replacement.toString  + ")"
+	override def prettyPrint = "replace(" + input.toString  +", "+ pattern.toString +", "+replacement.toString  + ")"
+}
+
+case class UpperCaseExpression(expression: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toUpperCase)
+		  
+	override def prettyPrint = "upper case(" + expression   + ")"
+}
+
+case class LowerCaseExpression(expression: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toLowerCase)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
 }
 
 /* *Type change expressions  * */
