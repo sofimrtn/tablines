@@ -73,6 +73,7 @@ class TabelsParser extends JavaTokenParsers {
     def CASE = "case".ignoreCase
     def UPPER = "upper".ignoreCase
     def LOWER = "lower".ignoreCase
+    def TRANSLATE = "translate".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -192,6 +193,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case expression => UpperCaseExpression(expression)}|
     	(LOWER~> (CASE~>"("~>(expression<~")")))^^
     		{case expression => LowerCaseExpression(expression)}|
+    	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
+    		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
     	(INT ~> "("~>expression<~")")^^
     		{IntExpression}|
     	(FLOAT ~> "("~>expression<~")")^^

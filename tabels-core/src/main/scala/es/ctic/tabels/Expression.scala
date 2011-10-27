@@ -173,6 +173,21 @@ case class LowerCaseExpression(expression: Expression) extends Expression
 	override def prettyPrint = "lower case(" + expression   + ")"
 }
 
+case class TranslateExpression(input: Expression, pattern : Expression,replacement: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode ={
+	 var textChain :String =input.evaluate(evaluationContext).asString.value.toString
+	 for(char <- pattern.evaluate(evaluationContext).asString.value.toString.toCharArray())
+	 {
+	   //FIX ME: not checked if the index in pattern is out of bounds in replacement
+	   textChain = textChain.replaceAll(char.toString,replacement.evaluate(evaluationContext).asString.value.toString.charAt(pattern.evaluate(evaluationContext).asString.value.toString.indexOf(char)).toString )
+	 }
+	 
+	 Literal(textChain,XSD_STRING)
+}
+	override def prettyPrint = "translate(" +  input.toString  +", "+ pattern.toString +", "+replacement.toString + ")"
+}
+
 /* *Type change expressions  * */
 case class BooleanExpression(expression: Expression) extends Expression{
   
