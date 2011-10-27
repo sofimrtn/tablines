@@ -14,7 +14,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     
 	private val files : Seq[File] = fl
 	
-	val filenames : Seq[String] = files.map(_.getName())
+	val filenames : Seq[String] = files.map(_.getCanonicalPath())
 	
 	private val workbooks = new HashMap[File, Workbook]()
 	
