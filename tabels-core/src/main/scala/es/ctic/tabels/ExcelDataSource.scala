@@ -12,7 +12,7 @@ import grizzled.slf4j.Logging
 
 class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     
-    def this(javaFl : java.util.Collection[File]) = this(collectionAsScalaIterable(javaFl).toList)
+    def this(f : File) = this((if (f.isDirectory) (f.listFiles().filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined)) else (List(f))) : Seq[File])
   
 	private val files : Seq[File] = fl
 	
