@@ -8,7 +8,7 @@ import scala.collection.JavaConversions
 object CLI extends Logging {
 
 	val defaultTabelsFilename = "transform.tabels"
-	lazy val excelFilesCurrentDirectory : Seq[File] = new File(".").listFiles()filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined)
+	lazy val excelFilesCurrentDirectory : Seq[File] = new File(".").listFiles().filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined)
   
 	def main(args: Array[String]) {
 	    val options = new Options()
