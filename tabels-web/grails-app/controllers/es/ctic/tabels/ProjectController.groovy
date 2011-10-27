@@ -5,9 +5,8 @@ class ProjectController {
     def index = { }
     
     def rdf = {
-        def workDir = "/tmp/tabels/"
+        def workDir = "/tmp/tabels/uploadr"
         def tabelsFilename = "default.tabels"
-//        println ExcelDataSource.metaClass.methods*.name.sort().unique()  
         def dataSource = ExcelDataSource.loadAllExcelFilesFromDirectory(new File(workDir))
 		def parser = new TabelsParser()
         def programFile = new File(workDir + tabelsFilename)
