@@ -151,16 +151,9 @@ case class ContainsExpression(container: Expression, content: Expression) extend
 
 case class ReplaceExpression(input: Expression,pattern : Regex, replacement: Expression) extends Expression
 {
-	override def evaluate(evaluationContext : EvaluationContext) : RDFNode ={
-	  var lit :String = input.evaluate(evaluationContext).asString.value.toString
-	  for(p<-pattern findAllIn(input.evaluate(evaluationContext).asString.value.toString)) {
-		  lit = lit.replaceAllLiterally(p, replacement.evaluate(evaluationContext).asString.value.toString)
-	    
-	    
-	}
-	 Literal(lit) 
-	}
-	
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	   Literal(input.evaluate(evaluationContext).asString.value.toString.replaceAll(pattern.toString, replacement.evaluate(evaluationContext).asString.value.toString),XSD_STRING)
+			
 	override def prettyPrint = "replace(" + input.toString  +", "+ pattern.toString +", "+replacement.toString  + ")"
 }
 
