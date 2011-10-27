@@ -11,6 +11,8 @@ import grizzled.slf4j.Logging
 
 
 class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
+    
+    def this(javaFl : java.util.Collection[File]) = this(collectionAsScalaIterable(javaFl).toList)
   
 	private val files : Seq[File] = fl
 	
