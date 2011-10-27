@@ -12,8 +12,6 @@ import grizzled.slf4j.Logging
 
 class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     
-    def this(f : File) = this((if (f.isDirectory) (f.listFiles().filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined)) else (List(f))) : Seq[File])
-  
 	private val files : Seq[File] = fl
 	
 	val filenames : Seq[String] = files.map(_.getName())
@@ -66,6 +64,13 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
     return sheet.getColumns()
 }
 
+}
+
+object ExcelDataSource {
+    
+    def loadAllExcelFilesFromDirectory(dir : File) : ExcelDataSource =
+        new ExcelDataSource(dir.listFiles().filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined))
+    
 }
   
 case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
