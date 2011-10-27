@@ -1,7 +1,5 @@
 package es.ctic.tabels
 
-import scala.collection.JavaConversions$
-
 class ProjectController {
 
     def index = { }
@@ -9,11 +7,11 @@ class ProjectController {
     def rdf = {
         def workDir = "/tmp/tabels/"
         def tabelsFilename = "default.tabels"
-        def spreadsheetFiles = new File(workDir).listFiles().collect { it.name =~ ".*xls\$" }
-        def dataSource = new ExcelDataSource(spreadsheetFiles)
+//        println ExcelDataSource.metaClass.methods*.name.sort().unique()  
+        def dataSource = ExcelDataSource.loadAllExcelFilesFromDirectory(new File(workDir))
 		def parser = new TabelsParser()
         def programFile = new File(workDir + tabelsFilename)
-        def program = (programFile.exists()) ? parser.parseProgram(programFile) : Autogenerator$.autogenerateProgram(dataSource)
+        def program = (programFile.exists()) ? parser.parseProgram(programFile) : Autogenerator.autogenerateProgram(dataSource)
 		def interpreter = new Interpreter()
 		def dataOutput = new JenaDataOutput(/* Map() ++ program.prefixes */)
 		interpreter.interpret(program, dataSource, dataOutput)
