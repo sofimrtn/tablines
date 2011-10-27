@@ -187,6 +187,68 @@ case class TranslateExpression(input: Expression, pattern : Expression,replaceme
 }
 	override def prettyPrint = "translate(" +  input.toString  +", "+ pattern.toString +", "+replacement.toString + ")"
 }
+/*FIX ME: To be implemented function 
+ * escape-html-uri(expression: Expression)
+ * */
+
+/*
+ * NUMERIC OPERATIONS
+ *  
+ */
+case class NumericAddExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toFloat + expression2.evaluate(evaluationContext).asString.value.toString.toFloat, XSD_FLOAT)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
+}
+
+case class NumericSubtractExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toFloat - expression2.evaluate(evaluationContext).asString.value.toString.toFloat, XSD_FLOAT)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
+}
+
+case class NumericMultiplyExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toFloat * expression2.evaluate(evaluationContext).asString.value.toString.toFloat, XSD_FLOAT)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
+}
+
+case class NumericDivideExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toFloat / expression2.evaluate(evaluationContext).asString.value.toString.toFloat, XSD_FLOAT)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
+}
+
+case class NumericIntegerDivideExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal((expression.evaluate(evaluationContext).asString.value.toString.toFloat / expression2.evaluate(evaluationContext).asString.value.toString.toFloat).round, XSD_FLOAT)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
+}
+
+case class NumericModExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toFloat % expression2.evaluate(evaluationContext).asString.value.toString.toFloat, XSD_FLOAT)
+		  
+	override def prettyPrint = "lower case(" + expression   + ")"
+}
+
 
 /* *Type change expressions  * */
 case class BooleanExpression(expression: Expression) extends Expression{

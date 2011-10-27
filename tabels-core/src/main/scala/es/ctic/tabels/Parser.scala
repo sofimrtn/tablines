@@ -74,6 +74,13 @@ class TabelsParser extends JavaTokenParsers {
     def UPPER = "upper".ignoreCase
     def LOWER = "lower".ignoreCase
     def TRANSLATE = "translate".ignoreCase
+    def NUMERIC = "numeric".ignoreCase
+    def SUBTRACT = "subtract".ignoreCase
+    def MULTIPLY = "multiply".ignoreCase
+    def DIVIDE = "divide".ignoreCase
+    def INTEGER = "integer".ignoreCase
+    def MOD = "mod".ignoreCase
+  
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -195,6 +202,18 @@ class TabelsParser extends JavaTokenParsers {
     		{case expression => LowerCaseExpression(expression)}|
     	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
     		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
+    	(NUMERIC~>ADD~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
+    	(NUMERIC~>SUBTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => NumericSubtractExpression(expression1, expression2)}|
+    	(NUMERIC~>MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => NumericMultiplyExpression(expression1, expression2)}|
+    	(NUMERIC~>DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => NumericDivideExpression(expression1, expression2)}|
+    	(NUMERIC~>INTEGER~>DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
+    	(NUMERIC~>MOD~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
     	(INT ~> "("~>expression<~")")^^
     		{IntExpression}|
     	(FLOAT ~> "("~>expression<~")")^^
