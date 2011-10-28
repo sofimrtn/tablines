@@ -33,7 +33,7 @@ object CLI extends Logging {
 		    program.accept(prettyPrinter)
 			logger.debug("Interpreting AST: " + prettyPrinter.toString)
 			val interpreter : Interpreter = new Interpreter()
-			val dataOutput : JenaDataOutput = new JenaDataOutput(Map() ++ program.prefixes)
+			val dataOutput : JenaDataOutput = new JenaDataOutput(program.prefixesAsMap)
 			interpreter.interpret(program, dataSource, dataOutput)
 			
 			if (programFile.exists() == false) {
