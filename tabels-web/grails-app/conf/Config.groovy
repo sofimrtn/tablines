@@ -87,4 +87,8 @@ log4j = {
            'net.sf.ehcache.hibernate'
 
     warn   'org.mortbay.log'
+    
+    debug  'es.ctic.tabels',
+           'grails.app'
+
 }
