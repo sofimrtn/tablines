@@ -3,12 +3,15 @@ package es.ctic.tabels
 import javax.servlet.http.HttpServletResponse
 
 class ProjectController {
+    
+    File workDir = new File("/tmp/tabels/uploadr/")
 
-    def index = { }
+    def index = {
+        [path: workDir]
+    }
     
     def rdf = {
         log.info "And Tabular Cells!"
-        def workDir = "/tmp/tabels/uploadr/"
         def tabelsFilename = "default.tabels"
         def dataSource = ExcelDataSource.loadAllExcelFilesFromDirectory(new File(workDir))
         log.debug "Datasource includes these files: ${dataSource.filenames}"

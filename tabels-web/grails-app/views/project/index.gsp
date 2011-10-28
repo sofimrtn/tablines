@@ -6,7 +6,15 @@
     <body>
 		<h1>Tabels project</h1>
 
-		<uploadr:add name="myFirstUploadr" path="/tmp/tabels/uploadr"/>
+		<uploadr:add name="myFirstUploadr" path="${path}">
+			<% path.listFiles().each { file -> %>
+				<uploadr:file name="${file.name}">
+					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
+					<uploadr:fileModified>${file.lastModified()}</uploadr:fileModified>
+					<uploadr:fileId>myId-${org.apache.commons.lang.RandomStringUtils.random(32, true, true)}</uploadr:fileId>
+				</uploadr:file>
+			<% } %>
+		</uploadr:add>
 		
 		<g:link action="rdf">Get RDF</g:link>
 
