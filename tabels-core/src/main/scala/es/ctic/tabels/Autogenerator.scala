@@ -14,8 +14,9 @@ object Autogenerator extends Logging {
         val tripleTemplates = new ListBuffer[TripleTemplate]
         val filename = dataSource.filenames(0)
         val sheet = dataSource.getTabs(filename)(0)
+        logger.info("Autogenerating Tabels program for file " + filename + ", sheet " + sheet)
+        
         val cols = dataSource.getCols(filename, sheet)
-
         val variables = for (col <- List.range(1, cols)) yield Variable("?v" + col)
         val tuple = Tuple(variables)
         

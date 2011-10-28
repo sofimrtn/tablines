@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-import java.io.File
+import java.io.{File,FileNotFoundException}
 import scala.collection.mutable.HashMap
 import collection.JavaConversions._
 import jxl._
@@ -28,8 +28,11 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 	                return workbook
             }
         } catch {
+            case e : FileNotFoundException =>
+                logger.error("While reading Excel file " + file.getCanonicalPath, e)
+                throw e
             case e : BiffException =>
-                logger.error("While reading Excel workbook", e)
+                logger.error("While reading Excel file " + file.getCanonicalPath, e)
                 throw new InvalidInputFile(file.getName)
 	   }
 	}
@@ -43,7 +46,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
   }
   
   override def getTabs(filename : String) : Seq[String] = {
-	 
+	logger.debug("Getting sheets of Excel file " + filename)
     val workbook : Workbook = getWorkbook(new File (filename) )
     val sheetNames : Array[String] = workbook.getSheetNames()
     return sheetNames
@@ -69,7 +72,7 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 object ExcelDataSource {
     
     def loadAllExcelFilesFromDirectory(dir : File) : ExcelDataSource =
-        new ExcelDataSource(dir.listFiles().filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined))
+        new ExcelDataSource(dir.listFiles.toList.filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined))
     
 }
   
