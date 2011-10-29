@@ -1,5 +1,7 @@
 package es.ctic.tabels
+
 import scala.util.matching.Regex
+import java.net.URLEncoder
 
 abstract class Expression {
   
@@ -41,7 +43,7 @@ case class AddVariableExpression(variable : Variable, expression: Expression) ex
 
 case class ResourceExpression(expression:Expression, uri : Resource) extends Expression {
   
-  override def evaluate(evaluationContext : EvaluationContext) = uri + expression.evaluate(evaluationContext).asString.value.toString
+  override def evaluate(evaluationContext : EvaluationContext) = uri + URLEncoder.encode(expression.evaluate(evaluationContext).asString.value.toString,"UTF-8")
   override def prettyPrint = "resource(" + expression.toString + "," + uri.toString + ")"
 
 }
