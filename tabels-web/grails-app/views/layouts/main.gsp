@@ -19,8 +19,15 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
         </div>
         <div id="grailsLogo"><a href="http://grails.org"><img src="${resource(dir:'images',file:'grails_logo.png')}" alt="Grails" border="0" /></a></div>
+		<g:if test="${flash.error}">
+			<div class="errorbox">
+				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
+			</div>
+		</g:if>
 		<g:if test="${flash.message}">
-		        <g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+			<div class="messagebox">
+				<g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+			</div>
 		</g:if>
         <g:layoutBody />
 		<r:layoutResources/>

@@ -21,7 +21,7 @@ class ProjectController {
             projectService.saveProgram(params.program)
             flash.message = "The Tabels program has been successfully updated"
         } catch (es.ctic.tabels.ParseException e) {
-            flash.message = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
+            flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
         }
         redirect(view: index)
     }
@@ -42,7 +42,12 @@ class ProjectController {
 	def sparqlQuery = {
 		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
 		endpoint.addNamedGraph(getGraph(), projectService.getModel())
-		endpoint.setRequest(request)
+		try {
+		    endpoint.setRequest(request)
+	    } catch (Exception e) {
+	        flash.error = "Failed to parse SPARQL Query: ${e.message}"
+	        redirect(action:sparqlForm)
+	    }
 		endpoint.setResponse(response)
 		if (endpoint.isQuery()) {
 			try {
