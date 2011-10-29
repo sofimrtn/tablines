@@ -34,6 +34,7 @@ class ProjectController {
         } else {
             log.debug "Serializing RDF response, ${model.size()} triples"
 		    response.contentType = "application/rdf+xml"
+		    response.setHeader("Content-Disposition", "attachment; filename=data.rdf")
             model.write(response.outputStream, "RDF/XML")
         }
     }
