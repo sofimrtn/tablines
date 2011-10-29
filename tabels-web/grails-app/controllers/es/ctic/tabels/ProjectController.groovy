@@ -12,7 +12,18 @@ class ProjectController {
     def projectService
     
     def index = {
-        [path: projectService.workDir]
+        [path: projectService.workDir,
+         program: projectService.program]
+    }
+    
+    def saveProgram = {
+        try {
+            projectService.saveProgram(params.program)
+            flash.message = "The Tabels program has been successfully updated"
+        } catch (es.ctic.tabels.ParseException e) {
+            flash.message = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
+        }
+        redirect(view: index)
     }
     
     def rdf = {
@@ -27,7 +38,7 @@ class ProjectController {
         }
     }
     
-	def query = {
+	def sparqlQuery = {
 		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
 		endpoint.addNamedGraph(getGraph(), projectService.getModel())
 		endpoint.setRequest(request)
@@ -50,11 +61,11 @@ class ProjectController {
 				render(status: 500, text: e.getMessage())
 			}
 		} else {
-			redirect(action:form)
+			redirect(action:sparqlForm)
 		}
 	}
 	
-	def form = {
+	def sparqlForm = {
 		log.debug("Showing SPARQL form")
 		[query:"SELECT * \nFROM <" + getGraph() + "> \nWHERE { ?s ?p ?o }"]
 	}

@@ -1,7 +1,7 @@
 <html>
  
   <head> 
-    <title>Tabels SPARQL Query</title>
+    <title>Tabels SPARQL Query Results</title>
     <meta name="layout" content="main" />
   </head> 
 
@@ -10,7 +10,7 @@
     <h2>SPARQL Results (${size})</h2>
     
    	<p style="text-align: right;">
-   		Go back to the <g:link action="form">SPARQL form</g:link>
+   		Go back to the <g:link action="sparqlForm">SPARQL form</g:link>
    	</p>    
   
     <table class="sparql" border="1">

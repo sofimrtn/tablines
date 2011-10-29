@@ -19,8 +19,13 @@
 			<% } %>
 		</uploadr:add>
 		
-		<g:link action="rdf">Download RDF</g:link>
-		<g:link action="form">SPARQL query</g:link>
+		<p><g:link action="rdf">Download RDF</g:link></p>
+		<p><g:link action="sparqlForm">SPARQL query</g:link></p>
+		
+		<g:form action="saveProgram">
+			<g:textArea name="program" value="${program}" rows="15" cols="80" />
+			<p><g:submitButton name="save" value="Save program" /></p>
+		</g:form>
 
     </body>
 </html>
