@@ -14,17 +14,18 @@ class ProjectController {
     
     def index = {
         [path: projectService.workDir,
-         program: projectService.program]
+         program: params.program != null ? params.program : projectService.program]
     }
     
     def saveProgram = {
         try {
             projectService.saveProgram(params.program)
             flash.message = "The Tabels program has been successfully updated"
+            redirect(view: index)
         } catch (es.ctic.tabels.ParseException e) {
             flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
+            redirect(view: index, params: [program: params.program])
         }
-        redirect(view: index)
     }
     
     def rdf = {
