@@ -14,6 +14,7 @@ class ProjectController {
     
     def index = {
         [path: projectService.workDir,
+         files: projectService.files,
          program: params.program != null ? params.program : projectService.program]
     }
     

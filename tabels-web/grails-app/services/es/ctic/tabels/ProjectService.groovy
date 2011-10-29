@@ -8,6 +8,10 @@ class ProjectService {
     
     File workDir = new File("/tmp/tabels/uploadr/")
     File programFile = new File(workDir, defaultProgramFilename)
+    
+    File[] getFiles() {
+        workDir.listFiles()
+    }
 
     def getModel() {
         log.info "And Tabular Cells!"

@@ -7,7 +7,7 @@
 		<h1>Tabels project</h1>
 
 		<uploadr:add name="myFirstUploadr" path="${path}">
-			<% path.listFiles().each { file -> %>
+			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
 					<uploadr:fileModified>${file.lastModified()}</uploadr:fileModified>
@@ -16,7 +16,7 @@
 						<uploadr:color>#c78cda</uploadr:color>
 					</g:if>
 				</uploadr:file>
-			<% } %>
+			</g:each>
 		</uploadr:add>
 		
 		<p><g:link action="rdf">Download RDF</g:link></p>
