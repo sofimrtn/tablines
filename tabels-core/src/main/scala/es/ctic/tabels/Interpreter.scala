@@ -11,8 +11,13 @@ class Interpreter extends Logging {
     //FIX IT//
     val events = new ListBuffer[Event]
     val evaluationContext = EvaluationContext()
-    var visitor = new VisitorEvaluate(dataSource,events, evaluationContext) 
     
+    root.templateList.filter(_.variables.isEmpty).foreach { t => 
+        logger.debug("Instantiation of variable-less template " + t)
+        t.instantiate(Bindings(), dataOut)
+    }
+    
+    var visitor = new VisitorEvaluate(dataSource,events, evaluationContext)     
     visitor.visit(root)
      
     logger.debug("List of events: " + events)
