@@ -2,7 +2,6 @@
 <html>
     <head>
         <title><g:layoutTitle default="Grails" /></title>
-        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript library="application" />
 		<g:javascript library="jquery" plugin="jquery"/>
@@ -12,8 +11,9 @@
 		<script src="${resource(dir:'js/codemirror',file:'sparql.js')}"></script>
 		<script src="${resource(dir:'js/codemirror',file:'tabels.js')}"></script>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror-default-theme.css')}">
-        <g:layoutHead />
 		<r:layoutResources/>
+        <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
+        <g:layoutHead />
     </head>
     <body>
         <div id="spinner" class="spinner" style="display:none;">

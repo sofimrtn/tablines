@@ -22,7 +22,7 @@
 					<uploadr:fileModified>${file.lastModified()}</uploadr:fileModified>
 					<uploadr:fileId>myId-${org.apache.commons.lang.RandomStringUtils.random(32, true, true)}</uploadr:fileId>
 					<g:if test="${file.name.endsWith('.tabels')}">
-						<uploadr:color>#c78cda</uploadr:color>
+						<uploadr:color>#ffffcc</uploadr:color>
 					</g:if>
 				</uploadr:file>
 			</g:each>
