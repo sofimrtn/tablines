@@ -26,8 +26,9 @@ object CLI extends Logging {
 			logger.debug("Parsing Tabels program")
             val tabelsFilename = if (cmd hasOption "t") cmd.getOptionValue("t") else defaultTabelsFilename
 			val parser = new TabelsParser()
+			var autogenerator = new BasicAutogenerator()
             val programFile = new File(tabelsFilename)
-            val program = if (programFile.exists()) { parser.parseProgram(programFile) } else Autogenerator.autogenerateProgram(dataSource)
+            val program = if (programFile.exists()) { parser.parseProgram(programFile) } else autogenerator.autogenerateProgram(dataSource)
 
 		    val prettyPrinter = new PrettyPrint()
 		    program.accept(prettyPrinter)

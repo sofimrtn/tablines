@@ -4,12 +4,16 @@ import scala.collection.mutable.ListBuffer
 
 import grizzled.slf4j.Logging
 
-object Autogenerator extends Logging {
+trait Autogenerator {
+    def autogenerateProgram(dataSource : DataSource) : S
+}
+
+class BasicAutogenerator extends Autogenerator with Logging {
     
     val EX_NS = "http://example.org/ex#"
     val defaultPrefixes = Seq(("ex", ns()))
     
-    def autogenerateProgram(dataSource : DataSource) : S = {
+    override def autogenerateProgram(dataSource : DataSource) : S = {
         val statements = new ListBuffer[TabelsStatement]
         val tripleTemplates = new ListBuffer[TripleTemplate]
         val filename = dataSource.filenames(0)

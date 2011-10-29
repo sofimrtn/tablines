@@ -19,7 +19,8 @@ class ProjectService {
         log.debug "Datasource includes these files: ${dataSource.filenames}"
         log.debug "Using Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
 		def parser = new TabelsParser()
-        def program = programFile.exists() ? parser.parseProgram(programFile) : Autogenerator.autogenerateProgram(dataSource)
+		def autogenerator = new BasicAutogenerator()
+        def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
 		def interpreter = new Interpreter()
 		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
 		interpreter.interpret(program, dataSource, dataOutput)
