@@ -19,18 +19,23 @@
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
         </div>
-        <div id="grailsLogo"><a href="http://grails.org"><img src="${resource(dir:'images',file:'grails_logo.png')}" alt="Grails" border="0" /></a></div>
+		<div id="header">
+			<h1><g:link controller="project">Tabels</g:link></h1>
+			<p id="slogan">Make meaning of tabular data</p>
+		</div>
+		<div id="body">
 		<g:if test="${flash.error}">
-			<div class="errorbox">
+			<div class="errors">
 				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
 			</div>
 		</g:if>
 		<g:if test="${flash.message}">
-			<div class="messagebox">
+			<div class="message">
 				<g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
 			</div>
 		</g:if>
         <g:layoutBody />
 		<r:layoutResources/>
+		</div>
     </body>
 </html>

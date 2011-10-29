@@ -13,7 +13,7 @@
 	    </script>
     </head>
     <body>
-		<h1>Tabels project</h1>
+		<h2>Files</h2>
 
 		<uploadr:add name="myFirstUploadr" path="${path}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
@@ -28,11 +28,13 @@
 			</g:each>
 		</uploadr:add>
 		
-		<p><g:link action="rdf">Download RDF</g:link></p>
-		<p><g:link action="sparqlForm">SPARQL query</g:link></p>
+		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
+		<p class="sparqlLink"><g:link action="sparqlForm">SPARQL query</g:link></p>
+		
+		<h2>Transformation program</h2>
 		
 		<g:form action="saveProgram">
-			<g:textArea name="program" value="${program}" rows="15" cols="80" />
+			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 			<p><g:submitButton name="save" value="Save program" /></p>
 		</g:form>
 
