@@ -27,7 +27,11 @@
       }
 
 		$(document).ready(function() {
-			CodeMirror.fromTextArea(query);
+			CodeMirror.fromTextArea(query, {
+				mode: "sparql",
+				lineNumbers: true,
+				matchBrackets: true
+			});
 		});
     </script>
   </head>
