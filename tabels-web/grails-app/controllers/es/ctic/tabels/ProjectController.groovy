@@ -6,6 +6,7 @@ import org.fundacionctic.su4j.endpoint.SparqlEndpoint
 import org.fundacionctic.su4j.endpoint.http.MimeTypes
 import org.fundacionctic.su4j.endpoint.utils.ResultSetHelper
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import com.hp.hpl.jena.query.QueryParseException
 
 class ProjectController {
 
@@ -40,18 +41,13 @@ class ProjectController {
     }
     
 	def sparqlQuery = {
-		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-		endpoint.addNamedGraph(getGraph(), projectService.getModel())
 		try {
-		    endpoint.setRequest(request)
-	    } catch (Exception e) {
-	        flash.error = "Failed to parse SPARQL Query: ${e.message}"
-	        redirect(action:sparqlForm)
-	    }
-		endpoint.setResponse(response)
-		if (endpoint.isQuery()) {
-			try {
-				log.info("Executing SPARQL query")
+    		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
+    		endpoint.addNamedGraph(getGraph(), projectService.getModel())
+    	    endpoint.setRequest(request)
+    		endpoint.setResponse(response)
+    		if (endpoint.isQuery()) {
+				log.info("Executing SPARQL query: ${params.query}")
 				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
 					def results = endpoint.getResults().getResult()
 					def vars = ResultSetHelper.extractVariables(results)
@@ -60,20 +56,24 @@ class ProjectController {
 					log.debug "Serializing to HTML ${size} results"
 					return [vars: vars, tuples: tuples, size: size ]
 				} else {
-					endpoint.query()
+					endpoint.query() // bypass GSP rendering
 				}
-			} catch (Exception e) {
-				log.error(e.getMessage())
-				render(status: 500, text: e.getMessage())
-			}
-		} else {
-			redirect(action:sparqlForm)
+    		} else {
+    			redirect(action:sparqlForm, params: params)
+    		}
+		} catch (QueryParseException e) {
+            log.error("While parsing query: ${params.query}", e)
+            flash.error = "Failed to parse SPARQL Query: ${e.message}"
+            redirect(action:sparqlForm, params: [query: params.query])
+		} catch (Exception e) {
+			log.error("While executing SPARQL query: ${params.query}", e)
+			render(status: 500, text: e.getMessage())
 		}
 	}
 	
 	def sparqlForm = {
 		log.debug("Showing SPARQL form")
-		[query:"SELECT * \nFROM <" + getGraph() + "> \nWHERE { ?s ?p ?o }"]
+		[query: params.query != null ? params.query : "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }"]
 	}
 	
 	private String getGraph() {

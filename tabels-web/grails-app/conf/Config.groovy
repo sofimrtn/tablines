@@ -73,7 +73,7 @@ log4j = {
     // appender:
     //
     //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    //    console name:'stdout', layout:pattern(conversionPattern: '%c %m%n')
     //}
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
@@ -86,11 +86,13 @@ log4j = {
            'org.codehaus.groovy.grails.orm.hibernate', // hibernate integration
            'org.springframework',
            'org.hibernate',
-           'net.sf.ehcache.hibernate'
+           'net.sf.ehcache.hibernate',
+           'grails.app.tagLib'
 
     warn   'org.mortbay.log'
     
     debug  'es.ctic.tabels',
-           'grails.app'
+           'grails.app.service',
+           'grails.app.controller'
 
 }
