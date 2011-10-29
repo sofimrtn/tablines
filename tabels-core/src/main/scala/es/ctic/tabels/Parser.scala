@@ -121,7 +121,8 @@ class TabelsParser extends JavaTokenParsers {
 
 	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
 	
-	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^ { case prefix~local => prefixes(prefix) + local }
+	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^
+	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
 		
 	def rdfNode : Parser[RDFNode] = iriRef | curieRef | rdfLiteral
 	

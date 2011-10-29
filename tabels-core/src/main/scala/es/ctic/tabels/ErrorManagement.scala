@@ -10,6 +10,9 @@ class ParseException(input_ : String, msg : String, lineNumber_ : Int, column_ :
      var line = input.split("\n")(lineNumber-1).replace("\t", " ")
 }
 
+class UndefinedPrefixException(prefix : String)
+    extends TabelsException("Undefined prefix '" + prefix + "'")
+
 class TemplateInstantiationException(msg:String) extends TabelsException(msg)
 
 class UnboundVariableException(variable: Variable) extends TabelsException("Found unbound variable " + variable)
