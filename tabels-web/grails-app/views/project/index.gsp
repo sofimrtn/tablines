@@ -19,7 +19,8 @@
 			<% } %>
 		</uploadr:add>
 		
-		<g:link action="rdf">Get RDF</g:link>
+		<g:link action="rdf">Download RDF</g:link>
+		<g:link action="form">SPARQL query</g:link>
 
     </body>
 </html>

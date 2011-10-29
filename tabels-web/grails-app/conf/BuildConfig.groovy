@@ -28,6 +28,7 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         compile 'es.ctic.tabels:tabels-core_2.9.1:0.1',
-                'commons-lang:commons-lang:2.6'
+                'commons-lang:commons-lang:2.6',
+                'su4j:su4j-endpoint:0.5.1-SNAPSHOT'
     }
 }

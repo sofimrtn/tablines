@@ -1,6 +1,11 @@
 package es.ctic.tabels
 
 import javax.servlet.http.HttpServletResponse
+import org.fundacionctic.su4j.endpoint.EndpointFactory
+import org.fundacionctic.su4j.endpoint.SparqlEndpoint
+import org.fundacionctic.su4j.endpoint.http.MimeTypes
+import org.fundacionctic.su4j.endpoint.utils.ResultSetHelper
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class ProjectController {
 
@@ -22,4 +27,41 @@ class ProjectController {
         }
     }
     
+	def query = {
+		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
+		endpoint.addNamedGraph(getGraph(), projectService.getModel())
+		endpoint.setRequest(request)
+		endpoint.setResponse(response)
+		if (endpoint.isQuery()) {
+			try {
+				log.info("Executing SPARQL query")
+				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
+					def results = endpoint.getResults().getResult()
+					def vars = ResultSetHelper.extractVariables(results)
+					def tuples = ResultSetHelper.extractTuples(results)
+					def size = tuples.size()					
+					log.debug "Serializing to HTML ${size} results"
+					return [vars: vars, tuples: tuples, size: size ]
+				} else {
+					endpoint.query()
+				}
+			} catch (Exception e) {
+				log.error(e.getMessage())
+				render(status: 500, text: e.getMessage())
+			}
+		} else {
+			redirect(action:form)
+		}
+	}
+	
+	def form = {
+		log.debug("Showing SPARQL form")
+		[query:"SELECT * \nFROM <" + getGraph() + "> \nWHERE { ?s ?p ?o }"]
+	}
+	
+	private String getGraph() {
+	    // FIXME: not really portable
+	    return ConfigurationHolder.config.grails.serverURL
+	}
+	
 }
