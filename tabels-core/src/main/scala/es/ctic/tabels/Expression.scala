@@ -18,6 +18,20 @@ case class VariableReference(variable:Variable) extends Expression{
 
 }
 
+case class GetRowExpression(variable:Variable) extends Expression {
+    
+    override def evaluate(evaluationContext:EvaluationContext) = Literal(evaluationContext.bindings.getPoint(variable).row, XSD_INT)
+    override def prettyPrint = "get-row(" + variable.toString + ")"
+    
+}
+
+case class GetColExpression(variable:Variable) extends Expression {
+    
+    override def evaluate(evaluationContext:EvaluationContext) = Literal(evaluationContext.bindings.getPoint(variable).col, XSD_INT)
+    override def prettyPrint = "get-col(" + variable.toString + ")"
+    
+}
+
 case class AddVariableExpression(variable : Variable, expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable) + expression.evaluate(evaluationContext).asString.value.toString
@@ -61,6 +75,7 @@ case class NotExpression(expression:Expression) extends Expression{
     override def prettyPrint = "not(" + expression.toString + ")"
 
 }
+
 /*
  * STRING FUNCTIONS
  * 

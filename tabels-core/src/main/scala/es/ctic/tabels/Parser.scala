@@ -53,6 +53,8 @@ class TabelsParser extends JavaTokenParsers {
     
     // functions
 	def RESOURCE = "resource".ignoreCase
+	def GET_ROW = "get-row".ignoreCase
+	def GET_COL = "get-col".ignoreCase
     def ADD = "add".ignoreCase
     def TRUE = "true".ignoreCase
     def FALSE = "false".ignoreCase
@@ -172,6 +174,10 @@ class TabelsParser extends JavaTokenParsers {
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
     		{case v~u => ResourceExpression(expression = v, uri = u)} |		
+        GET_ROW ~> "(" ~> variable <~ ")" ^^ 
+    		{case v => GetRowExpression(variable = v) } |		
+        GET_COL ~> "(" ~> variable <~ ")" ^^ 
+    		{case v => GetColExpression(variable = v) } |		
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
         ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
