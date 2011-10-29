@@ -13,7 +13,7 @@
    		Go back to the <g:link action="sparqlForm">SPARQL form</g:link>
    	</p>    
   
-    <table class="sparql" border="1">
+    <table class="sparql">
       <thead>
         <tr>
         <g:each var="var" in="${vars}">
@@ -22,8 +22,8 @@
         </tr>
       </thead>
       <tbody>
-        <g:each var="tuple" in="${tuples}">
-        <tr>
+        <g:each var="tuple" in="${tuples}" status="i">
+        <tr class="${(i % 2 == 0) ? 'even' : 'odd'}">
           <g:each var="var" in="${vars}">
             <td headers="${var}">${tuple.get(var)}</td>
           </g:each>

@@ -21,16 +21,16 @@
         </div>
 		<div id="header">
 			<h1><g:link controller="project">Tabels</g:link></h1>
-			<p id="slogan">Make meaning of tabular data</p>
+			<p class="undertitle">Make meaning of tabular data</p>
 		</div>
 		<div id="body">
 		<g:if test="${flash.error}">
-			<div class="errors">
+			<div class="errorsbox">
 				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
 			</div>
 		</g:if>
 		<g:if test="${flash.message}">
-			<div class="message">
+			<div class="messagebox">
 				<g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
 			</div>
 		</g:if>

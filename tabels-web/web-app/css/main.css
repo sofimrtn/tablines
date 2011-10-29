@@ -21,15 +21,16 @@ h1 a {
     color: white;
 }
 
-#slogan {
-    margin: 0px;
+p.undertitle {
+    margin-top: 0px;
+    margin-bottom: 0px;
     padding: 0px;
+    color: #ffffdd;
 }
 
 #body {
     margin: 1em;
 }
-
 
 h2 {
     color: darkgreen;
@@ -53,7 +54,7 @@ div .CodeMirror {
 
 /* MESSAGES AND ERRORS */
 
-div.message {
+div.messagebox {
     background: #f3f8fc url(../images/skin/information.png) 8px 50% no-repeat;
     border: 1px solid #b2d1ff;
     color: #006dba;
@@ -61,30 +62,12 @@ div.message {
     padding: 5px 5px 5px 30px
 }
 
-div.errors {
-    background: #fff3f3 url(../images/skin/exclamation.png) 8px 0% no-repeat;
+div.errorsbox {
+    background: #fff3f3 url(../images/skin/exclamation.png) 8px 50% no-repeat;
     border: 1px solid red;
     color: #cc0000;
     margin: 10px 0 5px 0;
     padding: 5px 5px 5px 30px;
-}
-div.errors ul {
-    list-style: none;
-    padding: 0;
-}
-div.errors li {
-    line-height: 16px;
-    padding-left: 30px;
-}
-
-td.errors select {
-    border: 1px solid red;
-}
-td.errors input {
-    border: 1px solid red;
-}
-td.errors textarea {
-    border: 1px solid red;
 }
 
 /* TABLES */
@@ -96,19 +79,26 @@ table {
 tr {
     border: 0;
 }
+tr.odd {
+    background: #ffffcc;
+}
+tr.even {
+    background: #ccffcc;
+}
+tr:hover {
+    background: #3A3;
+    color: white;
+}
 td, th {
     font: 11px verdana, arial, helvetica, sans-serif;
-    line-height: 12px;
     padding: 5px 6px;
     text-align: left;
     vertical-align: top;
 }
 th {
-    background: #fff url(../images/skin/shadow.jpg);
-    color: #666;
-    font-size: 11px;
+    background: darkgreen;
+    color: white;
     font-weight: bold;
-    line-height: 17px;
     padding: 2px 6px;
 }
 th a:link, th a:visited, th a:hover {
