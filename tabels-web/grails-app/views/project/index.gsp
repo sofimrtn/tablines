@@ -2,6 +2,15 @@
     <head>
         <title>Tabels project</title>
         <meta name="layout" content="main" />
+	    <script type="text/javascript">
+			$(document).ready(function() {
+				CodeMirror.fromTextArea(program, {
+					mode: "tabels",
+					lineNumbers: true,
+					matchBrackets: true
+				});
+			});
+	    </script>
     </head>
     <body>
 		<h1>Tabels project</h1>

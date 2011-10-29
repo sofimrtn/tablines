@@ -10,6 +10,7 @@
 		<script src="${resource(dir:'js/codemirror',file:'codemirror.js')}"></script>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror.css')}">
 		<script src="${resource(dir:'js/codemirror',file:'sparql.js')}"></script>
+		<script src="${resource(dir:'js/codemirror',file:'tabels.js')}"></script>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror-default-theme.css')}">
         <g:layoutHead />
 		<r:layoutResources/>
