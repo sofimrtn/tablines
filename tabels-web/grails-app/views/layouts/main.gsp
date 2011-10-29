@@ -4,9 +4,14 @@
         <title><g:layoutTitle default="Grails" /></title>
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
-        <g:layoutHead />
         <g:javascript library="application" />
+		<g:javascript library="jquery" plugin="jquery"/>
 		<r:require modules="uploadr"/>
+		<script src="${resource(dir:'js/codemirror',file:'codemirror.js')}"></script>
+		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror.css')}">
+		<script src="${resource(dir:'js/codemirror',file:'sparql.js')}"></script>
+		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror-default-theme.css')}">
+        <g:layoutHead />
 		<r:layoutResources/>
     </head>
     <body>

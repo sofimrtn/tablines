@@ -25,6 +25,10 @@
           format.selectedIndex = 2;
         }
       }
+
+		$(document).ready(function() {
+			CodeMirror.fromTextArea(query);
+		});
     </script>
   </head>
   
