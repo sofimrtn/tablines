@@ -55,3 +55,19 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 	}
 
 }
+
+object TripleTemplate {
+    
+    implicit def rdfNodeToTripleAtom(rdfNode : RDFNode) : Either[RDFNode, Variable] = Left(rdfNode)
+    implicit def variableToTripleAtom(variable : Variable) : Either[RDFNode, Variable] = Right(variable)
+    
+    implicit def tuple3AtoTripleTemplate(tuple : Tuple3[RDFNode,  RDFNode,  RDFNode] ) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3BtoTripleTemplate(tuple : Tuple3[RDFNode,  RDFNode,  Variable]) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3CtoTripleTemplate(tuple : Tuple3[RDFNode,  Variable, RDFNode] ) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3DtoTripleTemplate(tuple : Tuple3[RDFNode,  Variable, Variable]) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3EtoTripleTemplate(tuple : Tuple3[Variable, RDFNode,  RDFNode] ) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3FtoTripleTemplate(tuple : Tuple3[Variable, RDFNode,  Variable]) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3GtoTripleTemplate(tuple : Tuple3[Variable, Variable, RDFNode] ) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    implicit def tuple3HtoTripleTemplate(tuple : Tuple3[Variable, Variable, Variable]) : TripleTemplate = TripleTemplate(tuple._1, tuple._2, tuple._3)
+    
+}
