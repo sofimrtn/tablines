@@ -81,7 +81,7 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
     val decimalFormatPattern = """^(?:#,##)?0(?:\.0+)?(?:;.*)?$""".r
     
   override def getContent : Literal ={
-    logger.info("Actual cell type is: " + cell.getType() + " and its value is: "+cell.getContents())
+    logger.trace("Actual cell type is: " + cell.getType() + " and its value is: "+cell.getContents())
     cell.getType() match{
 	  case CellType.NUMBER => val value = cell.asInstanceOf[NumberCell].getValue()
 	  						if(value == value.toInt)
