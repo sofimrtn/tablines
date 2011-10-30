@@ -62,3 +62,21 @@ object LITERAL_FALSE extends Literal("false", XSD_BOOLEAN)
 case class Statement(subject: RDFNode, property: RDFNode, obj:RDFNode){
 
 }
+
+case class Namespace(ns : String) {
+    
+    def apply(localName : String = "") = Resource(ns + localName)
+    override def toString() : String = ns
+    
+}
+
+object CommonNamespaces {
+
+    object EX   extends Namespace("http://example.org/ex#")
+    object SCV  extends Namespace("http://purl.org/NET/scovo#")
+    object RDF  extends Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
+    object RDFS extends Namespace("http://www.w3.org/2000/01/rdf-schema#")
+    object SKOS extends Namespace("http://www.w3.org/2004/02/skos/core#")
+    object XSD  extends Namespace("http://www.w3.org/2001/XMLSchema#")
+    
+}
