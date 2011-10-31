@@ -10,6 +10,9 @@ class ProjectService {
     File programFile = new File(workDir, defaultProgramFilename)
     
     File[] getFiles() {
+        if (workDir.exists() == false) {
+            workDir.mkdirs()
+        }
         workDir.listFiles()
     }
 
