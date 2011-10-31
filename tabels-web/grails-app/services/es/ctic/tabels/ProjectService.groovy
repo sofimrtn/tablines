@@ -3,14 +3,17 @@ package es.ctic.tabels
 class ProjectService {
 
     static transactional = true
+    static scope = "singleton"
 
-    String defaultProgramFilename = "default.tabels"
+    static String defaultProgramFilename = "default.tabels"
     
-    File workDir = new File("/tmp/tabels/uploadr/")
+    File workDir = new File(System.getProperty("java.io.tmpdir") + "tabels/upload/")
     File programFile = new File(workDir, defaultProgramFilename)
-    
-    File[] getFiles() {
+
+    def File[] getFiles() {
+        log.debug "Listing files in temporary dir: ${workDir}"
         if (workDir.exists() == false) {
+            log.info "Creating temporary dir: ${workDir}"
             workDir.mkdirs()
         }
         workDir.listFiles()
