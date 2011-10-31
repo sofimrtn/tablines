@@ -95,8 +95,6 @@
                     </g:each>
                 </ul>
             </div>
-
-			<uploadr:add name="myFirstUploadr" path="/tmp/tabels/uploadr"/>
         </div>
     </body>
 </html>
