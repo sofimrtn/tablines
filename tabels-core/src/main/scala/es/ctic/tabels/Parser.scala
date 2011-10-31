@@ -85,6 +85,9 @@ class TabelsParser extends JavaTokenParsers {
     def DIVIDE = "divide".ignoreCase
     def INTEGER = "integer".ignoreCase
     def MOD = "mod".ignoreCase
+    def IF = "if".ignoreCase
+    def THEN = "then".ignoreCase
+    def ELSE = "else".ignoreCase
   
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
@@ -181,7 +184,9 @@ class TabelsParser extends JavaTokenParsers {
         GET_ROW ~> "(" ~> variable <~ ")" ^^ 
     		{case v => GetRowExpression(variable = v) } |		
         GET_COL ~> "(" ~> variable <~ ")" ^^ 
-    		{case v => GetColExpression(variable = v) } |		
+    		{case v => GetColExpression(variable = v) }|		
+        ((IF ~> expression) ~ (THEN~> expression) ~ (ELSE ~> expression)) ^^ 
+    		{case condition ~ trueExpression ~ falseExpression => TernaryOperationExpression(condition, trueExpression, falseExpression)}|		
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
         ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
