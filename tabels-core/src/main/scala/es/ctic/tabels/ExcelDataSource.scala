@@ -10,23 +10,13 @@ import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 
 
-class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
+class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
     
-	private val files : Seq[File] = fl
-	
-	val filenames : Seq[String] = files.map(_.getCanonicalPath())
-	
-	private val workbooks = new HashMap[File, Workbook]()
-	
-	private def getWorkbook(file : File) : Workbook = {
-	    try {
-	        workbooks.get(file) match {
-                case Some(workbook) => return workbook
-                case None =>
-                    val workbook = Workbook.getWorkbook(file)
-	                workbooks.put(file, workbook)
-	                return workbook
-            }
+	private val workbook = openWorkbook(file)
+		
+	private def openWorkbook(file : File) : Workbook = {
+        try {
+            return Workbook.getWorkbook(file)
         } catch {
             case e : FileNotFoundException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
@@ -37,45 +27,32 @@ class ExcelDataSource(fl : Seq[File]) extends DataSource with Logging {
 	   }
 	}
   
+	override val uri = file.getCanonicalPath()
+
   override def getValue(point : Point) : CellValue = {
-	logger.debug("Getting value at " + point)
-    val workbook : Workbook = getWorkbook(new File (point.path) )
+	logger.trace("Getting value at " + point)
 	val sheet : Sheet = workbook.getSheet(point.tab)
 	val cell : Cell = sheet.getCell(point.col, point.row)
     return ExcelCellValue(cell)
   }
   
-  override def getTabs(filename : String) : Seq[String] = {
-	logger.debug("Getting sheets of Excel file " + filename)
-    val workbook : Workbook = getWorkbook(new File (filename) )
+  override def getTabs() : Seq[String] = {
     val sheetNames : Array[String] = workbook.getSheetNames()
     return sheetNames
-}
+  }
   
-  override def getRows(filename : String, tabName : String) : Int = {
-    
-    val workbook : Workbook = getWorkbook(new File (filename))
+  override def getRows(tabName : String) : Int = {
     val sheet : Sheet = workbook.getSheet(tabName)
-
     return sheet.getRows()
-}
-  override def getCols(filename : String, tabName : String) : Int = {
-    
-    val workbook : Workbook = getWorkbook(new File (filename))
-    val sheet : Sheet = workbook.getSheet(tabName)
-
-    return sheet.getColumns()
-}
-
-}
-
-object ExcelDataSource {
-    
-    def loadAllExcelFilesFromDirectory(dir : File) : ExcelDataSource =
-        new ExcelDataSource(dir.listFiles.toList.filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined))
-    
-}
+  }
   
+  override def getCols(tabName : String) : Int = {
+    val sheet : Sheet = workbook.getSheet(tabName)
+    return sheet.getColumns()
+  }
+
+}
+
 case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
     
     val decimalFormatPattern = """^(?:#,##)?0(?:\.0+)?(?:;.*)?$""".r

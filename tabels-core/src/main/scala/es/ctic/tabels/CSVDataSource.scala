@@ -7,33 +7,21 @@ import au.com.bytecode.opencsv.CSVReader
 import java.io.{File,FileReader}
 import scala.collection.mutable.HashMap
 
-class CSVDataSource(fl : Seq[File]) extends DataSource with Logging {
+class CSVDataAdapter(file : File) extends DataAdapter with Logging {
 
-    private val files : Seq[File] = fl
+	private val table : CSVTable = readTable(file)
 	
-	val filenames : Seq[String] = files.map(_.getName())
-	
-	private val tables = new HashMap[File, CSVTable]
-	
-	private def getTable(file : File) : CSVTable = {
-        tables.get(file) match {
-            case Some(reader) => return reader
-            case None =>
-                logger.info("Reading CSV file " + file)
-                val reader = new CSVReader(new FileReader(file))
-                val table = CSVTable(reader.readAll())
-        	    tables.put(file, table)
-    	        return table
-        }
+	private def readTable(file : File) : CSVTable = {
+        logger.info("Reading CSV file " + file)
+        val reader = new CSVReader(new FileReader(file))
+        return CSVTable(reader.readAll())
 	}
 	
-    override def getValue(point : Point) : CellValue = getTable(new File(point.path)).getCSVCellValue(point.row, point.col)
-  
-    override def getTabs(filename : String) : Seq[String] = Seq("")
-
-    override def getRows(filename : String, tabName : String) : Int = getTable(new File(filename)).rows
-    
-    override def getCols(filename : String, tabName : String) : Int = getTable(new File(filename)).cols
+	override val uri = file.getCanonicalPath()
+    override def getValue(point : Point) : CellValue = table.getCSVCellValue(point.row, point.col)
+    override def getTabs() : Seq[String] = Seq("")
+    override def getRows(tabName : String) : Int = table.rows
+    override def getCols(tabName : String) : Int = table.cols
   
 }
 

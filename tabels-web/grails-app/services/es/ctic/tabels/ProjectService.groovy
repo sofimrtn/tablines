@@ -21,7 +21,7 @@ class ProjectService {
 
     def getModel() {
         log.info "And Tabular Cells!"
-        def dataSource = ExcelDataSource.loadAllExcelFilesFromDirectory(workDir)
+        def dataSource = new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(workDir))
         log.debug "Datasource includes these files: ${dataSource.filenames}"
         log.debug "Using Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
 		def parser = new TabelsParser()

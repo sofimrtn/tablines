@@ -1,6 +1,7 @@
 package es.ctic.tabels
-import es.ctic.tabels.Dimension._
 
+import es.ctic.tabels.Dimension._
+import java.io.File
 
 abstract class DataSource {
 
@@ -10,6 +11,48 @@ abstract class DataSource {
   def getRows(filename : String, tabName : String) : Int
   def getCols(filename : String, tabName : String) : Int
   
+}
+
+abstract class DataAdapter {
+    
+    val uri : String
+    def getValue(point : Point) : CellValue
+    def getTabs() : Seq[String]
+    def getRows(tabName : String) : Int
+    def getCols(tabName : String) : Int    
+    
+}
+
+object DataAdapter {
+    
+    val CSVFilePattern = """.+\.csv$""".r
+    val ExcelFilePattern = """.+\.xls$""".r // FIXME: match .xlsx files too
+    
+    def createAdapter(url : String) : DataAdapter =
+        url match {
+            case CSVFilePattern() => new CSVDataAdapter(new File(url))
+            case ExcelFilePattern() => new ExcelDataAdapter(new File(url))
+            case _ => throw new UnrecognizedSpreadsheetFormatException(url)
+        }
+    
+    def findAllRecognizedFilesFromDirectory(dir : File) : Seq[File] =
+        dir.listFiles.toList.filter(_.getName match {
+            case CSVFilePattern() | ExcelFilePattern() => true
+            case _ => false
+        })
+
+}
+
+class DataAdaptersDelegate(fl : Seq[File]) extends DataSource {
+
+    private val adapters : Map[String, DataAdapter] = Map() ++ fl.map(file => (file.getCanonicalPath(), DataAdapter.createAdapter(file.getCanonicalPath())))
+
+    val filenames : Seq[String] = fl.map(_.getCanonicalPath())
+    override def getValue(point : Point) = adapters(point.path).getValue(point)
+    override def getTabs(filename : String) = adapters(filename).getTabs()
+    override def getRows(filename : String, tabName : String) = adapters(filename).getRows(tabName)
+    override def getCols(filename : String, tabName : String) = adapters(filename).getCols(tabName)
+    
 }
 
 case class Point(path : String, tab: String, col: Int, row: Int){

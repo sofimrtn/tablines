@@ -8,8 +8,8 @@ import scala.collection.JavaConversions
 object CLI extends Logging {
 
 	val defaultTabelsFilename = "transform.tabels"
-	lazy val excelFilesCurrentDirectory : Seq[File] = new File(".").listFiles().filter(f => """.*\.xls$""".r.findFirstIn(f.getName).isDefined)
-  
+	lazy val recognizedFilesCurrentDirectory : Seq[File] = DataAdapter.findAllRecognizedFilesFromDirectory(new File("."))
+	
 	def main(args: Array[String]) {
 	    val options = new Options()
 	    options.addOption("t", true, "path to the Tabels program")
@@ -18,9 +18,9 @@ object CLI extends Logging {
 		try {
             val cmd : CommandLine = cliParser.parse(options, args)
 
-            val spreadsheetFiles : Seq[File] = if (cmd.getArgs isEmpty) excelFilesCurrentDirectory else cmd.getArgs.map(new File(_))
+            val spreadsheetFiles : Seq[File] = if (cmd.getArgs isEmpty) recognizedFilesCurrentDirectory else cmd.getArgs.map(new File(_))
 			if (spreadsheetFiles.isEmpty) throw new NoInputFiles()
-			val dataSource : DataSource = new ExcelDataSource(spreadsheetFiles)
+			val dataSource : DataSource = new DataAdaptersDelegate(spreadsheetFiles)
 			logger.debug("Processing these input files: " + dataSource.filenames)
 			
 			logger.debug("Parsing Tabels program")
