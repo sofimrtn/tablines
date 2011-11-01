@@ -10,12 +10,15 @@ import org.xml.sax.InputSource
 class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
     
     private val root = HTML5Parser.loadXML(new InputSource(new FileReader(fl)))
+    private val tables : Seq[Node] = root \\ "table"
+    
+    private def getTable(tabName : String) : Node = tables(tabName.toInt)
 
 	override val uri = fl.getCanonicalPath()
-	override def getValue(point : Point) : CellValue = new HtmlCellValue() // FIXME
-	override def getTabs() : Seq[String] = Seq() // FIXME
-	override def getRows(tabName : String) : Int = 0 // FIXME
-	override def getCols(tabName : String) : Int = 0 // FIXME
+	override def getValue(point : Point) : CellValue = new HtmlCellValue(((getTable(point.tab) \\ "tr")(point.row) \ "td")(point.col))
+	override def getTabs() : Seq[String] = List.range(0, tables.size) map (_.toString()) // FIXME: use @id when available
+	override def getRows(tabName : String) : Int = (getTable(tabName) \\ "tr").size
+	override def getCols(tabName : String) : Int = ((getTable(tabName) \\ "tr")(0) \ "td").size // FIXME: considers only the first row, beware of headers
 	
 }
 
@@ -38,8 +41,8 @@ object HTML5Parser extends NoBindingFactoryAdapter {
   }
 }
 
-class HtmlCellValue() extends CellValue with Logging {
+class HtmlCellValue(node : Node) extends CellValue with Logging {
 	
-	override def getContent : Literal = Literal("FIXME") // FIXME
+	override def getContent : Literal = Literal(node.text)
 
 }
