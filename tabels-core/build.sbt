@@ -20,6 +20,10 @@ libraryDependencies += "net.sourceforge.jexcelapi" % "jxl" % "2.6.12"
 
 libraryDependencies += "net.sf.opencsv" % "opencsv" % "2.0"
 
+//libraryDependencies += "net.sourceforge.nekohtml" % "nekohtml" % "1.9.15"
+
+libraryDependencies += "nu.validator.htmlparser" % "htmlparser" % "1.2.1"
+
 libraryDependencies += "com.hp.hpl.jena" % "jena" % "2.6.4"
 
 libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
