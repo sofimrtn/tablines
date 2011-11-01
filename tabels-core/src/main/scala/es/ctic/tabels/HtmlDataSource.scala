@@ -43,6 +43,6 @@ object HTML5Parser extends NoBindingFactoryAdapter {
 
 class HtmlCellValue(node : Node) extends CellValue with Logging {
 	
-	override def getContent : Literal = Literal(node.text)
+	override def getContent : Literal = autodetectFormat(node.text)
 
 }
