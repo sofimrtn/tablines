@@ -5,16 +5,34 @@ import grizzled.slf4j.Logging
 import es.ctic.tabels.CommonNamespaces._
 import es.ctic.tabels.TripleTemplate._   // implicit conversions
 
-trait Autogenerator {
+trait Autogenerator extends Logging {
 
     val prefixes = Seq(("ex", EX()))
 
     def autogenerateProgram(dataSource : DataSource) : S
 
+    protected def hasHeaderRow(dataSource : DataSource, filename : String, sheet : String) : Boolean = {
+        val firstRow = dataSource.getRow(filename, sheet, 0)
+        val secondRow = dataSource.getRow(filename, sheet, 1)
+        val firstRowFormats = firstRow map (_.rdfType)
+        val secondRowFormats = secondRow map (_.rdfType)
+        val differentFormatsCount = firstRowFormats zip secondRowFormats count { case (x,y) => !(x == y) }
+        logger.debug("Different formats in " + differentFormatsCount + " cols")
+        return differentFormatsCount > 0
+    }
+    
+    protected def literalToLocalName(literal : Literal) : Option[String] = Some(literal.value.toString.replaceAll("[^a-zA-Z0-9_]","")) // FIXME: normalize value
+    
+    protected def literalsToUniqueLocalNames(literals : Seq[Literal], prefix : String) : Seq[String] =
+        literals.map(literalToLocalName _).zipWithIndex.map {
+            case (None,i) => prefix + i.toString
+            case (Some(ln),_) => ln
+        } // FIXME: make sure they're unique
+    
 }
 
 class BasicAutogenerator extends Autogenerator with Logging {
-    
+
     override def autogenerateProgram(dataSource : DataSource) : S = {
         val statements = new ListBuffer[TabelsStatement]
         val tripleTemplates = new ListBuffer[TripleTemplate]
@@ -22,21 +40,28 @@ class BasicAutogenerator extends Autogenerator with Logging {
         val sheet = dataSource.getTabs(filename)(0)
         logger.info("Autogenerating Tabels program for file " + filename + ", sheet " + sheet)
         
+        val hasHeader = hasHeaderRow(dataSource, filename, sheet)
+        lazy val headerRow = dataSource.getRow(filename, sheet, 0)
         val cols = dataSource.getCols(filename, sheet)
-        val variables = for (col <- List.range(1, cols+1)) yield Variable("?v" + col)
+        val variables : Seq[Variable] =
+            if (hasHeader) (literalsToUniqueLocalNames(headerRow, "v") map (ln => Variable("?" + ln)))
+            else for (col <- List.range(1, cols+1)) yield Variable("?v" + col)
+        val properties : Seq[Resource] =
+            if (hasHeader) (literalsToUniqueLocalNames(headerRow, "prop") map (ln => EX(ln)))
+            else for (col <- List.range(1, cols+1)) yield EX("attr" + col)
         val tuple = Tuple(variables)
         val resource = Variable("?resource")
         val rowId = Variable("?rowId")
         
         val matchStmt = MatchStatement(tuple)
         val letStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), EX()), Some(matchStmt))
-        val forStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(letStmt))
+        val forStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(VariableReference(rowId)) else None, nestedStatement = Some(letStmt))
         val inSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(forStmt))
         val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(inSheetStmt))
         statements += inFileStmt
         
         tripleTemplates += TripleTemplate(resource, RDF_TYPE, EX("SomeResource"))
-        tripleTemplates ++= (for (col <- List.range(1, cols+1)) yield TripleTemplate(resource, EX("attr" + col), Variable("?v" + col)))
+        tripleTemplates ++= properties zip variables map { case (p,v) => TripleTemplate(resource, p, v) }
         val template = Template(tripleTemplates)
         val templates = List(template)
         
