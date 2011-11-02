@@ -140,12 +140,10 @@ case class StartsWithExpression(container: Expression, start: Expression) extend
 
 case class SubstringBeforeExpression(container: Expression, subString: Expression) extends Expression
 {
-	override def evaluate(evaluationContext : EvaluationContext) : RDFNode ={
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
 	 
-	  
-	  Literal(container.evaluate(evaluationContext).asString.value.toString.dropRight(container.evaluate(evaluationContext).asString.value.toString.length()-container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)) 
-	 )
-	}
+	  Literal(container.evaluate(evaluationContext).asString.value.toString.dropRight(
+	      container.evaluate(evaluationContext).asString.value.toString.length()-container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)))
 	 
 	override def prettyPrint = "substringbefore(" + container.toString  +", "+ subString.toString  + ")"
 }
@@ -153,8 +151,8 @@ case class SubstringBeforeExpression(container: Expression, subString: Expressio
 case class SubstringAfterExpression(container: Expression, subString: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
-	  Literal(container.evaluate(evaluationContext).asString.value.toString.substring(
-	      container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)+subString.evaluate(evaluationContext).asString.value.toString.length	 ))
+	  Literal(container.evaluate(evaluationContext).asString.value.toString.drop(
+	      container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)+1))
 	
 	override def prettyPrint = "substringafter(" + container.toString  +", "+ subString.toString  + ")"
 }
