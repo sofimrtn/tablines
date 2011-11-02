@@ -72,8 +72,8 @@ class TabelsParser extends JavaTokenParsers {
     def CONTAINS = "contains".ignoreCase
     def STARTSWITH = "startswith".ignoreCase
     def ENDSWITH = "endswith".ignoreCase
-    def SUBSTRINGBEFORE = "substringbefore".ignoreCase
-    def SUBSTRINGAFTER = "substringafter".ignoreCase
+    def SUBSTRING_BEFORE = "substring-before".ignoreCase
+    def SUBSTRING_AFTER = "substring-after".ignoreCase
     def REPLACE = "replace".ignoreCase
     def CASE = "case".ignoreCase
     def UPPER = "upper".ignoreCase
@@ -205,9 +205,9 @@ class TabelsParser extends JavaTokenParsers {
     		{case container ~start => StartsWithExpression(container, start)}|
     	(ENDSWITH~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~end => StartsWithExpression(container, end)}|
-    	(SUBSTRINGBEFORE~> "("~>(expression<~",") ~ expression<~")")^^
+    	(SUBSTRING_BEFORE~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~suffix => SubstringBeforeExpression(container, suffix)}|
-    	(SUBSTRINGAFTER~> "("~>(expression<~",") ~ expression<~")")^^
+    	(SUBSTRING_AFTER~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~prefix => SubstringAfterExpression(container, prefix)}|
     	(REPLACE~> "("~>(expression<~",")~(regex<~"," )~ (expression<~")"))^^
     		{case input ~ re ~ replacement => ReplaceExpression(input, re, replacement)}|
