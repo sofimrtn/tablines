@@ -10,6 +10,9 @@ abstract class DataSource {
   def getTabs(filename : String) : Seq[String]
   def getRows(filename : String, tabName : String) : Int
   def getCols(filename : String, tabName : String) : Int
+  def getRow(filename : String, tabName : String, row : Int) : Seq[Literal] =
+    for (col <- 0 until getCols(filename, tabName))
+        yield getValue(Point(filename, tabName, row = row, col = col)).getContent
   
 }
 
