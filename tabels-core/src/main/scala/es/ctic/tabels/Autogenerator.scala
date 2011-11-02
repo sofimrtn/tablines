@@ -23,7 +23,7 @@ class BasicAutogenerator extends Autogenerator with Logging {
         logger.info("Autogenerating Tabels program for file " + filename + ", sheet " + sheet)
         
         val cols = dataSource.getCols(filename, sheet)
-        val variables = for (col <- List.range(1, cols)) yield Variable("?v" + col)
+        val variables = for (col <- List.range(1, cols+1)) yield Variable("?v" + col)
         val tuple = Tuple(variables)
         val resource = Variable("?resource")
         val rowId = Variable("?rowId")
@@ -36,7 +36,7 @@ class BasicAutogenerator extends Autogenerator with Logging {
         statements += inFileStmt
         
         tripleTemplates += TripleTemplate(resource, RDF_TYPE, EX("SomeResource"))
-        tripleTemplates ++= (for (col <- List.range(1, cols)) yield TripleTemplate(resource, EX("attr" + col), Variable("?v" + col)))
+        tripleTemplates ++= (for (col <- List.range(1, cols+1)) yield TripleTemplate(resource, EX("attr" + col), Variable("?v" + col)))
         val template = Template(tripleTemplates)
         val templates = List(template)
         
