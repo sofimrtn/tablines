@@ -15,5 +15,11 @@ class AutogeneratorTest extends Autogenerator with JUnitSuite {
         assertEquals(None, literalToLocalName(Literal("")))
         assertEquals(Some("n2011"), literalToLocalName(Literal("2011", XSD_INT)))
     }
+    
+    @Test def testLiteralsToUniqueLocalNames {
+        val literals1 = List(Literal("foo"), Literal("bar"), Literal("foo"), Literal("%"), Literal("2011"))
+        val localNames = literalsToUniqueLocalNames(literals1, "prop")
+        assertEquals(List("foo", "bar", "prop3", "prop4", "n2011"), localNames)
+    }
 
 }

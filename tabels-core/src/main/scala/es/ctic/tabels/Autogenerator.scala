@@ -31,10 +31,10 @@ trait Autogenerator extends Logging {
     }
     
     protected def literalsToUniqueLocalNames(literals : Seq[Literal], prefix : String) : Seq[String] =
-        literals.map(literalToLocalName _).zipWithIndex.map {
-            case (None,i) => prefix + i.toString
-            case (Some(ln),_) => ln
-        } // FIXME: make sure they're unique
+        literals.map(literalToLocalName _).zipWithIndex.foldLeft (Nil : List[String]){
+            case (xs,(Some(ln),_)) if (!xs.contains(ln)) => ln :: xs
+            case (xs,(_,i)) => (prefix + (i+1).toString) :: xs
+        }.reverse
     
 }
 
