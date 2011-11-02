@@ -34,6 +34,14 @@ case class GetColExpression(variable:Variable) extends Expression {
     
 }
 
+case class TernaryOperationExpression(condition: Expression, trueExpression: Expression, falseExpression : Expression) extends Expression{
+  
+  override def evaluate(evaluationContext: EvaluationContext)= 
+    if(condition.evaluate(evaluationContext).asBoolean.truthValue)trueExpression.evaluate(evaluationContext) else falseExpression.evaluate(evaluationContext)
+  override def prettyPrint = "if" +  condition.toString  +" then "+ trueExpression.toString +" else "+falseExpression.toString 
+}
+
+
 case class AddVariableExpression(variable : Variable, expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable) + expression.evaluate(evaluationContext).asString.value.toString
