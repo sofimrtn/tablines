@@ -151,9 +151,10 @@ case class SubstringBeforeExpression(container: Expression, subString: Expressio
 case class SubstringAfterExpression(container: Expression, subString: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
-	  Literal(container.evaluate(evaluationContext).asString.value.toString.drop(
-	      container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)+1))
-	
+	  if(container.evaluate(evaluationContext).asString.value.toString.contains(subString.evaluate(evaluationContext).asString.value.toString))
+		  Literal(container.evaluate(evaluationContext).asString.value.toString.drop(
+				  container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)+subString.evaluate(evaluationContext).asString.value.toString.length()))
+	  else Literal("")
 	override def prettyPrint = "substringafter(" + container.toString  +", "+ subString.toString  + ")"
 }
 
