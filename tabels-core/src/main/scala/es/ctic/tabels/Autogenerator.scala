@@ -21,7 +21,14 @@ trait Autogenerator extends Logging {
         return differentFormatsCount > 0
     }
     
-    protected def literalToLocalName(literal : Literal) : Option[String] = Some(literal.value.toString.replaceAll("[^a-zA-Z0-9_]","")) // FIXME: normalize value
+    protected def literalToLocalName(literal : Literal) : Option[String] = {
+        val normalizedString = literal.value.toString.replaceAll("[^a-zA-Z0-9_]","")
+        if (normalizedString == "")
+            return None
+        else if (normalizedString(0).isDigit)
+            return Some("n" + normalizedString)
+        else Some(normalizedString)
+    }
     
     protected def literalsToUniqueLocalNames(literals : Seq[Literal], prefix : String) : Seq[String] =
         literals.map(literalToLocalName _).zipWithIndex.map {
