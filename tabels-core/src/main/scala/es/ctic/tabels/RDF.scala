@@ -10,7 +10,7 @@ abstract class RDFNode() {
 
 case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
     
-    override def toString() = "\"" + value.toString + "\"" // FIXME
+    override def toString() = "\"" + value.toString + "\"" + (if (langTag != "") ("@" + langTag) else "") + (if (rdfType != XSD_STRING) ("^^" + rdfType) else "")
 	
 	def truthValue : Boolean = Set("true", "1") contains this.asBoolean.value.toString
 

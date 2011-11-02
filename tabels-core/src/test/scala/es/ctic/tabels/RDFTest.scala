@@ -5,6 +5,12 @@ import org.junit.Test
 import org.junit.Assert._
 
 class LiteralTest extends JUnitSuite {
+    
+    @Test def testToString {
+        assertEquals("\"Hello\"", Literal("Hello").toString())
+        assertEquals("\"Hola\"@es", Literal("Hola", langTag = "es").toString())
+        assertEquals("\"3.0\"^^<http://www.w3.org/2001/XMLSchema#float>", Literal("3.0", XSD_FLOAT).toString())
+    }
   
   @Test def truthValue {
       assertTrue(LITERAL_TRUE.truthValue)
