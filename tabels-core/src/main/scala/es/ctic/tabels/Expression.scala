@@ -112,9 +112,9 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
 case class SubStringExpression(expression: Expression, index : Int) extends Expression{
   
    override def evaluate(evaluationContext:EvaluationContext): RDFNode ={
-	
-	if (expression.evaluate(evaluationContext).asString.value.toString.length >0)
-    	Literal(expression.evaluate(evaluationContext).asString.value.toString.substring(index), XSD_STRING). asInstanceOf[RDFNode]
+	val evaluatedExpression = expression.evaluate(evaluationContext).asString
+	if (evaluatedExpression.value.toString.length >0)
+    	Literal(evaluatedExpression.value.toString.substring(index), XSD_STRING). asInstanceOf[RDFNode]
 	else Literal("", XSD_STRING). asInstanceOf[RDFNode]
    }
    override def prettyPrint = "substring(" + expression.toString  + " , "+ index + ")"
@@ -140,21 +140,25 @@ case class StartsWithExpression(container: Expression, start: Expression) extend
 
 case class SubstringBeforeExpression(container: Expression, subString: Expression) extends Expression
 {
-	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
-	 
-	  Literal(container.evaluate(evaluationContext).asString.value.toString.dropRight(
-	      container.evaluate(evaluationContext).asString.value.toString.length()-container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)))
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode = {
+	  val evaluatedContainer = container.evaluate(evaluationContext).asString
+	  Literal(evaluatedContainer.value.toString.dropRight(
+	      evaluatedContainer.value.toString.length()-evaluatedContainer.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)))
+    }
 	 
 	override def prettyPrint = "substringbefore(" + container.toString  +", "+ subString.toString  + ")"
 }
 
 case class SubstringAfterExpression(container: Expression, subString: Expression) extends Expression
 {
-	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
-	  if(container.evaluate(evaluationContext).asString.value.toString.contains(subString.evaluate(evaluationContext).asString.value.toString))
-		  Literal(container.evaluate(evaluationContext).asString.value.toString.drop(
-				  container.evaluate(evaluationContext).asString.value.toString.indexOf(subString.evaluate(evaluationContext).asString.value.toString)+subString.evaluate(evaluationContext).asString.value.toString.length()))
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode = {
+	    val evaluatedContainer = container.evaluate(evaluationContext).asString
+	    val evaluatedSubstring = subString.evaluate(evaluationContext).asString
+	  if(evaluatedContainer.value.toString.contains(evaluatedSubstring.value.toString))
+		  Literal(evaluatedContainer.value.toString.drop(
+				  evaluatedContainer.value.toString.indexOf(evaluatedSubstring.value.toString)+evaluatedSubstring.value.toString.length()))
 	  else Literal("")
+	}
 	override def prettyPrint = "substringafter(" + container.toString  +", "+ subString.toString  + ")"
 }
 
