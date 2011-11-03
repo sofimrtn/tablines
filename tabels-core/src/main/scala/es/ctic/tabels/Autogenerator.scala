@@ -1,5 +1,6 @@
 package es.ctic.tabels
 
+import org.apache.commons.lang.{StringUtils,WordUtils}
 import scala.collection.mutable.ListBuffer
 import grizzled.slf4j.Logging
 import es.ctic.tabels.CommonNamespaces._
@@ -21,8 +22,10 @@ trait Autogenerator extends Logging {
         return differentFormatsCount > 0
     }
     
+    protected def toLowerCamelCase(str : String) : String = StringUtils.uncapitalize(WordUtils.capitalize(str))
+    
     protected def literalToLocalName(literal : Literal) : Option[String] = {
-        val normalizedString = literal.value.toString.replaceAll("[^a-zA-Z0-9_]","")
+        val normalizedString = toLowerCamelCase(literal.value.toString).replaceAll("[^a-zA-Z0-9_]","")
         if (normalizedString == "")
             return None
         else if (normalizedString(0).isDigit)

@@ -28,6 +28,8 @@ libraryDependencies += "com.hp.hpl.jena" % "jena" % "2.6.4"
 
 libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
 
+libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
+
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
