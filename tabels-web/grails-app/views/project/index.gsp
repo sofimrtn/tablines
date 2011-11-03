@@ -28,12 +28,19 @@
 			</g:each>
 		</uploadr:add>
 		
+		<g:form action="downloadSource" method="post">
+		    <p>
+		        <g:textField name="sourceUrl" value="${sourceUrl}"/>
+		        <g:submitButton name="addUrl" value="Add URL to the sources" />
+		    </p>
+		</g:form>
+		
 		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
 		<p class="sparqlLink"><g:link action="sparqlForm">SPARQL query</g:link></p>
 		
 		<h2>Transformation program</h2>
 		
-		<g:form action="saveProgram">
+		<g:form action="saveProgram" method="post">
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 			<p><g:submitButton name="save" value="Save program" /></p>
 		</g:form>

@@ -5,6 +5,9 @@ import org.fundacionctic.su4j.endpoint.EndpointFactory
 import org.fundacionctic.su4j.endpoint.SparqlEndpoint
 import org.fundacionctic.su4j.endpoint.http.MimeTypes
 import org.fundacionctic.su4j.endpoint.utils.ResultSetHelper
+import org.apache.commons.httpclient.HttpClient
+import org.apache.commons.httpclient.methods.GetMethod
+import org.apache.commons.httpclient.HttpMethod
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import com.hp.hpl.jena.query.QueryParseException
 
@@ -26,6 +29,28 @@ class ProjectController {
         } catch (es.ctic.tabels.ParseException e) {
             flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
             redirect(view: index, params: [program: params.program])
+        }
+    }
+    
+    def downloadSource = {
+        HttpMethod method = new GetMethod(params.sourceUrl)
+        def client = new HttpClient();
+        try {
+            log.info "Downloading ${params.sourceUrl}"
+            int statusCode = client.executeMethod(method)
+            String filename = "download-${System.currentTimeMillis()}.html"
+            def downloadedFile = new File(projectService.workDir, filename)
+            OutputStream os = new FileOutputStream(downloadedFile)
+            log.debug "Writing ${params.sourceUrl} to file ${downloadedFile}"
+            os.write(method.responseBody);
+            os.close();
+            flash.message = "The new source from ${params.sourceUrl} has been successfully downloaded"
+            redirect(view: index)
+        } catch (Exception e) {
+            flash.error = "Failed to download source URL ${params.sourceUrl}: ${e.message}"
+            redirect(view: index, params: [sourceUrl: params.sourceUrl])
+        } finally {
+            method.releaseConnection()
         }
     }
     
