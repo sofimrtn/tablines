@@ -86,6 +86,17 @@ case class NotExpression(expression:Expression) extends Expression{
 
 }
 
+case class DBPediaDisambiguation(expression:Expression) extends Expression{
+  
+  override def evaluate(evaluationContext:EvaluationContext) ={ 
+    
+	 val query = new DBPediaQuery
+	 query.queryResource(expression.evaluate(evaluationContext))
+  }
+    override def prettyPrint = "DBPedia-disambiguation(" + expression.toString + ")"
+
+}
+
 /*
  * STRING FUNCTIONS
  * 

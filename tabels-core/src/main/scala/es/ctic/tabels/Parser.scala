@@ -88,6 +88,7 @@ class TabelsParser extends JavaTokenParsers {
     def IF = "if".ignoreCase
     def THEN = "then".ignoreCase
     def ELSE = "else".ignoreCase
+    def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
   
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
@@ -195,6 +196,8 @@ class TabelsParser extends JavaTokenParsers {
     		{e => ConcatExpression(e)}|
     	(JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
     		{case re~qs => StringJoinExpression(re, qs)}|
+    	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
+    		{DBPediaDisambiguation}|
     	(SUBSTRING~> "("~>expression~("," ~>wholeNumber)<~")")^^
     		{case re~i => SubStringExpression(re, i.toInt)}|
     	(STRINGLENGTH~> "("~>expression<~")")^^
