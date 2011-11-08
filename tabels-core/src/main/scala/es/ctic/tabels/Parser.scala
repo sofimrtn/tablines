@@ -89,6 +89,7 @@ class TabelsParser extends JavaTokenParsers {
     def THEN = "then".ignoreCase
     def ELSE = "else".ignoreCase
     def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
+    def LEVENSHTEINDISTANCE = "levenshtein-distance".ignoreCase
   
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
@@ -220,6 +221,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case expression => LowerCaseExpression(expression)}|
     	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
     		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
+    	(LEVENSHTEINDISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
+    		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
     	(NUMERIC~>ADD~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
     	(NUMERIC~>SUBTRACT~>"("~>(expression<~",")~ (expression<~")"))^^

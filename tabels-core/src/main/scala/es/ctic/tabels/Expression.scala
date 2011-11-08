@@ -97,6 +97,16 @@ case class DBPediaDisambiguation(expression:Expression) extends Expression{
 
 }
 
+case class LevenshteinDistanceExpression(expression1 :Expression, expression2: Expression) extends Expression{
+  
+  override def evaluate (evaluationContext : EvaluationContext) = 
+    Literal(Levenshtein.stringDistance(expression1.evaluate(evaluationContext).asString.value.toString,expression2.evaluate(evaluationContext).asString.value.toString), XSD_INT)
+   override def prettyPrint = "levenshtein-distance(" + expression1.toString + expression2.toString +")"
+
+}
+
+
+
 /*
  * STRING FUNCTIONS
  * 
