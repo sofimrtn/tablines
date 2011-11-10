@@ -300,7 +300,31 @@ case class NumericModExpression(expression: Expression, expression2: Expression)
 	  //FIX ME: Check if expressions are numbers. check if they are int or float
 	  Literal(expression.evaluate(evaluationContext).asString.value.toString.toFloat % expression2.evaluate(evaluationContext).asString.value.toString.toFloat, XSD_FLOAT)
 		  
-	override def prettyPrint = "lower case(" + expression   + ")"
+	override def prettyPrint = "numeric mod(" + expression   +", " + expression2   + ")"
+}
+
+case class BiggerThanExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  if(expression.evaluate(evaluationContext).asString.value.toString.toFloat > expression2.evaluate(evaluationContext).asString.value.toString.toFloat)
+	    LITERAL_TRUE
+	  else
+	  	LITERAL_FALSE
+		  
+	override def prettyPrint = "bigger-than(" + expression   +", " + expression2   +")"
+}
+
+case class SmallerThanExpression(expression: Expression, expression2: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  if(expression.evaluate(evaluationContext).asString.value.toString.toFloat < expression2.evaluate(evaluationContext).asString.value.toString.toFloat)
+	    LITERAL_TRUE
+	  else
+	  	LITERAL_FALSE
+		  
+	override def prettyPrint = "smaller-than(" + expression   +", " + expression2   +")"
 }
 
 

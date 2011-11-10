@@ -84,6 +84,8 @@ class TabelsParser extends JavaTokenParsers {
     def MULTIPLY = "multiply".ignoreCase
     def DIVIDE = "divide".ignoreCase
     def INTEGER = "integer".ignoreCase
+    def BIGGER_THAN = "bigger-than".ignoreCase
+    def SMALLER_THAN = "smaller-than".ignoreCase
     def MOD = "mod".ignoreCase
     def IF = "if".ignoreCase
     def THEN = "then".ignoreCase
@@ -238,6 +240,10 @@ class TabelsParser extends JavaTokenParsers {
     		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
     	(NUMERIC~>MOD~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
+    	(BIGGER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
+    	(SMALLER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
     	(INT ~> "("~>expression<~")")^^
     		{IntExpression}|
     	(FLOAT ~> "("~>expression<~")")^^
