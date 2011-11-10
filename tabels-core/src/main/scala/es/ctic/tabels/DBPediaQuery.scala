@@ -21,9 +21,9 @@ class DBPediaQuery {
     "PREFIX dbont: <http://dbpedia.org/ontology/> "+
     "PREFIX dbp: <http://dbpedia.org/property/>"+
     "PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>"+
-    "   SELECT ?musician  ?place"+
+    "   SELECT ?subject ?predicate"+
     "   WHERE {  "+
-    "       ?musician dbont:birthPlace ?place ."+
+    "       "+ rdfNode.toString()+" a ?predicate ."+
     "        }"
 
 
@@ -36,12 +36,12 @@ class DBPediaQuery {
     	
     	while(results.hasNext){
     	  querySolution = results.nextSolution()
-    	  println("Resultado: " + querySolution.get("place").toString)
+    	  println("Resultado: " + querySolution.get("predicate").toString)
     	}
     	
     	//ResultSetFormatter.out(System.out, results, query)
     	
-    	val lit = Literal(querySolution.get("place").toString)    	
+    	val lit = Resource(querySolution.get("predicate").toString)    	
     	qexec.close()
     	return lit
     	

@@ -88,6 +88,7 @@ class TabelsParser extends JavaTokenParsers {
     def IF = "if".ignoreCase
     def THEN = "then".ignoreCase
     def ELSE = "else".ignoreCase
+    def NOT = "not".ignoreCase
     def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
     def LEVENSHTEINDISTANCE = "levenshtein-distance".ignoreCase
   
@@ -111,7 +112,8 @@ class TabelsParser extends JavaTokenParsers {
 		
 	// RDF
 
-    def quotedString : Parser[String] =
+    
+	def quotedString : Parser[String] =
          stringLiteral ^^ { s => s.slice(1,s.length-1) }
          
     def langTag : Parser[String] = """[a-zA-Z][a-zA-Z\-]*""".r
@@ -124,6 +126,7 @@ class TabelsParser extends JavaTokenParsers {
 	   TRUE ^^ { x => LITERAL_TRUE } |
 	   FALSE ^^ { x => LITERAL_FALSE }
 
+	
 	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
 	
 	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^
@@ -242,7 +245,9 @@ class TabelsParser extends JavaTokenParsers {
     	(DECIMAL ~> "("~>expression<~")")^^
     		{DecimalExpression}|
     	(BOOLEAN ~> "("~>expression<~")")^^
-    		{BooleanExpression}
+    		{BooleanExpression}|
+    	(NOT ~> expression)^^
+    		{NotExpression}
 
     
     def tuple : Parser[Tuple] = ("[" ~> rep1sep(variable,",") <~ "]") ~ opt(IN ~> tupleType) ^^
