@@ -26,9 +26,13 @@ libraryDependencies += "nu.validator.htmlparser" % "htmlparser" % "1.2.1"
 
 libraryDependencies += "com.hp.hpl.jena" % "jena" % "2.6.4"
 
+libraryDependencies += "com.hp.hpl.jena" % "arq" % "2.8.8"
+
 libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
 
 libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
+
+libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
 
 //managedStyle := ManagedStyle.Maven
 
