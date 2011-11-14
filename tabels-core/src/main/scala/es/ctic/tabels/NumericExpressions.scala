@@ -87,14 +87,15 @@ case class SmallerThanExpression(expression: Expression, expression2: Expression
 
 
 //FIX ME: Type control
-case class IntExpression(expression : Expression) extends Expression{
+case class IntExpression(expression : Expression, separator :Option[String] = None) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
-    val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
-    expression.evaluate(evaluationContext).asString.value match{
-    	case  decimalExpression()=>  Literal(expression.evaluate(evaluationContext).asString.value, XSD_INT)
-    	case _ => throw new InvalidTypeFunctionException("Is not posible to generate Int RDF type with this Literal") 
+    val evaluatedExpression =  expression.evaluate(evaluationContext).asString
+    separator match{
+      case Some(sep) => try  Literal(Integer.parseInt(evaluatedExpression.value.toString.replaceAllLiterally(sep, ""), 10), XSD_INT)
+      case None =>  try  Literal(Integer.parseInt(evaluatedExpression.value.toString, 10), XSD_INT)
     }
+    
   }   
   override def prettyPrint = "int(" + expression.toString + ")"
 	
@@ -103,8 +104,9 @@ case class FloatExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
-    expression.evaluate(evaluationContext).asString.value match{
-    	case  decimalExpression()=>  Literal(expression.evaluate(evaluationContext).asString.value, XSD_FLOAT)
+    val evaluatedExpression =  expression.evaluate(evaluationContext).asString
+    evaluatedExpression.value match{
+    	case  decimalExpression()=>  Literal(evaluatedExpression.value, XSD_FLOAT)
     	case _ => throw new InvalidTypeFunctionException("Is not posible to generate Float RDF type with this Literal") 
     }
   }   
@@ -116,8 +118,9 @@ case class DecimalExpression(expression : Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
-    expression.evaluate(evaluationContext).asString.value match{
-    	case  decimalExpression()=>  Literal(expression.evaluate(evaluationContext).asString.value, XSD_DECIMAL)
+    val evaluatedExpression =  expression.evaluate(evaluationContext).asString
+    evaluatedExpression.value match{
+    	case  decimalExpression()=>  Literal(evaluatedExpression.value, XSD_DECIMAL)
     	case _ => throw new InvalidTypeFunctionException("Is not posible to generate Decimal RDF type with this Literal") 
     }
   }   
