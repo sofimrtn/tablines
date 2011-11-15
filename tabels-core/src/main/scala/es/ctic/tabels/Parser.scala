@@ -244,10 +244,10 @@ class TabelsParser extends JavaTokenParsers {
     		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
     	(SMALLER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
-    	(INT ~> "("~>expression ~opt("," ~> quotedString<~")"))^^
+    	(INT ~> "("~>expression ~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>IntExpression(exp, sep)}|
-    	(FLOAT ~> "("~>expression<~")")^^
-    		{FloatExpression}|
+    	(FLOAT ~> "("~>expression~opt("," ~> quotedString)<~")")^^
+    		{case exp ~ sep =>FloatExpression(exp, sep)}|
     	(DECIMAL ~> "("~>expression<~")")^^
     		{DecimalExpression}|
     	(BOOLEAN ~> "("~>expression<~")")^^

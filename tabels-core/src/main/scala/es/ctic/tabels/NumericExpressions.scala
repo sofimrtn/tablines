@@ -100,14 +100,13 @@ case class IntExpression(expression : Expression, separator :Option[String] = No
   override def prettyPrint = "int(" + expression.toString + ")"
 	
 }
-case class FloatExpression(expression : Expression) extends Expression{
+case class FloatExpression(expression : Expression, separator :Option[String] = None) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
-    val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
     val evaluatedExpression =  expression.evaluate(evaluationContext).asString
-    evaluatedExpression.value match{
-    	case  decimalExpression()=>  Literal(evaluatedExpression.value, XSD_FLOAT)
-    	case _ => throw new InvalidTypeFunctionException("Is not posible to generate Float RDF type with this Literal") 
+    separator match{
+      case Some(sep) => try  Literal(java.lang.Float.valueOf(evaluatedExpression.value.toString.replaceAllLiterally(sep, "")), XSD_FLOAT)
+      case None =>  try  Literal(java.lang.Float.valueOf(evaluatedExpression.value.toString), XSD_FLOAT)
     }
   }   
   override def prettyPrint = "float(" + expression.toString + ")"
