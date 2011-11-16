@@ -128,6 +128,7 @@ class TabelsParser extends JavaTokenParsers {
 	   TRUE ^^ { x => LITERAL_TRUE } |
 	   FALSE ^^ { x => LITERAL_FALSE }
 
+	def path : Parser[String] =  "\"" ~> """([a-zA-z]+:\\{1,2})?[\\\$\&\(\)\+\.\^\{\}\-\*!#%',;=@_`~a-zA-Z0-9 ]+""".r <~"\""  
 	
 	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
 	
@@ -155,7 +156,7 @@ class TabelsParser extends JavaTokenParsers {
 	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
         { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, filter = f, stopCond = s, nestedStatement = p) }
     
-	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ quotedString ~ opt(tabelsStatement) ^^
+	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ path ~ opt(tabelsStatement) ^^
         { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
       
 	
@@ -248,8 +249,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case exp ~ sep =>IntExpression(exp, sep)}|
     	(FLOAT ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>FloatExpression(exp, sep)}|
-    	(DECIMAL ~> "("~>expression<~")")^^
-    		{DecimalExpression}|
+    	(DECIMAL ~> "("~>expression~opt("," ~> quotedString)<~")")^^
+    		{case exp ~ sep =>DecimalExpression(exp, sep)}|
     	(BOOLEAN ~> "("~>expression<~")")^^
     		{BooleanExpression}|
     	(NOT ~> expression)^^

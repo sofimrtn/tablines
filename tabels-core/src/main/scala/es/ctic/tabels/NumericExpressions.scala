@@ -113,14 +113,13 @@ case class FloatExpression(expression : Expression, separator :Option[String] = 
 	
 }
 
-case class DecimalExpression(expression : Expression) extends Expression{
-  
-  override def evaluate(evaluationContext:EvaluationContext) = {
-    val decimalExpression = """(?:[0-9]+(?:\.[0-9]+)?)+(?:(?:\.|\,)[0-9]*)?""".r
+case class DecimalExpression(expression : Expression, separator :Option[String] = None) extends Expression{
+  //FIX ME: Decimal is a subgroup of float it is not supposed to supor numbers in a simplified sintaxis.
+   override def evaluate(evaluationContext:EvaluationContext) = {
     val evaluatedExpression =  expression.evaluate(evaluationContext).asString
-    evaluatedExpression.value match{
-    	case  decimalExpression()=>  Literal(evaluatedExpression.value, XSD_DECIMAL)
-    	case _ => throw new InvalidTypeFunctionException("Is not posible to generate Decimal RDF type with this Literal") 
+    separator match{
+      case Some(sep) => try  Literal(java.lang.Float.valueOf(evaluatedExpression.value.toString.replaceAllLiterally(sep, "")), XSD_DECIMAL)
+      case None =>  try  Literal(java.lang.Float.valueOf(evaluatedExpression.value.toString), XSD_DECIMAL)
     }
   }   
   override def prettyPrint = "decimal(" + expression.toString + ")"
