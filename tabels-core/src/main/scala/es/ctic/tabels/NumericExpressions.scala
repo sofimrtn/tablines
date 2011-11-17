@@ -82,7 +82,32 @@ case class SmallerThanExpression(expression: Expression, expression2: Expression
 	override def prettyPrint = "smaller-than(" + expression   +", " + expression2   +")"
 }
 
+case class FloorExpression(expression: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(scala.math.floor(expression.evaluate(evaluationContext).asString.value.toString.toFloat), XSD_INT) 
+		  
+	override def prettyPrint = "floor(" + expression   +")"
+}
 
+case class RoundExpression(expression: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(scala.math.round(expression.evaluate(evaluationContext).asString.value.toString.toFloat), XSD_INT) 
+		  
+	override def prettyPrint = "round(" + expression   +")"
+}
+
+case class CeilExpression(expression: Expression) extends Expression
+{
+	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+	  //FIX ME: Check if expressions are numbers. check if they are int or float
+	  Literal(scala.math.ceil(expression.evaluate(evaluationContext).asString.value.toString.toFloat), XSD_INT) 
+		  
+	override def prettyPrint = "ceil(" + expression   +")"
+}
 
 
 

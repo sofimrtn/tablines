@@ -93,6 +93,9 @@ class TabelsParser extends JavaTokenParsers {
     def NOT = "not".ignoreCase
     def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
     def LEVENSHTEINDISTANCE = "levenshtein-distance".ignoreCase
+    def FLOOR = "floor".ignoreCase
+    def CEIL = "ceil".ignoreCase
+    def ROUND = "round".ignoreCase
   
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
@@ -251,6 +254,12 @@ class TabelsParser extends JavaTokenParsers {
     		{case exp ~ sep =>FloatExpression(exp, sep)}|
     	(DECIMAL ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>DecimalExpression(exp, sep)}|
+    	(FLOOR ~> "("~>expression<~")")^^
+    		{FloorExpression}|
+    	(CEIL ~> "("~>expression<~")")^^
+    		{CeilExpression}|
+    	(ROUND ~> "("~>expression<~")")^^
+    		{RoundExpression}|
     	(BOOLEAN ~> "("~>expression<~")")^^
     		{BooleanExpression}|
     	(NOT ~> expression)^^
