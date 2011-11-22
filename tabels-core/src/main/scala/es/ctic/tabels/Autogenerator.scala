@@ -65,7 +65,7 @@ class BasicAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerato
         
         val matchStmt = MatchStatement(tuple)
         val letStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), defaultNamespace()), Some(matchStmt))
-        val forStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(VariableReference(rowId)) else None, nestedStatement = Some(letStmt))
+        val forStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(GetRowExpression(rowId)) else None, nestedStatement = Some(letStmt))
         val inSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(forStmt))
         val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(inSheetStmt))
         statements += inFileStmt
