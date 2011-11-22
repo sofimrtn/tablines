@@ -58,7 +58,7 @@ div .CodeMirror {
 #step1 {
     float: left;
     width: 50%;
-    border-right: solid 2px darkgreen ;
+    border-right: 0.2em #3A3 solid ;
     padding-right: 2em;
 }
 
