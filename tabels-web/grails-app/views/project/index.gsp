@@ -13,10 +13,10 @@
 	    </script>
     </head>
     <body>
-        <div id="step1">
-		<h2>Step 1: drag some spreadsheets to the list</h2>
+        <div class="stepBox" id="step1">
+		<h2>Step 1: drag some spreadsheets</h2>
 		
-		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/>
+		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
 		<uploadr:add name="myFirstUploadr" path="${path}">
@@ -41,7 +41,7 @@
 		
 		</div>
 		
-		<div id="step2">
+		<div class="stepBox" id="step2">
 		<h2>Step 2: access your data</h2>
 		
 		<g:link action="rdf"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
