@@ -21,7 +21,7 @@ class ProjectService {
     
     def autogenerateProgram(String strategy) {
         def autogenerator
-        if (strategy == "Scovo") {
+        if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator()
         } else {
             autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize

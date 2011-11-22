@@ -61,7 +61,7 @@
 			<p><g:submitButton name="save" value="Save program" /></p>
 		</g:form>
 		<g:form action="autogenerateProgram" method="post">
-		    <g:select name="strategy" from="${['Basico','Scovo']}" />
+		    <g:select name="strategy" from="${['Simple','SCOVO']}" />
 		    <g:submitButton name="autogenerate" value="Autogenerate program" /></p>
 		</g:form>
 		</div>
