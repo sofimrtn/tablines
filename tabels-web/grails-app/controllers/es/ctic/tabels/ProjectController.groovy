@@ -54,6 +54,12 @@ class ProjectController {
         }
     }
     
+    def autogenerateProgram = {
+        projectService.autogenerateProgram(params.strategy)
+        flash.message = "The Tabels program has been generated"
+        redirect(view: index)
+    }
+    
     def rdf = {
         def model = projectService.getModel()
 

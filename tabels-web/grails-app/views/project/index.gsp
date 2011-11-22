@@ -60,6 +60,10 @@
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 			<p><g:submitButton name="save" value="Save program" /></p>
 		</g:form>
+		<g:form action="autogenerateProgram" method="post">
+		    <g:select name="strategy" from="${['Basico','Scovo']}" />
+		    <g:submitButton name="autogenerate" value="Autogenerate program" /></p>
+		</g:form>
 		</div>
 
     </body>
