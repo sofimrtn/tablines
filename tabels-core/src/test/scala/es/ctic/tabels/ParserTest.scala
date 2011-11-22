@@ -71,6 +71,12 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (rdfLiteral, "?x")
 		assertFail (rdfLiteral, "unquoted")
 	}
+	
+	@Test def parsePath() {
+	    assertParse(path, "\"C:\\foo\\load-1321975085368.html\"", """C:\foo\load-1321975085368.html""")
+	    assertParse(path, "\"/private/var/folders/nz/76frgbr510s06zmt4q06lz9m0000gn/T/tabels/upload/download-1321975085368.html\"", "/private/var/folders/nz/76frgbr510s06zmt4q06lz9m0000gn/T/tabels/upload/download-1321975085368.html")
+	    assertFail (path, "")
+	}
 
 	@Test def parseIriRef() {
 		assertParse(iriRef, "<http://example.org/>", Resource("http://example.org/"))

@@ -131,7 +131,7 @@ class TabelsParser extends JavaTokenParsers {
 	   TRUE ^^ { x => LITERAL_TRUE } |
 	   FALSE ^^ { x => LITERAL_FALSE }
 
-	def path : Parser[String] =  "\"" ~> """([a-zA-z]+:\\{1,2})?[\\\$\&\(\)\+\.\^\{\}\-\*!#%',;=@_`~a-zA-Z0-9 ]+""".r <~"\""  
+	def path : Parser[String] =  "\"" ~> """([^\"]+)""".r <~"\""  
 	
 	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
 	
