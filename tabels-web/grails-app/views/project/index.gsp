@@ -44,10 +44,13 @@
 		<div id="step2">
 		<h2>Step 2: access your data</h2>
 		
-		<g:link action="rdf"><img src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>		
+		<g:link action="rdf"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
 		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
 		
 		<p class="sparqlLink">The SPARQL endpoint is <g:link action="sparqlForm">${resource(controller: 'project', action: 'sparqlForm', absolute: true)}</g:link></p>
+		
+		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
+		    
 		</div>
 		
 		<div id="programDiv">
