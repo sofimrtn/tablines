@@ -25,7 +25,14 @@
         <g:each var="tuple" in="${tuples}" status="i">
         <tr class="${(i % 2 == 0) ? 'even' : 'odd'}">
           <g:each var="var" in="${vars}">
-            <td headers="${var}">${tuple.get(var)}</td>
+            <td headers="${var}">
+                <g:if test="${tuple.get(var).startsWith('http://')}">
+                    <a href="${tuple.get(var)}">${tuple.get(var)}</a>
+                </g:if>
+                <g:else>
+                    ${tuple.get(var)}
+                </g:else>
+            </td>
           </g:each>
         </tr>
         </g:each>
