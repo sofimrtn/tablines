@@ -35,7 +35,9 @@
 		    </p>
 		</g:form>
 		
+		<g:link action="rdf"><img src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>		
 		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
+		
 		<p class="sparqlLink"><g:link action="sparqlForm">SPARQL query</g:link></p>
 		
 		<h2>Transformation program</h2>
