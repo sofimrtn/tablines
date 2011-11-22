@@ -47,7 +47,7 @@ class ProjectService {
 		interpreter.interpret(program, dataSource, dataOutput)
 
 		if (programFile.exists() == false) {
-		    saveProgram(program, programFile)
+		    saveProgram(program)
 	    }
 	    
 	    return dataOutput.model
