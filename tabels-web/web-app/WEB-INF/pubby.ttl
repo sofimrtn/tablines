@@ -43,7 +43,7 @@
     # Homepage with description of the project for the link in the page header
     conf:projectHomepage <http://localhost:8080/tabels-web/project>;
     # The Pubby root, where the webapp is running inside the servlet container.
-    conf:webBase <http://localhost:8080/tabels-web/>;
+    conf:webBase <http://localhost:8080/tabels-web/pubby/>;
     # URL of an RDF file whose prefix mapping is to be used by the
     # server; defaults to <>, which is *this* file.
     conf:usePrefixesFrom <>;
@@ -52,22 +52,22 @@
     conf:defaultLanguage "en";
     # When the homepage of the server is accessed, this resource will
     # be shown.
-    conf:indexResource <http://example.org/foo>;
+    conf:indexResource <http://localhost:8080/tabels-web/pubby/resource/SomeResource>;
 
 # Dataset configuration section #1 
 #
-# URIs in the SPARQL endpoint: http://dbpedia.org/resource/*
-# URIs on the Web:             http://localhost:8080/resource/*
+# URIs in the SPARQL endpoint: http://dbpedia.org/resource/*  
+# URIs on the Web:             http://localhost:8080/resource/* 
     conf:dataset [
         # SPARQL endpoint URL of the dataset
         conf:sparqlEndpoint <http://localhost:8080/tabels-web/project/sparqlQuery>;
         # Default graph name to query (not necessary for most endpoints)
         conf:sparqlDefaultGraph <http://localhost:8080/tabels-web>;
         # Common URI prefix of all resource URIs in the SPARQL dataset
-        conf:datasetBase <http://localhost:8080/tabels-web/pubby/>;
+        conf:datasetBase <http://localhost:8080/tabels-web/pubby/resource/>;
         # Will be appended to the conf:webBase to form the public
         # resource URIs; if not present, defaults to ""
-        conf:webResourcePrefix "pubby";
+        conf:webResourcePrefix "resource/";
         # Fixes an issue with the server running behind an Apache proxy;
         # can be ignored otherwise
         conf:fixUnescapedCharacters "(),'!$&*+;=@";
