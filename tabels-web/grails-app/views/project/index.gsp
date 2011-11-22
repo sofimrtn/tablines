@@ -13,7 +13,9 @@
 	    </script>
     </head>
     <body>
-		<h2>Files</h2>
+		<h2>Step 1: drag some spreadsheets to the list</h2>
+		
+		<img src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/>
 
 		<uploadr:add name="myFirstUploadr" path="${path}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
@@ -38,7 +40,7 @@
 		<g:link action="rdf"><img src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>		
 		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
 		
-		<p class="sparqlLink"><g:link action="sparqlForm">SPARQL query</g:link></p>
+		<p class="sparqlLink">The SPARQL endpoint is <g:link action="sparqlForm">${resource(controller: 'project', action: 'sparqlForm', absolute: true)}</g:link></p>
 		
 		<h2>Transformation program</h2>
 		
