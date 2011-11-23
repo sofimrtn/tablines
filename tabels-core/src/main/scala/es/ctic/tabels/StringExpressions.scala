@@ -32,15 +32,21 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
    override def prettyPrint = "string join(" + expressions.map(_ toString).mkString(",")  + " , "+ separator + ")"
 }
 
-case class SubStringExpression(expression: Expression, index : Int) extends Expression{
+case class SubStringExpression(expression: Expression, startingLoc : Expression, length : Option[Expression]) extends Expression{
   
    override def evaluate(evaluationContext:EvaluationContext): RDFNode ={
-	val evaluatedExpression = expression.evaluate(evaluationContext).asString
-	if (evaluatedExpression.value.toString.length >0)
-    	Literal(evaluatedExpression.value.toString.substring(index), XSD_STRING)
-	else Literal("", XSD_STRING)
+       val evaluatedExpression = expression.evaluate(evaluationContext).asString
+       val evaluatedStartingLoc = startingLoc.evaluate(evaluationContext).asString.value.toString.toInt
+       val evaluatedLength : Option[Int] = length map (e => e.evaluate(evaluationContext).asString.value.toString.toInt)
+       if (evaluatedExpression.value.toString.length >0) {
+           val newValue = evaluatedLength match {
+               case None => evaluatedExpression.value.toString.substring(evaluatedStartingLoc)
+               case Some(l) => evaluatedExpression.value.toString.substring(evaluatedStartingLoc, evaluatedStartingLoc+l)
+           }
+           Literal(newValue, XSD_STRING)
+       } else Literal("", XSD_STRING)
    }
-   override def prettyPrint = "substring(" + expression.toString  + " , "+ index + ")"
+   override def prettyPrint = "substring(" + expression.toString  + " , "+ startingLoc + ")"
 }
 
 case class StringLengthExpression(expression: Expression) extends Expression

@@ -37,8 +37,26 @@ p.undertitle {
 
 h2 {
     color: darkgreen;
-    border-left: 0.2em #3A3 solid;
-    padding-left: 0.2em;
+    border-bottom: 0.2em #3A3 solid;
+    /* padding-left: 0.2em; */
+}
+
+#spreadsheet-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;    
+}
+
+#drag-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#downloadRDFIcon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
 .rdfDownloadLink {
@@ -51,8 +69,41 @@ h2 {
     padding-left: 85px;
 }
 
+.stars {
+    color: gold;
+    font-size: 11pt;
+    text-align: right;
+}
+
 div .CodeMirror {
     background-color: #ffffdd;
+}
+
+#step1 {
+    float: left;
+    width: 45%;
+    border: 0.2em #3A3 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
+    box-shadow: 0 0 0.4em black;
+}
+
+#step2 {
+    float: left;
+    width: 45%;
+    border: 0.2em #3A3 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 0 0 0.4em black;
+}
+
+div.stepBox h2 {
+    margin-top: 0;
+}
+
+#programDiv {
+    clear: both;
 }
 
 /* MESSAGES AND ERRORS */

@@ -13,9 +13,11 @@
 	    </script>
     </head>
     <body>
-		<h2>Step 1: drag some spreadsheets to the list</h2>
+        <div class="stepBox" id="step1">
+		<h2>Step 1: drag some spreadsheets</h2>
 		
-		<img src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/>
+		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
+		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
 		<uploadr:add name="myFirstUploadr" path="${path}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
@@ -37,17 +39,32 @@
 		    </p>
 		</g:form>
 		
-		<g:link action="rdf"><img src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>		
+		</div>
+		
+		<div class="stepBox" id="step2">
+		<h2>Step 2: access your data</h2>
+		
+		<g:link action="rdf"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
 		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
 		
 		<p class="sparqlLink">The SPARQL endpoint is <g:link action="sparqlForm">${resource(controller: 'project', action: 'sparqlForm', absolute: true)}</g:link></p>
 		
+		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
+		    
+		</div>
+		
+		<div id="programDiv">
 		<h2>Transformation program</h2>
 		
 		<g:form action="saveProgram" method="post">
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 			<p><g:submitButton name="save" value="Save program" /></p>
 		</g:form>
+		<g:form action="autogenerateProgram" method="post">
+		    <g:select name="strategy" from="${['Simple','SCOVO']}" />
+		    <g:submitButton name="autogenerate" value="Autogenerate program" /></p>
+		</g:form>
+		</div>
 
     </body>
 </html>
