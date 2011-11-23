@@ -24,3 +24,5 @@ class NoInputFiles extends TabelsException("No input file(s) selected")
 class InvalidInputFile(filename:String) extends TabelsException("Unable to read input file " + filename)
 
 class UnrecognizedSpreadsheetFormatException(uri:String) extends TabelsException("Unable to recognize spreadsheet file format: " + uri)
+
+class TypeConversionException(literal:Literal, targetType:Resource) extends TabelsException("Unable to convert literal " + literal + " to type " + targetType)

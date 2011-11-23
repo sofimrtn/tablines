@@ -1,10 +1,10 @@
 package es.ctic.tabels
 
-abstract class RDFNode() {
+abstract class RDFNode {
     
 	def asBoolean : Literal
 	def asString : Literal
-	def +(suffix : String) : RDFNode
+	def +(suffix : String) : RDFNode  // FIXME: this method should not exist here
 	
 }
 
@@ -28,7 +28,25 @@ case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String
 	}
 	
 	override def asString : Literal = Literal(value)
+	def asInt : Literal = rdfType match {
+	    case XSD_INT => this
+	    case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toInt, XSD_INT)
+	    case XSD_STRING => Literal(value.toString.toInt, XSD_INT)
+	    case _ => throw new TypeConversionException(this, XSD_INT)
+	}
 	
+}
+
+object Literal {
+    
+    implicit def int2literal(i : Int) : Literal = Literal(i, XSD_INT)
+    implicit def float2literal(f : Float) : Literal = Literal(f, XSD_FLOAT)
+    implicit def double2literal(d : Double) : Literal = Literal(d, XSD_DOUBLE)
+    implicit def boolean2literal(b : Boolean) : Literal = Literal(b, XSD_BOOLEAN)
+    implicit def string2literal(s : String) : Literal = Literal(s)
+    
+    implicit def literal2int(l : Literal) : Int = l.asInt.value.asInstanceOf[Int]
+
 }
 
 case class Resource(uri : String) extends RDFNode {
