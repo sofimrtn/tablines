@@ -68,7 +68,7 @@ class TabelsParser extends JavaTokenParsers {
     def BOOLEAN = "boolean".ignoreCase
     def JOIN = "join".ignoreCase
     def SUBSTRING = "substring".ignoreCase
-    def STRINGLENGTH = "length". ignoreCase
+    def STRINGLENGTH = "string-length". ignoreCase
     def CONTAINS = "contains".ignoreCase
     def STARTSWITH = "startswith".ignoreCase
     def ENDSWITH = "endswith".ignoreCase
@@ -80,7 +80,7 @@ class TabelsParser extends JavaTokenParsers {
     def LOWER = "lower".ignoreCase
     def TRANSLATE = "translate".ignoreCase
     def NUMERIC = "numeric".ignoreCase
-    def SUBTRACT = "subtract".ignoreCase
+    def NUMERICSUBSTRACT = "numeric-substract".ignoreCase
     def MULTIPLY = "multiply".ignoreCase
     def DIVIDE = "divide".ignoreCase
     def INTEGER = "integer".ignoreCase
@@ -208,8 +208,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case re~qs => StringJoinExpression(re, qs)}|
     	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
     		{DBPediaDisambiguation}|
-    	(SUBSTRING~> "("~>expression~("," ~>wholeNumber)<~")")^^
-    		{case re~i => SubStringExpression(re, i.toInt)}|
+    	(SUBSTRING~> "("~>expression~("," ~>expression)~ opt("," ~>expression) <~")")^^
+    		{case re~startLoc~length => SubStringExpression(re, startLoc, length)}|
     	(STRINGLENGTH~> "("~>expression<~")")^^
     		{case re => StringLengthExpression(re)}|
     	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
@@ -234,7 +234,7 @@ class TabelsParser extends JavaTokenParsers {
     		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
     	(NUMERIC~>ADD~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
-    	(NUMERIC~>SUBTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERICSUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericSubtractExpression(expression1, expression2)}|
     	(NUMERIC~>MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericMultiplyExpression(expression1, expression2)}|
