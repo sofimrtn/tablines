@@ -66,12 +66,12 @@ class TabelsParser extends JavaTokenParsers {
     def DECIMAL = "decimal".ignoreCase
     def FLOAT = "float".ignoreCase
     def BOOLEAN = "boolean".ignoreCase
-    def JOIN = "join".ignoreCase
+    def STRING_JOIN = "string-join".ignoreCase
     def SUBSTRING = "substring".ignoreCase
-    def STRINGLENGTH = "string-length". ignoreCase
+    def STRING_LENGTH = "string-length". ignoreCase
     def CONTAINS = "contains".ignoreCase
-    def STARTSWITH = "startswith".ignoreCase
-    def ENDSWITH = "endswith".ignoreCase
+    def STARTS_WITH = "starts-with".ignoreCase
+    def ENDS_WITH = "ends-with".ignoreCase
     def SUBSTRING_BEFORE = "substring-before".ignoreCase
     def SUBSTRING_AFTER = "substring-after".ignoreCase
     def REPLACE = "replace".ignoreCase
@@ -79,20 +79,23 @@ class TabelsParser extends JavaTokenParsers {
     def UPPER = "upper".ignoreCase
     def LOWER = "lower".ignoreCase
     def TRANSLATE = "translate".ignoreCase
-    def NUMERIC = "numeric".ignoreCase
-    def NUMERICSUBSTRACT = "numeric-substract".ignoreCase
-    def MULTIPLY = "multiply".ignoreCase
-    def DIVIDE = "divide".ignoreCase
+    def NUMERIC_ADD = "numeric-add".ignoreCase
+    def NUMERIC_SUBSTRACT = "numeric-substract".ignoreCase
+    def NUMERIC_MULTIPLY = "numeric-multiply".ignoreCase
+    def NUMERIC_DIVIDE = "numeric-divide".ignoreCase
+    def NUMERIC_INTEGER_DIVIDE = "numeric-integer-divide".ignoreCase
     def INTEGER = "integer".ignoreCase
-    def BIGGER_THAN = "bigger-than".ignoreCase
-    def SMALLER_THAN = "smaller-than".ignoreCase
-    def MOD = "mod".ignoreCase
+    def NUMERIC_EQUAL = "numeric-equal".ignoreCase
+    def NUMERIC_GREATER_THAN = "numeric-greater-than".ignoreCase
+    def NUMERIC_LESS_THAN = "numeric-less-than".ignoreCase
+    def NUMERIC_MOD = "numeric-mod".ignoreCase
     def IF = "if".ignoreCase
     def THEN = "then".ignoreCase
     def ELSE = "else".ignoreCase
     def NOT = "not".ignoreCase
     def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
-    def LEVENSHTEINDISTANCE = "levenshtein-distance".ignoreCase
+    def LEVENSHTEIN_DISTANCE = "levenshtein-distance".ignoreCase
+    def ABS = "abs".ignoreCase
     def FLOOR = "floor".ignoreCase
     def CEIL = "ceil".ignoreCase
     def ROUND = "round".ignoreCase
@@ -204,19 +207,19 @@ class TabelsParser extends JavaTokenParsers {
     		{case v~e => AddVariableExpression(v, e)}|
     	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
     		{e => ConcatExpression(e)}|
-    	(JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
+    	(STRING_JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
     		{case re~qs => StringJoinExpression(re, qs)}|
     	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
     		{DBPediaDisambiguation}|
     	(SUBSTRING~> "("~>expression~("," ~>expression)~ opt("," ~>expression) <~")")^^
     		{case re~startLoc~length => SubStringExpression(re, startLoc, length)}|
-    	(STRINGLENGTH~> "("~>expression<~")")^^
+    	(STRING_LENGTH~> "("~>expression<~")")^^
     		{case re => StringLengthExpression(re)}|
     	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~content => ContainsExpression(container, content)}|
-    	(STARTSWITH~> "("~>(expression<~",") ~ expression<~")")^^
+    	(STARTS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~start => StartsWithExpression(container, start)}|
-    	(ENDSWITH~> "("~>(expression<~",") ~ expression<~")")^^
+    	(ENDS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~end => StartsWithExpression(container, end)}|
     	(SUBSTRING_BEFORE~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~suffix => SubstringBeforeExpression(container, suffix)}|
@@ -230,23 +233,25 @@ class TabelsParser extends JavaTokenParsers {
     		{case expression => LowerCaseExpression(expression)}|
     	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
     		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
-    	(LEVENSHTEINDISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
+    	(LEVENSHTEIN_DISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
     		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
-    	(NUMERIC~>ADD~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_ADD~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
-    	(NUMERICSUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_SUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericSubtractExpression(expression1, expression2)}|
-    	(NUMERIC~>MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericMultiplyExpression(expression1, expression2)}|
-    	(NUMERIC~>DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericDivideExpression(expression1, expression2)}|
-    	(NUMERIC~>INTEGER~>DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_INTEGER_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
-    	(NUMERIC~>MOD~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_MOD~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
-    	(BIGGER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_EQUAL~>"("~>(expression<~",")~ (expression<~")"))^^
+    		{case expression1 ~ expression2 => EqualThanExpression(expression1, expression2)}|
+    	(NUMERIC_GREATER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
-    	(SMALLER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
+    	(NUMERIC_LESS_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
     	(INT ~> "("~>expression ~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>IntExpression(exp, sep)}|
@@ -254,6 +259,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case exp ~ sep =>FloatExpression(exp, sep)}|
     	(DECIMAL ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>DecimalExpression(exp, sep)}|
+    	(ABS ~> "("~>expression<~")")^^
+    		{AbsExpression}|
     	(FLOOR ~> "("~>expression<~")")^^
     		{FloorExpression}|
     	(CEIL ~> "("~>expression<~")")^^
