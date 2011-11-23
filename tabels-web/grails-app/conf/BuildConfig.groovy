@@ -22,6 +22,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -30,7 +31,7 @@ grails.project.dependency.resolution = {
         compile 'es.ctic.tabels:tabels-core_2.9.1:0.1',
                 'commons-lang:commons-lang:2.6',
                 'commons-httpclient:commons-httpclient:3.0',
-                'su4j:su4j-endpoint:0.5.1-SNAPSHOT',
-		'org.fundacionctic.ext:pubby:0.3.3'
+                'org.fundacionctic.su4j:su4j-endpoint:0.5.1',
+                'org.fundacionctic.ext:pubby:0.3.3'
     }
 }
