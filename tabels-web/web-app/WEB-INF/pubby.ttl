@@ -52,7 +52,7 @@
     conf:defaultLanguage "en";
     # When the homepage of the server is accessed, this resource will
     # be shown.
-    conf:indexResource <http://localhost:8080/tabels-web/pubby/resource/SomeResource>;
+    # conf:indexResource <http://localhost:8080/tabels-web/pubby/resource/SomeResource>;
 
 # Dataset configuration section #1 
 #

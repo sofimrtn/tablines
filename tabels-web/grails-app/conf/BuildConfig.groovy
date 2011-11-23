@@ -32,6 +32,6 @@ grails.project.dependency.resolution = {
                 'commons-lang:commons-lang:2.6',
                 'commons-httpclient:commons-httpclient:3.0',
                 'org.fundacionctic.su4j:su4j-endpoint:0.5.1',
-                'org.fundacionctic.ext:pubby:0.3.3'
+                'org.fundacionctic.ext:pubby:0.3.3.1'
     }
 }
