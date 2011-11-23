@@ -7,7 +7,8 @@ class ProjectService {
 
     static String defaultProgramFilename = "default.tabels"
     
-    File workDir = new File(System.getProperty("java.io.tmpdir") + "tabels/upload/")
+    String path = "tabels" + File.separator + "upload";
+    File workDir = new File(System.getProperty("java.io.tmpdir"), path)
     File programFile = new File(workDir, defaultProgramFilename)
 
     def File[] getFiles() {
