@@ -8,7 +8,7 @@ scalaVersion := "2.9.1"
 
 scalacOptions += "-deprecation"
 
-libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.6.1"
+//libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.5.8"
 
 libraryDependencies += "org.clapper" %% "grizzled-slf4j" % "0.6.6"
 
