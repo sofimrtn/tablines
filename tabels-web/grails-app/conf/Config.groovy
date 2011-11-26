@@ -72,9 +72,10 @@ log4j = {
     // Example of changing the log pattern for the default console
     // appender:
     //
-    //appenders {
+    appenders {
+        'null' name:'stacktrace'  // disable stacktrace.log, see http://haxx.sinequanon.net/2008/09/grails-stacktracelog/
     //    console name:'stdout', layout:pattern(conversionPattern: '%c %m%n')
-    //}
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
