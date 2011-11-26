@@ -28,8 +28,10 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
-        compile 'es.ctic.tabels:tabels-core_2.9.1:0.1',
-                'commons-lang:commons-lang:2.6',
+        compile('es.ctic.tabels:tabels-core_2.9.1:0.1') {
+            excludes 'slf4j-api'
+        }
+        compile 'commons-lang:commons-lang:2.6',
                 'commons-httpclient:commons-httpclient:3.0',
                 'org.fundacionctic.su4j:su4j-endpoint:0.5.1',
                 'org.fundacionctic.ext:pubby:0.3.3.1'
