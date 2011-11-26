@@ -26,3 +26,5 @@ class InvalidInputFile(filename:String) extends TabelsException("Unable to read 
 class UnrecognizedSpreadsheetFormatException(uri:String) extends TabelsException("Unable to recognize spreadsheet file format: " + uri)
 
 class TypeConversionException(literal:Literal, targetType:Resource) extends TabelsException("Unable to convert literal " + literal + " to type " + targetType)
+
+class CannotConvertResourceToLiteralException(resource : Resource) extends TabelsException("Cannot convert resource " + resource + " to literal")

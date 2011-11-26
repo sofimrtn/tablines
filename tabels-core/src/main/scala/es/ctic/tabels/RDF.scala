@@ -46,6 +46,7 @@ object Literal {
     implicit def string2literal(s : String) : Literal = Literal(s)
     
     implicit def literal2int(l : Literal) : Int = l.asInt.value.asInstanceOf[Int]
+    implicit def literal2string(l : Literal) : String = l.asString.value.asInstanceOf[String]
 
 }
 
@@ -97,4 +98,40 @@ object CommonNamespaces {
     object SKOS extends Namespace("http://www.w3.org/2004/02/skos/core#")
     object XSD  extends Namespace("http://www.w3.org/2001/XMLSchema#")
     
+}
+
+// type classes
+
+trait CanToRDFNode[a] {
+    def toRDFNode(x : a) : RDFNode
+}
+
+object CanToRDFNode {
+    import es.ctic.tabels.Literal._
+    implicit def intToRDFNode = new CanToRDFNode[Int] {
+        def toRDFNode(x : Int) : RDFNode = x
+    }
+    implicit def stringToRDFNode = new CanToRDFNode[String] {
+        def toRDFNode(x : String) : RDFNode = x
+    }
+}
+
+trait CanFromRDFNode[a] {
+    def fromRDFNode(rdfNode : RDFNode) : a
+}
+
+object CanFromRDFNode {
+    import es.ctic.tabels.Literal._
+    implicit def intFromRDFNode = new CanFromRDFNode[Int] {
+        def fromRDFNode(rdfNode : RDFNode) : Int = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def stringFromRDFNode = new CanFromRDFNode[String] {
+        def fromRDFNode(rdfNode : RDFNode) : String = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
 }
