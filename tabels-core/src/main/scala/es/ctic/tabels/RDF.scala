@@ -114,6 +114,10 @@ object CanToRDFNode {
     implicit def stringToRDFNode = new CanToRDFNode[String] {
         def toRDFNode(x : String) : RDFNode = x
     }
+    implicit def booleanToRDFNode = new CanToRDFNode[Boolean] {
+        def toRDFNode(x : Boolean) : RDFNode = x
+    }
+        
 }
 
 trait CanFromRDFNode[a] {

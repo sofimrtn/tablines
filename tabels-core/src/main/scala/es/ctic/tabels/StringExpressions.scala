@@ -6,6 +6,12 @@ import scala.util.matching.Regex
  * 
  */
 
+object StringFunctions extends FunctionCollection {
+
+    val startsWith = "starts-with" isDefinedBy { (x : String, y : String) => x.startsWith(y) }
+
+}
+
 case class AddVariableExpression(variable : Variable, expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable) + expression.evaluate(evaluationContext).asString.value.toString

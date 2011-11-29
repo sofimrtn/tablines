@@ -4,6 +4,14 @@ package es.ctic.tabels
  * NUMERIC Expressions
  *  
  */
+
+object NumericFunctions extends FunctionCollection {
+
+     val numericAdd = "numeric-add" isDefinedBy { (x : Int, y : Int) => x + y }
+ //    val startsWith = BinaryFunction("starts-with", { (ec : EvaluationContext, x : String, y : String) => x.startsWith(y) })
+
+}
+
 case class NumericAddExpression(expression: Expression, expression2: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =

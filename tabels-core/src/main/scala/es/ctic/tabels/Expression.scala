@@ -13,6 +13,52 @@ abstract class Expression {
 
 }
 
+case class FunctionName(name : String) {
+
+    def isDefinedBy[TYPE1,TYPE2,TYPE_RESULT]
+        (f : (EvaluationContext, TYPE1, TYPE2) => TYPE_RESULT)
+        (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT])
+         : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT] =
+        BinaryFunction[TYPE1,TYPE2,TYPE_RESULT](name, f)
+        
+    def isDefinedBy[TYPE1,TYPE2,TYPE_RESULT]
+        (f : (TYPE1, TYPE2) => TYPE_RESULT)
+        (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT])
+         : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT] =
+        BinaryFunction[TYPE1,TYPE2,TYPE_RESULT](name, { (ev : EvaluationContext, p1 : TYPE1, p2 : TYPE2) => f(p1,p2) })
+
+}
+
+case class BinaryFunction[TYPE1, TYPE2, TYPE_RESULT](name : String, f : (EvaluationContext, TYPE1, TYPE2) => TYPE_RESULT)
+    (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT]) {
+
+    def createExpression(arg1 : Expression, arg2: Expression) : BinaryExpression[TYPE1, TYPE2, TYPE_RESULT] =
+        new BinaryExpression(this)(arg1, arg2)
+
+}
+
+case class BinaryExpression[TYPE1, TYPE2, TYPE_RESULT](func : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT])
+    (arg1 : Expression, arg2 : Expression)
+    (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT])
+    extends Expression {
+
+    def typeWrapper(ec : EvaluationContext, param1 : RDFNode, param2 : RDFNode) : RDFNode =
+        resultConverter.toRDFNode(func.f(ec, type1Converter.fromRDFNode(param1),
+                                             type2Converter.fromRDFNode(param2)))
+
+    override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+        typeWrapper(evaluationContext, arg1.evaluate(evaluationContext), arg2.evaluate(evaluationContext))
+        
+    override def prettyPrint = func.name + "(" + arg1 + "," + arg2 + ")"
+
+}
+
+trait FunctionCollection {
+
+    implicit def string2functionName(name: String) : FunctionName = FunctionName(name)
+
+}
+
 /*
  * TABELS Expressions
  */

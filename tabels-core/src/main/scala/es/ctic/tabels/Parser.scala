@@ -175,8 +175,7 @@ class TabelsParser extends JavaTokenParsers {
         { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, nestedStatement = pat) }
         
     def variableOrTuple : Parser[Tuple] = variable ^^ { v => Tuple(Seq(v)) } | tuple
-       
-	
+    
     def regex : Parser[Regex] =
       ("""\"[^"]*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
     
@@ -192,6 +191,16 @@ class TabelsParser extends JavaTokenParsers {
         rdfLiteral ^^ LiteralExpression |
         functionExpression
       
+    implicit def binaryFunction2ExpressionParser[TYPE1, TYPE2, TYPE_RESULT]
+        (func : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT])
+        (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT]) : Parser[Expression] =
+        func.name ~> "(" ~> (expression <~ ",") ~ (expression <~ ")") ^^
+        { case p1~p2 => func.createExpression(p1, p2) }
+
+    import NumericFunctions._
+
+    def numericFunctions : Parser[Expression] = numericAdd // FIXME: unused
+
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
     		{case v~u => ResourceExpression(expression = v, uri = u)} |		
