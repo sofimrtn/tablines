@@ -34,6 +34,8 @@ libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
 
+libraryDependencies += "org.apache.lucene" % "lucene-core" % "3.4.0"
+
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
