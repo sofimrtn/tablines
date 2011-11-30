@@ -14,6 +14,18 @@ abstract class Expression {
 }
 
 case class FunctionName(name : String) {
+  
+   def isDefinedBy[TYPE1,TYPE_RESULT]
+        (f : (EvaluationContext, TYPE1) => TYPE_RESULT)
+        (implicit type1Converter : CanFromRDFNode[TYPE1], resultConverter : CanToRDFNode[TYPE_RESULT])
+         : UnaryFunction[TYPE1, TYPE_RESULT] =
+        UnaryFunction[TYPE1,TYPE_RESULT](name, f)
+        
+    def isDefinedBy[TYPE1,TYPE_RESULT]
+        (f : (TYPE1) => TYPE_RESULT)
+        (implicit type1Converter : CanFromRDFNode[TYPE1], resultConverter : CanToRDFNode[TYPE_RESULT])
+         : UnaryFunction[TYPE1, TYPE_RESULT] =
+        UnaryFunction[TYPE1,TYPE_RESULT](name, { (ev : EvaluationContext, p1 : TYPE1) => f(p1) })
 
     def isDefinedBy[TYPE1,TYPE2,TYPE_RESULT]
         (f : (EvaluationContext, TYPE1, TYPE2) => TYPE_RESULT)
@@ -26,6 +38,29 @@ case class FunctionName(name : String) {
         (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT])
          : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT] =
         BinaryFunction[TYPE1,TYPE2,TYPE_RESULT](name, { (ev : EvaluationContext, p1 : TYPE1, p2 : TYPE2) => f(p1,p2) })
+
+}
+
+case class UnaryFunction[TYPE1, TYPE_RESULT](name : String, f : (EvaluationContext, TYPE1) => TYPE_RESULT)
+    (implicit type1Converter : CanFromRDFNode[TYPE1],  resultConverter : CanToRDFNode[TYPE_RESULT]) {
+
+    def createExpression(arg1 : Expression) : UnaryExpression[TYPE1, TYPE_RESULT] =
+        new UnaryExpression(this)(arg1)
+
+}
+
+case class UnaryExpression[TYPE1, TYPE_RESULT](func : UnaryFunction[TYPE1, TYPE_RESULT])
+    (arg1 : Expression)
+    (implicit type1Converter : CanFromRDFNode[TYPE1], resultConverter : CanToRDFNode[TYPE_RESULT])
+    extends Expression {
+
+    def typeWrapper(ec : EvaluationContext, param1 : RDFNode) : RDFNode =
+        resultConverter.toRDFNode(func.f(ec, type1Converter.fromRDFNode(param1)))
+
+    override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+        typeWrapper(evaluationContext, arg1.evaluate(evaluationContext))
+        
+    override def prettyPrint = func.name + "(" + arg1 + ")"
 
 }
 
@@ -118,8 +153,13 @@ case class DBPediaDisambiguation(expression:Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) ={ 
     
-	 val query = new DBPediaQuery
-	 query.queryResource(expression.evaluate(evaluationContext))
+	
+    //val query = new DBPediaQuery
+	 //query.queryResource(expression.evaluate(evaluationContext))
+    val lucene = new Lucene
+    lucene.testQuery
+    
+    Literal("777")
   }
     override def prettyPrint = "DBPedia-disambiguation(" + expression.toString + ")"
 

@@ -8,6 +8,12 @@ package es.ctic.tabels
 object NumericFunctions extends FunctionCollection {
 
      val numericAdd = "numeric-add" isDefinedBy { (x : Int, y : Int) => x + y }
+     val numericSubstract = "numeric-substract" isDefinedBy { (x : Int, y : Int) => x - y }
+     val numericMultiply = "numeric-multiply" isDefinedBy { (x : Int, y : Int) => x * y }
+     val numericDivide = "numeric-divide" isDefinedBy { (x : Int, y : Int) => x / y }
+     val numericIntegerDivide = "numeric-integer-divide" isDefinedBy { (x : Int, y : Int) => (x / y).round }
+     val numericMod = "numeric-mod" isDefinedBy { (x : Int, y : Int) => x % y }
+     
  //    val startsWith = BinaryFunction("starts-with", { (ec : EvaluationContext, x : String, y : String) => x.startsWith(y) })
 
 }

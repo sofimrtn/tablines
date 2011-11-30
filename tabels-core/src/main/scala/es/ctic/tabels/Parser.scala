@@ -189,17 +189,37 @@ class TabelsParser extends JavaTokenParsers {
     def expression : Parser[Expression] = 
         variable ^^ VariableReference |
         rdfLiteral ^^ LiteralExpression |
-        functionExpression
+        functionExpression |
+        numericFunctions |
+        stringFunctions
       
+    implicit def unaryFunction2ExpressionParser[TYPE1, TYPE_RESULT]
+        (func : UnaryFunction[TYPE1, TYPE_RESULT])
+        (implicit type1Converter : CanFromRDFNode[TYPE1], resultConverter : CanToRDFNode[TYPE_RESULT]) : Parser[Expression] =
+        func.name.ignoreCase ~> "(" ~> expression  <~ ")" ^^
+        { case p1 => func.createExpression(p1) }
+    
     implicit def binaryFunction2ExpressionParser[TYPE1, TYPE2, TYPE_RESULT]
         (func : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT])
         (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT]) : Parser[Expression] =
-        func.name ~> "(" ~> (expression <~ ",") ~ (expression <~ ")") ^^
+        func.name.ignoreCase ~> "(" ~> (expression <~ ",") ~ (expression <~ ")") ^^
         { case p1~p2 => func.createExpression(p1, p2) }
-
+        
     import NumericFunctions._
 
-    def numericFunctions : Parser[Expression] = numericAdd // FIXME: unused
+    def numericFunctions : Parser[Expression] = 
+    numericAdd | 
+    numericSubstract |
+    numericMultiply |
+    numericDivide | 
+    numericIntegerDivide |
+    numericMod
+    
+    import StringFunctions._
+    
+    def stringFunctions : Parser[Expression] =
+    startsWith |
+    upperCase
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
@@ -226,8 +246,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case re => StringLengthExpression(re)}|
     	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~content => ContainsExpression(container, content)}|
-    	(STARTS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
-    		{case container ~start => StartsWithExpression(container, start)}|
+   // 	(STARTS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
+   // 		{case container ~start => StartsWithExpression(container, start)}|
     	(ENDS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
     		{case container ~end => StartsWithExpression(container, end)}|
     	(SUBSTRING_BEFORE~> "("~>(expression<~",") ~ expression<~")")^^
@@ -236,26 +256,26 @@ class TabelsParser extends JavaTokenParsers {
     		{case container ~prefix => SubstringAfterExpression(container, prefix)}|
     	(REPLACE~> "("~>(expression<~",")~(regex<~"," )~ (expression<~")"))^^
     		{case input ~ re ~ replacement => ReplaceExpression(input, re, replacement)}|
-    	(UPPER~> (CASE~>"("~>(expression<~")")))^^
-    		{case expression => UpperCaseExpression(expression)}|
+    //(UPPER~> (CASE~>"("~>(expression<~")")))^^
+    //		{case expression => UpperCaseExpression(expression)}|
     	(LOWER~> (CASE~>"("~>(expression<~")")))^^
     		{case expression => LowerCaseExpression(expression)}|
     	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
     		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
     	(LEVENSHTEIN_DISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
     		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
-    	(NUMERIC_ADD~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
-    	(NUMERIC_SUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => NumericSubtractExpression(expression1, expression2)}|
-    	(NUMERIC_MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => NumericMultiplyExpression(expression1, expression2)}|
-    	(NUMERIC_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => NumericDivideExpression(expression1, expression2)}|
-    	(NUMERIC_INTEGER_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
-    	(NUMERIC_MOD~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
+    //	(NUMERIC_ADD~>"("~>(expression<~",")~ (expression<~")"))^^
+    //		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
+    //	(NUMERIC_SUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => NumericSubtractExpression(expression1, expression2)}|
+   //	(NUMERIC_MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => NumericMultiplyExpression(expression1, expression2)}|
+   // 	(NUMERIC_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => NumericDivideExpression(expression1, expression2)}|
+   // 	(NUMERIC_INTEGER_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
+   // 	(NUMERIC_MOD~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
     	(NUMERIC_EQUAL~>"("~>(expression<~",")~ (expression<~")"))^^
     		{case expression1 ~ expression2 => EqualThanExpression(expression1, expression2)}|
     	(NUMERIC_GREATER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
