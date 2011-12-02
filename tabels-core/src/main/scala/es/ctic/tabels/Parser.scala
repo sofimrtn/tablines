@@ -93,7 +93,7 @@ class TabelsParser extends JavaTokenParsers {
     def THEN = "then".ignoreCase
     def ELSE = "else".ignoreCase
     def NOT = "not".ignoreCase
-    def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
+   // def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
     def LEVENSHTEIN_DISTANCE = "levenshtein-distance".ignoreCase
     def ABS = "abs".ignoreCase
     def FLOOR = "floor".ignoreCase
@@ -191,7 +191,8 @@ class TabelsParser extends JavaTokenParsers {
         rdfLiteral ^^ LiteralExpression |
         functionExpression |
         numericFunctions |
-        stringFunctions
+        stringFunctions |
+        miscellaneaFunctions
       
     implicit def unaryFunction2ExpressionParser[TYPE1, TYPE_RESULT]
         (func : UnaryFunction[TYPE1, TYPE_RESULT])
@@ -205,6 +206,11 @@ class TabelsParser extends JavaTokenParsers {
         func.name.ignoreCase ~> "(" ~> (expression <~ ",") ~ (expression <~ ")") ^^
         { case p1~p2 => func.createExpression(p1, p2) }
         
+    import MiscellaneaFunctions._
+    
+    def miscellaneaFunctions : Parser[Expression] = 
+      DBPediaDisambiguation 
+    
     import NumericFunctions._
 
     def numericFunctions : Parser[Expression] = 
@@ -238,8 +244,8 @@ class TabelsParser extends JavaTokenParsers {
     		{e => ConcatExpression(e)}|
     	(STRING_JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
     		{case re~qs => StringJoinExpression(re, qs)}|
-    	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
-    		{DBPediaDisambiguation}|
+    //	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
+    //		{DBPediaDisambiguation}|
     	(SUBSTRING~> "("~>expression~("," ~>expression)~ opt("," ~>expression) <~")")^^
     		{case re~startLoc~length => SubStringExpression(re, startLoc, length)}|
     	(STRING_LENGTH~> "("~>expression<~")")^^

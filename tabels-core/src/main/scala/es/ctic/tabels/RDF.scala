@@ -117,6 +117,9 @@ object CanToRDFNode {
     implicit def booleanToRDFNode = new CanToRDFNode[Boolean] {
         def toRDFNode(x : Boolean) : RDFNode = x
     }
+    implicit def resourceToRDFNode = new CanToRDFNode[Resource] {
+        def toRDFNode(x : Resource) : RDFNode = x
+    }
         
 }
 

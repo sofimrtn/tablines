@@ -98,6 +98,11 @@ trait FunctionCollection {
  * TABELS Expressions
  */
 
+object MiscellaneaFunctions extends FunctionCollection{
+	 val lucene = new Lucene
+     val DBPediaDisambiguation = "DBPedia-Disambiguation" isDefinedBy {query : String => lucene.query(query) getOrElse(Resource("http://example.org/ResourceNotDisambiguated")) }
+}
+
 case class VariableReference(variable:Variable) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = evaluationContext.bindings.getValue(variable)
@@ -157,9 +162,9 @@ case class DBPediaDisambiguation(expression:Expression) extends Expression{
     //val query = new DBPediaQuery
 	 //query.queryResource(expression.evaluate(evaluationContext))
     val lucene = new Lucene
-    lucene.testQuery
     
-    Literal("777")
+    
+    Literal(lucene.query(""))
   }
     override def prettyPrint = "DBPedia-disambiguation(" + expression.toString + ")"
 
