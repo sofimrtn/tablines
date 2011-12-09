@@ -1,30 +1,32 @@
 package es.ctic.tabels
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopScoreDocCollector;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.RAMDirectory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
+import org.apache.lucene.analysis.standard.StandardAnalyzer
+import org.apache.lucene.analysis.LimitTokenCountAnalyzer
+import org.apache.lucene.document.Document
+import org.apache.lucene.document.Field
+import org.apache.lucene.index.IndexWriter
+import org.apache.lucene.index.IndexWriterConfig
+//import org.apache.lucene.queryParser.ParseException;
+import org.apache.lucene.queryParser.QueryParser
+import org.apache.lucene.search.IndexSearcher
+import org.apache.lucene.search.Query
+import org.apache.lucene.search.ScoreDoc
+import org.apache.lucene.search.TopScoreDocCollector
+import org.apache.lucene.store.Directory
+import org.apache.lucene.store.RAMDirectory
+import org.apache.lucene.store.FSDirectory
+import org.apache.lucene.util.Version
 import grizzled.slf4j.Logging
 import java.io.{File,FileNotFoundException}
 import scala.io.Source
 import com.hp.hpl.jena.rdf.model.ModelFactory 
 import com.hp.hpl.jena.vocabulary.RDFS
+
 class Lucene extends Logging{
   
-  var analyzer = new org.apache.lucene.analysis.es.SpanishAnalyzer(Version.LUCENE_CURRENT)
+  var analyzer = new org.apache.lucene.analysis.es.SpanishAnalyzer(Version.LUCENE_33)
   val directory = FSDirectory.open(new File("/tmp/testindex"))
-  val iwriter = new IndexWriter(directory, analyzer, true,
-                                          new IndexWriter.MaxFieldLength(25000))
+  val iWriterConfig = new IndexWriterConfig(Version.LUCENE_33, new LimitTokenCountAnalyzer(analyzer,2500))
+  val iwriter = new IndexWriter(directory, iWriterConfig)
   try{ 
      loadDocs(iwriter)
      }
@@ -45,25 +47,16 @@ class Lucene extends Logging{
       doc.add(new Field("resource", statement.getSubject.getURI, Field.Store.YES,Field.Index.NOT_ANALYZED));
       doc.add(new Field("label", statement.getString, Field.Store.YES,Field.Index.ANALYZED));
       iwriter.addDocument(doc)
-      
-      
     }
       
   }
   
   def query(q : String) : Option[Resource]  ={
    
-  //  var doc = new Document()
-   // val text = "This is the text to be indexed."
-    //doc.add(new Field("fieldname", text, Field.Store.YES,Field.Index.ANALYZED));
-    
-   
-    
-    
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true
     // Parse a simple query that searches for "text":
-    val parser = new QueryParser(Version.LUCENE_CURRENT,"label", analyzer)
+    val parser = new QueryParser(Version.LUCENE_33,"label", analyzer)
     try{
     	val queryLucen = parser.parse(q)
         
