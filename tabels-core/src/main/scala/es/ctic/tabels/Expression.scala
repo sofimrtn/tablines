@@ -100,7 +100,7 @@ trait FunctionCollection {
 
 object MiscellaneaFunctions extends FunctionCollection{
 	 val lucene = new Lucene
-     val DBPediaDisambiguation = "DBPedia-Disambiguation" isDefinedBy {query : String => lucene.query(query) getOrElse(Resource("http://example.org/ResourceNotDisambiguated")) }
+     val DBPediaDisambiguation = "DBPedia-Disambiguation" isDefinedBy {query : String => lucene.query(query) getOrElse Seq(Resource("http://example.org/ResourceNotDisambiguated")) }
 }
 
 case class VariableReference(variable:Variable) extends Expression{

@@ -120,6 +120,9 @@ object CanToRDFNode {
     implicit def resourceToRDFNode = new CanToRDFNode[Resource] {
         def toRDFNode(x : Resource) : RDFNode = x
     }
+    implicit def seqToRDFNode = new CanToRDFNode[Seq[Resource]] {
+        def toRDFNode(x : Seq[Resource]) : RDFNode = x.head
+    }
         
 }
 

@@ -20,6 +20,7 @@ import java.io.{File,FileNotFoundException}
 import scala.io.Source
 import com.hp.hpl.jena.rdf.model.ModelFactory 
 import com.hp.hpl.jena.vocabulary.RDFS
+import scala.collection.mutable.ListBuffer
 
 class Lucene extends Logging{
   
@@ -51,28 +52,33 @@ class Lucene extends Logging{
       
   }
   
-  def query(q : String) : Option[Resource]  ={
+  def query(q : String, workMode:String = "best", index:Int = 1) : Option[Seq[Resource]]  ={
    
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true
     // Parse a simple query that searches for "text":
+    var buffList = new ListBuffer[Resource]
     val parser = new QueryParser(Version.LUCENE_33,"label", analyzer)
     try{
     	val queryLucen = parser.parse(q)
         
-    val hits  = isearcher.search(queryLucen,1).scoreDocs
-    return hits.length  match{
-      case 0 => None
-      case _ => Some(Resource(isearcher.doc(hits(0).doc).get("resource")))
-    }
-    // Iterate through the results:
-   //hits.foreach(h =>isearcher.doc(h.doc).get("resource"))
-      
-    }
-    catch{ 
-      case e : org.apache.lucene.queryParser.ParseException =>
-        logger.error ("Parsing lucene query: " + q , e)
-        return None
+	    val hits  = isearcher.search(queryLucen,index).scoreDocs
+	    return hits.length  match{
+	      case 0 => None
+	      case _ => hits.foreach(h =>buffList +=Resource(isearcher.doc(h.doc).get("resource")))
+	      			workMode match{
+	      			case "best" => Some(buffList.toList)
+	      			case "option" => Some(Seq(buffList.remove(index-1))) 
+	      			
+	      }
+	      	
+    	}
+   
+	}
+	catch{ 
+		case e : org.apache.lucene.queryParser.ParseException =>
+					logger.error ("Parsing lucene query: " + q , e)
+		return None
     }
     finally{
        isearcher.close()
