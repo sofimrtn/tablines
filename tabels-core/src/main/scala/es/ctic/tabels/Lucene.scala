@@ -52,7 +52,7 @@ class Lucene extends Logging{
       
   }
   
-  def query(q : String, workMode:String = "best", index:Int = 1) : Option[Seq[Resource]]  ={
+  def query(q : String, workMode:String = "option", index:Int = 2) : Option[Seq[Resource]]  ={
    
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true

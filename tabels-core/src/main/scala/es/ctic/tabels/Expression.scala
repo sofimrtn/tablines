@@ -38,6 +38,18 @@ case class FunctionName(name : String) {
         (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT])
          : BinaryFunction[TYPE1, TYPE2, TYPE_RESULT] =
         BinaryFunction[TYPE1,TYPE2,TYPE_RESULT](name, { (ev : EvaluationContext, p1 : TYPE1, p2 : TYPE2) => f(p1,p2) })
+        
+    def isDefinedBy[TYPE1,TYPE2, TYPE3, TYPE_RESULT]
+        (f : (EvaluationContext, TYPE1, TYPE2, TYPE3) => TYPE_RESULT)
+        (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], type3Converter : CanFromRDFNode[TYPE3], resultConverter : CanToRDFNode[TYPE_RESULT])
+         : TernaryFunction[TYPE1, TYPE2, TYPE3, TYPE_RESULT] =
+        TernaryFunction[TYPE1,TYPE2, TYPE3,TYPE_RESULT](name, f)
+        
+    def isDefinedBy[TYPE1,TYPE2, TYPE3,TYPE_RESULT]
+        (f : (TYPE1, TYPE2, TYPE3) => TYPE_RESULT)
+        (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], type3Converter : CanFromRDFNode[TYPE3], resultConverter : CanToRDFNode[TYPE_RESULT])
+         : TernaryFunction[TYPE1, TYPE2, TYPE3, TYPE_RESULT] =
+        TernaryFunction[TYPE1,TYPE2, TYPE3, TYPE_RESULT](name, { (ev : EvaluationContext, p1 : TYPE1, p2 : TYPE2, p3 : TYPE3) => f(p1,p2,p3) })
 
 }
 
@@ -88,6 +100,31 @@ case class BinaryExpression[TYPE1, TYPE2, TYPE_RESULT](func : BinaryFunction[TYP
 
 }
 
+case class TernaryFunction[TYPE1, TYPE2, TYPE3, TYPE_RESULT](name : String, f : (EvaluationContext, TYPE1, TYPE2, TYPE3) => TYPE_RESULT)
+    (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], type3Converter : CanFromRDFNode[TYPE3], resultConverter : CanToRDFNode[TYPE_RESULT]) {
+
+    def createExpression(arg1 : Expression, arg2: Expression, arg3: Expression) : TernaryExpression[TYPE1, TYPE2, TYPE3, TYPE_RESULT] =
+        new TernaryExpression(this)(arg1, arg2, arg3)
+
+}
+
+case class TernaryExpression[TYPE1, TYPE2, TYPE3, TYPE_RESULT](func : TernaryFunction[TYPE1, TYPE2, TYPE3, TYPE_RESULT])
+    (arg1 : Expression, arg2 : Expression, arg3 : Expression)
+    (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], type3Converter : CanFromRDFNode[TYPE3], resultConverter : CanToRDFNode[TYPE_RESULT])
+    extends Expression {
+
+    def typeWrapper(ec : EvaluationContext, param1 : RDFNode, param2 : RDFNode, param3 : RDFNode) : RDFNode =
+        resultConverter.toRDFNode(func.f(ec, type1Converter.fromRDFNode(param1),
+                                             type2Converter.fromRDFNode(param2),
+                                             type3Converter.fromRDFNode(param3)))
+
+    override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
+        typeWrapper(evaluationContext, arg1.evaluate(evaluationContext), arg2.evaluate(evaluationContext), arg3.evaluate(evaluationContext))
+        
+    override def prettyPrint = func.name + "(" + arg1 + "," + arg2 + "," + arg3 +")"
+
+}
+
 trait FunctionCollection {
 
     implicit def string2functionName(name: String) : FunctionName = FunctionName(name)
@@ -100,7 +137,7 @@ trait FunctionCollection {
 
 object MiscellaneaFunctions extends FunctionCollection{
 	 val lucene = new Lucene
-     val DBPediaDisambiguation = "DBPedia-Disambiguation" isDefinedBy {query : String => lucene.query(query) getOrElse Seq(Resource("http://example.org/ResourceNotDisambiguated")) }
+     val DBPediaDisambiguation = "DBPedia-Disambiguation" isDefinedBy {(query: String, workMode: String, index:Int) => lucene.query(query, workMode,index) getOrElse Seq(Resource("http://example.org/ResourceNotDisambiguated")) }
 }
 
 case class VariableReference(variable:Variable) extends Expression{

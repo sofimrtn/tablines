@@ -206,6 +206,12 @@ class TabelsParser extends JavaTokenParsers {
         func.name.ignoreCase ~> "(" ~> (expression <~ ",") ~ (expression <~ ")") ^^
         { case p1~p2 => func.createExpression(p1, p2) }
         
+    implicit def ternaryFunction2ExpressionParser[TYPE1, TYPE2,TYPE3, TYPE_RESULT]
+        (func : TernaryFunction[TYPE1, TYPE2, TYPE3, TYPE_RESULT])
+        (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], type3Converter : CanFromRDFNode[TYPE3],resultConverter : CanToRDFNode[TYPE_RESULT]) : Parser[Expression] =
+        func.name.ignoreCase ~> "(" ~> (expression <~ ",")~(expression <~ ",") ~ (expression <~ ")") ^^
+        { case p1~p2~p3 => func.createExpression(p1, p2, p3) }
+        
     import MiscellaneaFunctions._
     
     def miscellaneaFunctions : Parser[Expression] = 
