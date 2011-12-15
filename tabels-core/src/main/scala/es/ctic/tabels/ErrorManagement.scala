@@ -28,3 +28,5 @@ class UnrecognizedSpreadsheetFormatException(uri:String) extends TabelsException
 class TypeConversionException(literal:Literal, targetType:Resource) extends TabelsException("Unable to convert literal " + literal + " to type " + targetType)
 
 class CannotConvertResourceToLiteralException(resource : Resource) extends TabelsException("Cannot convert resource " + resource + " to literal")
+
+class InvalidFucntionParameterException(parameter : String) extends TabelsException("Invalid function parameter value: " + parameter)

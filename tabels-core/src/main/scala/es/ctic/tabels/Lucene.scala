@@ -69,6 +69,7 @@ class Lucene extends Logging{
 	      			workMode match{
 	      			case "best" => Some(buffList.toList)
 	      			case "option" => Some(Seq(buffList.remove(index-1))) 
+	      			case _ => throw new InvalidFucntionParameterException(workMode)
 	      			
 	      }
 	      	
