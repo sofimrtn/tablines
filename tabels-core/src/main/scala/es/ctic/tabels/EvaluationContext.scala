@@ -6,7 +6,8 @@ import scala.collection.immutable.HashMap
 
 case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMap(), bindings: Bindings = Bindings()) {
 
-	def dimensions : Set[Dimension] = dimensionMap.keySet
+	val workingArea = new WorkArea
+    def dimensions : Set[Dimension] = dimensionMap.keySet
 	
 	def getValue(dimension : Dimension) : String = {
 	  if(dimensionMap.contains(dimension))
