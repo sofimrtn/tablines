@@ -123,7 +123,7 @@ object CanToRDFNode {
     implicit def seqToRDFNode = new CanToRDFNode[Seq[Resource]] {
         def toRDFNode(x : Seq[Resource]) : RDFNode = x.head
     }
-        
+    
 }
 
 trait CanFromRDFNode[a] {
@@ -141,6 +141,12 @@ object CanFromRDFNode {
     implicit def stringFromRDFNode = new CanFromRDFNode[String] {
         def fromRDFNode(rdfNode : RDFNode) : String = rdfNode match {
             case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def workAreaFromRDFNode = new CanFromRDFNode[WorkArea] {
+        def fromRDFNode(rdfNode : RDFNode) : WorkArea = rdfNode match {
+            case l : Literal => new WorkArea
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }
     }

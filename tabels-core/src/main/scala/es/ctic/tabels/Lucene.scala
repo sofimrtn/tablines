@@ -28,6 +28,7 @@ import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.vocabulary.RDFS
 import com.hp.hpl.jena.vocabulary.RDF
 import scala.collection.mutable.ListBuffer
+import collection.JavaConversions._
 
 class Lucene extends Logging{
   
@@ -68,7 +69,8 @@ class Lucene extends Logging{
       
   }
   
-  def query(q : String ,strategy:String = "first", rdfType:Option[Resource] = None) : Option[Resource]  ={
+ 
+  def query(workArea:WorkArea ,q : String ,strategy:String = "first", rdfType:Option[Resource] = None) : Resource  ={
    
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true
@@ -87,17 +89,27 @@ class Lucene extends Logging{
     	  case None => parser.parse(q)
     	}    	
 	    val hits  = isearcher.search(queryLucen,10).scoreDocs
-	    lazy val firstResult = Some(Resource(isearcher.doc(hits(0).doc).get("resource")))
+	    
+	    lazy val firstResult = Resource(isearcher.doc(hits(0).doc).get("resource"))
+	    val resourceNotDisambiguated = Resource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
+	    
+	    lazy val auxSeqResource = new ListBuffer[Resource]
+         hits.foreach{hit =>auxSeqResource+=Resource(isearcher.doc(hit.doc).get("resource"))}
+	    lazy val infoDisambiguation =  new ResourceUnDisambiguated(q.toString, hits.length, auxSeqResource,"DBPedia",strategy)
+	    
 	    return hits.length  match{
-	      case 0 => None
+	      case 0 => resourceNotDisambiguated
 	      case 1 => firstResult
 	      case _ => strategy match{
 	      			case "first" => firstResult
-	      			case "single" => None
+	      			case "single" =>workArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
+	      			  				resourceNotDisambiguated
 	      			case "very-best" => logger.info("Results very-best: " + isearcher.doc(hits(1).doc).get("resource") +" - "+ isearcher.doc(hits(1).doc).get("resource"))
 	      			  					if (hits(0).score/hits(1).score>8/5.5) 
 	      									firstResult
-	      								else None
+	      								else{ workArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
+	      									 resourceNotDisambiguated
+	      								}
 	      			case _ => throw new InvalidFucntionParameterException(strategy)
 	      			
 	      }
@@ -108,7 +120,7 @@ class Lucene extends Logging{
 	catch{ 
 		case e : org.apache.lucene.queryParser.ParseException =>
 					 logger.error ("Parsing lucene query: " + q , e)
-		return None
+		return Resource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
     }
     finally{
        isearcher.close()

@@ -137,8 +137,8 @@ trait FunctionCollection {
 
 object MiscellaneaFunctions extends FunctionCollection{
 	 val lucene = new Lucene
-     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(query: String, workMode: String) => lucene.query(query, workMode) getOrElse Resource("http://example.org/ResourceNotDisambiguated") }
-	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(query: String) => lucene.query(query) getOrElse Resource("http://example.org/ResourceNotDisambiguated") }
+     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(workarea: WorkArea,query: String, workMode: String) => lucene.query(workarea,query, workMode) }
+	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(workarea: WorkArea,query: String) => lucene.query(workarea,query) }
 
 }
 
@@ -193,7 +193,7 @@ case class RegexExpression(expression : Expression , re : Regex) extends Express
 
 }
 
-case class DBPediaDisambiguation(expression:Expression) extends Expression{
+/*case class DBPediaDisambiguation(expression:Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) ={ 
     
@@ -207,7 +207,7 @@ case class DBPediaDisambiguation(expression:Expression) extends Expression{
   }
     override def prettyPrint = "DBPedia-disambiguation(" + expression.toString + ")"
 
-}
+}*/
 
 /*
  * BOOLEAN Expressions 
