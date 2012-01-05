@@ -48,7 +48,7 @@ class Lucene extends Logging{
     def loadDocs(iwriter: IndexWriter) {
        
     val model = ModelFactory.createDefaultModel()
-    model.read("file:/C:/Users/alfonso.noriega/Documents/tabular bells/Tabels Project/tabels-core/labels_es.nt", "N-TRIPLE")
+    model.read("file:/C:/Users/alfonso.noriega/Documents/tabular bells/Tabels Project/tabels-core/labels_es_short.nt", "N-TRIPLE")
     model.read("file:/C:/Users/alfonso.noriega/Documents/tabular bells/Tabels Project/tabels-core/instance_types_es.nt", "N-TRIPLE")
     val iterator = model.listStatements(null, RDFS.label ,null)
     

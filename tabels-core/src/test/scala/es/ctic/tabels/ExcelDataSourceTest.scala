@@ -8,7 +8,7 @@ import java.io.File
 class ExcelDataAdapterIntegrationTest extends JUnitSuite {
 	
 	var dataAdapter : ExcelDataAdapter = null
-	val filename1 : String = this.getClass.getResource("/es/ctic/tabels/Test1.xls").getFile
+	val filename1 : String = this.getClass.getResource("es/ctic/tabels/Test1.xls").getFile
 	val sheet1 = "Hoja1"
 	
 	@Before def setUp {

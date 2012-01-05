@@ -5,6 +5,10 @@ import scala.util.matching.Regex
 import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
 
+import MiscellaneaFunctions._
+import NumericFunctions._
+import StringFunctions._
+
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
@@ -212,13 +216,13 @@ class TabelsParser extends JavaTokenParsers {
         func.name.ignoreCase ~> "(" ~> (expression <~ ",")~(expression <~ ",") ~ (expression <~ ")") ^^
         { case p1~p2~p3 => func.createExpression(p1, p2, p3) }
         
-    import MiscellaneaFunctions._
+  
     
     def miscellaneaFunctions : Parser[Expression] = 
       DBPediaDisambiguation3 |
       DBPediaDisambiguation1
     
-    import NumericFunctions._
+
 
     def numericFunctions : Parser[Expression] = 
     numericAdd | 
@@ -228,7 +232,7 @@ class TabelsParser extends JavaTokenParsers {
     numericIntegerDivide |
     numericMod
     
-    import StringFunctions._
+    
     
     def stringFunctions : Parser[Expression] =
     startsWith |

@@ -56,7 +56,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(iteratorStatement : IteratorStatement) = {
    
-    logger.debug("Visting Iterator statement " + iteratorStatement.dimension)
+    logger.debug("Visiting Iterator statement " + iteratorStatement.dimension)
     
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
@@ -87,7 +87,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(setDimensionStatement : SetInDimensionStatement) = {
    
-    logger.debug("Visting setInDimension statement " + setDimensionStatement.dimension)
+    logger.debug("Visiting setInDimension statement " + setDimensionStatement.dimension)
     
     val requiredDimension = requiredDimensionMap(setDimensionStatement.dimension)
     
@@ -110,7 +110,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   }
   
     override def visit(letStatement : LetStatement){
-        logger.debug("Visting let statement" + letStatement)
+        logger.debug("Visiting let statement" + letStatement)
         logger.debug("Matching with file " + dataSource.filenames + " and tab "+ evaluationContext.getValue(Dimension.sheets))
 	    var cursor : Point = evaluationContext.cursor // FIXME: may fail for LET stmts at file or sheet level
 	    val value = letStatement.expression.evaluate(evaluationContext)
