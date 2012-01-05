@@ -1,0 +1,187 @@
+body {
+    margin: 0px;
+    font-family: verdana, arial, helvetica, sans-serif;
+}
+
+#header {
+    background-color: darkgreen;
+    color: white;
+    margin: 0px;
+    padding: 1em;
+    border-bottom: 0.2em #3A3 solid;
+    background-image: url(../images/ctic-white.png);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: white;
+}
+
+p.undertitle {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    color: #ffffdd;
+}
+
+#body {
+    margin: 1em;
+}
+
+h2 {
+    color: darkgreen;
+    border-bottom: 0.2em #3A3 solid;
+    /* padding-left: 0.2em; */
+}
+
+#spreadsheet-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;    
+}
+
+#drag-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#downloadRDFIcon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.rdfDownloadLink {
+    background: url(../images/sw-rdf-blue.png) no-repeat;
+    padding-left: 85px;
+}
+
+.sparqlLink {
+    background: url(../images/sw-sparql-orange.png) no-repeat;
+    padding-left: 85px;
+}
+
+.stars {
+    color: gold;
+    font-size: 11pt;
+    text-align: right;
+}
+
+div .CodeMirror {
+    background-color: #ffffdd;
+}
+
+#step1 {
+    float: left;
+    width: 45%;
+    border: 0.2em #3A3 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
+    box-shadow: 0 0 0.4em black;
+}
+
+#step2 {
+    float: left;
+    width: 45%;
+    border: 0.2em #3A3 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 0 0 0.4em black;
+}
+
+div.stepBox h2 {
+    margin-top: 0;
+}
+
+#programDiv {
+    clear: both;
+}
+
+/* MESSAGES AND ERRORS */
+
+div.messagebox {
+    background: #f3f8fc url(../images/skin/information.png) 8px 50% no-repeat;
+    border: 1px solid #b2d1ff;
+    color: #006dba;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 30px
+}
+
+div.errorsbox {
+    background: #fff3f3 url(../images/skin/exclamation.png) 8px 50% no-repeat;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 30px;
+}
+
+/* TABLES */
+
+table {
+    border: 1px solid #ccc;
+    width: 100%
+}
+tr {
+    border: 0;
+}
+tr.odd {
+    background: #ffffcc;
+}
+tr.even {
+    background: #ccffcc;
+}
+tr:hover {
+    background: #3A3;
+    color: white;
+}
+td, th {
+    font: 11px verdana, arial, helvetica, sans-serif;
+    padding: 5px 6px;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    background: darkgreen;
+    color: white;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+th a:link, th a:visited, th a:hover {
+    color: #333;
+    display: block;
+    font-size: 10px;
+    text-decoration: none;
+    width: 100%;
+}
+th.asc a, th.desc a {
+    background-position: right;
+    background-repeat: no-repeat;
+}
+th.asc a {
+    background-image: url(../images/skin/sorted_asc.gif);
+}
+th.desc a {
+    background-image: url(../images/skin/sorted_desc.gif);
+}
+
+table.sparql a {
+    text-decoration: none;
+}
+
+.odd {
+    background: #f7f7f7;
+}
+.even {
+    background: #fff;
+}
+
+

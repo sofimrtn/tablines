@@ -1,0 +1,44 @@
+PREFIX ex: <http://example.org/ex#>
+PREFIX scv: <http://purl.org/NET/scovo#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+IN sheets "Datos"
+	MATCH [?dl1, ?dl2, ?dl3] AT A1
+	LET ?d1 = resource(?dl1, <http://example.org/ex#>)
+	LET ?d2 = resource(?dl2, <http://example.org/ex#>)
+	LET ?d3 = resource(?dl3, <http://example.org/ex#>)
+    FOR ?rowId IN rows FILTER get-row(?rowId)   /* ignore headers (row == 0) */
+        LET ?item = resource(get-row(?rowId), <http://example.org/ex#>)
+        MATCH [?dvl1,?dvl2,?dvl3,?itemValue] IN horizontal 
+		LET ?dv1 = resource(?dvl1, <http://example.org/ex#>)
+		LET ?dv2 = resource(?dvl2, <http://example.org/ex#>)
+		LET ?dv3 = resource(?dvl3, <http://example.org/ex#>)
+
+{
+    ?item a scv:Item ;
+        scv:dataset ex:myDataset ;
+        scv:dimension ?dv1 , ?dv2 , ?dv3 ;
+        rdf:value ?itemValue
+}
+
+{
+    ?dv1 a ?d1 ; skos:prefLabel ?dvl1 .
+    ?d1 rdfs:subClassOf scv:Dimension ; skos:prefLabel ?dl1
+}
+
+{
+    ?dv2 a ?d2 ; skos:prefLabel ?dvl2 .
+    ?d2 rdfs:subClassOf scv:Dimension ; skos:prefLabel ?dl2
+}
+
+{
+    ?dv3 a ?d3 ; skos:prefLabel ?dvl3 .
+    ?d3 rdfs:subClassOf scv:Dimension ; skos:prefLabel ?dl3
+}
+
+{
+	ex:myDataset a scv:Dataset ;
+		skos:prefLabel "My dataset"
+}
