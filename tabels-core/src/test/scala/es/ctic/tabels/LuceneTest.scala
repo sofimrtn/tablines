@@ -10,7 +10,7 @@ class LuceneTest extends JUnitSuite{
     val lucene = new Lucene()
     val wA = new WorkArea
      assertEquals( Resource("http://dbpedia.org/resource/Andorra"),lucene.query(wA,"Andorra","first"))
-     assertEquals( Resource("http://dbpedia.org/resource/Roman"),lucene.query(wA,"roma","first"))
+     assertEquals( Resource("http://dbpedia.org/resource/Rome"),lucene.query(wA,"roma","first"))
      assertEquals( Resource("http://dbpedia.org/resource/Madrid"),lucene.query(wA,"madrid", "first"))
      assertEquals( Resource("http://dbpedia.org/resource/Madrid"),lucene.query(wA,"madrid", "very-best"))
      assertEquals( Resource("http://example.org/ResourceNotDisambiguated?query=casa"),lucene.query(wA,"casa", "very-best"))
