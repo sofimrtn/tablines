@@ -23,6 +23,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
         mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
+        mavenRepo "http://www.scala-tools.org/repo-releases/"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
