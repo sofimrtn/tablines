@@ -7,6 +7,8 @@ class UrlMappings {
 			}
 		}
 
+        "/ws/chart"(uri:"/ws/chart.dispatch") 
+
 		"/"(view:"/index")
 		"500"(view:'/error')
 	}

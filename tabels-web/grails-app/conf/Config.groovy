@@ -46,7 +46,7 @@ grails.enable.native2ascii = true
 // whether to install the java.util.logging bridge for sl4j. Disable for AppEngine!
 grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
-grails.spring.bean.packages = []
+grails.spring.bean.packages = ['es.ctic.data.tapinos.springcontrollers']
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
