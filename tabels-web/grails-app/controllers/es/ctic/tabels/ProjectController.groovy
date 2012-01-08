@@ -14,6 +14,7 @@ import com.hp.hpl.jena.query.QueryParseException
 class ProjectController {
 
     def projectService
+    def datasetProvider
     
     def index = {
         [path: projectService.workDir,
@@ -107,6 +108,12 @@ class ProjectController {
 	def sparqlForm = {
 		log.debug("Showing SPARQL form")
 		[query: params.query != null ? params.query : "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }"]
+	}
+	
+	def tapinos = {
+        log.info("Providing the list of datasets to the view");
+        def datasets = datasetProvider.getSuggestions(null);
+	    [datasets: datasets ]
 	}
 	
 	private String getGraph() {
