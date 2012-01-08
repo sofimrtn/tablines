@@ -6,5 +6,7 @@ beans = {
     }
     
     chartGenerator(es.ctic.data.tapinos.chart.ChartGenerator, sparqlDataSource)
+
+    datasetInspector(es.ctic.data.tapinos.chart.DatasetInspector, sparqlDataSource)
     
 }
