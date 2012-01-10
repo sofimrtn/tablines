@@ -2,6 +2,7 @@
 <head>
 	<title>Visualizador genérico</title>
     <meta name="layout" content="main" />
+    <r:require modules="tapinos-js" />
 </head>
 <body>
        
