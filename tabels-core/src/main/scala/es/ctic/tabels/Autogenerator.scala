@@ -153,7 +153,7 @@ class ScovoAutogenerator extends Autogenerator with Logging {
         
         templates += Template(List(
             (dataset, RDF_TYPE, SCV("Dataset")),
-            (dataset, SCV("prefLabel"), Literal("My dataset"))
+            (dataset, SKOS("prefLabel"), Literal("My dataset"))
         ))
 
         val program = S(prefixes, Seq(inFileStmt), templates)
