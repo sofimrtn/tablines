@@ -92,7 +92,9 @@ log4j = {
 
     warn   'org.mortbay.log'
     
-    debug  'es.ctic.tabels',
+    info   'es.ctic.tabels'
+    
+    debug  'es.ctic.data',
            'grails.app.service',
            'grails.app.controller'
 
