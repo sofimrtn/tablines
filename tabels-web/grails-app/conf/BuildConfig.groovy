@@ -17,13 +17,18 @@ grails.project.dependency.resolution = {
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         mavenLocal()
+        mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
         mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
-        mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
         mavenRepo "http://www.scala-tools.org/repo-releases/"
+    }
+    plugins {
+        runtime ':tapinos-js:1.1',
+                ':uploadr:0.5.0',
+                ':highcharts:2.1.0' // indirect dependency
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
