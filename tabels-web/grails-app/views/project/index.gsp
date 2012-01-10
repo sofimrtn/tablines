@@ -50,6 +50,8 @@
 		<p class="sparqlLink">The SPARQL endpoint is <g:link action="sparqlForm">${resource(controller: 'project', action: 'sparqlForm', absolute: true)}</g:link></p>
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
+		
+		<p><g:link action="tapinos">SCOVO viewer</g:link></p>
 		    
 		</div>
 		
