@@ -65,6 +65,7 @@ class TabelsParser extends JavaTokenParsers {
 	def RESOURCE = "resource".ignoreCase
 	def GET_ROW = "get-row".ignoreCase
 	def GET_COL = "get-col".ignoreCase
+    def ADD = "add".ignoreCase
     def TRUE = "true".ignoreCase
     def FALSE = "false".ignoreCase
     def CONCAT = "concat".ignoreCase
@@ -255,7 +256,9 @@ class TabelsParser extends JavaTokenParsers {
     		{case condition ~ trueExpression ~ falseExpression => TernaryOperationExpression(condition, trueExpression, falseExpression)}|		
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
-    	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
+    	((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
+     		{case v~e => AddVariableExpression(v, e)}|
+     	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
     		{e => ConcatExpression(e)}|
     	(STRING_JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
     		{case re~qs => StringJoinExpression(re, qs)}|
