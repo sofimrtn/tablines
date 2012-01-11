@@ -101,7 +101,7 @@ class Lucene extends Logging{
   def loadIntoModel(filename : String, model : Model) {
       logger.debug("Ensuring directory " + inputDir + " exists")
       inputDir.mkdirs()
-      val file = new File(inputDir, filename.replace(File.separator, "-"))
+      val file = new File(inputDir, filename.replace("/", "-"))
       logger.debug("Checking if file " + file + " already exists")
       if (!file.exists()) {
           logger.info("Downloading and unpacking " + file + " from DBPedia")
@@ -112,7 +112,7 @@ class Lucene extends Logging{
           val buffersize = 1024 * 1024
           val buffer = new Array[Byte](buffersize)
           var n = bzIn.read(buffer, 0, buffersize);
-          // FIXME: this loop fails at the end
+         
           while (n != -1) {
             out.write(buffer, 0, n);
             System.out.print(".") // DEBUG
@@ -129,7 +129,7 @@ class Lucene extends Logging{
   }
   
  
-  def query(workArea:WorkArea ,q : String ,strategy:String = "first", rdfType:Option[NamedResource] = None) : NamedResource  ={
+    def query(ec:EvaluationContext ,q : String ,strategy:String = "first", rdfType:Option[NamedResource] = None) : NamedResource  ={
    
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true
@@ -161,12 +161,12 @@ class Lucene extends Logging{
 	      case 1 => firstResult
 	      case _ => strategy match{
 	      			case "first" => firstResult
-	      			case "single" =>workArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
+	      			case "single" =>ec.workingArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
 	      			  				resourceNotDisambiguated
 	      			case "very-best" => logger.info("Results very-best: " + isearcher.doc(hits(1).doc).get("resource") +" - "+ isearcher.doc(hits(1).doc).get("resource"))
 	      			  					if (hits(0).score/hits(1).score>8/5.5) 
 	      									firstResult
-	      								else{ workArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
+	      								else{ ec.workingArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
 	      									 resourceNotDisambiguated
 	      								}
 	      			case _ => throw new InvalidFucntionParameterException(strategy)

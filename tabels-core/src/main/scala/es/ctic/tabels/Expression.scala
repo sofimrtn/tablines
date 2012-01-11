@@ -147,8 +147,8 @@ trait FunctionCollection {
 
 object MiscellaneaFunctions extends FunctionCollection{
 	 val lucene = new Lucene
-     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(workarea: WorkArea,query: String, workMode: String) => lucene.query(workarea,query, workMode) }
-	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(workarea: WorkArea,query: String) => lucene.query(workarea,query) }
+     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String, workMode: String) => lucene.query(ec,query, workMode) }
+	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 
 }
 
