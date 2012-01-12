@@ -67,7 +67,8 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       val dimensionValues = evaluationContext.getDimensionRange(iteratorStatement.dimension, dataSource)
       val evaluationContexts = dimensionValues map (v => calculateNewEvaluationContext(iteratorStatement, v.toString))
       val pairsMap = dimensionValues zip evaluationContexts
-      val filteredPairs = pairsMap takeWhile(pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluateAsTruthValue(pair._2)) filter
+     val filteredPairs = pairsMap dropWhile(pair => !iteratorStatement.startCond.isEmpty && !iteratorStatement.startCond.get.fold(expr => expr.evaluateAsTruthValue(pair._2),pos => (pos.calculatePoint(pair._2).col == pair._2.cursor.col) && (pos.calculatePoint(pair._2).row == pair._2.cursor.row)))takeWhile
+                        (pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluateAsTruthValue(pair._2)) filter
       					(pair => iteratorStatement.filter.isEmpty ||iteratorStatement.filter.get.evaluateAsTruthValue(pair._2))
       
       for ((dimensionIterator, newEvaluationContext) <- filteredPairs){
