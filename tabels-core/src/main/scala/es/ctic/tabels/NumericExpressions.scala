@@ -18,7 +18,7 @@ object NumericFunctions extends FunctionCollection {
 
 }
 
-case class NumericAddExpression(expression: Expression, expression2: Expression) extends Expression
+/*case class NumericAddExpression(expression: Expression, expression2: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
 	  //FIX ME: Check if expressions are numbers. check if they are int or float
@@ -26,15 +26,17 @@ case class NumericAddExpression(expression: Expression, expression2: Expression)
 		  
 	override def prettyPrint = "lower case(" + expression   + ")" // FIXME
 }
+*/
 
-case class NumericSubtractExpression(expression: Expression, expression2: Expression) extends Expression
+
+/*case class NumericSubtractExpression(expression: Expression, expression2: Expression) extends Expression
 {
 	override def evaluate(evaluationContext : EvaluationContext) : RDFNode =
 	  //FIX ME: Check if expressions are numbers. check if they are int or float
 	  Literal(expression.evaluateAsFloatValue(evaluationContext) - expression2.evaluateAsFloatValue(evaluationContext), XSD_FLOAT)
 		  
 	override def prettyPrint = "lower case(" + expression   + ")" // FIXME
-}
+}*/
 
 case class NumericMultiplyExpression(expression: Expression, expression2: Expression) extends Expression
 {
