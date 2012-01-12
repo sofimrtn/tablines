@@ -163,10 +163,5 @@ object CanFromRDFNode {
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }
     }
-    implicit def workAreaFromRDFNode = new CanFromRDFNode[WorkArea] {
-        def fromRDFNode(rdfNode : RDFNode) : WorkArea = rdfNode match {
-            case l : Literal => new WorkArea
-            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
-        }
-    }
+   
 }
