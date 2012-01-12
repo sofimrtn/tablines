@@ -244,7 +244,8 @@ class TabelsParser extends JavaTokenParsers {
     
     def stringFunctions : Parser[Expression] =
     startsWith |
-    upperCase
+    upperCase |
+    compare
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 

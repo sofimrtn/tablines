@@ -10,6 +10,12 @@ object StringFunctions extends FunctionCollection {
 
     val startsWith = "starts-with" isDefinedBy { (x : String, y : String) => x.startsWith(y) }
     val upperCase = "upper-case" isDefinedBy { (x:String) => x.toUpperCase}
+    val compare = "compare" isDefinedBy { (x:String, y:String) => x.compareToIgnoreCase(y) match{
+    																  case num if (num < 0) => -1
+    																  case num if (num > 0) => 1
+																      case _ => 0
+    																}
+										}
 
 }
 
