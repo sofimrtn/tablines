@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Tabels project</title>
+		<r:require modules="uploadr"/>
         <meta name="layout" content="main" />
 	    <script type="text/javascript">
 			$(document).ready(function() {
