@@ -194,7 +194,7 @@ class TabelsParser extends JavaTokenParsers {
       ("""\"[^"]*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
     
     def startCondition : Parser[Option[Either[Expression,Position]]] =
-      opt((STARTS ~> expression)^^{Left(_)}|(STARTS ~> position)^^{Right(_)})
+      opt(STARTS ~>((WHEN ~> expression)^^{Left(_)}|(AT ~> position)^^{Right(_)}))
     
     def stopCondition : Parser[Option[Expression]] =
       opt((WHILE ~> expression)|(UNTIL ~> expression)^^{case e =>NotExpression(expression = e) })
