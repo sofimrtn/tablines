@@ -233,7 +233,8 @@ class TabelsParser extends JavaTokenParsers {
     
     def miscellaneaFunctions : Parser[Expression] = 
       DBPediaDisambiguation3 |
-      DBPediaDisambiguation1 
+      DBPediaDisambiguation1 |
+      setLangTag
     
     import NumericFunctions._
 
