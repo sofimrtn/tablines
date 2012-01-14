@@ -27,8 +27,7 @@ grails.project.dependency.resolution = {
     }
     plugins {
         runtime ':tapinos-js:1.1',
-                ':uploadr:0.5.0',
-                ':highcharts:2.1.0' // indirect dependency
+                ':uploadr:0.5.0'
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.

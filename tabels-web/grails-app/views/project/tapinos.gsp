@@ -2,11 +2,11 @@
 <head>
 	<title>Visualizador genérico</title>
     <meta name="layout" content="main" />
-    <r:require module="tapinos-js" />
+    <r:require modules="tapinos-js,fancybox,protovis,highcharts,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
 </head>
 <body>
        
-	<script type="text/javascript">
+	<r:script>
 	
     function getCurrentDataset() {
       return $("#dataset > option:selected").val();
@@ -63,15 +63,15 @@
           return getCurrentDataset().toSource();
       }
 
-      var linkBuilder = new TapinosPermLinkBuilder({
-                'tapinosCombos': function () {
-                    return $("#dimensions").tapinosCombosGetState()[0].toSource();
-                  },
-                'dataset': function() {
-                    return getCurrentDataset().toSource();
-                }});
+      //var linkBuilder = new TapinosPermLinkBuilder({
+      //            'tapinosCombos': function () {
+      //                return $("#dimensions").tapinosCombosGetState()[0].toSource();
+      //              },
+      //            'dataset': function() {
+      //                return getCurrentDataset().toSource();
+      //            }});
     });
-	</script>
+	</r:script>
             
 	<h1>Visualizador genérico de datos</h1>
 	
