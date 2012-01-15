@@ -67,8 +67,8 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       val dimensionValues = evaluationContext.getDimensionRange(iteratorStatement.dimension, dataSource)
       val evaluationContexts = dimensionValues map (v => calculateNewEvaluationContext(iteratorStatement, v.toString))
       val pairsMap = dimensionValues zip evaluationContexts
-      val filteredPairs = pairsMap takeWhile(pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluate(pair._2).asBoolean.truthValue) filter
-      					(pair => iteratorStatement.filter.isEmpty ||iteratorStatement.filter.get.evaluate(pair._2).asBoolean.truthValue)
+      val filteredPairs = pairsMap takeWhile(pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluateAsTruthValue(pair._2)) filter
+      					(pair => iteratorStatement.filter.isEmpty ||iteratorStatement.filter.get.evaluateAsTruthValue(pair._2))
       
       for ((dimensionIterator, newEvaluationContext) <- filteredPairs){
     	logger.debug("Iteration through " + iteratorStatement.dimension+" in position "+dimensionIterator )
@@ -148,7 +148,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	val event = Event(newEvaluationContext.bindings, Set(matchStatement.tuple.variables:_*))
 		  		  					
 		  	 
-			if (matchStatement.filter map (_.evaluate(newEvaluationContext).asBoolean.truthValue) getOrElse true) {
+			if (matchStatement.filter map (_.evaluateAsTruthValue(newEvaluationContext)) getOrElse true) {
 		  	  events += event
 		  	  matchStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 		  	}

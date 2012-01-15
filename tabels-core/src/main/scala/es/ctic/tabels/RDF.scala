@@ -2,10 +2,6 @@ package es.ctic.tabels
 
 abstract class RDFNode {
     
-	def asBoolean : Literal
-	def asString : Literal
-	def +(suffix : String) : RDFNode  // FIXME: this method should not exist here
-	
 }
 
 case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
@@ -14,25 +10,31 @@ case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String
 	
 	def truthValue : Boolean = Set("true", "1") contains this.asBoolean.value.toString
 
-	override def +(suffix : String) : Literal = Literal(this.value + suffix)
-
     /**
      * This method calculates the effective boolean value of the
      * literal by applying the rules of fn:boolean, see
      * http://www.w3.org/TR/rdf-sparql-query/#ebv
      */
-	override def asBoolean : Literal = rdfType match {
+	def asBoolean : Literal = rdfType match {
 	    case XSD_BOOLEAN => this
 	    case XSD_STRING =>  if (value.toString.length > 0) LITERAL_TRUE else LITERAL_FALSE
 	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => if (value.toString.toDouble == 0.0) LITERAL_FALSE else LITERAL_TRUE
 	}
 	
-	override def asString : Literal = Literal(value)
+	def asString : Literal = Literal(value)
+	
 	def asInt : Literal = rdfType match {
 	    case XSD_INT => this
 	    case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toInt, XSD_INT)
 	    case XSD_STRING => Literal(value.toString.toInt, XSD_INT)
 	    case _ => throw new TypeConversionException(this, XSD_INT)
+	}
+	
+	def asFloat : Literal = rdfType match {
+	    case XSD_FLOAT => this
+	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT)
+	    case XSD_STRING => Literal(value.toString.toFloat, XSD_FLOAT)
+	    case _ => throw new TypeConversionException(this, XSD_FLOAT)
 	}
 	
 }
@@ -60,9 +62,8 @@ case class Resource(uri : String) extends RDFNode {
         if (this == RDF_TYPE) Some("a")
         else prefixes find (uri startsWith _._2.uri) map { case (prefix, ns) => uri.replace(ns.uri, prefix + ":") }
     
-	override def asBoolean : Literal = LITERAL_TRUE
-	override def asString : Literal = Literal(uri)
-	override def +(suffix : String) : Resource = Resource(this.uri + suffix)
+	def +(suffix : String) : Resource = Resource(this.uri + suffix)
+
 }
 
 object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
