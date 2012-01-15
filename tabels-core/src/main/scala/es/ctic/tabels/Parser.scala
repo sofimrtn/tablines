@@ -139,8 +139,10 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ident ^^
 	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
+	    
+	def blankNode : Parser[BlankNode] = "[]" ^^ { _ => BlankNode() }
 		
-	def rdfNode : Parser[RDFNode] = iriRef | curieRef | rdfLiteral
+	def rdfNode : Parser[RDFNode] = iriRef | curieRef | blankNode | rdfLiteral
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	

@@ -93,6 +93,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail(curieRef,  ":bar") // FIXME: default namespace should be allowed
 	}
 	
+	@Test def parseBlankNode() {
+	    assertParse(blankNode, "[]", BlankNode())
+	    assertFail(blankNode, "")
+	}
+	
 	@Test def parseEitherRDFNodeOrVariable() {
 		assertParse(eitherRDFNodeOrVariable, "\"hello\"", Left(Literal("hello")))
 		assertParse(eitherRDFNodeOrVariable, "<http://example.org/>", Left(NamedResource("http://example.org/")))
@@ -244,9 +249,9 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 
 	@Test def parseTemplate() {
-		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c }",
+		assertParse(template, "{ ?x ?y ?z . [] ?b [] }",
 			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
-			              TripleTemplate(Right(Variable("?a")), Right(Variable("?b")), Right(Variable("?c"))))))
+			              TripleTemplate(Left(BlankNode()), Right(Variable("?b")), Left(BlankNode())))))
 		assertFail (template, "")
 		assertFail (template, "{ }")
 	}
