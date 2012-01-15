@@ -5,3 +5,4 @@ tabels-core/target
 project/boot
 target
 .scala_dependencies
+tabels-web/target-eclipse
