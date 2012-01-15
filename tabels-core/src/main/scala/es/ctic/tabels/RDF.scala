@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-abstract class RDFNode {
+sealed abstract class RDFNode {
     
 }
 
@@ -52,31 +52,41 @@ object Literal {
 
 }
 
-case class Resource(uri : String) extends RDFNode {
+abstract sealed class Resource() extends RDFNode {
+    
+}
+
+case class NamedResource(uri : String) extends Resource {
     
     override def toString() = "<" + uri + ">"
     
-    def toAbbrString(prefixes : Seq[(String,Resource)]) : String = toCurie(prefixes) getOrElse toString()
+    def toAbbrString(prefixes : Seq[(String,NamedResource)]) : String = toCurie(prefixes) getOrElse toString()
     
-    def toCurie(prefixes : Seq[(String,Resource)]) : Option[String] =
+    def toCurie(prefixes : Seq[(String,NamedResource)]) : Option[String] =
         if (this == RDF_TYPE) Some("a")
         else prefixes find (uri startsWith _._2.uri) map { case (prefix, ns) => uri.replace(ns.uri, prefix + ":") }
     
-	def +(suffix : String) : Resource = Resource(this.uri + suffix)
+	def +(suffix : String) : NamedResource = NamedResource(this.uri + suffix)
 
 }
 
-object RDF_TYPE extends Resource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
-object XSD_STRING extends Resource("http://www.w3.org/2001/XMLSchema#string")
-object XSD_BOOLEAN extends Resource("http://www.w3.org/2001/XMLSchema#boolean")
-object XSD_INT extends Resource("http://www.w3.org/2001/XMLSchema#int")
-object XSD_DOUBLE extends Resource("http://www.w3.org/2001/XMLSchema#double")
-object XSD_FLOAT extends Resource("http://www.w3.org/2001/XMLSchema#float")
-object XSD_DECIMAL extends Resource("http://www.w3.org/2001/XMLSchema#decimal")
-object XSD_DATE extends Resource("http://www.w3.org/2001/XMLSchema#date")
+object RDF_TYPE extends NamedResource("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
+object XSD_STRING extends NamedResource("http://www.w3.org/2001/XMLSchema#string")
+object XSD_BOOLEAN extends NamedResource("http://www.w3.org/2001/XMLSchema#boolean")
+object XSD_INT extends NamedResource("http://www.w3.org/2001/XMLSchema#int")
+object XSD_DOUBLE extends NamedResource("http://www.w3.org/2001/XMLSchema#double")
+object XSD_FLOAT extends NamedResource("http://www.w3.org/2001/XMLSchema#float")
+object XSD_DECIMAL extends NamedResource("http://www.w3.org/2001/XMLSchema#decimal")
+object XSD_DATE extends NamedResource("http://www.w3.org/2001/XMLSchema#date")
 object LITERAL_TRUE extends Literal("true", XSD_BOOLEAN)
 object LITERAL_FALSE extends Literal("false", XSD_BOOLEAN)
 
+
+case class BlankNode() extends Resource {
+    
+    override def toString() = "[]"
+    
+}
 
 // FIXME: literals can not be properties
 case class Statement(subject: RDFNode, property: RDFNode, obj:RDFNode){
@@ -85,7 +95,7 @@ case class Statement(subject: RDFNode, property: RDFNode, obj:RDFNode){
 
 case class Namespace(ns : String) {
     
-    def apply(localName : String = "") = Resource(ns + localName)
+    def apply(localName : String = "") = NamedResource(ns + localName)
     override def toString() : String = ns
     
 }
@@ -103,6 +113,7 @@ object CommonNamespaces {
 
 // type classes
 
+// the class of the types that can be transformed to an RDF node
 trait CanToRDFNode[a] {
     def toRDFNode(x : a) : RDFNode
 }
@@ -118,8 +129,11 @@ object CanToRDFNode {
     implicit def booleanToRDFNode = new CanToRDFNode[Boolean] {
         def toRDFNode(x : Boolean) : RDFNode = x
     }
-    implicit def resourceToRDFNode = new CanToRDFNode[Resource] {
-        def toRDFNode(x : Resource) : RDFNode = x
+    implicit def namedResourceToRDFNode = new CanToRDFNode[NamedResource] {
+        def toRDFNode(x : NamedResource) : RDFNode = x
+    }
+    implicit def blankNodeToRDFNode = new CanToRDFNode[BlankNode] {
+        def toRDFNode(x : BlankNode) : RDFNode = x
     }
     implicit def seqToRDFNode = new CanToRDFNode[Seq[Resource]] {
         def toRDFNode(x : Seq[Resource]) : RDFNode = x.head
@@ -127,6 +141,7 @@ object CanToRDFNode {
     
 }
 
+// the class of the types that can be obtained from an RDF node
 trait CanFromRDFNode[a] {
     def fromRDFNode(rdfNode : RDFNode) : a
 }

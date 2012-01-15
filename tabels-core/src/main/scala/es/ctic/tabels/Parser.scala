@@ -14,7 +14,7 @@ import java.io.File
 
 class TabelsParser extends JavaTokenParsers {
 
-	val prefixes = mutable.HashMap.empty[String, Resource]
+	val prefixes = mutable.HashMap.empty[String, NamedResource]
 	
 	// regular expression from http://stackoverflow.com/questions/5952720/ignoring-c-style-comments-in-a-scala-combinator-parser
     protected override val whiteSpace = """(\s|//.*|(?m)/\*(\*(?!/)|[^*])*\*/)+""".r
@@ -135,9 +135,9 @@ class TabelsParser extends JavaTokenParsers {
 
 	def path : Parser[String] =  "\"" ~> """([^\"]+)""".r <~"\""  
 	
-	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
+	def iriRef : Parser[NamedResource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ NamedResource
 	
-	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^
+	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ident ^^
 	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
 		
 	def rdfNode : Parser[RDFNode] = iriRef | curieRef | rdfLiteral
@@ -149,7 +149,7 @@ class TabelsParser extends JavaTokenParsers {
 	def start : Parser[S] = rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
 	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
 	
-	def prefixDecl : Parser[(String,Resource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
+	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)
 	                        (prefix -> ns)
 	    }

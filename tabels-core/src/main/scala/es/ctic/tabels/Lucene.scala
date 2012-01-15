@@ -129,12 +129,12 @@ class Lucene extends Logging{
   }
   
  
-  def query(workArea:WorkArea ,q : String ,strategy:String = "first", rdfType:Option[Resource] = None) : Resource  ={
+  def query(workArea:WorkArea ,q : String ,strategy:String = "first", rdfType:Option[NamedResource] = None) : NamedResource  ={
    
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true
     // Parse a simple query that searches for "text":
-    var buffList = new ListBuffer[Resource]
+    var buffList = new ListBuffer[NamedResource]
     val  aWrapper = new PerFieldAnalyzerWrapper(analyzer)
     		aWrapper.addAnalyzer("type", new org.apache.lucene.analysis.WhitespaceAnalyzer(Version.LUCENE_33))
  
@@ -149,11 +149,11 @@ class Lucene extends Logging{
     	}    	
 	    val hits  = isearcher.search(queryLucen,10).scoreDocs
 	    
-	    lazy val firstResult = Resource(isearcher.doc(hits(0).doc).get("resource"))
-	    val resourceNotDisambiguated = Resource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
+	    lazy val firstResult = NamedResource(isearcher.doc(hits(0).doc).get("resource"))
+	    val resourceNotDisambiguated = NamedResource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
 	    
-	    lazy val auxSeqResource = new ListBuffer[Resource]
-         hits.foreach{hit =>auxSeqResource+=Resource(isearcher.doc(hit.doc).get("resource"))}
+	    lazy val auxSeqResource = new ListBuffer[NamedResource]
+         hits.foreach{hit =>auxSeqResource+=NamedResource(isearcher.doc(hit.doc).get("resource"))}
 	    lazy val infoDisambiguation =  new ResourceUnDisambiguated(q.toString, hits.length, auxSeqResource,"DBPedia",strategy)
 	    
 	    return hits.length  match{
@@ -179,7 +179,7 @@ class Lucene extends Logging{
 	catch{ 
 		case e : org.apache.lucene.queryParser.ParseException =>
 					 logger.error ("Parsing lucene query: " + q , e)
-		return Resource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
+		return NamedResource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
     }
     finally{
        isearcher.close()

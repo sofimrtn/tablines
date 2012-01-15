@@ -10,9 +10,9 @@ abstract class ASTNode {
 
 }
 
-case class S (prefixes : Seq[(String,Resource)] = List(), statementList: Seq[TabelsStatement] = List(), templateList : Seq[Template] = List()) extends ASTNode {
+case class S (prefixes : Seq[(String,NamedResource)] = List(), statementList: Seq[TabelsStatement] = List(), templateList : Seq[Template] = List()) extends ASTNode {
 
-    val prefixesAsMap : Map[String, Resource] = Map() ++ prefixes
+    val prefixesAsMap : Map[String, NamedResource] = Map() ++ prefixes
     
     override def accept(vis : Visitor) = vis.visit(this)
     

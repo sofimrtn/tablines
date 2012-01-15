@@ -6,7 +6,7 @@ case class Template(triples : Seq[TripleTemplate] = Seq()) extends Logging {
     
     override def toString() = toAbbrString(Seq())
     
-    def toAbbrString(prefixes : Seq[(String,Resource)]) =
+    def toAbbrString(prefixes : Seq[(String,NamedResource)]) =
         "{\n" + (triples map ("    " + _.toAbbrString(prefixes)) mkString " .\n") + "\n}\n"
 	
 	val variables : Set[Variable] = triples.toSet[TripleTemplate] flatMap (_.variables)
@@ -22,15 +22,16 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
     
     override def toString() = toAbbrString(Seq())
     
-    def toAbbrString(prefixes : Seq[(String,Resource)]) : String =
+    def toAbbrString(prefixes : Seq[(String,NamedResource)]) : String =
         rdfNodeOrVariableToString(s, prefixes) + " " +
         rdfNodeOrVariableToString(p, prefixes) + " " +
         rdfNodeOrVariableToString(o, prefixes)
         
     def rdfNodeOrVariableToString(rdfNodeOrVariable : Either[RDFNode, Variable],
-                                  prefixes : Seq[(String,Resource)]) : String =
+                                  prefixes : Seq[(String,NamedResource)]) : String =
         rdfNodeOrVariable match {
-            case Left(resource : Resource) => resource.toAbbrString(prefixes)
+            case Left(resource : NamedResource) => resource.toAbbrString(prefixes)
+            case Left(bnode : BlankNode) => bnode.toString
             case Left(literal : Literal) => literal.toString
             case Right(variable) => variable.toString
         }
