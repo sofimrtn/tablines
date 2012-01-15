@@ -43,9 +43,9 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
     }
   }
   
-  def createBlankNode(blankNode : BlankNode) : com.hp.hpl.jena.rdf.model.Resource = model.createResource(new AnonId(blankNode.id match {
-      case Left(internalId) => internalId
-      case Right(n) => "_" + n
-    }))
+  def createBlankNode(blankNode : BlankNode) : com.hp.hpl.jena.rdf.model.Resource = blankNode.id match {
+      case Left(internalId) => model.createResource(new AnonId(internalId))
+      case Right(n) => model.createResource()
+    }
 
 }
