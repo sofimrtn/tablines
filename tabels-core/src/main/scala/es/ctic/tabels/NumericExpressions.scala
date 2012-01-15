@@ -152,7 +152,7 @@ case class IntExpression(expression : Expression, separator :Option[String] = No
   override def evaluate(evaluationContext:EvaluationContext) = {
     val evaluatedExpression =  expression.evaluate(evaluationContext).asString
     separator match{
-      case Some(sep) => println("el separador es " + sep)
+      case Some(sep) =>
         try  Literal(Integer.parseInt(evaluatedExpression.value.toString.replaceAllLiterally(sep, ""), 10), XSD_INT)
       case None =>  try  Literal(Integer.parseInt(evaluatedExpression.value.toString, 10), XSD_INT)
     }
