@@ -342,7 +342,11 @@ class TabelsParser extends JavaTokenParsers {
 
 	def triplesSameSubjectTemplate : Parser[Seq[TripleTemplate]] =
 	  eitherRDFNodeOrVariable~predicateObjectsTemplate ^^
-	  { case subj~predObjs => for ((pred,obj) <- predObjs) yield TripleTemplate(subj,pred,obj) }
+	  { case subj~predObjs => for ((pred,obj) <- predObjs) yield TripleTemplate(subj,pred,obj) } |
+	  "[" ~> predicateObjectsTemplate <~ "]" ^^
+	  { case predObjs => 
+	      val bn = createFreshBlankNode()
+	      for ((pred,obj) <- predObjs) yield TripleTemplate(Left(bn),pred,obj) }
 	
 	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten)) }

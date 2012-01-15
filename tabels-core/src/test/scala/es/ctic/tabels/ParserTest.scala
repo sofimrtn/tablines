@@ -237,13 +237,20 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	@Test def parseTriplesSameSubjectTemplate() {
 		assertParse(triplesSameSubjectTemplate, "?x ?y ?z",
 			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z")))))
+		assertParse(triplesSameSubjectTemplate, "[ ?y ?z ]",
+			List(TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?y")), Right(Variable("?z")))))
 		assertParse(triplesSameSubjectTemplate, "?x <http://example.org/> \"hello\"",
 			List(TripleTemplate(Right(Variable("?x")), Left(NamedResource("http://example.org/")), Left(Literal("hello")))))
 		assertParse(triplesSameSubjectTemplate, "?x ?y ?z ; ?a ?b",
 			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			     TripleTemplate(Right(Variable("?x")), Right(Variable("?a")), Right(Variable("?b")))))
+ 		assertParse(triplesSameSubjectTemplate, "[ ?y ?z ; ?a ?b ]",
+ 			List(TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?y")), Right(Variable("?z"))),
+ 			     TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?a")), Right(Variable("?b")))))
 		assertFail (triplesSameSubjectTemplate, "")
+		assertFail (triplesSameSubjectTemplate, "[]")
 		assertFail (triplesSameSubjectTemplate, "?x")
+		assertFail (triplesSameSubjectTemplate, "[ ?x ]")
 		assertFail (triplesSameSubjectTemplate, "?x ?y")
 		assertFail (triplesSameSubjectTemplate, "?x ?y ?a ?b")
 		assertFail (triplesSameSubjectTemplate, "?x . ")
