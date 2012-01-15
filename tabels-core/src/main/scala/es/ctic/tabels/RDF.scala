@@ -4,7 +4,7 @@ sealed abstract class RDFNode {
     
 }
 
-case class Literal(value : Any, rdfType: Resource = XSD_STRING, langTag : String = "") extends RDFNode {
+case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : String = "") extends RDFNode {
     
     override def toString() = "\"" + value.toString + "\"" + (if (langTag != "") ("@" + langTag) else "") + (if (rdfType != XSD_STRING) ("^^" + rdfType) else "")
 	
@@ -82,9 +82,12 @@ object LITERAL_TRUE extends Literal("true", XSD_BOOLEAN)
 object LITERAL_FALSE extends Literal("false", XSD_BOOLEAN)
 
 
-case class BlankNode() extends Resource {
+case class BlankNode(id : Either[String,Int]) extends Resource {
     
-    override def toString() = "[]"
+    override def toString() = id match {
+        case Left(x) => "_:" + x
+        case Right(n) => "[]"
+    }
     
 }
 

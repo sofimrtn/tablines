@@ -14,7 +14,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
   def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
     s match {
     	case NamedResource(uri) => model.createResource(uri)
-    	case BlankNode() => model.createResource()
+    	case bn : BlankNode => createBlankNode(bn)
     	case Literal(value, _, _) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the subject of a triple" )
     						
     }
@@ -23,7 +23,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
   def createProperty(s : RDFNode) : com.hp.hpl.jena.rdf.model.Property = {
     s match {
     	case NamedResource(uri) => model.createProperty(uri) 
-    	case BlankNode() => throw new TemplateInstantiationException("Unable to convert blank node to RDF named resource in the predicate of a triple")
+    	case BlankNode(_) => throw new TemplateInstantiationException("Unable to convert blank node to RDF named resource in the predicate of a triple")
     	case Literal(value, _, _) => throw new TemplateInstantiationException("Unable to convert literal "+value+ " to RDF resource in the predicate of a triple" )
     }
   }
@@ -31,7 +31,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
   def createObject(s : RDFNode) : com.hp.hpl.jena.rdf.model.RDFNode = {
     s match {
     	case NamedResource(uri) => model.createResource(uri) 
-    	case BlankNode() => model.createResource()
+    	case bn : BlankNode => createBlankNode(bn)
     	case Literal(value, XSD_STRING, "") => model.createLiteral(value.toString) // untyped
     	case Literal(value, XSD_STRING, langTag) => model.createLiteral(value.toString, langTag) // with language tag
     	case Literal(value, XSD_BOOLEAN, _) => model.createTypedLiteral(value, XSDDatatype.XSDboolean)
@@ -42,5 +42,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
     	case Literal(value, XSD_DATE, _) => model.createTypedLiteral(value, XSDDatatype.XSDdate)
     }
   }
+  
+  def createBlankNode(blankNode : BlankNode) : com.hp.hpl.jena.rdf.model.Resource = model.createResource()
 
 }

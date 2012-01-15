@@ -15,6 +15,13 @@ import java.io.File
 class TabelsParser extends JavaTokenParsers {
 
 	val prefixes = mutable.HashMap.empty[String, NamedResource]
+	var blankNodeId : Int = 0
+	
+	def createFreshBlankNode() : BlankNode = {
+	    val blankNode = BlankNode(Right(blankNodeId))
+	    blankNodeId += 1
+	    return blankNode
+    }
 	
 	// regular expression from http://stackoverflow.com/questions/5952720/ignoring-c-style-comments-in-a-scala-combinator-parser
     protected override val whiteSpace = """(\s|//.*|(?m)/\*(\*(?!/)|[^*])*\*/)+""".r
@@ -140,7 +147,9 @@ class TabelsParser extends JavaTokenParsers {
 	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ident ^^
 	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
 	    
-	def blankNode : Parser[BlankNode] = "[]" ^^ { _ => BlankNode() }
+	def blankNode : Parser[BlankNode] =
+	    "[]" ^^ { _ => createFreshBlankNode() } |
+	    "_" ~> ":" ~> ident ^^ { internalId => BlankNode(Left(internalId)) }
 		
 	def rdfNode : Parser[RDFNode] = iriRef | curieRef | blankNode | rdfLiteral
 	

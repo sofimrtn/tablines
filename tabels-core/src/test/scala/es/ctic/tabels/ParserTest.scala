@@ -94,7 +94,9 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parseBlankNode() {
-	    assertParse(blankNode, "[]", BlankNode())
+	    assertParse(blankNode, "[]", BlankNode(Right(0)))
+	    assertParse(blankNode, "[]", BlankNode(Right(1))) // different id
+	    assertParse(blankNode, "_:foo2", BlankNode(Left("foo2")))
 	    assertFail(blankNode, "")
 	}
 	
@@ -251,7 +253,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	@Test def parseTemplate() {
 		assertParse(template, "{ ?x ?y ?z . [] ?b [] }",
 			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
-			              TripleTemplate(Left(BlankNode()), Right(Variable("?b")), Left(BlankNode())))))
+			              TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?b")), Left(BlankNode(Right(1)))))))
 		assertFail (template, "")
 		assertFail (template, "{ }")
 	}
