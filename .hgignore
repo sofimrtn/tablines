@@ -6,3 +6,4 @@ project/boot
 target
 .scala_dependencies
 tabels-web/target-eclipse
+tabels-web/.settings
