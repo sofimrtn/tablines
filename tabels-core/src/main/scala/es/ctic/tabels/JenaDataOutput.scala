@@ -1,5 +1,5 @@
 package es.ctic.tabels
-import com.hp.hpl.jena.rdf.model.{Model,ModelFactory}
+import com.hp.hpl.jena.rdf.model.{Model,ModelFactory,AnonId}
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 
 class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataOutput {
@@ -43,6 +43,9 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
     }
   }
   
-  def createBlankNode(blankNode : BlankNode) : com.hp.hpl.jena.rdf.model.Resource = model.createResource()
+  def createBlankNode(blankNode : BlankNode) : com.hp.hpl.jena.rdf.model.Resource = model.createResource(new AnonId(blankNode.id match {
+      case Left(internalId) => internalId
+      case Right(n) => "_" + n
+    }))
 
 }

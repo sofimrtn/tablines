@@ -42,6 +42,12 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 		case Right(variable) => Some(variable)
 	}
 	
+	val blankNodes : Set[BlankNode] = Set(s,o) flatMap {
+	    case Left(blankNode : BlankNode) => Some(blankNode)
+	    case Left(_) => None
+	    case Right(_) => None
+	}
+	
 	def instantiate(bindingList : Bindings, dataOutput: DataOutput) = {
 	  dataOutput.generateOutput(new Statement(substitute(s, bindingList),
 	                                          substitute(p, bindingList),
