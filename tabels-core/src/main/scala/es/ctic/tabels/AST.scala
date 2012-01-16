@@ -58,7 +58,7 @@ abstract class DimensionStatement extends TabelsStatement {
 }
 
 case class IteratorStatement(override val dimension : Dimension, filter: Option[Expression] = None, 
-		pos : Option[Position] = None, stopCond : Option[Expression] = None, override val variable: Option[Variable] = None,
+		pos : Option[Position] = None, startCond : Option[Either[Expression,Position]] = None, stopCond : Option[Expression] = None, override val variable: Option[Variable] = None,
 		nestedStatement: Option[TabelsStatement] = None ) extends DimensionStatement {
   
   override def accept(vis : Visitor) = vis.visit(this)
