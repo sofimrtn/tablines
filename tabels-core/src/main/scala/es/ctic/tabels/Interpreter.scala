@@ -22,7 +22,6 @@ class Interpreter extends Logging {
      
     logger.debug("List of events: " + events)
    
-    // FIXME: do not instantiate ALL templates for EACH event, be selective
     for ( t <- root.templateList ; e <- events ) {
 		logger.debug("Considering instantiation of template " + t + " for event " + e)
 		if ( t.variables subsetOf e.bindings.variables ) {
