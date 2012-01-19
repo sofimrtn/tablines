@@ -1,67 +1,25 @@
-prefix steel: <http://ontorule-project.eu/resources/steel#>
+PREFIX ex: <http://example.org/ex#>
+
+IN files "C:\Users\alfonso.noriega\Documents\tabular bells\Tabels Project\tabels-core\IMDb Top 250.html"
+    IN sheets "0"
+        FOR ?rowId IN rows FILTER get-row(?rowId)
+            LET ?resource = resource(?rowId,<http://example.org/ex#>)
+            MATCH [?rank,?rating,?title,?votes] IN horizontal 
+{
+    ?resource a ex:SomeResource .
+    ?resource ex:rank ?rank .
+    ?resource ex:rating ?rating .
+    ?resource ex:title ?title .
+    ?resource ex:votes ?votes
+}
 
 {
-in files "PruebaSencilla.xls"
-    For ?idCoil in rows filter matches(?idCoil , "[0-9]*" ) until matches(?idCoil, "\s" )
-        match [?idCoil,?codeOutput,?steelGrade,?productType,?minWidth,?maxWidth,
-               ?minThick,?maxThick,?minZincThick,?maxZincThick,?minWeight,?maxWeight,
-               ?targetElongation, ?minElongation, ?maxElongation, ?minYieldStr, ?maxYieldStr,
-               ?minEndTemp, ?maxEndTemp]
-        let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
-        let ?orderAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#order>)
-        let ?steelGradeAsResource = RESOURCE(?steelGrade, <http://ontorule-project.eu/resources/steel#>)
-        let ?asignacion = ?codeOutput
-        match ?prueba at right of ?idCoil
+    ex:SomeResource a <http://www.w3.org/2000/01/rdf-schema#Class>
 }
 
 {
-in files "points.xls"
-    For ?idCoil in rows filter matches(?idCoil , "[0-9]*" ) until matches(?idCoil, "\s")
-        match [?idCoil,?xPos,?yieldStrength,?flattenerElongation,?skinPassElongation,
-               ?tractionLimit,?width,?weight,?thickness,?coatingBottom,
-               ?coatingTop,?endHeatingTemp]
-        let ?idCoilAsResource = RESOURCE(?idCoil, <http://ontorule-project.eu/resources/steeldata#coil>)
-        let ?idSamplep= ADD(?idCoil,"_") 
-        let ?idSamplePoint= ADD(?idSamplep, ?xPos)
-        let ?idSamplePointAsResource = RESOURCE(?idSamplePoint, <http://ontorule-project.eu/resources/steel#sp>)
-}
-
-{ 
-steel:steelGrade steel:steelGrade ?prueba .
-             
-?idCoilAsResource a steel:Coil ;
-    steel:order ?orderAsResource ;
-    steel:steelGrade ?steelGradeAsResource ;
-    steel:codeOutput ?codeOutput ;
-    steel:identifier ?idCoil .
-             
-?orderAsResource a steel:Order;
-    steel:widthMin ?minWidth ;
-    steel:widthMax ?maxWidth ;
-    steel:originalCoilThicknessMin ?minThick ;
-    steel:originalCoilThicknessMax ?maxThick ;
-    steel:zincThicknessMin ?minZincThick ;
-    steel:zincThicknessMax ?maxZincThick ;
-    steel:weightMin ?minWeight ;
-    steel:weightMax ?maxWeight ;
-    steel:skinPassElongationMin ?minElongation ;
-    steel:skinPassElongationMax ?maxElongation ;
-    steel:yieldStrengthMin ?minYieldStr ;
-    steel:yieldStrengthMax ?maxYieldStr ;
-    steel:temperatureMin ?minEndTemp ;
-    steel:temperatureMax ?maxEndTemp        
-}
-             
-{ 
-?idSamplePointAsResource a steel:SamplingPoint ;
-    steel:flattenerElongation ?flattenerElongation;
-    steel:topCoatingThickness ?coatingTop;
-    steel:bottomCoatingThickness ?coatingBottom;
-    steel:originalCoilThickness ?thickness;
-    steel:yieldStrength ?yieldStrength;
-    steel:skinPassElongation ?skinPassElongation;
-    steel:inCoil ?idCoilAsResource;
-    steel:lengthScope ?tractionLimit;
-    steel:temperature ?endHeatingTemp;
-    steel:position ?xPos 
+    ex:rank a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+    ex:rating a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+    ex:title a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+    ex:votes a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
 }

@@ -5,6 +5,10 @@ import scala.util.matching.Regex
 import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
 
+import MiscellaneaFunctions._
+import NumericFunctions._
+import StringFunctions._
+
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
@@ -14,7 +18,14 @@ import java.io.File
 
 class TabelsParser extends JavaTokenParsers {
 
-	val prefixes = mutable.HashMap.empty[String, Resource]
+	val prefixes = mutable.HashMap.empty[String, NamedResource]
+	var blankNodeId : Int = 0
+	
+	def createFreshBlankNode() : BlankNode = {
+	    val blankNode = BlankNode(Right(blankNodeId))
+	    blankNodeId += 1
+	    return blankNode
+    }
 	
 	// regular expression from http://stackoverflow.com/questions/5952720/ignoring-c-style-comments-in-a-scala-combinator-parser
     protected override val whiteSpace = """(\s|//.*|(?m)/\*(\*(?!/)|[^*])*\*/)+""".r
@@ -99,6 +110,8 @@ class TabelsParser extends JavaTokenParsers {
     def FLOOR = "floor".ignoreCase
     def CEIL = "ceil".ignoreCase
     def ROUND = "round".ignoreCase
+    def STARTS = "starts".ignoreCase
+    def WHEN = "when".ignoreCase
   
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
@@ -136,12 +149,17 @@ class TabelsParser extends JavaTokenParsers {
 
 	def path : Parser[String] =  "\"" ~> """([^\"]+)""".r <~"\""  
 	
-	def iriRef : Parser[Resource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ Resource
+	def iriRef : Parser[NamedResource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ NamedResource
 	
-	def curieRef : Parser[Resource] = (ident <~ ":") ~ ident ^^
+	//FIXME: Curi nodes not support sparql specification 
+	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ("""[a-zA-Z\-0-9]+[a-zA-Z\-\.]*""".r) ^^
 	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
+	    
+	def blankNode : Parser[BlankNode] =
+	    "[]" ^^ { _ => createFreshBlankNode() } |
+	    "_" ~> ":" ~> ident ^^ { internalId => BlankNode(Left(internalId)) }
 		
-	def rdfNode : Parser[RDFNode] = iriRef | curieRef | rdfLiteral
+	def rdfNode : Parser[RDFNode] = iriRef | curieRef | blankNode | rdfLiteral
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
@@ -150,7 +168,7 @@ class TabelsParser extends JavaTokenParsers {
 	def start : Parser[S] = rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
 	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
 	
-	def prefixDecl : Parser[(String,Resource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
+	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)
 	                        (prefix -> ns)
 	    }
@@ -159,8 +177,8 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def blockStatement : Parser[BlockStatement] = "{" ~> rep1sep(tabelsStatement, ";") <~ "}" ^^ { BlockStatement(_) }
 	
-	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
-        { case v~d~f~s~p => IteratorStatement(variable = v, dimension = d, filter = f, stopCond = s, nestedStatement = p) }
+	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~ startCondition ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
+        { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p) }
     
 	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ path ~ opt(tabelsStatement) ^^
         { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
@@ -178,6 +196,9 @@ class TabelsParser extends JavaTokenParsers {
     
     def regex : Parser[Regex] =
       ("""\"[^"]*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
+    
+    def startCondition : Parser[Option[Either[Expression,Position]]] =
+      opt(STARTS ~>((WHEN ~> expression)^^{Left(_)}|(AT ~> position)^^{Right(_)}))
     
     def stopCondition : Parser[Option[Expression]] =
       opt((WHILE ~> expression)|(UNTIL ~> expression)^^{case e =>NotExpression(expression = e) })
@@ -216,7 +237,8 @@ class TabelsParser extends JavaTokenParsers {
     
     def miscellaneaFunctions : Parser[Expression] = 
       DBPediaDisambiguation3 |
-      DBPediaDisambiguation1
+      DBPediaDisambiguation1 |
+      setLangTag
     
     import NumericFunctions._
 
@@ -232,7 +254,8 @@ class TabelsParser extends JavaTokenParsers {
     
     def stringFunctions : Parser[Expression] =
     startsWith |
-    upperCase
+    upperCase |
+    compare
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
@@ -245,9 +268,9 @@ class TabelsParser extends JavaTokenParsers {
     		{case condition ~ trueExpression ~ falseExpression => TernaryOperationExpression(condition, trueExpression, falseExpression)}|		
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
-        ((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
-    		{case v~e => AddVariableExpression(v, e)}|
-    	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
+    	//((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
+     	//	{case v~e => AddVariableExpression(v, e)}|
+     	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
     		{e => ConcatExpression(e)}|
     	(STRING_JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
     		{case re~qs => StringJoinExpression(re, qs)}|
@@ -334,7 +357,11 @@ class TabelsParser extends JavaTokenParsers {
 
 	def triplesSameSubjectTemplate : Parser[Seq[TripleTemplate]] =
 	  eitherRDFNodeOrVariable~predicateObjectsTemplate ^^
-	  { case subj~predObjs => for ((pred,obj) <- predObjs) yield TripleTemplate(subj,pred,obj) }
+	  { case subj~predObjs => for ((pred,obj) <- predObjs) yield TripleTemplate(subj,pred,obj) } |
+	  "[" ~> predicateObjectsTemplate <~ "]" ^^
+	  { case predObjs => 
+	      val bn = createFreshBlankNode()
+	      for ((pred,obj) <- predObjs) yield TripleTemplate(Left(bn),pred,obj) }
 	
 	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten)) }

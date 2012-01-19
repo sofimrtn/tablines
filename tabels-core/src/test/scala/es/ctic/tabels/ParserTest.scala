@@ -79,23 +79,30 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 
 	@Test def parseIriRef() {
-		assertParse(iriRef, "<http://example.org/>", Resource("http://example.org/"))
+		assertParse(iriRef, "<http://example.org/>", NamedResource("http://example.org/"))
 		assertFail(iriRef, "http://example.org/")
 		assertFail(iriRef, "<http://example.org/> <http://example.com>")
 	}
 	
 	@Test def parseCurieRef() {
-		prefixes += ("foo" -> Resource("http://example.org/"))
-		assertParse(curieRef, "foo:bar", Resource("http://example.org/bar"))
+		prefixes += ("foo" -> NamedResource("http://example.org/"))
+		assertParse(curieRef, "foo:bar", NamedResource("http://example.org/bar"))
 		assertFail(curieRef,  "")
 		assertFail(curieRef,  "foo")
 		assertFail(curieRef,  "foo:")
 		assertFail(curieRef,  ":bar") // FIXME: default namespace should be allowed
 	}
 	
+	@Test def parseBlankNode() {
+	    assertParse(blankNode, "[]", BlankNode(Right(0)))
+	    assertParse(blankNode, "[]", BlankNode(Right(1))) // different id
+	    assertParse(blankNode, "_:foo2", BlankNode(Left("foo2")))
+	    assertFail(blankNode, "")
+	}
+	
 	@Test def parseEitherRDFNodeOrVariable() {
 		assertParse(eitherRDFNodeOrVariable, "\"hello\"", Left(Literal("hello")))
-		assertParse(eitherRDFNodeOrVariable, "<http://example.org/>", Left(Resource("http://example.org/")))
+		assertParse(eitherRDFNodeOrVariable, "<http://example.org/>", Left(NamedResource("http://example.org/")))
 		assertParse(eitherRDFNodeOrVariable, "?x", Right(Variable("?x")))
 		assertFail (eitherRDFNodeOrVariable, "")
 	}
@@ -106,8 +113,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parsePrefixDecl() {
-		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", ("foo" -> Resource("http://example.org/")))
-		assertEquals(Resource("http://example.org/"), prefixes("foo"))
+		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", ("foo" -> NamedResource("http://example.org/")))
+		assertEquals(NamedResource("http://example.org/"), prefixes("foo"))
 		assertFail (prefixDecl, "")
 		assertFail (prefixDecl, "PREFIX foo:")
 		assertFail (prefixDecl, "PREFIX <http://example.org/>")
@@ -169,8 +176,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
      
      @Test def parseFunctionExpression() {  
         //ResourceExpression
-      	assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
-          assertParse(expression, "RESourCE (?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =Resource("http://ontorule-project.eu/resources/steeldata#coil") ))
+      	assertParse(expression, "RESOURCE(?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =NamedResource("http://ontorule-project.eu/resources/steeldata#coil") ))
+          assertParse(expression, "RESourCE (?y, <http://ontorule-project.eu/resources/steeldata#coil>)", ResourceExpression(expression = VariableReference(Variable("?y")), uri =NamedResource("http://ontorule-project.eu/resources/steeldata#coil") ))
           assertFail(expression, "RESourC (?y, <http://ontorule-project.eu/resources/steeldata#coil>)")
           assertFail(expression, "RESOURCE (y, <http://ontorule-project.eu/resources/steeldata#coil>)")
           assertFail(expression, "RESOURCE (?y, http://ontorule-project.eu/resources/steeldata#coil>)")
@@ -188,10 +195,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
     
 	@Test def parseVerbTemplate() {
-		prefixes += ("foo" -> Resource("http://example.org/"))
-		assertParse(verbTemplate, "<http://example.org/>", Left(Resource("http://example.org/")))
+		prefixes += ("foo" -> NamedResource("http://example.org/"))
+		assertParse(verbTemplate, "<http://example.org/>", Left(NamedResource("http://example.org/")))
 		assertParse(verbTemplate, "a", Left(RDF_TYPE))
-		assertParse(verbTemplate, "foo:bar", Left(Resource("http://example.org/bar")))
+		assertParse(verbTemplate, "foo:bar", Left(NamedResource("http://example.org/bar")))
 		assertParse(verbTemplate, "?x", Right(Variable("?x")))
 		assertFail (verbTemplate, "")
 		assertFail (verbTemplate, "\"hello\"")
@@ -199,7 +206,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	
 	@Test def parseObjectsTemplate() {
 		assertParse(objectsTemplate, "?x", List(Right(Variable("?x"))))
-		assertParse(objectsTemplate, "<http://example.org/>", List(Left(Resource("http://example.org/"))))
+		assertParse(objectsTemplate, "<http://example.org/>", List(Left(NamedResource("http://example.org/"))))
 		assertParse(objectsTemplate, "?x, ?y", List(Right(Variable("?x")), Right(Variable("?y"))))
 		assertFail (objectsTemplate, "")
 		assertFail (objectsTemplate, "?x ?y")
@@ -211,9 +218,9 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(predicateObjectsTemplate, "?x ?y",
 			List((Right(Variable("?x")), Right(Variable("?y")))))
 		assertParse(predicateObjectsTemplate, "<http://example.org/> \"Hello\"",
-			List((Left(Resource("http://example.org/")), Left(Literal("Hello")))))
+			List((Left(NamedResource("http://example.org/")), Left(Literal("Hello")))))
 		assertParse(predicateObjectsTemplate, "a <http://example.org/>",
-			List((Left(RDF_TYPE), Left(Resource("http://example.org/")))))
+			List((Left(RDF_TYPE), Left(NamedResource("http://example.org/")))))
 		assertParse(predicateObjectsTemplate, "?x ?y ; ?a ?b",
 			List((Right(Variable("?x")), Right(Variable("?y"))),
 		         (Right(Variable("?a")), Right(Variable("?b")))))
@@ -230,13 +237,20 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	@Test def parseTriplesSameSubjectTemplate() {
 		assertParse(triplesSameSubjectTemplate, "?x ?y ?z",
 			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z")))))
+		assertParse(triplesSameSubjectTemplate, "[ ?y ?z ]",
+			List(TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?y")), Right(Variable("?z")))))
 		assertParse(triplesSameSubjectTemplate, "?x <http://example.org/> \"hello\"",
-			List(TripleTemplate(Right(Variable("?x")), Left(Resource("http://example.org/")), Left(Literal("hello")))))
+			List(TripleTemplate(Right(Variable("?x")), Left(NamedResource("http://example.org/")), Left(Literal("hello")))))
 		assertParse(triplesSameSubjectTemplate, "?x ?y ?z ; ?a ?b",
 			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			     TripleTemplate(Right(Variable("?x")), Right(Variable("?a")), Right(Variable("?b")))))
+ 		assertParse(triplesSameSubjectTemplate, "[ ?y ?z ; ?a ?b ]",
+ 			List(TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?y")), Right(Variable("?z"))),
+ 			     TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?a")), Right(Variable("?b")))))
 		assertFail (triplesSameSubjectTemplate, "")
+		assertFail (triplesSameSubjectTemplate, "[]")
 		assertFail (triplesSameSubjectTemplate, "?x")
+		assertFail (triplesSameSubjectTemplate, "[ ?x ]")
 		assertFail (triplesSameSubjectTemplate, "?x ?y")
 		assertFail (triplesSameSubjectTemplate, "?x ?y ?a ?b")
 		assertFail (triplesSameSubjectTemplate, "?x . ")
@@ -244,9 +258,9 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 
 	@Test def parseTemplate() {
-		assertParse(template, "{ ?x ?y ?z . ?a ?b ?c }",
+		assertParse(template, "{ ?x ?y ?z . [] ?b [] }",
 			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
-			              TripleTemplate(Right(Variable("?a")), Right(Variable("?b")), Right(Variable("?c"))))))
+			              TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?b")), Left(BlankNode(Right(1)))))))
 		assertFail (template, "")
 		assertFail (template, "{ }")
 	}

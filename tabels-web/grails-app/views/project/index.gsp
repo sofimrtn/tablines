@@ -60,8 +60,8 @@
 		<h2>Transformation program</h2>
 		
 		<g:form action="saveProgram" method="post">
+		<p><g:submitButton name="save" value="Save program" /></p>
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
-			<p><g:submitButton name="save" value="Save program" /></p>
 		</g:form>
 		<g:form action="autogenerateProgram" method="post">
 		    <g:select name="strategy" from="${['Simple','SCOVO']}" />

@@ -7,6 +7,16 @@ abstract class Expression {
   
   def evaluate(evaluationContext : EvaluationContext) : RDFNode
   
+  def evaluateAsLiteral(evaluationContext : EvaluationContext) : Literal = evaluate(evaluationContext) match {
+      case l : Literal  => l
+      case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+  }
+  
+  def evaluateAsTruthValue(evaluationContext : EvaluationContext) : Boolean = evaluateAsLiteral(evaluationContext).asBoolean.truthValue
+  def evaluateAsStringValue(evaluationContext : EvaluationContext) : String = evaluateAsLiteral(evaluationContext).asString.value.toString
+  def evaluateAsIntValue(evaluationContext : EvaluationContext) : Int = evaluateAsLiteral(evaluationContext).asInt.value.toString.toInt // FIXME: perhaps can be simplified
+  def evaluateAsFloatValue(evaluationContext : EvaluationContext) : Float = evaluateAsLiteral(evaluationContext).asFloat.value.toString.toFloat  // FIXME: perhaps can be simplified
+  
   def prettyPrint() : String
   
   override def toString = prettyPrint
@@ -137,9 +147,9 @@ trait FunctionCollection {
 
 object MiscellaneaFunctions extends FunctionCollection{
 	 val lucene = new Lucene
-     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(workarea: WorkArea,query: String, workMode: String) => lucene.query(workarea,query, workMode) }
-	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(workarea: WorkArea,query: String) => lucene.query(workarea,query) }
-
+     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String, workMode: String) => lucene.query(ec,query, workMode) }
+	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
+	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
 }
 
 case class VariableReference(variable:Variable) extends Expression{
@@ -167,9 +177,9 @@ case class GetColExpression(variable:Variable) extends Expression {
  * RDF Expresion
  */
 
-case class ResourceExpression(expression:Expression, uri : Resource) extends Expression {
+case class ResourceExpression(expression:Expression, uri : NamedResource) extends Expression {
   
-  override def evaluate(evaluationContext : EvaluationContext) = uri + URLEncoder.encode(expression.evaluate(evaluationContext).asString.value.toString,"UTF-8")
+  override def evaluate(evaluationContext : EvaluationContext) = uri + URLEncoder.encode(expression.evaluateAsStringValue(evaluationContext),"UTF-8")
   override def prettyPrint = "resource(" + expression.toString + "," + uri.toString + ")"
 
 }
@@ -182,10 +192,11 @@ case class LiteralExpression(literal : Literal) extends Expression{
 
 
 
+// FIXME: move this expression to another file
 case class RegexExpression(expression : Expression , re : Regex) extends Expression{
   
 	override def evaluate(evaluationContext : EvaluationContext) =
-	 expression.evaluate(evaluationContext).asString.value.toString.matches(re.toString()) match{
+	 expression.evaluateAsStringValue(evaluationContext).matches(re.toString()) match{
 	    case true =>  LITERAL_TRUE
 	    case false => LITERAL_FALSE
 	  }
@@ -216,7 +227,7 @@ case class NotExpression(expression:Expression) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = 
     
-	 if (expression.evaluate(evaluationContext).asBoolean.truthValue)
+	 if (expression.evaluateAsTruthValue(evaluationContext))
 	    LITERAL_FALSE
 	 else
 		LITERAL_TRUE
@@ -228,14 +239,14 @@ case class NotExpression(expression:Expression) extends Expression{
 case class TernaryOperationExpression(condition: Expression, trueExpression: Expression, falseExpression : Expression) extends Expression{
   
   override def evaluate(evaluationContext: EvaluationContext)= 
-    if(condition.evaluate(evaluationContext).asBoolean.truthValue)trueExpression.evaluate(evaluationContext) else falseExpression.evaluate(evaluationContext)
+    if(condition.evaluateAsTruthValue(evaluationContext)) trueExpression.evaluate(evaluationContext) else falseExpression.evaluate(evaluationContext)
   override def prettyPrint = "if" +  condition.toString  +" then "+ trueExpression.toString +" else "+falseExpression.toString 
 }
 
 /* *Type change expressions  * */
 case class BooleanExpression(expression: Expression) extends Expression{
   
-  override def evaluate(evaluationContext : EvaluationContext) =  Literal(expression.evaluate(evaluationContext).asBoolean.value, XSD_BOOLEAN)
+  override def evaluate(evaluationContext : EvaluationContext) =  Literal(expression.evaluateAsTruthValue(evaluationContext), XSD_BOOLEAN)
   override def prettyPrint = "boolean(" + expression.toString + ")"
   
 }

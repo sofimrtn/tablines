@@ -41,7 +41,7 @@ class DBPediaQuery {
     	
     	//ResultSetFormatter.out(System.out, results, query)
     	
-    	val lit = Resource(querySolution.get("predicate").toString)    	
+    	val lit = NamedResource(querySolution.get("predicate").toString)    	
     	qexec.close()
     	return lit
     	

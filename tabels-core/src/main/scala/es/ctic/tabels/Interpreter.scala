@@ -22,7 +22,6 @@ class Interpreter extends Logging {
      
     logger.debug("List of events: " + events)
    
-    // FIXME: do not instantiate ALL templates for EACH event, be selective
     for ( t <- root.templateList ; e <- events ) {
 		logger.debug("Considering instantiation of template " + t + " for event " + e)
 		if ( t.variables subsetOf e.bindings.variables ) {
@@ -34,10 +33,40 @@ class Interpreter extends Logging {
 		} else {
 			logger.debug("The template " + t + " cannot be instantiated for event " + e + " because there are unbound variables")
 		}
-     }
+ /*    }
+    evaluationContext.workingArea.mapUnDisambiguted.foreach{map =>
+      dataOut.generateOutput(new Statement(map._1,Resource("relacion"),Literal(map._2.label)))*/
+   	}
   }
 
 }
 
 case class Event(bindings : Bindings, lastBoundVariables : Set[Variable])
+
+case class Binding(value : RDFNode, point: Point)
+
+case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
+
+  def variables : Set[Variable] = bindingsMap.keySet
+
+  def isBound(variable : Variable) : Boolean = bindingsMap.contains(variable)
+  
+  def getValue(variable : Variable) : RDFNode = 
+    
+    if(isBound(variable))
+    	bindingsMap.get(variable).get.value
+    else throw new UnboundVariableException(variable)
+   
+
+  def getPoint(variable : Variable) : Point = bindingsMap.get(variable).get.point // throws exception if unbound
+  
+  def addBinding(variable : Variable, value : RDFNode, point: Point) : Bindings =
+	Bindings(bindingsMap + (variable -> Binding(value, point)))
+  
+  def removeBinding(variable : Variable) : Bindings =
+	Bindings(bindingsMap - (variable))
+  
+  def clear : Bindings = Bindings(Map())
+
+}
 

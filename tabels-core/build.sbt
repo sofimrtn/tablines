@@ -28,6 +28,8 @@ libraryDependencies += "com.hp.hpl.jena" % "jena" % "2.6.4"
 
 libraryDependencies += "com.hp.hpl.jena" % "arq" % "2.8.8"
 
+libraryDependencies += "com.hp.hpl.jena" % "tdb" % "0.8.10"
+
 libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
 
 libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
@@ -37,6 +39,8 @@ libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
 libraryDependencies += "org.apache.lucene" % "lucene-core" % "3.4.0"
 
 libraryDependencies += "org.apache.lucene" % "lucene-analyzers" % "3.4.0"
+
+libraryDependencies += "org.apache.commons" % "commons-compress" % "1.0"
 
 //managedStyle := ManagedStyle.Maven
 

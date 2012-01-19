@@ -11,12 +11,17 @@ import grizzled.slf4j.Logging
 
 
 class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
-    
-	private val workbook = openWorkbook(file)
-		
+    //FIXME
+	val ws = new WorkbookSettings()
+	ws.setEncoding("CP1252")
+	
+	
+  private val workbook = openWorkbook(file)
+	
+	
 	private def openWorkbook(file : File) : Workbook = {
         try {
-            return Workbook.getWorkbook(file)
+            return Workbook.getWorkbook(file,ws)
         } catch {
             case e : FileNotFoundException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
