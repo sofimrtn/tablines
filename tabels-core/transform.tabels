@@ -1,0 +1,25 @@
+PREFIX ex: <http://example.org/ex#>
+
+IN files "C:\Users\alfonso.noriega\Documents\tabular bells\Tabels Project\tabels-core\IMDb Top 250.html"
+    IN sheets "0"
+        FOR ?rowId IN rows FILTER get-row(?rowId)
+            LET ?resource = resource(?rowId,<http://example.org/ex#>)
+            MATCH [?rank,?rating,?title,?votes] IN horizontal 
+{
+    ?resource a ex:SomeResource .
+    ?resource ex:rank ?rank .
+    ?resource ex:rating ?rating .
+    ?resource ex:title ?title .
+    ?resource ex:votes ?votes
+}
+
+{
+    ex:SomeResource a <http://www.w3.org/2000/01/rdf-schema#Class>
+}
+
+{
+    ex:rank a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+    ex:rating a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+    ex:title a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+    ex:votes a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property>
+}
