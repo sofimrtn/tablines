@@ -34,9 +34,9 @@ class Interpreter extends Logging {
 		} else {
 			logger.debug("The template " + t + " cannot be instantiated for event " + e + " because there are unbound variables")
 		}
-     }
+ /*    }
     evaluationContext.workingArea.mapUnDisambiguted.foreach{map =>
-      dataOut.generateOutput(new Statement(map._1,Resource("relacion"),Literal(map._2.label)))
+      dataOut.generateOutput(new Statement(map._1,Resource("relacion"),Literal(map._2.label)))*/
    	}
   }
 
