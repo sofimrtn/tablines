@@ -46,7 +46,7 @@ grails.enable.native2ascii = true
 // whether to install the java.util.logging bridge for sl4j. Disable for AppEngine!
 grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
-grails.spring.bean.packages = []
+grails.spring.bean.packages = ['es.ctic.data.tapinos.springcontrollers']
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
@@ -56,7 +56,7 @@ grails.views.javascript.library="jquery"
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://wopr.fundacionctic.org:8180/${appName}"
+        grails.serverURL = "http://www.changeme.com"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
@@ -90,9 +90,12 @@ log4j = {
            'net.sf.ehcache.hibernate',
            'grails.app.tagLib'
 
-    warn   'org.mortbay.log','es.ctic.tabels'
+    warn   'org.mortbay.log'
     
-    debug  'grails.app.service',
+    info   'es.ctic.tabels'
+    
+    debug  'es.ctic.data',
+           'grails.app.service',
            'grails.app.controller'
 
 }
