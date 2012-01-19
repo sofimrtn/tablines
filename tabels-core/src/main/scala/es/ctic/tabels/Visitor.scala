@@ -56,7 +56,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   
   override def visit(iteratorStatement : IteratorStatement) = {
    
-    logger.debug("Visting Iterator statement " + iteratorStatement.dimension)
+    logger.debug("Visiting Iterator statement " + iteratorStatement.dimension)
     
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     

@@ -5,6 +5,10 @@ import scala.util.matching.Regex
 import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
 
+import MiscellaneaFunctions._
+import NumericFunctions._
+import StringFunctions._
+
 import scala.util.parsing.combinator._
 import scala.util.parsing.input.CharSequenceReader
 
@@ -147,7 +151,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def iriRef : Parser[NamedResource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ NamedResource
 	
-	//FIXME: Curi dones not support sparql specification 
+	//FIXME: Curi nodes not support sparql specification 
 	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ("""[a-zA-Z\-0-9]+[a-zA-Z\-\.]*""".r) ^^
 	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
 	    
@@ -264,8 +268,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case condition ~ trueExpression ~ falseExpression => TernaryOperationExpression(condition, trueExpression, falseExpression)}|		
         ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
     		{case e~r => RegexExpression(expression = e, re = r)} |
-    	((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
-     		{case v~e => AddVariableExpression(v, e)}|
+    	//((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
+     	//	{case v~e => AddVariableExpression(v, e)}|
      	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
     		{e => ConcatExpression(e)}|
     	(STRING_JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^

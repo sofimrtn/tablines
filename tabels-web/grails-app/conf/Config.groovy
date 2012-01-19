@@ -90,10 +90,9 @@ log4j = {
            'net.sf.ehcache.hibernate',
            'grails.app.tagLib'
 
-    warn   'org.mortbay.log'
+    warn   'org.mortbay.log','es.ctic.tabels'
     
-    debug  'es.ctic.tabels',
-           'grails.app.service',
+    debug  'grails.app.service',
            'grails.app.controller'
 
 }
