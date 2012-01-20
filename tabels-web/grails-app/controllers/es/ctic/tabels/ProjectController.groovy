@@ -17,7 +17,6 @@ class ProjectController {
     def datasetProvider
     
     def index = {
-        log.info "Program: ${params.program}"
         [path: projectService.workDir,
          files: projectService.files,
          program: flash.program != null ? flash.program : projectService.program,
