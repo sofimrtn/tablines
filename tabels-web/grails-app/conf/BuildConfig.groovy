@@ -48,7 +48,7 @@ grails.project.dependency.resolution = {
         compile('com.hp.hpl.jena:jena:2.6.4') {
             excludes 'slf4j-log4j12'
         }
-        runtime('com.hp.hpl.jena:arq:2.8.8') {
+        runtime('com.hp.hpl.jena:arq:2.8.8') { // transitive dependency, added here because we exclude it above
             excludes 'slf4j-log4j12'
         }
     }
