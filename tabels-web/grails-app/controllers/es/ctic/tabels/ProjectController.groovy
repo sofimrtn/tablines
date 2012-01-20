@@ -17,19 +17,26 @@ class ProjectController {
     def datasetProvider
     
     def index = {
+        log.info "Program: ${params.program}"
         [path: projectService.workDir,
          files: projectService.files,
-         program: params.program != null ? params.program : projectService.program]
+         program: flash.program != null ? flash.program : projectService.program,
+         sourceUrl: params.sourceUrl]
     }
     
     def saveProgram = {
+        String program = params.program
+        log.info "Saving a new program: ${program}"
         try {
-            projectService.saveProgram(params.program)
+            projectService.saveProgram(program)
+            log.info "The new Tabels program has been successfully saved"
             flash.message = "The Tabels program has been successfully updated"
-            redirect(view: index)
+            redirect(action: "index")
         } catch (es.ctic.tabels.ParseException e) {
+            log.error "Failed to save the new program: ${e.message} at line ${e.lineNumber}: ${e.line}"
             flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
-            redirect(view: index, params: [program: params.program])
+            flash.program = program // too big to send it as a param
+            redirect(action: "index")
         }
     }
     
@@ -46,10 +53,10 @@ class ProjectController {
             os.write(method.responseBody);
             os.close();
             flash.message = "The new source from ${params.sourceUrl} has been successfully downloaded"
-            redirect(view: index)
+            redirect(action: "index")
         } catch (Exception e) {
             flash.error = "Failed to download source URL ${params.sourceUrl}: ${e.message}"
-            redirect(view: index, params: [sourceUrl: params.sourceUrl])
+            redirect(action: "index")
         } finally {
             method.releaseConnection()
         }
@@ -58,7 +65,7 @@ class ProjectController {
     def autogenerateProgram = {
         projectService.autogenerateProgram(params.strategy)
         flash.message = "The Tabels program has been generated"
-        redirect(view: index)
+        redirect(action: "index")
     }
     
     def rdf = {
