@@ -18,6 +18,7 @@ grails.project.dependency.resolution = {
         // from public Maven repositories
         mavenLocal()
         mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
+        mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public-snapshots"
         mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
@@ -34,11 +35,21 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         compile('es.ctic.tabels:tabels-core_2.9.1:0.1') {
-            excludes 'slf4j-api'
+            excludes 'jena', 'arq'
         }
-        compile 'commons-lang:commons-lang:2.6',
-                'commons-httpclient:commons-httpclient:3.0',
-                'org.fundacionctic.su4j:su4j-endpoint:0.5.1',
-                'org.fundacionctic.ext:pubby:0.3.3.1'
+        compile('commons-lang:commons-lang:2.6')
+        compile('commons-httpclient:commons-httpclient:3.0')
+        compile('org.fundacionctic.su4j:su4j-endpoint:0.5.1') {
+            excludes 'jena', 'arq'
+        }
+        compile('org.fundacionctic.ext:pubby:0.3.3.1') {
+            excludes 'arq'
+        }
+        compile('com.hp.hpl.jena:jena:2.6.4') {
+            excludes 'slf4j-log4j12'
+        }
+        runtime('com.hp.hpl.jena:arq:2.8.8') {
+            excludes 'slf4j-log4j12'
+        }
     }
 }
