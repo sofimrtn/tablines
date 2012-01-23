@@ -248,14 +248,31 @@ class TabelsParser extends JavaTokenParsers {
     numericMultiply |
     numericDivide | 
     numericIntegerDivide |
-    numericMod
+    numericMod |
+    equalThan |
+    biggerThan |
+    smallerThan |
+    abs |
+    floor |
+    round |
+    ceil
     
     import StringFunctions._
     
     def stringFunctions : Parser[Expression] =
     startsWith |
     upperCase |
-    compare
+    compare |
+    levenshteinDistance |
+    translate |
+    lowerCase |
+    replace |
+    contains |
+    endsWith |
+    substringAfter |
+    substringBefore |
+    stringLength |
+    substring
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
@@ -276,30 +293,30 @@ class TabelsParser extends JavaTokenParsers {
     		{case re~qs => StringJoinExpression(re, qs)}|
     //	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
     //		{DBPediaDisambiguation}|
-    	(SUBSTRING~> "("~>expression~("," ~>expression)~ opt("," ~>expression) <~")")^^
-    		{case re~startLoc~length => SubStringExpression(re, startLoc, length)}|
-    	(STRING_LENGTH~> "("~>expression<~")")^^
-    		{case re => StringLengthExpression(re)}|
-    	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
-    		{case container ~content => ContainsExpression(container, content)}|
+    //	(SUBSTRING~> "("~>expression~("," ~>expression)~ opt("," ~>expression) <~")")^^
+    //		{case re~startLoc~length => SubStringExpression(re, startLoc, length)}|
+    //	(STRING_LENGTH~> "("~>expression<~")")^^
+    //		{case re => StringLengthExpression(re)}|
+    //	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
+    //		{case container ~content => ContainsExpression(container, content)}|
    // 	(STARTS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
    // 		{case container ~start => StartsWithExpression(container, start)}|
-    	(ENDS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
-    		{case container ~end => StartsWithExpression(container, end)}|
-    	(SUBSTRING_BEFORE~> "("~>(expression<~",") ~ expression<~")")^^
-    		{case container ~suffix => SubstringBeforeExpression(container, suffix)}|
-    	(SUBSTRING_AFTER~> "("~>(expression<~",") ~ expression<~")")^^
-    		{case container ~prefix => SubstringAfterExpression(container, prefix)}|
-    	(REPLACE~> "("~>(expression<~",")~(regex<~"," )~ (expression<~")"))^^
-    		{case input ~ re ~ replacement => ReplaceExpression(input, re, replacement)}|
+   // 	(ENDS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
+   // 		{case container ~end => StartsWithExpression(container, end)}|
+   // 	(SUBSTRING_BEFORE~> "("~>(expression<~",") ~ expression<~")")^^
+   // 		{case container ~suffix => SubstringBeforeExpression(container, suffix)}|
+   // 	(SUBSTRING_AFTER~> "("~>(expression<~",") ~ expression<~")")^^
+   // 		{case container ~prefix => SubstringAfterExpression(container, prefix)}|
+   // 	(REPLACE~> "("~>(expression<~",")~(regex<~"," )~ (expression<~")"))^^
+   // 		{case input ~ re ~ replacement => ReplaceExpression(input, re, replacement)}|
     //(UPPER~> (CASE~>"("~>(expression<~")")))^^
     //		{case expression => UpperCaseExpression(expression)}|
-    	(LOWER~> (CASE~>"("~>(expression<~")")))^^
-    		{case expression => LowerCaseExpression(expression)}|
-    	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
-    		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
-    	(LEVENSHTEIN_DISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
-    		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
+    //	(LOWER~> (CASE~>"("~>(expression<~")")))^^
+    //		{case expression => LowerCaseExpression(expression)}|
+    //	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
+    //		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
+    //	(LEVENSHTEIN_DISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
+    //		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
     //	(NUMERIC_ADD~>"("~>(expression<~",")~ (expression<~")"))^^
     //		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
     //	(NUMERIC_SUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
@@ -312,26 +329,26 @@ class TabelsParser extends JavaTokenParsers {
    // 		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
    // 	(NUMERIC_MOD~>"("~>(expression<~",")~ (expression<~")"))^^
    // 		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
-    	(NUMERIC_EQUAL~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => EqualThanExpression(expression1, expression2)}|
-    	(NUMERIC_GREATER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
-    	(NUMERIC_LESS_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
-    		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
+   // 	(NUMERIC_EQUAL~>"("~>(expression<~",")~ (expression<~")"))^^
+  //  		{case expression1 ~ expression2 => EqualThanExpression(expression1, expression2)}|
+   // 	(NUMERIC_GREATER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
+   // 	(NUMERIC_LESS_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
+   // 		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
     	(INT ~> "("~>expression ~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>IntExpression(exp, sep)}|
     	(FLOAT ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>FloatExpression(exp, sep)}|
     	(DECIMAL ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>DecimalExpression(exp, sep)}|
-    	(ABS ~> "("~>expression<~")")^^
-    		{AbsExpression}|
-    	(FLOOR ~> "("~>expression<~")")^^
-    		{FloorExpression}|
-    	(CEIL ~> "("~>expression<~")")^^
-    		{CeilExpression}|
-    	(ROUND ~> "("~>expression<~")")^^
-    		{RoundExpression}|
+   // 	(ABS ~> "("~>expression<~")")^^
+   // 		{AbsExpression}|
+   // 	(FLOOR ~> "("~>expression<~")")^^
+   // 		{FloorExpression}|
+   // 	(CEIL ~> "("~>expression<~")")^^
+   // 		{CeilExpression}|
+   // 	(ROUND ~> "("~>expression<~")")^^
+    //		{RoundExpression}|
     	(BOOLEAN ~> "("~>expression<~")")^^
     		{BooleanExpression}|
     	(NOT ~> expression)^^
