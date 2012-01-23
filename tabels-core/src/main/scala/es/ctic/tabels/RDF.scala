@@ -1,5 +1,7 @@
 package es.ctic.tabels
 
+import scala.util.matching.Regex
+
 sealed abstract class RDFNode {
     
 }
@@ -36,6 +38,12 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	    case XSD_STRING => Literal(value.toString.toFloat, XSD_FLOAT)
 	    case _ => throw new TypeConversionException(this, XSD_FLOAT)
 	}
+	def asDouble : Literal = rdfType match {
+	    case XSD_FLOAT => this
+	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT)
+	    case XSD_STRING => Literal(value.toString.toFloat, XSD_FLOAT)
+	    case _ => throw new TypeConversionException(this, XSD_FLOAT)
+	}
 	
 }
 
@@ -46,9 +54,13 @@ object Literal {
     implicit def double2literal(d : Double) : Literal = Literal(d, XSD_DOUBLE)
     implicit def boolean2literal(b : Boolean) : Literal = Literal(b, XSD_BOOLEAN)
     implicit def string2literal(s : String) : Literal = Literal(s)
+    implicit def regex2literal(s : Regex) : Literal = Literal(s.toString)
     
     implicit def literal2int(l : Literal) : Int = l.asInt.value.asInstanceOf[Int]
+    implicit def literal2float(l : Literal) : Float = l.asFloat.value.asInstanceOf[Float]
+    implicit def literal2double(l : Literal) : Double = l.asDouble.value.asInstanceOf[Double]
     implicit def literal2string(l : Literal) : String = l.asString.value.asInstanceOf[String]
+    implicit def literal2regex(l : Literal) : Regex = l.asString.value.asInstanceOf[Regex]
 
 }
 
@@ -126,6 +138,12 @@ object CanToRDFNode {
     implicit def intToRDFNode = new CanToRDFNode[Int] {
         def toRDFNode(x : Int) : RDFNode = x
     }
+    implicit def floatToRDFNode = new CanToRDFNode[Float] {
+        def toRDFNode(x : Float) : RDFNode = x
+    }
+    implicit def doubleToRDFNode = new CanToRDFNode[Double] {
+        def toRDFNode(x : Double) : RDFNode = x
+    }
     implicit def stringToRDFNode = new CanToRDFNode[String] {
         def toRDFNode(x : String) : RDFNode = x
     }
@@ -160,8 +178,26 @@ object CanFromRDFNode {
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }
     }
+    implicit def floatFromRDFNode = new CanFromRDFNode[Float] {
+        def fromRDFNode(rdfNode : RDFNode) : Float = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def doubleFromRDFNode = new CanFromRDFNode[Double] {
+        def fromRDFNode(rdfNode : RDFNode) : Double = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
     implicit def stringFromRDFNode = new CanFromRDFNode[String] {
         def fromRDFNode(rdfNode : RDFNode) : String = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def regexFromRDFNode = new CanFromRDFNode[Regex] {
+        def fromRDFNode(rdfNode : RDFNode) : Regex = rdfNode match {
             case l : Literal => l
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }
