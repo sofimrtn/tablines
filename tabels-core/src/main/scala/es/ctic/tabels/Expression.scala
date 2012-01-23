@@ -150,6 +150,8 @@ object MiscellaneaFunctions extends FunctionCollection{
      val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String, workMode: String) => lucene.query(ec,query, workMode) }
 	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
+	 val matches = "matches" isDefinedBy {(lit:String, re:Regex)=> lit.matches(re.toString())}
+	 
 }
 
 case class VariableReference(variable:Variable) extends Expression{
@@ -193,7 +195,7 @@ case class LiteralExpression(literal : Literal) extends Expression{
 
 
 // FIXME: move this expression to another file
-case class RegexExpression(expression : Expression , re : Regex) extends Expression{
+/*case class RegexExpression(expression : Expression , re : Regex) extends Expression{
   
 	override def evaluate(evaluationContext : EvaluationContext) =
 	 expression.evaluateAsStringValue(evaluationContext).matches(re.toString()) match{
@@ -202,7 +204,7 @@ case class RegexExpression(expression : Expression , re : Regex) extends Express
 	  }
     override def prettyPrint = "matches(" + expression.toString + ",\"" + re.toString + "\")"
 
-}
+}*/
 
 /*case class DBPediaDisambiguation(expression:Expression) extends Expression{
   

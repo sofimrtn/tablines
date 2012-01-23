@@ -238,7 +238,8 @@ class TabelsParser extends JavaTokenParsers {
     def miscellaneaFunctions : Parser[Expression] = 
       DBPediaDisambiguation3 |
       DBPediaDisambiguation1 |
-      setLangTag
+      setLangTag |
+      matches
     
     import NumericFunctions._
 
@@ -272,7 +273,8 @@ class TabelsParser extends JavaTokenParsers {
     substringAfter |
     substringBefore |
     stringLength |
-    substring
+    substring2 |
+    substring3
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
@@ -283,8 +285,8 @@ class TabelsParser extends JavaTokenParsers {
     		{case v => GetColExpression(variable = v) }|		
         ((IF ~> expression) ~ (THEN~> expression) ~ (ELSE ~> expression)) ^^ 
     		{case condition ~ trueExpression ~ falseExpression => TernaryOperationExpression(condition, trueExpression, falseExpression)}|		
-        ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
-    		{case e~r => RegexExpression(expression = e, re = r)} |
+       // ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
+    	//	{case e~r => RegexExpression(expression = e, re = r)} |
     	//((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
      	//	{case v~e => AddVariableExpression(v, e)}|
      	(CONCAT~> "("~>repsep(expression, ",")<~")")^^

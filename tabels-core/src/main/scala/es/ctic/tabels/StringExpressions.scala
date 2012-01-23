@@ -36,8 +36,12 @@ object StringFunctions extends FunctionCollection {
     	 												}
      val substringBefore = "substring-before" isDefinedBy { (x:String, y:String) =>x.dropRight(x.length-x.indexOf(y))}
      val stringLength = "string-Length" isDefinedBy { (x:String) => x.length()}	 												
-	 val substring = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0) 
+	 val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0) 
 			           															x.substring(y, y+z)
+			           														else ""
+           									 }
+	 val substring2 = "substring" isDefinedBy { (x:String, y:Int) => if (x.length >0) 
+			           															x.substring(y)
 			           														else ""
            									 }
      
