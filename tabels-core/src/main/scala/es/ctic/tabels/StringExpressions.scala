@@ -19,11 +19,12 @@ object StringFunctions extends FunctionCollection {
      val levenshteinDistance = "levenshtein-distance" isDefinedBy { (x:String, y:String) => Levenshtein.stringDistance(x,y)}
      val translate = "translate" isDefinedBy { (x:String, y:String, z:String) =>{ 
     	 																		var newX:String = x
-    	 																		for(char <- y.toCharArray())
-																	     			{         
-																						   //FIX ME: not checked if the index in pattern is out of bounds in replacement
-																						   newX = newX.replaceAll(char.toString,z.charAt(y.indexOf(char)).toString )
-																	     			}
+    	 																		for(char <- y.toCharArray().take(z.length)) {         
+																					newX = newX.replaceAll(char.toString,z.charAt(y.indexOf(char)).toString )
+																	     		}
+																	     		for(char <- y.toCharArray().drop(z.length)) {
+																	     		    newX = newX.replaceAll(char.toString, "")
+																	     		}
 																				newX.toString}
      										}
      val lowerCase = "lower-case" isDefinedBy { (x:String) => x.toLowerCase()}
