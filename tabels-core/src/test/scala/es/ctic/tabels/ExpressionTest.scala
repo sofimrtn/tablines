@@ -5,6 +5,7 @@ import org.scalatest.junit.JUnitSuite
 import org.junit.Test
 import org.junit.Assert._
 
+/*
 class RegexExpressionTest extends JUnitSuite {
   
   @Test def evaluate{
@@ -15,6 +16,7 @@ class RegexExpressionTest extends JUnitSuite {
   }
 
 }
+*/
 
 class IntETest extends JUnitSuite {
   
@@ -29,7 +31,7 @@ class IntETest extends JUnitSuite {
   }
 
 }
-
+/*
 class substringAfterTest extends JUnitSuite{
   @Test def evaluate{
     val evaluationContext: EvaluationContext = null
@@ -53,3 +55,4 @@ class substringBeforeTest extends JUnitSuite{
     assertEquals(Literal("abcd",XSD_STRING) , SubstringBeforeExpression(LiteralExpression(Literal("abcdefg")), LiteralExpression(Literal("efg"))).evaluate(evaluationContext))
   }
 }
+*/
