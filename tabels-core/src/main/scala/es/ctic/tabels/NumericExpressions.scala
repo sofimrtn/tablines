@@ -20,6 +20,8 @@ object NumericFunctions extends FunctionCollection {
      val floor = "floor" isDefinedBy { (x : Float) => scala.math.floor(x)  }
      val round = "round" isDefinedBy { (x : Float) => scala.math.round(x)  }
      val ceil = "ceil" isDefinedBy { (x : Float) => scala.math.ceil(x)  }
+     val int = "int" isDefinedBy { (x : Int) => x  }
+     val float = "float" isDefinedBy { (x : Float) => x  }
      
  //    val startsWith = BinaryFunction("starts-with", { (ec : EvaluationContext, x : String, y : String) => x.startsWith(y) })
 
@@ -156,7 +158,7 @@ object NumericFunctions extends FunctionCollection {
 
 
 //FIX ME: Type control
-case class IntExpression(expression : Expression, separator :Option[String] = None) extends Expression{
+/*case class IntExpression(expression : Expression, separator :Option[String] = None) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val evaluatedExpression =  expression.evaluateAsStringValue(evaluationContext)
@@ -169,8 +171,8 @@ case class IntExpression(expression : Expression, separator :Option[String] = No
   }   
   override def prettyPrint = "int(" + expression.toString + ")"
 	
-}
-case class FloatExpression(expression : Expression, separator :Option[String] = None) extends Expression{
+}*/
+/*case class FloatExpression(expression : Expression, separator :Option[String] = None) extends Expression{
   
   override def evaluate(evaluationContext:EvaluationContext) = {
     val evaluatedExpression =  expression.evaluateAsStringValue(evaluationContext)
@@ -181,7 +183,7 @@ case class FloatExpression(expression : Expression, separator :Option[String] = 
   }   
   override def prettyPrint = "float(" + expression.toString + ")"
 	
-}
+}*/
 
 case class DecimalExpression(expression : Expression, separator :Option[String] = None) extends Expression{
  //FIX ME: Decimal is a subgroup of float it is not supposed to support numbers in a simplified syntax.

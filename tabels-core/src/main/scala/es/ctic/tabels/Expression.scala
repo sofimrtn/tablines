@@ -151,7 +151,7 @@ object MiscellaneaFunctions extends FunctionCollection{
 	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
 	 val matches = "matches" isDefinedBy {(lit:String, re:Regex)=> lit.matches(re.toString())}
-	 
+	 val boolean = "boolean" isDefinedBy { (x : Boolean) => x  }
 }
 
 case class VariableReference(variable:Variable) extends Expression{

@@ -55,12 +55,13 @@ object Literal {
     implicit def boolean2literal(b : Boolean) : Literal = Literal(b, XSD_BOOLEAN)
     implicit def string2literal(s : String) : Literal = Literal(s)
     implicit def regex2literal(s : Regex) : Literal = Literal(s.toString)
-    
+   
     implicit def literal2int(l : Literal) : Int = l.asInt.value.asInstanceOf[Int]
     implicit def literal2float(l : Literal) : Float = l.asFloat.value.asInstanceOf[Float]
     implicit def literal2double(l : Literal) : Double = l.asDouble.value.asInstanceOf[Double]
     implicit def literal2string(l : Literal) : String = l.asString.value.asInstanceOf[String]
-    implicit def literal2regex(l : Literal) : Regex = l.asString.value.asInstanceOf[Regex]
+    implicit def literal2regex(l : Literal) : Regex = l.asString.value.asInstanceOf[String].r
+    implicit def literal2boolean(l : Literal) : Boolean = l.asString.value.asInstanceOf[Boolean]
 
 }
 
@@ -198,6 +199,12 @@ object CanFromRDFNode {
     }
     implicit def regexFromRDFNode = new CanFromRDFNode[Regex] {
         def fromRDFNode(rdfNode : RDFNode) : Regex = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def booleanFromRDFNode = new CanFromRDFNode[Boolean] {
+        def fromRDFNode(rdfNode : RDFNode) : Boolean = rdfNode match {
             case l : Literal => l
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }

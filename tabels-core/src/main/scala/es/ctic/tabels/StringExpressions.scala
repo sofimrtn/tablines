@@ -44,7 +44,7 @@ object StringFunctions extends FunctionCollection {
 			           															x.substring(y)
 			           														else ""
            									 }
-     
+     val string = "string" isDefinedBy { (x:String) => x}
 }
 
 case class ConcatExpression(expressions: Seq[Expression]) extends Expression{
@@ -198,9 +198,9 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
 
 
 /* *Type change expressions  * */
-case class StringExpression(expression: Expression) extends Expression{
+/*case class StringExpression(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluateAsStringValue(evaluationContext), XSD_STRING)
   override def prettyPrint = "string(" + expression.toString + ")"
 
-}
+}*/

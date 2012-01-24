@@ -239,7 +239,8 @@ class TabelsParser extends JavaTokenParsers {
       DBPediaDisambiguation3 |
       DBPediaDisambiguation1 |
       setLangTag |
-      matches
+      matches |
+      boolean
     
     import NumericFunctions._
 
@@ -256,7 +257,9 @@ class TabelsParser extends JavaTokenParsers {
     abs |
     floor |
     round |
-    ceil
+    ceil |
+    int |
+    float
     
     import StringFunctions._
     
@@ -274,7 +277,8 @@ class TabelsParser extends JavaTokenParsers {
     substringBefore |
     stringLength |
     substring2 |
-    substring3
+    substring3 |
+    string
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
@@ -337,10 +341,10 @@ class TabelsParser extends JavaTokenParsers {
    // 		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
    // 	(NUMERIC_LESS_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
    // 		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
-    	(INT ~> "("~>expression ~opt("," ~> quotedString)<~")")^^
-    		{case exp ~ sep =>IntExpression(exp, sep)}|
-    	(FLOAT ~> "("~>expression~opt("," ~> quotedString)<~")")^^
-    		{case exp ~ sep =>FloatExpression(exp, sep)}|
+   // 	(INT ~> "("~>expression ~opt("," ~> quotedString)<~")")^^
+   // 		{case exp ~ sep =>IntExpression(exp, sep)}|
+   // 	(FLOAT ~> "("~>expression~opt("," ~> quotedString)<~")")^^
+   // 		{case exp ~ sep =>FloatExpression(exp, sep)}|
     	(DECIMAL ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>DecimalExpression(exp, sep)}|
    // 	(ABS ~> "("~>expression<~")")^^
