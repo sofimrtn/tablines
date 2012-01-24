@@ -10,6 +10,11 @@ case class Template(triples : Seq[TripleTemplate] = Seq()) extends Logging {
         "{\n" + (triples map ("    " + _.toAbbrString(prefixes)) mkString " .\n") + "\n}\n"
 	
 	val variables : Set[Variable] = triples.toSet[TripleTemplate] flatMap (_.variables)
+	
+	val blankNodes : Set[BlankNode] = triples.toSet[TripleTemplate] flatMap (_.blankNodes)
+	
+	def blankNodeRenamingSubstitution(seed : Int) : Set[(BlankNode, BlankNode)] =
+	    blankNodes map { bn => (bn, BlankNode(Left("__" + bn.id + "_" + seed))) }
   	
 	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
 		logger.debug("Instantiating template " + this + " with bindings " + bindingList)
