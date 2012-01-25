@@ -15,56 +15,56 @@ class NumericExpressionsTest extends JUnitSuite {
     
     @Test def numericAdd{
     
-    assertEquals(2 ,NumericFunctions.numericAdd(1,1))
-    assertEquals(4 ,NumericFunctions.numericAdd(4,0))
-    assertEquals(13 ,NumericFunctions.numericAdd(0,13))
+    assertEquals(2 ,NumericFunctions.numericAdd(1,1),0)
+    assertEquals(4 ,NumericFunctions.numericAdd(4,0),0)
+    assertEquals(13 ,NumericFunctions.numericAdd(0,13),0)
    
     }
    
     @Test def numericSubstract{
     
-    assertEquals(0 ,NumericFunctions.numericSubstract(1,1))
-    assertEquals(4 ,NumericFunctions.numericSubstract(4,0))
-    assertEquals(-13 ,NumericFunctions.numericSubstract(0,13))
+    assertEquals(0 ,NumericFunctions.numericSubstract(1,1),0)
+    assertEquals(4 ,NumericFunctions.numericSubstract(4,0),0)
+    assertEquals(-13 ,NumericFunctions.numericSubstract(0,13),0)
    
     }
     
     @Test def numericMultiply{
     
-    assertEquals(1 ,NumericFunctions.numericMultiply(1,1))
-    assertEquals(0 ,NumericFunctions.numericMultiply(4,0))
-    assertEquals(0 ,NumericFunctions.numericMultiply(0,13))
-    assertEquals(12 ,NumericFunctions.numericMultiply(2,6))
+    assertEquals(1 ,NumericFunctions.numericMultiply(1,1),0)
+    assertEquals(0 ,NumericFunctions.numericMultiply(4,0),0)
+    assertEquals(0 ,NumericFunctions.numericMultiply(0,13),0)
+    assertEquals(12 ,NumericFunctions.numericMultiply(2,6),0)
    
     }
    
     @Test def numericDivide{
     
-    assertEquals(1 ,NumericFunctions.numericDivide(1,1))
- //   assertEquals(0 ,NumericFunctions.numericDivide(4,0))
-    assertEquals(0 ,NumericFunctions.numericDivide(0,13))
-    assertEquals(3 ,NumericFunctions.numericDivide(6,2))
+    assertEquals(1 ,NumericFunctions.numericDivide(1,1),0)
+    assertEquals(0 ,NumericFunctions.numericDivide(4,0),0)
+    assertEquals(0 ,NumericFunctions.numericDivide(0,13),0)
+    assertEquals(3 ,NumericFunctions.numericDivide(6,2),0)
     assertEquals(0.5 ,NumericFunctions.numericDivide(1,2), 0.1)
    
     }
   
     @Test def numericIntegerDivide{
     
-    assertEquals(1 ,NumericFunctions.numericIntegerDivide(1,1))
- //   assertEquals(0 ,NumericFunctions.numericIntegerDivide(4,0))
-    assertEquals(0 ,NumericFunctions.numericIntegerDivide(0,13))
-    assertEquals(3 ,NumericFunctions.numericIntegerDivide(6,2))
-    assertEquals(0 ,NumericFunctions.numericIntegerDivide(1,2))
+    assertEquals(1 ,NumericFunctions.numericIntegerDivide(1,1),0)
+    assertEquals(0 ,NumericFunctions.numericIntegerDivide(4,0),0)
+    assertEquals(0 ,NumericFunctions.numericIntegerDivide(0,13),0)
+    assertEquals(3 ,NumericFunctions.numericIntegerDivide(6,2),0)
+    assertEquals(1 ,NumericFunctions.numericIntegerDivide(1,2),0)
    
     }
   
     @Test def numericMod{
     
-    assertEquals(0 ,NumericFunctions.numericMod(1,1))
- //   assertEquals(0 ,NumericFunctions.numericMod(4,0))
-    assertEquals(0 ,NumericFunctions.numericMod(0,13))
-    assertEquals(0 ,NumericFunctions.numericMod(6,2))
-    assertEquals(1 ,NumericFunctions.numericMod(1,2))
+    assertEquals(0 ,NumericFunctions.numericMod(1,1),0)
+    assertEquals(0 ,NumericFunctions.numericMod(4,0),0)
+    assertEquals(0 ,NumericFunctions.numericMod(0,13),0)
+    assertEquals(0 ,NumericFunctions.numericMod(6,2),0)
+    assertEquals(1 ,NumericFunctions.numericMod(1,2),0)
    
     }
   // FIXME: numeric-unary-plus is missing
@@ -112,27 +112,27 @@ class NumericExpressionsTest extends JUnitSuite {
     
     @Test def ceiling{
     
-    assertEquals(2 ,NumericFunctions.ceiling(1.5.asInstanceOf[Float]),0)
-    assertEquals(2 ,NumericFunctions.ceiling(1.1.asInstanceOf[Float]),0)
-    assertEquals(2 ,NumericFunctions.ceiling(1.7.asInstanceOf[Float]),0)
+    assertEquals(2 ,NumericFunctions.ceiling(1.5),0)
+    assertEquals(2 ,NumericFunctions.ceiling(1.1),0)
+    assertEquals(2 ,NumericFunctions.ceiling(1.7),0)
     assertEquals(1 ,NumericFunctions.ceiling(1),0)
    
     }
     
     @Test def floor{
     
-    assertEquals(1 ,NumericFunctions.floor(1.5.asInstanceOf[Float]),0)
-    assertEquals(1 ,NumericFunctions.floor(1.1.asInstanceOf[Float]),0)
-    assertEquals(1 ,NumericFunctions.floor(1.7.asInstanceOf[Float]),0)
+    assertEquals(1 ,NumericFunctions.floor(1.5),0)
+    assertEquals(1 ,NumericFunctions.floor(1.1),0)
+    assertEquals(1 ,NumericFunctions.floor(1.7),0)
     assertEquals(1 ,NumericFunctions.floor(1),0)
    
     }
     
     @Test def round{
     
-    assertEquals(2 ,NumericFunctions.round(1.5.asInstanceOf[Float]))
-    assertEquals(1 ,NumericFunctions.round(1.1.asInstanceOf[Float]))
-    assertEquals(2 ,NumericFunctions.round(1.7.asInstanceOf[Float]))
+    assertEquals(2 ,NumericFunctions.round(1.5),0)
+    assertEquals(1 ,NumericFunctions.round(1.1),0)
+    assertEquals(2 ,NumericFunctions.round(1.7),0)
     assertEquals(1 ,NumericFunctions.round(1))
    
     }
@@ -143,10 +143,10 @@ class NumericExpressionsTest extends JUnitSuite {
     
     assertEquals(1 ,NumericFunctions.int(1))
     assertEquals(14 , NumericFunctions.int(14))
- //   assertEquals(345.56 , NumericFunctions.int("345,56".toInt))
- //   assertEquals(345.56 , NumericFunctions.int("345.56".toInt))
- //   assertEquals(23.345,56 , NumericFunctions.int("23.345,56".toInt))
-  //  assertEquals(23.223.345,56 , NumericFunctions.int("23.223.345,56".toInt))
+    assertEquals(345.56 , NumericFunctions.int("345,56".toInt))
+    assertEquals(345.56 , NumericFunctions.int("345.56".toInt))
+    assertEquals(23.345,56 , NumericFunctions.int("23.345,56".toInt))
+    assertEquals(23.223345,56 , NumericFunctions.int("23.223.345,56".toInt))
     
     }
     

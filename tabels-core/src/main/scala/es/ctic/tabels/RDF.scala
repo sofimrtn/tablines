@@ -59,6 +59,7 @@ object Literal {
     implicit def literal2int(l : Literal) : Int = l.asInt.value.asInstanceOf[Int]
     implicit def literal2float(l : Literal) : Float = l.asFloat.value.asInstanceOf[Float]
     implicit def literal2double(l : Literal) : Double = l.asDouble.value.asInstanceOf[Double]
+    implicit def literal2long(l : Literal) : Long = l.asDouble.value.asInstanceOf[Long]
     implicit def literal2string(l : Literal) : String = l.asString.value.asInstanceOf[String]
     implicit def literal2regex(l : Literal) : Regex = l.asString.value.asInstanceOf[String].r
     implicit def literal2boolean(l : Literal) : Boolean = l.asString.value.asInstanceOf[Boolean]
@@ -145,6 +146,9 @@ object CanToRDFNode {
     implicit def doubleToRDFNode = new CanToRDFNode[Double] {
         def toRDFNode(x : Double) : RDFNode = x
     }
+    implicit def longToRDFNode = new CanToRDFNode[Long] {
+        def toRDFNode(x : Long) : RDFNode = x
+    }
     implicit def stringToRDFNode = new CanToRDFNode[String] {
         def toRDFNode(x : String) : RDFNode = x
     }
@@ -187,6 +191,12 @@ object CanFromRDFNode {
     }
     implicit def doubleFromRDFNode = new CanFromRDFNode[Double] {
         def fromRDFNode(rdfNode : RDFNode) : Double = rdfNode match {
+            case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def longFromRDFNode = new CanFromRDFNode[Long] {
+        def fromRDFNode(rdfNode : RDFNode) : Long = rdfNode match {
             case l : Literal => l
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }
