@@ -1,6 +1,6 @@
 name := "Tabels core"
 
-version := "0.1"
+version := "0.2-SNAPSHOT"
 
 organization := "es.ctic.tabels"
 
@@ -45,3 +45,11 @@ libraryDependencies += "org.apache.commons" % "commons-compress" % "1.0"
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
+
+//publishTo <<= (version) { version: String =>
+//  val nexus = "http://wopr.fundacionctic.org:8081/nexus/content/repositories/"
+//  if (version.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "snapshots/") 
+//  else                                   Some("releases"  at nexus + "releases/")
+//}
+
+//credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
