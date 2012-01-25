@@ -251,13 +251,13 @@ class TabelsParser extends JavaTokenParsers {
     numericDivide | 
     numericIntegerDivide |
     numericMod |
-    equalThan |
-    biggerThan |
-    smallerThan |
+    equal |
+    greaterThan |
+    lessThan |
     abs |
     floor |
     round |
-    ceil |
+    ceiling |
     int |
     float
     

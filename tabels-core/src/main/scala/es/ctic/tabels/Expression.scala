@@ -66,6 +66,8 @@ case class FunctionName(name : String) {
 case class UnaryFunction[TYPE1, TYPE_RESULT](name : String, f : (EvaluationContext, TYPE1) => TYPE_RESULT)
     (implicit type1Converter : CanFromRDFNode[TYPE1],  resultConverter : CanToRDFNode[TYPE_RESULT]) {
 
+    def apply(arg1 : TYPE1)(implicit ec : EvaluationContext) : TYPE_RESULT = f(ec, arg1)
+
     def createExpression(arg1 : Expression) : UnaryExpression[TYPE1, TYPE_RESULT] =
         new UnaryExpression(this)(arg1)
 
@@ -88,6 +90,8 @@ case class UnaryExpression[TYPE1, TYPE_RESULT](func : UnaryFunction[TYPE1, TYPE_
 
 case class BinaryFunction[TYPE1, TYPE2, TYPE_RESULT](name : String, f : (EvaluationContext, TYPE1, TYPE2) => TYPE_RESULT)
     (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], resultConverter : CanToRDFNode[TYPE_RESULT]) {
+
+    def apply(arg1 : TYPE1, arg2 : TYPE2)(implicit ec : EvaluationContext) : TYPE_RESULT = f(ec, arg1, arg2)
 
     def createExpression(arg1 : Expression, arg2: Expression) : BinaryExpression[TYPE1, TYPE2, TYPE_RESULT] =
         new BinaryExpression(this)(arg1, arg2)
@@ -112,6 +116,8 @@ case class BinaryExpression[TYPE1, TYPE2, TYPE_RESULT](func : BinaryFunction[TYP
 
 case class TernaryFunction[TYPE1, TYPE2, TYPE3, TYPE_RESULT](name : String, f : (EvaluationContext, TYPE1, TYPE2, TYPE3) => TYPE_RESULT)
     (implicit type1Converter : CanFromRDFNode[TYPE1], type2Converter : CanFromRDFNode[TYPE2], type3Converter : CanFromRDFNode[TYPE3], resultConverter : CanToRDFNode[TYPE_RESULT]) {
+
+    def apply(arg1 : TYPE1, arg2 : TYPE2, arg3 : TYPE3)(implicit ec : EvaluationContext) : TYPE_RESULT = f(ec, arg1, arg2, arg3)
 
     def createExpression(arg1 : Expression, arg2: Expression, arg3: Expression) : TernaryExpression[TYPE1, TYPE2, TYPE3, TYPE_RESULT] =
         new TernaryExpression(this)(arg1, arg2, arg3)
@@ -246,12 +252,12 @@ case class TernaryOperationExpression(condition: Expression, trueExpression: Exp
 }
 
 /* *Type change expressions  * */
-case class BooleanExpression(expression: Expression) extends Expression{
+/*case class BooleanExpression(expression: Expression) extends Expression{
   
   override def evaluate(evaluationContext : EvaluationContext) =  Literal(expression.evaluateAsTruthValue(evaluationContext), XSD_BOOLEAN)
   override def prettyPrint = "boolean(" + expression.toString + ")"
   
-}
+}*/
 
 
 
