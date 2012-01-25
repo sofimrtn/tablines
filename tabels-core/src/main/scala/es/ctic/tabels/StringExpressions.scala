@@ -53,7 +53,7 @@ object StringFunctions extends FunctionCollection {
    	 																				x.drop(x.indexOf(y)+y.length)
    	 																		  else ""
    	 												}
-   	// FIXME: matches is missing
+   	val matches = "matches" isDefinedBy {(lit:String, re:Regex)=> lit.matches(re.toString())}
     val replace = "replace" isDefinedBy { (x:String, y :Regex, z:String) => x.replaceAll(y.toString,z)}
    	// FIXME: tokenize is missing
     val compare = "compare" isDefinedBy { (x:String, y:String) => x.compareToIgnoreCase(y) match{

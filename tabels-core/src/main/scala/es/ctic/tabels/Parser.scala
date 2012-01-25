@@ -355,8 +355,8 @@ class TabelsParser extends JavaTokenParsers {
    // 		{CeilExpression}|
    // 	(ROUND ~> "("~>expression<~")")^^
     //		{RoundExpression}|
-    	(BOOLEAN ~> "("~>expression<~")")^^
-    		{BooleanExpression}|
+  //  	(BOOLEAN ~> "("~>expression<~")")^^
+   // 		{BooleanExpression}|
     	(NOT ~> expression)^^
     		{NotExpression}
 
