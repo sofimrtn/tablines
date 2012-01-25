@@ -17,7 +17,7 @@ case class Template(triples : Seq[TripleTemplate] = Seq()) extends Logging {
 	    blankNodes map { bn => (bn, BlankNode(Left("__" + bn.id + "_" + seed))) } toMap
   	
 	def instantiate(bindingList : Bindings, dataOut: DataOutput, seed : Option[Int] = None) {
-		logger.debug("Instantiating template " + this + " with bindings " + bindingList + " and seed " + seed)
+		logger.debug("Instantiating template " + this + " with seed " + seed)
 		val substitution = seed match {
 		    case Some(someSeed) => blankNodeRenamingSubstitution(someSeed)
 		    case None => Map[BlankNode,BlankNode]()

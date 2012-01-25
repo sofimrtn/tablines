@@ -20,18 +20,18 @@ class Interpreter extends Logging {
     var visitor = new VisitorEvaluate(dataSource,events, evaluationContext)     
     visitor.visit(root)
      
-    logger.debug("List of events: " + events)
+    logger.trace("List of events: " + events)
    
     for ( t <- root.templateList ; (e, eventIndex) <- events.zipWithIndex ) {
-		logger.debug("Considering instantiation of template " + t + " for event " + e)
+		logger.trace("Considering instantiation of template " + t + " for event " + e + " (index #" + eventIndex + ")")
 		if ( t.variables subsetOf e.bindings.variables ) {
 			if ( !((e.lastBoundVariables intersect t.variables) isEmpty) ) {
 				t.instantiate(e.bindings, dataOut, Some(eventIndex))				
 			} else {
-				logger.debug("The template " + t + " is not relevant for event " + e)
+				logger.trace("The template " + t + " is not relevant for event " + e)
 			}
 		} else {
-			logger.debug("The template " + t + " cannot be instantiated for event " + e + " because there are unbound variables")
+			logger.trace("The template " + t + " cannot be instantiated for event " + e + " because there are unbound variables")
 		}
  /*    }//FIXME: Add triples for undisambiguated nodes
     evaluationContext.workingArea.mapUnDisambiguted.foreach{map =>
