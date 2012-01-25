@@ -13,12 +13,17 @@ case class Template(triples : Seq[TripleTemplate] = Seq()) extends Logging {
 	
 	val blankNodes : Set[BlankNode] = triples.toSet[TripleTemplate] flatMap (_.blankNodes)
 	
-	def blankNodeRenamingSubstitution(seed : Int) : Set[(BlankNode, BlankNode)] =
-	    blankNodes map { bn => (bn, BlankNode(Left("__" + bn.id + "_" + seed))) }
+	def blankNodeRenamingSubstitution(seed : Int) : Map[BlankNode, BlankNode] =
+	    blankNodes map { bn => (bn, BlankNode(Left("__" + bn.id + "_" + seed))) } toMap
   	
-	def instantiate(bindingList : Bindings, dataOut: DataOutput) = {
-		logger.debug("Instantiating template " + this + " with bindings " + bindingList)
-	 	triples.foreach(t => t.instantiate(bindingList, dataOut)) 
+	def instantiate(bindingList : Bindings, dataOut: DataOutput, seed : Option[Int] = None) {
+		logger.debug("Instantiating template " + this + " with bindings " + bindingList + " and seed " + seed)
+		val substitution = seed match {
+		    case Some(someSeed) => blankNodeRenamingSubstitution(someSeed)
+		    case None => Map[BlankNode,BlankNode]()
+	    }
+	    logger.debug("Blank node renaming substitution: " + substitution)
+	 	triples.foreach(t => t.substitute(substitution).instantiate(bindingList, dataOut)) 
 	}
 	  					
 }
@@ -65,6 +70,16 @@ case class TripleTemplate(s : Either[RDFNode, Variable], p : Either[RDFNode, Var
 	   	case Right(variable) => bindingList.getValue(variable)
 	   }
 	}
+	
+	private def substitute(x : Either[RDFNode, Variable], substitution : Map[BlankNode, BlankNode]) : Either[RDFNode, Variable] = {
+	    x match {
+	        case Left(bn : BlankNode) if substitution.contains(bn) => Left(substitution(bn))
+	        case another => another
+	    }
+	}
+	
+	def substitute(substitution : Map[BlankNode, BlankNode]) : TripleTemplate =
+	    TripleTemplate(substitute(s, substitution), substitute(p, substitution), substitute(o, substitution))
 
 }
 

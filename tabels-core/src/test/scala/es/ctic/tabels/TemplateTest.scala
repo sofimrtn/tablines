@@ -25,10 +25,10 @@ class TemplateTest extends JUnitSuite {
     @Test def blankNodeRenamingSubstitution() {
         val s = template.blankNodeRenamingSubstitution(0)
         assertEquals(2, s.size)
-        assertEquals(bn1, s.toList(0)._1)
-        assertFalse(s.toList(0)._2 equals s.toList(1)._2) // fresh nodes are disjoint
+        assertEquals(Set(bn1, bn2), s.keys)
+        assertEquals("Fresh nodes are disjoin", s.size, s.values.toSet.size)
         val anotherS = template.blankNodeRenamingSubstitution(1)
-        assertFalse(s.toList(0)._2 equals anotherS.toList(0)._2) // a different seed delivers different nodes
+        assertEquals("Different seed delivers different nodes", s.size*2, (s.values.toSet ++ anotherS.values.toSet).size)
     }
   
 }

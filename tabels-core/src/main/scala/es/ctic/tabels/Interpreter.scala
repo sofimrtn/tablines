@@ -22,11 +22,11 @@ class Interpreter extends Logging {
      
     logger.debug("List of events: " + events)
    
-    for ( t <- root.templateList ; e <- events ) {
+    for ( t <- root.templateList ; (e, eventIndex) <- events.zipWithIndex ) {
 		logger.debug("Considering instantiation of template " + t + " for event " + e)
 		if ( t.variables subsetOf e.bindings.variables ) {
 			if ( !((e.lastBoundVariables intersect t.variables) isEmpty) ) {
-				t.instantiate(e.bindings, dataOut)				
+				t.instantiate(e.bindings, dataOut, Some(eventIndex))				
 			} else {
 				logger.debug("The template " + t + " is not relevant for event " + e)
 			}
