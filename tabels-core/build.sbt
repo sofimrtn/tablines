@@ -12,9 +12,9 @@ scalacOptions += "-deprecation"
 
 libraryDependencies += "org.clapper" %% "grizzled-slf4j" % "0.6.6"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "it,test"
 
-libraryDependencies += "junit" % "junit" % "4.8.1" % "test"
+libraryDependencies += "junit" % "junit" % "4.8.1" % "it,test"
 
 libraryDependencies += "net.sourceforge.jexcelapi" % "jxl" % "2.6.12"
 
