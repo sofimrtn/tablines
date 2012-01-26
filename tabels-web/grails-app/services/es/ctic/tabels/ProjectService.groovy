@@ -35,7 +35,7 @@ class ProjectService {
         return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(workDir))
     }
     
-    def getModel() {
+    def getModel() throws RunTimeTabelsException{
         log.info "And Tabular Cells!"
         def dataSource = getDataSource()
         log.debug "Datasource includes these files: ${dataSource.filenames}"
