@@ -15,9 +15,9 @@ object NumericFunctions extends FunctionCollection {
     val numericAdd = "numeric-add" isDefinedBy { (x : Double, y : Double) => x + y }
     val numericSubstract = "numeric-substract" isDefinedBy { (x : Double, y : Double) => x - y }
     val numericMultiply = "numeric-multiply" isDefinedBy { (x : Double, y : Double) => x * y }
-    val numericDivide = "numeric-divide" isDefinedBy { (x : Double, y : Double) => x / y }
-    val numericIntegerDivide = "numeric-integer-divide" isDefinedBy { (x : Double, y : Double) => (x / y).round }
-    val numericMod = "numeric-mod" isDefinedBy { (x : Double, y : Double) => x % y }
+    val numericDivide = "numeric-divide" isDefinedBy { (x : Double, y : Double) =>if(y!=0) x / y else throw new ZeroDivision }
+    val numericIntegerDivide = "numeric-integer-divide" isDefinedBy { (x : Double, y : Double) => if(y!=0) (x / y).round else throw new ZeroDivision }
+    val numericMod = "numeric-mod" isDefinedBy { (x : Double, y : Double) => if(y!=0) x % y else throw new ZeroDivision }
     // FIXME: numeric-unary-plus is missing
     // FIXME: numeric-unary-minus is missing
     

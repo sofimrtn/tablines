@@ -25,7 +25,7 @@ class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
         } catch {
             case e : FileNotFoundException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
-                throw e
+                throw new NoInputFiles
             case e : BiffException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
                 throw new InvalidInputFile(file.getName)
@@ -36,9 +36,13 @@ class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
 
   override def getValue(point : Point) : CellValue = {
 	logger.trace("Getting value at " + point)
-	val sheet : Sheet = workbook.getSheet(point.tab)
-	val cell : Cell = sheet.getCell(point.col, point.row)
-    return ExcelCellValue(cell)
+	try{
+		val sheet : Sheet = workbook.getSheet(point.tab)
+		val cell : Cell = sheet.getCell(point.col, point.row)
+	    return ExcelCellValue(cell)
+	}catch{
+	  case e=>throw new IndexOutOfBounds(point)
+	}
   }
   
   override def getTabs() : Seq[String] = {

@@ -14,7 +14,7 @@ object StringFunctions extends FunctionCollection {
 
     // NOTE: concat is defined below
     // NOTE: string-join is defined below
-	val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0) 
+	val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0 && y+z < x.length) 
 			           															x.substring(y, y+z)
 			           														else ""
           									 }

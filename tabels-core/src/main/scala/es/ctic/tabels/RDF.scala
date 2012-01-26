@@ -56,10 +56,10 @@ object Literal {
     implicit def string2literal(s : String) : Literal = Literal(s)
     implicit def regex2literal(s : Regex) : Literal = Literal(s.toString)
    
-    implicit def literal2int(l : Literal) : Int = l.asInt.value.asInstanceOf[Int]
-    implicit def literal2float(l : Literal) : Float = l.asFloat.value.asInstanceOf[Float]
-    implicit def literal2double(l : Literal) : Double = l.asDouble.value.asInstanceOf[Double]
-    implicit def literal2long(l : Literal) : Long = l.asDouble.value.asInstanceOf[Long]
+    implicit def literal2int(l : Literal) : Int = try { l.asInt.value.asInstanceOf[Int] } catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_INT)}
+    implicit def literal2float(l : Literal) : Float = try {l.asFloat.value.asInstanceOf[Float]} catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_FLOAT)}
+    implicit def literal2double(l : Literal) : Double = try {l.asDouble.value.asInstanceOf[Double]} catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_DOUBLE)}
+    implicit def literal2long(l : Literal) : Long = try {l.asDouble.value.asInstanceOf[Long]} catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_DOUBLE)}
     implicit def literal2string(l : Literal) : String = l.asString.value.asInstanceOf[String]
     implicit def literal2regex(l : Literal) : Regex = l.asString.value.asInstanceOf[String].r
     implicit def literal2boolean(l : Literal) : Boolean = l.asString.value.asInstanceOf[Boolean]
