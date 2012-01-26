@@ -2,7 +2,7 @@ package es.ctic.tabels
 
 class TabelsException(msg:String) extends Exception(msg)
 
-class RunTimeTabelsException (msg:String) extends RuntimeException(msg)
+class RunTimeTabelsException (msg:String) extends TabelsException(msg)
 
 class ParseException(input_ : String, msg : String, lineNumber_ : Int, column_ : Int)
   extends TabelsException("Syntax error at line " + lineNumber_ + ", column " + column_ + ": " + msg) {
