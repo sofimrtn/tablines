@@ -161,12 +161,16 @@ class Lucene extends Logging{
 	      case 1 => firstResult
 	      case _ => strategy match{
 	      			case "first" => firstResult
-	      			case "single" =>ec.workingArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
+	      			case "single" =>
+	      			  //FIXME: Add info for undisambiguated resource to workarea
+	      			  				//ec.workingArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
 	      			  				resourceNotDisambiguated
 	      			case "very-best" => logger.info("Results very-best: " + isearcher.doc(hits(1).doc).get("resource") +" - "+ isearcher.doc(hits(1).doc).get("resource"))
 	      			  					if (hits(0).score/hits(1).score>8/5.5) 
 	      									firstResult
-	      								else{ ec.workingArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
+	      								else{ 
+	      						//FIXME: Add info for undisambiguated resource to workarea
+	      									//ec.workingArea.mapUnDisambiguted.put(resourceNotDisambiguated,infoDisambiguation) 
 	      									 resourceNotDisambiguated
 	      								}
 	      			case _ => throw new InvalidFucntionParameterException(strategy)
