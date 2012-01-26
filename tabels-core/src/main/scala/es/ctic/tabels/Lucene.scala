@@ -182,7 +182,8 @@ class Lucene extends Logging{
 	}
 	catch{ 
 		case e : org.apache.lucene.queryParser.ParseException =>
-					 logger.error ("Parsing lucene query: " + q , e)
+					 //logger.error ("Parsing lucene query: " + q , e)
+					 throw new LuceneQueryException(q.toString())
 		return NamedResource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
     }
     finally{

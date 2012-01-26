@@ -5,10 +5,11 @@ import org.junit.Test
 import org.junit.Assert._
 
 class LuceneTest extends JUnitSuite{
-	
+ val lucene = new Lucene()
+ val evaluationContext: EvaluationContext = null
   @Test def testQueryTest{
-    val lucene = new Lucene()
-    val evaluationContext: EvaluationContext = null
+   
+    
      assertEquals( NamedResource("http://dbpedia.org/resource/Andorra"),lucene.query(evaluationContext,"Andorra","first"))
      assertEquals( NamedResource("http://dbpedia.org/resource/Rome"),lucene.query(evaluationContext,"roma","first"))
      assertEquals( NamedResource("http://dbpedia.org/resource/Oviedo"),lucene.query(evaluationContext,"oviedo", "first", Some(NamedResource("""http://dbpedia.org/ontology/PopulatedPlace"""))))
@@ -20,6 +21,12 @@ class LuceneTest extends JUnitSuite{
    
     
      assertEquals( NamedResource("http://example.org/ResourceNotDisambiguated?query=arrimdsf"),lucene.query(evaluationContext,"arrimdsf"))
-     assertEquals( NamedResource("http://example.org/ResourceNotDisambiguated?query="),lucene.query(evaluationContext,""))
+     
   }
+  @Test ( expected = classOf[LuceneQueryException] )
+  	def testEmptyQueryt {
+  		lucene.query(evaluationContext,"")
+  		
+    }
 }
+
