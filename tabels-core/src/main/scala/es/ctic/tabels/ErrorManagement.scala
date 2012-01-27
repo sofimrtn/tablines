@@ -37,3 +37,5 @@ class CannotConvertResourceToLiteralException(resource : Resource) extends RunTi
 class InvalidFucntionParameterException(parameter : String) extends RunTimeTabelsException("Invalid function parameter value: " + parameter)
 
 class ZeroDivision extends InvalidFucntionParameterException("Division by Zero")
+
+class LuceneQueryException(msg:String) extends RunTimeTabelsException(msg)
