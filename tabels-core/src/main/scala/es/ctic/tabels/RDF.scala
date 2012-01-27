@@ -27,8 +27,9 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	
 	def asInt : Literal = rdfType match {
 	    case XSD_INT => this
-	    case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toInt, XSD_INT)
+	    case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toFloat.toInt, XSD_INT)
 	    case XSD_STRING => Literal(value.toString.toInt, XSD_INT)
+	    case XSD_BOOLEAN => if (truthValue) Literal(1, XSD_INT) else Literal(0, XSD_INT)
 	    case _ => throw new TypeConversionException(this, XSD_INT)
 	}
 	
@@ -36,12 +37,14 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	    case XSD_FLOAT => this
 	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT)
 	    case XSD_STRING => Literal(value.toString.toFloat, XSD_FLOAT)
+	    case XSD_BOOLEAN => if (truthValue) Literal(1.0, XSD_FLOAT) else Literal(0.0, XSD_FLOAT)
 	    case _ => throw new TypeConversionException(this, XSD_FLOAT)
 	}
 	def asDouble : Literal = rdfType match {
 	    case XSD_FLOAT => this
-	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT)
-	    case XSD_STRING => Literal(value.toString.toFloat, XSD_FLOAT)
+	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toDouble, XSD_FLOAT)
+	    case XSD_STRING => Literal(value.toString.toDouble, XSD_FLOAT)
+	    case XSD_BOOLEAN => if (truthValue) Literal(1.0, XSD_FLOAT) else Literal(0.0, XSD_FLOAT)
 	    case _ => throw new TypeConversionException(this, XSD_FLOAT)
 	}
 	

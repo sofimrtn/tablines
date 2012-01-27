@@ -44,7 +44,13 @@ class LiteralTest extends JUnitSuite {
       assertEquals(Literal(-17, XSD_INT), Literal(-17.89, XSD_DOUBLE).asInt)
       assertEquals(Literal(1, XSD_INT), LITERAL_TRUE.asInt)
       assertEquals(Literal(0, XSD_INT), LITERAL_FALSE.asInt)
-      assertEquals(Literal(13, XSD_INT), Literal("13"))
+     
+  }
+  
+  @Test def asFloat {
+      // see http://www.w3.org/TR/xpath-functions/#casting-to-numerics for details
+      assertEquals(Literal(10.0, XSD_FLOAT), Literal(10.0, XSD_DOUBLE).asFloat)
+      
   }
 
 }

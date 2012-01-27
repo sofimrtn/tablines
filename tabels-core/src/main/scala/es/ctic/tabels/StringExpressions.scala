@@ -14,7 +14,7 @@ object StringFunctions extends FunctionCollection {
 
     // NOTE: concat is defined below
     // NOTE: string-join is defined below
-	val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0 && y+z < x.length) 
+	val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0) 
 			           															x.substring(y, y+z)
 			           														else ""
           									 }
@@ -91,10 +91,3 @@ case class StringJoinExpression(expressions: Seq[Expression], separator : Expres
    override def prettyPrint = "string join(" + expressions.map(_ toString).mkString(",")  + " , "+ separator + ")"
 }
 
-/* *Type change expressions  * */
-/*case class StringExpression(expression: Expression) extends Expression{
-  
-  override def evaluate(evaluationContext : EvaluationContext) = Literal(expression.evaluateAsStringValue(evaluationContext), XSD_STRING)
-  override def prettyPrint = "string(" + expression.toString + ")"
-
-}*/
