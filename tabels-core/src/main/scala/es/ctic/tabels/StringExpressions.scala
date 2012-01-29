@@ -14,14 +14,8 @@ object StringFunctions extends FunctionCollection {
 
     // NOTE: concat is defined below
     // NOTE: string-join is defined below
-	val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => if (x.length >0 && y+z < x.length) 
-			           															x.substring(y, y+z)
-			           														else ""
-          									 }
-	val substring2 = "substring" isDefinedBy { (x:String, y:Int) => if (x.length >0) 
-			           															x.substring(y)
-			           														else ""
-          									 }
+	val substring3 = "substring" isDefinedBy { (x:String, y:Int, z:Int) => x.substring(y, y+z) }
+	val substring2 = "substring" isDefinedBy { (x:String, y:Int) => x.substring(y) }
     val stringLength = "string-length" isDefinedBy { (x:String) => x.length()}
     val normalizeSpace = "normalize-space" isDefinedBy { x : String => x.replaceAll("\\s+"," ").trim() }
     // FIXME: normalize-space is missing
