@@ -44,7 +44,23 @@ class LiteralTest extends JUnitSuite {
       assertEquals(Literal(-17, XSD_INT), Literal(-17.89, XSD_DOUBLE).asInt)
       assertEquals(Literal(1, XSD_INT), LITERAL_TRUE.asInt)
       assertEquals(Literal(0, XSD_INT), LITERAL_FALSE.asInt)
-      assertEquals(Literal(13, XSD_INT), Literal("13"))
+      assertEquals(Literal(3, XSD_INT), Literal("3.14", XSD_DOUBLE).asInt)
+  }
+  
+  @Test (expected = classOf[TypeConversionException]) def asIntDoesNotParse {
+      Literal("3,14", XSD_STRING).asInt
+  }
+
+  @Test (expected = classOf[TypeConversionException]) def asIntDoesNotParse2 {
+      Literal("Unparseable", XSD_STRING).asInt
+  }
+
+  @Test (expected = classOf[TypeConversionException]) def asFloatDoesNotParse {
+      Literal("Unparseable", XSD_STRING).asFloat
+  }
+
+  @Test (expected = classOf[TypeConversionException]) def asDoubleDoesNotParse {
+      Literal("Unparseable", XSD_STRING).asDouble
   }
 
 }
