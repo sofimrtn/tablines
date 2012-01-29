@@ -18,7 +18,7 @@ class ProjectController {
     def datasetProvider
     
     private def indexModel = {
-        [path: projectService.workDir,
+        [path: projectService.inputDir,
          files: projectService.files,
          program: projectService.program]
     }
@@ -50,7 +50,7 @@ class ProjectController {
             log.info "Downloading ${params.sourceUrl}"
             int statusCode = client.executeMethod(method)
             String filename = "download-${System.currentTimeMillis()}.html"
-            def downloadedFile = new File(projectService.workDir, filename)
+            def downloadedFile = new File(projectService.inputDir, filename)
             OutputStream os = new FileOutputStream(downloadedFile)
             log.debug "Writing ${params.sourceUrl} to file ${downloadedFile}"
             os.write(method.responseBody);
