@@ -98,7 +98,8 @@ class ProjectService {
 		def subjects = []
 		while(subjectsIterator.hasNext()) {
 		    def subject = subjectsIterator.nextResource()
-		    def description = [uri: subject.getURI()]
+		    def description = [id: subject.toString()]
+		    if (subject.getURI() != null) description["uri"] = subject.getURI()
 		    description["label"] = getLabel(subject)
 	        def stmtIterator = subject.listProperties()
 	        while(stmtIterator.hasNext()) {
