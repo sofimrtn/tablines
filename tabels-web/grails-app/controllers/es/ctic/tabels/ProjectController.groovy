@@ -36,12 +36,12 @@ class ProjectController {
             flash.message = "The Tabels program has been successfully updated"
             redirect(action: "index")
         } catch (es.ctic.tabels.ParseException e) {
-            log.error "Failed to save the new program: ${e.message} at line ${e.lineNumber}: ${e.line}"
+            log.error "Failed to save the new program: ${e.message} at line ${e.lineNumber}: ${e.line}", e
             flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
             response.status = HttpURLConnection.HTTP_BAD_REQUEST
             render(view: "index", model: indexModel() + [program: program])
         } catch (es.ctic.tabels.CompileTimeTabelsException e) {
-            log.error "Failed to save the new program: ${e.message}"
+            log.error "Failed to save the new program: ${e.message}", e
             flash.error = "Failed to save the new program: ${e.message}"
             response.status = HttpURLConnection.HTTP_BAD_REQUEST
             render(view: "index", model: indexModel() + [program: program])
@@ -90,7 +90,7 @@ class ProjectController {
 	            model.write(response.outputStream, "RDF/XML")
 	        }
         } catch(RunTimeTabelsException e){
-			log.error "Failed to execute transformation: ${e.message}"
+			log.error "Failed to execute transformation: ${e.message}", e
 			flash.error = "Failed to execute transformation: ${e.message}"
             response.status = HttpURLConnection.HTTP_INTERNAL_ERROR
             render(view: "index", model: indexModel())
