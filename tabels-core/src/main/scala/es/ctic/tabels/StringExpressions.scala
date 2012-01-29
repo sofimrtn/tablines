@@ -72,6 +72,7 @@ object StringFunctions extends FunctionCollection {
     val string = "string" isDefinedBy { (x:String) => x}
     val firstIndexOf = "first-index-of" isDefinedBy { (x:String, y:String) => x.indexOf(y) }
     val lastIndexOf = "last-index-of" isDefinedBy { (x:String, y:String) => x.lastIndexOf(y) }
+    val trim = "trim" isDefinedBy { x:String => x.trim() }
 }
 
 case class ConcatExpression(expressions: Seq[Expression]) extends Expression{

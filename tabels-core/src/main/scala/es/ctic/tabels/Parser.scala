@@ -283,7 +283,8 @@ class TabelsParser extends JavaTokenParsers {
     substring2 |
     substring3 |
     string |
-    firstIndexOf | lastIndexOf
+    firstIndexOf | lastIndexOf |
+    trim
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
