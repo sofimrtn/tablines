@@ -44,6 +44,9 @@ class BasicAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerato
     val prefixes = Seq(("ex", defaultNamespace()))
 
     override def autogenerateProgram(dataSource : DataSource) : S = {
+        if (dataSource.filenames.isEmpty) {
+            return S()
+        }
         val statements = new ListBuffer[TabelsStatement]
         val tripleTemplates = new ListBuffer[TripleTemplate]
         val filename = dataSource.filenames(0)
@@ -90,6 +93,9 @@ class ScovoAutogenerator extends Autogenerator with Logging {
     val prefixes = Seq(("ex", EX()), ("scv", SCV()), ("rdf", RDF()), ("rdfs", RDFS()), ("skos", SKOS()))
     
     override def autogenerateProgram(dataSource : DataSource) : S = {
+        if (dataSource.filenames.isEmpty) {
+            return S()
+        }
         val filename = dataSource.filenames(0)
         val sheet = dataSource.getTabs(filename)(0)
         logger.info("Autogenerating Tabels program for file " + filename + ", sheet " + sheet)
