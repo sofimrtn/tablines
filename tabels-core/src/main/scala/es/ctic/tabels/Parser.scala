@@ -269,6 +269,7 @@ class TabelsParser extends JavaTokenParsers {
     
     def stringFunctions : Parser[Expression] =
     startsWith |
+    normalizeSpace |
     upperCase |
     compare |
     levenshteinDistance |

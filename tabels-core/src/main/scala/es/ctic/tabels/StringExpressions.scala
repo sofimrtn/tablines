@@ -23,6 +23,7 @@ object StringFunctions extends FunctionCollection {
 			           														else ""
           									 }
     val stringLength = "string-length" isDefinedBy { (x:String) => x.length()}
+    val normalizeSpace = "normalize-space" isDefinedBy { x : String => x.replaceAll("\\s+"," ").trim() }
     // FIXME: normalize-space is missing
     // FIXME: normalize-unicode is missing
     val upperCase = "upper-case" isDefinedBy { (x:String) => x.toUpperCase}
