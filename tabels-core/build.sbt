@@ -1,6 +1,6 @@
 name := "Tabels core"
 
-version := "0.2-SNAPSHOT"
+version := "0.3-SNAPSHOT"
 
 organization := "es.ctic.tabels"
 
