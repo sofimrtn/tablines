@@ -25,12 +25,12 @@
 		<div id="body">
 		<g:if test="${flash.error}">
 			<div class="errorsbox">
-				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error}"/>
+				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error.encodeAsHTML()}"/>
 			</div>
 		</g:if>
 		<g:if test="${flash.message}">
 			<div class="messagebox">
-				<g:message code="${flash.message}" args="${flash.args}" default="${flash.message}"/>
+				<g:message code="${flash.message}" args="${flash.args}" default="${flash.message.encodeAsHTML()}"/>
 			</div>
 		</g:if>
         <g:layoutBody />
