@@ -56,6 +56,8 @@
 		    
 		<p><g:link action="exhibit">Faceted view</g:link></p>
 		    
+		<p><g:link action="map">Map view</g:link></p>
+		    
 		</div>
 		
 		<div id="programDiv">

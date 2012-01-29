@@ -5,6 +5,7 @@ import com.hp.hpl.jena.vocabulary.RDFS
 import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.ModelFactory
+import com.hp.hpl.jena.query.QueryExecutionFactory
 import org.apache.commons.io.FileUtils
 
 class ProjectService {
@@ -113,6 +114,26 @@ class ProjectService {
 		    subjects = subjects + description
 		}
 		return subjects
+    }
+    
+    def getGeopoints() throws RunTimeTabelsException {
+        def queryString = """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+        SELECT ?uri ?lon ?lat ?label
+        WHERE {
+            ?uri geo:long ?lon ; geo:lat ?lat .
+            OPTIONAL { ?uri rdfs:label ?label }
+        }
+        """
+        def queryExecution = QueryExecutionFactory.create(queryString, model)
+        queryExecution.execSelect().collect {
+            [id: it.getResource("uri").URI.hashCode(),
+             lat: it.getLiteral("lat").getDouble(),
+             lon: it.getLiteral("lon").getDouble(),
+             label: it.getLiteral("label")
+            ]
+        }
     }
     
     private String getLabel(Resource resource) {

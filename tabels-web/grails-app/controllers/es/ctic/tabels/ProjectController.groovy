@@ -157,6 +157,10 @@ class ProjectController {
 	    }
 	}
 	
+	def map = {
+	    [geopoints: projectService.geopoints]
+	}
+	
 	private String getGraph() {
 	    // FIXME: not really portable
 	    return ConfigurationHolder.config.grails.serverURL
