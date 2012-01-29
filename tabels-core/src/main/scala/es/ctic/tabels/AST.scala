@@ -18,7 +18,12 @@ case class S (directives : Directives = Directives(), prefixes : Seq[(String,Nam
     
 }
 
-case class Directives(fetch : Option[Regex] = None) { }
+case class Directives(fetch : Option[Regex] = None) {
+    override def toString() = fetch match {
+        case None => ""
+        case Some(regex) => "@FETCH(\"" + regex.toString() + "\")"
+    }
+}
 
 abstract class TabelsStatement extends ASTNode
 
