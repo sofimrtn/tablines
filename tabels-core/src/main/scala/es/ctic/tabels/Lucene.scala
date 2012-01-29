@@ -36,10 +36,10 @@ import collection.JavaConversions._
 class Lucene extends Logging{
   
   var analyzer = new org.apache.lucene.analysis.es.SpanishAnalyzer(Version.LUCENE_33)
-  val inputDirPath = "tabels" + File.separator + "input"
+  val dumpsDirPath = "tabels" + File.separator + "dumps"
   val workDirPath = "tabels" + File.separator + "index"
   val modelDirPath = "tabels" + File.separator + "model"
-  val inputDir = new File(System.getProperty("java.io.tmpdir"), inputDirPath)
+  val dumpsDir = new File(System.getProperty("java.io.tmpdir"), dumpsDirPath)
   val workDir = new File(System.getProperty("java.io.tmpdir"), workDirPath)
   val modelDir = new File(System.getProperty("java.io.tmpdir"), modelDirPath)
   
@@ -99,9 +99,9 @@ class Lucene extends Logging{
   }
   
   def loadIntoModel(filename : String, model : Model) {
-      logger.debug("Ensuring directory " + inputDir + " exists")
-      inputDir.mkdirs()
-      val file = new File(inputDir, filename.replace("/", "-"))
+      logger.debug("Ensuring directory " + dumpsDir + " exists")
+      dumpsDir.mkdirs()
+      val file = new File(dumpsDir, filename.replace("/", "-"))
       logger.debug("Checking if file " + file + " already exists")
       if (!file.exists()) {
           logger.info("Downloading and unpacking " + file + " from DBPedia")
@@ -126,6 +126,7 @@ class Lucene extends Logging{
       }
       logger.info("Loading file " + file + " into the RDF model")
       model.read(new FileInputStream(file), null, "N-TRIPLE")
+      // FIXME: delete downloaded dump file
   }
   
  
