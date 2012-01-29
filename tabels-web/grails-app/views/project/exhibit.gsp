@@ -24,8 +24,9 @@
                 <td width="25%">
                     <div ex:role="facet" ex:facetClass="TextSearch"></div>
                     <div ex:role="facet" ex:expression=".type" ex:facetLabel="Type"></div>
-                    <div ex:role="facet" ex:expression=".dimension" ex:facetLabel="Dimension"></div>
-                    <div ex:role="facet" ex:expression=".dataset" ex:facetLabel="Dataset"></div>
+                    <g:each in="${facets}">
+                        <div ex:role="facet" ex:expression=".${it}" ex:facetLabel="${it}"></div>
+                    </g:each>
                 </td>
             </tr>
     </table>

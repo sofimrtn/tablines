@@ -92,13 +92,10 @@ class ProjectService {
 		    def subject = subjectsIterator.nextResource()
 		    def description = [uri: subject.getURI()]
 		    description["label"] = getLabel(subject)
-//		    if (subject.getProperty(RDF.type) != null) {
-//		        description["type"] = getLabel(subject.getProperty(RDF.type).getResource())
-//	        }
 	        def stmtIterator = subject.listProperties()
 	        while(stmtIterator.hasNext()) {
 	            def stmt = stmtIterator.nextStatement()
-	            if (stmt.getPredicate() != RDF.type) {
+	            if (stmt.getPredicate() != RDFS.label) {
     	            def propName = getLabel(stmt.getPredicate())
     	            def objectLabel = stmt.getObject().isLiteral() ? stmt.getString() : getLabel(stmt.getResource())
     	            description[propName] = ((propName in description) ? description[propName] : []) + [objectLabel]
