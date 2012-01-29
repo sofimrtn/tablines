@@ -70,6 +70,8 @@ object StringFunctions extends FunctionCollection {
     
     val levenshteinDistance = "levenshtein-distance" isDefinedBy { (x:String, y:String) => Levenshtein.stringDistance(x,y)}
     val string = "string" isDefinedBy { (x:String) => x}
+    val firstIndexOf = "first-index-of" isDefinedBy { (x:String, y:String) => x.indexOf(y) }
+    val lastIndexOf = "last-index-of" isDefinedBy { (x:String, y:String) => x.lastIndexOf(y) }
 }
 
 case class ConcatExpression(expressions: Seq[Expression]) extends Expression{
