@@ -51,6 +51,7 @@ class TabelsParser extends JavaTokenParsers {
 	def LET = "let".ignoreCase
 	def A = "a".ignoreCase
 	def PREFIX = "prefix".ignoreCase
+	def FETCH = "fetch".ignoreCase
 //	def PLACED = "placed".ignoreCase
 //	def WITH = "with".ignoreCase
 //	def IS = "is".ignoreCase
@@ -165,8 +166,10 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
-	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
+	def start : Parser[S] = directives ~ rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
+	   { case directiv~prefixes~ps~ts => S(directiv,prefixes,ps,ts) }
+	   
+	def directives : Parser[Directives] = opt("@" ~> FETCH ~> "(" ~> regex <~ ")") ^^ { Directives(_) }
 	
 	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)

@@ -10,13 +10,15 @@ abstract class ASTNode {
 
 }
 
-case class S (prefixes : Seq[(String,NamedResource)] = List(), statementList: Seq[TabelsStatement] = List(), templateList : Seq[Template] = List()) extends ASTNode {
+case class S (directives : Directives = Directives(), prefixes : Seq[(String,NamedResource)] = List(), statementList: Seq[TabelsStatement] = List(), templateList : Seq[Template] = List()) extends ASTNode {
 
     val prefixesAsMap : Map[String, NamedResource] = Map() ++ prefixes
     
     override def accept(vis : Visitor) = vis.visit(this)
     
 }
+
+case class Directives(fetch : Option[Regex] = None) { }
 
 abstract class TabelsStatement extends ASTNode
 

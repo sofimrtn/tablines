@@ -37,6 +37,7 @@ class Interpreter extends Logging {
     evaluationContext.workingArea.mapUnDisambiguted.foreach{map =>
       dataOut.generateOutput(new Statement(map._1,Resource("relacion"),Literal(map._2.label)))*/
    	}
+   	dataOut.postProcess(root)
   }
 
 }

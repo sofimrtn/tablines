@@ -1,14 +1,42 @@
 package es.ctic.tabels
+
+import scala.util.matching.Regex
+import grizzled.slf4j.Logging
 import com.hp.hpl.jena.rdf.model.{Model,ModelFactory,AnonId}
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 
-class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataOutput {
+class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataOutput with Logging {
 
   val model : Model = ModelFactory.createDefaultModel()
   prefixes.foreach { case (prefix,ns) => model.setNsPrefix(prefix, ns.uri) }
   
-  def generateOutput(statement: Statement){ 
+  override def generateOutput(statement: Statement){ 
    model.add(model.createStatement(createSubject(statement.subject),createProperty(statement.property),createObject(statement.obj)))
+  }
+  
+  override def postProcess(program : S) {
+      program.directives.fetch match {
+          case None => // do nothing
+          case Some(resourceUriRe) => fetchDescriptions(resourceUriRe)
+      }
+  }
+  
+  def fetchDescriptions(resourceUriRe : Regex) {
+      logger.info("Fetching descriptions of resources that match RE: " + resourceUriRe)
+      val resourceIterator = model.listObjects()
+      var resourcesToFetch = Set[String]()
+      while (resourceIterator.hasNext()) {
+          val resource = resourceIterator.nextNode()
+          if (resource.isResource() && resource.asResource().getURI() != null) {
+              resourcesToFetch = resourcesToFetch + resource.asResource().getURI()
+          }
+      }
+      resourcesToFetch = resourcesToFetch filter { uri => resourceUriRe.pattern.matcher(uri).find }
+      logger.debug("The descriptions of the following resources will be retrieved from the web: " + resourcesToFetch)
+      resourcesToFetch foreach { resourceUri =>
+          logger.info("Fetching description of resource " + resourceUri)
+          model.read(resourceUri)
+      }
   }
   
   def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
