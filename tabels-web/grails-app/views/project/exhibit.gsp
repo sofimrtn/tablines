@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Visualizador genérico</title>
+	<title>Faceted view</title>
     <script src="../js/exhibit/exhibit-api.js"
                 type="text/javascript"></script>
     <link href="exhibitData" type="application/json" rel="exhibit/data" />
@@ -14,7 +14,9 @@
 </head>
 <body>       
 
-	<h1>Visualizador genérico de datos</h1>
+	<h1>Faceted view</h1>
+	
+	<p><g:link action="index">Back to the project</g:link></p>
 	
     <table width="100%">
             <tr valign="top" class="exhibit">
