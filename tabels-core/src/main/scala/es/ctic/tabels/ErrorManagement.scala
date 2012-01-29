@@ -2,6 +2,8 @@ package es.ctic.tabels
 
 class TabelsException(msg:String) extends Exception(msg)
 
+class CompileTimeTabelsException (msg: String) extends TabelsException(msg)
+
 class RunTimeTabelsException (msg:String) extends TabelsException(msg)
 
 class ParseException(input_ : String, msg : String, lineNumber_ : Int, column_ : Int)
@@ -13,7 +15,7 @@ class ParseException(input_ : String, msg : String, lineNumber_ : Int, column_ :
 }
 
 class UndefinedPrefixException(prefix : String)
-    extends TabelsException("Undefined prefix '" + prefix + "'")
+    extends CompileTimeTabelsException("Undefined prefix '" + prefix + "'")
 
 class TemplateInstantiationException(msg:String) extends RunTimeTabelsException(msg)
 

@@ -40,6 +40,11 @@ class ProjectController {
             flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
             response.status = HttpURLConnection.HTTP_BAD_REQUEST
             render(view: "index", model: indexModel() + [program: program])
+        } catch (es.ctic.tabels.CompileTimeTabelsException e) {
+            log.error "Failed to save the new program: ${e.message}"
+            flash.error = "Failed to save the new program: ${e.message}"
+            response.status = HttpURLConnection.HTTP_BAD_REQUEST
+            render(view: "index", model: indexModel() + [program: program])
         }
     }
     

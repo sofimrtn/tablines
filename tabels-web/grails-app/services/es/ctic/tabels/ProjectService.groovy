@@ -136,7 +136,7 @@ class ProjectService {
 	    programFile.setText(prettyPrinter.toString())
     }
 
-    def saveProgram(String newProgram) throws ParseException {
+    def saveProgram(String newProgram) throws ParseException, CompileTimeTabelsException {
         def parser = new TabelsParser()
         def program = parser.parseProgram(newProgram) // validates the program
         programFile.setText(newProgram)
