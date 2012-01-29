@@ -23,10 +23,17 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
   
   def fetchDescriptions(resourceUriRe : Regex) {
       logger.info("Fetching descriptions of resources that match RE: " + resourceUriRe)
-      val resourceIterator = model.listObjects()
       var resourcesToFetch = Set[String]()
-      while (resourceIterator.hasNext()) {
-          val resource = resourceIterator.nextNode()
+      val subjectIterator = model.listSubjects()
+      while (subjectIterator.hasNext()) {
+          val resource = subjectIterator.nextResource()
+          if (resource.getURI() != null) {
+              resourcesToFetch = resourcesToFetch + resource.getURI()
+          }
+      }
+      val objectIterator = model.listObjects()
+      while (objectIterator.hasNext()) {
+          val resource = objectIterator.nextNode()
           if (resource.isResource() && resource.asResource().getURI() != null) {
               resourcesToFetch = resourcesToFetch + resource.asResource().getURI()
           }
