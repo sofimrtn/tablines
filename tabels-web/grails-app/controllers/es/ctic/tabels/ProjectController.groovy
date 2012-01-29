@@ -136,6 +136,19 @@ class ProjectController {
 	    [datasets: datasets ]
 	}
 	
+	def exhibit = {
+	}
+	
+	def exhibitData = {
+	    render(contentType: "text/json") {
+	        items = array {
+	            for (resource in projectService.resources.take(100)) {
+	                item resource
+	            }
+	        }
+	    }
+	}
+	
 	private String getGraph() {
 	    // FIXME: not really portable
 	    return ConfigurationHolder.config.grails.serverURL

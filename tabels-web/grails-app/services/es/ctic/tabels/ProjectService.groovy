@@ -1,5 +1,9 @@
 package es.ctic.tabels
 
+import com.hp.hpl.jena.vocabulary.RDF
+import com.hp.hpl.jena.vocabulary.RDFS
+import com.hp.hpl.jena.rdf.model.Resource
+
 class ProjectService {
 
     static transactional = true
@@ -52,6 +56,46 @@ class ProjectService {
 	    }
 	    
 	    return dataOutput.model
+    }
+    
+    def getResources() throws RunTimeTabelsException {
+		def model = getModel()
+		def subjectsIterator = model.listSubjects()
+		def subjects = []
+		while(subjectsIterator.hasNext()) {
+		    def subject = subjectsIterator.nextResource()
+		    def description = [uri: subject.getURI()]
+		    description["label"] = getLabel(subject)
+//		    if (subject.getProperty(RDF.type) != null) {
+//		        description["type"] = getLabel(subject.getProperty(RDF.type).getResource())
+//	        }
+	        def stmtIterator = subject.listProperties()
+	        while(stmtIterator.hasNext()) {
+	            def stmt = stmtIterator.nextStatement()
+	            if (stmt.getPredicate() != RDF.type) {
+    	            def propName = getLabel(stmt.getPredicate())
+    	            def objectLabel = stmt.getObject().isLiteral() ? stmt.getString() : getLabel(stmt.getResource())
+    	            description[propName] = ((propName in description) ? description[propName] : []) + [objectLabel]
+	            }
+	        }
+		    subjects = subjects + description
+		}
+		return subjects
+    }
+    
+    private String getLabel(Resource resource) {
+        def SKOS_PREFLABEL = resource.model.createProperty("http://www.w3.org/2004/02/skos/core#prefLabel")
+        if (resource.getProperty(RDFS.label) != null) {
+            return resource.getProperty(RDFS.label).getString()
+        } else if (resource.getProperty(SKOS_PREFLABEL) != null) {
+                return resource.getProperty(SKOS_PREFLABEL).getString()
+        } else if (resource.getURI() == null) {
+            return "Anonymous node"
+        } else if (resource.getURI().contains("#")) {
+            return resource.getURI().substring(resource.getURI().indexOf('#') + 1)
+        } else {
+            return resource.localName
+        }
     }
     
     String getProgram() {
