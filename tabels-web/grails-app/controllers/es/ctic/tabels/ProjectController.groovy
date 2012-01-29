@@ -143,7 +143,7 @@ class ProjectController {
 	
 	def exhibit = {
 	    Set facets = projectService.resources.collectMany { it.keySet() }.toList() as Set
-	    facets = facets -  ["label", "type"]
+	    facets = facets -  ["label", "type", "prefLabel", "uri", "id"]
 	    [facets: facets]
 	}
 	
