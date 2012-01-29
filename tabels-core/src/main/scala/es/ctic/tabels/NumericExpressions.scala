@@ -40,6 +40,13 @@ object NumericFunctions extends FunctionCollection {
     // FIXME: round-half-to-even is missing
     val int = "int" isDefinedBy { (x : Int) => x  }
     val float = "float" isDefinedBy { (x : Float) => x  }
+    
+    // extra functions
+    val intAdd = "int-add" isDefinedBy { (x : Int, y : Int) => x + y }
+    val intSubstract = "int-substract" isDefinedBy { (x : Int, y : Int) => x - y }
+    val intMultiply = "int-multiply" isDefinedBy { (x : Int, y : Int) => x * y }
+    val intDivide = "int-divide" isDefinedBy { (x : Int, y : Int) =>if(y!=0) x / y else throw new ZeroDivision }
+
      
 }
 
