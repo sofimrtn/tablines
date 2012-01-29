@@ -73,6 +73,14 @@ class ProjectService {
     		if (programFile.exists() == false) {
     		    saveProgram(program)
     	    }
+    	    
+    	    // add local RDF and OWL files
+    	    FileUtils.listFiles(inputDir, ["owl", "rdf"] as String[], false).each {
+    	        model.read(new FileInputStream(it), null, "RDF/XML")
+    	    }
+    	    FileUtils.listFiles(inputDir, ["n3"] as String[], false).each {
+    	        model.read(new FileInputStream(it), null, "N3")
+    	    }
 
     	    // save cache
     	    def os = new FileOutputStream(outputCache)
