@@ -1,5 +1,6 @@
 package es.ctic.tabels
 
+import java.net.HttpURLConnection
 import javax.servlet.http.HttpServletResponse
 import org.fundacionctic.su4j.endpoint.EndpointFactory
 import org.fundacionctic.su4j.endpoint.SparqlEndpoint
@@ -16,11 +17,14 @@ class ProjectController {
     def projectService
     def datasetProvider
     
-    def index = {
-        [path: projectService.workDir,
+    private def indexModel = {
+        [path: projectService.inputDir,
          files: projectService.files,
-         program: flash.program != null ? flash.program : projectService.program,
-         sourceUrl: params.sourceUrl]
+         program: projectService.program]
+    }
+    
+    def index = {
+        indexModel()
     }
     
     def saveProgram = {
@@ -32,10 +36,15 @@ class ProjectController {
             flash.message = "The Tabels program has been successfully updated"
             redirect(action: "index")
         } catch (es.ctic.tabels.ParseException e) {
-            log.error "Failed to save the new program: ${e.message} at line ${e.lineNumber}: ${e.line}"
+            log.error "Failed to save the new program: ${e.message} at line ${e.lineNumber}: ${e.line}", e
             flash.error = "Failed to save the new program: ${e.message} at line ${e.lineNumber}"
-            flash.program = program // too big to send it as a param
-            redirect(action: "index")
+            response.status = HttpURLConnection.HTTP_BAD_REQUEST
+            render(view: "index", model: indexModel() + [program: program])
+        } catch (es.ctic.tabels.CompileTimeTabelsException e) {
+            log.error "Failed to save the new program: ${e.message}", e
+            flash.error = "Failed to save the new program: ${e.message}"
+            response.status = HttpURLConnection.HTTP_BAD_REQUEST
+            render(view: "index", model: indexModel() + [program: program])
         }
     }
     
@@ -46,16 +55,17 @@ class ProjectController {
             log.info "Downloading ${params.sourceUrl}"
             int statusCode = client.executeMethod(method)
             String filename = "download-${System.currentTimeMillis()}.html"
-            def downloadedFile = new File(projectService.workDir, filename)
+            def downloadedFile = new File(projectService.inputDir, filename)
             OutputStream os = new FileOutputStream(downloadedFile)
             log.debug "Writing ${params.sourceUrl} to file ${downloadedFile}"
             os.write(method.responseBody);
             os.close();
             flash.message = "The new source from ${params.sourceUrl} has been successfully downloaded"
-            redirect(action: "index")
+            render(view: "index", model: indexModel() + [sourceUrl: params.sourceUrl])
         } catch (Exception e) {
             flash.error = "Failed to download source URL ${params.sourceUrl}: ${e.message}"
-            redirect(action: "index")
+            response.status = HttpURLConnection.HTTP_BAD_REQUEST
+            render(view: "index", model: indexModel() + [sourceUrl: params.sourceUrl])
         } finally {
             method.releaseConnection()
         }
@@ -64,7 +74,7 @@ class ProjectController {
     def autogenerateProgram = {
         projectService.autogenerateProgram(params.strategy)
         flash.message = "The Tabels program has been generated"
-        redirect(action: "index")
+        render(view: "index", model: indexModel())
     }
     
     def rdf = {
@@ -79,10 +89,11 @@ class ProjectController {
 			    response.setHeader("Content-Disposition", "attachment; filename=data.rdf")
 	            model.write(response.outputStream, "RDF/XML")
 	        }
-        }catch (RunTimeTabelsException e){
-			log.error "Failed to execute transformation: ${e.message}"
+        } catch(RunTimeTabelsException e){
+			log.error "Failed to execute transformation: ${e.message}", e
 			flash.error = "Failed to execute transformation: ${e.message}"
-			redirect(action: "index")
+            response.status = HttpURLConnection.HTTP_INTERNAL_ERROR
+            render(view: "index", model: indexModel())
         }
 		
     }
@@ -111,7 +122,8 @@ class ProjectController {
 		} catch (QueryParseException e) {
             log.error("While parsing query: ${params.query}", e)
             flash.error = "Failed to parse SPARQL Query: ${e.message}"
-            redirect(action:sparqlForm, params: [query: params.query])
+            response.status = HttpURLConnection.HTTP_BAD_REQUEST
+            render(view:"sparqlForm", params: [query: params.query])
 		} catch (Exception e) {
 			log.error("While executing SPARQL query: ${params.query}", e)
 			render(status: 500, text: e.getMessage())
@@ -127,6 +139,26 @@ class ProjectController {
         log.info("Providing the list of datasets to the view");
         def datasets = datasetProvider.getSuggestions(null);
 	    [datasets: datasets ]
+	}
+	
+	def exhibit = {
+	    Set facets = projectService.resources.collectMany { it.keySet() }.toList() as Set
+	    facets = facets -  ["label", "type", "prefLabel", "uri", "id"]
+	    [facets: facets]
+	}
+	
+	def exhibitData = {
+	    render(contentType: "text/json") {
+	        items = array {
+	            for (resource in projectService.resources.take(100)) {
+	                item resource
+	            }
+	        }
+	    }
+	}
+	
+	def map = {
+	    [geopoints: projectService.geopoints]
 	}
 	
 	private String getGraph() {

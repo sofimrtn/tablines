@@ -15,7 +15,12 @@ class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
     private def getTable(tabName : String) : Node = tables(tabName.toInt)
 
 	override val uri = fl.getCanonicalPath()
-	override def getValue(point : Point) : CellValue = new HtmlCellValue(((getTable(point.tab) \\ "tr")(point.row) \ "td")(point.col))
+	override def getValue(point : Point) : CellValue =
+	    try {
+	        new HtmlCellValue(((getTable(point.tab) \\ "tr")(point.row) \ "td")(point.col))
+        } catch {
+            case e : IndexOutOfBoundsException => throw new IndexOutOfBounds(point)
+        }
 	override def getTabs() : Seq[String] = List.range(0, tables.size) map (_.toString()) // FIXME: use @id when available
 	override def getRows(tabName : String) : Int = (getTable(tabName) \\ "tr").size
 	override def getCols(tabName : String) : Int = ((getTable(tabName) \\ "tr")(0) \ "td").size // FIXME: considers only the first row, beware of headers

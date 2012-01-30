@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Visualizador genérico</title>
+	<title>Chart view</title>
     <meta name="layout" content="main" />
     <r:require modules="tapinos-js,fancybox,protovis,highcharts,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
 </head>
@@ -73,7 +73,7 @@
     });
 	</r:script>
             
-	<h1>Visualizador genérico de datos</h1>
+	<h1>Chart view</h1>
 	
 	<h2>Seleccione los datos</h2>
 

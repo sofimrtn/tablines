@@ -51,6 +51,7 @@ class TabelsParser extends JavaTokenParsers {
 	def LET = "let".ignoreCase
 	def A = "a".ignoreCase
 	def PREFIX = "prefix".ignoreCase
+	def FETCH = "fetch".ignoreCase
 //	def PLACED = "placed".ignoreCase
 //	def WITH = "with".ignoreCase
 //	def IS = "is".ignoreCase
@@ -143,7 +144,7 @@ class TabelsParser extends JavaTokenParsers {
        quotedString ~ ("^^" ~> iriRef) ^^ { case value~rdfType => Literal(value, rdfType = rdfType) } |
        quotedString ~ ("@" ~> langTag) ^^ { case value~langTag => Literal(value, langTag = langTag) } |
        quotedString ^^ { value => Literal(value) } |
-	   decimalNumber ^^ { asString => Literal(asString, rdfType = if (asString contains ".") XSD_DECIMAL else XSD_INT) } |
+	   decimalNumber ^^ { asString => if (asString contains ".") Literal(asString.toDouble, XSD_DECIMAL) else Literal(asString.toInt, XSD_INT) } |
 	   TRUE ^^ { x => LITERAL_TRUE } |
 	   FALSE ^^ { x => LITERAL_FALSE }
 
@@ -165,8 +166,10 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
-	   { case prefixes~ps~ts => S(prefixes,ps,ts) }
+	def start : Parser[S] = directives ~ rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
+	   { case directiv~prefixes~ps~ts => S(directiv,prefixes,ps,ts) }
+	   
+	def directives : Parser[Directives] = opt("@" ~> FETCH ~> "(" ~> regex <~ ")") ^^ { Directives(_) }
 	
 	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)
@@ -259,12 +262,14 @@ class TabelsParser extends JavaTokenParsers {
     round |
     ceiling |
     int |
-    float
+    float |
+    intAdd | intSubstract | intMultiply | intDivide
     
     import StringFunctions._
     
     def stringFunctions : Parser[Expression] =
     startsWith |
+    normalizeSpace |
     upperCase |
     compare |
     levenshteinDistance |
@@ -278,7 +283,9 @@ class TabelsParser extends JavaTokenParsers {
     stringLength |
     substring2 |
     substring3 |
-    string
+    string |
+    firstIndexOf | lastIndexOf |
+    trim
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 

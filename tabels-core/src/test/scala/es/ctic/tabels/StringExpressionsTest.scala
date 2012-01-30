@@ -31,7 +31,9 @@ class StringFunctionsTest extends JUnitSuite {
         assertEquals(1, StringFunctions.stringLength("0"))
         
     }
-    // FIXME: normalize-space is missing
+    @Test def normalizeSpace {
+        assertEquals("x y", StringFunctions.normalizeSpace(" \t x \n \t y \n"))
+    }
     // FIXME: normalize-unicode is missing
     @Test def upperCase {
         assertEquals("ORIGINAL", StringFunctions.upperCase("original"))

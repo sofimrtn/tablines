@@ -1,6 +1,6 @@
 name := "Tabels core"
 
-version := "0.2-SNAPSHOT"
+version := "0.3-SNAPSHOT"
 
 organization := "es.ctic.tabels"
 
@@ -33,6 +33,8 @@ libraryDependencies += "com.hp.hpl.jena" % "tdb" % "0.8.10"
 libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
 
 libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
+
+libraryDependencies += "commons-io" % "commons-io" % "2.1"
 
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
 

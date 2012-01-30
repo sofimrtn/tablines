@@ -52,7 +52,11 @@
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
 		
-		<p><g:link action="tapinos">SCOVO viewer</g:link></p>
+		<p><g:link action="tapinos">Charts</g:link></p>
+		    
+		<p><g:link action="exhibit">Faceted view</g:link></p>
+		    
+		<p><g:link action="map">Map view</g:link></p>
 		    
 		</div>
 		

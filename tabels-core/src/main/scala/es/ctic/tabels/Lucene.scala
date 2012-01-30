@@ -25,6 +25,7 @@ import grizzled.slf4j.Logging
 import java.io.{File,FileNotFoundException,FileInputStream,FileOutputStream}
 import java.net.URL
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
+import org.apache.commons.io.FileUtils
 import scala.io.Source
 import com.hp.hpl.jena.rdf.model.{ModelFactory,Model}
 import com.hp.hpl.jena.vocabulary.RDFS
@@ -36,18 +37,16 @@ import collection.JavaConversions._
 class Lucene extends Logging{
   
   var analyzer = new org.apache.lucene.analysis.es.SpanishAnalyzer(Version.LUCENE_33)
-  val inputDirPath = "tabels" + File.separator + "input"
-  val workDirPath = "tabels" + File.separator + "index"
-  val modelDirPath = "tabels" + File.separator + "model"
-  val inputDir = new File(System.getProperty("java.io.tmpdir"), inputDirPath)
-  val workDir = new File(System.getProperty("java.io.tmpdir"), workDirPath)
-  val modelDir = new File(System.getProperty("java.io.tmpdir"), modelDirPath)
+  val tabelsDir = new File(FileUtils.getTempDirectory(), "tabels")
+  val dumpsDir = new File(tabelsDir, "dbpedia-dumps")
+  val indexDir = new File(tabelsDir, "dbpedia-index")
+  val modelDir = new File(tabelsDir, "dbpedia-model")
   
-  logger.info("Checking index directory " + workDir)
-  workDir.mkdirs()
-  lazy val directory = FSDirectory.open(workDir)
-  if (workDir.list().length == 0) {
-      logger.info("The index directory " + workDir + " is empty, regenerating index")
+  logger.info("Checking index directory " + indexDir)
+  FileUtils.forceMkdir(indexDir)
+  lazy val directory = FSDirectory.open(indexDir)
+  if (indexDir.list().length == 0) {
+      logger.info("The index directory " + indexDir + " is empty, regenerating index")
       val iWriterConfig = new IndexWriterConfig(Version.LUCENE_33, new LimitTokenCountAnalyzer(analyzer,2500))
       iWriterConfig.setOpenMode(OpenMode.CREATE)
       val iwriter = new IndexWriter(directory, iWriterConfig)
@@ -59,14 +58,14 @@ class Lucene extends Logging{
        } 
   }
   else {
-      logger.info("Skipping index generation, reusing indexes from " + workDir)
+      logger.info("Skipping index generation, reusing indexes from " + indexDir)
   }
   
     def loadDocs(iwriter: IndexWriter) {
        
     //val model = ModelFactory.createDefaultModel()
     logger.info("Creating temporary Jena model in dir " + modelDir)
-    modelDir.mkdirs()
+    FileUtils.forceMkdir(modelDir)
     val model = TDBFactory.createModel(modelDir.getAbsolutePath)
     loadIntoModel("en/labels_en.nt", model)
     loadIntoModel("en/instance_types_en.nt", model)
@@ -99,9 +98,9 @@ class Lucene extends Logging{
   }
   
   def loadIntoModel(filename : String, model : Model) {
-      logger.debug("Ensuring directory " + inputDir + " exists")
-      inputDir.mkdirs()
-      val file = new File(inputDir, filename.replace("/", "-"))
+      logger.debug("Ensuring directory " + dumpsDir + " exists")
+      FileUtils.forceMkdir(dumpsDir)
+      val file = new File(dumpsDir, filename.replace("/", "-"))
       logger.debug("Checking if file " + file + " already exists")
       if (!file.exists()) {
           logger.info("Downloading and unpacking " + file + " from DBPedia")
@@ -126,6 +125,7 @@ class Lucene extends Logging{
       }
       logger.info("Loading file " + file + " into the RDF model")
       model.read(new FileInputStream(file), null, "N-TRIPLE")
+      // FIXME: delete downloaded dump file
   }
   
  

@@ -62,8 +62,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(rdfLiteral, "\"hello\"", Literal("hello"))
 		assertParse(rdfLiteral, "\"hello\"@en", Literal("hello", langTag = "en"))
 		assertParse(rdfLiteral, "\"5.3\"^^<http://www.w3.org/2001/XMLSchema#double>", Literal("5.3", XSD_DOUBLE))
-		assertParse(rdfLiteral, "3", Literal("3", rdfType = XSD_INT))
-		assertParse(rdfLiteral, "3.1415", Literal("3.1415", rdfType = XSD_DECIMAL))
+		assertParse(rdfLiteral, "3", Literal(3, rdfType = XSD_INT))
+		assertParse(rdfLiteral, "3.1415", Literal(3.1415, rdfType = XSD_DECIMAL))
 		assertParse(rdfLiteral, "true", LITERAL_TRUE)
 		assertParse(rdfLiteral, "false", LITERAL_FALSE)
 		assertFail (rdfLiteral, "")
@@ -112,6 +112,12 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(start, "", S())
 	}
 	
+	@Test def parseDirectives() {
+	    assertParse(directives, "", Directives())
+//	    assertParse(directives, """@FETCH("dbpedia")""", Directives(Some("dbpedia".r)))   // cannot compare regex
+	    assertFail (directives, "@FETCH")
+	}
+	
 	@Test def parsePrefixDecl() {
 		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", ("foo" -> NamedResource("http://example.org/")))
 		assertEquals(NamedResource("http://example.org/"), prefixes("foo"))
@@ -145,7 +151,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
     
     @Test def parseLetStatement {
-        assertParse(letStatement, "let ?x = 10", LetStatement(Variable("?x"), LiteralExpression(Literal("10", XSD_INT))))
+        assertParse(letStatement, "let ?x = 10", LetStatement(Variable("?x"), LiteralExpression(Literal(10, XSD_INT))))
         assertFail (letStatement, "")
     }
 
@@ -170,7 +176,8 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail(expression, "y")
         
         // LiteralExpression
-        assertParse(expression, "10", LiteralExpression(Literal("10", XSD_INT)))
+        assertParse(expression, "10", LiteralExpression(Literal(10, XSD_INT)))
+        assertParse(expression, "3.14", LiteralExpression(Literal(3.14, XSD_DECIMAL)))
         assertParse(expression, "\"hello\"", LiteralExpression(Literal("hello")))
      }
      

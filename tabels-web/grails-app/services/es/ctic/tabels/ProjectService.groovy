@@ -1,5 +1,13 @@
 package es.ctic.tabels
 
+import com.hp.hpl.jena.vocabulary.RDF
+import com.hp.hpl.jena.vocabulary.RDFS
+import com.hp.hpl.jena.rdf.model.Resource
+import com.hp.hpl.jena.rdf.model.Model
+import com.hp.hpl.jena.rdf.model.ModelFactory
+import com.hp.hpl.jena.query.QueryExecutionFactory
+import org.apache.commons.io.FileUtils
+
 class ProjectService {
 
     static transactional = true
@@ -7,17 +15,24 @@ class ProjectService {
 
     static String defaultProgramFilename = "default.tabels"
     
-    String path = "tabels" + File.separator + "upload";
-    File workDir = new File(System.getProperty("java.io.tmpdir"), path)
-    File programFile = new File(workDir, defaultProgramFilename)
+    File tabelsDir = new File(FileUtils.tempDirectory, "tabels")
+    File inputDir = new File(tabelsDir, "upload")
+    File programFile = new File(inputDir, defaultProgramFilename)
+    File outputCache = new File(tabelsDir, "output.rdf")
 
     def File[] getFiles() {
-        log.debug "Listing files in temporary dir: ${workDir}"
-        if (workDir.exists() == false) {
-            log.info "Creating temporary dir: ${workDir}"
-            workDir.mkdirs()
+        FileUtils.forceMkdir(inputDir)
+        log.debug "Listing files in temporary dir: ${inputDir}"
+        inputDir.listFiles()
+    }
+    
+    def boolean isCacheValid() {
+        FileUtils.forceMkdir(inputDir)
+        if (outputCache.exists() == false || inputDir.list().length == 0) {
+            return false
+        } else {
+            return inputDir.listFiles().every { FileUtils.isFileOlder(it, outputCache) }
         }
-        workDir.listFiles()
     }
     
     def autogenerateProgram(String strategy) {
@@ -32,26 +47,108 @@ class ProjectService {
     }
     
     def getDataSource() {
-        return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(workDir))
+        FileUtils.forceMkdir(inputDir)
+        return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(inputDir))
     }
     
-    def getModel() throws RunTimeTabelsException{
-        log.info "And Tabular Cells!"
-        def dataSource = getDataSource()
-        log.debug "Datasource includes these files: ${dataSource.filenames}"
-        log.debug "Using Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
-		def parser = new TabelsParser()
-		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
-        def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
-		def interpreter = new Interpreter()
-		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
-		interpreter.interpret(program, dataSource, dataOutput)
+    def getModel() throws RunTimeTabelsException {
+        FileUtils.forceMkdir(inputDir)
+        Model model = null
+        if (isCacheValid()) {
+            log.info "Returning cached model"
+            model = ModelFactory.createDefaultModel()
+            model.read(new FileInputStream(outputCache), null, "RDF/XML")
+        } else {
+            log.info "And Tabular Cells!"
+            def dataSource = getDataSource()
+            log.debug "Datasource includes these files: ${dataSource.filenames}"
+            log.debug "Using Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
+    		def parser = new TabelsParser()
+    		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
+            def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
+    		def interpreter = new Interpreter()
+    		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
+    		interpreter.interpret(program, dataSource, dataOutput)
+            model = dataOutput.model
+        
+    		if (programFile.exists() == false) {
+    		    saveProgram(program)
+    	    }
+    	    
+    	    // add local RDF and OWL files
+    	    FileUtils.listFiles(inputDir, ["owl", "rdf"] as String[], false).each {
+    	        model.read(new FileInputStream(it), null, "RDF/XML")
+    	    }
+    	    FileUtils.listFiles(inputDir, ["n3"] as String[], false).each {
+    	        model.read(new FileInputStream(it), null, "N3")
+    	    }
 
-		if (programFile.exists() == false) {
-		    saveProgram(program)
-	    }
+    	    // save cache
+    	    def os = new FileOutputStream(outputCache)
+            model.write(os, "RDF/XML")
+            os.close()
+            log.info "Saved model cache at ${outputCache}"
+        }
 	    
-	    return dataOutput.model
+	    return model
+    }
+    
+    def getResources() throws RunTimeTabelsException {
+		def model = getModel()
+		def subjectsIterator = model.listSubjects()
+		def subjects = []
+		while(subjectsIterator.hasNext()) {
+		    def subject = subjectsIterator.nextResource()
+		    def description = [id: subject.toString()]
+		    if (subject.getURI() != null) description["uri"] = subject.getURI()
+		    description["label"] = getLabel(subject)
+	        def stmtIterator = subject.listProperties()
+	        while(stmtIterator.hasNext()) {
+	            def stmt = stmtIterator.nextStatement()
+	            if (stmt.getPredicate() != RDFS.label) {
+    	            def propName = getLabel(stmt.getPredicate())
+    	            def objectLabel = stmt.getObject().isLiteral() ? stmt.getString() : getLabel(stmt.getResource())
+    	            description[propName] = ((propName in description) ? description[propName] : []) + [objectLabel]
+	            }
+	        }
+		    subjects = subjects + description
+		}
+		return subjects
+    }
+    
+    def getGeopoints() throws RunTimeTabelsException {
+        def queryString = """
+        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+        PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+        SELECT ?uri ?lon ?lat ?label
+        WHERE {
+            ?uri geo:long ?lon ; geo:lat ?lat .
+            OPTIONAL { ?uri rdfs:label ?label }
+        }
+        """
+        def queryExecution = QueryExecutionFactory.create(queryString, model)
+        queryExecution.execSelect().collect {
+            [id: it.getResource("uri").URI.hashCode(),
+             lat: it.getLiteral("lat").getDouble(),
+             lon: it.getLiteral("lon").getDouble(),
+             label: it.getLiteral("label")
+            ]
+        }
+    }
+    
+    private String getLabel(Resource resource) {
+        def SKOS_PREFLABEL = resource.model.createProperty("http://www.w3.org/2004/02/skos/core#prefLabel")
+        if (resource.getProperty(RDFS.label) != null) {
+            return resource.getProperty(RDFS.label).getString()
+        } else if (resource.getProperty(SKOS_PREFLABEL) != null) {
+                return resource.getProperty(SKOS_PREFLABEL).getString()
+        } else if (resource.getURI() == null) {
+            return "Anonymous node"
+        } else if (resource.getURI().contains("#")) {
+            return resource.getURI().substring(resource.getURI().indexOf('#') + 1)
+        } else {
+            return resource.localName
+        }
     }
     
     String getProgram() {
@@ -66,7 +163,7 @@ class ProjectService {
 	    programFile.setText(prettyPrinter.toString())
     }
 
-    def saveProgram(String newProgram) throws ParseException {
+    def saveProgram(String newProgram) throws ParseException, CompileTimeTabelsException {
         def parser = new TabelsParser()
         def program = parser.parseProgram(newProgram) // validates the program
         programFile.setText(newProgram)
