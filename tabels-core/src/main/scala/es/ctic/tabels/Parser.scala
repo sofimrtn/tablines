@@ -261,8 +261,9 @@ class TabelsParser extends JavaTokenParsers {
     floor |
     round |
     ceiling |
-    int |
+    int | intOrElse |
     float |
+    double | doubleOrElse |
     intAdd | intSubstract | intMultiply | intDivide
     
     import StringFunctions._

@@ -39,7 +39,20 @@ object NumericFunctions extends FunctionCollection {
     val round = "round" isDefinedBy { (x : Double) => scala.math.round(x)  }
     // FIXME: round-half-to-even is missing
     val int = "int" isDefinedBy { (x : Int) => x  }
+    val intOrElse = "int" isDefinedBy { (ec : EvaluationContext, x : Any, default : Int) => try {
+            x.toString.toFloat.toInt
+        } catch {
+            case e : Exception => default
+        }
+    }
     val float = "float" isDefinedBy { (x : Float) => x  }
+    val double = "double" isDefinedBy { (x : Double) => x  }
+    val doubleOrElse = "double" isDefinedBy { (ec : EvaluationContext, x : Any, default : Double) => try {
+            x.toString.toDouble
+        } catch {
+            case e : Exception => default
+        }
+    }
     
     // extra functions
     val intAdd = "int-add" isDefinedBy { (x : Int, y : Int) => x + y }

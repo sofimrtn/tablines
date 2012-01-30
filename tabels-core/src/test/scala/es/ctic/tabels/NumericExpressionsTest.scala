@@ -152,10 +152,26 @@ class NumericExpressionsTest extends JUnitSuite {
     
     }
     
-    @Test def float{
+    @Test def intOrElse {
+        assertEquals(3 , NumericFunctions.intOrElse(3,5))
+        assertEquals(3 , NumericFunctions.intOrElse("3",5))
+        assertEquals(3 , NumericFunctions.intOrElse("3.14",5))        
+        assertEquals(5 , NumericFunctions.intOrElse("Foo",5))
+    }
     
-    assertEquals(1.0 ,NumericFunctions.float(1),0)
-    assertEquals(14.0 , NumericFunctions.float(14),0)
+    @Test def float {
+        assertEquals(1.0 ,NumericFunctions.float(1),0)
+        assertEquals(14.0 , NumericFunctions.float(14),0)
+    }
+    
+    @Test def double {
+        assertEquals(1.0 ,NumericFunctions.double(1.0),0)
+    }
+    
+    @Test def doubleOrElse {
+        assertEquals(3.0, NumericFunctions.doubleOrElse(3.0,5.0),0)
+        assertEquals(3.0, NumericFunctions.doubleOrElse("3.0",5.0),0)        
+        assertEquals(5.0, NumericFunctions.doubleOrElse("Foo",5.0),0)        
     }
   
     
