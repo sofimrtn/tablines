@@ -45,7 +45,7 @@ object NumericFunctions extends FunctionCollection {
     val intAdd = "int-add" isDefinedBy { (x : Int, y : Int) => x + y }
     val intSubstract = "int-substract" isDefinedBy { (x : Int, y : Int) => x - y }
     val intMultiply = "int-multiply" isDefinedBy { (x : Int, y : Int) => x * y }
-    val intDivide = "int-divide" isDefinedBy { (x : Int, y : Int) =>if(y!=0) x / y else throw new ZeroDivision }
+    val intDivide = "int-divide" isDefinedBy { (x : Int, y : Int) =>if(y!=0) x / y else throw new ZeroDivisionException }
 
      
 }
