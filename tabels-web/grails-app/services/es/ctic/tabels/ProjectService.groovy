@@ -128,7 +128,7 @@ class ProjectService {
         """
         def queryExecution = QueryExecutionFactory.create(queryString, model)
         queryExecution.execSelect().collect {
-            [id: it.getResource("uri").URI.hashCode(),
+            [id: Math.abs(it.getResource("uri").URI.hashCode()),
              lat: it.getLiteral("lat").getDouble(),
              lon: it.getLiteral("lon").getDouble(),
              label: it.getLiteral("label")
