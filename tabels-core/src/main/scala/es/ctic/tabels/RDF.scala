@@ -29,7 +29,7 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	    case XSD_INT => this
 	   case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toFloat.toInt, XSD_INT) // FIXME
 	    case XSD_STRING => try {
-	            Literal(value.toString.toInt, XSD_INT)
+	            Literal(value.toString.toFloat.toInt, XSD_INT)
             } catch {
                 case e : NumberFormatException => throw new TypeConversionException(this, XSD_INT)
             }
@@ -231,6 +231,12 @@ object CanFromRDFNode {
     implicit def booleanFromRDFNode = new CanFromRDFNode[Boolean] {
         def fromRDFNode(rdfNode : RDFNode) : Boolean = rdfNode match {
             case l : Literal => l
+            case r : Resource => throw new CannotConvertResourceToLiteralException(r)
+        }
+    }
+    implicit def anyFromRDFNode = new CanFromRDFNode[Any] {
+        def fromRDFNode(rdfNode : RDFNode) : Any = rdfNode match {
+            case l : Literal => l.value
             case r : Resource => throw new CannotConvertResourceToLiteralException(r)
         }
     }

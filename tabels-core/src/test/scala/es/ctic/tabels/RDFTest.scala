@@ -45,6 +45,7 @@ class LiteralTest extends JUnitSuite {
       assertEquals(Literal(1, XSD_INT), LITERAL_TRUE.asInt)
       assertEquals(Literal(0, XSD_INT), LITERAL_FALSE.asInt)
       assertEquals(Literal(3, XSD_INT), Literal("3.14", XSD_DOUBLE).asInt)
+      assertEquals(Literal(3, XSD_INT), Literal("3.14", XSD_STRING).asInt)
      
   }
   
