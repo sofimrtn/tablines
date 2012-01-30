@@ -16,6 +16,9 @@ abstract class AbstractFunctionalTest extends JUnitSuite with Logging {
         PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
         PREFIX owl: <http://www.w3.org/2002/07/owl#>
         PREFIX ex: <http://example.org/>
+    	PREFIX scv: <http://purl.org/NET/scovo#>
+		PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+		PREFIX geo: <http://www.geonames.org/ontology#>
         """
 	val program : String
     val spreadsheets : Seq[String]
