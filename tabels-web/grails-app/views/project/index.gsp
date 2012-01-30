@@ -48,7 +48,7 @@
 		<g:link action="rdf"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
 		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
 		
-		<p class="sparqlLink">The SPARQL endpoint is <g:link action="sparqlForm">${resource(controller: 'project', action: 'sparqlForm', absolute: true)}</g:link></p>
+		<p class="sparqlLink">SPARQL endpoint at <g:link action="sparql"><g:createLink controller="project" action="sparql" absolute="true"/></g:link></p>
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
 		

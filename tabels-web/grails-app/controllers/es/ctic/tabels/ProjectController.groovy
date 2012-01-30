@@ -98,26 +98,30 @@ class ProjectController {
 		
     }
     
-	def sparqlQuery = {
+	def sparql = {
 		try {
-    		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-    		endpoint.addNamedGraph(getGraph(), projectService.getModel())
-    	    endpoint.setRequest(request)
-    		endpoint.setResponse(response)
-    		if (endpoint.isQuery()) {
-				log.info("Executing SPARQL query: ${params.query}")
-				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
-					def results = endpoint.getResults().getResult()
-					def vars = ResultSetHelper.extractVariables(results)
-					def tuples = ResultSetHelper.extractTuples(results)
-					def size = tuples.size()					
-					log.debug "Serializing to HTML ${size} results"
-					return [vars: vars, tuples: tuples, size: size ]
-				} else {
-					endpoint.query() // bypass GSP rendering
-				}
-    		} else {
-    			redirect(action:sparqlForm, params: params)
+		    if (params.query == null) {
+		        render(view:"sparqlForm", model: [query: "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }"])
+		    } else {
+        		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
+        		endpoint.addNamedGraph(getGraph(), projectService.getModel())
+        	    endpoint.setRequest(request)
+        		endpoint.setResponse(response)
+        		if (endpoint.isQuery()) {
+    				log.info("Executing SPARQL query: ${params.query}")
+    				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
+    					def results = endpoint.getResults().getResult()
+    					def vars = ResultSetHelper.extractVariables(results)
+    					def tuples = ResultSetHelper.extractTuples(results)
+    					def size = tuples.size()					
+    					log.debug "Serializing to HTML ${size} results"
+    					render(view: "sparqlQuery", model: [vars: vars, tuples: tuples, size: size])
+    				} else {
+    					endpoint.query() // bypass GSP rendering
+    				}
+        		} else {
+        			render(view:"sparqlForm", model: [query: params])
+        		}
     		}
 		} catch (QueryParseException e) {
             log.error("While parsing query: ${params.query}", e)
@@ -127,11 +131,6 @@ class ProjectController {
 			log.error("While executing SPARQL query: ${params.query}", e)
 			render(status: 500, text: e.getMessage())
 		}
-	}
-	
-	def sparqlForm = {
-		log.debug("Showing SPARQL form")
-		[query: params.query != null ? params.query : "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }"]
 	}
 	
 	def tapinos = {

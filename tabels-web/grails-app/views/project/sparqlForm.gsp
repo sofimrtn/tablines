@@ -60,7 +60,7 @@
         </p>
           
         <p style="clear:both;">
-          <g:actionSubmit value="Query" action="sparqlQuery" id="queryButton" />
+          <g:actionSubmit value="Query" action="sparql" id="queryButton" />
         </p>              
       </fieldset>
     </g:form>
