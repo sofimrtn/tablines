@@ -27,7 +27,7 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	
 	def asInt : Literal = rdfType match {
 	    case XSD_INT => this
-	   case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toInt, XSD_INT) // FIXME
+	   case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toFloat.toInt, XSD_INT) // FIXME
 	    case XSD_STRING => try {
 	            Literal(value.toString.toInt, XSD_INT)
             } catch {
