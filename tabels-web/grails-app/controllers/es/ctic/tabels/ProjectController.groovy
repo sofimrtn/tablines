@@ -122,8 +122,7 @@ class ProjectController {
 		} catch (QueryParseException e) {
             log.error("While parsing query: ${params.query}", e)
             flash.error = "Failed to parse SPARQL Query: ${e.message}"
-            response.status = HttpURLConnection.HTTP_BAD_REQUEST
-            render(view:"sparqlForm", params: [query: params.query])
+            render(view:"sparqlForm", model: [query: params.query], status: HttpURLConnection.HTTP_BAD_REQUEST)
 		} catch (Exception e) {
 			log.error("While executing SPARQL query: ${params.query}", e)
 			render(status: 500, text: e.getMessage())
