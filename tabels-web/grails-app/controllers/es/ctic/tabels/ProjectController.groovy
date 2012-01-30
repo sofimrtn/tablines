@@ -100,8 +100,8 @@ class ProjectController {
     
 	def sparql = {
 		try {
-		    if (params.query == null) {
-		        render(view:"sparqlForm", model: [query: "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }"])
+		    if (params.query == null || params.forceForm) {
+		        render(view:"sparqlForm", model: [query: params.query == null ? "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }" : params.query])
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
         		endpoint.addNamedGraph(getGraph(), projectService.getModel())
@@ -115,7 +115,7 @@ class ProjectController {
     					def tuples = ResultSetHelper.extractTuples(results)
     					def size = tuples.size()					
     					log.debug "Serializing to HTML ${size} results"
-    					render(view: "sparqlQuery", model: [vars: vars, tuples: tuples, size: size])
+    					render(view: "sparqlQuery", model: [vars: vars, tuples: tuples, size: size, query: params.query])
     				} else {
     					endpoint.query() // bypass GSP rendering
     				}

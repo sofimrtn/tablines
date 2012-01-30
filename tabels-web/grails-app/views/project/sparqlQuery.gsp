@@ -9,9 +9,7 @@
   
     <h2>SPARQL Results (${size})</h2>
     
-   	<p style="text-align: right;">
-   		Go back to the <g:link action="sparql">SPARQL form</g:link>
-   	</p>    
+   	<p>Go back to the <g:link action="sparql" params="[forceForm: '1', query: query]">SPARQL form</g:link></p>    
   
     <table class="sparql">
       <thead>
@@ -39,10 +37,6 @@
       </tbody>
     </table>
     
-   	<p style="text-align: right;">
-   		Go back to the <a href="form">SPARQL form</a>
-   	</p>
-   	
    	<!--
    	<script type="text/javascript" src="../js/jquery.autolink.js"></script> 
    	
