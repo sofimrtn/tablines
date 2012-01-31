@@ -37,10 +37,9 @@ import collection.JavaConversions._
 class Lucene extends Logging{
   
   var analyzer = new org.apache.lucene.analysis.es.SpanishAnalyzer(Version.LUCENE_33)
-  val tabelsDir = new File(FileUtils.getTempDirectory(), "tabels")
-  val dumpsDir = new File(tabelsDir, "dbpedia-dumps")
-  val indexDir = new File(tabelsDir, "dbpedia-index")
-  val modelDir = new File(tabelsDir, "dbpedia-model")
+  val dumpsDir = new File(Config.tabelsDir, "dbpedia-dumps")
+  val indexDir = new File(Config.tabelsDir, "dbpedia-index")
+  val modelDir = new File(Config.tabelsDir, "dbpedia-model")
   
   logger.info("Checking index directory " + indexDir)
   FileUtils.forceMkdir(indexDir)

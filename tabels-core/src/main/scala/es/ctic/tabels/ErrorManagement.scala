@@ -41,3 +41,5 @@ class InvalidFucntionParameterException(parameter : String) extends RunTimeTabel
 class ZeroDivisionException extends InvalidFucntionParameterException("Division by Zero")
 
 class LuceneQueryException(msg:String) extends RunTimeTabelsException(msg)
+
+class ResourceCannotBeRetrievedException(uri:String) extends RunTimeTabelsException("Cannot retrieve resource " + uri)
