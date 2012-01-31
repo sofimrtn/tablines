@@ -165,12 +165,11 @@ class ProjectController {
 	}
 	
 	def config = {
-	    def configObject = new Config()
 	    [
-	    proxyHost: configObject.proxyHost,
-	    proxyPort: configObject.proxyPort,
-	    tabelsPath: configObject.tabelsPath,
-	    tabelsDir: configObject.tabelsDir
+	    proxyHost: projectService.configObject.proxyHost,
+	    proxyPort: projectService.configObject.proxyPort,
+	    tabelsPath: projectService.configObject.tabelsPath,
+	    tabelsDir: projectService.configObject.tabelsDir
 	    ]
 	}
 	

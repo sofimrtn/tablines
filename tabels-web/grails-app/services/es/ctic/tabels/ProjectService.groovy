@@ -15,10 +15,11 @@ class ProjectService {
 
     static String defaultProgramFilename = "default.tabels"
     
-    File tabelsDir = new File(FileUtils.tempDirectory, "tabels")
-    File inputDir = new File(tabelsDir, "upload")
+    def configObject = new Config()
+
+    File inputDir = new File(configObject.tabelsDir, "upload")
     File programFile = new File(inputDir, defaultProgramFilename)
-    File outputCache = new File(tabelsDir, "output.rdf")
+    File outputCache = new File(configObject.tabelsDir, "output.rdf")
 
     def File[] getFiles() {
         FileUtils.forceMkdir(inputDir)
