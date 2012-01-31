@@ -150,6 +150,26 @@ class INEDemoFunctionalTest extends AbstractFunctionalTest {
 				   scv:dimension inv:Proyecto-TDT ;
 				   rdf:value "111843.01"^^xsd:float ;
 		     }""")
+		     
+	    assertAskTrue(model, """
+		    PREFIX inv: <http://data.fundacionctic.org/easturias/inversiones#>
+		    ASK { <http://localhost:8080/tabels-web/pubby/resource/hogarimp/87> a scv:Item ;
+			       rdf:value "16143"^^xsd:int ;
+	    		   scv:dimension inv:Proyecto-HogarTIC ;
+				   scv:dimension inv:Impacto-Subvenciones ;
+	    		   scv:dimension <http://data.fundacionctic.org/easturias/ine#Oviedo> ;
+				   scv:dataset inv:Dataset-Impactos-Comarcas ;
+		     }""")
+		     
+		assertAskTrue(model, """
+		    PREFIX inv: <http://data.fundacionctic.org/easturias/inversiones#>
+		    ASK { <http://localhost:8080/tabels-web/pubby/resource/tdtimp/80> a scv:Item ;
+			       rdf:value "47.4"^^xsd:float ;
+	    		   scv:dimension inv:Proyecto-TDT ;
+				   scv:dimension inv:Impacto-Poblacion-Cubierta ;
+	    		   scv:dimension inv:Muncipio-Salas ;
+				   scv:dataset inv:Dataset-Impactos-Municipios ;
+		     }""")
     }
     
 }
