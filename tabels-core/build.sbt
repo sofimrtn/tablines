@@ -36,6 +36,8 @@ libraryDependencies += "commons-lang" % "commons-lang" % "2.6"
 
 libraryDependencies += "commons-io" % "commons-io" % "2.1"
 
+libraryDependencies += "commons-configuration" % "commons-configuration" % "1.7"
+
 libraryDependencies += "org.scalaz" %% "scalaz-core" % "6.0.3"
 
 libraryDependencies += "org.apache.lucene" % "lucene-core" % "3.4.0"
