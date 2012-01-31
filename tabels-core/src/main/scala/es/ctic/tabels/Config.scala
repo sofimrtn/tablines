@@ -7,5 +7,9 @@ import java.io.File
 object Config extends Logging {
     
     val tabelsDir = new File(FileUtils.getTempDirectory(), "tabels")
+    
+    val tabelsPath = scala.sys.env.getOrElse("tabels.dir", null)
+    val proxyHost = scala.sys.env.getOrElse("http.proxyHost", "")
+    val proxyPort = scala.sys.env.getOrElse("http.proxyPort", "")
 
 }
