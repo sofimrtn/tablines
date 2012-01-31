@@ -35,6 +35,17 @@ CodeMirror.defineMode("tabels", function(config) {
       stream.skipToEnd();
       return "comment";
     }
+    else if (ch == "/") {
+       if (stream.eat("/")) {
+        stream.skipToEnd();
+        return "comment";
+      }else 
+      if(stream.eat("*")) {
+        state.tokenize = tokenComment;
+        return tokenComment(stream, state);
+      }
+    
+    }
     else if (operatorChars.test(ch)) {
       stream.eatWhile(operatorChars);
       return null;
@@ -72,7 +83,19 @@ CodeMirror.defineMode("tabels", function(config) {
       return "string";
     };
   }
-
+  //function from https://code.google.com/p/tidej/source/browse/war/CodeMirror-2.16/mode/clike/clike.js?spec=svn6734953c22005945d627da187ce48ca42666fd62&name=6734953c22&r=6734953c22005945d627da187ce48ca42666fd62
+  function tokenComment(stream, state) {
+    var maybeEnd = false, ch;
+    while (ch = stream.next()) {
+      if (ch == "/" && maybeEnd) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      maybeEnd = (ch == "*");
+    }
+    return "comment";
+  }
+  
   function pushContext(state, type, col) {
     state.context = {prev: state.context, indent: state.indent, col: col, type: type};
   }
