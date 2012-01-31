@@ -41,10 +41,33 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
       resourcesToFetch = resourcesToFetch filter { uri => resourceUriRe.pattern.matcher(uri).find }
       logger.debug("The descriptions of the following resources will be retrieved from the web: " + resourcesToFetch)
       resourcesToFetch foreach { resourceUri =>
-          logger.info("Fetching description of resource " + resourceUri)
-          model.read(resourceUri)
+          fetchDescription(resourceUri)
       }
   }
+  
+    def fetchDescription(resourceUri : String) {
+        logger.info("Fetching description of resource " + resourceUri)
+        var attempt = 1
+        val maxRetries = 3
+        var success = false
+        while (!success) {  
+            try {
+                model.read(resourceUri)
+                success = true
+                if (attempt > 1) {
+                    logger.info("Retrieved URI " + resourceUri + " after " + attempt + " failed attempts")
+                }
+            } catch {
+                case e : Exception =>
+                    logger.error("While fetching URI " + resourceUri + " (attempt=" + attempt + ")", e)
+                    if (attempt == maxRetries) {
+                        throw new ResourceCannotBeRetrievedException(resourceUri)
+                    } else {
+                        attempt = attempt + 1
+                    }
+            }
+        }
+    }
   
   def createSubject(s : RDFNode) : com.hp.hpl.jena.rdf.model.Resource = {
     s match {
