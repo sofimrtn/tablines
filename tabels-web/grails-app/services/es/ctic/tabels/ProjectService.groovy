@@ -15,7 +15,7 @@ class ProjectService {
 
     static String defaultProgramFilename = "default.tabels"
     
-    def configObject = new Config()
+    def configObject = new es.ctic.tabels.Config()
 
     File inputDir = new File(configObject.tabelsDir, "upload")
     File programFile = new File(inputDir, defaultProgramFilename)
