@@ -60,10 +60,8 @@ class ProjectService {
             model = ModelFactory.createDefaultModel()
             model.read(new FileInputStream(outputCache), null, "RDF/XML")
         } else {
-            log.info "And Tabular Cells!"
             def dataSource = getDataSource()
-            log.debug "Datasource includes these files: ${dataSource.filenames}"
-            log.debug "Using Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
+            log.info "And Tabular Cells! Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
     		def parser = new TabelsParser()
     		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
             def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
@@ -160,8 +158,9 @@ class ProjectService {
 	    int indent = 0
 	    def prettyPrinter = new PrettyPrint(indent)
 	    program.accept(prettyPrinter)
-	    log.info "The writing the following program to the file ${programFile.canonicalPath}:\n${prettyPrinter.toString()}"
+	    log.info "Writing the following program to the file ${programFile.canonicalPath}:\n${prettyPrinter.toString()}"
 	    programFile.setText(prettyPrinter.toString())
+        log.info "The new Tabels program has been successfully saved"
     }
 
     def saveProgram(String newProgram) throws ParseException, CompileTimeTabelsException {

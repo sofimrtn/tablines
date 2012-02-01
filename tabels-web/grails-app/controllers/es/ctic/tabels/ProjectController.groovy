@@ -29,10 +29,8 @@ class ProjectController {
     
     def saveProgram = {
         String program = params.program
-        log.info "Saving a new program: ${program}"
         try {
             projectService.saveProgram(program)
-            log.info "The new Tabels program has been successfully saved"
             flash.message = "The Tabels program has been successfully updated"
             redirect(action: "index")
         } catch (es.ctic.tabels.ParseException e) {
