@@ -74,7 +74,26 @@ log4j = {
     //
     appenders {
         'null' name:'stacktrace'  // disable stacktrace.log, see http://haxx.sinequanon.net/2008/09/grails-stacktracelog/
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c %m%n')
+        environments {
+            production {
+                rollingFile name: 'myAppender',
+                    maxFileSize: 1024*1024,
+                    file: new File(new es.ctic.tabels.Config().tabelsDir, "tabels.log").toString(),
+                    layout: pattern(conversionPattern: "%c{2} %m%n")                
+            }
+            development {
+                console name:'myAppender',
+                    layout:pattern(conversionPattern: '%c %m%n')                
+            }
+            test {
+                console name:'myAppender',
+                    layout:pattern(conversionPattern: '%c{2} %m%n')
+            }
+        }
+    }
+    
+    root {
+        warn 'myAppender'
     }
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
@@ -88,7 +107,10 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate',
-           'grails.app.tagLib'
+           'grails.app.tagLib',
+           'grails.util',
+           'net.sf.ehcache',
+           'org.grails.plugin.resource'
 
     warn   'org.mortbay.log'
     
