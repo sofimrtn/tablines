@@ -41,7 +41,7 @@ trait Autogenerator extends Logging {
 
 class BasicAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerator with Logging {
 
-    val prefixes = Seq(("ex", defaultNamespace()))
+    val prefixes = Seq(("ex", defaultNamespace()), ("rdf", RDF()), ("rdfs", RDFS()))
 
     override def autogenerateProgram(dataSource : DataSource) : S = {
         if (dataSource.filenames.isEmpty) {
