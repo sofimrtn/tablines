@@ -40,9 +40,18 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
       }
       resourcesToFetch = resourcesToFetch filter { uri => resourceUriRe.pattern.matcher(uri).find }
       logger.debug("The descriptions of the following resources will be retrieved from the web: " + resourcesToFetch)
+      if (Config.proxyHost != null) {
+          logger.info("Changing HTTP proxy host to " + Config.proxyHost)
+          scala.sys.props.put("http.proxyHost", Config.proxyHost)
+      }
+      if (Config.proxyPort != null) {
+          logger.info("Changing HTTP proxy port to " + Config.proxyPort)
+          scala.sys.props.put("http.proxyPort", Config.proxyPort)
+      }
       resourcesToFetch foreach { resourceUri =>
           fetchDescription(resourceUri)
       }
+      // FIXME: restore system properties
   }
   
     def fetchDescription(resourceUri : String) {
