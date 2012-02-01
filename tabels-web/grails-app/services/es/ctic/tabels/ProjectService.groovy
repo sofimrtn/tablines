@@ -56,7 +56,7 @@ class ProjectService {
         FileUtils.forceMkdir(inputDir)
         Model model = null
         if (isCacheValid()) {
-            log.info "Returning cached model"
+            log.info "Returning cached model from ${outputCache}"
             model = ModelFactory.createDefaultModel()
             model.read(new FileInputStream(outputCache), null, "RDF/XML")
         } else {
@@ -86,7 +86,7 @@ class ProjectService {
     	    def os = new FileOutputStream(outputCache)
             model.write(os, "RDF/XML")
             os.close()
-            log.info "Saved model cache at ${outputCache}"
+            log.info "Saved model cache (${model.size()} triples) to ${outputCache}"
         }
 	    
 	    return model
@@ -158,15 +158,16 @@ class ProjectService {
 	    int indent = 0
 	    def prettyPrinter = new PrettyPrint(indent)
 	    program.accept(prettyPrinter)
-	    log.info "Writing the following program to the file ${programFile.canonicalPath}:\n${prettyPrinter.toString()}"
+	    log.info "Writing the following program to the file ${programFile}:\n${prettyPrinter.toString()}"
 	    programFile.setText(prettyPrinter.toString())
-        log.info "The new Tabels program has been successfully saved"
     }
 
     def saveProgram(String newProgram) throws ParseException, CompileTimeTabelsException {
+	    log.info "Writing the following program to the file ${programFile}:\n${newProgram}"
         def parser = new TabelsParser()
         def program = parser.parseProgram(newProgram) // validates the program
         programFile.setText(newProgram)
+        log.info "The new Tabels program has been successfully saved to ${programFile}"
     }
     
 }
