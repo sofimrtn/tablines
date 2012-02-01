@@ -164,4 +164,13 @@ class ProjectController {
 	    return ConfigurationHolder.config.grails.serverURL
 	}
 	
+	def config = {
+	    [
+	    proxyHost: projectService.configObject.proxyHost,
+	    proxyPort: projectService.configObject.proxyPort,
+	    tabelsPath: projectService.configObject.tabelsPath,
+	    tabelsDir: projectService.configObject.tabelsDir
+	    ]
+	}
+	
 }
