@@ -14,6 +14,9 @@ class ParseException(input_ : String, msg : String, lineNumber_ : Int, column_ :
      var line = input.split("\n")(lineNumber-1).replace("\t", " ")
 }
 
+class SemanticException(variable : Set[Variable])
+  extends CompileTimeTabelsException("Template variable " + variable.toString.drop(4).dropRight(1) + " unasigned in tabels program") 
+
 class UndefinedPrefixException(prefix : String)
     extends CompileTimeTabelsException("Undefined prefix '" + prefix + "'")
 

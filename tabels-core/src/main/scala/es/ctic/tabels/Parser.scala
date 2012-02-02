@@ -28,7 +28,7 @@ class TabelsParser extends JavaTokenParsers {
     }
 	
 	// regular expression from http://stackoverflow.com/questions/5952720/ignoring-c-style-comments-in-a-scala-combinator-parser
-    protected override val whiteSpace = """(\s|//.*|(?m)/\*(\*(?!/)|[^*])*\*/)+""".r
+    protected override val whiteSpace = """(\s|//.*|#.*|(?m)/\*(\*(?!/)|[^*])*\*/)+""".r
 
 	// keywords
 
@@ -408,12 +408,17 @@ class TabelsParser extends JavaTokenParsers {
         }		
 	}
 	
-	def parseProgram(input : String) : S = parse(start, input)
+	def parseProgram(input : String) : S ={
+	  val program = parse(start, input)
+      new SemanticCheck().checkTemplateVars(program)
+      return program
+	} 
 	
 	def parseProgram(file : File) : S = {
 	    val source = scala.io.Source.fromFile(file)
         val lines = source.mkString
         source.close()
+              
         return parseProgram(lines)
 	}
 
