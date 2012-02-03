@@ -30,19 +30,21 @@ object DataAdapter {
     
     val CSVFilePattern = """.+\.csv$""".r
     val ExcelFilePattern = """.+\.xls$""".r // FIXME: match .xlsx files too
+    val ODFFilePattern = """.+\.ods$""".r
     val HTMLFilePattern = """.+\.html$""".r
     
     def createAdapter(url : String) : DataAdapter =
         url match {
             case CSVFilePattern() => new CSVDataAdapter(new File(url))
             case ExcelFilePattern() => new ExcelDataAdapter(new File(url))
+            case ODFFilePattern() => new ODFDataAdapter(new File(url))
             case HTMLFilePattern() => new HTMLDataAdapter(new File(url))
             case _ => throw new UnrecognizedSpreadsheetFormatException(url)
         }
     
     def findAllRecognizedFilesFromDirectory(dir : File) : Seq[File] =
         dir.listFiles.toList.filter(_.getName match {
-            case CSVFilePattern() | ExcelFilePattern() | HTMLFilePattern() => true
+            case CSVFilePattern() | ExcelFilePattern() | HTMLFilePattern() | ODFFilePattern()=> true
             case _ => false
         })
 
