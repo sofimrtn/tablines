@@ -57,3 +57,9 @@ publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m
 //}
 
 //credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+
+libraryDependencies += "org.jopendocument" % "jopendocument" % "1.2"
+
+resolvers += "3rd party repo" at
+"http://wopr.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
+
