@@ -157,6 +157,13 @@ class ProjectController {
 	    [geopoints: projectService.geopoints]
 	}
 	
+	def parrot = {
+	    def model = projectService.getModel()
+	    def os = new ByteArrayOutputStream()
+		model.write(os, "RDF/XML")
+	    [documentText: os.toString()]
+	}
+	
 	private String getGraph() {
 	    // FIXME: not really portable
 	    return ConfigurationHolder.config.grails.serverURL

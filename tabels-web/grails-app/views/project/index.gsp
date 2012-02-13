@@ -57,6 +57,8 @@
 		<p><g:link action="exhibit">Faceted view</g:link></p>
 		    
 		<p><g:link action="map">Map view</g:link></p>
+		
+		<p><g:link action="parrot">Generate dataset documentation</g:link></p>
 		    
 		</div>
 		
