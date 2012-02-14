@@ -1,0 +1,12 @@
+h4. Sentencias de iteración
+    
+    {code}
+        for [Variable in] Dimension [starts at Position|when Expression] [filter Expression] [stops at Position|when Expression] 
+    {code}
+    
+    
+h4. Sentencias de selección de dimensión
+
+    {code}
+       [set Variable] in Dimension Value 
+    {code}

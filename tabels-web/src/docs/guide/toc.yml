@@ -1,0 +1,11 @@
+introduccion:
+    title: Introducción
+tabelsAPI:
+    title : Tabels API
+    dimensionStatements: Sentencias de dimensiones
+    variableAssignmentStatements: Sentencias de asignación de variables
+    functions:
+        title: Expresiones
+        numericFunctions: Expresiones Numéricas 
+        stringFunctions: Expresiones con Cadenas
+        miscellaneaFunctions: Expresiones Variadas
