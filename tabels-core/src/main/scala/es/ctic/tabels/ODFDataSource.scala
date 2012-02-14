@@ -25,21 +25,7 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
 	
 	
  
-  private val workbook = ws/*openWorkbook(file)
-	
-	
-	private def openWorkbook(file : File) : Workbook = {
-        try {
-            return Workbook.getWorkbook(file,ws)
-        } catch {
-            case e : FileNotFoundException =>
-                logger.error("While reading Excel file " + file.getCanonicalPath, e)
-                throw new NoInputFiles
-            case e : BiffException =>
-                logger.error("While reading Excel file " + file.getCanonicalPath, e)
-                throw new InvalidInputFile(file.getName)
-	   }
-	}*/
+  private val workbook = ws
   
   override val uri = file.getCanonicalPath()
 
@@ -87,6 +73,8 @@ case class ODFCellValue (cell : MutableCell[SpreadSheet]) extends CellValue with
 	  case ODValueType.STRING =>Literal(cell.getTextValue(), XSD_STRING)
 	  case ODValueType.BOOLEAN => Literal(cell.getValue().asInstanceOf[Boolean], XSD_BOOLEAN)
 	  case ODValueType.DATE =>Literal(cell.getTextValue(), XSD_DATE)
+	  case ODValueType.PERCENTAGE =>Literal((cell.getTextValue().replace("%","").toDouble)/100, XSD_DECIMAL)
+	  case ODValueType.CURRENCY =>Literal(cell.getValue().asInstanceOf[BigDecimal].doubleValue, XSD_DECIMAL)
 	  case _ => autodetectFormat(cell.getTextValue())
 	
 	}
