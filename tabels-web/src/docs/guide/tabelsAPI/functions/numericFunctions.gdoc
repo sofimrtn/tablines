@@ -1,0 +1,127 @@
+h4. Operadores aritméticos
+# numeric-add
+{code}
+    numeric-add(op1 : Double, op2 : Double) : Double
+{code}
+Devuelve el resultado en formato Double obtenido al realizar la suma aritmética del operando 1(op1) y el operando 2(op2). 
+
+# int-add
+{code}
+    int-add(op1 : Int, op2 : Int) : Int
+{code}
+Devuelve el resultado en formato Int obtenido al realizar la suma aritmética del operando 1(op1) y el operando 2(op2). 
+
+# numeric-substract
+{code}
+    numeric-substract(op1 : Double, op2 : Double) : Double
+{code}
+Devuelve el resultado en formato Double obtenido al realizar la resta aritmética del operando 1(op1) y el operando 2(op2). 
+
+# int-substract
+{code}
+    int-substract(op1 : Int, op2 : Int) : Int
+{code}
+Devuelve el resultado en formato Int obtenido al realizar la resta aritmética del operando 1(op1) y el operando 2(op2). 
+
+# numeric-multiply
+{code}
+    numeric-multiply(op1 : Double, op2 : Double) : Double
+{code}
+Devuelve el resultado en formato Double obtenido al realizar la multiplicación aritmética del operando 1(op1) y el operando 2(op2). 
+
+# int-multiply
+{code}
+    int-multiply(op1 : Int, op2 : Int) : Int
+{code}
+Devuelve el resultado en formato Int obtenido al realizar la multiplicación aritmética del operando 1(op1) y el operando 2(op2). 
+
+# numeric-divide
+{code}
+    numeric-divide(op1 : Double, op2 : Double) : Double
+{code}
+Devuelve el resultado en formato Double obtenido al realizar la división aritmética del operando 1(op1) y el operando 2(op2).
+En caso de que el operador 2 sea 0 lanza la excepción ZeroDivisionException.
+
+# numeric-integer-divide
+{code}
+    numeric-integer-divide(op1 : Double, op2 : Double) : Int
+{code}
+Devuelve el resultado en formato Int obtenido al realizar la división aritmética del operando 1(op1) y el operando 2(op2).
+En caso de que el operador 2 sea 0 lanza la excepción ZeroDivisionException.
+
+# numeric-mod
+{code}
+    numeric-mod(op1 : Double, op2 : Double) : Double
+{code}
+Devuelve el resto en formato Double obtenido al realizar la división aritmética del operando 1(op1) y el operando 2(op2).
+En caso de que el operador 2 sea 0 lanza la excepción ZeroDivisionException.
+    
+h4. Operadores de comparación    
+
+# numeric-equal
+{code}
+    numeric-equal(op1 : Double, op2 : Double) : Boolean
+{code}
+Devuelve true sólo si el operador 1(op1) es igual al operando 2(op2).
+
+# numeric-greater-than
+{code}
+    numeric-greater-than(op1 : Double, op2 : Double) : Boolean
+{code}
+Devuelve true sólo si el operando 1(op1) es mayor que el operando 2(op2).
+
+# numeric-less-than
+{code}
+    numeric-less-than(op1 : Double, op2 : Double) : Boolean
+{code}
+Devuelve true sólo si el operando 1(op1) es menor que el operando 2(op2).
+
+h4. Transformaciones   
+
+# abs
+{code}
+    abs(operando : Double) : Double
+{code}
+Devuelve el valor absoluto del operando. Si este es positivo lo devuelve tal cual , si es negativo devuelve el valor positivo del mismo.  
+
+# ceiling
+{code}
+    ceiling(operando : Double) : Double
+{code}
+Devuelve el menor número entero mayor que el operando.
+
+# floor
+{code}
+    floor(operando : Double) : Double
+{code}
+Devuelve el mayor número entero menor que el operando.
+
+# round
+{code}
+    round(operando : Double) : Double
+{code}
+Devuelve el número entero más cercano al operando. En caso de haber dos devolverá el mayor.
+
+h4. Conversiones de tipo
+    
+# int
+{code}
+    int(operando : numeric) : Int
+    int(operando : numeric, default :Int) : Int
+{code}
+Devuelve operando convertido a Int. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+ 
+# float
+{code}
+    float(operando : numeric) : Float
+{code}
+Devuelve operando convertido a Float. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException.
+
+# double
+{code}
+    double(operando : numeric) : Double
+    double(operando : numeric, default :Double) : Double
+{code}
+Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+
+   

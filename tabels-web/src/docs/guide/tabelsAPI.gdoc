@@ -1,0 +1,46 @@
+El lenguaje tabels para la conversión de formatos de datos a RDF está formado por los siguientes elementos:
+
+* Directivas
+
+* Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas.
+{code}
+    prefix _Prefijo_ : _uri_
+{code}
+
+* Descripción del recorrido del origen de datos
+*** [Sentencias de dimensiones|guide:dimensionStatements]
+*** [Sentencias de asignación de variables|guide:variableAssignmentStatements]
+** Variables: comienzan con '?' seguidas de caractéres alfanuméricos.
+    {code}
+     ?testResource
+    {code}
+
+** Tuplas: conjunto ordenado de *N* Variables separado por comas y delimitado por los caracteres '[' y ']
+    {code}
+     [?prueba,?col2]
+    {code}
+
+** Posición: indica una posición en el origen de datos.
+
+** [Expresiones|guide:functions]
+
+* Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo. 
+{code}
+ {
+    ?resources a ex:SomeResource .
+    ?resources ex:prueba ?prueba .
+    ?resources ex:col2 ?col2
+ }
+ 
+ {
+    [    rdf:type ex:Movie;
+         ex:rank ?rankInt ;
+         ex:rating ?ratingFloat ;
+         rdfs:label ?titleTrimmed ;
+         ex:year ?year ;
+         ex:votes ?votesInt ;
+         owl:sameAs ?dbpediaResource ]
+  }
+  
+  
+{code}
