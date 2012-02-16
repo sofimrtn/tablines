@@ -10,6 +10,7 @@ class ODFDataAdapterIntegrationTest extends JUnitSuite {
 	var dataAdapter : ODFDataAdapter = null
 	val filename1 : String = this.getClass.getResource("/es/ctic/tabels/Test2.ods").getFile.replace("%20"," ")
 	val sheet1 = "Hoja1"
+	val sheet2 = "Hoja2"
 	
 	@Before def setUp {
 		val file1 = new File(filename1)
@@ -22,10 +23,12 @@ class ODFDataAdapterIntegrationTest extends JUnitSuite {
 	
 	@Test def getCols {
 		assertEquals(2, dataAdapter.getCols(sheet1))
+		assertEquals(0, dataAdapter.getCols(sheet2))
 	}
 	
 	@Test def getRows {
 		assertEquals(12, dataAdapter.getRows(sheet1))
+		assertEquals(0, dataAdapter.getRows(sheet2))
 	}
 	
 	@Test def getValue {
