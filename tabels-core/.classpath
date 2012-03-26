@@ -13,5 +13,7 @@
 	<classpathentry kind="lib" path="lib/scalatest-1.6.1-tests.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api-1.6.2.jar"/>
 	<classpathentry kind="lib" path="lib/grizzled-slf4j.jar"/>
+	<classpathentry kind="lib" path="C:/Users/alfonso.noriega/Downloads/jOpenDocument-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/alfonso.noriega/Downloads/odfdom-java-0.8.7-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>
