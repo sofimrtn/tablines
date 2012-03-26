@@ -58,6 +58,7 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
     val odt =  OdfDocument.loadDocument(uri);
     val dom = odt.getContentDom();
     val xpath = dom.getXPath
+    
   	val sheet = workbook.getTableByName(tabName)
   	val xExpression = xpath.compile("//table:table[@table:name = '"+ tabName +"']/table:table-row/@table:number-rows-repeated")
  	
@@ -68,10 +69,22 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
     val odt =  OdfDocument.loadDocument(uri);
     val dom = odt.getContentDom();
     val xpath = dom.getXPath
+  
   	val sheet = workbook.getTableByName(tabName)
-  	val xExpression = xpath.compile("//table:table[@table:name = '"+ tabName +"']/table:table-column/@table:number-columns-repeated")
- 	
-  	return sheet.getColumnCount - xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].item(0).getNodeValue.toInt
+  	
+    
+    println("NameTab: " + tabName)
+  	val xExpression = xpath.compile("//table:table[@table:name = '"+ tabName +"']/table:table-column[@table:number-columns-repeated]")
+  	if(xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].getLength>0)
+  	{ 	  
+	  	val xExpression = xpath.compile("//table:table[@table:name = '"+ tabName +"']/table:table-column/@table:number-columns-repeated")
+	 	val columnsCount = sheet.getColumnCount
+	  	val columnsRepeated = xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].item(0).getNodeValue.toInt
+	  	if (columnsRepeated == columnsCount && columnsRepeated < 1024 )
+	  	  return columnsCount
+	  	  else return columnsCount - columnsRepeated
+  	}
+  	else return 0
   }
 
 }
