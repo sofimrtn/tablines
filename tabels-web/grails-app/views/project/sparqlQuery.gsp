@@ -9,7 +9,7 @@
   
     <h2>SPARQL Results (${size})</h2>
     
-   	<p>Go back to the <g:link action="sparql" params="[forceForm: '1', query: query]">SPARQL form</g:link></p>    
+   	<p class="backLink">Go back to the <g:link action="sparql" params="[forceForm: '1', query: query]">SPARQL form</g:link></p>    
   
     <table class="sparql">
       <thead>

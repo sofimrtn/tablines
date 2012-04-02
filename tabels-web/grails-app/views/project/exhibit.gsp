@@ -16,7 +16,7 @@
 
 	<h2><g:message code="msg.faceted.view.title"/></h2>
 	
-	<p><g:link action="index">Back to the project</g:link></p>
+	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
 	
     <table width="100%">
             <tr valign="top" class="exhibit">

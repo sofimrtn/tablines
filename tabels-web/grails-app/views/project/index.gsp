@@ -50,7 +50,7 @@
 		
 		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql"><g:createLink controller="project" action="sparql" absolute="true"/></g:link></p>
 		
-		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
+		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}"><g:message code="msg.linked.data.link"/></a></p>
 		
 		<p class="chartsLink"><g:link action="tapinos"><g:message code="msg.charts.link"/></g:link></p>
 		    

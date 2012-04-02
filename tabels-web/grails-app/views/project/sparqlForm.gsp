@@ -40,7 +40,7 @@
 
     <h2>SPARQL endpoint</h2>
 
-	<p><g:link action="index">Back to the project</g:link></p>
+	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
 
     <g:form method="post" name="sparqlQueryForm">
       <fieldset class="sparql">

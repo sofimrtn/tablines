@@ -89,6 +89,11 @@ h2 {
     padding-left: 20px;    
 }
 
+.backLink {
+    background: url(../images/1333379171_restart-1.png) no-repeat;
+    padding-left: 20px;        
+}
+
 .stars {
     color: gold;
     font-size: 11pt;
