@@ -69,6 +69,26 @@ h2 {
     padding-left: 85px;
 }
 
+.chartsLink {
+    background: url(../images/1333377532_graph_chart.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.facetedLink {
+    background: url(../images/1333377417_stock_standard-filter.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.mapLink {
+    background: url(../images/1333377436_04_maps.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.parrotLink {
+    background: url(../images/parrot.png) no-repeat;
+    padding-left: 20px;    
+}
+
 .stars {
     color: gold;
     font-size: 11pt;
