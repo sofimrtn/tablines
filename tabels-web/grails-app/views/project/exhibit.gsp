@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Faceted view</title>
+	<title><g:message code="msg.faceted.view.title"/></title>
     <script src="../js/exhibit/exhibit-api.js"
                 type="text/javascript"></script>
     <link href="exhibitData" type="application/json" rel="exhibit/data" />
@@ -14,7 +14,7 @@
 </head>
 <body>       
 
-	<h1>Faceted view</h1>
+	<h2><g:message code="msg.faceted.view.title"/></h2>
 	
 	<p><g:link action="index">Back to the project</g:link></p>
 	

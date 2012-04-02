@@ -52,13 +52,13 @@
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
 		
-		<p class="chartsLink"><g:link action="tapinos">Charts</g:link></p>
+		<p class="chartsLink"><g:link action="tapinos"><g:message code="msg.charts.link"/></g:link></p>
 		    
-		<p class="facetedLink"><g:link action="exhibit">Faceted view</g:link></p>
+		<p class="facetedLink"><g:link action="exhibit"><g:message code="msg.faceted.link"/></g:link></p>
 		    
-		<p class="mapLink"><g:link action="map">Map view</g:link></p>
+		<p class="mapLink"><g:link action="map"><g:message code="msg.map.link"/></g:link></p>
 		
-		<p class="parrotLink"><g:link action="parrot">Generate dataset documentation</g:link></p>
+		<p class="parrotLink"><g:link action="parrot"><g:message code="msg.parrot.link"/></g:link></p>
 		    
 		</div>
 		
@@ -66,12 +66,12 @@
 		<h2><g:message code="msg.transformation.program"/></h2>
 		
 		<g:form action="saveProgram" method="post">
-		<p><g:submitButton name="save" value="Save program" /></p>
+		<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" /></p>
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 		</g:form>
 		<g:form action="autogenerateProgram" method="post">
 		    <g:select name="strategy" from="${['Simple','SCOVO']}" />
-		    <g:submitButton name="autogenerate" value="Autogenerate program" /></p>
+		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" /></p>
 		</g:form>
 		</div>
 
