@@ -15,7 +15,7 @@
     </head>
     <body>
         <div class="stepBox" id="step1">
-		<h2>Step 1: drag some spreadsheets</h2>
+		<h2><g:message code="msg.step1.drag"/></h2>
 		
 		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
@@ -36,19 +36,19 @@
 		<g:form action="downloadSource" method="post">
 		    <p>
 		        <g:textField name="sourceUrl" value="${sourceUrl}"/>
-		        <g:submitButton name="addUrl" value="Add URL to the sources" />
+		        <g:submitButton name="addUrl" value="${message(code:'msg.add.url.to.sources.button')}" />
 		    </p>
 		</g:form>
 		
 		</div>
 		
 		<div class="stepBox" id="step2">
-		<h2>Step 2: access your data</h2>
+		<h2><g:message code="msg.step2.access"/></h2>
 		
 		<g:link action="rdf"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
-		<p class="rdfDownloadLink"><g:link action="rdf">Download RDF</g:link></p>
+		<p class="rdfDownloadLink"><g:link action="rdf"><g:message code="msg.download.rdf.title"/></g:link></p>
 		
-		<p class="sparqlLink">SPARQL endpoint at <g:link action="sparql"><g:createLink controller="project" action="sparql" absolute="true"/></g:link></p>
+		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql"><g:createLink controller="project" action="sparql" absolute="true"/></g:link></p>
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}">Browse the linked data</a></p>
 		
@@ -63,7 +63,7 @@
 		</div>
 		
 		<div id="programDiv">
-		<h2>Transformation program</h2>
+		<h2><g:message code="msg.transformation.program"/></h2>
 		
 		<g:form action="saveProgram" method="post">
 		<p><g:submitButton name="save" value="Save program" /></p>

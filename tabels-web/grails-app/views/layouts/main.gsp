@@ -20,7 +20,7 @@
         </div>
 		<div id="header">
 			<h1><g:link controller="project">Tabels</g:link></h1>
-			<p class="undertitle">Make meaning of tabular data</p>
+			<p class="undertitle"><g:message code="product.slogan" /></p>
 		</div>
 		<div id="body">
 		<g:if test="${flash.error}">
