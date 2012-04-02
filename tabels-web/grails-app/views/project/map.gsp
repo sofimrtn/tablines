@@ -30,6 +30,10 @@
 	
 	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
 	
+	<g:if test="${!geopoints}">
+	    <div class="messagebox"><p><g:message code="msg.why.nothing.in.map.msg"/></p></div>
+	</g:if>
+	
     <div id="map_canvas"></div>
 
 </body>
