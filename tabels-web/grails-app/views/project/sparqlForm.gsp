@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <title>SPARQL endpoint</title>
+    <title><g:message code="msg.sparql.form.title"/></title>
     <meta name="layout" content="main" />
     <script type="text/javascript">
       var last_format = 1;
@@ -38,20 +38,20 @@
   
   <body>
 
-    <h2>SPARQL endpoint</h2>
+    <h2><g:message code="msg.sparql.form.title"/></h2>
 
 	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
 
     <g:form method="post" name="sparqlQueryForm">
       <fieldset class="sparql">
-        <legend>Query</legend>
+        <legend><g:message code="form.sparql.query.legend"/></legend>
         <p>
-          <label for="query">Query text:</label>
+          <label for="query"><g:message code="form.sparql.query.text"/></label>
           <g:textArea rows="10" cols="80" name="query" value="${query}" id="query" onchange="format_select(this)" onkeyup="format_select(this)" />
         </p>
           
         <p style="clear:both;">
-          <label for="format" class="n">Return results as:</label>
+          <label for="format" class="n"><g:message code="form.sparql.result.format"/></label>
           <select name="format" id="format">
             <option value="application/sparql-results+xml">XML</option>
             <option value="application/sparql-results+json">JSON</option>
@@ -60,7 +60,7 @@
         </p>
           
         <p style="clear:both;">
-          <g:actionSubmit value="Query" action="sparql" id="queryButton" />
+          <g:actionSubmit value="${message(code: 'form.sparql.query.button')}" action="sparql" id="queryButton" />
         </p>              
       </fieldset>
     </g:form>
