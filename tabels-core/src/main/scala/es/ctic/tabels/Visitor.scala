@@ -30,8 +30,21 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
   def calculateNewEvaluationContext(dimensionStatement: DimensionStatement, dimensionIterator: String) : EvaluationContext = {
-	 val newEvaluationContext = evaluationContext.addDimension(dimensionStatement.dimension, dimensionIterator)
+	 
+    var calculatedDimension = dimensionIterator
+    var calculatedEvaluationContext = evaluationContext
+   
+    //FIX ME: Hard coded for columns dimension and not making exception for fixed position 
+    if (dimensionStatement.isInstanceOf[IteratorStatement] && !dimensionStatement.asInstanceOf[IteratorStatement].startCond.isEmpty && dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.isRight){
+		val startPos =  dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.right.get.calculatePoint(evaluationContext)
+		println("Starting Pos: "+ startPos)
+    	calculatedDimension = (dimensionIterator.toInt + startPos.row - evaluationContext.cursor.row).toString
+		calculatedEvaluationContext = calculatedEvaluationContext.addDimension(Dimension.cols,startPos.col.toString)
+    }
+     
+     val newEvaluationContext = calculatedEvaluationContext.addDimension(dimensionStatement.dimension, calculatedDimension)
      val cursor : Point = newEvaluationContext.cursor
+     println("Cursor: "+ cursor)
      val value : Literal = dimensionStatement.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(cursor).getContent
 		    case Dimension.cols =>	dataSource.getValue(cursor).getContent
@@ -67,13 +80,23 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       val dimensionValues = evaluationContext.getDimensionRange(iteratorStatement.dimension, dataSource)
       val evaluationContexts = dimensionValues map (v => calculateNewEvaluationContext(iteratorStatement, v.toString))
       val pairsMap = dimensionValues zip evaluationContexts
-     val filteredPairs = pairsMap dropWhile(pair => !iteratorStatement.startCond.isEmpty && !iteratorStatement.startCond.get.fold(expr => expr.evaluateAsTruthValue(pair._2),pos => (pos.calculatePoint(pair._2).col == pair._2.cursor.col) && (pos.calculatePoint(pair._2).row == pair._2.cursor.row)))takeWhile
+      
+    /*  val pairsMapWindowed = iteratorStatement.dimension match{
+        case Dimension.cols =>pairsMap filter(pair => !dataSource.getValue(pair._2.cursor).getContent.toString.matches("[a-zA-Z0-9+]"))
+        case Dimension.rows =>pairsMap filter(pair => !dataSource.getValue(pair._2.cursor).getContent.toString.matches("[a-zA-Z0-9+]"))
+        case Dimension.files => pairsMap
+        case Dimension.sheets => pairsMap
+      }
+      println("windowed"  +pairsMapWindowed)*/
+      
+     val filteredPairs = pairsMap/*Windowed*/ dropWhile(pair => !iteratorStatement.startCond.isEmpty && !iteratorStatement.startCond.get.fold(expr => expr.evaluateAsTruthValue(pair._2),pos => (pos.calculatePoint(pair._2).col == pair._2.cursor.col) && (pos.calculatePoint(pair._2).row == pair._2.cursor.row)))takeWhile
                         (pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluateAsTruthValue(pair._2)) filter
       					(pair => iteratorStatement.filter.isEmpty ||iteratorStatement.filter.get.evaluateAsTruthValue(pair._2))
-      
+   //  println ("dimension Values: " + dimensionValues ) 
       for ((dimensionIterator, newEvaluationContext) <- filteredPairs){
     	logger.debug("Iteration through " + iteratorStatement.dimension+" in position "+dimensionIterator )
-    	        		
+    	      
+    	//    println ("now in: " + dimensionIterator )   		
 	    	iteratorStatement.variable match{
 	    	case Some(v) =>val event = new Event(newEvaluationContext.bindings, Set(v))
 	    				   events += event
