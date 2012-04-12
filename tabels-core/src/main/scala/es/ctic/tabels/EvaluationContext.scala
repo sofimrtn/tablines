@@ -4,12 +4,17 @@ import es.ctic.tabels.Dimension._
 import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
 
-case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMap(), bindings: Bindings = Bindings()) {
+case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMap(), bindings: Bindings = Bindings(),wLimit: Option[(Int,Dimension)]=None) {
 
 	val workingArea = new WorkArea
+	val windowLimit: Option[(Int,Dimension)] = wLimit
     def dimensions : Set[Dimension] = dimensionMap.keySet
 	
-	def getValue(dimension : Dimension) : String = {
+	def addWLimit(winLimit : Option[(Int,Dimension)]):EvaluationContext=
+	  EvaluationContext(dimensionMap, bindings,winLimit)
+	
+    
+    def getValue(dimension : Dimension) : String = {
 	  if(dimensionMap.contains(dimension))
 	    dimensionMap.get(dimension).get // throws exception if unbound
 	  else "0"
@@ -19,14 +24,14 @@ case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMa
 	lazy val cursor : Point = Point(getValue(Dimension.files),getValue(Dimension.sheets),getValue(Dimension.cols).toInt, getValue(Dimension.rows).toInt)
 	
 	def addBinding(variable : Variable, value : RDFNode, point: Point) : EvaluationContext =
-	EvaluationContext(dimensionMap, bindings.addBinding(variable,value, point))
+	EvaluationContext(dimensionMap, bindings.addBinding(variable,value, point),windowLimit)
 		
 	
 	def addDimension(dimension : Dimension, value : String) : EvaluationContext =
-		EvaluationContext(dimensionMap + (dimension -> value), bindings)
+		EvaluationContext(dimensionMap + (dimension -> value), bindings,windowLimit)
 		
 	def removeDimension(dimension : Dimension) : EvaluationContext =
-		EvaluationContext(dimensionMap - (dimension), bindings)
+		EvaluationContext(dimensionMap - (dimension), bindings,windowLimit)
 
 
     def getDimensionRange(dimension : Dimension, dataSource : DataSource) : Seq[Any] = {
