@@ -19,8 +19,8 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
         </div>
 		<div id="header">
-			<h1><g:link controller="project">Tabels</g:link></h1>
-			<p class="undertitle">Make meaning of tabular data</p>
+			<h1><g:link controller="project"><g:message code="product.name"/></g:link></h1>
+			<p class="undertitle"><g:message code="product.slogan" /></p>
 		</div>
 		<div id="body">
 		<g:if test="${flash.error}">

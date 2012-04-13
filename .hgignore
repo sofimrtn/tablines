@@ -6,3 +6,13 @@ project/boot
 target
 .scala_dependencies
 tabels-web/target-eclipse
+syntax: regexp
+^tabels-core/lib/commons-cli-1\.2-src$
+syntax: regexp
+^tabels-core/lib/bmc-grizzled-slf4j-dd8866f/src/main/scala$
+syntax: regexp
+^tabels-core/lib/bmc-grizzled-slf4j-dd8866f$
+syntax: regexp
+^tabels-core/lib/opencsv-2\.3$
+syntax: regexp
+^tabels-core/lib$

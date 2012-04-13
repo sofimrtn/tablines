@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>Map view</title>
+	<title><g:message code="msg.map.title"/></title>
     <script type="text/javascript"
           src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBrr-fgXpidTazB9PUI0U6YjzaHh5BSgMA&amp;sensor=false"></script>
     <script type="text/javascript">
@@ -26,9 +26,13 @@
 </head>
 <body onload="initialize()">       
 
-	<h1>Map view</h1>
+	<h2><g:message code="msg.map.title"/></h2>
 	
-	<p><g:link action="index">Back to the project</g:link></p>
+	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+	
+	<g:if test="${!geopoints}">
+	    <div class="messagebox"><p><g:message code="msg.why.nothing.in.map.msg"/></p></div>
+	</g:if>
 	
     <div id="map_canvas"></div>
 

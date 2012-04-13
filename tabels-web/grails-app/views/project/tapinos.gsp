@@ -73,9 +73,11 @@
     });
 	</r:script>
             
-	<h1>Chart view</h1>
+	<h2>Chart view</h2>
 	
-	<h2>Seleccione los datos</h2>
+	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+	
+	<h3>Seleccione los datos</h3>
 
 <p><label for="dataset">Conjunto de datos:</label>
 
@@ -96,12 +98,12 @@
 
 <div id="seriesSwitchDiv"></div>
 
-<h2>Visualización gráfica</h2>
+<h3>Visualización gráfica</h3>
 
 <div id="chart">
 </div>
 
-<h2>Visualización en forma de tabla</h2>
+<h3>Visualización en forma de tabla</h3>
 <div id="table">
 </div>
 

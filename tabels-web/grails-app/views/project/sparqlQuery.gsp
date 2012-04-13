@@ -1,15 +1,15 @@
 <html>
  
   <head> 
-    <title>Tabels SPARQL Query Results</title>
+    <title><g:message code="msg.sparql.results.title" args="${[size]}"/></title>
     <meta name="layout" content="main" />
   </head> 
 
   <body> 
   
-    <h2>SPARQL Results (${size})</h2>
+    <h2><g:message code="msg.sparql.results.title" args="${[size]}"/></h2>
     
-   	<p>Go back to the <g:link action="sparql" params="[forceForm: '1', query: query]">SPARQL form</g:link></p>    
+   	<p class="backLink"><g:link action="sparql" params="[forceForm: '1', query: query]"><g:message code="msg.sparql.back.to.form"/></g:link></p>    
   
     <table class="sparql">
       <thead>
