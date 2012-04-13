@@ -50,7 +50,7 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	}
 	def asDouble : Literal = rdfType match {
 	    case XSD_DOUBLE => this
-	    case XSD_INT | XSD_FLOAT | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_DOUBLE) // FIXME
+	    case XSD_INT | XSD_FLOAT | XSD_DECIMAL => Literal(value.toString.toDouble, XSD_DOUBLE) // FIXME
 	    case XSD_STRING => try {
 	            Literal(value.toString.toFloat, XSD_FLOAT)
             } catch {
