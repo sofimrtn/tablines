@@ -72,6 +72,38 @@ case class NotExpression(expression:Expression) extends Expression{
 
 }
 
+case class AndExpression(expression1:Expression, expression2:Expression) extends Expression{
+  
+  override def evaluate(evaluationContext:EvaluationContext) = 
+    
+	 expression1.evaluateAsTruthValue(evaluationContext)&& expression2.evaluateAsTruthValue(evaluationContext) match{
+	    
+	 	case true => LITERAL_TRUE
+	    case false => LITERAL_FALSE
+	  }
+	    
+	
+
+    override def prettyPrint = "AND("+ expression1.toString + " , "+ expression2.toString+")"
+
+}
+
+case class OrExpression(expression1:Expression, expression2:Expression) extends Expression{
+  
+  override def evaluate(evaluationContext:EvaluationContext) = 
+    
+	 expression1.evaluateAsTruthValue(evaluationContext)|| expression2.evaluateAsTruthValue(evaluationContext) match{
+	    
+	 	case true => LITERAL_TRUE
+	    case false => LITERAL_FALSE
+	  }
+	    
+	
+
+    override def prettyPrint = "OR(" + expression1.toString + " , "+ expression2.toString+")"
+
+}
+
 case class TernaryOperationExpression(condition: Expression, trueExpression: Expression, falseExpression : Expression) extends Expression{
   
   override def evaluate(evaluationContext: EvaluationContext)= 

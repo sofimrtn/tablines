@@ -105,6 +105,8 @@ class TabelsParser extends JavaTokenParsers {
     def THEN = "then".ignoreCase
     def ELSE = "else".ignoreCase
     def NOT = "not".ignoreCase
+    def AND = "and".ignoreCase
+    def OR = "or".ignoreCase
    // def DBPEDIA_DISAMBIGUATION = "dbpedia-disambiguation".ignoreCase
     def LEVENSHTEIN_DISTANCE = "levenshtein-distance".ignoreCase
     def ABS = "abs".ignoreCase
@@ -366,7 +368,11 @@ class TabelsParser extends JavaTokenParsers {
   //  	(BOOLEAN ~> "("~>expression<~")")^^
    // 		{BooleanExpression}|
     	(NOT ~> expression)^^
-    		{NotExpression}
+    		{NotExpression}|
+    	(AND~>"(" ~>((expression <~",")  ~ expression)<~")" )^^
+    		{case exp1 ~ exp2 => AndExpression(exp1,exp2)}|
+    	(OR~>"(" ~>((expression <~",")  ~ expression)<~")" )^^
+    		{case exp1 ~ exp2 => OrExpression(exp1,exp2)}
 
     
     def tuple : Parser[Tuple] = ("[" ~> rep1sep(variable,",") <~ "]") ~ opt(IN ~> tupleType) ^^
