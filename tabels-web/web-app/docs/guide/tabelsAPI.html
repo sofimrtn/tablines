@@ -99,7 +99,7 @@ function addJsClass() {
                 
 
 <h1 id="tabelsAPI">2 Tabels API</h1>
-El lenguaje tabels para la conversión de formatos de datos a RDF está formado por los siguientes elementos:
+El lenguaje tabels para la conversión de formatos de datos estructurados a RDF está formado por los siguientes elementos:
 <ul class="star">
 <li>Directivas</li>
 <li>Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas.</li>
@@ -111,23 +111,34 @@ El lenguaje tabels para la conversión de formatos de datos a RDF está formado 
 <li><a href="../guide/single.html#dimensionStatements" class="guide">Sentencias de dimensiones</a></li>
 <li><a href="../guide/single.html#variableAssignmentStatements" class="guide">Sentencias de asignación de variables</a></li>
 </ul>
+</ul>
 <li>Variables: comienzan con '?' seguidas de caractéres alfanuméricos.</li>
-</ul></ul><p class="paragraph"/>    <div class="code"><pre>?testResource</pre></div>
+</ul><p class="paragraph"/>    <div class="code"><pre>?testResource</pre></div>
+<ul class="star">
+<li>Tuplas: conjunto ordenado de <strong class="bold">N</strong> Variables separado por comas y delimitado por los caracteres '&#91;' y '&#93;'</li>
+</ul><p class="paragraph"/>    <div class="code"><pre>&#91;?prueba,?col2&#93;</pre></div>
+<ul class="star">
+<li>Posición: indica una posición en el origen de datos. Es posible definir las posiciónes de dos formas distintas:</li>
 <ul class="star">
 <ul class="star">
-<li>Tuplas: conjunto ordenado de <strong class="bold">N</strong> Variables separado por comas y delimitado por los caracteres '' y '</li>
-</ul></ul><p class="paragraph"/>    <div class="code"><pre>&#91;?prueba,?col2&#93;</pre></div><p class="paragraph"/><strong class="bold"></strong>Posición: indica una posición en el origen de datos.
+<li>Posición absoluta: Indicando el lugar exacto en el origen de datos</li>
+</ul></ul></ul><p class="paragraph"/><div class="code"><pre>B12</pre></div>
 <ul class="star">
+<ul class="star">
+<ul class="star">
+<li>Posición relativa a una variable: Relaciona la posición a la de una variable, ya sea tomando la misma o calculandola en función de unas indicaciones.</li>
+</ul></ul></ul><p class="paragraph"/><div class="code"><pre>2 RIGHT OF ?rowId</pre></div> 
 <ul class="star">
 <li><a href="../guide/single.html#functions" class="guide">Expresiones</a></li>
-</ul>
 <li>Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo.</li>
-</ul><p class="paragraph"/><div class="code"><pre>&#123;
+</ul><p class="paragraph"/><div class="code"><pre>?resources a ex:SomeResource .
+    ?resources ex:prueba ?prueba .
+    ?resources ex:col2 ?col2</pre></div><p class="paragraph"/>Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada sentencia contenida en el template debe estar seguida del caracter separador de sentencias "." excepto la prévia a la llave de cierre del template. Para un mismo programa tabels es posible definir más de un template, separandose entre ellos por llaves ({template1} {template2})<p class="paragraph"/> <div class="code"><pre>&#123;
     ?resources a ex:SomeResource .
     ?resources ex:prueba ?prueba .
     ?resources ex:col2 ?col2
  &#125;<p class="paragraph"/> &#123;
-    &#91;    rdf:type ex:Movie;
+    &#91;    rdf:type ex:Movie ;
          ex:rank ?rankInt ;
          ex:rating ?ratingFloat ;
          rdfs:label ?titleTrimmed ;
