@@ -49,7 +49,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
      
      val newEvaluationContext = calculatedEvaluationContext.addDimension(dimensionStatement.dimension, calculatedDimension)
      val cursor : Point = newEvaluationContext.cursor
-     println("Cursor: "+ cursor)
+     println("Cursor: ("+ cursor.row+" , " + cursor.col+")")
      val value : Literal = dimensionStatement.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(cursor).getContent
 		    case Dimension.cols =>	dataSource.getValue(cursor).getContent
@@ -75,6 +75,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   override def visit(iteratorStatement : IteratorStatement) = {
    
     logger.debug("Visiting Iterator statement " + iteratorStatement.dimension)
+    println("Iniciamos For en " + evaluationContext.cursor.row + " , "+evaluationContext.cursor.col)
     println("el limite de esta ventana es : "+evaluationContext.windowLimit)
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
@@ -107,7 +108,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     	val next = filteredPairs.indexOf((dimensionIterator,newEvaluationContext))+ 1.asInstanceOf[Int]
     	val windowLimit = filteredPairs.isDefinedAt(next) match{
     	  case true => Some((filteredPairs.apply(next)._1.asInstanceOf[Int],iteratorStatement.dimension))
-    	  case false => None
+    	  case false => evaluationContext.windowLimit
     	}
     	
     	

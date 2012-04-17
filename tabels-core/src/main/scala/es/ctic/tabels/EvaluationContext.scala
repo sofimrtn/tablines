@@ -40,8 +40,8 @@ case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMa
         dimension match {
             case Dimension.files => dataSource.filenames
             case Dimension.sheets => return dataSource.getTabs(filename)
-		    case Dimension.rows => return List.range(0, dataSource.getRows(filename,sheet))
-		    case Dimension.cols => return List.range(0, dataSource.getCols(filename,sheet))
+		    case Dimension.rows => return List.range(cursor.row, dataSource.getRows(filename,sheet))
+		    case Dimension.cols => return List.range(cursor.col, dataSource.getCols(filename,sheet))
 	    }
 	}
 
