@@ -35,7 +35,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     var calculatedEvaluationContext = evaluationContext
    
     //FIX ME: find a better way to do it
-    if (dimensionStatement.isInstanceOf[IteratorStatement] && !dimensionStatement.asInstanceOf[IteratorStatement].startCond.isEmpty && dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.isRight){
+   /* if (dimensionStatement.isInstanceOf[IteratorStatement] && !dimensionStatement.asInstanceOf[IteratorStatement].startCond.isEmpty && dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.isRight){
 		val startPos =  dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.right.get.calculatePoint(evaluationContext)
 		dimensionStatement.dimension match{
 		  case Dimension.rows => calculatedDimension = (dimensionIterator.toInt + startPos.row - evaluationContext.cursor.row).toString
@@ -45,9 +45,9 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  						calculatedEvaluationContext = calculatedEvaluationContext.addDimension(Dimension.rows,startPos.row.toString)
 		}
     
-    }
+    }*/
      
-     val newEvaluationContext = calculatedEvaluationContext.addDimension(dimensionStatement.dimension, calculatedDimension)
+     val newEvaluationContext = evaluationContext.addDimension(dimensionStatement.dimension,dimensionIterator)/*calculatedEvaluationContext.addDimension(dimensionStatement.dimension, calculatedDimension)*/
      val cursor : Point = newEvaluationContext.cursor
      println("Cursor: ("+ cursor.row+" , " + cursor.col+")")
      val value : Literal = dimensionStatement.dimension match{
@@ -75,7 +75,17 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   override def visit(iteratorStatement : IteratorStatement) = {
    
     logger.debug("Visiting Iterator statement " + iteratorStatement.dimension)
-    println("Iniciamos For en " + evaluationContext.cursor.row + " , "+evaluationContext.cursor.col)
+    
+  
+   var startPos: Point= null
+    if (!iteratorStatement.startCond.isEmpty && iteratorStatement.startCond.get.isRight && iteratorStatement.startCond.get.right.get.calculatePoint(evaluationContext)!= evaluationContext.cursor){
+		startPos =  iteratorStatement.startCond.get.right.get.calculatePoint(evaluationContext)
+		val relativeEvaluationContext=evaluationContext.addDimension(Dimension.rows , startPos.row.toString).addDimension(Dimension.cols,startPos.col.toString())
+		
+		iteratorStatement.accept(VisitorEvaluate(dataSource,events, relativeEvaluationContext))
+    }
+    else{
+    println("Iniciamos For en " + evaluationContext.cursor.row + " , "+evaluationContext.cursor.col+" Deberíamos en " + startPos)
     println("el limite de esta ventana es : "+evaluationContext.windowLimit)
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
@@ -86,17 +96,9 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       val dimensionValues = evaluationContext.getDimensionRange(iteratorStatement.dimension, dataSource)
       val evaluationContexts = dimensionValues map (v => calculateNewEvaluationContext(iteratorStatement, v.toString))
       val pairsMap = dimensionValues zip evaluationContexts
-      
-    /*  val pairsMapWindowed = iteratorStatement.dimension match{
-        case Dimension.cols =>pairsMap filter(pair => !dataSource.getValue(pair._2.cursor).getContent.toString.matches("[a-zA-Z0-9+]"))
-        case Dimension.rows =>pairsMap filter(pair => !dataSource.getValue(pair._2.cursor).getContent.toString.matches("[a-zA-Z0-9+]"))
-        case Dimension.files => pairsMap
-        case Dimension.sheets => pairsMap
-      }
-      println("windowed"  +pairsMapWindowed)*/
-      
+         
      //FIX ME: find a better way to do it... (it: first takeWhile to discard out-windowed dimension values)
-     val filteredPairs = pairsMap /*Windowed*/ takeWhile (pair => evaluationContext.windowLimit.isEmpty || evaluationContext.windowLimit.get._1 > (evaluationContext.windowLimit.get._2 match{case Dimension.rows => pair._2.cursor.row case Dimension.cols =>pair._2.cursor.col}) )dropWhile
+     val filteredPairs = pairsMap takeWhile (pair => evaluationContext.windowLimit.isEmpty || evaluationContext.windowLimit.get._1 > (evaluationContext.windowLimit.get._2 match{case Dimension.rows => pair._2.cursor.row case Dimension.cols =>pair._2.cursor.col}) )dropWhile
      					(pair => !iteratorStatement.startCond.isEmpty && !iteratorStatement.startCond.get.fold(expr => expr.evaluateAsTruthValue(pair._2),pos => (pos.calculatePoint(pair._2).col == pair._2.cursor.col) && (pos.calculatePoint(pair._2).row == pair._2.cursor.row)))takeWhile
                         (pair => iteratorStatement.stopCond.isEmpty ||iteratorStatement.stopCond.get.evaluateAsTruthValue(pair._2)) filter
       					(pair => iteratorStatement.filter.isEmpty ||iteratorStatement.filter.get.evaluateAsTruthValue(pair._2))
@@ -127,7 +129,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 	 }
 	}
 	  
-	
+    }
   }
   
   override def visit(setDimensionStatement : SetInDimensionStatement) = {
