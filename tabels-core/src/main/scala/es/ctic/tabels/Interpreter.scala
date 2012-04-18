@@ -2,13 +2,13 @@ package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
 import scala.collection.immutable.HashMap
+import scala.collection.immutable.List
 import scala.collection.mutable.ListBuffer
 import grizzled.slf4j.Logging
 
 class Interpreter extends Logging {
   
-  def interpret(root : S, dataSource: DataSource, dataOut : DataOutput) = {
-    //FIX IT//
+  def interpret(root : S, dataSource: DataSource, dataOut : DataOutput) : InterpreterTrace = {
     val events = new ListBuffer[Event]
     val evaluationContext = EvaluationContext()
     
@@ -38,6 +38,7 @@ class Interpreter extends Logging {
       dataOut.generateOutput(new Statement(map._1,Resource("relacion"),Literal(map._2.label)))*/
    	}
    	dataOut.postProcess(root)
+    return InterpreterTrace(events.toList)
   }
 
 }
@@ -71,3 +72,4 @@ case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
 
 }
 
+case class InterpreterTrace(events : List[Event])
