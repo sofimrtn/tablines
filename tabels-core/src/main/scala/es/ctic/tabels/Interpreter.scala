@@ -38,7 +38,7 @@ class Interpreter extends Logging {
       dataOut.generateOutput(new Statement(map._1,Resource("relacion"),Literal(map._2.label)))*/
    	}
    	dataOut.postProcess(root)
-    return InterpreterTrace(events.toList)
+    return InterpreterTrace(root, dataSource, events.toList)
   }
 
 }
@@ -72,4 +72,4 @@ case class Bindings(bindingsMap : Map[Variable, Binding] = new HashMap()) {
 
 }
 
-case class InterpreterTrace(events : List[Event])
+case class InterpreterTrace(root : S, dataSource : DataSource, events : List[Event])
