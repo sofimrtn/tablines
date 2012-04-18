@@ -115,6 +115,8 @@ class TabelsParser extends JavaTokenParsers {
     def ROUND = "round".ignoreCase
     def STARTS = "starts".ignoreCase
     def WHEN = "when".ignoreCase
+    
+    def WINDOWED = "windowed".ignoreCase
   
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
@@ -160,9 +162,9 @@ class TabelsParser extends JavaTokenParsers {
 	    
 	def blankNode : Parser[BlankNode] =
 	    "[]" ^^ { _ => createFreshBlankNode() } |
-	    "_" ~> ":" ~> ident ^^ { internalId => BlankNode(Left(internalId)) }
+	    "_"~>":" ~> ident ^^ { internalId => BlankNode(Left(internalId)) }
 		
-	def rdfNode : Parser[RDFNode] = iriRef | curieRef | blankNode | rdfLiteral
+	def rdfNode : Parser[RDFNode] = iriRef | blankNode| curieRef  | rdfLiteral
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
@@ -183,7 +185,9 @@ class TabelsParser extends JavaTokenParsers {
 	def blockStatement : Parser[BlockStatement] = "{" ~> rep1sep(tabelsStatement, ";") <~ "}" ^^ { BlockStatement(_) }
 	
 	def iteratorStatement : Parser[IteratorStatement] = (FOR ~> opt(variable <~ IN)) ~ dimension ~ startCondition ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
-        { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p) }
+        { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p) }|
+        NOT~>WINDOWED~>(FOR ~> opt(variable <~ IN)) ~ dimension ~ startCondition ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
+        { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p,windowed = false) }
     
 	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ path ~ opt(tabelsStatement) ^^
         { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
