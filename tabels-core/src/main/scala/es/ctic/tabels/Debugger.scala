@@ -10,27 +10,43 @@ class Debugger extends Logging {
     
     def serializeInterpreterTrace(trace : InterpreterTrace, printStream : PrintStream) {
         val spreadsheets = serializeSpreadsheets(trace)
-        val head = <head><title>Tabels debugger</title></head>
-        val body = <body><h1>Tabels debugger</h1>{spreadsheets}</body>
-        val htmlDoc = <html><head></head>{body}</html>
+        val head = <head>
+            <title>Tabels debugger</title>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+            <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"></link>
+        </head>
+        val initializationScript =
+        	"""$(function() {
+        		$( '.tabs' ).tabs();
+        	});"""
+        val body = <body><script>{initializationScript}</script><h1>Tabels debugger</h1>{spreadsheets}</body>
+        val htmlDoc = <html>{head}{body}</html>
         printStream.print(htmlDoc.toString)
     }
     
     def serializeSpreadsheets(trace : InterpreterTrace) : Elem = {
         return <div>
-            <h2>Input files</h2> {
+            <h2>Input files</h2>
+            <div id="fileTabs" class="tabs">
+                <ul>
+                    { trace.dataSource.filenames.map(filename => <li><a href={"#fileTab"+filename.hashCode}>{filename}</a></li>) }
+                </ul>
+            {
                 trace.dataSource.filenames.map(filename =>
-                    <div>
-                        <h3>{filename}</h3>
+                    <div id={"fileTab"+filename.hashCode} class="tabs">
+                        <ul> { trace.dataSource.getTabs(filename).map(tabName =>
+                            <li><a href={"#tabTab" + tabName.hashCode}>{tabName}</a></li>
+                        ) } </ul>
                         { trace.dataSource.getTabs(filename).map(tabName =>
-                            <div>
-                                <h4>{tabName}</h4>
+                            <div id={"tabTab"+tabName.hashCode}>
                                 { serializeTab(trace, filename, tabName) }
                             </div>
                         )}
                     </div>
                 )
-            }            
+            }
+            </div>            
         </div>
     }
     
