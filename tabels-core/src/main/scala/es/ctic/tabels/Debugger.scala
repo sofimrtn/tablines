@@ -8,6 +8,10 @@ class Debugger extends Logging {
     
     val maxRows = 25
     
+    val inlineCss = """
+    .recentlyBound { background-color: blue; }
+    """
+    
     def serializeInterpreterTrace(trace : InterpreterTrace, printStream : PrintStream) {
         val spreadsheets = serializeSpreadsheets(trace)
         val head = <head>
@@ -15,12 +19,14 @@ class Debugger extends Logging {
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
             <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"></link>
+            <style type="text/css">{inlineCss}</style>
         </head>
         val initializationScript =
         	"""$(function() {
         		$( '.tabs' ).tabs();
         	});"""
-        val body = <body><script>{initializationScript}</script><h1>Tabels debugger</h1>{spreadsheets}</body>
+        val events = serializeEvents(trace)
+        val body = <body><script>{initializationScript}</script><h1>Tabels debugger</h1>{spreadsheets}{events}</body>
         val htmlDoc = <html>{head}{body}</html>
         printStream.print(htmlDoc.toString)
     }
@@ -70,6 +76,22 @@ class Debugger extends Logging {
                 ) }
             </table>
         }
+    }
+    
+    def serializeEvents(trace : InterpreterTrace) : Elem = {
+        return <div>
+            <h2>Events</h2>
+            { trace.events.map(event => serializeEvent(event)) }
+        </div>
+    }
+    
+    def serializeEvent(event : Event) : Elem = {
+        return <div id={"#event"+event.hashCode}>
+            <p>Evento</p>
+            { for ((variable, binding) <- event.bindings.bindingsMap) yield
+                <li class={if (event.lastBoundVariables contains variable) "recentlyBound" else ""}>{variable} = {binding.value} (at {binding.point})</li>
+            }
+        </div>
     }
     
 }
