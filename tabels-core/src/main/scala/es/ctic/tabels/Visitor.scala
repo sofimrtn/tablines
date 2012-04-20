@@ -49,7 +49,6 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
      
      val newEvaluationContext = evaluationContext.addDimension(dimensionStatement.dimension,dimensionIterator)/*calculatedEvaluationContext.addDimension(dimensionStatement.dimension, calculatedDimension)*/
      val cursor : Point = newEvaluationContext.cursor
-     println("Cursor: ("+ cursor.row+" , " + cursor.col+")")
      val value : Literal = dimensionStatement.dimension match{
 		    case Dimension.rows =>	dataSource.getValue(cursor).getContent
 		    case Dimension.cols =>	dataSource.getValue(cursor).getContent
@@ -85,8 +84,6 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		iteratorStatement.accept(VisitorEvaluate(dataSource,events, relativeEvaluationContext))
     }
     else{
-    println("Iniciamos For en " + evaluationContext.cursor.row + " , "+evaluationContext.cursor.col)
-    println("el limite de esta ventana es : "+evaluationContext.windowLimit)
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
     if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
@@ -124,7 +121,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     	}
     	
     	val windowedEvalC = newEvaluationContext.addWLimit(windowLimit)
-    	println("el limite de la futura ventana es : "+windowedEvalC.windowLimit)
+    	
     	//FIX ME: It's done always even if there is no window limit	
 		iteratorStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, windowedEvalC)))
 	 }
