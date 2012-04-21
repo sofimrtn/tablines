@@ -19,12 +19,41 @@ class Debugger extends Logging {
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
             <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
             <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"></link>
+            <script src="http://imakewebthings.com/deck.js/modernizr.custom.js" type="text/javascript"></script>
+        	<link rel="stylesheet" id="style-theme-link" href="http://imakewebthings.com/deck.js/themes/style/web-2.0.css"></link>
+        	<link rel="stylesheet" id="transition-theme-link" href="http://imakewebthings.com/deck.js/themes/transition/horizontal-slide.css"></link>
+            <script src="http://imakewebthings.com/deck.js/core/deck.core.js" type="text/javascript"></script>
+            <script src="http://imakewebthings.com/deck.js/extensions/status/deck.status.js" type="text/javascript"></script>
+            <script src="http://imakewebthings.com/deck.js/extensions/navigation/deck.navigation.js" type="text/javascript"></script>
             <style type="text/css">{inlineCss}</style>
         </head>
         val initializationScript =
         	"""$(function() {
         		$( '.tabs' ).tabs();
-        	});"""
+        		$.deck('.slide');
+                $.extend(true, $.deck.defaults, {
+                   classes: {
+                      navDisabled: 'deck-nav-disabled'
+                   },
+
+                   selectors: {
+                      nextLink: '.deck-next-link',
+                      previousLink: '.deck-prev-link'
+                   }
+                });
+                $.extend(true, $.deck.defaults, {
+                   selectors: {
+                      statusCurrent: '.deck-status-current',
+                      statusTotal: '.deck-status-total'
+                   },
+
+                   countNested: true
+                });
+                $(document).bind('deck.change', function(event, from, to) {
+                   $('.spreadsheetCell').stop(true).css('background-color','').attr('title','');
+                   eval('event' + to + '()'); // FIXME: avoid eval
+                });
+            });"""
         val events = serializeEvents(trace)
         val body = <body><script>{initializationScript}</script><h1>Tabels debugger</h1>{spreadsheets}{events}</body>
         val htmlDoc = <html>{head}{body}</html>
@@ -63,15 +92,20 @@ class Debugger extends Logging {
         if (rows * cols == 0) {
             return <div/>
         } else {
-            return <table border="1">
-                <tr>
+            val tabCode = "file" + filename.hashCode + "-tab" + tabName.hashCode
+            return <table class="spreadsheet" id={"spreadsheet-" + tabCode} border="1">
+                <tr class="spreadsheetColHeader">
                     <th></th>
-                    { 0.to(cols-1).map(col => <th>Column {columnConverter.intToAlpha(col)}</th>) }
+                    { 0.to(cols-1).map(col => <th>{columnConverter.intToAlpha(col)}</th>) }
                 </tr>
                 { 0.to(rows.min(maxRows)-1).map(row =>
-                    <tr>
-                        <td>{row+1}</td>
-                        { trace.dataSource.getRow(filename, tabName, row).map(literal => <td>{literal.value}</td>) }
+                    <tr class="spreadsheetRow" id={tabCode + "-row" + row}>
+                        <td class="spreadsheetRowHeader">{row+1}</td>
+                        { 0.to(cols-1).map{col => 
+                            val point = Point(filename, tabName, col, row)
+                            val value = trace.dataSource.getValue(point).getContent.value
+                            <td class="spreadsheetCell" id={"point" + point.hashCode}>{value}</td>
+                        } }
                     </tr>                
                 ) }
             </table>
@@ -79,19 +113,29 @@ class Debugger extends Logging {
     }
     
     def serializeEvents(trace : InterpreterTrace) : Elem = {
-        return <div>
-            <h2>Events</h2>
-            { trace.events.map(event => serializeEvent(event)) }
-        </div>
+        return <article class="deck-container" style="position: relative">
+            { trace.events.view.zipWithIndex.map{case (event,index) => serializeEvent(event, index)} }
+            <a href="#" class="deck-prev-link" title="Previous">&#8592; Prev</a>
+        	<a href="#" class="deck-next-link" title="Next">&#8594; Next</a>
+
+        	<p class="deck-status">
+        		<span class="deck-status-current"></span>
+        		/
+        		<span class="deck-status-total"></span>
+        	</p>
+        </article>
     }
     
-    def serializeEvent(event : Event) : Elem = {
-        return <div id={"#event"+event.hashCode}>
-            <p>Evento</p>
+    def serializeEvent(event : Event, index : Int) : Elem = {
+        val actions = for ((variable, binding) <- event.bindings.bindingsMap) yield
+            ("var $cell = $('#point" + binding.point.hashCode + "'); $cell.css('background-color','yellow').animate({'background-color': 'blue'}).attr('title',$cell.attr('title')+' " + variable + "');")
+        val eventFunction = "function event" + index + "() { " + actions.mkString + "}"
+        return <section class="slide" id={"#event"+index}>
             { for ((variable, binding) <- event.bindings.bindingsMap) yield
                 <li class={if (event.lastBoundVariables contains variable) "recentlyBound" else ""}>{variable} = {binding.value} (at {binding.point})</li>
             }
-        </div>
+            <script>{eventFunction}</script>
+        </section>
     }
     
 }
