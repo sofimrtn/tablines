@@ -37,6 +37,7 @@ class Debugger extends Logging {
         	"""$(function() {
         		$( '.tabs' ).tabs();
         		$.deck('.slide');
+        		$('.spreadsheet').resizable();
                 $.extend(true, $.deck.defaults, {
                    classes: {
                       navDisabled: 'deck-nav-disabled'
