@@ -189,7 +189,7 @@ class TabelsParser extends JavaTokenParsers {
         NOT~>WINDOWED~>(FOR ~> opt(variable <~ IN)) ~ dimension ~ startCondition ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
         { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p,windowed = false) }
     
-	def setInDimensionStatement : Parser[SetInDimensionStatement] = opt(SET ~> variable) ~ (IN ~> dimension) ~ path ~ opt(tabelsStatement) ^^
+	def setInDimensionStatement : Parser[SetInDimensionStatement] = (SET ~> opt(variable <~ IN) ~ dimension) ~ path ~ opt(tabelsStatement) ^^
         { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
       
 	
