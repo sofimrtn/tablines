@@ -32,31 +32,34 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 
 * [Expresiones|guide:functions]: funciones que permiten modificar el valor de las variables.
 
-* Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo. 
+* Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo o por literales(cadenas de texto o números). 
 {code}
     ?resources a ex:SomeResource .
     ?resources ex:prueba ?prueba .
     ?resources ex:col2 ?col2
 {code}
 
-Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada sentencia contenida en el template debe estar seguida del caracter separador de sentencias "." excepto la prévia a la llave de cierre del template. Para un mismo programa tabels es posible definir más de un template, separandose entre ellos por llaves ({template1} {template2})
+Para un mismo programa tabels es posible definir más de un template, precedidos por la palabra reservada _construct_ y separandose entre ellos por llaves (construct{template1} construct{template2}).
+Cada uno de estos templates generará una o más porciones del RDF final. Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada tripleta contenida en el template debe estar seguida del caracter separador de tripletas "." excepto la prévia a la llave de cierre del template. Si más de una tripleta comparte sujeto, este puede omitirse en las sucesivas si se separadan entre si con el caracter ";". 
  
  {code}
+ construct
  {
     ?resources a ex:SomeResource .
-    ?resources ex:prueba ?prueba .
-    ?resources ex:col2 ?col2
+    [] ex:prueba ?prueba .
+    [ex:col2 ?col2]
  }
  
+ construct
  {
-    [    rdf:type ex:Movie ;
-         ex:rank ?rankInt ;
-         ex:rating ?ratingFloat ;
-         rdfs:label ?titleTrimmed ;
-         ex:year ?year ;
-         ex:votes ?votesInt ;
-         owl:sameAs ?dbpediaResource ]
+    ?resource rdf:type ex:Movie ;
+              ex:rank ?rankInt ;
+              ex:rating ?ratingFloat ;
+              rdfs:label ?titleTrimmed ;
+              ex:year ?year ;
+              ex:votes ?votesInt ;
+              owl:sameAs ?dbpediaResource 
   }
-  
-  
+   
 {code}
+
