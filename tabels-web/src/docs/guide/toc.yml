@@ -1,7 +1,7 @@
 introduccion:
     title: Introducción
-tabelsAPI:
-    title : Tabels API
+tabelsLenguaje:
+    title : Lenguaje Tabels
     dimensionStatements: Sentencias de dimensiones
     variableAssignmentStatements: Sentencias de asignación de variables
     functions:

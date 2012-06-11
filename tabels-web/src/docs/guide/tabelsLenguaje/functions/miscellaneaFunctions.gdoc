@@ -51,10 +51,19 @@ h4. Operadores lógicos
         not(boolean: Boolean) : Boolean
     {code}
     Devuelve la negación lógica del parámetro _boolean_.
- 
-
-# if(condition:boolean) then result1: Resource else result2: Resource
+ # and
     {code}
-        literal(string: String) : Resource
+        and(expresion1: Expresion, expresion2: Expresion) : Boolean
+    {code}
+    Devuelve el resultado de aplicar el operador AND lógico entre los parámetros _expresion1_ y _expresion2_.
+# or
+    {code}
+        or(expresion1: Expresion, expresion2: Expresion) : Boolean
+    {code}
+    Devuelve el resultado de aplicar el operador OR lógico entre los parámetros _expresion1_ y _expresion2_.
+
+# if-then-else
+    {code}
+        if(condition:boolean) then result1: Resource else result2: Resource
     {code}
     Devuelve el recurso _result1_ si la _condition_ es igual a *true* y _result2_ en caso de que _condition_ sea *false*.
