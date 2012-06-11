@@ -104,7 +104,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
     	logger.debug("Iteration through " + iteratorStatement.dimension+" in position "+dimensionIterator )
     	 
     	
-    	val next = filteredPairs.indexOf((dimensionIterator,newEvaluationContext))+ 1.asInstanceOf[Int]
+    	val next = filteredPairs.indexOf((dimensionIterator,newEvaluationContext))+ 1
     	val windowLimit = filteredPairs.isDefinedAt(next) match{
     	  case true => if (iteratorStatement.windowed) Some((filteredPairs.apply(next)._1.asInstanceOf[Int],iteratorStatement.dimension))
     	  			   else evaluationContext.windowLimit
