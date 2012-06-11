@@ -1,6 +1,13 @@
 .cm-s-default span.cm-keyword {color: #708;}
+.cm-s-default span.cm-iteratorStatement {color: #708;}
+.cm-s-default span.cm-variableStatement {color: #708;}
+.cm-s-default span.cm-prevStatement {color: #708;}
+.cm-s-default span.cm-statementOperator {color: #708;}
+.cm-s-default span.cm-terminalOperator {color: green;}
+.cm-s-default span.cm-tabelsExpression {color: green;}
+.cm-s-default span.cm-tabelsPosition{color: black;}
 .cm-s-default span.cm-atom {color: #219;}
-.cm-s-default span.cm-number {color: #164;}
+.cm-s-default span.cm-number {color: black;}
 .cm-s-default span.cm-def {color: #00f;}
 .cm-s-default span.cm-variable {color: black;}
 .cm-s-default span.cm-variable-2 {color: #05a;}
@@ -17,3 +24,5 @@
 .cm-s-default span.cm-bracket {color: #cc7;}
 .cm-s-default span.cm-tag {color: #170;}
 .cm-s-default span.cm-attribute {color: #00c;}
+div.CodeMirror-selected { background: #d9d9d9; }
+.CodeMirror-focused div.CodeMirror-selected { background: #d7d4f0; }

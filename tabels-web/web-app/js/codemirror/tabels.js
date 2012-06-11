@@ -5,21 +5,22 @@ CodeMirror.defineMode("tabels", function(config) {
   function wordRegexp(words) {
     return new RegExp("^(?:" + words.join("|") + ")$", "i");
   }
+  
   var ops = wordRegexp(["str", "lang", "langmatches", "matches", "datatype", "bound", "sameterm", "isiri", "isuri",
                         "isblank", "isliteral", "resource", "a"]);
   var keywords = wordRegexp(["in", "prefix", "cells", "rows", "cols", "for", "sheets",
-                             "files", "ignore", "blanks", "filter", "horizontal", "vertical", "let", "match", "left",
-                             "right", "top", "bottom", "while", "until", "set", "match"]);
+                             "files", "ignore", "blanks", "filter", "horizontal", "vertical", "let", "at", "match", "left",
+                             "right", "top", "bottom", "while", "until", "set", "match", "starts","at", "when", "@fetch", "not windowed"]);
   var operatorChars = /[*+\-<>=&|]/;
 
   function tokenBase(stream, state) {
     var ch = stream.next();
     curPunc = null;
-    if (ch == "$" || ch == "?") {
+/**/    if (ch == "$" || ch == "?") {
       stream.match(/^[\w\d]*/);
       return "variable-2";
     }
-    else if (ch == "<" && !stream.match(/^[\s\u00a0=]/, false)) {
+/**/    else if (ch == "<" && !stream.match(/^[\s\u00a0=]/, false)) {
       stream.match(/^[^\s\u00a0>]*>?/);
       return "atom";
     }
@@ -50,7 +51,7 @@ CodeMirror.defineMode("tabels", function(config) {
       stream.eatWhile(operatorChars);
       return null;
     }
-    else if (ch == ":") {
+  /**/  else if (ch == ":") {
       stream.eatWhile(/[\w\d\._\-]/);
       return "atom";
     }

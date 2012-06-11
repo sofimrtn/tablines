@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>tabels-web 0.3-SNAPSHOT</title>
+        <title>tabels-web 0.4-SNAPSHOT</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -25,7 +25,7 @@ function addJsClass(el) {
                             
                             <div class="toc-item" style="margin-left:0"><a href="#introduccion"><strong>1</strong><span>Introducci&oacute;n</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:0"><a href="#tabelsAPI"><strong>2</strong><span>Tabels API</span></a></div>
+                            <div class="toc-item" style="margin-left:0"><a href="#tabelsLenguaje"><strong>2</strong><span>Lenguaje Tabels</span></a></div>
                             
                         </div>
                     </div>
@@ -54,7 +54,7 @@ function addJsClass(el) {
                         <div class="project">
                             <h1>tabels-web - Reference Documentation</h1>
                             <p><strong>Authors:</strong> </p>
-                            <p><strong>Version:</strong> 0.3-SNAPSHOT</p>
+                            <p><strong>Version:</strong> 0.4-SNAPSHOT</p>
                             
                         </div>
 
@@ -64,7 +64,7 @@ function addJsClass(el) {
                             
                             <div class="toc-item" style="margin-left:0px"><a href="#introduccion"><strong>1</strong><span>Introducci&oacute;n</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:0px"><a href="#tabelsAPI"><strong>2</strong><span>Tabels API</span></a></div>
+                            <div class="toc-item" style="margin-left:0px"><a href="#tabelsLenguaje"><strong>2</strong><span>Lenguaje Tabels</span></a></div>
                             
                             <div class="toc-item" style="margin-left:10px"><a href="#dimensionStatements"><strong>2.1</strong><span>Sentencias de dimensiones</span></a></div>
                             
@@ -94,7 +94,7 @@ function addJsClass(el) {
 </ul><p class="paragraph"/>
 
 
-<h1 id="tabelsAPI">2 Tabels API</h1>
+<h1 id="tabelsLenguaje">2 Lenguaje Tabels</h1>
 El lenguaje tabels para la conversión de formatos de datos estructurados a RDF está formado por los siguientes elementos:
 <ul class="star">
 <li>Directivas</li>
@@ -125,7 +125,7 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 <li>Posición relativa a una variable: Relaciona la posición a la de una variable, ya sea tomando la misma o calculandola en función de unas indicaciones.</li>
 </ul></ul></ul><p class="paragraph"/><div class="code"><pre>2 RIGHT OF ?rowId</pre></div> 
 <ul class="star">
-<li><a href="../guide/single.html#functions" class="guide">Expresiones</a></li>
+<li><a href="../guide/single.html#functions" class="guide">Expresiones</a>: funciones que permiten modificar el valor de las variables.</li>
 <li>Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo.</li>
 </ul><p class="paragraph"/><div class="code"><pre>?resources a ex:SomeResource .
     ?resources ex:prueba ?prueba .
@@ -373,8 +373,16 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 </ol><p class="paragraph"/>    <div class="code"><pre>not(<span class="java&#45;object">boolean</span>: <span class="java&#45;object">Boolean</span>) : <span class="java&#45;object">Boolean</span></pre></div>
     Devuelve la negación lógica del parámetro  <em class="italic">boolean</em> .
 <ol>
-<li>if(condition:boolean) then result1: Resource else result2: Resource</li>
-</ol><p class="paragraph"/>    <div class="code"><pre>literal(string: <span class="java&#45;object">String</span>) : Resource</pre></div>
+<li>and</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>and(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador AND lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>or</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>or(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador OR lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>if-then-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
     Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
 
 
@@ -387,6 +395,15 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
                     <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
                 </div>
                 <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Items</h1><div class="menu-sub">
+                        
+                        
+                        <div class="menu-item"><a href="../ref/Items/reference.html">reference</a>
+                        </div>
+                        
+                        </div>
+                    </div>
                     
                 </div>
             </div>

@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>2.3 Expresiones 0.3-SNAPSHOT</title>
+    <title>2.3 Expresiones 0.4-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -27,7 +27,7 @@ function addJsClass() {
                     <div class="toc-item" style="margin-left:0"><a href="../../guide/introduccion.html"><strong>1</strong><span>Introducci&oacute;n</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0"><a href="../../guide/tabelsAPI.html"><strong>2</strong><span>Tabels API</span></a>
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/tabelsLenguaje.html"><strong>2</strong><span>Lenguaje Tabels</span></a>
                     </div>
                     
                 </div>
@@ -66,7 +66,7 @@ function addJsClass() {
 
                     <p><strong>Authors:</strong> </p>
 
-                    <p><strong>Version:</strong> 0.3-SNAPSHOT</p>
+                    <p><strong>Version:</strong> 0.4-SNAPSHOT</p>
 
                     
                 </div>
@@ -308,8 +308,16 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 </ol><p class="paragraph"/>    <div class="code"><pre>not(<span class="java&#45;object">boolean</span>: <span class="java&#45;object">Boolean</span>) : <span class="java&#45;object">Boolean</span></pre></div>
     Devuelve la negación lógica del parámetro  <em class="italic">boolean</em> .
 <ol>
-<li>if(condition:boolean) then result1: Resource else result2: Resource</li>
-</ol><p class="paragraph"/>    <div class="code"><pre>literal(string: <span class="java&#45;object">String</span>) : Resource</pre></div>
+<li>and</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>and(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador AND lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>or</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>or(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador OR lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>if-then-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
     Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
 
 
@@ -328,6 +336,15 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
                     <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
                 </div>
                 <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Items</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../../ref/Items/reference.html">reference</a>
+                            </div>
+                            
+                            </div>
+                    </div>
                     
                 </div>
             </div>

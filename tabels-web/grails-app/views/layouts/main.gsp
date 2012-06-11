@@ -4,11 +4,12 @@
         <title><g:layoutTitle default="Grails" /></title>
         <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
         <g:javascript library="application" />
+        
 		<g:javascript library="jquery" plugin="jquery"/>
 		<script src="${resource(dir:'js/codemirror',file:'codemirror.js')}"></script>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror.css')}">
 		<script src="${resource(dir:'js/codemirror',file:'sparql.js')}"></script>
-		<script src="${resource(dir:'js/codemirror',file:'tabels.js')}"></script>
+		<script src="${resource(dir:'js/codemirror',file:'tabelscomplete.js')}"></script>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror-default-theme.css')}">
 		<r:layoutResources/>
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
@@ -21,8 +22,10 @@
 		<div id="header">
 			<h1><g:link controller="project"><g:message code="product.name"/></g:link></h1>
 			<p class="undertitle"><g:message code="product.slogan" /></p>
+			
 		</div>
 		<div id="body">
+		<p class="underheader"><g:link controller="docs" action="guide"><g:message code="product.documentation"/></g:link></p>
 		<g:if test="${flash.error}">
 			<div class="errorsbox">
 				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error.encodeAsHTML()}"/>

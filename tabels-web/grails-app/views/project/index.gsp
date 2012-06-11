@@ -3,17 +3,37 @@
         <title>Tabels project</title>
 		<r:require modules="uploadr"/>
         <meta name="layout" content="main" />
+	   
+	    <script src="${resource(dir:'js/codemirror',file:'example.js')}"></script>
+    	<script src="${resource(dir:'js/codemirror',file:'javahint.js')}"></script>
+    	<script src="${resource(dir:'js/codemirror',file:'simplehint.js')}"></script>
+		<link rel="stylesheet" href="${resource(dir:'css',file:'simple-hint.css')}">
+	   
 	    <script type="text/javascript">
+	   
+	     
+	   
+	   
 			$(document).ready(function() {
-				CodeMirror.fromTextArea(program, {
-					mode: "tabels",
+				var editor = CodeMirror.fromTextArea(program, {
+					mode: "tabelscomplete",
 					lineNumbers: true,
-					matchBrackets: true
+					matchBrackets: true,
+					extraKeys: {"Ctrl-Space": "autocomplete"}
 				});
 			});
+			CodeMirror.commands.autocomplete = function(cm) {
+		        CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
+		      }
+		      
+			 
 	    </script>
+	   
+	   
+    
     </head>
     <body>
+     
         <div class="stepBox" id="step1">
 		<h2><g:message code="msg.step1.drag"/></h2>
 		

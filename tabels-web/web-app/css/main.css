@@ -35,6 +35,17 @@ p.undertitle {
     margin: 1em;
 }
 
+p.underheader{
+	margin-top: 0px;
+    margin-bottom: 1em;
+    padding: 0px;
+}
+
+p.underheader a{
+    color: darkgreen;
+    size: 0.5em;
+}
+
 h2 {
     color: darkgreen;
     border-bottom: 0.2em #3A3 solid;
