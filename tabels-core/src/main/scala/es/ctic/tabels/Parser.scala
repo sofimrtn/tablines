@@ -117,7 +117,7 @@ class TabelsParser extends JavaTokenParsers {
     def WHEN = "when".ignoreCase
     
     def WINDOWED = "windowed".ignoreCase
-  
+    def CONSTRUCT = "construct".ignoreCase
     
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
@@ -404,7 +404,7 @@ class TabelsParser extends JavaTokenParsers {
 	      val bn = createFreshBlankNode()
 	      for ((pred,obj) <- predObjs) yield TripleTemplate(Left(bn),pred,obj) }
 	
-	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
+	def template : Parser[Template] = (CONSTRUCT ~>"{") ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten)) }
 
 
