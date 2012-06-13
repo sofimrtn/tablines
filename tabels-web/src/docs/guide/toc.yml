@@ -9,3 +9,8 @@ tabelsLenguaje:
         numericFunctions: Expresiones Numéricas 
         stringFunctions: Expresiones con Cadenas
         miscellaneaFunctions: Expresiones Variadas
+ejemplos:
+    title: Ejemplos de uso
+    ejemplo1: Ejemplo 1
+    ejemplo2: Ejemplo 2
+    ejemplo3: Ejemplo 3

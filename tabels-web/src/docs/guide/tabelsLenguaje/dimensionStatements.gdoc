@@ -1,12 +1,12 @@
 h4. Sentencias de iteración
-    
+Este tipo de sentencias tabels permiten iterar por una dimension del origen de datos. La sintaxis de la sentencia de iteración es:    
     {code}
-        for [Variable in] Dimension [starts at Position|when Expression] [filter Expression] [stops at Position|when Expression] 
+        FOR [_?variable_ IN] _dimension_ [STARTS AT _position_|STARTS WHEN _expression_] [FILTER _expresion_] [UNTIL _expression_|WHILE _expression_] 
     {code}
     
     
 h4. Sentencias de selección de dimensión
 
     {code}
-       [set Variable] in Dimension Value 
+      SET [_?variable_] IN dimension value 
     {code}

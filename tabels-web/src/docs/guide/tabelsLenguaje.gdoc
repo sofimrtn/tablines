@@ -2,14 +2,14 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 
 * Directivas
 
-* Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas.
+* Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas. La URI debe ir contenida entre los caracteres "<>". Estos prefijos pueden ser reusados en la definición de los templates.
 {code}
-    prefix _Prefijo_ : _uri_
+    prefix _prefijo_ : _uri_
 {code}
 
-* Descripción del recorrido del origen de datos
-*** [Sentencias de dimensiones|guide:dimensionStatements]
-*** [Sentencias de asignación de variables|guide:variableAssignmentStatements]
+* Descripción del origen de datos
+*** [Sentencias de dimensiones|guide:dimensionStatements]: Este tipo de sentencias tabels permiten recorrer el origen de datos indicando las dimensiones por las que iterar, condiciones de inicio, parada y salto.
+*** [Sentencias de asignación de variables|guide:variableAssignmentStatements]: Su función es asignar valores del origen de datos a variables y modificarlos.
 * Variables: comienzan con '?' seguidas de caractéres alfanuméricos.
     {code}
      ?testResource
@@ -17,7 +17,7 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 
 * Tuplas: conjunto ordenado de *N* Variables separado por comas y delimitado por los caracteres '\[' y '\]'
     {code}
-     [?prueba,?col2]
+     [?variable1, ?variable2]
     {code}
 
 * Posición: indica una posición en el origen de datos. Es posible definir las posiciónes de dos formas distintas:
@@ -40,7 +40,7 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 {code}
 
 Para un mismo programa tabels es posible definir más de un template, precedidos por la palabra reservada _construct_ y separandose entre ellos por llaves (construct{template1} construct{template2}).
-Cada uno de estos templates generará una o más porciones del RDF final. Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada tripleta contenida en el template debe estar seguida del caracter separador de tripletas "." excepto la prévia a la llave de cierre del template. Si más de una tripleta comparte sujeto, este puede omitirse en las sucesivas si se separadan entre si con el caracter ";". 
+Cada uno de estos templates generará una o más porciones del RDF final. Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada tripleta contenida en el template debe estar seguida del caracter separador de tripletas "." excepto la prévia a la llave de cierre del template. Si más de una tripleta comparte sujeto, este puede omitirse en las sucesivas si se separan entre si con el caracter ";". 
  
  {code}
  construct
