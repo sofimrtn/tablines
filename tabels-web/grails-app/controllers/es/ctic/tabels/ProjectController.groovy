@@ -170,6 +170,11 @@ class ProjectController {
 	    [documentText: os.toString()]
 	}
 	
+	def trace = {
+	    def trace = projectService.getTrace()
+	    [trace: trace]
+	}
+	
 	private String getGraph() {
 	    // FIXME: not really portable
 	    return ConfigurationHolder.config.grails.serverURL

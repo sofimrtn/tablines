@@ -42,6 +42,7 @@ grails.project.dependency.resolution = {
         compile('commons-lang:commons-lang:2.6')
         compile('commons-io:commons-io:2.1')
         compile('commons-httpclient:commons-httpclient:3.0')
+        compile('org.scala-lang:scala-library:2.9.2')
         compile('org.fundacionctic.su4j:su4j-endpoint:0.5.1') {
             excludes 'jena', 'arq'
         }

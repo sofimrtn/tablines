@@ -79,6 +79,8 @@
 		<p class="mapLink"><g:link action="map"><g:message code="msg.map.link"/></g:link></p>
 		
 		<p class="parrotLink"><g:link action="parrot"><g:message code="msg.parrot.link"/></g:link></p>
+		
+		<p class="traceLink"><g:link action="trace"><g:message code="msg.trace.link"/></g:link></p>
 		    
 		</div>
 		
