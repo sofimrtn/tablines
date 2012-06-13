@@ -112,6 +112,11 @@ h2 {
     padding-left: 20px;    
 }
 
+.traceLink {
+    background: url(../images/1339618179_start-here.png) no-repeat;
+    padding-left: 20px;    
+}
+
 .backLink {
     background: url(../images/1333379171_restart-1.png) no-repeat;
     padding-left: 20px;        
