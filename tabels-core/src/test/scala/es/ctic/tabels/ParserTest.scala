@@ -145,7 +145,7 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
     }
 
     @Test def parseSetInDimensionStatement {
-        assertParse(setInDimensionStatement, "in files \"foo.csv\"", SetInDimensionStatement(Dimension.files, "foo.csv"))
+        assertParse(setInDimensionStatement, "set files \"foo.csv\"", SetInDimensionStatement(Dimension.files, "foo.csv"))
         assertParse(setInDimensionStatement, "set ?x in sheets \"Sheet1\"", SetInDimensionStatement(Dimension.sheets, "Sheet1", variable = Some(Variable("?x"))))
         assertFail (setInDimensionStatement, "")
     }

@@ -14,7 +14,7 @@ class PrettyPrint(indent_ : Int = 0) extends AbstractVisitor {
             indent = 0
             _.accept(this)
         }
-        start.templateList foreach (template => str append "\n" append (template.toAbbrString(start.prefixes)))
+        start.templateList foreach (template => str append "\nCONSTRUCT " append (template.toAbbrString(start.prefixes)))
     }
     
     override def visit(stmt : BlockStatement) {
@@ -56,8 +56,9 @@ class PrettyPrint(indent_ : Int = 0) extends AbstractVisitor {
     
     override def visit(stmt : SetInDimensionStatement) {
         str append "\n" append (" " * indent)
-        str append (stmt.variable map ("SET " + _ + " ") getOrElse "")
-        str append "IN " append stmt.dimension append " \"" append stmt.fixedDimension append "\""
+        str append "SET "
+        str append (stmt.variable map (_ + " IN ") getOrElse "")
+        str append stmt.dimension append " \"" append stmt.fixedDimension append "\""
         visitNestedStatement(stmt.nestedStatement, true)
     }
     
