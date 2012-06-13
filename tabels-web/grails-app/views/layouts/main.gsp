@@ -22,10 +22,11 @@
 		<div id="header">
 			<h1><g:link controller="project"><g:message code="product.name"/></g:link></h1>
 			<p class="undertitle"><g:message code="product.slogan" /></p>
+			<p class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" /></g:link></p>
 			
 		</div>
 		<div id="body">
-		<p class="underheader"><g:link controller="docs" action="guide"><g:message code="product.documentation"/></g:link></p>
+		<p class="underheader"></p>
 		<g:if test="${flash.error}">
 			<div class="errorsbox">
 				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error.encodeAsHTML()}"/>
