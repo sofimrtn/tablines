@@ -60,14 +60,14 @@
             <div id="fileTabs" class="tabs">
                 <ul>
                     <g:each in="${scala.collection.JavaConverters.asJavaCollectionConverter(trace.dataSource.filenames).asJavaCollection()}" var="filename">
-                        <li><a href="#fileTab${filename.hashCode()}">${filename}</a></li>
+                        <li><a href="#fileTab${filename.hashCode()}">${filename.toString().encodeAsHTML()}</a></li>
                     </g:each>
                 </ul>
                 <g:each in="${scala.collection.JavaConverters.asJavaCollectionConverter(trace.dataSource.filenames).asJavaCollection()}" var="filename">
                     <div id="fileTab${filename.hashCode()}" class="tabs">
                         <ul>
                             <g:each in="${scala.collection.JavaConverters.asJavaCollectionConverter(trace.dataSource.getTabs(filename)).asJavaCollection()}" var="tabName">
-                                <li><a href="#tabTab${tabName.hashCode()}">${tabName}</a></li>
+                                <li><a href="#tabTab${tabName.hashCode()}">${tabName.toString().encodeAsHTML()}</a></li>
                             </g:each>
                         </ul>
                         <g:each in="${scala.collection.JavaConverters.asJavaCollectionConverter(trace.dataSource.getTabs(filename)).asJavaCollection()}" var="tabName">
@@ -95,7 +95,7 @@
                                                     <g:each in="${0..(cols-1)}" var="col">
                                                         <g:set var="point" value="${new es.ctic.tabels.Point(filename, tabName, col, row)}" />
                                                         <g:set var="value" value="${trace.dataSource.getValue(point).content.value()}" />
-                                                        <td class="spreadsheetCell" id="point${point.hashCode()}">${value}</td>
+                                                        <td class="spreadsheetCell" id="point${point.hashCode()}">${value.toString().encodeAsHTML()}</td>
                                                     </g:each>
                                                 </tr>                
                                             </g:each>
@@ -128,8 +128,14 @@
                             <g:set var="varBinding" value="${variableBindingEntry.value}" />
                             <li class="${event.lastBoundVariables.contains(variable) ? 'recentlyBound' : ''}">
                                 <span class="var">${variable}</span> =
-                                <span class="value">${varBinding.value}<!-- FIXME {binding.value match { case l : Literal => l.value.toString
-                                case r : Resource => r.toString}} --></span>
+                                <span class="value">
+                                    <g:if test="${varBinding.value instanceof es.ctic.tabels.Literal}">
+                                        ${varBinding.value.value.toString().encodeAsHTML()}
+                                    </g:if>
+                                    <g:else>
+                                        ${varBinding.value.toString().encodeAsHTML()}
+                                    </g:else>
+                                </span>
                                 (at <g:intToAlpha col="${binding.point.col}" />${binding.point.row+1})
                             </li>
                         </g:each>
@@ -139,7 +145,7 @@
                                     <g:set var="variable" value="${variableBindingEntry.key}" />
                                     <g:set var="varBinding" value="${variableBindingEntry.value}" />
                                     var $cell = $('#point${varBinding.point.hashCode()}');
-                                    $cell.attr('title',$cell.attr('title')+'${variable}');
+                                    $cell.attr('title',$cell.attr('title')+' ${variable}');
                                     <g:if test="event.lastBoundVariables.contains(variable)">
                                         $cell.css('background-color','yellow').css('color','white').animate({'background-color': 'green'});
                                     </g:if>
