@@ -14,7 +14,7 @@ class PrettyPrint(indent_ : Int = 0) extends AbstractVisitor {
             indent = 0
             _.accept(this)
         }
-        start.templateList foreach (template => str append "\n" append (template.toAbbrString(start.prefixes)))
+        start.templateList foreach (template => str append "\nCONSTRUCT " append (template.toAbbrString(start.prefixes)))
     }
     
     override def visit(stmt : BlockStatement) {
