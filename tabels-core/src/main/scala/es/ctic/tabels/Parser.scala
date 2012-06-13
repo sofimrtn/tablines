@@ -170,7 +170,7 @@ class TabelsParser extends JavaTokenParsers {
 	
 	// language grammar
 	
-	def start : Parser[S] = directives ~ rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(template) ^^
+	def start : Parser[S] = directives ~ rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(CONSTRUCT ~> template) ^^
 	   { case directiv~prefixes~ps~ts => S(directiv,prefixes,ps,ts) }
 	   
 	def directives : Parser[Directives] = opt("@" ~> FETCH ~> "(" ~> regex <~ ")") ^^ { Directives(_) }
@@ -404,7 +404,7 @@ class TabelsParser extends JavaTokenParsers {
 	      val bn = createFreshBlankNode()
 	      for ((pred,obj) <- predObjs) yield TripleTemplate(Left(bn),pred,obj) }
 	
-	def template : Parser[Template] = (CONSTRUCT ~>"{") ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
+	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten)) }
 
 
