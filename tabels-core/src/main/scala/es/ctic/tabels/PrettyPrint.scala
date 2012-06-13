@@ -56,8 +56,9 @@ class PrettyPrint(indent_ : Int = 0) extends AbstractVisitor {
     
     override def visit(stmt : SetInDimensionStatement) {
         str append "\n" append (" " * indent)
-        str append (stmt.variable map ("SET " + _ + " ") getOrElse "")
-        str append "IN " append stmt.dimension append " \"" append stmt.fixedDimension append "\""
+        str append "SET "
+        str append (stmt.variable map (_ + " IN ") getOrElse "")
+        str append stmt.dimension append " \"" append stmt.fixedDimension append "\""
         visitNestedStatement(stmt.nestedStatement, true)
     }
     
