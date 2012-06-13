@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
     <head>
-        <title>tabels-web 0.4-SNAPSHOT</title>
+        <title>Documentaci&#65533;n Tabels 0.4-SNAPSHOT</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
         <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
@@ -26,6 +26,8 @@ function addJsClass(el) {
                             <div class="toc-item" style="margin-left:0"><a href="#introduccion"><strong>1</strong><span>Introducci&oacute;n</span></a></div>
                             
                             <div class="toc-item" style="margin-left:0"><a href="#tabelsLenguaje"><strong>2</strong><span>Lenguaje Tabels</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#ejemplos"><strong>3</strong><span>Ejemplos</span></a></div>
                             
                         </div>
                     </div>
@@ -52,7 +54,7 @@ function addJsClass(el) {
                         <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                         <div class="project">
-                            <h1>tabels-web - Reference Documentation</h1>
+                            <h1>Documentaci&#65533;n Tabels - Reference Documentation</h1>
                             <p><strong>Authors:</strong> </p>
                             <p><strong>Version:</strong> 0.4-SNAPSHOT</p>
                             
@@ -78,6 +80,14 @@ function addJsClass(el) {
                             
                             <div class="toc-item" style="margin-left:20px"><a href="#miscellaneaFunctions"><strong>2.3.3</strong><span>Expresiones Variadas</span></a></div>
                             
+                            <div class="toc-item" style="margin-left:0px"><a href="#ejemplos"><strong>3</strong><span>Ejemplos</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo1"><strong>3.1</strong><span>Ejemplo 1</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo2"><strong>3.2</strong><span>Ejemplo 2</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo3"><strong>3.3</strong><span>Ejemplo 3</span></a></div>
+                            
                             <div style="clear:both" ></div>
                         </div>
                         
@@ -98,21 +108,21 @@ function addJsClass(el) {
 El lenguaje tabels para la conversión de formatos de datos estructurados a RDF está formado por los siguientes elementos:
 <ul class="star">
 <li>Directivas</li>
-<li>Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas.</li>
-</ul><p class="paragraph"/><div class="code"><pre>prefix  <em class="italic">Prefijo</em>  :  <em class="italic">uri</em> </pre></div>
+<li>Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas. La URI debe ir contenida entre los caracteres "&#60;&#62;". Estos prefijos pueden ser reusados en la definición de los templates.</li>
+</ul><p class="paragraph"/><div class="code"><pre>prefix  <em class="italic">prefijo</em>  :  <em class="italic">uri</em> </pre></div>
 <ul class="star">
-<li>Descripción del recorrido del origen de datos</li>
+<li>Descripción del origen de datos</li>
 <ul class="star">
 <ul class="star">
-<li><a href="../guide/single.html#dimensionStatements" class="guide">Sentencias de dimensiones</a></li>
-<li><a href="../guide/single.html#variableAssignmentStatements" class="guide">Sentencias de asignación de variables</a></li>
+<li><a href="../guide/single.html#dimensionStatements" class="guide">Sentencias de dimensiones</a>: Este tipo de sentencias tabels permiten recorrer el origen de datos indicando las dimensiones por las que iterar, condiciones de inicio, parada y salto.</li>
+<li><a href="../guide/single.html#variableAssignmentStatements" class="guide">Sentencias de asignación de variables</a>: Su función es asignar valores del origen de datos a variables y modificarlos.</li>
 </ul>
 </ul>
 <li>Variables: comienzan con '?' seguidas de caractéres alfanuméricos.</li>
 </ul><p class="paragraph"/>    <div class="code"><pre>?testResource</pre></div>
 <ul class="star">
 <li>Tuplas: conjunto ordenado de <strong class="bold">N</strong> Variables separado por comas y delimitado por los caracteres '&#91;' y '&#93;'</li>
-</ul><p class="paragraph"/>    <div class="code"><pre>&#91;?prueba,?col2&#93;</pre></div>
+</ul><p class="paragraph"/>    <div class="code"><pre>&#91;?variable1, ?variable2&#93;</pre></div>
 <ul class="star">
 <li>Posición: indica una posición en el origen de datos. Es posible definir las posiciónes de dos formas distintas:</li>
 <ul class="star">
@@ -126,27 +136,32 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 </ul></ul></ul><p class="paragraph"/><div class="code"><pre>2 RIGHT OF ?rowId</pre></div> 
 <ul class="star">
 <li><a href="../guide/single.html#functions" class="guide">Expresiones</a>: funciones que permiten modificar el valor de las variables.</li>
-<li>Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo.</li>
+<li>Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo o por literales(cadenas de texto o números).</li>
 </ul><p class="paragraph"/><div class="code"><pre>?resources a ex:SomeResource .
     ?resources ex:prueba ?prueba .
-    ?resources ex:col2 ?col2</pre></div><p class="paragraph"/>Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada sentencia contenida en el template debe estar seguida del caracter separador de sentencias "." excepto la prévia a la llave de cierre del template. Para un mismo programa tabels es posible definir más de un template, separandose entre ellos por llaves ({template1} {template2})<p class="paragraph"/> <div class="code"><pre>&#123;
+    ?resources ex:col2 ?col2</pre></div><p class="paragraph"/>Para un mismo programa tabels es posible definir más de un template, precedidos por la palabra reservada  <em class="italic">construct</em>  y separandose entre ellos por llaves (construct{template1} construct{template2}).
+Cada uno de estos templates generará una o más porciones del RDF final. Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada tripleta contenida en el template debe estar seguida del caracter separador de tripletas "." excepto la prévia a la llave de cierre del template. Si más de una tripleta comparte sujeto, este puede omitirse en las sucesivas si se separan entre si con el caracter ";".<p class="paragraph"/> <div class="code"><pre>construct
+ &#123;
     ?resources a ex:SomeResource .
-    ?resources ex:prueba ?prueba .
-    ?resources ex:col2 ?col2
- &#125;<p class="paragraph"/> &#123;
-    &#91;    rdf:type ex:Movie ;
-         ex:rank ?rankInt ;
-         ex:rating ?ratingFloat ;
-         rdfs:label ?titleTrimmed ;
-         ex:year ?year ;
-         ex:votes ?votesInt ;
-         owl:sameAs ?dbpediaResource &#93;
-  &#125;</pre></div>
+    &#91;&#93; ex:prueba ?prueba .
+    &#91;ex:col2 ?col2&#93;
+ &#125;<p class="paragraph"/> construct
+ &#123;
+    ?resource rdf:type ex:Movie ;
+              ex:rank ?rankInt ;
+              ex:rating ?ratingFloat ;
+              rdfs:label ?titleTrimmed ;
+              ex:year ?year ;
+              ex:votes ?votesInt ;
+              owl:sameAs ?dbpediaResource 
+  &#125;</pre></div><p class="paragraph"/>
 
 
 <h2 id="dimensionStatements">2.1 Sentencias de dimensiones</h2>
-<h4>Sentencias de iteración</h4><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">for</span> &#91;Variable in&#93; Dimension &#91;starts at Position|when Expression&#93; &#91;filter Expression&#93; &#91;stops at Position|when Expression&#93;</pre></div><p class="paragraph"/>    
-<h4>Sentencias de selección de dimensión</h4><p class="paragraph"/>    <div class="code"><pre>&#91;set Variable&#93; in Dimension Value</pre></div>
+<h4>Sentencias de iteración</h4>
+Este tipo de sentencias tabels permiten iterar por una dimension del origen de datos. La sintaxis de la sentencia de iteración es:    
+    <div class="code"><pre>FOR &#91; <em class="italic">?variable</em>  IN&#93;  <em class="italic">dimension</em>  &#91;STARTS AT  <em class="italic">position</em> |STARTS WHEN  <em class="italic">expression</em> &#93; &#91;FILTER  <em class="italic">expresion</em> &#93; &#91;UNTIL  <em class="italic">expression</em> |WHILE  <em class="italic">expression</em> &#93;</pre></div><p class="paragraph"/>    
+<h4>Sentencias de selección de dimensión</h4><p class="paragraph"/>    <div class="code"><pre>SET &#91; <em class="italic">?variable</em> &#93; IN dimension value</pre></div>
 
 
 <h2 id="variableAssignmentStatements">2.2 Sentencias de asignación de variables</h2>
@@ -384,6 +399,29 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 <li>if-then-else</li>
 </ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
     Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
+
+
+
+<h1 id="ejemplos">3 Ejemplos</h1>
+<ul class="star">
+<li>item 1</li>
+<ul class="star">
+<li>subitem 1</li>
+<li>subitem 2</li>
+</ul>
+<li>item 2</li>
+</ul><p class="paragraph"/>
+
+
+<h2 id="ejemplo1">3.1 Ejemplo 1</h2>
+
+
+
+<h2 id="ejemplo2">3.2 Ejemplo 2</h2>
+
+
+
+<h2 id="ejemplo3">3.3 Ejemplo 3</h2>
 
 
                     </div>
