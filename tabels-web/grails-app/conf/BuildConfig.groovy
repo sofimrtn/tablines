@@ -29,7 +29,7 @@ grails.project.dependency.resolution = {
     }
     plugins {
         runtime ':tapinos-js:1.1',
-                ':uploadr:0.5.0',
+                ':uploadr:0.5.10',
                 ':svn:1.0.2'
     }
     dependencies {
