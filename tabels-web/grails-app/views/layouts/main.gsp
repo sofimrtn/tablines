@@ -20,7 +20,7 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
         </div>
 		<div id="header">
-			<h1><g:link controller="project"><g:message code="product.name"/></g:link></h1>
+			<h1><g:link controller="project" action="list"><g:message code="product.name"/></g:link></h1>
 			<p class="undertitle"><g:message code="product.slogan" /></p>
 			<p class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" /></g:link></p>
 			

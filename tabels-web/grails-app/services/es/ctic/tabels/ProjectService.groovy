@@ -17,6 +17,7 @@ class ProjectService {
     
     def configObject = new es.ctic.tabels.Config()
 
+    File projectsDir = new File(configObject.tabelsDir, "projects")
     File inputDir = new File(configObject.tabelsDir, "upload")
     File programFile = new File(inputDir, defaultProgramFilename)
     File outputCache = new File(configObject.tabelsDir, "output.rdf")
@@ -25,6 +26,20 @@ class ProjectService {
         FileUtils.forceMkdir(inputDir)
         log.debug "Listing files in temporary dir: ${inputDir}"
         inputDir.listFiles()
+    }
+    
+    String[] listProjects() {
+        FileUtils.forceMkdir(projectsDir)
+        return projectsDir.listFiles().collect { it.name }
+    }
+    
+    def createProject(String projectId) {
+        // FIXME: validate
+        FileUtils.forceMkdir(getProjectDir(projectId))
+    }
+    
+    File getProjectDir(String projectId) {
+        return new File(projectsDir, projectId)
     }
     
     def boolean isCacheValid() {
