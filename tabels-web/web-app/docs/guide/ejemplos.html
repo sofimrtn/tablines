@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>3 Ejemplos 0.4-SNAPSHOT</title>
+    <title>3 Ejemplos de uso 0.4-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -30,7 +30,7 @@ function addJsClass() {
                     <div class="toc-item" style="margin-left:0"><a href="../guide/tabelsLenguaje.html"><strong>2</strong><span>Lenguaje Tabels</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0"><a href="../guide/ejemplos.html"><strong>3</strong><span>Ejemplos</span></a>
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
                     </div>
                     
                 </div>
@@ -65,7 +65,7 @@ function addJsClass() {
 
 
                 <div class="project">
-                    <h1>3 Ejemplos - Reference Documentation</h1>
+                    <h1>3 Ejemplos de uso - Reference Documentation</h1>
 
                     <p><strong>Authors:</strong> </p>
 
@@ -92,7 +92,7 @@ function addJsClass() {
 
                 
 
-<h1 id="ejemplos">3 Ejemplos</h1>
+<h1 id="ejemplos">3 Ejemplos de uso</h1>
 <ul class="star">
 <li>item 1</li>
 <ul class="star">
@@ -104,6 +104,96 @@ function addJsClass() {
 
 
 <h2 id="ejemplo1">3.1 Ejemplo 1</h2>
+
+El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.<p class="paragraph"/>Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo.<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo1.png"></img><p class="paragraph"/>El objetivo sería recorrer todas las horas registradas asociando cada una a su mes y su alumno, actividad o subactividad correspondiente.<p class="paragraph"/>Este sería el código completo del ejemplo:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://example.org/ex&#35;&#62;
+PREFIX scv: &#60;http://purl.org/NET/scovo&#35;&#62;
+PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
+PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
+PREFIX skos: &#60;http://www.w3.org/2004/02/skos/core&#35;&#62;
+PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p class="paragraph"/>    IN sheets <span class="java&#45;quote">"Hoja1"</span>
+        FOR ?employee IN rows FILTER matches(?employee,<span class="java&#45;quote">"&#45;&#91;a&#45;zA&#45;Z0&#45;9ñ&#93;+ &#91;a&#45;zA&#45;Z0&#45;9&#93;&#42;"</span>)
+            LET ?resourceEmployee = resource(?employee,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+	&#123;
+	    FOR ?horasEmployee IN cols starts at 1 RIGHT of ?employee until not matches(?horasEmployee, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+                Set ?mesEmployee in rows <span class="java&#45;quote">"1"</span> 
+                     LET ?resourceMesEmployee = resource( ?mesEmployee, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+             ;
+	    FOR ?actividad IN rows FILTER matches(?actividad,<span class="java&#45;quote">"&#91;a&#45;z&#93;&#91;a&#45;z0&#45;9&#93;&#45;&#91;a&#45;zA&#45;Z0&#45;9&#93;+&#91;a&#45;zA&#45;Z0&#45;9 &#93;&#42;"</span>)
+		LET ?resourceActividad = resource(?actividad,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+                &#123;
+                FOR ?horasActividad IN cols starts at 1 RIGHT of ?actividad until not matches(?horasActividad, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+                     SET ?mesActividad in rows <span class="java&#45;quote">"1"</span>
+                     	LET ?resourceMesActividad = resource( ?mesActividad, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+                ;
+		FOR ?subactividad IN rows FILTER matches(?subactividad,<span class="java&#45;quote">"&#91;0&#45;9&#93;+&#45;&#91;a&#45;zA&#45;Z0&#45;9&#93;+&#91;a&#45;zA&#45;Z0&#45;9 &#93;&#42;"</span>)
+			LET ?resourceSubActividad = resource(?subactividad,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)	
+                	FOR ?horasSubActividad IN cols starts at 1 RIGHT of ?subactividad until not matches(?horasSubActividad, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+                        	SET ?mesSubActividad in rows <span class="java&#45;quote">"1"</span>
+                                	LET ?resourceMesSubActividad = resource( ?mesSubActividad, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)<p class="paragraph"/>	  &#125;
+         &#125;<p class="paragraph"/>            	
+////////////////////DEDICACIÓN EMPLEADO MES//////////////////////////////<p class="paragraph"/>//DIMENSION TRABAJADOR
+&#123;
+    ?resourceEmployee a ex:worker ;
+                      skos:prefLabel ?employee .
+    ex:worker rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Trabajador"</span><p class="paragraph"/>&#125;
+//DIMENSION MES
+&#123;
+    ?resourceMesEmployee a ex:month ;
+                      skos:prefLabel ?mesEmployee .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+//DATA SET
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        rdf:value ?horasEmployee;
+        scv:dimension ?resourceMesEmployee&#93;
+&#125;<p class="paragraph"/>&#123;
+    ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Mes"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;<p class="paragraph"/>/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+    ?resourceActividad a ex:actividad ;
+                      skos:prefLabel ?actividad .
+    ex:actividad rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Actividad"</span><p class="paragraph"/>&#125;
+&#123;
+    ?resourceMesActividad a ex:month ;
+                      skos:prefLabel ?mesActividad .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+&#123;<p class="paragraph"/>    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoActividadMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        scv:dimension ?resourceActividad ;
+        rdf:value ?horasActividad;
+        scv:dimension ?resourceMesActividad&#93;
+&#125;<p class="paragraph"/>&#123;
+    ex:DedicacionEmpleadoActividadMesDataSet a scv:Dataset ;
+                                             skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Actividad&#45;Mes"</span> ;
+                                             scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span>
+&#125;<p class="paragraph"/>
+//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+    ?resourceSubActividad a ex:subactividad ;
+                      skos:prefLabel ?subactividad .
+    ex:subactividad rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"SubActividad"</span><p class="paragraph"/>&#125;
+&#123;
+    ?resourceMesSubActividad a ex:month ;
+                      skos:prefLabel ?mesSubActividad .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+&#123;<p class="paragraph"/>    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoSubActividadMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        scv:dimension ?resourceSubActividad ;
+        rdf:value ?horasSubActividad;
+        scv:dimension ?resourceMesSubActividad&#93;
+&#125;<p class="paragraph"/>&#123;
+    ex:DedicacionEmpleadoSubActividadMesDataSet a scv:Dataset ;
+                                             skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;SubActividad&#45;Mes"</span> ;
+                                             scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;</pre></div>
 
 
 
