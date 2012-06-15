@@ -54,42 +54,49 @@ class ProjectService {
     
     def getModel() throws RunTimeTabelsException {
         FileUtils.forceMkdir(inputDir)
-        Model model = null
         if (isCacheValid()) {
             log.info "Returning cached model from ${outputCache}"
-            model = ModelFactory.createDefaultModel()
+            Model model = ModelFactory.createDefaultModel()
             model.read(new FileInputStream(outputCache), null, "RDF/XML")
+            return model
         } else {
-            def dataSource = getDataSource()
-            log.info "And Tabular Cells! Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
-    		def parser = new TabelsParser()
-    		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
-            def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
-    		def interpreter = new Interpreter()
-    		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
-    		interpreter.interpret(program, dataSource, dataOutput)
-            model = dataOutput.model
-        
-    		if (programFile.exists() == false) {
-    		    saveProgram(program)
-    	    }
-    	    
-    	    // add local RDF and OWL files
-    	    FileUtils.listFiles(inputDir, ["owl", "rdf"] as String[], false).each {
-    	        model.read(new FileInputStream(it), null, "RDF/XML")
-    	    }
-    	    FileUtils.listFiles(inputDir, ["n3"] as String[], false).each {
-    	        model.read(new FileInputStream(it), null, "N3")
-    	    }
-
-    	    // save cache
-    	    def os = new FileOutputStream(outputCache)
-            model.write(os, "RDF/XML")
-            os.close()
-            log.info "Saved model cache (${model.size()} triples) to ${outputCache}"
+            return runTransformation().model
         }
+    }
+    
+    def runTransformation() throws RunTimeTabelsException {
+        def dataSource = getDataSource()
+        log.info "And Tabular Cells! Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
+		def parser = new TabelsParser()
+		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
+        def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
+		def interpreter = new Interpreter()
+		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
+		def trace = interpreter.interpret(program, dataSource, dataOutput)
+    
+		if (programFile.exists() == false) {
+		    saveProgram(program)
+	    }
 	    
-	    return model
+	    // add local RDF and OWL files
+	    FileUtils.listFiles(inputDir, ["owl", "rdf"] as String[], false).each {
+	        dataOutput.model.read(new FileInputStream(it), null, "RDF/XML")
+	    }
+	    FileUtils.listFiles(inputDir, ["n3"] as String[], false).each {
+	        dataOutput.model.read(new FileInputStream(it), null, "N3")
+	    }
+
+	    // save cache
+	    def os = new FileOutputStream(outputCache)
+        dataOutput.model.write(os, "RDF/XML")
+        os.close()
+        log.info "Saved model cache (${model.size()} triples) to ${outputCache}"
+        
+        return [model: dataOutput.model, trace: trace]
+    }
+    
+    def getTrace() throws RunTimeTabelsException {
+        return runTransformation().trace // refresh the model
     }
     
     def getResources() throws RunTimeTabelsException {
