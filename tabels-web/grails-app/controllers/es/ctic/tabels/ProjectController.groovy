@@ -50,6 +50,17 @@ class ProjectController {
         }
     }
     
+    def delete = {
+        String projectId = params.id
+        Boolean confirm = params.confirm
+        if (confirm) {
+            projectService.deleteProject(projectId)
+            flash.message = "msg.project.successfully.deleted"
+            flash.args = [projectId]
+            redirect(action: "list")
+        }
+    }
+    
     def saveProgram = {
         String program = params.program
         String projectId = params.id // FIXME: validate

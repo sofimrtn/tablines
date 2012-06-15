@@ -63,6 +63,10 @@ class ProjectService {
         FileUtils.forceMkdir(getInputDir(projectId))
     }
     
+    def deleteProject(String projectId) throws ProjectDoesNotExistException {
+        FileUtils.forceDelete(getProjectDir(projectId))
+    }
+    
     def boolean isCacheValid(String projectId) throws ProjectDoesNotExistException {
         if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false

@@ -8,7 +8,10 @@
         <h2>Tabels projects</h2>
         <ul>
             <g:each in="${projects}" var="project">
-                <li><g:link action="index" id="${project}">${project}</g:link></li>
+                <li>
+                    <g:link action="index" id="${project}">${project}</g:link>
+                    (<g:link action="delete" id="${project}"><g:message code="msg.delete.project.link"/></g:link>)
+                </li>
             </g:each>
         </ul>
         
