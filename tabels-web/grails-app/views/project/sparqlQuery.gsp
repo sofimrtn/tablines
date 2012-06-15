@@ -9,7 +9,7 @@
   
     <h2><g:message code="msg.sparql.results.title" args="${[size]}"/></h2>
     
-   	<p class="backLink"><g:link action="sparql" params="[forceForm: '1', query: query]"><g:message code="msg.sparql.back.to.form"/></g:link></p>    
+   	<p class="backLink"><g:link action="sparql" params="[forceForm: '1', query: query]" id="${params.id}"><g:message code="msg.sparql.back.to.form"/></g:link></p>    
   
     <table class="sparql">
       <thead>

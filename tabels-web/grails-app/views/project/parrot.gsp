@@ -5,7 +5,7 @@
     </head>
     <body>
         <h1>Generate dataset documentation</h1>
-    	<p><g:link action="index">Back to the project</g:link></p>
+    	<p class="backLink"><g:link action="index" id="${params.id}">Back to the project</g:link></p>
 
         <form action="http://ontorule-project.eu/parrot/parrot" method="post">
             <input type="hidden" name="documentText" value="${documentText.encodeAsHTML()}" />

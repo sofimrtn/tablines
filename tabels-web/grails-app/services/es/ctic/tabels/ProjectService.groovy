@@ -17,90 +17,121 @@ class ProjectService {
     
     def configObject = new es.ctic.tabels.Config()
 
-    File inputDir = new File(configObject.tabelsDir, "upload")
-    File programFile = new File(inputDir, defaultProgramFilename)
-    File outputCache = new File(configObject.tabelsDir, "output.rdf")
-
-    def File[] getFiles() {
-        FileUtils.forceMkdir(inputDir)
-        log.debug "Listing files in temporary dir: ${inputDir}"
-        inputDir.listFiles()
+    File projectsDir = new File(configObject.tabelsDir, "projects")
+    
+    def getProjectDir(String projectId) {
+        return new File(projectsDir, projectId)
     }
     
-    def boolean isCacheValid() {
+    def getInputDir(String projectId) {
+        File inputDir = new File(getProjectDir(projectId), "upload")
         FileUtils.forceMkdir(inputDir)
-        if (outputCache.exists() == false || inputDir.list().length == 0) {
+        return inputDir
+    }
+    
+    def getProgramFile(String projectId) {
+        return new File(getInputDir(projectId), defaultProgramFilename)
+    }
+    
+    def getOutputCache(String projectId) {
+        return new File(getProjectDir(projectId), "output.rdf")
+    }
+
+    def File[] getFiles(String projectId) {
+        FileUtils.forceMkdir(getInputDir(projectId))
+        log.debug "Listing files in temporary dir: ${getInputDir(projectId)}"
+        getInputDir(projectId).listFiles()
+    }
+    
+    String[] listProjects() {
+        FileUtils.forceMkdir(projectsDir)
+        return projectsDir.listFiles().collect { it.name }
+    }
+    
+    def createProject(String projectId) {
+        // FIXME: validate
+        FileUtils.forceMkdir(getProjectDir(projectId))
+    }
+    
+    File getProjectDir(String projectId) {
+        return new File(projectsDir, projectId)
+    }
+    
+    def boolean isCacheValid(String projectId) {
+        FileUtils.forceMkdir(getInputDir(projectId))
+        if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false
         } else {
-            return inputDir.listFiles().every { FileUtils.isFileOlder(it, outputCache) }
+            return getInputDir(projectId).listFiles().every { FileUtils.isFileOlder(it, getOutputCache(projectId)) }
         }
     }
     
-    def autogenerateProgram(String strategy) {
+    def autogenerateProgram(String projectId, String strategy) {
         def autogenerator
         if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator()
         } else {
             autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
         }
-        def program = autogenerator.autogenerateProgram(getDataSource())
-        saveProgram(program)
+        def program = autogenerator.autogenerateProgram(getDataSource(projectId))
+        saveProgram(projectId, program)
     }
     
-    def getDataSource() {
-        FileUtils.forceMkdir(inputDir)
-        return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(inputDir))
+    def getDataSource(String projectId) {
+        FileUtils.forceMkdir(getInputDir(projectId))
+        return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(getInputDir(projectId)))
     }
     
-    def getModel() throws RunTimeTabelsException {
-        FileUtils.forceMkdir(inputDir)
-        if (isCacheValid()) {
-            log.info "Returning cached model from ${outputCache}"
+    def getModel(String projectId) throws RunTimeTabelsException {
+        log.info "Getting model of ${projectId}"
+        FileUtils.forceMkdir(getInputDir(projectId))
+        if (isCacheValid(projectId)) {
+            log.info "Returning cached model from ${getOutputCache(projectId)}"
             Model model = ModelFactory.createDefaultModel()
-            model.read(new FileInputStream(outputCache), null, "RDF/XML")
+            model.read(new FileInputStream(getOutputCache(projectId)), null, "RDF/XML")
             return model
         } else {
-            return runTransformation().model
+            return runTransformation(projectId).model
         }
     }
     
-    def runTransformation() throws RunTimeTabelsException {
-        def dataSource = getDataSource()
-        log.info "And Tabular Cells! Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${programFile.canonicalPath} (available? ${programFile.exists()})" 
+    def runTransformation(String projectId) throws RunTimeTabelsException {
+        def dataSource = getDataSource(projectId)
+        log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()
 		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
-        def program = programFile.exists() ? parser.parseProgram(programFile) : autogenerator.autogenerateProgram(dataSource)
+        def program = getProgramFile(projectId).exists() ? parser.parseProgram(getProgramFile(projectId)) : autogenerator.autogenerateProgram(dataSource)
 		def interpreter = new Interpreter()
 		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
 		def trace = interpreter.interpret(program, dataSource, dataOutput)
     
-		if (programFile.exists() == false) {
-		    saveProgram(program)
+		if (getProgramFile(projectId).exists() == false) {
+		    saveProgram(projectId, program)
 	    }
 	    
 	    // add local RDF and OWL files
-	    FileUtils.listFiles(inputDir, ["owl", "rdf"] as String[], false).each {
+	    FileUtils.listFiles(getInputDir(projectId), ["owl", "rdf"] as String[], false).each {
 	        dataOutput.model.read(new FileInputStream(it), null, "RDF/XML")
 	    }
-	    FileUtils.listFiles(inputDir, ["n3"] as String[], false).each {
+	    FileUtils.listFiles(getInputDir(projectId), ["n3"] as String[], false).each {
 	        dataOutput.model.read(new FileInputStream(it), null, "N3")
 	    }
 
 	    // save cache
-	    def os = new FileOutputStream(outputCache)
+	    def os = new FileOutputStream(getOutputCache(projectId))
         dataOutput.model.write(os, "RDF/XML")
         os.close()
-        log.info "Saved model cache (${model.size()} triples) to ${outputCache}"
+        log.info "Saved model cache (${getModel(projectId).size()} triples) to ${getOutputCache(projectId)}"
         
         return [model: dataOutput.model, trace: trace]
     }
     
-    def getTrace() throws RunTimeTabelsException {
-        return runTransformation().trace // refresh the model
+    def getTrace(String projectId) throws RunTimeTabelsException {
+        return runTransformation(projectId).trace // refresh the model
     }
     
-    def getResources() throws RunTimeTabelsException {
-		def model = getModel()
+    def getResources(String projectId) throws RunTimeTabelsException {
+		def model = getModel(projectId)
 		def subjectsIterator = model.listSubjects()
 		def subjects = []
 		while(subjectsIterator.hasNext()) {
@@ -122,7 +153,7 @@ class ProjectService {
 		return subjects
     }
     
-    def getGeopoints() throws RunTimeTabelsException {
+    def getGeopoints(String projectId) throws RunTimeTabelsException {
         def queryString = """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
@@ -132,7 +163,7 @@ class ProjectService {
             OPTIONAL { ?uri rdfs:label ?label }
         }
         """
-        def queryExecution = QueryExecutionFactory.create(queryString, model)
+        def queryExecution = QueryExecutionFactory.create(queryString, getModel(projectId))
         queryExecution.execSelect().collect {
             [id: Math.abs(it.getResource("uri").URI.hashCode()),
              lat: it.getLiteral("lat").getDouble(),
@@ -157,24 +188,24 @@ class ProjectService {
         }
     }
     
-    String getProgram() {
-        return programFile.exists() ? programFile.getText() : ""
+    String getProgram(String projectId) {
+        return getProgramFile(projectId).exists() ? getProgramFile(projectId).getText() : ""
     }
     
-    private def saveProgram(S program) {
+    private def saveProgram(String projectId, S program) {
 	    int indent = 0
 	    def prettyPrinter = new PrettyPrint(indent)
 	    program.accept(prettyPrinter)
-	    log.info "Writing the following program to the file ${programFile}:\n${prettyPrinter.toString()}"
-	    programFile.setText(prettyPrinter.toString())
+	    log.info "Writing the following program to the file ${getProgramFile(projectId)}:\n${prettyPrinter.toString()}"
+	    getProgramFile(projectId).setText(prettyPrinter.toString())
     }
 
-    def saveProgram(String newProgram) throws ParseException, CompileTimeTabelsException {
-	    log.info "Writing the following program to the file ${programFile}:\n${newProgram}"
+    def saveProgram(String projectId, String newProgram) throws ParseException, CompileTimeTabelsException {
+	    log.info "Writing the following program to the file ${getProgramFile(projectId)}:\n${newProgram}"
         def parser = new TabelsParser()
         def program = parser.parseProgram(newProgram) // validates the program
-        programFile.setText(newProgram)
-        log.info "The new Tabels program has been successfully saved to ${programFile}"
+        getProgramFile(projectId).setText(newProgram)
+        log.info "The new Tabels program has been successfully saved to ${getProgramFile(projectId)}"
     }
     
 }
