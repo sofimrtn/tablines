@@ -19,23 +19,36 @@ class ProjectService {
 
     File projectsDir = new File(configObject.tabelsDir, "projects")
     
-    def getProjectDir(String projectId) {
-        return new File(projectsDir, projectId)
+    File getProjectDir(String projectId, Boolean evenIfItDoesNotExist = false) throws ProjectDoesNotExistException {
+        if (projectId == null || projectId.trim().equals("")) {
+            throw new ProjectDoesNotExistException("((empty))")
+        } else if (! (projectId ==~ /[\w-]+/ )) {
+            log.error "Project name ${projectId} is invalid"
+            throw new ProjectDoesNotExistException(projectId)
+        } else {
+            File projectDir = new File(projectsDir, projectId)
+            if (projectDir.exists() || evenIfItDoesNotExist) {
+                return projectDir
+            } else {
+                log.error "Project ${projectId} does not exist"
+                throw new ProjectDoesNotExistException(projectId)
+            }
+        }
     }
     
-    def getInputDir(String projectId) {
+    File getInputDir(String projectId) throws ProjectDoesNotExistException {
         return new File(getProjectDir(projectId), "upload")
     }
     
-    def getProgramFile(String projectId) {
+    File getProgramFile(String projectId) throws ProjectDoesNotExistException {
         return new File(getInputDir(projectId), defaultProgramFilename)
     }
     
-    def getOutputCache(String projectId) {
+    File getOutputCache(String projectId) throws ProjectDoesNotExistException {
         return new File(getProjectDir(projectId), "output.rdf")
     }
 
-    def File[] getFiles(String projectId) {
+    File[] getFiles(String projectId) throws ProjectDoesNotExistException {
         log.debug "Listing files in temporary dir: ${getInputDir(projectId)}"
         getInputDir(projectId).listFiles()
     }
@@ -45,17 +58,12 @@ class ProjectService {
         return projectsDir.listFiles().collect { it.name }
     }
     
-    def createProject(String projectId) {
-        // FIXME: validate
-        FileUtils.forceMkdir(getProjectDir(projectId))
+    def createProject(String projectId) throws ProjectDoesNotExistException {
+        FileUtils.forceMkdir(getProjectDir(projectId, true))
         FileUtils.forceMkdir(getInputDir(projectId))
     }
     
-    File getProjectDir(String projectId) {
-        return new File(projectsDir, projectId)
-    }
-    
-    def boolean isCacheValid(String projectId) {
+    def boolean isCacheValid(String projectId) throws ProjectDoesNotExistException {
         if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false
         } else {
@@ -63,7 +71,7 @@ class ProjectService {
         }
     }
     
-    def autogenerateProgram(String projectId, String strategy) {
+    def autogenerateProgram(String projectId, String strategy) throws ProjectDoesNotExistException {
         def autogenerator
         if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator()
@@ -74,11 +82,11 @@ class ProjectService {
         saveProgram(projectId, program)
     }
     
-    def getDataSource(String projectId) {
+    def getDataSource(String projectId) throws ProjectDoesNotExistException {
         return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(getInputDir(projectId)))
     }
     
-    def getModel(String projectId) throws RunTimeTabelsException {
+    def getModel(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
         log.info "Getting model of ${projectId}"
         if (isCacheValid(projectId)) {
             log.info "Returning cached model from ${getOutputCache(projectId)}"
@@ -90,7 +98,7 @@ class ProjectService {
         }
     }
     
-    def runTransformation(String projectId) throws RunTimeTabelsException {
+    def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()
@@ -121,11 +129,11 @@ class ProjectService {
         return [model: dataOutput.model, trace: trace]
     }
     
-    def getTrace(String projectId) throws RunTimeTabelsException {
+    def getTrace(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
         return runTransformation(projectId).trace // refresh the model
     }
     
-    def getResources(String projectId) throws RunTimeTabelsException {
+    def getResources(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
 		def model = getModel(projectId)
 		def subjectsIterator = model.listSubjects()
 		def subjects = []
@@ -148,7 +156,7 @@ class ProjectService {
 		return subjects
     }
     
-    def getGeopoints(String projectId) throws RunTimeTabelsException {
+    def getGeopoints(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
         def queryString = """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
@@ -183,11 +191,11 @@ class ProjectService {
         }
     }
     
-    String getProgram(String projectId) {
+    String getProgram(String projectId) throws ProjectDoesNotExistException {
         return getProgramFile(projectId).exists() ? getProgramFile(projectId).getText() : ""
     }
     
-    private def saveProgram(String projectId, S program) {
+    private def saveProgram(String projectId, S program) throws ProjectDoesNotExistException {
 	    int indent = 0
 	    def prettyPrinter = new PrettyPrint(indent)
 	    program.accept(prettyPrinter)
@@ -195,12 +203,23 @@ class ProjectService {
 	    getProgramFile(projectId).setText(prettyPrinter.toString())
     }
 
-    def saveProgram(String projectId, String newProgram) throws ParseException, CompileTimeTabelsException {
+    def saveProgram(String projectId, String newProgram) throws ProjectDoesNotExistException, ParseException, CompileTimeTabelsException {
 	    log.info "Writing the following program to the file ${getProgramFile(projectId)}:\n${newProgram}"
         def parser = new TabelsParser()
         def program = parser.parseProgram(newProgram) // validates the program
         getProgramFile(projectId).setText(newProgram)
         log.info "The new Tabels program has been successfully saved to ${getProgramFile(projectId)}"
+    }
+    
+}
+
+class ProjectDoesNotExistException extends Exception {
+    
+    String projectId
+    
+    ProjectDoesNotExistException(String projectId) {
+        super("Project does not exist: ${projectId}")
+        this.projectId = projectId
     }
     
 }
