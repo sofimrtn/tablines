@@ -24,9 +24,7 @@ class ProjectService {
     }
     
     def getInputDir(String projectId) {
-        File inputDir = new File(getProjectDir(projectId), "upload")
-        FileUtils.forceMkdir(inputDir)
-        return inputDir
+        return new File(getProjectDir(projectId), "upload")
     }
     
     def getProgramFile(String projectId) {
@@ -38,7 +36,6 @@ class ProjectService {
     }
 
     def File[] getFiles(String projectId) {
-        FileUtils.forceMkdir(getInputDir(projectId))
         log.debug "Listing files in temporary dir: ${getInputDir(projectId)}"
         getInputDir(projectId).listFiles()
     }
@@ -51,6 +48,7 @@ class ProjectService {
     def createProject(String projectId) {
         // FIXME: validate
         FileUtils.forceMkdir(getProjectDir(projectId))
+        FileUtils.forceMkdir(getInputDir(projectId))
     }
     
     File getProjectDir(String projectId) {
@@ -58,7 +56,6 @@ class ProjectService {
     }
     
     def boolean isCacheValid(String projectId) {
-        FileUtils.forceMkdir(getInputDir(projectId))
         if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false
         } else {
@@ -78,13 +75,11 @@ class ProjectService {
     }
     
     def getDataSource(String projectId) {
-        FileUtils.forceMkdir(getInputDir(projectId))
         return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(getInputDir(projectId)))
     }
     
     def getModel(String projectId) throws RunTimeTabelsException {
         log.info "Getting model of ${projectId}"
-        FileUtils.forceMkdir(getInputDir(projectId))
         if (isCacheValid(projectId)) {
             log.info "Returning cached model from ${getOutputCache(projectId)}"
             Model model = ModelFactory.createDefaultModel()
