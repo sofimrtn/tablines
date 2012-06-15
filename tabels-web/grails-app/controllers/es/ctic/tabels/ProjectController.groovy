@@ -36,6 +36,7 @@ class ProjectController {
     def create = {
         projectService.createProject(params.newProjectId)
         flash.message="msg.project.successfully.created"
+        flash.args = [params.newProjectId]
         redirect(action: "index", params: [id: params.newProjectId])
     }
     
