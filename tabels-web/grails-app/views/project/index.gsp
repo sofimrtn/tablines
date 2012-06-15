@@ -40,7 +40,7 @@
 		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
-		<uploadr:add name="myFirstUploadr" path="${path}">
+		<uploadr:add name="uploadr${params.id}" path="${path}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
