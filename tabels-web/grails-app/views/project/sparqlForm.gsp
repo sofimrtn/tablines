@@ -40,9 +40,9 @@
 
     <h2><g:message code="msg.sparql.form.title"/></h2>
 
-	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
 
-    <g:form method="post" name="sparqlQueryForm">
+    <g:form method="post" name="sparqlQueryForm" id="${params.id}">
       <fieldset class="sparql">
         <legend><g:message code="form.sparql.query.legend"/></legend>
         <p>

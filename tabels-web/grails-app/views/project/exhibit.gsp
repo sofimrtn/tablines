@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title><g:message code="msg.faceted.view.title"/></title>
-    <script src="../js/exhibit/exhibit-api.js"
+    <script src="${resource(dir:'js/exhibit',file:'exhibit-api.js')}"
                 type="text/javascript"></script>
     <link href="exhibitData" type="application/json" rel="exhibit/data" />
     <meta name="layout" content="main" />
@@ -16,7 +16,7 @@
 
 	<h2><g:message code="msg.faceted.view.title"/></h2>
 	
-	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
 	
     <table width="100%">
             <tr valign="top" class="exhibit">

@@ -54,7 +54,7 @@
         });
         </script>
         <h2>Transformation trace</h2>
-        <p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+        <p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
         <h3>Spreadsheets</h3>
         <div>
             <div id="fileTabs" class="tabs">
