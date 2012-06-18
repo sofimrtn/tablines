@@ -1,0 +1,275 @@
+body {
+    margin: 0px;
+    font-family: verdana, arial, helvetica, sans-serif;
+}
+
+#header {
+    background-color: darkgreen;
+    color: white;
+    margin: 0px;
+    padding: 1em;
+    border-bottom: 0.2em #3A3 solid;
+    background-image: url(../images/ctic-white.png);
+    background-position: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    margin: 0px;
+    padding: 0px;
+}
+
+h1 a {
+    text-decoration: none;
+    color: white;
+}
+
+p.undertitle {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 0px;
+    color: #ffffdd;
+}
+p.helpIcon {
+    margin: 0px;
+    padding: 0px;
+    display:block;
+    position: absolute;
+    top: 0.2em;
+    right: 1em;
+} 
+p.helpIcon a img{
+    width: 36px;
+    height: 36px;
+}
+
+#body {
+    margin: 1em;
+}
+
+p.underheader{
+	margin-top: 0px;
+    margin-bottom: 1em;
+    padding: 0px;
+}
+
+p.underheader a{
+    color: darkgreen;
+    size: 0.5em;
+}
+
+h2 {
+    color: darkgreen;
+    border-bottom: 0.2em #3A3 solid;
+    /* padding-left: 0.2em; */
+}
+
+#spreadsheet-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;    
+}
+
+#drag-icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+#downloadRDFIcon {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.rdfDownloadLink {
+    background: url(../images/sw-rdf-blue.png) no-repeat;
+    padding-left: 85px;
+}
+
+.sparqlLink {
+    background: url(../images/sw-sparql-orange.png) no-repeat;
+    padding-left: 85px;
+}
+
+.chartsLink {
+    background: url(../images/1333377532_graph_chart.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.facetedLink {
+    background: url(../images/1333377417_stock_standard-filter.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.mapLink {
+    background: url(../images/1333379639_map.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.parrotLink {
+    background: url(../images/parrot.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.traceLink {
+    background: url(../images/1339618179_start-here.png) no-repeat;
+    padding-left: 20px;    
+}
+
+.backLink {
+    background: url(../images/1333379171_restart-1.png) no-repeat;
+    padding-left: 20px;        
+}
+
+.stars {
+    color: gold;
+    font-size: 11pt;
+    text-align: right;
+}
+
+div .CodeMirror {
+    background-color: #ffffdd;
+}
+
+#step1 {
+    float: left;
+    width: 45%;
+    border: 0.2em #3A3 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
+    box-shadow: 0 0 0.4em black;
+}
+
+#step2 {
+    float: left;
+    width: 45%;
+    border: 0.2em #3A3 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    box-shadow: 0 0 0.4em black;
+}
+
+div.stepBox h2 {
+    margin-top: 0;
+}
+
+#programDiv {
+    clear: both;
+}
+
+/* MESSAGES AND ERRORS */
+
+div.messagebox {
+    background: #f3f8fc url(../images/skin/information.png) 8px 50% no-repeat;
+    border: 1px solid #b2d1ff;
+    color: #006dba;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 30px
+}
+
+div.errorsbox {
+    background: #fff3f3 url(../images/skin/exclamation.png) 8px 50% no-repeat;
+    border: 1px solid red;
+    color: #cc0000;
+    margin: 10px 0 5px 0;
+    padding: 5px 5px 5px 30px;
+}
+
+/* TABLES */
+
+table {
+    border: 1px solid #ccc;
+    width: 100%
+}
+tr {
+    border: 0;
+}
+tr.odd {
+    background: #ffffcc;
+}
+tr.even {
+    background: #ccffcc;
+}
+tr:hover {
+    background: #3A3;
+    color: white;
+}
+td, th {
+    font: 11px verdana, arial, helvetica, sans-serif;
+    padding: 5px 6px;
+    text-align: left;
+    vertical-align: top;
+}
+th {
+    background: darkgreen;
+    color: white;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+th a:link, th a:visited, th a:hover {
+    color: #333;
+    display: block;
+    font-size: 10px;
+    text-decoration: none;
+    width: 100%;
+}
+th.asc a, th.desc a {
+    background-position: right;
+    background-repeat: no-repeat;
+}
+th.asc a {
+    background-image: url(../images/skin/sorted_asc.gif);
+}
+th.desc a {
+    background-image: url(../images/skin/sorted_desc.gif);
+}
+
+table.sparql a {
+    text-decoration: none;
+}
+
+.odd {
+    background: #f7f7f7;
+}
+.even {
+    background: #fff;
+}
+
+#map_canvas {
+    height: 400px;
+    width:100%;
+}
+
+ul.projectList {
+	display: inline-block;
+	list-style: none;
+	
+
+}
+ul.projectList li{
+	float:left;
+	margin:1em;
+	position: relative;
+}
+ul.projectList li a.projectListLink {
+background: white url('../images/projectFolderGreen.png') no-repeat center;
+display: inline-block;
+min-width: 126px;
+min-height: 160px;
+color: black;
+text-align: center;
+position: relative;
+top: 0;
+left: 0;
+}
+ul.projectList li a.deleteProjectList {
+background: rgba(255, 255, 255, 0) url('../images/deleteProject.png') no-repeat left;
+height: 24px;
+width: 24px;
+position: absolute;
+display: inline-block;
+top: 116px;
+right: 45%;
+}

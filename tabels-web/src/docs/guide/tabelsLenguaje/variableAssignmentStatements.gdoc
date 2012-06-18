@@ -1,0 +1,11 @@
+h4. Sentencia de asignación de variables
+
+{code}
+    match Tuple [at Position] [filter Expression]
+{code}
+
+h4. Sentencia tratamiento de variables
+
+{code}
+    let Variable = Expression
+{code}

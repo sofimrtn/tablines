@@ -1,0 +1,224 @@
+
+El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.
+
+Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo. El RDF generado se basará en "The Statistical Core Vocabulary" (scovo).
+
+!ejemplo1.png!
+
+El objetivo sería recorrer todas las horas registradas asociando cada una a su mes por un lado y su alumno, actividad o subactividad por otro.
+
+El primer paso es iterar sobre los nombres de los empleados. El siguiente snippet muestra como se recorren las filas seleccionando las celdas que empiezan por '-'. Además en cada iteración se crea/modifica una variable que representa la URI del empleado.
+
+{code}
+    FOR ?employee IN rows FILTER matches(?employee,"-[a-zA-Z0-9ñ]+ [a-zA-Z0-9]*")
+        LET ?resourceEmployee = resource(?employee,<http://localhost:8080/tabels-web/pubby/resource/>)
+{
+....
+}
+{code}
+
+Ese cambio de la variable "?resourceEmployee" en cada iteración hace que se active la primera template de la lista de templates. Concretamente este primer bloque genera el rdf que especifica que el recurso es un "ex:worker":
+
+{code}
+{
+    ?resourceEmployee a ex:worker ;
+                      skos:prefLabel ?employee .
+    ex:worker rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Trabajador"
+    
+}
+{code}
+
+Dentro de cada iteración sobre los empleados lo primero que se hace es una iteración sobre las columnas de esa fila para recuperar las horas generales del empleado. La iteración empieza una celda a la derecha de la celda encontrada con el empleado. La iteración acaba con la primera celda que no cumple con la expresión regular usada identificando cualquier número entero.
+
+{code}
+	FOR ?horasEmployee IN cols starts at 1 RIGHT of ?employee until not matches(?horasEmployee, "[0-9]+")
+	        Set ?mesEmployee in rows "1" 
+	        LET ?resourceMesEmployee = resource( ?mesEmployee, <http://localhost:8080/tabels-web/pubby/resource/>)
+	     ;
+{code}
+
+En esta iteración se definen tres valores. Primeramente tenemos la variable propia de la iteración, "horasEmployee", que guarda las horas dedicadas. Con "Set" asignamos a la variable "mesEmployee" el valor de la celda correspondiente a la columna actual de la iteración pero de una fila específica en la excel, la "1" (que es la que en la excel aparece como "2" porque tabels empieza a numerar desde 0). Si nos fijamos en la excel en esas posiciones se encuentran los nombres de los meses. A partir de ese valor, se crea la variable "resourceMesEmployee" que representa la URI para ese mes.
+
+Como esta iteración por columnas no cuenta con otras iteraciones anidadas, sino que solo se provoca el cambio en el valor de las variables, simplemente se usa un ";" para indicar que no hay que realizar nada más.
+
+Esta iteración por tanto activa otros dos templates con sus cambios de variables. El primero es el correspondiente a la dimensión del mes: define en scovo "ex:month" como una dimensión especializada (hereda de "scv:Dimension"), y define el recurso del mes "resourceMesEmployee" como un valor para esa dimensión:
+{code}
+{
+    ?resourceMesEmployee a ex:month ;
+                      skos:prefLabel ?mesEmployee .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Mes"
+    
+}
+{code}
+
+La segunda template activada genera ya un primer "item" con las horas correspondientes a un empleado y un mes. Asocia el valor de horas con los valores de las dimensiones comentadas anteriormente. Asocia también el "item" a un dataset específico:
+
+{code}
+{
+    [ a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        rdf:value ?horasEmployee;
+        scv:dimension ?resourceMesEmployee
+	]
+}
+{code}
+
+Es interesante notar también que aquellos templates que no dependen de ninguna variable serán generados en el resultado sólo una vez. Es el caso en nuestro ejemplo de los templates que definen los "Datasets" del vocabulario "scovo", por ejemplo el de dedicaciones empleado-mes:
+
+{code}
+{
+    ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
+  	 skos:prefLabel "Dedicacion Empleado-Mes" ;
+         scvxl:valuesMeasuredIn "Horas"
+}
+{code}
+
+Todavía dentro de la iteración sobre los empleados, para recuperar las horas dedicadas a actividades específicas se define una nueva iteración. Esta subiteración itera sobre las filas de la excel pero solo entre las filas correspondientes a la iteración exterior de los empleados:
+
+{code}
+  FOR ?actividad IN rows FILTER matches(?actividad,"[a-z][a-z0-9]-[a-zA-Z0-9]+[a-zA-Z0-9 ]*")
+	LET ?resourceActividad = resource(?actividad,<http://localhost:8080/tabels-web/pubby/resource/>)
+          {
+ 			....
+		  }
+{code}
+
+El resto de iteraciones para recorrer las horas de una actividad y de sus subactividades siguen reglas similares a las ya explicadas. Finalmente, este sería el código completo que transformaría en RDF todos los datos de la excel de ejemplo:
+
+{code}
+PREFIX ex: <http://example.org/ex#>
+PREFIX scv: <http://purl.org/NET/scovo#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
+
+    IN sheets "Hoja1"
+        FOR ?employee IN rows FILTER matches(?employee,"-[a-zA-Z0-9ñ]+ [a-zA-Z0-9]*")
+            LET ?resourceEmployee = resource(?employee,<http://localhost:8080/tabels-web/pubby/resource/>)
+	{
+	    FOR ?horasEmployee IN cols starts at 1 RIGHT of ?employee until not matches(?horasEmployee, "[0-9]+")
+                Set ?mesEmployee in rows "1" 
+                     LET ?resourceMesEmployee = resource( ?mesEmployee, <http://localhost:8080/tabels-web/pubby/resource/>)
+             ;
+	    FOR ?actividad IN rows FILTER matches(?actividad,"[a-z][a-z0-9]-[a-zA-Z0-9]+[a-zA-Z0-9 ]*")
+		LET ?resourceActividad = resource(?actividad,<http://localhost:8080/tabels-web/pubby/resource/>)
+                {
+                FOR ?horasActividad IN cols starts at 1 RIGHT of ?actividad until not matches(?horasActividad, "[0-9]+")
+                     SET ?mesActividad in rows "1"
+                     	LET ?resourceMesActividad = resource( ?mesActividad, <http://localhost:8080/tabels-web/pubby/resource/>)
+                ;
+		FOR ?subactividad IN rows FILTER matches(?subactividad,"[0-9]+-[a-zA-Z0-9]+[a-zA-Z0-9 ]*")
+			LET ?resourceSubActividad = resource(?subactividad,<http://localhost:8080/tabels-web/pubby/resource/>)	
+                	FOR ?horasSubActividad IN cols starts at 1 RIGHT of ?subactividad until not matches(?horasSubActividad, "[0-9]+")
+                        	SET ?mesSubActividad in rows "1"
+                                	LET ?resourceMesSubActividad = resource( ?mesSubActividad, <http://localhost:8080/tabels-web/pubby/resource/>)
+                 
+	  }
+         }	
+	     
+            	
+////////////////////DEDICACIÓN EMPLEADO MES//////////////////////////////
+
+//DIMENSION TRABAJADOR
+{
+    ?resourceEmployee a ex:worker ;
+                      skos:prefLabel ?employee .
+    ex:worker rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Trabajador"
+    
+}
+//DIMENSION MES
+{
+    ?resourceMesEmployee a ex:month ;
+                      skos:prefLabel ?mesEmployee .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Mes"
+    
+}
+//DATA SET
+{
+    [ a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        rdf:value ?horasEmployee;
+        scv:dimension ?resourceMesEmployee
+	]
+}
+  
+{
+    ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
+  	 skos:prefLabel "Dedicacion Empleado-Mes" ;
+         scvxl:valuesMeasuredIn "Horas"
+  
+}
+
+/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////
+
+{
+    ?resourceActividad a ex:actividad ;
+                      skos:prefLabel ?actividad .
+    ex:actividad rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Actividad"
+    
+}
+{
+    ?resourceMesActividad a ex:month ;
+                      skos:prefLabel ?mesActividad .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Mes"
+    
+}
+{
+    
+    [ a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoActividadMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        scv:dimension ?resourceActividad ;
+        rdf:value ?horasActividad;
+        scv:dimension ?resourceMesActividad]
+}
+  
+{
+    ex:DedicacionEmpleadoActividadMesDataSet a scv:Dataset ;
+                                             skos:prefLabel "Dedicacion Empleado-Actividad-Mes" ;
+                                             scvxl:valuesMeasuredIn "Horas"
+}
+
+
+//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////
+
+{
+    ?resourceSubActividad a ex:subactividad ;
+                      skos:prefLabel ?subactividad .
+    ex:subactividad rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "SubActividad"
+    
+}
+{
+    ?resourceMesSubActividad a ex:month ;
+                      skos:prefLabel ?mesSubActividad .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel "Mes"
+    
+}
+{
+    
+    [ a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoSubActividadMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        scv:dimension ?resourceSubActividad ;
+        rdf:value ?horasSubActividad;
+        scv:dimension ?resourceMesSubActividad]
+}
+  
+{
+    ex:DedicacionEmpleadoSubActividadMesDataSet a scv:Dataset ;
+                                             skos:prefLabel "Dedicacion Empleado-SubActividad-Mes" ;
+                                             scvxl:valuesMeasuredIn "Horas"
+                                                  
+}
+{code}

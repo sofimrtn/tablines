@@ -1,0 +1,16 @@
+introduccion:
+    title: Introducción
+tabelsLenguaje:
+    title : Lenguaje Tabels
+    dimensionStatements: Sentencias de dimensiones
+    variableAssignmentStatements: Sentencias de asignación de variables
+    functions:
+        title: Expresiones
+        numericFunctions: Expresiones Numéricas 
+        stringFunctions: Expresiones con Cadenas
+        miscellaneaFunctions: Expresiones Variadas
+ejemplos:
+    title: Ejemplos de uso
+    ejemplo1: Excel con "ventanas" de datos anidadas
+    ejemplo2: Ejemplo 2
+    ejemplo3: Ejemplo 3

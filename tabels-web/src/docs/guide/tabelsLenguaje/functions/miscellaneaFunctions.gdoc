@@ -1,0 +1,69 @@
+# DBPedia-Disambiguation
+    {code}
+        DBPedia-Disambiguation(query: String, workMode: String) : String
+    {code}
+    Devuelve una URI con la palabra query desambiguada frente los contenidos en la DBPedia. Mediante la cadena workMode se pueden escoger 3 modos de deasmbiguación distintos:
+    * FIRST : Devuelve el primer resultado de la desambiguación contra la DBPedia.
+    * VERY-BREST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.
+    * SINGLE : Devuelve el primer resultado de la desambiguación contra la DBPedia si es un resultado único.
+    En caso de no especificarse modo de  funcionamiento por defecto devuelve el primer valor resultante de la desambiguación.
+    
+# get-row
+    {code}
+        get-row(variable: Variable) : Int
+    {code}
+    Devuelve el número de fila donde se encuentra el contenido de la variable.
+  
+ # get-col
+    {code}
+        get-col(variable: Variable) : Int
+    {code}
+    Devuelve el número de columna donde se encuentra el contenido de la variable.
+    
+     val boolean = "boolean" isDefinedBy { (x : Boolean) => x  }
+
+
+h4. Funciones RDF 
+
+ # resource
+    {code}
+        resource(string: String, uri:String) : Resource
+    {code}
+    Devuelve el recurso resultante de añadirle a la URI _uri_ la cadena _string_. La función elimina todos los caracteres no válidos de la cadena _string_.
+
+ # literal
+    {code}
+        literal(string: String) : Resource
+    {code}
+    Devuelve el literal indicaco en la cadena _string_.
+    
+ # setLangTag
+    {code}
+        setLangTag(literal: String, lang: String) : Literal
+    {code}
+    Devuelve un literal con la etiqueta de idioma indicada en la cadena _lang_.
+   
+
+h4. Operadores lógicos
+
+ # not
+    {code}
+        not(boolean: Boolean) : Boolean
+    {code}
+    Devuelve la negación lógica del parámetro _boolean_.
+ # and
+    {code}
+        and(expresion1: Expresion, expresion2: Expresion) : Boolean
+    {code}
+    Devuelve el resultado de aplicar el operador AND lógico entre los parámetros _expresion1_ y _expresion2_.
+# or
+    {code}
+        or(expresion1: Expresion, expresion2: Expresion) : Boolean
+    {code}
+    Devuelve el resultado de aplicar el operador OR lógico entre los parámetros _expresion1_ y _expresion2_.
+
+# if-then-else
+    {code}
+        if(condition:boolean) then result1: Resource else result2: Resource
+    {code}
+    Devuelve el recurso _result1_ si la _condition_ es igual a *true* y _result2_ en caso de que _condition_ sea *false*.
