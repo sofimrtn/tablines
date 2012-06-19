@@ -28,6 +28,7 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                     ]
 
 grails.doc.title = "Documentación Tabels"
+grails.doc.images = new File("src/docs/images")
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
 
