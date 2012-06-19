@@ -241,3 +241,35 @@ table.sparql a {
     height: 400px;
     width:100%;
 }
+
+ul.projectList {
+	display: inline-block;
+	list-style: none;
+	
+
+}
+ul.projectList li{
+	float:left;
+	margin:1em;
+	position: relative;
+}
+ul.projectList li a.projectListLink {
+background: white url('../images/projectFolderGreen.png') no-repeat center;
+display: inline-block;
+min-width: 126px;
+min-height: 160px;
+color: black;
+text-align: center;
+position: relative;
+top: 0;
+left: 0;
+}
+ul.projectList li a.deleteProjectList {
+background: rgba(255, 255, 255, 0) url('../images/deleteProject.png') no-repeat left;
+height: 24px;
+width: 24px;
+position: absolute;
+display: inline-block;
+top: 116px;
+right: 45%;
+}

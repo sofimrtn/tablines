@@ -6,11 +6,11 @@
     </head>
     <body>
         <h2>Tabels projects</h2>
-        <ul>
+        <ul class="projectList">
             <g:each in="${projects}" var="project">
                 <li>
-                    <g:link action="index" id="${project}">${project}</g:link>
-                    (<g:link action="delete" id="${project}"><g:message code="msg.delete.project.link"/></g:link>)
+                    <g:link action="index" id="${project}" class="projectListLink">${project}</g:link>
+                    <g:link action="delete" id="${project}" class="deleteProjectList" alt="${message(code:'msg.delete.project.link')}"/>
                 </li>
             </g:each>
         </ul>
