@@ -30,12 +30,12 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
   def calculateNewEvaluationContext(dimensionStatement: DimensionStatement, dimensionIterator: String) : EvaluationContext = {
-	 
+	/* 
     var calculatedDimension = dimensionIterator
     var calculatedEvaluationContext = evaluationContext
    
     //FIX ME: find a better way to do it
-   /* if (dimensionStatement.isInstanceOf[IteratorStatement] && !dimensionStatement.asInstanceOf[IteratorStatement].startCond.isEmpty && dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.isRight){
+    if (dimensionStatement.isInstanceOf[IteratorStatement] && !dimensionStatement.asInstanceOf[IteratorStatement].startCond.isEmpty && dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.isRight){
 		val startPos =  dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.right.get.calculatePoint(evaluationContext)
 		dimensionStatement.dimension match{
 		  case Dimension.rows => calculatedDimension = (dimensionIterator.toInt + startPos.row - evaluationContext.cursor.row).toString
