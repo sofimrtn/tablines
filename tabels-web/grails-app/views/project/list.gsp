@@ -35,5 +35,7 @@
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}"><g:message code="msg.linked.data.link"/></a></p>
 		
+		<p class="chartsLink"><g:link mapping="globalTapinos"><g:message code="msg.charts.link"/></g:link></p>
+		    
     </body>
 </html>
