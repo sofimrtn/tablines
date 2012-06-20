@@ -1,7 +1,6 @@
 <html>
     <head>
         <title>Tabels projects</title>
-<!--		<r:require modules="uploadr"/> -->
         <meta name="layout" content="main" />
     </head>
     <body>
