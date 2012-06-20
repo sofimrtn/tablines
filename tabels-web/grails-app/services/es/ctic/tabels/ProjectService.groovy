@@ -67,6 +67,11 @@ class ProjectService {
         FileUtils.forceDelete(getProjectDir(projectId))
     }
     
+    def renameProject(String oldProjectId, String newProjectId) throws ProjectDoesNotExistException {
+        log.info "Renaming project ${oldProjectId} to ${newProjectId}"
+        FileUtils.moveDirectory(getProjectDir(oldProjectId), getProjectDir(newProjectId, true))
+    }
+    
     def boolean isCacheValid(String projectId) throws ProjectDoesNotExistException {
         if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false

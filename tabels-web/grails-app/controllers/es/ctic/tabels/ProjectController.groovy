@@ -61,6 +61,19 @@ class ProjectController {
         }
     }
     
+    def rename = {
+        String oldProjectId = params.id
+        String newProjectId = params.newProjectId
+        if (newProjectId) {
+            projectService.renameProject(oldProjectId, newProjectId)
+            flash.message = "msg.project.successfully.renamed"
+            flash.args = [newProjectId]
+            redirect(action: "index", id: newProjectId)
+        } else {
+            []
+        }
+    }
+    
     def saveProgram = {
         String program = params.program
         String projectId = params.id // FIXME: validate

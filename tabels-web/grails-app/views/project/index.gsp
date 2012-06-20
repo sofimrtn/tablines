@@ -18,6 +18,14 @@
 	    </r:script>
     </head>
     <body>
+        
+        <div class="projectInfo">
+            <p><g:message code="msg.project.name"/> ${params.id}</p>
+            <ul>
+                <li><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
+                <li><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
+            </ul>
+        </div>
      
         <div class="stepBox" id="step1">
 		<h2><g:message code="msg.step1.drag"/></h2>
