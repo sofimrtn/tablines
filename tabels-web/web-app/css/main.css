@@ -242,16 +242,45 @@ table.sparql a {
     width:100%;
 }
 
+div.createProjectBox{
+    border: 0.2em orange solid ;
+    padding: 1em;
+    border-radius: 1em;
+    margin: 0em;
+    box-shadow: 0 0 0.4em black;
+	width: 13em;
+}
+div.createProjectBox h2{
+	margin-top:0;
+	color: orange;
+	border-bottom: 0.2em orange solid;
+}
+ul.projectList h2{
+	margin-top:0;
+	color: orange;
+	border-bottom: 0.2em orange solid;
+}
+
 ul.projectList {
 	display: inline-block;
 	list-style: none;
 	
+	border: 0.2em orange solid ;
+    padding: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
+    box-shadow: 0 0 0.4em black;
 
 }
 ul.projectList li{
 	float:left;
 	margin:1em;
 	position: relative;
+}
+ul.projectList h2{
+	margin-top:0;
+	color: orange;
+	border-bottom: 0.2em orange solid;
 }
 .projectListLink {
 background: white url('../images/projectFolderGreen.png') no-repeat center;
@@ -272,4 +301,16 @@ position: absolute;
 display: inline-block;
 top: 116px;
 right: 45%;
+}
+.AddProjectButton {
+background: rgba(255, 255, 255, 0) url('../images/createProject.png') no-repeat right top;
+border:0;
+height: 138px;
+width: 100%;
+position: absolute;
+display: inline-block;
+top: 22px;
+right: 0;
+cursor: pointer;
+color:rgba(255, 255, 255, 0);
 }
