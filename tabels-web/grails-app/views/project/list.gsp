@@ -24,5 +24,7 @@
             </g:each>
         </ul>
         
+		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link mapping="globalSparql"><g:createLink mapping="globalSparql" absolute="true"/></g:link></p>
+		
     </body>
 </html>

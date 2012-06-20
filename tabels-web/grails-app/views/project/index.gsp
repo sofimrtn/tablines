@@ -53,7 +53,7 @@
 		<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
 		<p class="rdfDownloadLink"><g:link action="rdf" id="${params.id}"><g:message code="msg.download.rdf.title"/></g:link></p>
 		
-		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}"><g:createLink controller="project" action="sparql" absolute="true" id="${params.id}"/></g:link></p>
+		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
 		
 		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}"><g:message code="msg.linked.data.link"/></a></p>
 		
