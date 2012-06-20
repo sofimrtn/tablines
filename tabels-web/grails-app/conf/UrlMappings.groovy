@@ -11,6 +11,8 @@ class UrlMappings {
 				// apply constraints here
 			}
 		}*/
+		
+		"/upload/$action/$id?"(controller: "upload")
 
         "/ws/chart"(uri:"/ws/chart.dispatch") 
         "/ws/dimensions"(uri:"/ws/dimensions.dispatch") 
