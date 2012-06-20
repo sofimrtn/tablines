@@ -116,8 +116,9 @@ log4j = {
 
     warn   'org.mortbay.log'
     
-    info   'es.ctic.tabels',
-            'grails.app.services',
+    info   'es.ctic.tabels'
+    
+    debug  'grails.app.services',
             'grails.app.controllers'
     
     warn  'es.ctic.data' // tapinos
