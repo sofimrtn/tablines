@@ -59,6 +59,32 @@
 		<h2><g:message code="msg.step2.access"/></h2>
 		
 		<!--<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link> -->
+		<div id="datasetInfo">
+		  <div id="datasetInfoWaiting">Espere...</div>
+		  <div id="datasetInfoData">
+		      Triples: <span id="triplesCount"></span>
+		  </div>
+		  <div id="datasetInfoError">
+		      Ooops! There was a problem running the transformation
+	      </div>
+		</div>
+		<r:script>
+		    $(document).ready(function() {
+		        $("#datasetInfoData").hide();
+		        $("#datasetInfoError").hide();
+		        $.ajax({
+		            url: "${createLink(controller: 'project', action:'datasetInfo', id: params.id)}"		            
+		        }).done(function(data) {
+		            $("#triplesCount").text(data.info.triplesCount);
+		            $("#datasetInfoData").show();
+		        }).fail(function() {
+		            $("#datasetInfoError").show();
+		        }).always(function() {
+		            $("#datasetInfoWaiting").hide();		            
+		        });
+		    });
+		</r:script>
+		
 		<p class="rdfDownloadLink"><g:link action="rdf" id="${params.id}"><g:message code="msg.download.rdf.title"/></g:link></p>
 		
 		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
