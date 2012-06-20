@@ -18,4 +18,6 @@ syntax: regexp
 ^tabels-core/lib$
 syntax: regexp
 /docs/.*\.html$
-/tabels-web/web-app/docs/.*\.html$
+/docs/.*\.png$
+syntax: glob
+tabels-web/grails-app/.DS_Store
