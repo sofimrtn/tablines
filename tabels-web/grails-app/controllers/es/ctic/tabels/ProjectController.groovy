@@ -154,13 +154,15 @@ class ProjectController {
     }
     
 	def sparql = {
-	    String projectId = params.id // FIXME: validate
+	    String projectId = params.id
+	    def projects = projectId != null ? [projectId] : projectService.listProjects()
+	    def namedGraphs = projects.collect { getGraph(it) }
 		try {
 		    if (params.query == null || params.forceForm) {
-		        render(view:"sparqlForm", model: [query: params.query == null ? "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }" : params.query])
+		        render(view:"sparqlForm", model: [query: (params.query == null ? "SELECT * \nWHERE { ?s ?p ?o }" : params.query), namedGraphs: namedGraphs])
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-        		endpoint.addNamedGraph(getGraph(), projectService.getModel(projectId))
+		        projects.each { endpoint.addNamedGraph(getGraph(it), projectService.getModel(it)) };
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {
@@ -268,9 +270,9 @@ class ProjectController {
         }    
 	}
 	
-	private String getGraph() {
+	private String getGraph(String projectId) {
 	    // FIXME: not really portable
-	    return ConfigurationHolder.config.grails.serverURL
+	    return ConfigurationHolder.config.grails.serverURL + "/project/${projectId}"
 	}
 	
 	def config = {
