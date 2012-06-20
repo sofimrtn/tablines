@@ -14,7 +14,7 @@ import com.hp.hpl.jena.query.QueryParseException
 
 class ProjectController {
 
-    static defaultAction = "list"
+    static defaultAction = "index"
     
     def projectService
     def datasetProvider
