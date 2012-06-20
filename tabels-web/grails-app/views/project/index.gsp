@@ -1,19 +1,9 @@
 <html>
     <head>
         <title>Tabels project</title>
-		<r:require modules="uploadr"/>
-        <meta name="layout" content="main" />
-	   
-	    <script src="${resource(dir:'js/codemirror',file:'example.js')}"></script>
-    	<script src="${resource(dir:'js/codemirror',file:'javahint.js')}"></script>
-    	<script src="${resource(dir:'js/codemirror',file:'simplehint.js')}"></script>
-		<link rel="stylesheet" href="${resource(dir:'css',file:'simple-hint.css')}">
-	   
-	    <script type="text/javascript">
-	   
-	     
-	   
-	   
+		<r:require modules="uploadr,codemirror"/>
+        <meta name="layout" content="main" />	   
+	    <r:script>
 			$(document).ready(function() {
 				var editor = CodeMirror.fromTextArea(program, {
 					mode: "tabelscomplete",
@@ -25,14 +15,17 @@
 			CodeMirror.commands.autocomplete = function(cm) {
 		        CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
 		      }
-		      
-			 
-	    </script>
-	   
-	   
-    
+	    </r:script>
     </head>
     <body>
+        
+        <div class="projectInfo">
+            <p><g:message code="msg.project.name"/> ${params.id}</p>
+            <ul>
+                <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
+                <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
+            </ul>
+        </div>
      
         <div class="stepBox" id="step1">
 		<h2><g:message code="msg.step1.drag"/></h2>
@@ -40,7 +33,7 @@
 		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
-		<uploadr:add name="uploadr${params.id}" path="${path}">
+		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
@@ -65,15 +58,11 @@
 		<div class="stepBox" id="step2">
 		<h2><g:message code="msg.step2.access"/></h2>
 		
-		<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
+		<!--<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link> -->
 		<p class="rdfDownloadLink"><g:link action="rdf" id="${params.id}"><g:message code="msg.download.rdf.title"/></g:link></p>
 		
-		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}"><g:createLink controller="project" action="sparql" absolute="true" id="${params.id}"/></g:link></p>
+		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
 		
-		<p class="pubbyLink"><span class="stars">★★★★★</span> <a href="${resource(dir:'pubby')}"><g:message code="msg.linked.data.link"/></a></p>
-		
-		<p class="chartsLink"><g:link action="tapinos" id="${params.id}"><g:message code="msg.charts.link"/></g:link></p>
-		    
 		<p class="facetedLink"><g:link action="exhibit" id="${params.id}"><g:message code="msg.faceted.link"/></g:link></p>
 		    
 		<p class="mapLink"><g:link action="map" id="${params.id}"><g:message code="msg.map.link"/></g:link></p>

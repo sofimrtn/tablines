@@ -83,8 +83,9 @@ h2 {
 }
 
 .rdfDownloadLink {
-    background: url(../images/sw-rdf-blue.png) no-repeat;
-    padding-left: 85px;
+/*    background: url(../images/1340204363_agt_update_misc.png) no-repeat; */
+    background: url(../images/rdf.png) no-repeat;
+    padding-left: 20px;
 }
 
 .sparqlLink {
@@ -120,6 +121,16 @@ h2 {
 .backLink {
     background: url(../images/1333379171_restart-1.png) no-repeat;
     padding-left: 20px;        
+}
+
+.renameLink {
+    background: url(../images/1340204519_gtk-edit.png) no-repeat;
+    padding-left: 20px;            
+}
+
+.deleteLink {
+    background: url(../images/deleteProject.png) no-repeat;
+    padding-left: 20px;            
 }
 
 .stars {
