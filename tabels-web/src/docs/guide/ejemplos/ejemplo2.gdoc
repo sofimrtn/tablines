@@ -1,0 +1,94 @@
+
+En este segundo ejemplo el origen de los datos tabulares no es un fichero excel sino una página web. Tabels es capaz de identificar la información de una tabla HTML en una página web y aplicarle los mapeos programados de la misma manera que si fuera una hoja excel.
+
+La página que se va a utilizar es la que contiene la tabla con las 250 peliculas 'top' de imdb (http://www.imdb.com/chart/top). La siguiente imagen muestra esa tabla:
+
+!ejemplo2.png!
+
+Primero mostramos el código completo de este ejemplo y a continuación destacaremos las partes más interesantes:
+
+{code}
+
+PREFIX ex: <http://localhost:8080/tabels-web/pubby/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SET files "/private/var/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tabels/projects/p1/upload/download-1340095324674.html"
+ SET sheets "0"
+    FOR ?rowId IN rows FILTER get-row(?rowId)
+        MATCH [?rank,?rating,?title,?votes] IN horizontal 
+        LET ?titleTrimmed = trim(substring-before(?title,"("))
+        LET ?year = int(substring(?title,int-add(last-index-of(?title,"("),1),4))
+        LET ?rankInt = int(substring-before(?rank,"."))
+        LET ?votesInt = int(translate(?votes,",",""))
+           
+    	CONSTRUCT
+        {
+           [    rdf:type ex:Movie;
+                ex:rank ?rankInt ;
+    	        ex:rating ?rating ;
+    	        rdfs:label ?titleTrimmed ;
+                ex:year ?year ;
+    	        ex:votes ?votesInt ]
+        }
+
+{code}
+
+En primer lugar se identifica el origen de los datos para la transformación. La construcción 'SET file' identifica la ruta local al fichero html. A su vez 'SET sheets' vale para especificar la hoja en un fichero excel pero también para especificar la tabla en una página web atendiendo al orden en que aparecen.
+
+Para iterar sobre las filas de la tabla se usa la sentencia de iteración 'FOR'. La variable de iteración 'rowId' va adquiriendo los valores de la primera columna de la tabla, en este caso los de la columna 'Rank'. La función 'get-row' devuelve el número de fila donde se encuentra el contenido de la variable. El uso de 'FILTER' sobre el valor de la función 'get-row' nos vale para iterar hasta que se acaben las filas de la tabla.
+
+{code}
+FOR ?rowId IN rows FILTER get-row(?rowId)
+    MATCH [?rank,?rating,?title,?votes] IN horizontal
+{code}
+
+La sentencia 'MATCH' usada permite asignar los valores de la fila actual a cuatro variables diferentes. Es interesante notar que en este ejemplo particular el valor de las variables '?rowId' y '?rank' sería el mismo. Una forma paralela de lograr capturar los mismos valores sería moviendo el ámbito del 'MATCH' 1 celda a la derecha de la variable de iteración, de esta forma:
+
+{code}
+FOR ?rowId IN rows FILTER get-row(?rowId)
+   LET ?rank = ?rowId
+   MATCH [?rating,?title,?votes] IN horizontal AT 1 right of ?rowId
+{code}
+
+Una vez que las variables base están establecidas se entra en una sección en que en cada iteración se crean nuevas variables refinadas a partir del valor de las variables base. Se usan algunas funciones de tratamiento de cadenas y transformación de tabels. Por ejemplo, en la variable '?rankInt' se guarda el ranking de la película como valor entero:
+
+{code}
+LET ?rankInt = int(substring-before(?rank,"."))
+{code}
+
+Primero se usa la función 'substring-before' para eliminar el '.' al final de cada número, y a continuación se usa 'int' para transformar el número como cadena a entero.
+
+Finalmente, la lista de templates consta en este ejemplo de una sola template. Esta template se activaría cada vez que cambia el valor de una de las variables que utiliza. El comienzo de la template se define con la palabra reservada 'construct' y con RDF en sintaxis N3 entre llaves. 
+
+{code}
+CONSTRUCT
+{
+   [    rdf:type ex:Movie;
+        ex:rank ?rankInt ;
+        ex:rating ?rating ;
+        rdfs:label ?titleTrimmed ;
+        ex:year ?year ;
+        ex:votes ?votesInt ]
+}
+{code}
+
+En este caso este ejemplo no asigna ninguna URI a cada película y por tanto usa corchetes ('\[' y '\]') para establecer que es un blank node.
+
+Una consulta SPARQL que listaría las películas obtenidas por el mapeo anterior sería esta:
+
+{code}
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX ex: <http://localhost:8080/tabels-web/pubby/resource/>
+
+SELECT *
+FROM <http://localhost:8080/tabels-web> 
+WHERE { ?s rdfs:label ?titulo ;
+      	   ex:year ?anio ;
+           ex:rating ?clasificacion;
+      	   ex:rank ?puesto}
+ORDER BY DESC (?anio)
+
+{code}
+

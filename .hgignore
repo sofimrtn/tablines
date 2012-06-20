@@ -16,3 +16,6 @@ syntax: regexp
 ^tabels-core/lib/opencsv-2\.3$
 syntax: regexp
 ^tabels-core/lib$
+syntax: regexp
+/docs/.*\.html$
+/tabels-web/web-app/docs/.*\.html$
