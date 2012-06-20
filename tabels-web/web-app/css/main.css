@@ -253,7 +253,7 @@ ul.projectList li{
 	margin:1em;
 	position: relative;
 }
-ul.projectList li a.projectListLink {
+.projectListLink {
 background: white url('../images/projectFolderGreen.png') no-repeat center;
 display: inline-block;
 min-width: 126px;
@@ -264,7 +264,7 @@ position: relative;
 top: 0;
 left: 0;
 }
-ul.projectList li a.deleteProjectList {
+.deleteProjectList {
 background: rgba(255, 255, 255, 0) url('../images/deleteProject.png') no-repeat left;
 height: 24px;
 width: 24px;
