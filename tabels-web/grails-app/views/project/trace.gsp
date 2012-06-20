@@ -2,15 +2,13 @@
     <head>
         <title>Tabels trace</title>
         <meta name="layout" content="main" />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" type="text/javascript"></script>
+       
         <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/south-street/jquery-ui.css" rel="stylesheet"></link>
-        <script src="http://imakewebthings.com/deck.js/modernizr.custom.js" type="text/javascript"></script>
-    	<link rel="stylesheet" id="style-theme-link" href="http://imakewebthings.com/deck.js/themes/style/web-2.0.css"></link>
+       	<link rel="stylesheet" id="style-theme-link" href="http://imakewebthings.com/deck.js/themes/style/web-2.0.css"></link>
     	<link rel="stylesheet" id="transition-theme-link" href="http://imakewebthings.com/deck.js/themes/transition/horizontal-slide.css"></link>
-        <script src="http://imakewebthings.com/deck.js/core/deck.core.js" type="text/javascript"></script>
-        <script src="http://imakewebthings.com/deck.js/extensions/status/deck.status.js" type="text/javascript"></script>
-        <script src="http://imakewebthings.com/deck.js/extensions/navigation/deck.navigation.js" type="text/javascript"></script>
+        
+        <r:require modules="trace"/>
+        
         <style type="text/css">
         .recentlyBound { background-color: lightyellow; }
         .var { font-weight: bold; }
@@ -23,7 +21,7 @@
         
     </head>
     <body>
-        <script>
+        <r:script>
         $(function() {
     		$( '.tabs' ).tabs();
     		$.deck('.slide');
@@ -52,7 +50,7 @@
             });
             event0();
         });
-        </script>
+        </r:script>
         <h2>Transformation trace</h2>
         <p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
         <h3>Spreadsheets</h3>
