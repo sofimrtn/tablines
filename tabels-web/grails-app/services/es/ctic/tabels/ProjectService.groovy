@@ -102,6 +102,13 @@ class ProjectService {
         }
     }
     
+    def getGlobalModel() throws RunTimeTabelsException {
+        log.info "Getting global model of all projects"
+        Model model = ModelFactory.createDefaultModel()
+        listProjects().each { model.add(getModel(it)) }        
+        return model
+    }
+    
     def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 

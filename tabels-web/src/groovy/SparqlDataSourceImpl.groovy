@@ -11,7 +11,7 @@ class SparqlDataSourceImpl implements SparqlDataSource {
     def projectService
     
     public ResultSet execSelectQuery(Query query) {
-        def model = projectService.model
+        def model = projectService.globalModel
         QueryExecution qe = QueryExecutionFactory.create(query, model)
         ResultSet results = qe.execSelect()
         return results
