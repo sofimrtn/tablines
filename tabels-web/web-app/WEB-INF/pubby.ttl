@@ -41,7 +41,7 @@
     # Project name for display in page titles
     conf:projectName "tabels";
     # Homepage with description of the project for the link in the page header
-    conf:projectHomepage <http://localhost:8080/tabels-web/project>;
+    conf:projectHomepage <http://localhost:8080/tabels-web/>;
     # The Pubby root, where the webapp is running inside the servlet container.
     conf:webBase <http://localhost:8080/tabels-web/pubby/>;
     # URL of an RDF file whose prefix mapping is to be used by the
@@ -60,9 +60,9 @@
 # URIs on the Web:             http://localhost:8080/resource/* 
     conf:dataset [
         # SPARQL endpoint URL of the dataset
-        conf:sparqlEndpoint <http://localhost:8080/tabels-web/project/sparqlQuery>;
+        conf:sparqlEndpoint <http://localhost:8080/tabels-web/sparql>;
         # Default graph name to query (not necessary for most endpoints)
-        conf:sparqlDefaultGraph <http://localhost:8080/tabels-web>;
+        # conf:sparqlDefaultGraph <http://localhost:8080/tabels-web>;
         # Common URI prefix of all resource URIs in the SPARQL dataset
         conf:datasetBase <http://localhost:8080/tabels-web/pubby/resource/>;
         # Will be appended to the conf:webBase to form the public
