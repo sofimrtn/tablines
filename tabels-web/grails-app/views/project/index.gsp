@@ -1,19 +1,9 @@
 <html>
     <head>
         <title>Tabels project</title>
-		<r:require modules="uploadr"/>
-        <meta name="layout" content="main" />
-	   
-	    <script src="${resource(dir:'js/codemirror',file:'example.js')}"></script>
-    	<script src="${resource(dir:'js/codemirror',file:'javahint.js')}"></script>
-    	<script src="${resource(dir:'js/codemirror',file:'simplehint.js')}"></script>
-		<link rel="stylesheet" href="${resource(dir:'css',file:'simple-hint.css')}">
-	   
-	    <script type="text/javascript">
-	   
-	     
-	   
-	   
+		<r:require modules="uploadr,codemirror"/>
+        <meta name="layout" content="main" />	   
+	    <r:script>
 			$(document).ready(function() {
 				var editor = CodeMirror.fromTextArea(program, {
 					mode: "tabelscomplete",
@@ -25,12 +15,7 @@
 			CodeMirror.commands.autocomplete = function(cm) {
 		        CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
 		      }
-		      
-			 
-	    </script>
-	   
-	   
-    
+	    </r:script>
     </head>
     <body>
      

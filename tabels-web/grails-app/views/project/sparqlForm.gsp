@@ -1,9 +1,9 @@
 <html>
-
   <head>
     <title><g:message code="msg.sparql.form.title"/></title>
+	<r:require modules="codemirror"/>
     <meta name="layout" content="main" />
-    <script type="text/javascript">
+    <r:script>
       var last_format = 1;
       function format_select(query_obg) {
         var query = query_obg.value; 
@@ -33,7 +33,7 @@
 				matchBrackets: true
 			});
 		});
-    </script>
+    </r:script>
   </head>
   
   <body>
