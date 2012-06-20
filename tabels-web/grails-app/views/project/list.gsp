@@ -1,10 +1,15 @@
 <html>
     <head>
-        <title>Tabels projects</title>
+        <title>Tabels projects</title> <!-- FIXME: i18n -->
         <meta name="layout" content="main" />
     </head>
     <body>
-        <h2>Tabels projects</h2>
+        <h2>Tabels projects</h2> <!-- FIXME: i18n -->
+        
+    	<g:if test="${!projects}">
+    	    <div class="messagebox"><p><g:message code="msg.why.nothing.in.project.list.msg"/></p></div>
+    	</g:if>
+        
         <ul class="projectList">
             <li>
         		<g:form action="create" method="post" class="projectListLink">
@@ -23,6 +28,8 @@
                 </li>
             </g:each>
         </ul>
+        
+        <h2>Access your data</h2> <!-- FIMXE: i18 --> 
         
 		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link mapping="globalSparql"><g:createLink mapping="globalSparql" absolute="true"/></g:link></p>
 		
