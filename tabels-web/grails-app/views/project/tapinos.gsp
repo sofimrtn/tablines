@@ -21,13 +21,13 @@
 
       $("#chart").tapinosChart({
         // jQuery object: a Tapinos Table to refresh (opt)
-        ws: "../ws/chart",
+        ws: "${resource(dir:'ws', file:'chart')}",
         table: $("#table"),
       });
 
       $("#dimensions").tapinosCombos({
         // String: Dimension Web Service URI
-        ws: "../ws/dimensions",
+        ws: "${resource(dir:'ws', file:'dimensions')}",
         // jQuery object: A div to insert error messages
         errorMsgsDiv: $("#errors"),
         // jQuery object: A checkbox to switch values/series variables (opt)
@@ -75,7 +75,14 @@
             
 	<h2>Chart view</h2>
 	
-	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+	<p class="backLink">
+	    <g:if test="${params.id}">
+	        <g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link>
+	    </g:if>
+	    <g:else>
+	        <g:link action="list"><g:message code="msg.back.to.project.list.link"/></g:link>
+	    </g:else>
+	</p>
 	
 	<h3>Seleccione los datos</h3>
 
