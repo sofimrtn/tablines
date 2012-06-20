@@ -41,7 +41,7 @@ class ProjectService {
     }
     
     File getProgramFile(String projectId) throws ProjectDoesNotExistException {
-        return new File(getInputDir(projectId), defaultProgramFilename)
+        return new File(getProjectDir(projectId), defaultProgramFilename)
     }
     
     File getOutputCache(String projectId) throws ProjectDoesNotExistException {
@@ -71,7 +71,7 @@ class ProjectService {
         if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false
         } else {
-            return getInputDir(projectId).listFiles().every { FileUtils.isFileOlder(it, getOutputCache(projectId)) }
+            return getInputDir(projectId).listFiles().every { FileUtils.isFileOlder(it, getOutputCache(projectId)) } && FileUtils.isFileOlder(getProgramFile(projectId), getOutputCache(projectId))
         }
     }
     
@@ -103,6 +103,9 @@ class ProjectService {
     }
     
     def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
+        // invalidate cache
+        FileUtils.deleteQuietly(getOutputCache(projectId))
+        
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()

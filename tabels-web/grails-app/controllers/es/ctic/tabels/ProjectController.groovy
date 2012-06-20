@@ -115,6 +115,25 @@ class ProjectController {
         }
     }
     
+    def datasetInfo = {
+        String projectId = params.id
+        try {
+            def model = projectService.getModel(projectId)
+            render(contentType:"text/json") {
+            	info(triplesCount: model.size())
+            };
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+        } catch(RunTimeTabelsException e){
+			log.error "Failed to execute transformation: ${e.message}", e
+			flash.error = "msg.transformation.failed"
+			flash.args = [e.message]
+            response.status = HttpURLConnection.HTTP_INTERNAL_ERROR
+            render(view: "index", model: indexModel(projectId))
+        }
+    }
+    
     def autogenerateProgram = {
         String projectId = params.id
         try {
