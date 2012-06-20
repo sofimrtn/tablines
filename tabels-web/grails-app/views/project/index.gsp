@@ -22,8 +22,8 @@
         <div class="projectInfo">
             <p><g:message code="msg.project.name"/> ${params.id}</p>
             <ul>
-                <li><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
-                <li><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
+                <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
+                <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
             </ul>
         </div>
      
@@ -58,7 +58,7 @@
 		<div class="stepBox" id="step2">
 		<h2><g:message code="msg.step2.access"/></h2>
 		
-		<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link>
+		<!--<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link> -->
 		<p class="rdfDownloadLink"><g:link action="rdf" id="${params.id}"><g:message code="msg.download.rdf.title"/></g:link></p>
 		
 		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
