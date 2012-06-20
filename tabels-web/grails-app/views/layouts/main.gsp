@@ -11,9 +11,9 @@
 		<script src="${resource(dir:'js/codemirror',file:'sparql.js')}"></script>
 		<script src="${resource(dir:'js/codemirror',file:'tabelscomplete.js')}"></script>
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror-default-theme.css')}">
-		<r:layoutResources/>
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <g:layoutHead />
+		<r:layoutResources/>
     </head>
     <body>
         <div id="spinner" class="spinner" style="display:none;">
