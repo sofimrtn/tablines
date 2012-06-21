@@ -40,7 +40,7 @@ Dentro de cada iteración sobre los empleados lo primero que se hace es una iter
 
 En esta iteración se definen tres valores. Primeramente tenemos la variable propia de la iteración, "horasEmployee", que guarda las horas dedicadas. Con "Set" asignamos a la variable "mesEmployee" el valor de la celda correspondiente a la columna actual de la iteración pero de una fila específica en la excel, la "1" (que es la que en la excel aparece como "2" porque tabels empieza a numerar desde 0). Si nos fijamos en la excel en esas posiciones se encuentran los nombres de los meses. A partir de ese valor, se crea la variable "resourceMesEmployee" que representa la URI para ese mes.
 
-Como esta iteración por columnas no cuenta con otras iteraciones anidadas, sino que solo se provoca el cambio en el valor de las variables, simplemente se usa un ";" para indicar que no hay que realizar nada más.
+Es importante también entender el uso del carácter ';' en el ejemplo. Este carácter ';' sirve para marcar el final de una rama de iteración. Si no se encontrara en esa posición, Tabels pensaría que el siguiente 'FOR', el que tiene como variable de iteración a '?actividad', está anidado al 'FOR' de '?horasEmployee', cuando no es así. El ';' marca esas dos iteraciones como independientes, ambas anidadas a la iteración superior sobre empleados que las recoge entre llaves ('{' y '}').
 
 Esta iteración por tanto activa otros dos templates con sus cambios de variables. El primero es el correspondiente a la dimensión del mes: define en scovo "ex:month" como una dimensión especializada (hereda de "scv:Dimension"), y define el recurso del mes "resourceMesEmployee" como un valor para esa dimensión:
 {code}
