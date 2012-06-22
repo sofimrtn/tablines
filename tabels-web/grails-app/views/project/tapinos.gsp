@@ -21,13 +21,13 @@
 
       $("#chart").tapinosChart({
         // jQuery object: a Tapinos Table to refresh (opt)
-        ws: "../ws/chart",
+        ws: "${resource(dir:'ws', file:'chart')}",
         table: $("#table"),
       });
 
       $("#dimensions").tapinosCombos({
         // String: Dimension Web Service URI
-        ws: "../ws/dimensions",
+        ws: "${resource(dir:'ws', file:'dimensions')}",
         // jQuery object: A div to insert error messages
         errorMsgsDiv: $("#errors"),
         // jQuery object: A checkbox to switch values/series variables (opt)
@@ -75,37 +75,50 @@
             
 	<h2>Chart view</h2>
 	
-	<p class="backLink"><g:link action="index"><g:message code="msg.back.to.project.link"/></g:link></p>
+	<p class="backLink">
+	    <g:if test="${params.id}">
+	        <g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link>
+	    </g:if>
+	    <g:else>
+	        <g:link action="list"><g:message code="msg.back.to.project.list.link"/></g:link>
+	    </g:else>
+	</p>
 	
-	<h3>Seleccione los datos</h3>
+	<g:if test="${datasets}">
+	
+    	<h3>Seleccione los datos</h3>
 
-<p><label for="dataset">Conjunto de datos:</label>
+        <p><label for="dataset">Conjunto de datos:</label>
 
-<select id="dataset" name="dataset" onchange="javascript:onDatasetChange(event)">
-<g:each var="dataset" in="${datasets}">
-  <option value="${dataset.uri}">${dataset.label}</option>
-</g:each>
-</select>  	
+        <select id="dataset" name="dataset" onchange="javascript:onDatasetChange(event)">
+        <g:each var="dataset" in="${datasets}">
+          <option value="${dataset.uri}">${dataset.label}</option>
+        </g:each>
+        </select>  	
 
-</p>
+        </p>
 
-<fieldset>
-	<legend>Seleccione los valores a consultar</legend>
-	<div id="dimensions">
-	</div>
-  	<div id="errors"></div>
-</fieldset>
+        <fieldset>
+        	<legend>Seleccione los valores a consultar</legend>
+        	<div id="dimensions">
+        	</div>
+          	<div id="errors"></div>
+        </fieldset>
 
-<div id="seriesSwitchDiv"></div>
+        <div id="seriesSwitchDiv"></div>
 
-<h3>Visualización gráfica</h3>
+        <h3>Visualización gráfica</h3>
 
-<div id="chart">
-</div>
+        <div id="chart">
+        </div>
 
-<h3>Visualización en forma de tabla</h3>
-<div id="table">
-</div>
+        <h3>Visualización en forma de tabla</h3>
+        <div id="table">
+        </div>
+    </g:if>
+    <g:else>
+        <div class="messagebox"><p><g:message code="msg.why.nothing.in.tapinos.msg"/></p></div>
+    </g:else>
 
 </body>
 </html>

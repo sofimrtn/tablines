@@ -1,9 +1,9 @@
 <html>
-
   <head>
     <title><g:message code="msg.sparql.form.title"/></title>
+	<r:require modules="codemirror"/>
     <meta name="layout" content="main" />
-    <script type="text/javascript">
+    <r:script>
       var last_format = 1;
       function format_select(query_obg) {
         var query = query_obg.value; 
@@ -33,18 +33,33 @@
 				matchBrackets: true
 			});
 		});
-    </script>
+    </r:script>
   </head>
   
   <body>
 
     <h2><g:message code="msg.sparql.form.title"/></h2>
 
-	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
+	<p class="backLink">
+	    <g:if test="${params.id}">
+	        <g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link>
+            <g:set var="formMapping" value="projectSpecific"/>
+	    </g:if>
+	    <g:else>
+	        <g:link action="list"><g:message code="msg.back.to.project.list.link"/></g:link>
+            <g:set var="formMapping" value="globalSparql"/>
+	    </g:else>
+	</p>
 
-    <g:form method="post" name="sparqlQueryForm" id="${params.id}">
-      <fieldset class="sparql">
-        <legend><g:message code="form.sparql.query.legend"/></legend>
+    <g:form method="post" name="sparqlQueryForm" mapping="${formMapping}" id="${params.id}">
+        <p><g:message code="msg.sparql.available.named.graphs"/></p>
+        </p>
+        <ul>
+            <g:each in="${namedGraphs}" var="namedGraph">
+                <li>${namedGraph}</li>
+            </g:each>
+        </ul>
+    
         <p>
           <label for="query"><g:message code="form.sparql.query.text"/></label>
           <g:textArea rows="10" cols="80" name="query" value="${query}" id="query" onchange="format_select(this)" onkeyup="format_select(this)" />
@@ -60,9 +75,8 @@
         </p>
           
         <p style="clear:both;">
-          <g:actionSubmit value="${message(code: 'form.sparql.query.button')}" action="sparql" id="queryButton" />
+            <g:actionSubmit value="${message(code: 'form.sparql.query.button')}" action="sparql" id="queryButton" />
         </p>              
-      </fieldset>
     </g:form>
             
   </body>

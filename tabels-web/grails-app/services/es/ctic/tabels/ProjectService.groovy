@@ -67,6 +67,11 @@ class ProjectService {
         FileUtils.forceDelete(getProjectDir(projectId))
     }
     
+    def renameProject(String oldProjectId, String newProjectId) throws ProjectDoesNotExistException {
+        log.info "Renaming project ${oldProjectId} to ${newProjectId}"
+        FileUtils.moveDirectory(getProjectDir(oldProjectId), getProjectDir(newProjectId, true))
+    }
+    
     def boolean isCacheValid(String projectId) throws ProjectDoesNotExistException {
         if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
             return false
@@ -102,6 +107,13 @@ class ProjectService {
         }
     }
     
+    def getGlobalModel() throws RunTimeTabelsException {
+        log.info "Getting global model of all projects"
+        Model model = ModelFactory.createDefaultModel()
+        listProjects().each { model.add(getModel(it)) }        
+        return model
+    }
+    
     def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
         // invalidate cache
         FileUtils.deleteQuietly(getOutputCache(projectId))
@@ -131,7 +143,7 @@ class ProjectService {
 	    def os = new FileOutputStream(getOutputCache(projectId))
         dataOutput.model.write(os, "RDF/XML")
         os.close()
-        log.info "Saved model cache (${getModel(projectId).size()} triples) to ${getOutputCache(projectId)}"
+        log.info "Saved model cache (${dataOutput.model.size()} triples) to ${getOutputCache(projectId)}"
         
         return [model: dataOutput.model, trace: trace]
     }

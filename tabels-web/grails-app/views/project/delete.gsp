@@ -4,7 +4,7 @@
         <meta name="layout" content="main" />
     </head>
     <body>
-        <h2>Confirm project deletion</h2>
+        <h2><g:message code="msg.confirm.project.deletion.title" /></h2>
         
 		<g:form action="delete" id="${params.id}" method="post">
 		    <p>

@@ -14,7 +14,7 @@ import com.hp.hpl.jena.query.QueryParseException
 
 class ProjectController {
 
-    static defaultAction = "list"
+    static defaultAction = "index"
     
     def projectService
     def datasetProvider
@@ -58,6 +58,19 @@ class ProjectController {
             flash.message = "msg.project.successfully.deleted"
             flash.args = [projectId]
             redirect(action: "list")
+        }
+    }
+    
+    def rename = {
+        String oldProjectId = params.id
+        String newProjectId = params.newProjectId
+        if (newProjectId) {
+            projectService.renameProject(oldProjectId, newProjectId)
+            flash.message = "msg.project.successfully.renamed"
+            flash.args = [newProjectId]
+            redirect(action: "index", id: newProjectId)
+        } else {
+            []
         }
     }
     
@@ -173,13 +186,15 @@ class ProjectController {
     }
     
 	def sparql = {
-	    String projectId = params.id // FIXME: validate
+	    String projectId = params.id
+	    def projects = projectId != null ? [projectId] : projectService.listProjects()
+	    def namedGraphs = projects.collect { getGraph(it) }
 		try {
 		    if (params.query == null || params.forceForm) {
-		        render(view:"sparqlForm", model: [query: params.query == null ? "SELECT * \nFROM <${graph}> \nWHERE { ?s ?p ?o }" : params.query])
+		        render(view:"sparqlForm", model: [query: (params.query == null ? "SELECT * \nWHERE { ?s ?p ?o }" : params.query), namedGraphs: namedGraphs])
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-        		endpoint.addNamedGraph(getGraph(), projectService.getModel(projectId))
+		        projects.each { endpoint.addNamedGraph(getGraph(it), projectService.getModel(it)) };
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {
@@ -287,9 +302,9 @@ class ProjectController {
         }    
 	}
 	
-	private String getGraph() {
+	private String getGraph(String projectId) {
 	    // FIXME: not really portable
-	    return ConfigurationHolder.config.grails.serverURL
+	    return ConfigurationHolder.config.grails.serverURL + "/project/${projectId}"
 	}
 	
 	def config = {
