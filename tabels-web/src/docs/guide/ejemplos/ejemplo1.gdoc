@@ -20,6 +20,7 @@ El primer paso es iterar sobre los nombres de los empleados. El siguiente snippe
 Ese cambio de la variable "?resourceEmployee" en cada iteración hace que se active la primera template de la lista de templates. Concretamente este primer bloque genera el rdf que especifica que el recurso es un "ex:worker":
 
 {code}
+construct
 {
     ?resourceEmployee a ex:worker ;
                       skos:prefLabel ?employee .
@@ -44,6 +45,7 @@ Es importante también entender el uso del carácter ';' en el ejemplo. Este car
 
 Esta iteración por tanto activa otros dos templates con sus cambios de variables. El primero es el correspondiente a la dimensión del mes: define en scovo "ex:month" como una dimensión especializada (hereda de "scv:Dimension"), y define el recurso del mes "resourceMesEmployee" como un valor para esa dimensión:
 {code}
+construct
 {
     ?resourceMesEmployee a ex:month ;
                       skos:prefLabel ?mesEmployee .
@@ -57,6 +59,7 @@ La segunda template activada genera ya un primer "item" con las horas correspond
 
 {code}
 {
+construct
     [ a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoMesDataSet ;
         scv:dimension ?resourceEmployee ;
@@ -69,6 +72,7 @@ La segunda template activada genera ya un primer "item" con las horas correspond
 Es interesante notar también que aquellos templates que no dependen de ninguna variable serán generados en el resultado sólo una vez. Es el caso en nuestro ejemplo de los templates que definen los "Datasets" del vocabulario "scovo", por ejemplo el de dedicaciones empleado-mes:
 
 {code}
+construct
 {
     ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
   	 skos:prefLabel "Dedicacion Empleado-Mes" ;
@@ -124,6 +128,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
 ////////////////////DEDICACIÓN EMPLEADO MES//////////////////////////////
 
 //DIMENSION TRABAJADOR
+construct
 {
     ?resourceEmployee a ex:worker ;
                       skos:prefLabel ?employee .
@@ -132,6 +137,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
     
 }
 //DIMENSION MES
+construct
 {
     ?resourceMesEmployee a ex:month ;
                       skos:prefLabel ?mesEmployee .
@@ -140,6 +146,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
     
 }
 //DATA SET
+construct
 {
     [ a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoMesDataSet ;
@@ -148,7 +155,8 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
         scv:dimension ?resourceMesEmployee
 	]
 }
-  
+ 
+construct 
 {
     ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
   	 skos:prefLabel "Dedicacion Empleado-Mes" ;
@@ -157,7 +165,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
 }
 
 /////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////
-
+construct
 {
     ?resourceActividad a ex:actividad ;
                       skos:prefLabel ?actividad .
@@ -165,6 +173,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
               skos:prefLabel "Actividad"
     
 }
+construct
 {
     ?resourceMesActividad a ex:month ;
                       skos:prefLabel ?mesActividad .
@@ -172,6 +181,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
               skos:prefLabel "Mes"
     
 }
+construct
 {
     
     [ a scv:Item ;
@@ -181,7 +191,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
         rdf:value ?horasActividad;
         scv:dimension ?resourceMesActividad]
 }
-  
+construct
 {
     ex:DedicacionEmpleadoActividadMesDataSet a scv:Dataset ;
                                              skos:prefLabel "Dedicacion Empleado-Actividad-Mes" ;
@@ -190,7 +200,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
 
 
 //////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////
-
+construct
 {
     ?resourceSubActividad a ex:subactividad ;
                       skos:prefLabel ?subactividad .
@@ -198,6 +208,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
               skos:prefLabel "SubActividad"
     
 }
+construct
 {
     ?resourceMesSubActividad a ex:month ;
                       skos:prefLabel ?mesSubActividad .
@@ -205,6 +216,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
               skos:prefLabel "Mes"
     
 }
+construct
 {
     
     [ a scv:Item ;
@@ -214,7 +226,7 @@ PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
         rdf:value ?horasSubActividad;
         scv:dimension ?resourceMesSubActividad]
 }
-  
+construct 
 {
     ex:DedicacionEmpleadoSubActividadMesDataSet a scv:Dataset ;
                                              skos:prefLabel "Dedicacion Empleado-SubActividad-Mes" ;
