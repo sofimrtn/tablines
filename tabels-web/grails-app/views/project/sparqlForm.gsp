@@ -21,8 +21,10 @@
           for(var i = format.options.length; i > 0; i--) { format.options[i] = null; }
           format.options[0] = new Option('XML','application/sparql-results+xml');
           format.options[1] = new Option('JSON','application/sparql-results+json');
-          format.options[2] = new Option('HTML','text/html');          
-          format.selectedIndex = 2;
+          format.options[2] = new Option('CSV','text/csv');          
+          format.options[3] = new Option('TSV','text/tab-separated-fields');          
+          format.options[4] = new Option('HTML','text/html');          
+          format.selectedIndex = 4;
         }
       }
 
@@ -70,6 +72,8 @@
           <select name="format" id="format">
             <option value="application/sparql-results+xml">XML</option>
             <option value="application/sparql-results+json">JSON</option>
+            <option value="text/csv">CSV</option>
+            <option value="text/tab-separated-fields">TSV</option>
             <option value="text/html" selected="selected">HTML</option>
           </select>
         </p>
