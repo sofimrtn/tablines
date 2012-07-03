@@ -14,8 +14,10 @@ class UrlMappings {
 		
 		"/upload/$action/$id?"(controller: "upload")
 
-        "/ws/chart"(uri:"/ws/chart.dispatch") 
-        "/ws/dimensions"(uri:"/ws/dimensions.dispatch") 
+        "/ws/chart"(uri:"/tapinos/chart.dispatch")
+        "/ws/dimensions"(uri:"/tapinos/dimensions.dispatch")
+        "/ws/mapArea"(uri:"/tapinos/mapArea.dispatch")
+        "/ws/sanityChecker"(uri:"/tapinos/sanityChecker.dispatch")
 
 		"500"(view:'/error')
 	}
