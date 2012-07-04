@@ -173,7 +173,38 @@ class NumericExpressionsTest extends JUnitSuite {
         assertEquals(3.0, NumericFunctions.doubleOrElse("3.0",5.0),0)        
         assertEquals(5.0, NumericFunctions.doubleOrElse("Foo",5.0),0)        
     }
-  
+    @Test def isDouble {
+        assertTrue(NumericFunctions.isDouble(3.0))
+        assertFalse(NumericFunctions.isDouble("3.0"))  
+        assertFalse(NumericFunctions.isDouble(1)) 
+        assertFalse(NumericFunctions.isDouble("."))        
+    }
+    @Test def canBeDouble {
+        assertTrue(NumericFunctions.canBeDouble(3.0))
+        assertTrue(NumericFunctions.canBeDouble("3.0"))  
+        assertTrue(NumericFunctions.canBeDouble("1"))
+        assertTrue(NumericFunctions.canBeDouble(1)) 
+        assertTrue(NumericFunctions.canBeDouble("1."))
+        assertTrue(NumericFunctions.canBeDouble(".4"))
+        assertFalse(NumericFunctions.canBeDouble("."))
+        assertFalse(NumericFunctions.canBeDouble("foo"))     
+    }
+    @Test def isInt {
+        assertTrue(NumericFunctions.isInt(3))
+        assertFalse(NumericFunctions.isInt("3"))  
+        assertFalse(NumericFunctions.isInt(1.0)) 
+        assertFalse(NumericFunctions.isInt("."))        
+    }
+    @Test def canBeInt {
+        assertTrue(NumericFunctions.canBeInt(3))
+        assertTrue(NumericFunctions.canBeInt("3"))  
+        assertTrue(NumericFunctions.canBeInt("1.0"))
+        assertTrue(NumericFunctions.canBeInt(1.0)) 
+        assertTrue(NumericFunctions.canBeInt("1."))
+        assertTrue(NumericFunctions.canBeInt(".4"))
+        assertFalse(NumericFunctions.canBeInt("."))
+        assertFalse(NumericFunctions.canBeInt("foo"))     
+    }
     
 
 }

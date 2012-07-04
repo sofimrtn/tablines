@@ -1,4 +1,5 @@
 package es.ctic.tabels
+import org.hamcrest.core.IsInstanceOf
 
 /*
  * NUMERIC Expressions
@@ -59,9 +60,33 @@ object NumericFunctions extends FunctionCollection {
     val intSubstract = "int-substract" isDefinedBy { (x : Int, y : Int) => x - y }
     val intMultiply = "int-multiply" isDefinedBy { (x : Int, y : Int) => x * y }
     val intDivide = "int-divide" isDefinedBy { (x : Int, y : Int) =>if(y!=0) x / y else throw new ZeroDivisionException }
-
-     
+    val isDouble = "is-double" isDefinedBy{(x:Any)=> x.isInstanceOf[Double]}
+    val canBeDouble = "can-be-double" isDefinedBy{(x:Any)=> if(x.isInstanceOf[Double])
+    															true
+    														else{ 
+    														  try{if(x.toString.toDouble== 0) true
+    															  else true
+    														  }
+    														  catch{
+    														    case e: Exception => false
+    														  }  
+    														}
+    												}
+    val isInt = "is-int" isDefinedBy{(x:Any)=> x.isInstanceOf[Int]}
+    val canBeInt = "can-be-int" isDefinedBy{(x:Any)=> if(x.isInstanceOf[Int])
+    															true
+    														else{ 
+    														  try{if(x.toString.toDouble.toInt== 0) true
+    															  else true
+    														  }
+    														  catch{
+    														    case e: Exception => false
+    														  }  
+    														}
+    												}
 }
+    														  
+															
 
 
 //FIX ME: Type control
