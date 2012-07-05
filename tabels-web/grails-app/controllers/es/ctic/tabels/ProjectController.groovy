@@ -160,7 +160,7 @@ class ProjectController {
     }
     
     def rdf = {
-        String projectId = params.id // FIXME: validate
+        String projectId = params.id
         try{
 			def model = projectService.getModel(projectId)
 	        
@@ -168,9 +168,23 @@ class ProjectController {
 	            render HttpServletResponse.SC_OK // otherwise Grails will return 404, see http://adhockery.blogspot.com/2011/08/grails-gotcha-beware-head-requests-when.html
 	        } else {
 	            log.debug "Serializing RDF response, ${model.size()} triples"
-			    response.contentType = "application/rdf+xml"
-			    response.setHeader("Content-Disposition", "attachment; filename=data.rdf")
-	            model.write(response.outputStream, "RDF/XML")
+				withFormat {
+				    rdfxml {
+						response.contentType = "application/rdf+xml"
+					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.rdf")
+			            model.write(response.outputStream, "RDF/XML")
+					}
+				    ttl {
+						response.contentType = "text/turtle"
+					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.ttl")
+			            model.write(response.outputStream, "TURTLE")
+					}
+				    text {
+						response.contentType = "text/plain"
+					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.nt")
+			            model.write(response.outputStream, "N-TRIPLE")
+					}
+				} ?: response.sendError(response.SC_UNSUPPORTED_MEDIA_TYPE)
 	        }
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
