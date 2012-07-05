@@ -14,10 +14,13 @@ beans = {
 //		rdfLocale = ref("locale")
 		labelProperty = "http://www.w3.org/2004/02/skos/core#prefLabel"
 	}
-
+	
+	// we need to declare Tapinos services, we cannot use bean autodetection
+	// because we're redefining the Autocomplete one, and if we use autodetection,
+	// it will crash due to duplicate instances
     chartGenerator(ChartGenerator, sparqlDataSource)
     datasetInspector(DatasetInspector, sparqlDataSource)
     relationsInspector(RelationsInspector, sparqlDataSource)
-    sanityCheckerService(SanityCheckerService)
+    sanityCheckerService(SanityCheckerService, sparqlDataSource)
     
 }
