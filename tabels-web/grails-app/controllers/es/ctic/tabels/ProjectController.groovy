@@ -73,10 +73,22 @@ class ProjectController {
             []
         }
     }
+
+	def program = {
+		String projectId = params.id
+		try {
+			def program = projectService.getProgram(projectId)
+		    // response.setHeader("Content-Disposition", "attachment; filename=${projectId}.tabels")
+            render(text: program, contentType: "text/plain", encoding: "UTF-8")
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+		}
+	}
     
     def saveProgram = {
         String program = params.program
-        String projectId = params.id // FIXME: validate
+        String projectId = params.id
         try {
             projectService.saveProgram(projectId, program)
             flash.message = "msg.program.successfully.updated"
