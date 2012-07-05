@@ -159,7 +159,7 @@ class ProjectController {
         }
     }
     
-    def rdf = {
+    def data = {
         String projectId = params.id
         try{
 			def model = projectService.getModel(projectId)
