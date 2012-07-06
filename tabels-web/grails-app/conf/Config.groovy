@@ -122,6 +122,6 @@ log4j = {
             'grails.app.services',
             'grails.app.controllers'
     
-    warn  'es.ctic.data' // tapinos
+    info  'es.ctic.tapinos'
 
 }
