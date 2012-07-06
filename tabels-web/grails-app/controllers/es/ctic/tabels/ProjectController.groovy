@@ -236,7 +236,7 @@ class ProjectController {
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {
-    				log.info("Executing SPARQL query: ${params.query}")
+    				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}): ${params.query}")
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
     					def results = endpoint.getResults().getResult()
     					def vars = ResultSetHelper.extractVariables(results)
