@@ -53,7 +53,7 @@ class ProjectController {
             redirect(action: "index", params: [id: params.newProjectId])
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to create project ${e.projectId}", e)
-            render(status: 404, text: e.getMessage())            
+            render(status: 400, text: e.getMessage())            
         }
     }
     
@@ -61,10 +61,15 @@ class ProjectController {
         String projectId = params.id
         Boolean confirm = params.confirm
         if (confirm) {
-            projectService.deleteProject(projectId)
-            flash.message = "msg.project.successfully.deleted"
-            flash.args = [projectId]
-            redirect(action: "list")
+            try {
+                projectService.deleteProject(projectId)
+                flash.message = "msg.project.successfully.deleted"
+                flash.args = [projectId]
+                redirect(action: "list")
+            } catch (ProjectDoesNotExistException e) {
+                log.error("While trying to delete project ${e.projectId}", e)
+                render(status: 404, text: e.getMessage())            
+            }
         }
     }
     
