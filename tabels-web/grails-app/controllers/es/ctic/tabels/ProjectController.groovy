@@ -11,6 +11,7 @@ import org.apache.commons.httpclient.methods.GetMethod
 import org.apache.commons.httpclient.HttpMethod
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import com.hp.hpl.jena.query.QueryParseException
+import grails.converters.*
 
 class ProjectController {
 
@@ -35,7 +36,13 @@ class ProjectController {
     }
     
     def list = {
-        [projects: projectService.listProjects()]
+        def projects = projectService.listProjects()
+        withFormat {
+            html { [projects: projects] }
+            json {
+                render projects as JSON
+    	    }
+        }        
     }
     
     def create = {

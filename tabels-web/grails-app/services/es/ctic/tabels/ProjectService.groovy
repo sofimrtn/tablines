@@ -48,12 +48,12 @@ class ProjectService {
         return new File(getProjectDir(projectId), "output.rdf")
     }
 
-    File[] getFiles(String projectId) throws ProjectDoesNotExistException {
+    def getFiles(String projectId) throws ProjectDoesNotExistException {
         log.debug "Listing files in temporary dir: ${getInputDir(projectId)}"
         getInputDir(projectId).listFiles()
     }
     
-    String[] listProjects() {
+    def listProjects() {
         FileUtils.forceMkdir(projectsDir)
         return projectsDir.listFiles().collect { it.name }
     }
