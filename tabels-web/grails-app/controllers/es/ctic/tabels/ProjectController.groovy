@@ -232,11 +232,14 @@ class ProjectController {
 		        render(view:"sparqlForm", model: [query: (params.query == null ? "SELECT * \nWHERE { ?s ?p ?o }" : params.query), namedGraphs: namedGraphs])
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-		        projects.each { endpoint.addNamedGraph(getGraph(it), projectService.getModel(it)) };
+		        projects.each { 
+		            log.debug "Loading model of project ${it} as named graph ${getGraph(it)} in SPARQL endpoint"
+		            endpoint.addNamedGraph(getGraph(it), projectService.getModel(it))
+		        }
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {
-    				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}): ${params.query}")
+    				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}) over projects ${projects}: ${params.query}")
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
     					def results = endpoint.getResults().getResult()
     					def vars = ResultSetHelper.extractVariables(results)
