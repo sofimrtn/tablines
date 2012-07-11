@@ -89,6 +89,7 @@ class BasicAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerato
 }
 
 class ScovoAutogenerator extends Autogenerator with Logging {
+	implicit val evaluationContext = EvaluationContext()
     
     val prefixes = Seq(("ex", EX()), ("scv", SCV()), ("rdf", RDF()), ("rdfs", RDFS()), ("skos", SKOS()))
     
@@ -102,6 +103,7 @@ class ScovoAutogenerator extends Autogenerator with Logging {
         
         val cols = dataSource.getCols(filename, sheet)
 
+        val rawItemValue = Variable("?rawItemValue")
         val itemValue = Variable("?itemValue")
         val item = Variable("?item")
         val rowId = Variable("?rowId")
@@ -114,7 +116,7 @@ class ScovoAutogenerator extends Autogenerator with Logging {
 
         // dimension values
         val dimensionValueLabelsVars : List[Variable] = for (col <- List.range(1, cols)) yield Variable("?dvl" + col)
-        val rowTuple = Tuple(dimensionValueLabelsVars :+ itemValue)
+        val rowTuple = Tuple(dimensionValueLabelsVars :+ rawItemValue)
         val dimensionValueVars : List[Variable] = for (col <- List.range(1, cols)) yield Variable("?dv" + col)        
         
         val terminalStmt : Option[TabelsStatement] = None
@@ -124,7 +126,8 @@ class ScovoAutogenerator extends Autogenerator with Logging {
                                                 nestedStatement = innerStmt))
         )
         
-        val matchRowStmt = MatchStatement(rowTuple, nestedStatement = letDimensionValues)
+        val letTreatValueStmt = LetStatement(itemValue, TernaryOperationExpression(NumericFunctions.canBeDouble.createExpression(VariableReference(rawItemValue)), NumericFunctions.double.createExpression(VariableReference(rawItemValue)), NumericFunctions.double.createExpression(LiteralExpression(0))),nestedStatement = letDimensionValues )
+        val matchRowStmt = MatchStatement(rowTuple, nestedStatement = Some(letTreatValueStmt))
         val letItemStmt = LetStatement(item, ResourceExpression(GetRowExpression(rowId), EX()), Some(matchRowStmt))
         val forStmt : TabelsStatement = IteratorStatement(Dimension.rows, variable = Some(rowId),
             filter = Some(GetRowExpression(rowId)), nestedStatement = Some(letItemStmt))
