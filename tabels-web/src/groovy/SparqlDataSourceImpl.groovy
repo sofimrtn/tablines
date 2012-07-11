@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-import es.ctic.data.tapinos.SparqlDataSource
+import es.ctic.tapinos.source.SparqlDataSource
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.QueryExecution;

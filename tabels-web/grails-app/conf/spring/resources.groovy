@@ -1,3 +1,6 @@
+import es.ctic.tapinos.services.*
+import es.ctic.tapinos.debugger.*
+
 // Place your Spring DSL code here
 beans = {
     
@@ -7,13 +10,17 @@ beans = {
         projectService = ref("projectService")
     }
     
-    datasetProvider(es.ctic.data.tapinos.autocomplete.AutocompleteFromEndpoint, sparqlDataSource, "http://purl.org/NET/scovo#Dataset") {
+    datasetProvider(AutocompleteFromEndpoint, sparqlDataSource, "http://purl.org/NET/scovo#Dataset") {
 //		rdfLocale = ref("locale")
 		labelProperty = "http://www.w3.org/2004/02/skos/core#prefLabel"
 	}
-
-    chartGenerator(es.ctic.data.tapinos.chart.ChartGenerator, sparqlDataSource)
-    datasetInspector(es.ctic.data.tapinos.chart.DatasetInspector, sparqlDataSource)
-    relationsInspector(es.ctic.data.tapinos.chart.RelationsInspector, sparqlDataSource)
+	
+	// we need to declare Tapinos services, we cannot use bean autodetection
+	// because we're redefining the Autocomplete one, and if we use autodetection,
+	// it will crash due to duplicate instances
+    chartGenerator(ChartGenerator, sparqlDataSource)
+    datasetInspector(DatasetInspector, sparqlDataSource)
+    relationsInspector(RelationsInspector, sparqlDataSource)
+    sanityCheckerService(SanityCheckerService, sparqlDataSource)
     
 }

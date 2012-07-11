@@ -85,7 +85,11 @@
 		    });
 		</r:script>
 		
-		<p class="rdfDownloadLink"><g:link action="rdf" id="${params.id}"><g:message code="msg.download.rdf.title"/></g:link></p>
+		<p class="rdfDownloadLink"><g:message code="msg.download.rdf.title"/>
+			<g:link action="data" id="${params.id}">[RDF/XML]</g:link>
+			<g:link action="data" id="${params.id}" params="[format: 'ttl']">[Turtle]</g:link>
+			<g:link action="data" id="${params.id}" params="[format: 'text']">[N-Triples]</g:link>
+		</p>
 		
 		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
 		

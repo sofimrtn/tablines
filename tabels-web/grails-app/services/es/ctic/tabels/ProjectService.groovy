@@ -48,22 +48,40 @@ class ProjectService {
         return new File(getProjectDir(projectId), "output.rdf")
     }
 
-    File[] getFiles(String projectId) throws ProjectDoesNotExistException {
+    def getFiles(String projectId) throws ProjectDoesNotExistException {
         log.debug "Listing files in temporary dir: ${getInputDir(projectId)}"
         getInputDir(projectId).listFiles()
     }
     
-    String[] listProjects() {
+    def listProjects() {
         FileUtils.forceMkdir(projectsDir)
         return projectsDir.listFiles().collect { it.name }
     }
     
+    def listInputs(String projectId) {
+        return getInputDir(projectId).listFiles().collect { it.name }
+    }
+    
+    def saveInput(String projectId, def f) {
+        def destination = new File(getInputDir(projectId), f.originalFilename)
+        log.info "Saving new input file of project ${projectId} to ${destination}"
+        return f.transferTo(destination)
+    }
+    
+    def deleteInput(String projectId, String filename) {
+        def f = new File(getInputDir(projectId), filename)
+        log.info "Deleting file ${f} of project ${projectId}"
+        return f.delete()
+    }
+    
     def createProject(String projectId) throws ProjectDoesNotExistException {
+        log.info "Creating project ${projectId}"
         FileUtils.forceMkdir(getProjectDir(projectId, true))
         FileUtils.forceMkdir(getInputDir(projectId))
     }
     
     def deleteProject(String projectId) throws ProjectDoesNotExistException {
+        log.info "Deleting project ${projectId}"
         FileUtils.forceDelete(getProjectDir(projectId))
     }
     

@@ -11,6 +11,7 @@ import org.apache.commons.httpclient.methods.GetMethod
 import org.apache.commons.httpclient.HttpMethod
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import com.hp.hpl.jena.query.QueryParseException
+import grails.converters.*
 
 class ProjectController {
 
@@ -35,7 +36,13 @@ class ProjectController {
     }
     
     def list = {
-        [projects: projectService.listProjects()]
+        def projects = projectService.listProjects()
+        withFormat {
+            html { [projects: projects] }
+            json {
+                render projects as JSON
+    	    }
+        }        
     }
     
     def create = {
@@ -46,7 +53,7 @@ class ProjectController {
             redirect(action: "index", params: [id: params.newProjectId])
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to create project ${e.projectId}", e)
-            render(status: 404, text: e.getMessage())            
+            render(status: 400, text: e.getMessage())            
         }
     }
     
@@ -54,10 +61,15 @@ class ProjectController {
         String projectId = params.id
         Boolean confirm = params.confirm
         if (confirm) {
-            projectService.deleteProject(projectId)
-            flash.message = "msg.project.successfully.deleted"
-            flash.args = [projectId]
-            redirect(action: "list")
+            try {
+                projectService.deleteProject(projectId)
+                flash.message = "msg.project.successfully.deleted"
+                flash.args = [projectId]
+                redirect(action: "list")
+            } catch (ProjectDoesNotExistException e) {
+                log.error("While trying to delete project ${e.projectId}", e)
+                render(status: 404, text: e.getMessage())            
+            }
         }
     }
     
@@ -73,10 +85,22 @@ class ProjectController {
             []
         }
     }
+
+	def program = {
+		String projectId = params.id
+		try {
+			def program = projectService.getProgram(projectId)
+		    // response.setHeader("Content-Disposition", "attachment; filename=${projectId}.tabels")
+            render(text: program, contentType: "text/plain", encoding: "UTF-8")
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+		}
+	}
     
     def saveProgram = {
         String program = params.program
-        String projectId = params.id // FIXME: validate
+        String projectId = params.id
         try {
             projectService.saveProgram(projectId, program)
             flash.message = "msg.program.successfully.updated"
@@ -128,6 +152,50 @@ class ProjectController {
         }
     }
     
+    def listInputs = {
+        String projectId = params.id
+        try {
+            def inputs = projectService.listInputs(projectId)
+            withFormat {
+                // html { [inputs: inputs] }
+                json {
+                    render inputs as JSON
+        	    }
+            }        
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+        }
+    }
+    
+    def uploadInput = {
+        String projectId = params.id
+        def f = request.getFile('file')
+        if (f.empty) {
+            response.sendError(400)
+        } else {
+            try {
+                projectService.saveInput(projectId, f)
+                response.sendError(200, 'Done')   
+            } catch (ProjectDoesNotExistException e) {
+                log.error("While trying to access project ${e.projectId}", e)
+                render(status: 404, text: e.getMessage())
+            }            
+        }
+    }
+    
+    def deleteInput = {
+        String projectId = params.id
+        String filename = params.filename
+        try {
+            projectService.deleteInput(projectId, filename)
+            response.sendError(200, 'Done')
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+        }            
+    }
+    
     def datasetInfo = {
         String projectId = params.id
         try {
@@ -159,8 +227,8 @@ class ProjectController {
         }
     }
     
-    def rdf = {
-        String projectId = params.id // FIXME: validate
+    def data = {
+        String projectId = params.id
         try{
 			def model = projectService.getModel(projectId)
 	        
@@ -168,9 +236,23 @@ class ProjectController {
 	            render HttpServletResponse.SC_OK // otherwise Grails will return 404, see http://adhockery.blogspot.com/2011/08/grails-gotcha-beware-head-requests-when.html
 	        } else {
 	            log.debug "Serializing RDF response, ${model.size()} triples"
-			    response.contentType = "application/rdf+xml"
-			    response.setHeader("Content-Disposition", "attachment; filename=data.rdf")
-	            model.write(response.outputStream, "RDF/XML")
+				withFormat {
+				    rdfxml {
+						response.contentType = "application/rdf+xml"
+					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.rdf")
+			            model.write(response.outputStream, "RDF/XML")
+					}
+				    ttl {
+						response.contentType = "text/turtle"
+					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.ttl")
+			            model.write(response.outputStream, "TURTLE")
+					}
+				    text {
+						response.contentType = "text/plain"
+					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.nt")
+			            model.write(response.outputStream, "N-TRIPLE")
+					}
+				} ?: response.sendError(response.SC_UNSUPPORTED_MEDIA_TYPE)
 	        }
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
@@ -194,11 +276,15 @@ class ProjectController {
 		        render(view:"sparqlForm", model: [query: (params.query == null ? "SELECT * \nWHERE { ?s ?p ?o }" : params.query), namedGraphs: namedGraphs])
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-		        projects.each { endpoint.addNamedGraph(getGraph(it), projectService.getModel(it)) };
+		        projects.each { 
+		            log.info "Loading model of project ${it} as named graph ${getGraph(it)} in SPARQL endpoint"
+		            endpoint.addNamedGraph(getGraph(it), projectService.getModel(it))
+		        }
+		        // endpoint.setDefaultNamedGraph(projectService.getModel("foobar"))
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {
-    				log.info("Executing SPARQL query: ${params.query}")
+    				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}) over projects ${projects}: ${params.query}")
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
     					def results = endpoint.getResults().getResult()
     					def vars = ResultSetHelper.extractVariables(results)

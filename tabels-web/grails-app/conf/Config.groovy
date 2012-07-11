@@ -12,13 +12,15 @@
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
-grails.mime.use.accept.header = false
+grails.mime.use.accept.header = true
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       xml: ['text/xml', 'application/xml'],
                       text: 'text/plain',
                       js: 'text/javascript',
                       rss: 'application/rss+xml',
                       atom: 'application/atom+xml',
+					  rdfxml: 'application/rdf+xml',
+					  ttl: 'text/turtle',
                       css: 'text/css',
                       csv: 'text/csv',
                       all: '*/*',
@@ -48,7 +50,7 @@ grails.enable.native2ascii = true
 // whether to install the java.util.logging bridge for sl4j. Disable for AppEngine!
 grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
-grails.spring.bean.packages = ['es.ctic.data.tapinos.springcontrollers']
+grails.spring.bean.packages = ['es.ctic.tapinos.springcontrollers']
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
@@ -120,6 +122,6 @@ log4j = {
             'grails.app.services',
             'grails.app.controllers'
     
-    warn  'es.ctic.data' // tapinos
+    info  'es.ctic.tapinos'
 
 }
