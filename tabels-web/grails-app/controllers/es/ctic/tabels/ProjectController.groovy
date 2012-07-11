@@ -152,6 +152,35 @@ class ProjectController {
         }
     }
     
+    def listInputs = {
+        String projectId = params.id
+        def inputs = projectService.listInputs(projectId)
+        withFormat {
+            // html { [inputs: inputs] }
+            json {
+                render inputs as JSON
+    	    }
+        }        
+    }
+    
+    def uploadInput = {
+        String projectId = params.id
+        def f = request.getFile('file')
+        if (f.empty) {
+            response.sendError(400)
+        } else {
+            projectService.saveInput(projectId, f)
+        }
+        response.sendError(200, 'Done')   
+    }
+    
+    def deleteInput = {
+        String projectId = params.id
+        String filename = params.filename
+        projectService.deleteInput(projectId, filename)
+        response.sendError(200, 'Done')
+    }
+    
     def datasetInfo = {
         String projectId = params.id
         try {
@@ -233,9 +262,10 @@ class ProjectController {
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
 		        projects.each { 
-		            log.debug "Loading model of project ${it} as named graph ${getGraph(it)} in SPARQL endpoint"
+		            log.info "Loading model of project ${it} as named graph ${getGraph(it)} in SPARQL endpoint"
 		            endpoint.addNamedGraph(getGraph(it), projectService.getModel(it))
 		        }
+		        // endpoint.setDefaultNamedGraph(projectService.getModel("foobar"))
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {

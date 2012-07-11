@@ -5,6 +5,9 @@ class UrlMappings {
 		"/createProject"(controller: "project", action: "create")
 		name globalSparql: "/sparql"(controller: "project", action: "sparql")
 		name globalTapinos: "/tapinos"(controller: "project", action: "tapinos")
+		"/project/$id/input/$filename?"(controller: "project") {
+		    action = [GET: "listInputs", POST: "uploadInput", DELETE: "deleteInput"]
+		}
 		name projectSpecific: "/project/$id/$action?"(controller: "project")
 /*		"/$controller/$action?/$id?"{
 			constraints {
