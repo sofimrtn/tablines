@@ -108,5 +108,5 @@ case class TernaryOperationExpression(condition: Expression, trueExpression: Exp
   
   override def evaluate(evaluationContext: EvaluationContext)= 
     if(condition.evaluateAsTruthValue(evaluationContext)) trueExpression.evaluate(evaluationContext) else falseExpression.evaluate(evaluationContext)
-  override def prettyPrint = "if" +  condition.toString  +" then "+ trueExpression.toString +" else "+falseExpression.toString 
+  override def prettyPrint = "if " +  condition.toString  +" then "+ trueExpression.toString +" else "+falseExpression.toString 
 }
