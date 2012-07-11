@@ -154,13 +154,18 @@ class ProjectController {
     
     def listInputs = {
         String projectId = params.id
-        def inputs = projectService.listInputs(projectId)
-        withFormat {
-            // html { [inputs: inputs] }
-            json {
-                render inputs as JSON
-    	    }
-        }        
+        try {
+            def inputs = projectService.listInputs(projectId)
+            withFormat {
+                // html { [inputs: inputs] }
+                json {
+                    render inputs as JSON
+        	    }
+            }        
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+        }
     }
     
     def uploadInput = {
@@ -169,16 +174,26 @@ class ProjectController {
         if (f.empty) {
             response.sendError(400)
         } else {
-            projectService.saveInput(projectId, f)
+            try {
+                projectService.saveInput(projectId, f)
+                response.sendError(200, 'Done')   
+            } catch (ProjectDoesNotExistException e) {
+                log.error("While trying to access project ${e.projectId}", e)
+                render(status: 404, text: e.getMessage())
+            }            
         }
-        response.sendError(200, 'Done')   
     }
     
     def deleteInput = {
         String projectId = params.id
         String filename = params.filename
-        projectService.deleteInput(projectId, filename)
-        response.sendError(200, 'Done')
+        try {
+            projectService.deleteInput(projectId, filename)
+            response.sendError(200, 'Done')
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+        }            
     }
     
     def datasetInfo = {
