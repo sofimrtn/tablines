@@ -89,8 +89,8 @@ h2 {
 }
 
 .sparqlLink {
-    background: url(../images/sw-sparql-orange.png) no-repeat;
-    padding-left: 85px;
+    background: url(../images/sparql.png) no-repeat;
+    padding-left: 20px;
 }
 
 .chartsLink {
