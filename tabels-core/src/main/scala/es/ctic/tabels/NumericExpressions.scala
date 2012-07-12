@@ -1,5 +1,4 @@
 package es.ctic.tabels
-import org.hamcrest.core.IsInstanceOf
 
 /*
  * NUMERIC Expressions
