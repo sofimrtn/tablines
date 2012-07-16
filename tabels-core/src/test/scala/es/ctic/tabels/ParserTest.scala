@@ -150,6 +150,14 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (setInDimensionStatement, "")
     }
     
+    @Test def parseWhenConditionalStatement(){
+        assertParse(whenConditionalStatement, "when can-be-double(?y) do",
+            WhenConditionalStatement(condition = Some(Left(NumericFunctions.canBeDouble.createExpression(VariableReference(Variable("?y")))))))
+                           
+        assertFail (matchStatement, "")
+        assertFail (iteratorStatement, "For ?y")
+    }
+    
     @Test def parseLetStatement {
         assertParse(letStatement, "let ?x = 10", LetStatement(Variable("?x"), LiteralExpression(Literal(10, XSD_INT))))
         assertFail (letStatement, "")
