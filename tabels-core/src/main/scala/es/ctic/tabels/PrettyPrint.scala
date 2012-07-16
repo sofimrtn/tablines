@@ -62,6 +62,12 @@ class PrettyPrint(indent_ : Int = 0) extends AbstractVisitor {
         visitNestedStatement(stmt.nestedStatement, true)
     }
     
+    override def visit(stmt : WhenConditionalStatement) {
+        str append "\n" append (" " * indent) append "WHEN "
+        str append (stmt.condition map (_.fold(exp => exp,pos => pos) + " DO") getOrElse "")
+        visitNestedStatement(stmt.nestedStatement, true)
+    }
+    
     def visitNestedStatement(stmts : Option[TabelsStatement], increaseIndent : Boolean) {
         val oldIndent = indent
         if (increaseIndent) {
