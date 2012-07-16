@@ -1,0 +1,33 @@
+h4. Sentencias Condicionales
+Este tipo de sentencias nacen para cubrir aquellas ocasiones en las que puede ser útil condicionar en tiempo de ejecución el recorrido por una parte del programa tabels en función de los valores encontrados
+en la tabla o de la posición actual. La sintaxis de de estas sentencias es de la forma:
+    {code}
+        WHEN [_expression_ | _position_] DO 
+    {code}
+Todas las sentencias anidadas por debajo de esta se ejecutarán si se cumple la condición, es decir, en caso de que la condición sea una expresión si el resultado de evaluarla
+es positivo(TRUE) se recorrerá la parte de programa situada debajo de la sentencia condicional. Por otra parte, si la condición es una posición
+el resultado será positivo sólo cuando el programa esté recorriendo esa posición del origen de datos.
+    
+Esta sentencia se usa en el programa de SCOVO autogenerado por tabels para evitar que valores que no sean numéricos sean tratados como tal.
+    {code}
+        .
+        .
+        MATCH [?dvl1,?rawItemValue] IN horizontal 
+        WHEN can-be-double(?rawItemValue) DO
+             LET ?itemValue = double(?rawItemValue)
+             LET ?dv1 = resource(?dvl1,<http://example.org/ex#>)
+        
+        CONSTRUCT {
+            ?item a scv:Item .
+            ?item scv:dataset ex:myDataset .
+            ?item rdf:value ?itemValue .
+            ?item scv:dimension ?dv1
+        }
+        .
+        .
+        .
+    {code}
+En el ejemplo _?rawItemValue_ toma el valor directamente de la tabla mediante la sentencia MATCH. Para asegurarnos de que toma un valor numérico usamos la sentencia condicional
+con la expresión _can-be-double(?rawItemValue)_ que se cumplirá en el caso de que el valor sea promocionable a tipo double. Si el valor no es numérico las variables _?itemValue_ y _?dv1_
+no toman ningún valor y por lo tanto el template del ejemplo no se instanciará. 
+Ene el caso contrario, si el valor es numérico las sentencias anidadas bajo la sentencia condicional se ejecutarán y las variables tomarán los valores correspondientes.  

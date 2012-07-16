@@ -3,6 +3,7 @@ introduccion:
 tabelsLenguaje:
     title : Lenguaje Tabels
     dimensionStatements: Sentencias de dimensiones
+    conditionalStatements: Sentencias condicionales
     variableAssignmentStatements: Sentencias de asignación de variables
     functions:
         title: Expresiones
