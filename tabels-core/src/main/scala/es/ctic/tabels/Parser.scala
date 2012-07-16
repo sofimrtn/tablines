@@ -65,6 +65,7 @@ class TabelsParser extends JavaTokenParsers {
 	def UNTIL = "until".ignoreCase
 	def MATCH = "match".ignoreCase
     def SET = "set".ignoreCase
+    def DO = "do".ignoreCase
     
     // functions
 	def RESOURCE = "resource".ignoreCase
@@ -180,7 +181,7 @@ class TabelsParser extends JavaTokenParsers {
 	                        (prefix -> ns)
 	    }
 	
-	def tabelsStatement : Parser[TabelsStatement] = blockStatement | iteratorStatement | setInDimensionStatement | letStatement | matchStatement 
+	def tabelsStatement : Parser[TabelsStatement] = blockStatement | iteratorStatement | setInDimensionStatement | whenConditionalStatement | letStatement | matchStatement 
 	
 	def blockStatement : Parser[BlockStatement] = "{" ~> rep1sep(tabelsStatement, ";") <~ "}" ^^ { BlockStatement(_) }
 	
@@ -188,8 +189,9 @@ class TabelsParser extends JavaTokenParsers {
         { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p) }|
         NOT~>WINDOWED~>(FOR ~> opt(variable <~ IN)) ~ dimension ~ startCondition ~filterCondition~ stopCondition ~ opt(tabelsStatement) ^^
         { case v~d~b~f~s~p => IteratorStatement(variable = v, dimension = d,startCond =b, filter = f, stopCond = s, nestedStatement = p,windowed = false) }
-    
-	def setInDimensionStatement : Parser[SetInDimensionStatement] = (SET ~> opt(variable <~ IN) ~ dimension) ~ path ~ opt(tabelsStatement) ^^
+    def whenConditionalStatement : Parser[WhenConditionalStatement] = ((WHEN ~> condition) <~ DO) ~ opt(tabelsStatement)^^
+        { case c ~ s => WhenConditionalStatement(condition =c,  nestedStatement = s) }
+    def setInDimensionStatement : Parser[SetInDimensionStatement] = (SET ~> opt(variable <~ IN) ~ dimension) ~ path ~ opt(tabelsStatement) ^^
         { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
       
 	
@@ -214,7 +216,9 @@ class TabelsParser extends JavaTokenParsers {
      
     def filterCondition : Parser[Option[Expression]] = 
       opt(FILTER ~> expression)
-      
+    
+    def condition : Parser[Option[Either[Expression,Position]]] =
+      opt((expression)^^{Left(_)}|(position)^^{Right(_)})  
       
     def expression : Parser[Expression] = 
         variable ^^ VariableReference |
@@ -269,8 +273,8 @@ class TabelsParser extends JavaTokenParsers {
     ceiling |
     int | intOrElse |
     float |
-    double | doubleOrElse | isDouble| canBeDouble
-    intAdd | intSubstract | intMultiply | intDivide |isInt | canBeInt
+    double | doubleOrElse | isDouble| canBeDouble |
+    intAdd | intSubstract | intMultiply | intDivide | isInt | canBeInt
     
     import StringFunctions._
     

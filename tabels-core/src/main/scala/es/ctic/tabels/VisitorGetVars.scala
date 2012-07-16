@@ -47,6 +47,14 @@ class VisitorGetVars extends AbstractVisitor {
        }
     }
     
+    override def visit(stmt : WhenConditionalStatement) {
+      stmt.nestedStatement match{
+         case None =>
+         case Some(_) => stmt.nestedStatement.get.accept(this)
+       }
+      
+    }
+    
     override def visit(stmt : SetInDimensionStatement) {
         stmt.variable match{
          case None =>

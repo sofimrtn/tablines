@@ -76,8 +76,20 @@ case class SetInDimensionStatement(override val dimension : Dimension, fixedDime
   
   override def accept(vis : Visitor) = vis.visit(this)
 }
+/*
+ * 
+ * group of classes designed for conditional purpouses
+ * 
+ */
+abstract class ConditionalStatement extends TabelsStatement{
+	val condition : Option[Either[Expression,Position]]
+}
 
-
+case class WhenConditionalStatement(override val condition : Option[Either[Expression,Position]] = None,
+		nestedStatement: Option[TabelsStatement] = None) extends ConditionalStatement {
+  
+  override def accept(vis : Visitor) = vis.visit(this)
+}
 
 case class Variable (name : String) {
 
