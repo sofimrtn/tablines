@@ -11,6 +11,7 @@ abstract class Visitor {
   def visit(iteratorStatement : IteratorStatement)
   def visit(dimensionExp :SetInDimensionStatement)
   def visit(pattMatch : MatchStatement)
+  def visit(whenCondition : WhenConditionalStatement)
 
 }
 
@@ -21,6 +22,7 @@ class AbstractVisitor extends Visitor with Logging {
   override def visit(iteratorStatement : IteratorStatement) = {}
   override def visit(dimensionExp :SetInDimensionStatement)= {}
   override def visit(pattMatch : MatchStatement) = {}
+  override def visit(whenCondition : WhenConditionalStatement) = {}
 }
 
 
@@ -198,6 +200,30 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		  	  matchStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, newEvaluationContext)))
 		  	}
 	  }
+  }
+  
+  override def visit(whenConditionalStatement : WhenConditionalStatement) = {
+   
+    logger.debug("Visting whenConditional statement " + whenConditionalStatement.condition)
+    
+   // val requiredDimension = requiredDimensionMap(whenConditionalStatement.dimension)
+    
+  /*  if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
+	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, nestedStatement = Some(whenConditionalStatement)).accept(this)
+	} 
+    else {
+*/     
+      whenConditionalStatement.condition match{
+        case Some(v) =>if(v.fold(expr => expr.evaluateAsTruthValue(evaluationContext),
+        						 pos => (pos.calculatePoint(evaluationContext).col == evaluationContext.cursor.col) && (pos.calculatePoint(evaluationContext).row == evaluationContext.cursor.row)))
+        					whenConditionalStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, evaluationContext)))
+        case None =>	
+     // }
+      	
+	  
+    }
+	  
+	
   }
  
  }

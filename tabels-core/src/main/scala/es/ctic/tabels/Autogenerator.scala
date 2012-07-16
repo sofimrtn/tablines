@@ -126,9 +126,10 @@ class ScovoAutogenerator extends Autogenerator with Logging {
                                                 nestedStatement = innerStmt))
         )
         
-        val letTreatValueStmt = LetStatement(itemValue, TernaryOperationExpression(NumericFunctions.canBeDouble.createExpression(VariableReference(rawItemValue)), NumericFunctions.double.createExpression(VariableReference(rawItemValue)), NumericFunctions.double.createExpression(LiteralExpression(0))),nestedStatement = letDimensionValues )
-        val matchRowStmt = MatchStatement(rowTuple, nestedStatement = Some(letTreatValueStmt))
-        val letItemStmt = LetStatement(item, ResourceExpression(GetRowExpression(rowId), EX()), Some(matchRowStmt))
+        val letTreatValueStmt = LetStatement(itemValue, NumericFunctions.double.createExpression(VariableReference(rawItemValue)),nestedStatement = letDimensionValues )
+        val whenStmt = WhenConditionalStatement(Some(Left(NumericFunctions.canBeDouble.createExpression(VariableReference(rawItemValue)))), nestedStatement = Some(letTreatValueStmt))
+        val matchRowStmt = MatchStatement(rowTuple, nestedStatement = Some(whenStmt))
+        val letItemStmt = LetStatement(item, ResourceExpression(GetRowExpression(rowId), EX()), nestedStatement =Some(matchRowStmt))
         val forStmt : TabelsStatement = IteratorStatement(Dimension.rows, variable = Some(rowId),
             filter = Some(GetRowExpression(rowId)), nestedStatement = Some(letItemStmt))
         
