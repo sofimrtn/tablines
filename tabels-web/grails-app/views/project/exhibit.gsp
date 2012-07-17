@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title><g:message code="msg.faceted.view.title"/></title>
-    <script src="${resource(dir:'js/exhibit',file:'exhibit-api.js')}"
+    <script src="http://api.simile-widgets.org/exhibit/2.2.0/exhibit-api.js"
                 type="text/javascript"></script>
     <link href="exhibitData" type="application/json" rel="exhibit/data" />
     <meta name="layout" content="main" />
