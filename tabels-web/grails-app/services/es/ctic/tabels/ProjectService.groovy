@@ -7,6 +7,7 @@ import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.query.QueryExecutionFactory
 import org.apache.commons.io.FileUtils
+import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class ProjectService {
 
@@ -98,12 +99,16 @@ class ProjectService {
         }
     }
     
+    def getDefaultNamespace(String projectId) {
+        new Namespace(ConfigurationHolder.config.grails.serverURL + "/pubby/resource/" + projectId + "/")
+    }
+    
     def autogenerateProgram(String projectId, String strategy) throws ProjectDoesNotExistException {
         def autogenerator
         if (strategy == "SCOVO") {
-            autogenerator = new ScovoAutogenerator()
+            autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId))
         } else {
-            autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
+            autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId))
         }
         def program = autogenerator.autogenerateProgram(getDataSource(projectId))
         saveProgram(projectId, program)
@@ -139,7 +144,7 @@ class ProjectService {
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()
-		def autogenerator = new BasicAutogenerator(new Namespace("http://localhost:8080/tabels-web/pubby/resource/")) // FIXME: generalize
+		def autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId))
         def program = getProgramFile(projectId).exists() ? parser.parseProgram(getProgramFile(projectId)) : autogenerator.autogenerateProgram(dataSource)
 		def interpreter = new Interpreter()
 		def dataOutput = new JenaDataOutput(program.prefixesAsMap())

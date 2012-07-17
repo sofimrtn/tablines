@@ -41,7 +41,7 @@ trait Autogenerator extends Logging {
 
 class BasicAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerator with Logging {
 
-    val prefixes = Seq(("ex", defaultNamespace()), ("rdf", RDF()), ("rdfs", RDFS()))
+    val prefixes = Seq(("my", defaultNamespace()), ("rdf", RDF()), ("rdfs", RDFS()))
 
     override def autogenerateProgram(dataSource : DataSource) : S = {
         if (dataSource.filenames.isEmpty) {
@@ -88,10 +88,10 @@ class BasicAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerato
     
 }
 
-class ScovoAutogenerator extends Autogenerator with Logging {
+class ScovoAutogenerator(defaultNamespace : Namespace = EX) extends Autogenerator with Logging {
 	implicit val evaluationContext = EvaluationContext()
     
-    val prefixes = Seq(("ex", EX()), ("scv", SCV()), ("rdf", RDF()), ("rdfs", RDFS()), ("skos", SKOS()))
+    val prefixes = Seq(("my", defaultNamespace()), ("scv", SCV()), ("rdf", RDF()), ("rdfs", RDFS()), ("skos", SKOS()))
     
     override def autogenerateProgram(dataSource : DataSource) : S = {
         if (dataSource.filenames.isEmpty) {
@@ -107,7 +107,7 @@ class ScovoAutogenerator extends Autogenerator with Logging {
         val itemValue = Variable("?itemValue")
         val item = Variable("?item")
         val rowId = Variable("?rowId")
-        val dataset = EX("myDataset")
+        val dataset = defaultNamespace("dataset")
 
         // dimensions
         val dimensionLabelVars : List[Variable] = for (col <- List.range(1, cols)) yield Variable("?dl" + col)
@@ -122,20 +122,20 @@ class ScovoAutogenerator extends Autogenerator with Logging {
         val terminalStmt : Option[TabelsStatement] = None
         val letDimensionValues : Option[TabelsStatement] = List.range(0, cols-1).foldLeft(terminalStmt)(
             (innerStmt, i) => Some(LetStatement(dimensionValueVars(i),
-                                                ResourceExpression(VariableReference(dimensionValueLabelsVars(i)), EX()),
+                                                ResourceExpression(VariableReference(dimensionValueLabelsVars(i)), defaultNamespace()),
                                                 nestedStatement = innerStmt))
         )
         
         val letTreatValueStmt = LetStatement(itemValue, NumericFunctions.double.createExpression(VariableReference(rawItemValue)),nestedStatement = letDimensionValues )
         val whenStmt = WhenConditionalStatement(Some(Left(NumericFunctions.canBeDouble.createExpression(VariableReference(rawItemValue)))), nestedStatement = Some(letTreatValueStmt))
         val matchRowStmt = MatchStatement(rowTuple, nestedStatement = Some(whenStmt))
-        val letItemStmt = LetStatement(item, ResourceExpression(GetRowExpression(rowId), EX()), nestedStatement =Some(matchRowStmt))
+        val letItemStmt = LetStatement(item, ResourceExpression(GetRowExpression(rowId), defaultNamespace()), nestedStatement =Some(matchRowStmt))
         val forStmt : TabelsStatement = IteratorStatement(Dimension.rows, variable = Some(rowId),
             filter = Some(GetRowExpression(rowId)), nestedStatement = Some(letItemStmt))
         
         val letDimensions : TabelsStatement = List.range(0, cols-1).foldLeft(forStmt)(
             (innerStmt, i) => LetStatement(dimensionVars(i),
-                                           ResourceExpression(VariableReference(dimensionLabelVars(i)), EX()),
+                                           ResourceExpression(VariableReference(dimensionLabelVars(i)), defaultNamespace()),
                                            nestedStatement = Some(innerStmt))
         )
         
