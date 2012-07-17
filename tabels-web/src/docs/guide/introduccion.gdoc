@@ -1,4 +1,41 @@
-* item 1
-** subitem 1
-** subitem 2
-* item 2
+Tabels transforma datos tabulares en grafos RDF. Este documento describe el funcionamiento y uso
+de Tabels.
+
+Las transformaciones se basan en dos procesos complementarios. En primer lugar, se evalúan
+*patrones* con respecto a las fuentes de datos tabulares. Como resultado de este primer proceso,
+las variables que aparecen en los patrones son ligadas a valores concretos. El segundo proceso
+consiste en la instanciación de *plantillas* para producir fragmentos del grafo RDF resultante.
+
+El resultado de una transformación es la combinación de todos los subgrafos RDF obtenidos mediante
+todas las posibles instanciaciones de las plantillas que sean coherentes con los patrones.
+
+Tabels define los patrones y las plantillas mediante un lenguaje propio, con una sintaxis inspirada
+por XQuery, XPath y SPARQL, pero con rasgos propios. El lenguaje es funcional, dado que se basa en
+la evaluación de expresiones y no existe
+asignación destructiva de valores a las variables (es decir, las variables nunca cambian de valor).
+
+Los patrones se definen mediante un lenguaje de *sentencias* interpretadas. Mediante este lenguaje
+resulta posible extraer valores de las fuentes de datos, calcular valores derivados mediante
+la evaluación de expresiones, y realizar encaje iterativo y condicional de patrones. Las
+sentencias tienen una estructura jerárquica, de tal forma que cada sentencia puede modificar la
+forma en la que se realiza el encaje de patrones en las sentencias anidadas.
+La interpretación de los patrones se realiza en preorden y
+comienza por la sentencia que ocupa la raíz de la jerarquía. Las variables que aparecen en los
+patrones (y por tanto, sus ligaduras) tienen un ámbito limitado a la sentencia en la que aparecen y sus sentencias anidadas.
+
+La interpretación de una sentencia puede producir ligaduras para variables que previamente no
+se encontraban aún asignadas. Este suceso se denomina *evento*. En un evento, una o más variables
+resultan ligadas a valores concretos. Una variable puede ligarse a varios valores (pero no de
+forma simultánea) en distintos eventos desencadenados por una sentencia, por ejemplo, en una iteración.
+
+Tabels realiza todas las instanciaciones posibles de las plantillas considerando todos los
+eventos disparados por los patrones. Una plantilla es instanciable con respecto a un evento si 
+el evento contiene ligaduras para al menos todas las variables contenidas en la plantilla.
+Una plantilla se instancia para cada evento que contiene una combinacione distinta de
+ligaduras sus variables. Por tanto, no es necesario establecer una relación explícita entre
+los patrones y las plantillas, ya que se determina automáticamente. Como consecuencia, los
+patrones de un programa Tabels definen _cómo se extraen los valores de las variables a partir de
+las fuentes de datos_ y las plantillas definen _qué forma tienen los subgrafos que conforman el
+resultado_. Esta separación reduce el acoplamiento entre ambas partes al mínimo (sólo deben
+acordarse nombres de variables comunes), y permite que patrones y plantillas evolucionen y se
+reutilicen de forma independiente.
