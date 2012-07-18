@@ -1,0 +1,39 @@
+h3. Descarga del programa de transformación
+
+URL: @{tabelsURL}/project/{nombreProyecto}/program@
+
+Método: @GET@
+
+Parámetros de consulta: ninguno.
+
+Código de respuesta:
+* @200 OK@ en caso de éxito.
+* @404 Not Found@ si el proyecto no existe.
+
+Contenido de la respuesta: el programa asociado al proyecto, representado como una cadena en texto plano.
+
+
+h3. Subida de un programa de transformación
+
+URL: @{tabelsURL}/project/{nombreProyecto}/saveProgram@
+
+Método: @POST@
+
+{note}
+Por el momento no se permite la subida de programas mediante el método @PUT@. Es posible que
+en el futuro se añada esta posibilidad.
+{note}
+
+Parámetros de consulta:
+* @program@ (obligatorio): una cadena de texto con el contenido del nuevo programa.
+
+Código de respuesta:
+* @200 OK@ si el programa quedó almacenado con éxito.
+* @404 Not Found@ si el proyecto no existe.
+* @400 Bad request@ si el programa no es válido.
+
+{note}
+Por el momento, el servicio REST no proporciona más información sobre las causas del
+rechazo de un programa. Es posible que en el futuro se añadan detalles tales como 
+la localización y mensaje asociados a los errores sintácticos.
+{note}

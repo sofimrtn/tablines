@@ -14,3 +14,9 @@ ejemplos:
     ejemplo1: Excel con "ventanas" de datos anidadas
     ejemplo2: Tabla HTML en página web
     ejemplo3: Selecciones y filtros de información avanzados
+restApi:
+    title: API REST
+    gestionProyectos: Gestión de proyectos
+    gestionFicherosEntrada: Gestión de ficheros de entrada
+    gestionPrograma: Gestión de programas de transformación
+    accesoDatos: Acceso a datos y consultas

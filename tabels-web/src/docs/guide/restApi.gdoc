@@ -1,0 +1,7 @@
+Tabels ofrece un API de servicios web REST que permite hacer
+transformaciones y gestionar proyectos. A continuación se encuentran las
+especificaciones de los servicios REST ofrecidos por Tabels.
+
+Se asume que existe una instancia de Tabels desplegada en la URL
+@{tabelsURL}@, por ejemplo, en http://example.org/tabels.
+

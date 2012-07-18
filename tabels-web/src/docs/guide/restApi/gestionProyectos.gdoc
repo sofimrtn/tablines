@@ -1,0 +1,61 @@
+h3. Listado de proyectos
+
+URL: @{tabelsURL}@
+
+Método: @GET@
+
+Parámetros de consulta:
+* @format@=@json@ (obligatorio, o en su defecto, se puede emplear negociación de contenidos HTTP).
+
+Código de respuesta:
+* @200 OK@
+
+Contenido de la respuesta: una lista JSON de cadenas de texto que contiene los nombres de los proyectos
+registrados en la instancia de Tabels, por ejemplo @[["proyecto-uno", "proyecto-dos"]]@.
+
+
+
+h3. Creación de un proyecto
+
+URL: @{tabelsURL}/createProject@
+
+Método: @POST@
+
+{note}
+Por el momento no se permite la creación de proyectos mediante el método @PUT@. Es posible que
+en el futuro se añada esta posibilidad.
+{note}
+
+Parámetros de consulta:
+* @newProjectId@ (obligatorio): cadena de texto con el nombre del nuevo proyecto
+
+Código de respuesta:
+* @200 OK@ si la creación tuvo éxito.
+
+{warning}
+Por el momento no se dispone de un código de respuesta para indicar un fallo en la creación del proyecto, por
+ejemplo, debido a un nombre de proyecto inválido o repetido.
+{warning}
+
+
+
+h3. Borrado de un proyecto
+
+URL: @{tabelsURL}/project/{nombreProyecto}/delete@
+
+Método: @POST@
+
+{note}
+Por el momento no se permite el borrado de proyectos mediante el método @DELETE@. Es posible
+que en el futuro se añada esta posibilidad.
+{note}
+
+Parámetros de consulta:
+* @proyectId@ (obligatorio): cadena de texto con nombre del proyecto que se desea borrar.
+* @confirm=1@ (obligatorio): parámetro de confirmación. La acción sólo se ejecuta si el parámetro
+tiene un valor que se evalúe a "verdadero".
+
+Código de respuesta:
+* @200 OK@ si el borrado tuvo éxito.
+* @404 Not found@ si el proyecto no existía previamente.
+

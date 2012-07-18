@@ -1,0 +1,54 @@
+h3. Descarga de datos
+
+El resultado de las transformaciones son datos RDF, y se pueden descargar en la URL:
+
+{code}{tabelsURL}/project/{nombreProyecto}/data{code}
+
+Mediante negociación de contenidos o mediante un parámetro en la petición llamado @format@ se puede
+elegir la representación de los datos. Están disponibles las siguientes:
+
+* RDF/XML: tipo MIME @application/rdf+xml@, o bien el parámetro @format=rdfxml@.
+* NTriples: tipo MIME @text/plain@, o bien el parámetro @format=text@.
+* Turtle: tipo MIME @text/turtle@, o bien el parámetro @format=ttl@.
+
+
+h3. Datos enlazados
+
+
+Los recursos generados por Tabels pueden ser accedidos mediante un interfaz de
+datos enlazados que proporciona representaciones HTML y RDF de los mismos. A tal
+fin, es necesario que los recursos estén definidos en el espacio de nombres
+
+{code}{tabelsURL}/pubby/resource/{nombreProyecto}/{code}
+
+siendo el último componente
+(el nombre del proyecto) opcional, pero recomendable para evitar colisiones.
+
+Mediante negociación de contenidos, se pueden obtener las distintas representaciones
+de los recursos, por ejemplo:
+
+{code}
+GET /tabels/pubby/resource/mi-proyecto/mi-recurso
+Accept: application/rdf+xml
+{code}
+
+devuelve la representación en RDF/XML (tras una redirección a @/tabels/pubby/data/mi-proyecto/mi-recurso@), mientras que
+
+{code}
+GET /tabels/pubby/resource/mi-proyecto/mi-recurso
+Accept: application/xhtml
+{code}
+
+devuelve la representación en HTML (tras una redirección a @/tabels/pubby/page/mi-proyecto/mi-recurso@).
+
+h3. Punto de consulta SPARQL
+
+Tabels proporciona puntos de consulta SPARQL específicos para cada proyecto, y un
+punto de consulta SPARQL global que agrupa todos los proyectos (cada proyecto está
+en un grafo distinto al que se puede acceder mediante @FROM@ o @FROM NAMED@):
+* Punto de consulta por proyecto: @{tabelsURL}/project/{nombreProyecto}/sparql@
+* Punto de consulta global: @{tabelsURL}/sparql@
+
+Para más información sobre cómo acceder a un punto de consulta SPARQL, se puede
+consultar las especificaciones del [protocolo SPARQL|http://www.w3.org/TR/sparql11-protocol/] y 
+del [lenguaje de consultas SPARQL|http://www.w3.org/TR/sparql11-query/].

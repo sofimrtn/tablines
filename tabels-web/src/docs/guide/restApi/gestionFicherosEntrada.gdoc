@@ -1,0 +1,48 @@
+h3. Listado de ficheros de entrada
+
+URL: @{tabelsURL}/project/{nombreProyecto}/input/@
+
+Método: @GET@
+
+Parámetros de consulta:
+* @format=json@
+
+Código de respuesta:
+* @200 OK@ en caso normal.
+* @404 Not Found@ si el proyecto no existe.
+
+Contenido de la respuesta: una lista JSON de cadenas de texto que contiene los nombres de los
+ficheros de entrada registrados en el proyecto, por ejemplo: @[["fichero1.xls", "fichero2.csv"]]@.
+
+
+h3. Subida de un fichero de entrada
+
+URL: @{tabelsURL}/project/{nombreProyecto}/input/@
+
+Método: @POST@
+
+{info}
+Por el momento no se permite la subida de ficheros mediante el método @PUT@. Es posible que
+en el futuro se añada esta posibilidad.
+{info}
+
+
+Parámetros de consulta:
+* @file@ (obligatorio): un fichero adjunto a la petición en formato multipart/mime.
+
+Código de respuesta:
+* @200 OK@ en caso normal.
+* @404 Not Found@ si el proyecto no existe.
+
+
+h3. Borrado de un fichero de entrada
+
+URL: @{tabelsURL}/project/{nombreProyecto}/input/{nombreFichero}@
+
+Método: @DELETE@
+
+Parámetros de consulta: ninguno
+
+Código de respuesta:
+* @200 OK@ si el borrado tuvo éxito.
+* @404 Not Found@ si el proyecto o el fichero no existen.
