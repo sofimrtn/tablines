@@ -39,3 +39,21 @@ las fuentes de datos_ y las plantillas definen _qué forma tienen los subgrafos 
 resultado_. Esta separación reduce el acoplamiento entre ambas partes al mínimo (sólo deben
 acordarse nombres de variables comunes), y permite que patrones y plantillas evolucionen y se
 reutilicen de forma independiente.
+
+h3. Datos tabulares de entrada
+
+Tabels puede leer distintos formatos de entrada, siempre que tengan una estructura tabular.
+Más concretamente, las entradas de Tabels consisten en estructuras matriciales de cuatro
+dimensiones: fichero, hoja, fila y columna. En cada posición de la matriz existe un valor
+concreto. Tabels admite como entrada estructuras más sencillas que carezcan de alguna de estas
+dimensiones, por ejemplo, ficheros CSV (no tienen "hojas").
+
+Las sentencias de los patrones permiten seleccionar subconjuntos de estas estructuras
+de datos, por ejemplo, una columna de una hoja y fichero concreto. También permiten realizar
+iteraciones por los valores dentro de una dimensión, por ejemplo, una iteración por filas.
+
+h3. Grafos RDF de salida
+
+Una transformación Tabels produce como resultado exactamente un grafo RDF. Este grafo
+se obtiene de la combinación de los subgrafos producidos por las instanciaciones de las
+plantillas.
