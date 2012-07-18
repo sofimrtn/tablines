@@ -110,7 +110,19 @@ h4. Conversiones de tipo
     int(operando : numeric, default :Int) : Int
 {code}
 Devuelve operando convertido a Int. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
- 
+
+# is-int
+{code}
+    is-int(operando : any) : Boolean
+{code}
+El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.
+
+#can-be-int(operando : any) : Boolean
+{code}
+    can-be-int(operando : any) : Boolean
+{code}
+Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+
 # float
 {code}
     float(operando : numeric) : Float
@@ -123,5 +135,17 @@ Devuelve operando convertido a Float. En caso de no poder realizarse la conversi
     double(operando : numeric, default :Double) : Double
 {code}
 Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+
+# is-double
+{code}
+    is-double(operando : any) : Boolean
+{code}
+El resultado de esta función es TRUE si el operando es de tipo double. En cualquier otro caso devuelve FALSE.
+
+#can-be-double(operando : any) : Boolean
+{code}
+    can-be-double(operando : any) : Boolean
+{code}
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
 
    

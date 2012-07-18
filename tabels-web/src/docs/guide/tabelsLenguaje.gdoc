@@ -9,6 +9,7 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 
 * Descripción del origen de datos
 *** [Sentencias de dimensiones|guide:dimensionStatements]: Este tipo de sentencias tabels permiten recorrer el origen de datos indicando las dimensiones por las que iterar, condiciones de inicio, parada y salto.
+*** [Sentencias condicionales|guide:conditionalStatements]: Sentencias tabels que varían el flujo de ejecución normal de un programa tabels en función de una condición.
 *** [Sentencias de asignación de variables|guide:variableAssignmentStatements]: Su función es asignar valores del origen de datos a variables y modificarlos.
 * Variables: comienzan con '?' seguidas de caractéres alfanuméricos.
     {code}
