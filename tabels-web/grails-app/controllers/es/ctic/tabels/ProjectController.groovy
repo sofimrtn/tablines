@@ -269,18 +269,24 @@ class ProjectController {
     
 	def sparql = {
 	    String projectId = params.id
-	    def projects = projectId != null ? [projectId] : projectService.listProjects()
-	    def namedGraphs = projects.collect { getGraph(it) }
+		def projects = (projectId != null) ? [projectId] : projectService.listProjects()
+		def namedGraphs = (projectId != null) ? [] : (projects.collect { getGraph(it) })
 		try {
 		    if (params.query == null || params.forceForm) {
-		        render(view:"sparqlForm", model: [query: (params.query == null ? "SELECT * \nWHERE { ?s ?p ?o }" : params.query), namedGraphs: namedGraphs])
+				def defaultQuery = (projectId != null) ?
+					"SELECT *\nWHERE { ?s ?p ?o }\nLIMIT 50" :
+					"SELECT *\n" + namedGraphs.collect { "FROM NAMED <${it}>\n" }.join("") + "WHERE { GRAPH ?g { ?s ?p ?o } }\nLIMIT 50"
+		        render(view:"sparqlForm", model: [query: (params.query == null ? defaultQuery : params.query), namedGraphs: namedGraphs])
 		    } else {
         		SparqlEndpoint endpoint = EndpointFactory.createDefaultSparqlEndpoint()
-		        projects.each { 
-		            log.info "Loading model of project ${it} as named graph ${getGraph(it)} in SPARQL endpoint"
-		            endpoint.addNamedGraph(getGraph(it), projectService.getModel(it))
-		        }
-		        // endpoint.setDefaultNamedGraph(projectService.getModel("foobar"))
+				if (projectId != null) {
+			        endpoint.setDefaultNamedGraph(projectService.getModel(projectId))
+				} else {
+			        projects.each { 
+			            log.info "Loading model of project ${it} as named graph ${getGraph(it)} in SPARQL endpoint"
+			            endpoint.addNamedGraph(getGraph(it), projectService.getModel(it))
+			        }
+				}
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
         		if (endpoint.isQuery()) {
