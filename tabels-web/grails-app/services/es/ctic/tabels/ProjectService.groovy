@@ -100,7 +100,7 @@ class ProjectService {
     }
     
     def getDefaultNamespace(String projectId) {
-        new Namespace(ConfigurationHolder.config.grails.serverURL + "/pubby/resource/" + projectId + "/")
+        new Namespace(ConfigurationHolder.config.grails.serverURL + "/project/" + projectId + "/")
     }
     
     def autogenerateProgram(String projectId, String strategy) throws ProjectDoesNotExistException {
