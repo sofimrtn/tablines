@@ -106,9 +106,9 @@ class ProjectService {
     def autogenerateProgram(String projectId, String strategy) throws ProjectDoesNotExistException {
         def autogenerator
         if (strategy == "SCOVO") {
-            autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId))
+            autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId), projectId)
         } else {
-            autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId))
+            autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
         }
         def program = autogenerator.autogenerateProgram(getDataSource(projectId))
         saveProgram(projectId, program)
