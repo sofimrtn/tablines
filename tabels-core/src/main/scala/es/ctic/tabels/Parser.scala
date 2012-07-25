@@ -164,8 +164,8 @@ class TabelsParser extends JavaTokenParsers {
 	def blankNode : Parser[BlankNode] =
 	    "[]" ^^ { _ => createFreshBlankNode() } |
 	    "_"~>":" ~> ident ^^ { internalId => BlankNode(Left(internalId)) }
-		
-	def rdfNode : Parser[RDFNode] = iriRef | blankNode| curieRef  | rdfLiteral
+			
+	def rdfNode : Parser[RDFNode] = iriRef | blankNode| curieRef  | rdfLiteral 
 	
 	def eitherRDFNodeOrVariable : Parser[Either[RDFNode,Variable]] = rdfNode ^^ { Left(_) } | variable ^^ { Right (_) } // FIXME
 	
@@ -385,9 +385,15 @@ class TabelsParser extends JavaTokenParsers {
     
     def tuple : Parser[Tuple] = ("[" ~> rep1sep(variable,",") <~ "]") ~ opt(IN ~> tupleType) ^^
     	{ case vars~direction => Tuple(vars,direction getOrElse TupleType.horizontal) }
-    	
+    
+    
     	
     // templates
+    def blankNodeBlock : Parser[Seq[TripleTemplate]] =
+	   "[" ~> predicateObjectsTemplate <~ "]" ^^
+	  { case predObjs => 
+	      val bn = createFreshBlankNode()
+	      for ((pred,obj) <- predObjs._1) yield TripleTemplate(Left(bn),pred,obj) }/***Revisar***/
     
     def verbTemplate : Parser[Either[RDFNode, Variable]] =
 		iriRef ^^ { Left(_) } |
@@ -395,22 +401,22 @@ class TabelsParser extends JavaTokenParsers {
 		A ^^ { _ => Left(RDF_TYPE) } |
 		variable ^^ { Right (_) }
        
-	def objectsTemplate : Parser[Seq[Either[RDFNode, Variable]]] = rep1sep(eitherRDFNodeOrVariable, ",")
+	def objectsTemplate : Parser[(Seq[Either[RDFNode, Variable]], Seq[TripleTemplate])] =
+	  rep1sep(eitherRDFNodeOrVariable, ",") ^^ { case objs => (objs, Seq()) } |
+	  blankNodeBlock ^^{case innerTriples => (Seq(Left(innerTriples.head.s.left.get)),innerTriples)}
 
-	def predicateObjectsTemplate : Parser[Seq[Tuple2[ Either[RDFNode, Variable], Either[RDFNode, Variable] ]]] =
-		rep1sep((verbTemplate ~ objectsTemplate) ^^ { case pred~objs => for (obj <- objs) yield (pred,obj) }, ";") ^^ { _ flatten }
+	def predicateObjectsTemplate : Parser[(Seq[Tuple2[ Either[RDFNode, Variable], Either[RDFNode, Variable] ]], Seq[TripleTemplate])] =
+		rep1sep((verbTemplate ~ objectsTemplate) ^^ { case pred~objs => ((for ((obj) <- objs._1) yield (pred,obj)),objs _2) }, ";") ^^ { case predObjsInnerTriples =>(predObjsInnerTriples.unzip._1.flatten,predObjsInnerTriples.unzip._2.flatten)}
 
 	def triplesSameSubjectTemplate : Parser[Seq[TripleTemplate]] =
 	  eitherRDFNodeOrVariable~predicateObjectsTemplate ^^
-	  { case subj~predObjs => for ((pred,obj) <- predObjs) yield TripleTemplate(subj,pred,obj) } |
-	  "[" ~> predicateObjectsTemplate <~ "]" ^^
-	  { case predObjs => 
-	      val bn = createFreshBlankNode()
-	      for ((pred,obj) <- predObjs) yield TripleTemplate(Left(bn),pred,obj) }
+	  { case subj~predObjs => predObjs._2 ++(for ((pred,obj) <- predObjs._1) yield TripleTemplate(subj,pred,obj)) } |
+	  blankNodeBlock
 	
 	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten)) }
-
+	
+	
 
 	// parsing methods
 	

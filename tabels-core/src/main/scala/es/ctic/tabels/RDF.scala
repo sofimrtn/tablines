@@ -185,6 +185,13 @@ object CanToRDFNode {
      implicit def literalToRDFNode = new CanToRDFNode[Literal] {
         def toRDFNode(x : Literal) : RDFNode = x
     }
+     implicit def blankNodeBlockToRDFNode = new CanToRDFNode[Seq[TripleTemplate]] {
+        def toRDFNode(x : Seq[TripleTemplate]) : RDFNode = if (x.head.s.isLeft)
+        														x.head.s.left.get
+        													else
+        													  x.head.s.right.get.toString
+        													  
+    }
     
 }
 

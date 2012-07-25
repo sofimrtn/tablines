@@ -209,6 +209,18 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
         assertFail (tuple, "")
     }
     
+    @Test def parseBlankNodeBlock() {
+		
+		assertParse(blankNodeBlock, "[ ?y ?z ]",
+			List(TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?y")), Right(Variable("?z")))))
+		assertParse(blankNodeBlock, "[ ?y ?z ; ?a ?b ]",
+ 			List(TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?y")), Right(Variable("?z"))),
+ 			     TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?a")), Right(Variable("?b")))))
+		assertFail (blankNodeBlock, "[]")
+		assertFail (blankNodeBlock, "[ ?x ]")
+		assertFail (triplesSameSubjectTemplate, ".")
+	}
+    
 	@Test def parseVerbTemplate() {
 		prefixes += ("foo" -> NamedResource("http://example.org/"))
 		assertParse(verbTemplate, "<http://example.org/>", Left(NamedResource("http://example.org/")))
@@ -220,9 +232,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parseObjectsTemplate() {
-		assertParse(objectsTemplate, "?x", List(Right(Variable("?x"))))
-		assertParse(objectsTemplate, "<http://example.org/>", List(Left(NamedResource("http://example.org/"))))
-		assertParse(objectsTemplate, "?x, ?y", List(Right(Variable("?x")), Right(Variable("?y"))))
+		assertParse(objectsTemplate, "?x", (List(Right(Variable("?x"))), List()))
+		assertParse(objectsTemplate, "<http://example.org/>", (List(Left(NamedResource("http://example.org/"))), List()))
+		assertParse(objectsTemplate, "?x, ?y", (List(Right(Variable("?x")), Right(Variable("?y"))), List()))
+		assertParse(objectsTemplate, "[ ?y ?z ]",(List(Left(BlankNode(Right(0)))), List(TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?y")), Right(Variable("?z"))))))
+			
 		assertFail (objectsTemplate, "")
 		assertFail (objectsTemplate, "?x ?y")
 		assertFail (objectsTemplate, "?x ; ?y")
@@ -231,18 +245,22 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	
 	@Test def parsePredicateObjectsTemplate() {
 		assertParse(predicateObjectsTemplate, "?x ?y",
-			List((Right(Variable("?x")), Right(Variable("?y")))))
+			(List((Right(Variable("?x")), Right(Variable("?y")))), List()))
 		assertParse(predicateObjectsTemplate, "<http://example.org/> \"Hello\"",
-			List((Left(NamedResource("http://example.org/")), Left(Literal("Hello")))))
+			(List((Left(NamedResource("http://example.org/")), Left(Literal("Hello")))), List()))
 		assertParse(predicateObjectsTemplate, "a <http://example.org/>",
-			List((Left(RDF_TYPE), Left(NamedResource("http://example.org/")))))
+			(List((Left(RDF_TYPE), Left(NamedResource("http://example.org/")))), List()))
 		assertParse(predicateObjectsTemplate, "?x ?y ; ?a ?b",
-			List((Right(Variable("?x")), Right(Variable("?y"))),
-		         (Right(Variable("?a")), Right(Variable("?b")))))
+			(List((Right(Variable("?x")), Right(Variable("?y"))),
+		         (Right(Variable("?a")), Right(Variable("?b")))), 
+		         List()))
 		assertParse(predicateObjectsTemplate, "?x ?y , ?z ; ?a ?b",
-			List((Right(Variable("?x")), Right(Variable("?y"))),
+			(List((Right(Variable("?x")), Right(Variable("?y"))),
 			     (Right(Variable("?x")), Right(Variable("?z"))),
-		         (Right(Variable("?a")), Right(Variable("?b")))))
+		         (Right(Variable("?a")), Right(Variable("?b")))), List()))
+		assertParse(predicateObjectsTemplate, "?x [ ?y ?z ]",
+			(List((Right(Variable("?x")), Left(BlankNode(Right(0))))), List(TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?y")), Right(Variable("?z"))))))         
+		
 		assertFail (predicateObjectsTemplate, "")
 		assertFail (predicateObjectsTemplate, "?x")
 		assertFail (predicateObjectsTemplate, "?x , ?y")
@@ -259,9 +277,15 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(triplesSameSubjectTemplate, "?x ?y ?z ; ?a ?b",
 			List(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			     TripleTemplate(Right(Variable("?x")), Right(Variable("?a")), Right(Variable("?b")))))
- 		assertParse(triplesSameSubjectTemplate, "[ ?y ?z ; ?a ?b ]",
+		assertParse(triplesSameSubjectTemplate, "[ ?y ?z ; ?a ?b ]",
  			List(TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?y")), Right(Variable("?z"))),
  			     TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?a")), Right(Variable("?b")))))
+ 		assertParse(triplesSameSubjectTemplate, "?x ?c ?d; ?e [ ?y ?z ; ?a ?b ]",
+ 			List(TripleTemplate(Left(BlankNode(Right(2))), Right(Variable("?y")), Right(Variable("?z"))),
+ 			     TripleTemplate(Left(BlankNode(Right(2))), Right(Variable("?a")), Right(Variable("?b"))),
+ 			     TripleTemplate(Right(Variable("?x")), Right(Variable("?c")), Right(Variable("?d"))),
+ 			     TripleTemplate(Right(Variable("?x")),Right(Variable("?e")) ,Left(BlankNode(Right(2))))
+ 			     ))
 		assertFail (triplesSameSubjectTemplate, "")
 		assertFail (triplesSameSubjectTemplate, "[]")
 		assertFail (triplesSameSubjectTemplate, "?x")
