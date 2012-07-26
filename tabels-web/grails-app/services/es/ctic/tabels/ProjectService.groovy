@@ -144,7 +144,7 @@ class ProjectService {
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()
-		def autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId))
+		def autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
         def program = getProgramFile(projectId).exists() ? parser.parseProgram(getProgramFile(projectId)) : autogenerator.autogenerateProgram(dataSource)
 		def interpreter = new Interpreter()
 		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
