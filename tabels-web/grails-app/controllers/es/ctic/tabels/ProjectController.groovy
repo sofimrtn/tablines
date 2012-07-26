@@ -321,6 +321,25 @@ class ProjectController {
 		}
 	}
 	
+	def resourceData = {
+		String projectId = params.id
+		String localName = params.localName
+		String fullUri = "${projectService.getDefaultNamespace(projectId)}${localName}"
+		try {
+			def model = projectService.getModel(projectId)
+			if (model.containsResource(model.getResource(fullUri))) {
+				String describeQuery = "DESCRIBE <${fullUri}>"
+				forward(action: "sparql", id: projectId, params: [query: describeQuery])
+			} else {
+				log.error("Resource ${fullUri} does not exist in the model of project ${projectId}")
+				render(status: 404)
+			}
+        } catch (ProjectDoesNotExistException e) {
+            log.error("While trying to access project ${e.projectId}", e)
+            render(status: 404, text: e.getMessage())
+	    }
+	}
+	
 	def tapinos = {
 	    try {
             log.info("Providing the list of datasets to the view");

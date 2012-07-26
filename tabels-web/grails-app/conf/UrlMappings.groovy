@@ -9,6 +9,7 @@ class UrlMappings {
 		    action = [GET: "listInputs", POST: "uploadInput", DELETE: "deleteInput"]
 		}
 		name projectSpecific: "/project/$id/$action?"(controller: "project")
+		"/project/$id/data/$localName"(controller: "project", action: "resourceData")
 /*		"/$controller/$action?/$id?"{
 			constraints {
 				// apply constraints here
