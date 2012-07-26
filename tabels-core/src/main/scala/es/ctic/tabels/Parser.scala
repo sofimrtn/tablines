@@ -158,7 +158,7 @@ class TabelsParser extends JavaTokenParsers {
 	def iriRef : Parser[NamedResource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ NamedResource
 	
 	//FIXME: Curi nodes not support sparql specification 
-	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ("""[a-zA-Z\-0-9]+[a-zA-Z\-\.]*""".r) ^^
+	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ("""[a-zA-Z\-0-9]+[a-zA-Z\-\.?=]*""".r) ^^
 	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
 	    
 	def blankNode : Parser[BlankNode] =
@@ -415,7 +415,6 @@ class TabelsParser extends JavaTokenParsers {
 	
 	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
 	  { triples => Template((triples flatten)) }
-	
 	
 
 	// parsing methods
