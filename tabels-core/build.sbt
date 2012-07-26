@@ -46,6 +46,8 @@ libraryDependencies += "org.apache.lucene" % "lucene-analyzers" % "3.4.0"
 
 libraryDependencies += "org.apache.commons" % "commons-compress" % "1.0"
 
+libraryDependencies += "com.linuxense" % "javadbf" % "0.4.0"
+
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
