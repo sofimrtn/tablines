@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>2.3.3 Expresiones Variadas 0.4-SNAPSHOT</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/introduccion.html"><strong>1</strong><span>Introducci&oacute;n</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/tabelsLenguaje.html"><strong>2</strong><span>Lenguaje Tabels</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>tabels-web</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/introduccion.html">&lt;&lt; <strong>1</strong><span>Introducci&oacute;n</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>2.3.3 Expresiones Variadas - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> </p>
+
+                    <p><strong>Version:</strong> 0.4-SNAPSHOT</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h2 id="miscellaneaFunctions">2.3.3 Expresiones Variadas</h2>
+<ol>
+<li>DBPedia-Disambiguation</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>DBPedia&#45;Disambiguation(query: <span class="java&#45;object">String</span>, workMode: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+    Devuelve una URI con la palabra query desambiguada frente los contenidos en la DBPedia. Mediante la cadena workMode se pueden escoger 3 modos de deasmbiguación distintos:
+<ul class="star">
+<li>FIRST : Devuelve el primer resultado de la desambiguación contra la DBPedia.</li>
+<li>VERY-BREST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.</li>
+<li>SINGLE : Devuelve el primer resultado de la desambiguación contra la DBPedia si es un resultado único.</li>
+</ul><p class="paragraph"/>    En caso de no especificarse modo de  funcionamiento por defecto devuelve el primer valor resultante de la desambiguación.
+<ol>
+<li>get-row</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>get&#45;row(variable: Variable) : Int</pre></div>
+    Devuelve el número de fila donde se encuentra el contenido de la variable.
+<ol>
+<li>get-col</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>get&#45;col(variable: Variable) : Int</pre></div>
+    Devuelve el número de columna donde se encuentra el contenido de la variable.<p class="paragraph"/>     val boolean = "boolean" isDefinedBy { (x : Boolean) =&#62; x  }<p class="paragraph"/>
+<h4>Funciones RDF </h4>
+<ol>
+<li>resource</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>resource(string: <span class="java&#45;object">String</span>, uri:<span class="java&#45;object">String</span>) : Resource</pre></div>
+    Devuelve el recurso resultante de añadirle a la URI  <em class="italic">uri</em>  la cadena  <em class="italic">string</em> . La función elimina todos los caracteres no válidos de la cadena  <em class="italic">string</em> .
+<ol>
+<li>literal</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>literal(string: <span class="java&#45;object">String</span>) : Resource</pre></div>
+    Devuelve el literal indicaco en la cadena  <em class="italic">string</em> .
+<ol>
+<li>setLangTag</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>setLangTag(literal: <span class="java&#45;object">String</span>, lang: <span class="java&#45;object">String</span>) : Literal</pre></div>
+    Devuelve un literal con la etiqueta de idioma indicada en la cadena  <em class="italic">lang</em> .<p class="paragraph"/>
+<h4>Operadores lógicos</h4>
+<ol>
+<li>not</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>not(<span class="java&#45;object">boolean</span>: <span class="java&#45;object">Boolean</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve la negación lógica del parámetro  <em class="italic">boolean</em> .
+<ol>
+<li>and</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>and(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador AND lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>or</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>or(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador OR lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>if-then-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
+    Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
+
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/introduccion.html">&lt;&lt; <strong>1</strong><span>Introducci&oacute;n</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Items</h1><div class="menu-sub">
+                        
+                            
+                            <div class="menu-item"><a href="../../ref/Items/reference.html">reference</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
