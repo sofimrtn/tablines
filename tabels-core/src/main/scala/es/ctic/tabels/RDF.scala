@@ -84,7 +84,7 @@ object Literal {
 abstract sealed class Resource() extends RDFNode {
     
 }
-
+//FIXMe to be lazy
 case class NamedResource(uri : String) extends Resource {
     
     override def toString() = "<" + uri + ">"
