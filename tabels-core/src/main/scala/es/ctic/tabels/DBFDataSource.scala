@@ -30,7 +30,7 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
   val headers = (0 until getCols()).map(record => reader.getField(record).getName())
   logger.trace("Fields: "+ headers)
   val dataMatrix = (1 until getRows()).map(record => reader.nextRecord())
-
+  logger.trace("Number of rows in dataMatrix: "+ dataMatrix length)
   override val uri = file.getCanonicalPath()
   override def getTabs(): Seq[String] = Seq("")
   override def getRows(tabName: String = ""): Int = reader.getRecordCount() + 1
@@ -45,7 +45,7 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
         return DBFCellValue(headers(point.col))
       } else {
         
-        val cell = dataMatrix(point.row) apply point.col
+        val cell = dataMatrix(point.row - 1) apply point.col
         return DBFCellValue(cell)
       }
     } catch {
