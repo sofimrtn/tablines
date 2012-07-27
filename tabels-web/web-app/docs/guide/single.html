@@ -1,0 +1,552 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+        <title>Documentaci&#65533;n Tabels 0.4-SNAPSHOT</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+        <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+    </head>
+
+    <body class="body" onload="addJsClass();">
+        <div id="navigation">
+            <ul>
+                <li>
+                    <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                        <a href="../guide/index.html" class="button">Table of contents</a>
+                        <div id="nav-summary-childs" style="display:none;">
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#introduccion"><strong>1</strong><span>Introducci&oacute;n</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#tabelsLenguaje"><strong>2</strong><span>Lenguaje Tabels</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0"><a href="#ejemplos"><strong>3</strong><span>Ejemplos de uso</span></a></div>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li class="separator selected">
+                    <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+                </li>
+            </ul>
+        </div>
+        <div id="header">
+            <div class="images clearfix">
+                
+                
+            </div>
+            <p>tabels-web</p>
+        </div>
+
+
+        <table id="colset" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td id="col1">
+                    <div id="main" class="corner-all">
+
+                        <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                        <div class="project">
+                            <h1>Documentaci&#65533;n Tabels - Reference Documentation</h1>
+                            <p><strong>Authors:</strong> </p>
+                            <p><strong>Version:</strong> 0.4-SNAPSHOT</p>
+                            
+                        </div>
+
+                        
+                        <div id="table-of-content">
+                            <h2>Table of Contents</h2>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#introduccion"><strong>1</strong><span>Introducci&oacute;n</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#tabelsLenguaje"><strong>2</strong><span>Lenguaje Tabels</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#dimensionStatements"><strong>2.1</strong><span>Sentencias de dimensiones</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#variableAssignmentStatements"><strong>2.2</strong><span>Sentencias de asignaci&oacute;n de variables</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#functions"><strong>2.3</strong><span>Expresiones</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="#numericFunctions"><strong>2.3.1</strong><span>Expresiones Num&eacute;ricas</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="#stringFunctions"><strong>2.3.2</strong><span>Expresiones con Cadenas</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="#miscellaneaFunctions"><strong>2.3.3</strong><span>Expresiones Variadas</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#ejemplos"><strong>3</strong><span>Ejemplos de uso</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo1"><strong>3.1</strong><span>Ejemplo 1</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo2"><strong>3.2</strong><span>Ejemplo 2</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo3"><strong>3.3</strong><span>Ejemplo 3</span></a></div>
+                            
+                            <div style="clear:both" ></div>
+                        </div>
+                        
+                        
+
+<h1 id="introduccion">1 Introducción</h1>
+<ul class="star">
+<li>item 1</li>
+<ul class="star">
+<li>subitem 1</li>
+<li>subitem 2</li>
+</ul>
+<li>item 2</li>
+</ul><p class="paragraph"/>
+
+
+<h1 id="tabelsLenguaje">2 Lenguaje Tabels</h1>
+El lenguaje tabels para la conversión de formatos de datos estructurados a RDF está formado por los siguientes elementos:
+<ul class="star">
+<li>Directivas</li>
+<li>Definición de prefijos: simplificación de URI's mediante la definición de prefijos para las mismas. La URI debe ir contenida entre los caracteres "&#60;&#62;". Estos prefijos pueden ser reusados en la definición de los templates.</li>
+</ul><p class="paragraph"/><div class="code"><pre>prefix  <em class="italic">prefijo</em>  :  <em class="italic">uri</em> </pre></div>
+<ul class="star">
+<li>Descripción del origen de datos</li>
+<ul class="star">
+<ul class="star">
+<li><a href="../guide/single.html#dimensionStatements" class="guide">Sentencias de dimensiones</a>: Este tipo de sentencias tabels permiten recorrer el origen de datos indicando las dimensiones por las que iterar, condiciones de inicio, parada y salto.</li>
+<li><a href="../guide/single.html#variableAssignmentStatements" class="guide">Sentencias de asignación de variables</a>: Su función es asignar valores del origen de datos a variables y modificarlos.</li>
+</ul>
+</ul>
+<li>Variables: comienzan con '?' seguidas de caractéres alfanuméricos.</li>
+</ul><p class="paragraph"/>    <div class="code"><pre>?testResource</pre></div>
+<ul class="star">
+<li>Tuplas: conjunto ordenado de <strong class="bold">N</strong> Variables separado por comas y delimitado por los caracteres '&#91;' y '&#93;'</li>
+</ul><p class="paragraph"/>    <div class="code"><pre>&#91;?variable1, ?variable2&#93;</pre></div>
+<ul class="star">
+<li>Posición: indica una posición en el origen de datos. Es posible definir las posiciónes de dos formas distintas:</li>
+<ul class="star">
+<ul class="star">
+<li>Posición absoluta: Indicando el lugar exacto en el origen de datos</li>
+</ul></ul></ul><p class="paragraph"/><div class="code"><pre>B12</pre></div>
+<ul class="star">
+<ul class="star">
+<ul class="star">
+<li>Posición relativa a una variable: Relaciona la posición a la de una variable, ya sea tomando la misma o calculandola en función de unas indicaciones.</li>
+</ul></ul></ul><p class="paragraph"/><div class="code"><pre>2 RIGHT OF ?rowId</pre></div> 
+<ul class="star">
+<li><a href="../guide/single.html#functions" class="guide">Expresiones</a>: funciones que permiten modificar el valor de las variables.</li>
+<li>Templates: Reglas para la instanciación de las variables obtenidas en el recorrido del origen de datos. Sigue la sintaxis N3 sustituyendo sujeto y/o predicado de la tripleta por variables definidas en el código previo o por literales(cadenas de texto o números).</li>
+</ul><p class="paragraph"/><div class="code"><pre>?resources a ex:SomeResource .
+    ?resources ex:prueba ?prueba .
+    ?resources ex:col2 ?col2</pre></div><p class="paragraph"/>Para un mismo programa tabels es posible definir más de un template, precedidos por la palabra reservada  <em class="italic">construct</em>  y separandose entre ellos por llaves (construct{template1} construct{template2}).
+Cada uno de estos templates generará una o más porciones del RDF final. Cada Template se instanciará cuando todas las variables contenidas en el tengan valor y alguna de las mismas haya cambiado desde la última instanciación. Cada tripleta contenida en el template debe estar seguida del caracter separador de tripletas "." excepto la prévia a la llave de cierre del template. Si más de una tripleta comparte sujeto, este puede omitirse en las sucesivas si se separan entre si con el caracter ";".<p class="paragraph"/> <div class="code"><pre>construct
+ &#123;
+    ?resources a ex:SomeResource .
+    &#91;&#93; ex:prueba ?prueba .
+    &#91;ex:col2 ?col2&#93;
+ &#125;<p class="paragraph"/> construct
+ &#123;
+    ?resource rdf:type ex:Movie ;
+              ex:rank ?rankInt ;
+              ex:rating ?ratingFloat ;
+              rdfs:label ?titleTrimmed ;
+              ex:year ?year ;
+              ex:votes ?votesInt ;
+              owl:sameAs ?dbpediaResource 
+  &#125;</pre></div><p class="paragraph"/>
+
+
+<h2 id="dimensionStatements">2.1 Sentencias de dimensiones</h2>
+<h4>Sentencias de iteración</h4>
+Este tipo de sentencias tabels permiten iterar por una dimension del origen de datos. La sintaxis de la sentencia de iteración es:    
+    <div class="code"><pre>FOR &#91; <em class="italic">?variable</em>  IN&#93;  <em class="italic">dimension</em>  &#91;STARTS AT  <em class="italic">position</em> |STARTS WHEN  <em class="italic">expression</em> &#93; &#91;FILTER  <em class="italic">expresion</em> &#93; &#91;UNTIL  <em class="italic">expression</em> |WHILE  <em class="italic">expression</em> &#93;</pre></div><p class="paragraph"/>    
+<h4>Sentencias de selección de dimensión</h4><p class="paragraph"/>    <div class="code"><pre>SET &#91; <em class="italic">?variable</em> &#93; IN dimension value</pre></div>
+
+
+<h2 id="variableAssignmentStatements">2.2 Sentencias de asignación de variables</h2>
+<h4>Sentencia de asignación de variables</h4><p class="paragraph"/><div class="code"><pre>match Tuple &#91;at Position&#93; &#91;filter Expression&#93;</pre></div><p class="paragraph"/><h4>Sentencia tratamiento de variables</h4><p class="paragraph"/><div class="code"><pre>let Variable = Expression</pre></div>
+
+
+
+<h2 id="functions">2.3 Expresiones</h2>
+
+
+
+<h2 id="numericFunctions">2.3.1 Expresiones Numéricas</h2>
+<h4>Operadores aritméticos</h4>
+<ol>
+<li>numeric-add</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;add(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el resultado en formato Double obtenido al realizar la suma aritmética del operando 1(op1) y el operando 2(op2). 
+<ol>
+<li>int-add</li>
+</ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">int</span>&#45;add(op1 : Int, op2 : Int) : Int</pre></div>
+Devuelve el resultado en formato Int obtenido al realizar la suma aritmética del operando 1(op1) y el operando 2(op2). 
+<ol>
+<li>numeric-substract</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;substract(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el resultado en formato Double obtenido al realizar la resta aritmética del operando 1(op1) y el operando 2(op2). 
+<ol>
+<li>int-substract</li>
+</ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">int</span>&#45;substract(op1 : Int, op2 : Int) : Int</pre></div>
+Devuelve el resultado en formato Int obtenido al realizar la resta aritmética del operando 1(op1) y el operando 2(op2). 
+<ol>
+<li>numeric-multiply</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;multiply(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el resultado en formato Double obtenido al realizar la multiplicación aritmética del operando 1(op1) y el operando 2(op2). 
+<ol>
+<li>int-multiply</li>
+</ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">int</span>&#45;multiply(op1 : Int, op2 : Int) : Int</pre></div>
+Devuelve el resultado en formato Int obtenido al realizar la multiplicación aritmética del operando 1(op1) y el operando 2(op2). 
+<ol>
+<li>numeric-divide</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;divide(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el resultado en formato Double obtenido al realizar la división aritmética del operando 1(op1) y el operando 2(op2).
+En caso de que el operador 2 sea 0 lanza la excepción ZeroDivisionException.
+<ol>
+<li>numeric-integer-divide</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;integer&#45;divide(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : Int</pre></div>
+Devuelve el resultado en formato Int obtenido al realizar la división aritmética del operando 1(op1) y el operando 2(op2).
+En caso de que el operador 2 sea 0 lanza la excepción ZeroDivisionException.
+<ol>
+<li>numeric-mod</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;mod(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el resto en formato Double obtenido al realizar la división aritmética del operando 1(op1) y el operando 2(op2).
+En caso de que el operador 2 sea 0 lanza la excepción ZeroDivisionException.<p class="paragraph"/><h4>Operadores de comparación    </h4>
+<ol>
+<li>numeric-equal</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;equal(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve true sólo si el operador 1(op1) es igual al operando 2(op2).
+<ol>
+<li>numeric-greater-than</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;greater&#45;than(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve true sólo si el operando 1(op1) es mayor que el operando 2(op2).
+<ol>
+<li>numeric-less-than</li>
+</ol><p class="paragraph"/><div class="code"><pre>numeric&#45;less&#45;than(op1 : <span class="java&#45;object">Double</span>, op2 : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve true sólo si el operando 1(op1) es menor que el operando 2(op2).<p class="paragraph"/><h4>Transformaciones   </h4>
+<ol>
+<li>abs</li>
+</ol><p class="paragraph"/><div class="code"><pre>abs(operando : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el valor absoluto del operando. Si este es positivo lo devuelve tal cual , si es negativo devuelve el valor positivo del mismo.  
+<ol>
+<li>ceiling</li>
+</ol><p class="paragraph"/><div class="code"><pre>ceiling(operando : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el menor número entero mayor que el operando.
+<ol>
+<li>floor</li>
+</ol><p class="paragraph"/><div class="code"><pre>floor(operando : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el mayor número entero menor que el operando.
+<ol>
+<li>round</li>
+</ol><p class="paragraph"/><div class="code"><pre>round(operando : <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve el número entero más cercano al operando. En caso de haber dos devolverá el mayor.<p class="paragraph"/><h4>Conversiones de tipo</h4>
+<ol>
+<li>int</li>
+</ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">int</span>(operando : numeric) : Int
+    <span class="java&#45;object">int</span>(operando : numeric, <span class="java&#45;keyword">default</span> :Int) : Int</pre></div>
+Devuelve operando convertido a Int. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+<ol>
+<li>float</li>
+</ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">float</span>(operando : numeric) : <span class="java&#45;object">Float</span></pre></div>
+Devuelve operando convertido a Float. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException.
+<ol>
+<li>double</li>
+</ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">double</span>(operando : numeric) : <span class="java&#45;object">Double</span>
+    <span class="java&#45;object">double</span>(operando : numeric, <span class="java&#45;keyword">default</span> :<span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.<p class="paragraph"/>   
+
+
+
+<h2 id="stringFunctions">2.3.2 Expresiones con Cadenas</h2>
+<h4>Funciones</h4>
+<ol>
+<li>concat</li>
+</ol><p class="paragraph"/><div class="code"><pre>concat(str1: <span class="java&#45;object">String</span>, str2: <span class="java&#45;object">String</span> , ...) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la cadena resultante de concatenar las cadenas  <em class="italic">str1</em> ,  <em class="italic">str2</em> , ....
+<ol>
+<li>string-join</li>
+</ol><p class="paragraph"/><div class="code"><pre>string&#45;join(str1: <span class="java&#45;object">String</span>; str2: <span class="java&#45;object">String</span> ; &#8230; , sep: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la cadena resultante de concatenar las cadenas  <em class="italic">str1</em> ,  <em class="italic">str2</em> , .... separadas entre si por la cadena  <em class="italic">sep</em> .
+<ol>
+<li>substring</li>
+</ol><p class="paragraph"/><div class="code"><pre>substring(string: <span class="java&#45;object">String</span> , index: Int) : <span class="java&#45;object">String</span>
+    substring(string: <span class="java&#45;object">String</span> , index: Int, length: Int) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la subcadena de longitud  <em class="italic">length</em>  empezando a contar en la posición  <em class="italic">index</em>  de la cadena  <em class="italic">string</em> . Si no se indica la longitud la subcadena terminará en el último elemento de la cadena  <em class="italic">string</em> .
+<ol>
+<li>string-length</li>
+</ol><p class="paragraph"/><div class="code"><pre>string&#45;length(string: <span class="java&#45;object">String</span>) : <span class="java&#45;object">int</span></pre></div>
+Devuelve el número entero de caracteres que contiene la cadena  <em class="italic">string</em> . 
+<ol>
+<li>normalize-space</li>
+</ol><p class="paragraph"/><div class="code"><pre>normalize&#45;space(string: <span class="java&#45;object">String</span>) : string</pre></div>
+Devuelve la cadena original menos cualquier espacio. 
+<ol>
+<li>upper-case</li>
+</ol><p class="paragraph"/><div class="code"><pre>upper&#45;<span class="java&#45;keyword">case</span>(string: <span class="java&#45;object">String</span>) : string</pre></div>
+Devuelve la cadena original con todos los caracteres en mayúsculas.
+<ol>
+<li>lower-case</li>
+</ol><p class="paragraph"/><div class="code"><pre>lower&#45;<span class="java&#45;keyword">case</span>(string: <span class="java&#45;object">String</span>) : string</pre></div>
+Devuelve la cadena original con todos los caracteres en minúsculas.
+<ol>
+<li>translate</li>
+</ol><p class="paragraph"/><div class="code"><pre>translate(string: <span class="java&#45;object">String</span>, pattern: <span class="java&#45;object">String</span>, replacement: <span class="java&#45;object">String</span>) : string</pre></div>
+Devuelve la cadena resultante de cambiar cada caracter de la cadena  <em class="italic">string</em>  que aparezca en la cadena  <em class="italic">pattern</em>  en la posición <strong class="bold">N</strong> por el que aparezca en la cadena  <em class="italic">replacement</em>  en la posición <strong class="bold">N</strong>. Si en la posición <strong class="bold">N</strong> de la cadena  <em class="italic">replacement</em>  esta fuera de rango el caracter original se sustituirá por "".<p class="paragraph"/><h4>Predicados</h4>
+<ol>
+<li>contains</li>
+</ol><p class="paragraph"/><div class="code"><pre>contains(container: <span class="java&#45;object">String</span>, content: <span class="java&#45;object">String</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve <strong class="bold">true</strong> sólo si la cadena  <em class="italic">content</em>  es una subcadena de la cadena  <em class="italic">container</em> .
+<ol>
+<li>starts-with</li>
+</ol><p class="paragraph"/><div class="code"><pre>starts&#45;with(string: <span class="java&#45;object">String</span>, start: <span class="java&#45;object">String</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve <strong class="bold">true</strong> sólo si los primeros caracteres de la cadena  <em class="italic">string</em>  coinciden con la cadena  <em class="italic">starts</em> .
+<ol>
+<li>end-with</li>
+</ol><p class="paragraph"/><div class="code"><pre>ends&#45;with(string: <span class="java&#45;object">String</span>, end: <span class="java&#45;object">String</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve <strong class="bold">true</strong> sólo si los últimos caracteres de la cadena  <em class="italic">string</em>  coinciden con la cadena  <em class="italic">ends</em> .
+<ol>
+<li>substring-before</li>
+</ol><p class="paragraph"/><div class="code"><pre>substring&#45;before(container: <span class="java&#45;object">String</span>, sufix: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la subcadena de  <em class="italic">container</em>   que contiene los caracteres desde el inicio de la cadena hasta la primera aparición en  <em class="italic">container</em>  de la subcadena  <em class="italic">sufix</em> .
+<ol>
+<li>substring-after</li>
+</ol><p class="paragraph"/><div class="code"><pre>substring&#45;after(container: <span class="java&#45;object">String</span>, prefix: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la subcadena de  <em class="italic">container</em>   que contiene los caracteres desde la primera aparición en  <em class="italic">container</em>  de la subcadena  <em class="italic">prefix</em>  hasta el final de la cadena.
+<ol>
+<li>matches</li>
+</ol><p class="paragraph"/><div class="code"><pre>matches(literal: <span class="java&#45;object">String</span>, rExpression: Regex) : <span class="java&#45;object">Boolean</span></pre></div>
+Devuelve <strong class="bold">true</strong> sólo si la caden  <em class="italic">literal</em>  encaja en la expresión regular  <em class="italic">rExpression</em> .
+<ol>
+<li>replace</li>
+</ol><p class="paragraph"/><div class="code"><pre>replace(container: <span class="java&#45;object">String</span>, rExpression: Regex, replacement: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la cadena resultante al reemplazar todas las subcadenas contenidas en  <em class="italic">container</em>  que encajen con la expresión regular  <em class="italic">rExpression</em>  por la cadena  <em class="italic">replacement</em> .
+<ol>
+<li>compare</li>
+</ol><p class="paragraph"/><div class="code"><pre>compare(string1: <span class="java&#45;object">String</span>, string2: <span class="java&#45;object">String</span>) : Int</pre></div>
+Devuelve un valor entero cómo resultado de la comparación de las cadenas_string1_ y  <em class="italic">string2</em> . El resultado de la función es:
+<ul class="star">
+<li>Si  <em class="italic">string1</em>  &#60;  <em class="italic">string2</em>  devuelve <strong class="bold">-1</strong></li>
+<li>Si  <em class="italic">string1</em>  ==  <em class="italic">string2</em>  devuelve <strong class="bold">0</strong></li>
+<li>Si  <em class="italic">string1</em>  &#62;  <em class="italic">string2</em>  devuelve <strong class="bold">1</strong></li>
+</ul><p class="paragraph"/><h4>Funciones y predicados no en XPath 2.0</h4>
+<ol>
+<li>levenshtein-distance</li>
+</ol><p class="paragraph"/><div class="code"><pre>levenshtein&#45;distance(string1: <span class="java&#45;object">String</span>, string2: <span class="java&#45;object">String</span>) : Int</pre></div>
+Devuelve un número entero que representa la diferencia entre las cadenas  <em class="italic">string1</em>  y  <em class="italic">string2</em> . Esta diferencia se calcula mediante una implementación del algoritmo de Leveshtein.
+<ol>
+<li>first-index-of</li>
+</ol><p class="paragraph"/><div class="code"><pre>first&#45;index&#45;of(string1: <span class="java&#45;object">String</span>, string2: <span class="java&#45;object">String</span>) : Int</pre></div>
+Devuelve un entero que indica la posición de la primera aparcición de la cadena  <em class="italic">string2</em>  contenida en la cadena  <em class="italic">string1</em> .
+<ol>
+<li>last-index-of</li>
+</ol><p class="paragraph"/><div class="code"><pre>last&#45;index&#45;of(string1: <span class="java&#45;object">String</span>, string2: <span class="java&#45;object">String</span>) : Int</pre></div>
+Devuelve un entero que indica la posición de la última aparcición de la cadena  <em class="italic">string2</em>  contenida en la cadena  <em class="italic">string1</em> .
+<ol>
+<li>trim</li>
+</ol><p class="paragraph"/><div class="code"><pre>trim(string: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+Devuelve la cadena original sin los espacios situados al comienzo y al final de la misma.<p class="paragraph"/>
+"string" isDefinedBy { (x:String) =&#62; x}
+}<p class="paragraph"/>
+
+
+<h2 id="miscellaneaFunctions">2.3.3 Expresiones Variadas</h2>
+<ol>
+<li>DBPedia-Disambiguation</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>DBPedia&#45;Disambiguation(query: <span class="java&#45;object">String</span>, workMode: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
+    Devuelve una URI con la palabra query desambiguada frente los contenidos en la DBPedia. Mediante la cadena workMode se pueden escoger 3 modos de deasmbiguación distintos:
+<ul class="star">
+<li>FIRST : Devuelve el primer resultado de la desambiguación contra la DBPedia.</li>
+<li>VERY-BREST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.</li>
+<li>SINGLE : Devuelve el primer resultado de la desambiguación contra la DBPedia si es un resultado único.</li>
+</ul><p class="paragraph"/>    En caso de no especificarse modo de  funcionamiento por defecto devuelve el primer valor resultante de la desambiguación.
+<ol>
+<li>get-row</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>get&#45;row(variable: Variable) : Int</pre></div>
+    Devuelve el número de fila donde se encuentra el contenido de la variable.
+<ol>
+<li>get-col</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>get&#45;col(variable: Variable) : Int</pre></div>
+    Devuelve el número de columna donde se encuentra el contenido de la variable.<p class="paragraph"/>     val boolean = "boolean" isDefinedBy { (x : Boolean) =&#62; x  }<p class="paragraph"/>
+<h4>Funciones RDF </h4>
+<ol>
+<li>resource</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>resource(string: <span class="java&#45;object">String</span>, uri:<span class="java&#45;object">String</span>) : Resource</pre></div>
+    Devuelve el recurso resultante de añadirle a la URI  <em class="italic">uri</em>  la cadena  <em class="italic">string</em> . La función elimina todos los caracteres no válidos de la cadena  <em class="italic">string</em> .
+<ol>
+<li>literal</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>literal(string: <span class="java&#45;object">String</span>) : Resource</pre></div>
+    Devuelve el literal indicaco en la cadena  <em class="italic">string</em> .
+<ol>
+<li>setLangTag</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>setLangTag(literal: <span class="java&#45;object">String</span>, lang: <span class="java&#45;object">String</span>) : Literal</pre></div>
+    Devuelve un literal con la etiqueta de idioma indicada en la cadena  <em class="italic">lang</em> .<p class="paragraph"/>
+<h4>Operadores lógicos</h4>
+<ol>
+<li>not</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>not(<span class="java&#45;object">boolean</span>: <span class="java&#45;object">Boolean</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve la negación lógica del parámetro  <em class="italic">boolean</em> .
+<ol>
+<li>and</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>and(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador AND lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>or</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>or(expresion1: Expresion, expresion2: Expresion) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve el resultado de aplicar el operador OR lógico entre los parámetros  <em class="italic">expresion1</em>  y  <em class="italic">expresion2</em> .
+<ol>
+<li>if-then-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
+    Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
+
+
+
+<h1 id="ejemplos">3 Ejemplos de uso</h1>
+<ul class="star">
+<li>item 1</li>
+<ul class="star">
+<li>subitem 1</li>
+<li>subitem 2</li>
+</ul>
+<li>item 2</li>
+</ul><p class="paragraph"/>
+
+
+<h2 id="ejemplo1">3.1 Ejemplo 1</h2>
+
+El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.<p class="paragraph"/>Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo.<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo1.png"></img><p class="paragraph"/>El objetivo sería recorrer todas las horas registradas asociando cada una a su mes y su alumno, actividad o subactividad correspondiente.<p class="paragraph"/>Este sería el código completo del ejemplo:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://example.org/ex&#35;&#62;
+PREFIX scv: &#60;http://purl.org/NET/scovo&#35;&#62;
+PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
+PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
+PREFIX skos: &#60;http://www.w3.org/2004/02/skos/core&#35;&#62;
+PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p class="paragraph"/>    IN sheets <span class="java&#45;quote">"Hoja1"</span>
+        FOR ?employee IN rows FILTER matches(?employee,<span class="java&#45;quote">"&#45;&#91;a&#45;zA&#45;Z0&#45;9ñ&#93;+ &#91;a&#45;zA&#45;Z0&#45;9&#93;&#42;"</span>)
+            LET ?resourceEmployee = resource(?employee,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+	&#123;
+	    FOR ?horasEmployee IN cols starts at 1 RIGHT of ?employee until not matches(?horasEmployee, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+                Set ?mesEmployee in rows <span class="java&#45;quote">"1"</span> 
+                     LET ?resourceMesEmployee = resource( ?mesEmployee, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+             ;
+	    FOR ?actividad IN rows FILTER matches(?actividad,<span class="java&#45;quote">"&#91;a&#45;z&#93;&#91;a&#45;z0&#45;9&#93;&#45;&#91;a&#45;zA&#45;Z0&#45;9&#93;+&#91;a&#45;zA&#45;Z0&#45;9 &#93;&#42;"</span>)
+		LET ?resourceActividad = resource(?actividad,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+                &#123;
+                FOR ?horasActividad IN cols starts at 1 RIGHT of ?actividad until not matches(?horasActividad, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+                     SET ?mesActividad in rows <span class="java&#45;quote">"1"</span>
+                     	LET ?resourceMesActividad = resource( ?mesActividad, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+                ;
+		FOR ?subactividad IN rows FILTER matches(?subactividad,<span class="java&#45;quote">"&#91;0&#45;9&#93;+&#45;&#91;a&#45;zA&#45;Z0&#45;9&#93;+&#91;a&#45;zA&#45;Z0&#45;9 &#93;&#42;"</span>)
+			LET ?resourceSubActividad = resource(?subactividad,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)	
+                	FOR ?horasSubActividad IN cols starts at 1 RIGHT of ?subactividad until not matches(?horasSubActividad, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+                        	SET ?mesSubActividad in rows <span class="java&#45;quote">"1"</span>
+                                	LET ?resourceMesSubActividad = resource( ?mesSubActividad, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)<p class="paragraph"/>	  &#125;
+         &#125;<p class="paragraph"/>            	
+////////////////////DEDICACIÓN EMPLEADO MES//////////////////////////////<p class="paragraph"/>//DIMENSION TRABAJADOR
+&#123;
+    ?resourceEmployee a ex:worker ;
+                      skos:prefLabel ?employee .
+    ex:worker rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Trabajador"</span><p class="paragraph"/>&#125;
+//DIMENSION MES
+&#123;
+    ?resourceMesEmployee a ex:month ;
+                      skos:prefLabel ?mesEmployee .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+//DATA SET
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        rdf:value ?horasEmployee;
+        scv:dimension ?resourceMesEmployee&#93;
+&#125;<p class="paragraph"/>&#123;
+    ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Mes"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;<p class="paragraph"/>/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+    ?resourceActividad a ex:actividad ;
+                      skos:prefLabel ?actividad .
+    ex:actividad rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Actividad"</span><p class="paragraph"/>&#125;
+&#123;
+    ?resourceMesActividad a ex:month ;
+                      skos:prefLabel ?mesActividad .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+&#123;<p class="paragraph"/>    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoActividadMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        scv:dimension ?resourceActividad ;
+        rdf:value ?horasActividad;
+        scv:dimension ?resourceMesActividad&#93;
+&#125;<p class="paragraph"/>&#123;
+    ex:DedicacionEmpleadoActividadMesDataSet a scv:Dataset ;
+                                             skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Actividad&#45;Mes"</span> ;
+                                             scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span>
+&#125;<p class="paragraph"/>
+//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+    ?resourceSubActividad a ex:subactividad ;
+                      skos:prefLabel ?subactividad .
+    ex:subactividad rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"SubActividad"</span><p class="paragraph"/>&#125;
+&#123;
+    ?resourceMesSubActividad a ex:month ;
+                      skos:prefLabel ?mesSubActividad .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+&#123;<p class="paragraph"/>    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoSubActividadMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        scv:dimension ?resourceSubActividad ;
+        rdf:value ?horasSubActividad;
+        scv:dimension ?resourceMesSubActividad&#93;
+&#125;<p class="paragraph"/>&#123;
+    ex:DedicacionEmpleadoSubActividadMesDataSet a scv:Dataset ;
+                                             skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;SubActividad&#45;Mes"</span> ;
+                                             scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;</pre></div>
+
+
+
+<h2 id="ejemplo2">3.2 Ejemplo 2</h2>
+
+
+
+<h2 id="ejemplo3">3.3 Ejemplo 3</h2>
+
+
+                    </div>
+                </td>
+                <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Items</h1><div class="menu-sub">
+                        
+                        
+                        <div class="menu-item"><a href="../ref/Items/reference.html">reference</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+            </tr>
+        </table>
+
+        <div id="footer">
+            
+            
+        </div>
+
+
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+    </body>
+</html>
