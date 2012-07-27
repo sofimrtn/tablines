@@ -324,7 +324,7 @@ class ProjectController {
 	def resourceData = {
 		String projectId = params.id
 		String localName = params.localName
-		String fullUri = "${projectService.getDefaultNamespace(projectId)}${localName}"
+		String fullUri = "${projectService.getDefaultNamespace(projectId)}resource/${localName}"
 		try {
 			def model = projectService.getModel(projectId)
 			if (model.containsResource(model.getResource(fullUri))) {
@@ -343,7 +343,7 @@ class ProjectController {
 	def resourcePage = {
 		String projectId = params.id
 		String localName = params.localName
-		String fullUri = "${projectService.getDefaultNamespace(projectId)}${localName}"
+		String fullUri = "${projectService.getDefaultNamespace(projectId)}resource/${localName}"
 		try {
 			def model = projectService.getModel(projectId)
 			if (model.containsResource(model.getResource(fullUri))) {
