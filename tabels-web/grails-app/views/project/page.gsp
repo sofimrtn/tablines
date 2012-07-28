@@ -1,23 +1,23 @@
 <html>
     <head>
-        <title>Description of ${currentResource}</title>
+        <title>About: ${currentResource}</title>
         <meta name="layout" content="main" />	   
     </head>
     <body>
 
-        <h2>Description of ${currentResource}</h2>
+        <h2>About: <a href="${currentResource}">${currentResource}</a></h2>
 
 		<table>
 		<g:each in="${directStatements}" var="statement">
 			<tr>
-				<td>${statement.predicate}</td>
-				<td>${statement.object}</td>
+				<td><g:showRdfNode rdfNode="${statement.predicate}"/></td>
+				<td><g:showRdfNode rdfNode="${statement.object}" /></td>
 			</tr>
 		</g:each>
 		<g:each in="${inverseStatements}" var="statement">
 			<tr>
-				<td>is ${statement.predicate} of</td>
-				<td>${statement.subject}</td>
+				<td>is <g:showRdfNode rdfNode="${statement.predicate}"/> of</td>
+				<td><g:showRdfNode rdfNode="${statement.subject}"/></td>
 			</tr>
 		</g:each>		
 		</table>
