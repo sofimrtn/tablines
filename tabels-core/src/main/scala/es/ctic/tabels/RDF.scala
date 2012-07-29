@@ -141,7 +141,7 @@ object CommonNamespaces {
     object SKOS extends Namespace("http://www.w3.org/2004/02/skos/core#")
     object XSD  extends Namespace("http://www.w3.org/2001/XMLSchema#")
     object DCAT  extends Namespace("http://www.w3.org/ns/dcat#")
-    object DCT  extends Namespace("http://dublincore.org/documents/dcmi-terms/#")
+    object DCT  extends Namespace("http://purl.org/dc/terms/")
     object FOAF  extends Namespace("http://xmlns.com/foaf/0.1/#")
     
 }
