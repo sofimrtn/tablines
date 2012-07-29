@@ -321,6 +321,28 @@ class ProjectController {
 		}
 	}
 	
+	def resourceRedirect = {
+		String nextAction
+        withFormat {
+            html {
+				nextAction = "resourcePage"
+			}
+            rdfxml {
+				nextAction = "resourceData"
+    	    }
+            ttl {
+				nextAction = "resourceData"
+    	    }
+			xml {
+				nextAction = "resourceData"
+			}
+        }
+		String url = g.createLink(action: nextAction, id: params.id, params: [localName: params.localName])
+		response.setHeader("Vary", "Accept")
+		response.setHeader("Location", url)
+		response.sendError(303)
+	}
+	
 	def resourceData = {
 		String projectId = params.id
 		String localName = params.localName
