@@ -33,6 +33,7 @@ object DataAdapter {
     val ODFFilePattern = """.+\.ods$""".r
     val HTMLFilePattern = """.+\.html$""".r
     val DBFFilePattern =  """.+\.dbf$""".r
+    val ZIPFilePattern =  """.+\.zip$""".r
     
     def createAdapter(url : String) : DataAdapter =
         url match {
@@ -41,6 +42,7 @@ object DataAdapter {
             case ODFFilePattern() => new ODFDataAdapter(new File(url))
             case HTMLFilePattern() => new HTMLDataAdapter(new File(url))
             case DBFFilePattern() => new DBFDataAdapter(new File(url))
+            case ZIPFilePattern() => new ZIPDataAdapter(new File(url))
             case _ => throw new UnrecognizedSpreadsheetFormatException(url)
         }
     

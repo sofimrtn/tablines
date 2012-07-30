@@ -17,7 +17,7 @@ import javax.xml.xpath._
 /** Handles DBF files. This class loads the complete DBF on memory.
   * 
   * @author Alfonso Noriega
-  * @author Guillermo González-Moriyón
+  * @author Guillermo Gonzalez-Moriyon
   * 
   */
 class DBFDataAdapter(file: File) extends DataAdapter with Logging {
@@ -35,7 +35,7 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
   logger.trace("Number of fields: "+getCols())
   val headers = (0 until getCols()).map(record => reader.getField(record).getName())
   logger.trace("Fields: "+ headers)
-  val dataMatrix = (1 until getRows()).map(record => reader.nextRecord())
+  val dataMatrix = (1 until getRows()).map(record =>{logger.trace("record" + reader.);reader.nextRecord()})
   logger.trace("Number of rows in dataMatrix: "+ dataMatrix length)
   override val uri = file.getCanonicalPath()
   override def getTabs(): Seq[String] = Seq("")
@@ -56,6 +56,7 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
       } else {
         
         val cell = dataMatrix(point.row - 1) apply point.col
+        logger.trace ("cell type is "+cell.getClass.getCanonicalName+" but field is "+reader.getField(point.col).getDataType)
         return DBFCellValue(cell)
       }
     } catch {
@@ -75,7 +76,7 @@ case class DBFCellValue(cell: Object) extends CellValue with Logging {
     logger.trace("Parsing cell "+cell)
     cell match {
       
-      case cell:java.lang.String => Literal(cell, XSD_STRING)
+      case cell:java.lang.String => Literal(cell.trim, XSD_STRING)
       case cell:java.lang.Integer => Literal(cell, XSD_INT)
       case cell:java.lang.Double => Literal(cell, XSD_DECIMAL)
       case cell:java.util.Date => Literal(cell.toString, XSD_DATE)
