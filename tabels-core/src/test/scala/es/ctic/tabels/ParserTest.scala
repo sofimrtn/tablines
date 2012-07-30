@@ -113,9 +113,12 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 	}
 	
 	@Test def parseDirectives() {
-	    assertParse(directives, "", Directives())
-//	    assertParse(directives, """@FETCH("dbpedia")""", Directives(Some("dbpedia".r)))   // cannot compare regex
-	    assertFail (directives, "@FETCH")
+	    assertParse(directives, "", Seq())
+	}
+	
+	@Test def parseFetchDirective() {
+//	    assertParse(fetchDirective, """@FETCH("dbpedia")""", FetchDirective("dbpedia".r))   // cannot compare regex
+	    assertFail (fetchDirective, "@FETCH")
 	}
 	
 	@Test def parsePrefixDecl() {

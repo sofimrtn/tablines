@@ -15,10 +15,9 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
   }
   
   override def postProcess(program : S) {
-      program.directives.fetch match {
-          case None => // do nothing
-          case Some(resourceUriRe) => fetchDescriptions(resourceUriRe)
-      }
+	  program.directives.foreach(_ match {
+		case FetchDirective(resourceUriRe) => fetchDescriptions(resourceUriRe)
+	  })
   }
   
   def fetchDescriptions(resourceUriRe : Regex) {

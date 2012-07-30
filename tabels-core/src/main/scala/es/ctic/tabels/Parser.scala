@@ -174,7 +174,12 @@ class TabelsParser extends JavaTokenParsers {
 	def start : Parser[S] = directives ~ rep(prefixDecl) ~ rep(tabelsStatement) ~ rep(CONSTRUCT ~> template) ^^
 	   { case directiv~prefixes~ps~ts => S(directiv,prefixes,ps,ts) }
 	   
-	def directives : Parser[Directives] = opt("@" ~> FETCH ~> "(" ~> regex <~ ")") ^^ { Directives(_) }
+	def directives : Parser[Seq[Directive]] = rep(directive)
+	
+	def directive : Parser[Directive] =
+		fetchDirective
+		
+	def fetchDirective = "@" ~> FETCH ~> "(" ~> regex <~ ")" ^^ { FetchDirective(_) }
 	
 	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)

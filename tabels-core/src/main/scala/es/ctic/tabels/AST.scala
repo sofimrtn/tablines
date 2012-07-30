@@ -10,7 +10,7 @@ abstract class ASTNode {
 
 }
 
-case class S (directives : Directives = Directives(), prefixes : Seq[(String,NamedResource)] = List(), statementList: Seq[TabelsStatement] = List(), templateList : Seq[Template] = List()) extends ASTNode {
+case class S (directives : Seq[Directive] = Seq(), prefixes : Seq[(String,NamedResource)] = List(), statementList: Seq[TabelsStatement] = List(), templateList : Seq[Template] = List()) extends ASTNode {
 
     val prefixesAsMap : Map[String, NamedResource] = Map() ++ prefixes
     
@@ -18,11 +18,10 @@ case class S (directives : Directives = Directives(), prefixes : Seq[(String,Nam
     
 }
 
-case class Directives(fetch : Option[Regex] = None) {
-    override def toString() = fetch match {
-        case None => ""
-        case Some(regex) => "@FETCH(\"" + regex.toString() + "\")"
-    }
+class Directive
+
+case class FetchDirective(regex : Regex) extends Directive {
+    override def toString() = "@FETCH(\"" + regex.toString() + "\")"
 }
 
 abstract class TabelsStatement extends ASTNode
