@@ -35,7 +35,7 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
   logger.trace("Number of fields: "+getCols())
   val headers = (0 until getCols()).map(record => reader.getField(record).getName())
   logger.trace("Fields: "+ headers)
-  val dataMatrix = (1 until getRows()).map(record =>{logger.trace("record" + reader.);reader.nextRecord()})
+  val dataMatrix = (1 until getRows()).map(record =>{logger.trace("record" + record);reader.nextRecord()})
   logger.trace("Number of rows in dataMatrix: "+ dataMatrix length)
   override val uri = file.getCanonicalPath()
   override def getTabs(): Seq[String] = Seq("")
