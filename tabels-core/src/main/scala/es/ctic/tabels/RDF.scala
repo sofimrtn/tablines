@@ -93,7 +93,14 @@ case class NamedResource(uri : String) extends Resource {
     
     def toCurie(prefixes : Seq[(String,NamedResource)]) : Option[String] =
         if (this == RDF_TYPE) Some("a")
-        else prefixes find (uri startsWith _._2.uri) map { case (prefix, ns) => uri.replace(ns.uri, prefix + ":") }
+        else {val filterePrefix = prefixes.filter(uri startsWith _._2.uri)
+        	  if (!filterePrefix.isEmpty){
+        		  val prefix = filterePrefix.maxBy(ns => ns._2.uri)
+        		  Some(uri.replace(prefix._2.uri, prefix._1 + ":"))
+        	  }
+        	  else None//Some("uri")
+        	}
+          /*prefixes find (uri startsWith _._2.uri) map { case (prefix, ns) => uri.replace(ns.uri, prefix + ":") }*/
     
 	def +(suffix : String) : NamedResource = NamedResource(this.uri + suffix)
 

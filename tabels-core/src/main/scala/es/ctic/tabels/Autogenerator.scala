@@ -44,7 +44,7 @@ class BasicAutogenerator(defaultNamespace : Namespace = EX, projectId: String = 
 
 	implicit val evaluationContext = EvaluationContext()
 	
-    val prefixes = Seq(/*("project", defaultNamespace()), */("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()))
+    val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()))
     val my = Namespace(defaultNamespace().toString.substring(1,(defaultNamespace().toString).length - 1) + "resource/")
     
     override def autogenerateProgram(dataSource : DataSource) : S = {

@@ -69,6 +69,18 @@ class LiteralTest extends JUnitSuite {
   @Test (expected = classOf[TypeConversionException]) def asDoubleDoesNotParse {
       Literal("Unparseable", XSD_STRING).asDouble
   }
-
+  
 }
+	class NamedResourceTest extends JUnitSuite {
+	  val prefixes = Seq(("foo" ,NamedResource("http://example.org/foo/")),("ex" ,NamedResource("http://example.org/")))
+	  val resource1 = NamedResource("http://example.org/foo/bar")
+	  val resource2 = NamedResource("http://example.org/doo")
+	  val resource3 = NamedResource("http://example.com/doo")
+	  @Test def toCurie {
+		  assertEquals(Some("foo:bar"),resource1.toCurie(prefixes))
+		  assertEquals(Some("foo:bar"),resource1.toCurie(prefixes.reverse))
+		  assertEquals(Some("ex:doo"),resource2.toCurie(prefixes))
+		  assertEquals(None,resource3.toCurie(prefixes))
+	  }
+	}
 
