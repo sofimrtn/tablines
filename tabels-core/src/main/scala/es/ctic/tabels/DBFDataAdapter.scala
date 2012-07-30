@@ -14,6 +14,12 @@ import javax.xml.xpath.XPathConstants
 import org.w3c.dom._
 import javax.xml.xpath._
 
+/** Handles DBF files. This class loads the complete DBF on memory.
+  * 
+  * @author Alfonso Noriega
+  * @author Guillermo González-Moriyón
+  * 
+  */
 class DBFDataAdapter(file: File) extends DataAdapter with Logging {
 
   val reader = try {
@@ -36,6 +42,10 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
   override def getRows(tabName: String = ""): Int = reader.getRecordCount() + 1
   override def getCols(tabName: String = ""): Int = reader.getFieldCount()
 
+  /** Gets the value of a cell as a CellValue.
+    * @param point current cell coordinates
+    * @return the cell as CellValue
+    */
   override def getValue(point: Point): CellValue = {
     logger.trace("Getting value at " + point)
     try {
@@ -54,6 +64,10 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
   }
 }
 
+/** Contains the value of a cell for a DBF file.
+  * 
+  *
+  */
 case class DBFCellValue(cell: Object) extends CellValue with Logging {
 
   override def getContent: Literal = {
