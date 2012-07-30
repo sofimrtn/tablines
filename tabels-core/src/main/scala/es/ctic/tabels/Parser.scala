@@ -121,6 +121,8 @@ class TabelsParser extends JavaTokenParsers {
     def WINDOWED = "windowed".ignoreCase
     def CONSTRUCT = "construct".ignoreCase
     
+	def parens[X] (innerParser : Parser[X]) : Parser[X] = "(" ~> innerParser <~ ")"
+
     def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
 	
     def tupleType: Parser[TupleType] = (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
@@ -180,9 +182,9 @@ class TabelsParser extends JavaTokenParsers {
 	def directive : Parser[Directive] =
 		fetchDirective | jenaRuleDirective
 		
-	def fetchDirective = "@" ~> FETCH ~> "(" ~> regex <~ ")" ^^ { FetchDirective(_) }
+	def fetchDirective = "@" ~> FETCH ~> parens(regex) ^^ { FetchDirective(_) }
 	
-	def jenaRuleDirective = "@" ~> JENARULE ~> "(" ~> quotedString <~ ")" ^^ { JenaRuleDirective(_) }
+	def jenaRuleDirective = "@" ~> JENARULE ~> parens(quotedString) ^^ { JenaRuleDirective(_) }
 	
 	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)
@@ -239,7 +241,7 @@ class TabelsParser extends JavaTokenParsers {
     implicit def unaryFunction2ExpressionParser[TYPE1, TYPE_RESULT]
         (func : UnaryFunction[TYPE1, TYPE_RESULT])
         (implicit type1Converter : CanFromRDFNode[TYPE1], resultConverter : CanToRDFNode[TYPE_RESULT]) : Parser[Expression] =
-        func.name.ignoreCase ~> "(" ~> expression  <~ ")" ^^
+        func.name.ignoreCase ~> parens(expression) ^^
         { case p1 => func.createExpression(p1) }
     
     implicit def binaryFunction2ExpressionParser[TYPE1, TYPE2, TYPE_RESULT]
