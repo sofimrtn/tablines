@@ -24,6 +24,10 @@ case class FetchDirective(regex : Regex) extends Directive {
     override def toString() = "@FETCH(\"" + regex.toString() + "\")"
 }
 
+case class JenaRuleDirective(jenaRule : String) extends Directive {
+	override def toString() = "@JENARULE(\"" + jenaRule + "\")"
+}
+
 abstract class TabelsStatement extends ASTNode
 
 case class BlockStatement(childStatements : Seq[TabelsStatement]) extends TabelsStatement {
