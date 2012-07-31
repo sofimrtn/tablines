@@ -6,7 +6,16 @@ import org.junit.Assert._
 
 class JenaDataOutputTest extends JUnitSuite {
 
-    val jenaDataOutput = new JenaDataOutput()
+    val prefixes = Map("ex" -> NamedResource("http://example.org/"))
+    val jenaDataOutput = new JenaDataOutput(prefixes)
+    
+    @Test def executeJenaRule() {
+        def statement1 = jenaDataOutput.model.createStatement(jenaDataOutput.model.createResource("http://example.org/a"),jenaDataOutput.model.createProperty("http://example.org/b"),jenaDataOutput.model.createResource("http://example.org/c") : com.hp.hpl.jena.rdf.model.Resource)
+        jenaDataOutput.model.add(statement1)
+        assertEquals(1, jenaDataOutput.model.size())
+        jenaDataOutput.executeJenaRule("[rule1: (?x ex:b ?z) -> (?z ex:d ?x)]")
+        assertEquals(2, jenaDataOutput.model.size())
+    }
     
     
   @Test def createStringLiteralObject {

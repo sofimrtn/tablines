@@ -4,6 +4,8 @@ import scala.util.matching.Regex
 import grizzled.slf4j.Logging
 import com.hp.hpl.jena.rdf.model.{Model,ModelFactory,AnonId}
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
+import com.hp.hpl.jena.reasoner.rulesys.{GenericRuleReasoner,Rule}
+import java.io.{BufferedReader,StringReader}
 
 class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataOutput with Logging {
 
@@ -17,6 +19,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
   override def postProcess(program : S) {
 	  program.directives.foreach(_ match {
 		case FetchDirective(resourceUriRe) => fetchDescriptions(resourceUriRe)
+		case JenaRuleDirective(jenaRule) => executeJenaRule(jenaRule)
 	  })
   }
   
@@ -52,6 +55,18 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
       }
       // FIXME: restore system properties
   }
+  
+    def executeJenaRule(jenaRule : String) {
+        def prefixDecls = prefixes map { case (prefix, namespace) => "@prefix %s: <%s>.\n".format(prefix, namespace.uri)} mkString "\n"
+        def ruleWithPrefixes = prefixDecls + jenaRule
+        logger.info("Parsing Jena Rules: " + ruleWithPrefixes)
+        // the following line looks pretty complicated, but that's the way it is, see
+        // http://tech.groups.yahoo.com/group/jena-dev/message/36663
+        def parsedRules = Rule.parseRules(Rule.rulesParserFromReader(new BufferedReader(new StringReader(ruleWithPrefixes))))
+        def reasoner = new GenericRuleReasoner(parsedRules)
+        def inferredModel = ModelFactory.createInfModel(reasoner, model)
+        model.add(inferredModel)
+    }
   
     def fetchDescription(resourceUri : String) {
         logger.info("Fetching description of resource " + resourceUri)
