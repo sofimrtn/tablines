@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>3.2 Ejemplo 2 0.4-SNAPSHOT</title>
+    <title>3.2 Tabla HTML en p&aacute;gina web 0.4-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -31,6 +31,9 @@ function addJsClass() {
                     </div>
                     
                     <div class="toc-item" style="margin-left:0"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span></a>
                     </div>
                     
                 </div>
@@ -62,10 +65,12 @@ function addJsClass() {
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                 
+                    <div class="toc-item next-right"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span> >></a></div>
+                
 
 
                 <div class="project">
-                    <h1>3.2 Ejemplo 2 - Reference Documentation</h1>
+                    <h1>3.2 Tabla HTML en p&aacute;gina web - Reference Documentation</h1>
 
                     <p><strong>Authors:</strong> </p>
 
@@ -78,13 +83,52 @@ function addJsClass() {
 
                 
 
-<h2 id="ejemplo2">3.2 Ejemplo 2</h2>
+<h2 id="ejemplo2">3.2 Tabla HTML en página web</h2>
 
+En este segundo ejemplo el origen de los datos tabulares no es un fichero excel sino una página web. Tabels es capaz de identificar la información de una tabla HTML en una página web y aplicarle los mapeos programados de la misma manera que si fuera una hoja excel.<p class="paragraph"/>La página que se va a utilizar es la que contiene la tabla con las 250 peliculas 'top' de imdb (http://www.imdb.com/chart/top). La siguiente imagen muestra esa tabla:<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo2.png"></img><p class="paragraph"/>Primero mostramos el código completo de este ejemplo y a continuación destacaremos las partes más interesantes:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;
+PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
+PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;<p class="paragraph"/>SET files <span class="java&#45;quote">"/<span class="java&#45;keyword">private</span>/<span class="java&#45;keyword">var</span>/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tabels/projects/p1/upload/download&#45;1340095324674.html"</span>
+ SET sheets <span class="java&#45;quote">"0"</span>
+    FOR ?rowId IN rows FILTER get&#45;row(?rowId)
+        MATCH &#91;?rank,?rating,?title,?votes&#93; IN horizontal 
+        LET ?titleTrimmed = trim(substring&#45;before(?title,<span class="java&#45;quote">"("</span>))
+        LET ?year = <span class="java&#45;object">int</span>(substring(?title,<span class="java&#45;object">int</span>&#45;add(last&#45;index&#45;of(?title,<span class="java&#45;quote">"("</span>),1),4))
+        LET ?rankInt = <span class="java&#45;object">int</span>(substring&#45;before(?rank,<span class="java&#45;quote">"."</span>))
+        LET ?votesInt = <span class="java&#45;object">int</span>(translate(?votes,<span class="java&#45;quote">","</span>,<span class="java&#45;quote">""</span>))<p class="paragraph"/>    	CONSTRUCT
+        &#123;
+           &#91;    rdf:type ex:Movie;
+                ex:rank ?rankInt ;
+    	        ex:rating ?rating ;
+    	        rdfs:label ?titleTrimmed ;
+                ex:year ?year ;
+    	        ex:votes ?votesInt &#93;
+        &#125;</pre></div><p class="paragraph"/>En primer lugar se identifica el origen de los datos para la transformación. La construcción 'SET file' identifica la ruta local al fichero html. A su vez 'SET sheets' vale para especificar la hoja en un fichero excel pero también para especificar la tabla en una página web atendiendo al orden en que aparecen.<p class="paragraph"/>Para iterar sobre las filas de la tabla se usa la sentencia de iteración 'FOR'. La variable de iteración 'rowId' va adquiriendo los valores de la primera columna de la tabla, en este caso los de la columna 'Rank'. La función 'get-row' devuelve el número de fila donde se encuentra el contenido de la variable, siendo la primera fila la 0. El uso de 'FILTER' sobre el valor de la función 'get-row' nos vale para saltar la primera fila correspondiente a los encabezados: para esa fila 'get-row' devuelve 0 que se evalúa como 'false' por 'FILTER'.<p class="paragraph"/><div class="code"><pre>FOR ?rowId IN rows FILTER get&#45;row(?rowId)
+    MATCH &#91;?rank,?rating,?title,?votes&#93; IN horizontal</pre></div><p class="paragraph"/>La sentencia 'MATCH' usada permite asignar los valores de la fila actual a cuatro variables diferentes. Es interesante notar que en este ejemplo particular el valor de las variables '?rowId' y '?rank' sería el mismo. Una forma paralela de lograr capturar los mismos valores sería moviendo el ámbito del 'MATCH' 1 celda a la derecha de la variable de iteración, de esta forma:<p class="paragraph"/><div class="code"><pre>FOR ?rowId IN rows FILTER get&#45;row(?rowId)
+   LET ?rank = ?rowId
+   MATCH &#91;?rating,?title,?votes&#93; IN horizontal AT 1 right of ?rowId</pre></div><p class="paragraph"/>Una vez que las variables base están establecidas se entra en una sección en que en cada iteración se crean nuevas variables refinadas a partir del valor de las variables base. Se usan algunas funciones de tratamiento de cadenas y transformación de tabels. Por ejemplo, en la variable '?rankInt' se guarda el ranking de la película como valor entero. Primero se usa la función 'substring-before' para eliminar el '.' al final de cada número, y a continuación se usa 'int' para transformar el número como cadena a entero:<p class="paragraph"/><div class="code"><pre>LET ?rankInt = <span class="java&#45;object">int</span>(substring&#45;before(?rank,<span class="java&#45;quote">"."</span>))</pre></div><p class="paragraph"/>Otro ejemplo del uso de las funciones lo tenemos en el trato que se la da al valor de la columna 'Title' (guardado en la variable '?title'). De estas celdas queremos diferenciar dos datos diferenciados, el título y el año de la película. Para ello, de nuevo con la función 'substring-before' se obtiene el título, que es el texto que se encuentra antes del primer paréntesis. Para obtener el año hay que recuperar los 4 caracteres justo a la derecha del primer paréntesis: con la función 'last-index-of' se devuelve la posición en la cadena de texto del primer paréntesis '(', a este valor se le suma 1 con la función 'int-add' y finalmente con la función 'substring' se forma una nueva cadena con los cuatro caracteres que empiezan en ese valor:<p class="paragraph"/><div class="code"><pre>LET ?titleTrimmed = trim(substring&#45;before(?title,<span class="java&#45;quote">"("</span>))
+LET ?year = <span class="java&#45;object">int</span>(substring(?title,<span class="java&#45;object">int</span>&#45;add(last&#45;index&#45;of(?title,<span class="java&#45;quote">"("</span>),1),4))</pre></div><p class="paragraph"/>Finalmente, la lista de templates consta en este ejemplo de una sola template. Esta template se activaría cada vez que cambia el valor de una de las variables que utiliza. El comienzo de la template se define con la palabra reservada 'construct' y con RDF en sintaxis N3 entre llaves.<p class="paragraph"/><div class="code"><pre>CONSTRUCT
+&#123;
+   &#91;    rdf:type ex:Movie;
+        ex:rank ?rankInt ;
+        ex:rating ?rating ;
+        rdfs:label ?titleTrimmed ;
+        ex:year ?year ;
+        ex:votes ?votesInt &#93;
+&#125;</pre></div><p class="paragraph"/>En este caso este ejemplo no asigna ninguna URI a cada película y por tanto usa corchetes ('&#91;' y '&#93;') para establecer que es un blank node.<p class="paragraph"/>Una consulta SPARQL que listaría las películas obtenidas por el mapeo anterior sería esta:<p class="paragraph"/><div class="code"><pre>PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
+PREFIX ex: &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;<p class="paragraph"/>SELECT &#42;
+FROM &#60;http://localhost:8080/tabels&#45;web&#62; 
+WHERE &#123; ?s rdfs:label ?titulo ;
+      	   ex:year ?anio ;
+           ex:rating ?clasificacion;
+      	   ex:rank ?puesto&#125;
+ORDER BY DESC (?anio)</pre></div><p class="paragraph"/>
 
 
                 <div style="clear:both;margin-top:15px;"></div>
                 
                     <div class="toc-item prev-left"><a href="../../guide/tabelsLenguaje.html">&lt;&lt; <strong>2</strong><span>Lenguaje Tabels</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span> >></a></div>
                 
                 <div style="clear:both"></div>
             </div>

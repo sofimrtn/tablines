@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>2.3.1 Expresiones Num&eacute;ricas 0.4-SNAPSHOT</title>
+    <title>2.4.1 Expresiones Num&eacute;ricas 0.4-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -31,6 +31,9 @@ function addJsClass() {
                     </div>
                     
                     <div class="toc-item" style="margin-left:0"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span></a>
                     </div>
                     
                 </div>
@@ -67,7 +70,7 @@ function addJsClass() {
 
 
                 <div class="project">
-                    <h1>2.3.1 Expresiones Num&eacute;ricas - Reference Documentation</h1>
+                    <h1>2.4.1 Expresiones Num&eacute;ricas - Reference Documentation</h1>
 
                     <p><strong>Authors:</strong> </p>
 
@@ -80,7 +83,7 @@ function addJsClass() {
 
                 
 
-<h2 id="numericFunctions">2.3.1 Expresiones Numéricas</h2>
+<h2 id="numericFunctions">2.4.1 Expresiones Numéricas</h2>
 <h4>Operadores aritméticos</h4>
 <ol>
 <li>numeric-add</li>
@@ -155,6 +158,12 @@ Devuelve el número entero más cercano al operando. En caso de haber dos devolv
     <span class="java&#45;object">int</span>(operando : numeric, <span class="java&#45;keyword">default</span> :Int) : Int</pre></div>
 Devuelve operando convertido a Int. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
 <ol>
+<li>is-int</li>
+</ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
+<div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+<ol>
 <li>float</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">float</span>(operando : numeric) : <span class="java&#45;object">Float</span></pre></div>
 Devuelve operando convertido a Float. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException.
@@ -162,7 +171,13 @@ Devuelve operando convertido a Float. En caso de no poder realizarse la conversi
 <li>double</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">double</span>(operando : numeric) : <span class="java&#45;object">Double</span>
     <span class="java&#45;object">double</span>(operando : numeric, <span class="java&#45;keyword">default</span> :<span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
-Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.<p class="paragraph"/>   
+Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+<ol>
+<li>is-double</li>
+</ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+El resultado de esta función es TRUE si el operando es de tipo double. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-double(operando : any) : Boolean
+<div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.<p class="paragraph"/>   
 
 
 

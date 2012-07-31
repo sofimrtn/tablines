@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>3.3 Ejemplo 3 0.4-SNAPSHOT</title>
+    <title>3.3 Selecciones y filtros de informaci&oacute;n avanzados 0.4-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -31,6 +31,9 @@ function addJsClass() {
                     </div>
                     
                     <div class="toc-item" style="margin-left:0"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span></a>
                     </div>
                     
                 </div>
@@ -62,10 +65,12 @@ function addJsClass() {
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                 
+                    <div class="toc-item next-right"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span> >></a></div>
+                
 
 
                 <div class="project">
-                    <h1>3.3 Ejemplo 3 - Reference Documentation</h1>
+                    <h1>3.3 Selecciones y filtros de informaci&oacute;n avanzados - Reference Documentation</h1>
 
                     <p><strong>Authors:</strong> </p>
 
@@ -78,13 +83,98 @@ function addJsClass() {
 
                 
 
-<h2 id="ejemplo3">3.3 Ejemplo 3</h2>
+<h2 id="ejemplo3">3.3 Selecciones y filtros de información avanzados</h2>
 
+En este tercer ejemplo volvemos a trabajar con un fichero excel fijándonos en alguna nueva funcionalidad que ofrece Tabels. La excel en este caso contiene resultados de experimentos y se trata de una excel muy densa, con muchos datos. Lo que se va a mostrar es como Tabels nos permite ser muy concretos identificando mediante un programa secciones específicas de datos para contruir un programa de transformación.<p class="paragraph"/>La imagen a continuación es una captura de una porción de la hoja 'Hoja2' de la excel que muestra parcialmente los grupos de datos que queremos capturar.<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo3.png"></img><p class="paragraph"/>Los resultados de los experimentos que nos interesan se encuentran en esta hoja 'Hoja2', entre las columnas 'A' y 'H', y empiezan en bloques por días a partir de la fila nº 25. Para los resultados de cada día se abre un bloque de filas: para el día 10 por ejemplo desde la fila 27 hasta la 47, representan los resultados para un animal concreto. En cada fila la columna 'A' contiene el valor del tratamiento que se ha dado al animal. Entre las columnas 'B' y 'I' se encuentran los números de los resultados obtenidos.<p class="paragraph"/>Para empezar a iterar sobre esos datos lo único que hay que especificar en el programa Tabels es primero la hoja en la que se encuentran, con la construcción 'SET sheets'. A continuación, creamos una iteración por filas para cada día de experimentos, pero al 'FOR' por filas le especificamos que empiece en la primera celda con la expresión 'STARTS AT A25'. Además, como ya hemos visto en ejemplos anteriores, creamos una 'ventana' para el día de experimentos mediante un filtro por expresión regular:<p class="paragraph"/><div class="code"><pre>SET sheets <span class="java&#45;quote">"Hoja2"</span>
+    FOR ?experimentDay IN rows STARTS AT A25 FILTER matches(?experimentDay, <span class="java&#45;quote">"DAY &#91;0&#45;9&#93;+"</span>)
+		LET ?resourceExperimentDay = resource(?experimentDay, &#60;http://example.com&#35;&#62;)</pre></div><p class="paragraph"/>A partir de la variable de iteración '?experimentDay' se crea una variable para el recurso 'día de experimento' '?resourceExperimentDay'.<p class="paragraph"/>Para iterar por los experimentos efectuados por cada uno de los días se crea un iteración anidada por filas mediante otro 'FOR'. En esta ocasión el comienzo de la iteración se marca de forma relativa a la variable de la iteración padre, 2 celdas por debajo de la variable '?experimentDay', mediante especificar 'starts at 2 bottom'. El filtro usado selecciona sólo las celdas cuyo contenido esté formado por caracteres alfanuméricos o el carácter '.' (la cifras que aparecen como porcentajes en la excel son leídas como flotantes, por ejemplo, 21% como 0.21).<p class="paragraph"/><div class="code"><pre>FOR ?treatment IN rows starts at 2 bottom of ?experimentDay filter matches(?treatment,<span class="java&#45;quote">"&#91;a&#45;zA&#45;Z0&#45;9.&#93;+"</span>)
+	LET ?resourceTreatment = resource(concat(<span class="java&#45;quote">"F1+"</span>,?treatment), &#60;http://example.com&#35;&#62;)
+	LET ?mouse = <span class="java&#45;object">int</span>&#45;substract(get&#45;row( ?treatment),get&#45;row(?experimentDay))
+	LET ?resourceMouse = resource(?mouse,&#60;http://example.com&#35;&#62;) &#123;
+	..........
+	&#125;</pre></div><p class="paragraph"/>Cada fila de esta iteración representaría dos entidades diferentes: por un lado el tratamiento usado (columna 'A') y por otro lado el ratón sobre el que se experimenta. Se crean variables de recursos para representar esas dos entidades. Para el ratón, se le asigna un número, que es la diferencia entre el número de la fila del experimento y el número de la fila base del día de experimentos: se usa para esto la función 'get-row', y la función 'int-substract' para hacer la resta.<p class="paragraph"/>Ya habíamos visto también en un ejemplo anterior el uso de 'MATCH' para recuperar bloques de variables a partir de celdas consecutivas. Para este programa se utiliza para recuperar los resultados del experimento en las celdas a la derecha en la misma fila que la variable de iteración '?treatment'. Se usa 'AT 6' y 'AT 1' para mover el comienzo de la captura de las variables entre corchetes. De esta forma el primer 'MATCH' capturaría los valores de dos celdas ('G' y 'H') y el segundo de cinco columnas (de la 'B' a la 'F'). Además se usan filtros específicos para estas capturas de tal forma que si no se cumple la condición en 'FILTER' ninguna de las variables del 'MATCH' captura su valor. Por ejemplo, en el segundo 'MATCH' del ejemplo, si en la celda 'F' (variable '?volume') no se encuentra un valor de número flotante ninguna de las cinco variables capturará el valor de su celda correspondiente:<p class="paragraph"/><div class="code"><pre>MATCH &#91;?averageVolume,?deviation&#93; IN horizontal AT 6 right of ?treatment FILTER matches(?averageVolume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>) ;
+MATCH &#91;?height,?width,?depth,?death,?volume&#93; IN horizontal AT 1 right of ?treatment FILTER matches(?volume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>)</pre></div><p class="paragraph"/>Al final del programa aparece la lista de templates que generan el RDF (N3), usando el vocabulario de estadísticas Scovo. Se crean dimensiones scovo para representar las entidades 'día de experimento', 'tratamiento' y 'ratón'. Cada una de esas templates solo generaría código RDF cuando cambiara la variable de la que depende. Se crean 'items' que representan valores estadísticos granulares para las variables '?volume' y '?averageVolume'. Por ejemplo, para esta última su valor se asocia a un dataset y dos dimensiones, además de aplicar al item también la desviación estándar en la variable '?deviation' mediante la propiedad de Scovo 'ex:standardDeviation':<p class="paragraph"/><div class="code"><pre>construct
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:AverageTumorVolume ;
+        scv:dimension ?resourceExperimentDay ;
+        rdf:value ?averageVolume;
+        scv:dimension ?resourceTreatment;
+        ex:standardDeviation ?deviation&#93;
+&#125;</pre></div><p class="paragraph"/>A continuación se lista el código completo del ejemplo:<p class="paragraph"/><div class="code"><pre>@fetch (<span class="java&#45;quote">"dbpedia"</span>)
+PREFIX ex: &#60;http://example.org/ex&#35;&#62;
+PREFIX scv: &#60;http://purl.org/NET/scovo&#35;&#62;
+PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
+PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
+PREFIX skos: &#60;http://www.w3.org/2004/02/skos/core&#35;&#62;
+PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p class="paragraph"/>set sheets <span class="java&#45;quote">"Hoja2"</span>
+    FOR ?experimentDay IN rows STARTS AT A25 FILTER matches(?experimentDay, <span class="java&#45;quote">"DAY &#91;0&#45;9&#93;+"</span>)
+		LET ?resourceExperimentDay = resource(?experimentDay, &#60;http://example.com&#35;&#62;)
+		FOR ?treatment IN rows starts at 2 bottom of ?experimentDay filter matches(?treatment,<span class="java&#45;quote">"&#91;a&#45;zA&#45;Z0&#45;9.&#93;+"</span>)
+ 	    	LET ?resourceTreatment = resource(concat(<span class="java&#45;quote">"F1+"</span>,?treatment), &#60;http://example.com&#35;&#62;)
+	   		LET ?mouse = <span class="java&#45;object">int</span>&#45;substract(get&#45;row( ?treatment),get&#45;row(?experimentDay))
+	   		LET ?resourceMouse = resource(?mouse,&#60;http://example.com&#35;&#62;) &#123;
+            	MATCH &#91;?averageVolume,?deviation&#93; IN horizontal AT 6 right of ?treatment FILTER matches(?averageVolume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>) ;
+            	MATCH &#91;?height,?width,?depth,?death,?volume&#93; IN horizontal AT 1 right of ?treatment FILTER matches(?volume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>)
+	    	&#125;
+//SCOVO TEMPLATE DATASET Mouse&#45;Day&#45;Treatment
+//DIMENSION EXPERIMENT DAY
+construct 
+&#123; 
+    ?resourceExperimentDay a  ex:ExperimentDay ; 
+                           skos:prefLabel ?experimentDay .<p class="paragraph"/>    ex:ExperimentDay rdfs:subClassOf scv:Dimension ; 
+                     skos:prefLabel <span class="java&#45;quote">"Experiment Day"</span><p class="paragraph"/>&#125;<p class="paragraph"/>//DIMENSION TREATMENT<p class="paragraph"/>construct 
+&#123; 
+    ?resourceTreatment a ex:Treatment ;
+                           skos:prefLabel ?treatment .
+    ex:Treatment rdfs:subClassOf scv:Dimension ;
+                     skos:prefLabel <span class="java&#45;quote">"Treatment"</span><p class="paragraph"/>&#125;
+//DIMENSION MOUSE
+construct
+&#123; 
+    ?resourceMouse a ex:Mouse ;
+                           skos:prefLabel ?mouse .<p class="paragraph"/>    ex:Mouse rdfs:subClassOf scv:Dimension ;
+                     skos:prefLabel <span class="java&#45;quote">"Mouse"</span><p class="paragraph"/>&#125;
+//DATA SEt &#38; ITEM
+construct
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:IndividualTumorVolume ;
+        scv:dimension ?resourceMouse ;
+        scv:dimension ?resourceExperimentDay ;
+        rdf:value ?volume;
+        scv:dimension ?resourceTreatment;
+        ex:height ?height;
+        ex:width ?width;
+        ex:depth ?depth&#93;
+&#125;
+ construct 
+&#123;
+    ex:IndividualTumorVolume a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Individual Tumor Volume"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Unidad volumen"</span><p class="paragraph"/>&#125;<p class="paragraph"/>//SCOVO TEMPLATE DATASET Day&#45;Treatment<p class="paragraph"/>
+//DATA SEt &#38; ITEM
+construct
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:AverageTumorVolume ;
+        scv:dimension ?resourceExperimentDay ;
+        rdf:value ?averageVolume;
+        scv:dimension ?resourceTreatment;
+        ex:standardDeviation ?deviation&#93;
+&#125;
+construct  
+&#123;
+    ex:AverageTumorVolume a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Average Tumor Volume"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Unidad volumen"</span><p class="paragraph"/>&#125;</pre></div>
 
 
                 <div style="clear:both;margin-top:15px;"></div>
                 
                     <div class="toc-item prev-left"><a href="../../guide/tabelsLenguaje.html">&lt;&lt; <strong>2</strong><span>Lenguaje Tabels</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span> >></a></div>
                 
                 <div style="clear:both"></div>
             </div>

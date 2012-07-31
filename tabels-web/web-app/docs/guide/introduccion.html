@@ -33,6 +33,9 @@ function addJsClass() {
                     <div class="toc-item" style="margin-left:0"><a href="../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
                     </div>
                     
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/restApi.html"><strong>4</strong><span>API REST</span></a>
+                    </div>
+                    
                 </div>
             </div>
         </li>
@@ -79,14 +82,43 @@ function addJsClass() {
                 
 
 <h1 id="introduccion">1 Introducción</h1>
-<ul class="star">
-<li>item 1</li>
-<ul class="star">
-<li>subitem 1</li>
-<li>subitem 2</li>
-</ul>
-<li>item 2</li>
-</ul><p class="paragraph"/>
+Tabels transforma datos tabulares en grafos RDF. Este documento describe el funcionamiento y uso
+de Tabels.<p class="paragraph"/>Las transformaciones se basan en dos procesos complementarios. En primer lugar, se evalúan
+<strong class="bold">patrones</strong> con respecto a las fuentes de datos tabulares. Como resultado de este primer proceso,
+las variables que aparecen en los patrones son ligadas a valores concretos. El segundo proceso
+consiste en la instanciación de <strong class="bold">plantillas</strong> para producir fragmentos del grafo RDF resultante.<p class="paragraph"/>El resultado de una transformación es la combinación de todos los subgrafos RDF obtenidos mediante
+todas las posibles instanciaciones de las plantillas que sean coherentes con los patrones.<p class="paragraph"/>Tabels define los patrones y las plantillas mediante un lenguaje propio, con una sintaxis inspirada
+por XQuery, XPath y SPARQL, pero con rasgos propios. El lenguaje es funcional, dado que se basa en
+la evaluación de expresiones y no existe
+asignación destructiva de valores a las variables (es decir, las variables nunca cambian de valor).<p class="paragraph"/>Los patrones se definen mediante un lenguaje de <strong class="bold">sentencias</strong> interpretadas. Mediante este lenguaje
+resulta posible extraer valores de las fuentes de datos, calcular valores derivados mediante
+la evaluación de expresiones, y realizar encaje iterativo y condicional de patrones. Las
+sentencias tienen una estructura jerárquica, de tal forma que cada sentencia puede modificar la
+forma en la que se realiza el encaje de patrones en las sentencias anidadas.
+La interpretación de los patrones se realiza en preorden y
+comienza por la sentencia que ocupa la raíz de la jerarquía. Las variables que aparecen en los
+patrones (y por tanto, sus ligaduras) tienen un ámbito limitado a la sentencia en la que aparecen y sus sentencias anidadas.<p class="paragraph"/>La interpretación de una sentencia puede producir ligaduras para variables que previamente no
+se encontraban aún asignadas. Este suceso se denomina <strong class="bold">evento</strong>. En un evento, una o más variables
+resultan ligadas a valores concretos. Una variable puede ligarse a varios valores (pero no de
+forma simultánea) en distintos eventos desencadenados por una sentencia, por ejemplo, en una iteración.<p class="paragraph"/>Tabels realiza todas las instanciaciones posibles de las plantillas considerando todos los
+eventos disparados por los patrones. Una plantilla es instanciable con respecto a un evento si 
+el evento contiene ligaduras para al menos todas las variables contenidas en la plantilla.
+Una plantilla se instancia para cada evento que contiene una combinacione distinta de
+ligaduras sus variables. Por tanto, no es necesario establecer una relación explícita entre
+los patrones y las plantillas, ya que se determina automáticamente. Como consecuencia, los
+patrones de un programa Tabels definen _cómo se extraen los valores de las variables a partir de
+las fuentes de datos_ y las plantillas definen _qué forma tienen los subgrafos que conforman el
+resultado_. Esta separación reduce el acoplamiento entre ambas partes al mínimo (sólo deben
+acordarse nombres de variables comunes), y permite que patrones y plantillas evolucionen y se
+reutilicen de forma independiente.<p class="paragraph"/><h3>Datos tabulares de entrada</h3><p class="paragraph"/>Tabels puede leer distintos formatos de entrada, siempre que tengan una estructura tabular.
+Más concretamente, las entradas de Tabels consisten en estructuras matriciales de cuatro
+dimensiones: fichero, hoja, fila y columna. En cada posición de la matriz existe un valor
+concreto. Tabels admite como entrada estructuras más sencillas que carezcan de alguna de estas
+dimensiones, por ejemplo, ficheros CSV (no tienen "hojas").<p class="paragraph"/>Las sentencias de los patrones permiten seleccionar subconjuntos de estas estructuras
+de datos, por ejemplo, una columna de una hoja y fichero concreto. También permiten realizar
+iteraciones por los valores dentro de una dimensión, por ejemplo, una iteración por filas.<p class="paragraph"/><h3>Grafos RDF de salida</h3><p class="paragraph"/>Una transformación Tabels produce como resultado exactamente un grafo RDF. Este grafo
+se obtiene de la combinación de los subgrafos producidos por las instanciaciones de las
+plantillas.
 
 
                 <div style="clear:both;margin-top:15px;"></div>

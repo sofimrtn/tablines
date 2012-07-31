@@ -33,6 +33,9 @@ function addJsClass() {
                     <div class="toc-item" style="margin-left:0"><a href="../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
                     </div>
                     
+                    <div class="toc-item" style="margin-left:0"><a href="../guide/restApi.html"><strong>4</strong><span>API REST</span></a>
+                    </div>
+                    
                 </div>
             </div>
         </li>
@@ -83,19 +86,25 @@ function addJsClass() {
                     <div class="toc-item" style="margin-left:0px"><a href="#dimensionStatements"><strong>2.1</strong><span>Sentencias de dimensiones</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#variableAssignmentStatements"><strong>2.2</strong><span>Sentencias de asignaci&oacute;n de variables</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#conditionalStatements"><strong>2.2</strong><span>Sentencias condicionales</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:0px"><a href="#functions"><strong>2.3</strong><span>Expresiones</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#variableAssignmentStatements"><strong>2.3</strong><span>Sentencias de asignaci&oacute;n de variables</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:10px"><a href="#numericFunctions"><strong>2.3.1</strong><span>Expresiones Num&eacute;ricas</span></a>
+                    <div class="toc-item" style="margin-left:0px"><a href="#functions"><strong>2.4</strong><span>Expresiones</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:10px"><a href="#stringFunctions"><strong>2.3.2</strong><span>Expresiones con Cadenas</span></a>
+                    <div class="toc-item" style="margin-left:10px"><a href="#numericFunctions"><strong>2.4.1</strong><span>Expresiones Num&eacute;ricas</span></a>
                     </div>
                     
-                    <div class="toc-item" style="margin-left:10px"><a href="#miscellaneaFunctions"><strong>2.3.3</strong><span>Expresiones Variadas</span></a>
+                    <div class="toc-item" style="margin-left:10px"><a href="#stringFunctions"><strong>2.4.2</strong><span>Expresiones con Cadenas</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:10px"><a href="#miscellaneaFunctions"><strong>2.4.3</strong><span>Expresiones Variadas</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0px"><a href="#directives"><strong>2.5</strong><span>Directivas</span></a>
                     </div>
                     
                 </div>
@@ -114,6 +123,7 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 <ul class="star">
 <ul class="star">
 <li><a href="../guide/single.html#dimensionStatements" class="guide">Sentencias de dimensiones</a>: Este tipo de sentencias tabels permiten recorrer el origen de datos indicando las dimensiones por las que iterar, condiciones de inicio, parada y salto.</li>
+<li><a href="../guide/single.html#conditionalStatements" class="guide">Sentencias condicionales</a>: Sentencias tabels que varían el flujo de ejecución normal de un programa tabels en función de una condición.</li>
 <li><a href="../guide/single.html#variableAssignmentStatements" class="guide">Sentencias de asignación de variables</a>: Su función es asignar valores del origen de datos a variables y modificarlos.</li>
 </ul>
 </ul>
@@ -163,16 +173,45 @@ Este tipo de sentencias tabels permiten iterar por una dimension del origen de d
 <h4>Sentencias de selección de dimensión</h4><p class="paragraph"/>    <div class="code"><pre>SET &#91; <em class="italic">?variable</em> &#93; IN dimension value</pre></div>
 
 
-<h2 id="variableAssignmentStatements">2.2 Sentencias de asignación de variables</h2>
+<h2 id="conditionalStatements">2.2 Sentencias condicionales</h2>
+<h4>Sentencias Condicionales</h4>
+Este tipo de sentencias nacen para cubrir aquellas ocasiones en las que puede ser útil condicionar en tiempo de ejecución el recorrido por una parte del programa tabels en función de los valores encontrados
+en la tabla o de la posición actual. La sintaxis de de estas sentencias es de la forma:
+    <div class="code"><pre>WHEN &#91; <em class="italic">expression</em>  |  <em class="italic">position</em> &#93; DO</pre></div>
+Todas las sentencias anidadas por debajo de esta se ejecutarán si se cumple la condición. Es decir, en caso de que la condición sea una expresión, si el resultado de evaluarla
+es positivo(TRUE), se recorrerá la parte de programa situada debajo de la sentencia condicional. Por otra parte, si la condición es una posición
+el resultado será positivo sólo cuando el programa esté recorriendo esa posición del origen de datos.<p class="paragraph"/>Esta sentencia se usa en el programa de SCOVO autogenerado por tabels para evitar que valores que no sean numéricos sean tratados como tal.
+    <div class="code"><pre>.
+        .
+        .
+        MATCH &#91;?dvl1,?rawItemValue&#93; IN horizontal 
+        WHEN can&#45;be&#45;<span class="java&#45;object">double</span>(?rawItemValue) DO
+             LET ?itemValue = <span class="java&#45;object">double</span>(?rawItemValue)
+             LET ?dv1 = resource(?dvl1,&#60;http://example.org/ex&#35;&#62;)<p class="paragraph"/>        CONSTRUCT &#123;
+            ?item a scv:Item .
+            ?item scv:dataset ex:myDataset .
+            ?item rdf:value ?itemValue .
+            ?item scv:dimension ?dv1
+        &#125;
+        .
+        .
+        .</pre></div>
+En el ejemplo  <em class="italic">?rawItemValue</em>  toma el valor directamente de la tabla mediante la sentencia MATCH. Para asegurarnos de que toma un valor numérico usamos la sentencia condicional
+con la expresión  <em class="italic">can-be-double(?rawItemValue)</em>  que se cumplirá en el caso de que el valor sea promocionable a tipo double. Si el valor no es numérico las variables  <em class="italic">?itemValue</em>  y  <em class="italic">?dv1</em> 
+no toman ningún valor y por lo tanto el template del ejemplo no se instanciará(ver Templates en la <a href="../guide/single.html#tabelsLenguaje" class="guide">descripción general del lenguaje Tabels</a>).
+En el caso contrario, si el valor es numérico las sentencias anidadas bajo la sentencia condicional se ejecutarán y las variables tomarán los valores correspondientes.  
+
+
+<h2 id="variableAssignmentStatements">2.3 Sentencias de asignación de variables</h2>
 <h4>Sentencia de asignación de variables</h4><p class="paragraph"/><div class="code"><pre>match Tuple &#91;at Position&#93; &#91;filter Expression&#93;</pre></div><p class="paragraph"/><h4>Sentencia tratamiento de variables</h4><p class="paragraph"/><div class="code"><pre>let Variable = Expression</pre></div>
 
 
 
-<h2 id="functions">2.3 Expresiones</h2>
+<h2 id="functions">2.4 Expresiones</h2>
 
 
 
-<h2 id="numericFunctions">2.3.1 Expresiones Numéricas</h2>
+<h2 id="numericFunctions">2.4.1 Expresiones Numéricas</h2>
 <h4>Operadores aritméticos</h4>
 <ol>
 <li>numeric-add</li>
@@ -247,6 +286,12 @@ Devuelve el número entero más cercano al operando. En caso de haber dos devolv
     <span class="java&#45;object">int</span>(operando : numeric, <span class="java&#45;keyword">default</span> :Int) : Int</pre></div>
 Devuelve operando convertido a Int. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
 <ol>
+<li>is-int</li>
+</ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
+<div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+<ol>
 <li>float</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">float</span>(operando : numeric) : <span class="java&#45;object">Float</span></pre></div>
 Devuelve operando convertido a Float. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException.
@@ -254,11 +299,17 @@ Devuelve operando convertido a Float. En caso de no poder realizarse la conversi
 <li>double</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">double</span>(operando : numeric) : <span class="java&#45;object">Double</span>
     <span class="java&#45;object">double</span>(operando : numeric, <span class="java&#45;keyword">default</span> :<span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
-Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.<p class="paragraph"/>   
+Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+<ol>
+<li>is-double</li>
+</ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+El resultado de esta función es TRUE si el operando es de tipo double. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-double(operando : any) : Boolean
+<div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.<p class="paragraph"/>   
 
 
 
-<h2 id="stringFunctions">2.3.2 Expresiones con Cadenas</h2>
+<h2 id="stringFunctions">2.4.2 Expresiones con Cadenas</h2>
 <h4>Funciones</h4>
 <ol>
 <li>concat</li>
@@ -350,7 +401,7 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 }<p class="paragraph"/>
 
 
-<h2 id="miscellaneaFunctions">2.3.3 Expresiones Variadas</h2>
+<h2 id="miscellaneaFunctions">2.4.3 Expresiones Variadas</h2>
 <ol>
 <li>DBPedia-Disambiguation</li>
 </ol><p class="paragraph"/>    <div class="code"><pre>DBPedia&#45;Disambiguation(query: <span class="java&#45;object">String</span>, workMode: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
@@ -398,6 +449,21 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 <li>if-then-else</li>
 </ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
     Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
+
+
+
+<h2 id="directives">2.5 Directivas</h2>
+El lenguaje Tabels incorpora ''directivas'', que son sentencias especiales que
+modifican la generación de la salida. Las directivas son específicas del tipo de
+salida que se genera, y por tanto, pueden estar disponibles sólo en algunos casos.<p class="paragraph"/>Mediante estas directivas resulta posible realizar integración de datos, mediación
+de vocabularios, inferencias y algunas comprobaciones.<p class="paragraph"/><h5>Directiva '&#64;fetch'</h5><p class="paragraph"/>Esta directiva indica a Tabels que, una vez finalizada la transformación,
+descargue las descripciones de todos los
+recursos que comiencen por el prefijo indicado. Por ejemplo:<p class="paragraph"/><div class="code"><pre>@FETCH(<span class="java&#45;quote">"http://dbpedia.org/"</span>)</pre></div><p class="paragraph"/>Provoca que Tabels descargue las descripciones de recursos como http://dbpedia.org/resource/Asturias.<p class="paragraph"/><h5>Directiva '&#64;jenarule'</h5><p class="paragraph"/>Esta directiva permite ejecutar reglas Jena al terminar la transformación.
+Una única directiva puede contener múltiples reglas. La sintaxis de las reglas
+Jena se encuentra descrita en la documentación de Jena: http://jena.apache.org/documentation/inference/index.html#rules
+Los prefijos declarados para el programa Tabels son automáticamente introducidos
+en las reglas, por lo que no es necesario declararlos de nuevo. Un ejemplo:<p class="paragraph"/><div class="code"><pre>@JENARULE(<span class="java&#45;quote">"&#91;R1: (?x foaf:knows ?z) &#45;&#62; (?z foaf:knows ?x)&#93;"</span>)
+PREFIX foaf: &#60;http://xmlns.com/foaf/0.1/&#62;</pre></div><p class="paragraph"/>La regla anterior convierte todas las relaciones foaf:knows en simétricas.<p class="paragraph"/><h5>Directiva '@sparql'</h5><p class="paragraph"/>FIXME
 
 
 

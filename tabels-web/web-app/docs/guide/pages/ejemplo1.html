@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>3.1 Ejemplo 1 0.4-SNAPSHOT</title>
+    <title>3.1 Excel con &quot;ventanas&quot; de datos anidadas 0.4-SNAPSHOT</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -31,6 +31,9 @@ function addJsClass() {
                     </div>
                     
                     <div class="toc-item" style="margin-left:0"><a href="../../guide/ejemplos.html"><strong>3</strong><span>Ejemplos de uso</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span></a>
                     </div>
                     
                 </div>
@@ -62,10 +65,12 @@ function addJsClass() {
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
                 
+                    <div class="toc-item next-right"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span> >></a></div>
+                
 
 
                 <div class="project">
-                    <h1>3.1 Ejemplo 1 - Reference Documentation</h1>
+                    <h1>3.1 Excel con &quot;ventanas&quot; de datos anidadas - Reference Documentation</h1>
 
                     <p><strong>Authors:</strong> </p>
 
@@ -78,9 +83,44 @@ function addJsClass() {
 
                 
 
-<h2 id="ejemplo1">3.1 Ejemplo 1</h2>
+<h2 id="ejemplo1">3.1 Excel con "ventanas" de datos anidadas</h2>
 
-El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.<p class="paragraph"/>Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo.<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo1.png"></img><p class="paragraph"/>El objetivo sería recorrer todas las horas registradas asociando cada una a su mes y su alumno, actividad o subactividad correspondiente.<p class="paragraph"/>Este sería el código completo del ejemplo:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://example.org/ex&#35;&#62;
+El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.<p class="paragraph"/>Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo. El RDF generado se basará en "The Statistical Core Vocabulary" (scovo).<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo1.png"></img><p class="paragraph"/>El objetivo sería recorrer todas las horas registradas asociando cada una a su mes por un lado y su alumno, actividad o subactividad por otro.<p class="paragraph"/>El primer paso es iterar sobre los nombres de los empleados. El siguiente snippet muestra como se recorren las filas seleccionando las celdas que empiezan por '-'. Además en cada iteración se crea/modifica una variable que representa la URI del empleado.<p class="paragraph"/><div class="code"><pre>FOR ?employee IN rows FILTER matches(?employee,<span class="java&#45;quote">"&#45;&#91;a&#45;zA&#45;Z0&#45;9ñ&#93;+ &#91;a&#45;zA&#45;Z0&#45;9&#93;&#42;"</span>)
+        LET ?resourceEmployee = resource(?employee,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+&#123;
+....
+&#125;</pre></div><p class="paragraph"/>Ese cambio de la variable "?resourceEmployee" en cada iteración hace que se active la primera template de la lista de templates. Concretamente este primer bloque genera el rdf que especifica que el recurso es un "ex:worker":<p class="paragraph"/><div class="code"><pre>construct
+&#123;
+    ?resourceEmployee a ex:worker ;
+                      skos:prefLabel ?employee .
+    ex:worker rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Trabajador"</span><p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>Dentro de cada iteración sobre los empleados lo primero que se hace es una iteración sobre las columnas de esa fila para recuperar las horas generales del empleado. La iteración empieza una celda a la derecha de la celda encontrada con el empleado. La iteración acaba con la primera celda que no cumple con la expresión regular usada identificando cualquier número entero.<p class="paragraph"/><div class="code"><pre>FOR ?horasEmployee IN cols starts at 1 RIGHT of ?employee until not matches(?horasEmployee, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+	        Set ?mesEmployee in rows <span class="java&#45;quote">"1"</span> 
+	        LET ?resourceMesEmployee = resource( ?mesEmployee, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+	     ;</pre></div><p class="paragraph"/>En esta iteración se definen tres valores. Primeramente tenemos la variable propia de la iteración, "horasEmployee", que guarda las horas dedicadas. Con "Set" asignamos a la variable "mesEmployee" el valor de la celda correspondiente a la columna actual de la iteración pero de una fila específica en la excel, la "1" (que es la que en la excel aparece como "2" porque tabels empieza a numerar desde 0). Si nos fijamos en la excel en esas posiciones se encuentran los nombres de los meses. A partir de ese valor, se crea la variable "resourceMesEmployee" que representa la URI para ese mes.<p class="paragraph"/>Es importante también entender el uso del carácter ';' en el ejemplo. Este carácter ';' sirve para marcar el final de una rama de iteración. Si no se encontrara en esa posición, Tabels pensaría que el siguiente 'FOR', el que tiene como variable de iteración a '?actividad', está anidado al 'FOR' de '?horasEmployee', cuando no es así. El ';' marca esas dos iteraciones como independientes, ambas anidadas a la iteración superior sobre empleados que las recoge entre llaves ('{' y '}').<p class="paragraph"/>Esta iteración por tanto activa otros dos templates con sus cambios de variables. El primero es el correspondiente a la dimensión del mes: define en scovo "ex:month" como una dimensión especializada (hereda de "scv:Dimension"), y define el recurso del mes "resourceMesEmployee" como un valor para esa dimensión:
+<div class="code"><pre>construct
+&#123;
+    ?resourceMesEmployee a ex:month ;
+                      skos:prefLabel ?mesEmployee .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>La segunda template activada genera ya un primer "item" con las horas correspondientes a un empleado y un mes. Asocia el valor de horas con los valores de las dimensiones comentadas anteriormente. Asocia también el "item" a un dataset específico:<p class="paragraph"/><div class="code"><pre>&#123;
+construct
+    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        rdf:value ?horasEmployee;
+        scv:dimension ?resourceMesEmployee
+	&#93;
+&#125;</pre></div><p class="paragraph"/>Es interesante notar también que aquellos templates que no dependen de ninguna variable serán generados en el resultado sólo una vez. Es el caso en nuestro ejemplo de los templates que definen los "Datasets" del vocabulario "scovo", por ejemplo el de dedicaciones empleado-mes:<p class="paragraph"/><div class="code"><pre>construct
+&#123;
+    ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Mes"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span>
+&#125;</pre></div><p class="paragraph"/>Todavía dentro de la iteración sobre los empleados, para recuperar las horas dedicadas a actividades específicas se define una nueva iteración. Esta subiteración itera sobre las filas de la excel pero solo entre las filas correspondientes a la iteración exterior de los empleados:<p class="paragraph"/><div class="code"><pre>FOR ?actividad IN rows FILTER matches(?actividad,<span class="java&#45;quote">"&#91;a&#45;z&#93;&#91;a&#45;z0&#45;9&#93;&#45;&#91;a&#45;zA&#45;Z0&#45;9&#93;+&#91;a&#45;zA&#45;Z0&#45;9 &#93;&#42;"</span>)
+	LET ?resourceActividad = resource(?actividad,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+          &#123;
+ 			....
+		  &#125;</pre></div><p class="paragraph"/>El resto de iteraciones para recorrer las horas de una actividad y de sus subactividades siguen reglas similares a las ya explicadas. Finalmente, este sería el código completo que transformaría en RDF todos los datos de la excel de ejemplo:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://example.org/ex&#35;&#62;
 PREFIX scv: &#60;http://purl.org/NET/scovo&#35;&#62;
 PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
 PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
@@ -107,65 +147,82 @@ PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p clas
                                 	LET ?resourceMesSubActividad = resource( ?mesSubActividad, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)<p class="paragraph"/>	  &#125;
          &#125;<p class="paragraph"/>            	
 ////////////////////DEDICACIÓN EMPLEADO MES//////////////////////////////<p class="paragraph"/>//DIMENSION TRABAJADOR
+construct
 &#123;
     ?resourceEmployee a ex:worker ;
                       skos:prefLabel ?employee .
     ex:worker rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Trabajador"</span><p class="paragraph"/>&#125;
 //DIMENSION MES
+construct
 &#123;
     ?resourceMesEmployee a ex:month ;
                       skos:prefLabel ?mesEmployee .
     ex:month rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
 //DATA SET
+construct
 &#123;
     &#91; a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoMesDataSet ;
         scv:dimension ?resourceEmployee ;
         rdf:value ?horasEmployee;
-        scv:dimension ?resourceMesEmployee&#93;
-&#125;<p class="paragraph"/>&#123;
+        scv:dimension ?resourceMesEmployee
+	&#93;
+&#125;<p class="paragraph"/>construct 
+&#123;
     ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
   	 skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Mes"</span> ;
-         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;<p class="paragraph"/>/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;<p class="paragraph"/>/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////
+construct
+&#123;
     ?resourceActividad a ex:actividad ;
                       skos:prefLabel ?actividad .
     ex:actividad rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Actividad"</span><p class="paragraph"/>&#125;
+construct
 &#123;
     ?resourceMesActividad a ex:month ;
                       skos:prefLabel ?mesActividad .
     ex:month rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+construct
 &#123;<p class="paragraph"/>    &#91; a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoActividadMesDataSet ;
         scv:dimension ?resourceEmployee ;
         scv:dimension ?resourceActividad ;
         rdf:value ?horasActividad;
         scv:dimension ?resourceMesActividad&#93;
-&#125;<p class="paragraph"/>&#123;
+&#125;
+construct
+&#123;
     ex:DedicacionEmpleadoActividadMesDataSet a scv:Dataset ;
                                              skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Actividad&#45;Mes"</span> ;
                                              scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span>
 &#125;<p class="paragraph"/>
-//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////
+construct
+&#123;
     ?resourceSubActividad a ex:subactividad ;
                       skos:prefLabel ?subactividad .
     ex:subactividad rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"SubActividad"</span><p class="paragraph"/>&#125;
+construct
 &#123;
     ?resourceMesSubActividad a ex:month ;
                       skos:prefLabel ?mesSubActividad .
     ex:month rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+construct
 &#123;<p class="paragraph"/>    &#91; a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoSubActividadMesDataSet ;
         scv:dimension ?resourceEmployee ;
         scv:dimension ?resourceSubActividad ;
         rdf:value ?horasSubActividad;
         scv:dimension ?resourceMesSubActividad&#93;
-&#125;<p class="paragraph"/>&#123;
+&#125;
+construct 
+&#123;
     ex:DedicacionEmpleadoSubActividadMesDataSet a scv:Dataset ;
                                              skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;SubActividad&#45;Mes"</span> ;
                                              scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;</pre></div>
@@ -175,6 +232,8 @@ PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p clas
                 <div style="clear:both;margin-top:15px;"></div>
                 
                     <div class="toc-item prev-left"><a href="../../guide/tabelsLenguaje.html">&lt;&lt; <strong>2</strong><span>Lenguaje Tabels</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/restApi.html"><strong>4</strong><span>API REST</span> >></a></div>
                 
                 <div style="clear:both"></div>
             </div>

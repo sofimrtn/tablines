@@ -10,6 +10,7 @@ tabelsLenguaje:
         numericFunctions: Expresiones Numéricas 
         stringFunctions: Expresiones con Cadenas
         miscellaneaFunctions: Expresiones Variadas
+    directives: Directivas
 ejemplos:
     title: Ejemplos de uso
     ejemplo1: Excel con "ventanas" de datos anidadas

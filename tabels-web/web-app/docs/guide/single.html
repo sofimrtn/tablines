@@ -29,6 +29,8 @@ function addJsClass(el) {
                             
                             <div class="toc-item" style="margin-left:0"><a href="#ejemplos"><strong>3</strong><span>Ejemplos de uso</span></a></div>
                             
+                            <div class="toc-item" style="margin-left:0"><a href="#restApi"><strong>4</strong><span>API REST</span></a></div>
+                            
                         </div>
                     </div>
                 </li>
@@ -70,23 +72,37 @@ function addJsClass(el) {
                             
                             <div class="toc-item" style="margin-left:10px"><a href="#dimensionStatements"><strong>2.1</strong><span>Sentencias de dimensiones</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:10px"><a href="#variableAssignmentStatements"><strong>2.2</strong><span>Sentencias de asignaci&oacute;n de variables</span></a></div>
+                            <div class="toc-item" style="margin-left:10px"><a href="#conditionalStatements"><strong>2.2</strong><span>Sentencias condicionales</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:10px"><a href="#functions"><strong>2.3</strong><span>Expresiones</span></a></div>
+                            <div class="toc-item" style="margin-left:10px"><a href="#variableAssignmentStatements"><strong>2.3</strong><span>Sentencias de asignaci&oacute;n de variables</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:20px"><a href="#numericFunctions"><strong>2.3.1</strong><span>Expresiones Num&eacute;ricas</span></a></div>
+                            <div class="toc-item" style="margin-left:10px"><a href="#functions"><strong>2.4</strong><span>Expresiones</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:20px"><a href="#stringFunctions"><strong>2.3.2</strong><span>Expresiones con Cadenas</span></a></div>
+                            <div class="toc-item" style="margin-left:20px"><a href="#numericFunctions"><strong>2.4.1</strong><span>Expresiones Num&eacute;ricas</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:20px"><a href="#miscellaneaFunctions"><strong>2.3.3</strong><span>Expresiones Variadas</span></a></div>
+                            <div class="toc-item" style="margin-left:20px"><a href="#stringFunctions"><strong>2.4.2</strong><span>Expresiones con Cadenas</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:20px"><a href="#miscellaneaFunctions"><strong>2.4.3</strong><span>Expresiones Variadas</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#directives"><strong>2.5</strong><span>Directivas</span></a></div>
                             
                             <div class="toc-item" style="margin-left:0px"><a href="#ejemplos"><strong>3</strong><span>Ejemplos de uso</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo1"><strong>3.1</strong><span>Ejemplo 1</span></a></div>
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo1"><strong>3.1</strong><span>Excel con &quot;ventanas&quot; de datos anidadas</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo2"><strong>3.2</strong><span>Ejemplo 2</span></a></div>
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo2"><strong>3.2</strong><span>Tabla HTML en p&aacute;gina web</span></a></div>
                             
-                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo3"><strong>3.3</strong><span>Ejemplo 3</span></a></div>
+                            <div class="toc-item" style="margin-left:10px"><a href="#ejemplo3"><strong>3.3</strong><span>Selecciones y filtros de informaci&oacute;n avanzados</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:0px"><a href="#restApi"><strong>4</strong><span>API REST</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#gestionProyectos"><strong>4.1</strong><span>Gesti&oacute;n de proyectos</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#gestionFicherosEntrada"><strong>4.2</strong><span>Gesti&oacute;n de ficheros de entrada</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#gestionPrograma"><strong>4.3</strong><span>Gesti&oacute;n de programas de transformaci&oacute;n</span></a></div>
+                            
+                            <div class="toc-item" style="margin-left:10px"><a href="#accesoDatos"><strong>4.4</strong><span>Acceso a datos y consultas</span></a></div>
                             
                             <div style="clear:both" ></div>
                         </div>
@@ -94,14 +110,43 @@ function addJsClass(el) {
                         
 
 <h1 id="introduccion">1 Introducción</h1>
-<ul class="star">
-<li>item 1</li>
-<ul class="star">
-<li>subitem 1</li>
-<li>subitem 2</li>
-</ul>
-<li>item 2</li>
-</ul><p class="paragraph"/>
+Tabels transforma datos tabulares en grafos RDF. Este documento describe el funcionamiento y uso
+de Tabels.<p class="paragraph"/>Las transformaciones se basan en dos procesos complementarios. En primer lugar, se evalúan
+<strong class="bold">patrones</strong> con respecto a las fuentes de datos tabulares. Como resultado de este primer proceso,
+las variables que aparecen en los patrones son ligadas a valores concretos. El segundo proceso
+consiste en la instanciación de <strong class="bold">plantillas</strong> para producir fragmentos del grafo RDF resultante.<p class="paragraph"/>El resultado de una transformación es la combinación de todos los subgrafos RDF obtenidos mediante
+todas las posibles instanciaciones de las plantillas que sean coherentes con los patrones.<p class="paragraph"/>Tabels define los patrones y las plantillas mediante un lenguaje propio, con una sintaxis inspirada
+por XQuery, XPath y SPARQL, pero con rasgos propios. El lenguaje es funcional, dado que se basa en
+la evaluación de expresiones y no existe
+asignación destructiva de valores a las variables (es decir, las variables nunca cambian de valor).<p class="paragraph"/>Los patrones se definen mediante un lenguaje de <strong class="bold">sentencias</strong> interpretadas. Mediante este lenguaje
+resulta posible extraer valores de las fuentes de datos, calcular valores derivados mediante
+la evaluación de expresiones, y realizar encaje iterativo y condicional de patrones. Las
+sentencias tienen una estructura jerárquica, de tal forma que cada sentencia puede modificar la
+forma en la que se realiza el encaje de patrones en las sentencias anidadas.
+La interpretación de los patrones se realiza en preorden y
+comienza por la sentencia que ocupa la raíz de la jerarquía. Las variables que aparecen en los
+patrones (y por tanto, sus ligaduras) tienen un ámbito limitado a la sentencia en la que aparecen y sus sentencias anidadas.<p class="paragraph"/>La interpretación de una sentencia puede producir ligaduras para variables que previamente no
+se encontraban aún asignadas. Este suceso se denomina <strong class="bold">evento</strong>. En un evento, una o más variables
+resultan ligadas a valores concretos. Una variable puede ligarse a varios valores (pero no de
+forma simultánea) en distintos eventos desencadenados por una sentencia, por ejemplo, en una iteración.<p class="paragraph"/>Tabels realiza todas las instanciaciones posibles de las plantillas considerando todos los
+eventos disparados por los patrones. Una plantilla es instanciable con respecto a un evento si 
+el evento contiene ligaduras para al menos todas las variables contenidas en la plantilla.
+Una plantilla se instancia para cada evento que contiene una combinacione distinta de
+ligaduras sus variables. Por tanto, no es necesario establecer una relación explícita entre
+los patrones y las plantillas, ya que se determina automáticamente. Como consecuencia, los
+patrones de un programa Tabels definen _cómo se extraen los valores de las variables a partir de
+las fuentes de datos_ y las plantillas definen _qué forma tienen los subgrafos que conforman el
+resultado_. Esta separación reduce el acoplamiento entre ambas partes al mínimo (sólo deben
+acordarse nombres de variables comunes), y permite que patrones y plantillas evolucionen y se
+reutilicen de forma independiente.<p class="paragraph"/><h3>Datos tabulares de entrada</h3><p class="paragraph"/>Tabels puede leer distintos formatos de entrada, siempre que tengan una estructura tabular.
+Más concretamente, las entradas de Tabels consisten en estructuras matriciales de cuatro
+dimensiones: fichero, hoja, fila y columna. En cada posición de la matriz existe un valor
+concreto. Tabels admite como entrada estructuras más sencillas que carezcan de alguna de estas
+dimensiones, por ejemplo, ficheros CSV (no tienen "hojas").<p class="paragraph"/>Las sentencias de los patrones permiten seleccionar subconjuntos de estas estructuras
+de datos, por ejemplo, una columna de una hoja y fichero concreto. También permiten realizar
+iteraciones por los valores dentro de una dimensión, por ejemplo, una iteración por filas.<p class="paragraph"/><h3>Grafos RDF de salida</h3><p class="paragraph"/>Una transformación Tabels produce como resultado exactamente un grafo RDF. Este grafo
+se obtiene de la combinación de los subgrafos producidos por las instanciaciones de las
+plantillas.
 
 
 <h1 id="tabelsLenguaje">2 Lenguaje Tabels</h1>
@@ -115,6 +160,7 @@ El lenguaje tabels para la conversión de formatos de datos estructurados a RDF 
 <ul class="star">
 <ul class="star">
 <li><a href="../guide/single.html#dimensionStatements" class="guide">Sentencias de dimensiones</a>: Este tipo de sentencias tabels permiten recorrer el origen de datos indicando las dimensiones por las que iterar, condiciones de inicio, parada y salto.</li>
+<li><a href="../guide/single.html#conditionalStatements" class="guide">Sentencias condicionales</a>: Sentencias tabels que varían el flujo de ejecución normal de un programa tabels en función de una condición.</li>
 <li><a href="../guide/single.html#variableAssignmentStatements" class="guide">Sentencias de asignación de variables</a>: Su función es asignar valores del origen de datos a variables y modificarlos.</li>
 </ul>
 </ul>
@@ -164,16 +210,45 @@ Este tipo de sentencias tabels permiten iterar por una dimension del origen de d
 <h4>Sentencias de selección de dimensión</h4><p class="paragraph"/>    <div class="code"><pre>SET &#91; <em class="italic">?variable</em> &#93; IN dimension value</pre></div>
 
 
-<h2 id="variableAssignmentStatements">2.2 Sentencias de asignación de variables</h2>
+<h2 id="conditionalStatements">2.2 Sentencias condicionales</h2>
+<h4>Sentencias Condicionales</h4>
+Este tipo de sentencias nacen para cubrir aquellas ocasiones en las que puede ser útil condicionar en tiempo de ejecución el recorrido por una parte del programa tabels en función de los valores encontrados
+en la tabla o de la posición actual. La sintaxis de de estas sentencias es de la forma:
+    <div class="code"><pre>WHEN &#91; <em class="italic">expression</em>  |  <em class="italic">position</em> &#93; DO</pre></div>
+Todas las sentencias anidadas por debajo de esta se ejecutarán si se cumple la condición. Es decir, en caso de que la condición sea una expresión, si el resultado de evaluarla
+es positivo(TRUE), se recorrerá la parte de programa situada debajo de la sentencia condicional. Por otra parte, si la condición es una posición
+el resultado será positivo sólo cuando el programa esté recorriendo esa posición del origen de datos.<p class="paragraph"/>Esta sentencia se usa en el programa de SCOVO autogenerado por tabels para evitar que valores que no sean numéricos sean tratados como tal.
+    <div class="code"><pre>.
+        .
+        .
+        MATCH &#91;?dvl1,?rawItemValue&#93; IN horizontal 
+        WHEN can&#45;be&#45;<span class="java&#45;object">double</span>(?rawItemValue) DO
+             LET ?itemValue = <span class="java&#45;object">double</span>(?rawItemValue)
+             LET ?dv1 = resource(?dvl1,&#60;http://example.org/ex&#35;&#62;)<p class="paragraph"/>        CONSTRUCT &#123;
+            ?item a scv:Item .
+            ?item scv:dataset ex:myDataset .
+            ?item rdf:value ?itemValue .
+            ?item scv:dimension ?dv1
+        &#125;
+        .
+        .
+        .</pre></div>
+En el ejemplo  <em class="italic">?rawItemValue</em>  toma el valor directamente de la tabla mediante la sentencia MATCH. Para asegurarnos de que toma un valor numérico usamos la sentencia condicional
+con la expresión  <em class="italic">can-be-double(?rawItemValue)</em>  que se cumplirá en el caso de que el valor sea promocionable a tipo double. Si el valor no es numérico las variables  <em class="italic">?itemValue</em>  y  <em class="italic">?dv1</em> 
+no toman ningún valor y por lo tanto el template del ejemplo no se instanciará(ver Templates en la <a href="../guide/single.html#tabelsLenguaje" class="guide">descripción general del lenguaje Tabels</a>).
+En el caso contrario, si el valor es numérico las sentencias anidadas bajo la sentencia condicional se ejecutarán y las variables tomarán los valores correspondientes.  
+
+
+<h2 id="variableAssignmentStatements">2.3 Sentencias de asignación de variables</h2>
 <h4>Sentencia de asignación de variables</h4><p class="paragraph"/><div class="code"><pre>match Tuple &#91;at Position&#93; &#91;filter Expression&#93;</pre></div><p class="paragraph"/><h4>Sentencia tratamiento de variables</h4><p class="paragraph"/><div class="code"><pre>let Variable = Expression</pre></div>
 
 
 
-<h2 id="functions">2.3 Expresiones</h2>
+<h2 id="functions">2.4 Expresiones</h2>
 
 
 
-<h2 id="numericFunctions">2.3.1 Expresiones Numéricas</h2>
+<h2 id="numericFunctions">2.4.1 Expresiones Numéricas</h2>
 <h4>Operadores aritméticos</h4>
 <ol>
 <li>numeric-add</li>
@@ -248,6 +323,12 @@ Devuelve el número entero más cercano al operando. En caso de haber dos devolv
     <span class="java&#45;object">int</span>(operando : numeric, <span class="java&#45;keyword">default</span> :Int) : Int</pre></div>
 Devuelve operando convertido a Int. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
 <ol>
+<li>is-int</li>
+</ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
+<div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+<ol>
 <li>float</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">float</span>(operando : numeric) : <span class="java&#45;object">Float</span></pre></div>
 Devuelve operando convertido a Float. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException.
@@ -255,11 +336,17 @@ Devuelve operando convertido a Float. En caso de no poder realizarse la conversi
 <li>double</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">double</span>(operando : numeric) : <span class="java&#45;object">Double</span>
     <span class="java&#45;object">double</span>(operando : numeric, <span class="java&#45;keyword">default</span> :<span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
-Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.<p class="paragraph"/>   
+Devuelve operando convertido a Double. En caso de no poder realizarse la conversion lanza la excepción TypeConversionException. El parametro default indica el valor a devolver en caso de no poder realizar la conversión del operando.
+<ol>
+<li>is-double</li>
+</ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+El resultado de esta función es TRUE si el operando es de tipo double. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-double(operando : any) : Boolean
+<div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.<p class="paragraph"/>   
 
 
 
-<h2 id="stringFunctions">2.3.2 Expresiones con Cadenas</h2>
+<h2 id="stringFunctions">2.4.2 Expresiones con Cadenas</h2>
 <h4>Funciones</h4>
 <ol>
 <li>concat</li>
@@ -351,7 +438,7 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 }<p class="paragraph"/>
 
 
-<h2 id="miscellaneaFunctions">2.3.3 Expresiones Variadas</h2>
+<h2 id="miscellaneaFunctions">2.4.3 Expresiones Variadas</h2>
 <ol>
 <li>DBPedia-Disambiguation</li>
 </ol><p class="paragraph"/>    <div class="code"><pre>DBPedia&#45;Disambiguation(query: <span class="java&#45;object">String</span>, workMode: <span class="java&#45;object">String</span>) : <span class="java&#45;object">String</span></pre></div>
@@ -402,6 +489,21 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 
 
 
+<h2 id="directives">2.5 Directivas</h2>
+El lenguaje Tabels incorpora ''directivas'', que son sentencias especiales que
+modifican la generación de la salida. Las directivas son específicas del tipo de
+salida que se genera, y por tanto, pueden estar disponibles sólo en algunos casos.<p class="paragraph"/>Mediante estas directivas resulta posible realizar integración de datos, mediación
+de vocabularios, inferencias y algunas comprobaciones.<p class="paragraph"/><h5>Directiva '&#64;fetch'</h5><p class="paragraph"/>Esta directiva indica a Tabels que, una vez finalizada la transformación,
+descargue las descripciones de todos los
+recursos que comiencen por el prefijo indicado. Por ejemplo:<p class="paragraph"/><div class="code"><pre>@FETCH(<span class="java&#45;quote">"http://dbpedia.org/"</span>)</pre></div><p class="paragraph"/>Provoca que Tabels descargue las descripciones de recursos como http://dbpedia.org/resource/Asturias.<p class="paragraph"/><h5>Directiva '&#64;jenarule'</h5><p class="paragraph"/>Esta directiva permite ejecutar reglas Jena al terminar la transformación.
+Una única directiva puede contener múltiples reglas. La sintaxis de las reglas
+Jena se encuentra descrita en la documentación de Jena: http://jena.apache.org/documentation/inference/index.html#rules
+Los prefijos declarados para el programa Tabels son automáticamente introducidos
+en las reglas, por lo que no es necesario declararlos de nuevo. Un ejemplo:<p class="paragraph"/><div class="code"><pre>@JENARULE(<span class="java&#45;quote">"&#91;R1: (?x foaf:knows ?z) &#45;&#62; (?z foaf:knows ?x)&#93;"</span>)
+PREFIX foaf: &#60;http://xmlns.com/foaf/0.1/&#62;</pre></div><p class="paragraph"/>La regla anterior convierte todas las relaciones foaf:knows en simétricas.<p class="paragraph"/><h5>Directiva '@sparql'</h5><p class="paragraph"/>FIXME
+
+
+
 <h1 id="ejemplos">3 Ejemplos de uso</h1>
 <ul class="star">
 <li>item 1</li>
@@ -413,9 +515,44 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 </ul><p class="paragraph"/>
 
 
-<h2 id="ejemplo1">3.1 Ejemplo 1</h2>
+<h2 id="ejemplo1">3.1 Excel con "ventanas" de datos anidadas</h2>
 
-El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.<p class="paragraph"/>Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo.<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo1.png"></img><p class="paragraph"/>El objetivo sería recorrer todas las horas registradas asociando cada una a su mes y su alumno, actividad o subactividad correspondiente.<p class="paragraph"/>Este sería el código completo del ejemplo:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://example.org/ex&#35;&#62;
+El primero de los ejemplos muestra como leer "ventanas" de datos de una hoja excel cuando en una misma columna aparecen entidades diferentes que representan algún tipo de anidación.<p class="paragraph"/>Ls siguiente excel de ejemplo contiene un parte de horas de empleados de una empresa. En la primera columna 'Rótulos' aparecen los empleados (marcados con '-'), las actividades (empiezan por una letra) y las subactividades (empiezan por un número). En la columnas a la derecha aparecen las horas respectivas de cada mes desde enero a mayo. El RDF generado se basará en "The Statistical Core Vocabulary" (scovo).<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo1.png"></img><p class="paragraph"/>El objetivo sería recorrer todas las horas registradas asociando cada una a su mes por un lado y su alumno, actividad o subactividad por otro.<p class="paragraph"/>El primer paso es iterar sobre los nombres de los empleados. El siguiente snippet muestra como se recorren las filas seleccionando las celdas que empiezan por '-'. Además en cada iteración se crea/modifica una variable que representa la URI del empleado.<p class="paragraph"/><div class="code"><pre>FOR ?employee IN rows FILTER matches(?employee,<span class="java&#45;quote">"&#45;&#91;a&#45;zA&#45;Z0&#45;9ñ&#93;+ &#91;a&#45;zA&#45;Z0&#45;9&#93;&#42;"</span>)
+        LET ?resourceEmployee = resource(?employee,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+&#123;
+....
+&#125;</pre></div><p class="paragraph"/>Ese cambio de la variable "?resourceEmployee" en cada iteración hace que se active la primera template de la lista de templates. Concretamente este primer bloque genera el rdf que especifica que el recurso es un "ex:worker":<p class="paragraph"/><div class="code"><pre>construct
+&#123;
+    ?resourceEmployee a ex:worker ;
+                      skos:prefLabel ?employee .
+    ex:worker rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Trabajador"</span><p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>Dentro de cada iteración sobre los empleados lo primero que se hace es una iteración sobre las columnas de esa fila para recuperar las horas generales del empleado. La iteración empieza una celda a la derecha de la celda encontrada con el empleado. La iteración acaba con la primera celda que no cumple con la expresión regular usada identificando cualquier número entero.<p class="paragraph"/><div class="code"><pre>FOR ?horasEmployee IN cols starts at 1 RIGHT of ?employee until not matches(?horasEmployee, <span class="java&#45;quote">"&#91;0&#45;9&#93;+"</span>)
+	        Set ?mesEmployee in rows <span class="java&#45;quote">"1"</span> 
+	        LET ?resourceMesEmployee = resource( ?mesEmployee, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+	     ;</pre></div><p class="paragraph"/>En esta iteración se definen tres valores. Primeramente tenemos la variable propia de la iteración, "horasEmployee", que guarda las horas dedicadas. Con "Set" asignamos a la variable "mesEmployee" el valor de la celda correspondiente a la columna actual de la iteración pero de una fila específica en la excel, la "1" (que es la que en la excel aparece como "2" porque tabels empieza a numerar desde 0). Si nos fijamos en la excel en esas posiciones se encuentran los nombres de los meses. A partir de ese valor, se crea la variable "resourceMesEmployee" que representa la URI para ese mes.<p class="paragraph"/>Es importante también entender el uso del carácter ';' en el ejemplo. Este carácter ';' sirve para marcar el final de una rama de iteración. Si no se encontrara en esa posición, Tabels pensaría que el siguiente 'FOR', el que tiene como variable de iteración a '?actividad', está anidado al 'FOR' de '?horasEmployee', cuando no es así. El ';' marca esas dos iteraciones como independientes, ambas anidadas a la iteración superior sobre empleados que las recoge entre llaves ('{' y '}').<p class="paragraph"/>Esta iteración por tanto activa otros dos templates con sus cambios de variables. El primero es el correspondiente a la dimensión del mes: define en scovo "ex:month" como una dimensión especializada (hereda de "scv:Dimension"), y define el recurso del mes "resourceMesEmployee" como un valor para esa dimensión:
+<div class="code"><pre>construct
+&#123;
+    ?resourceMesEmployee a ex:month ;
+                      skos:prefLabel ?mesEmployee .
+    ex:month rdfs:subClassOf scv:Dimension ;
+              skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;</pre></div><p class="paragraph"/>La segunda template activada genera ya un primer "item" con las horas correspondientes a un empleado y un mes. Asocia el valor de horas con los valores de las dimensiones comentadas anteriormente. Asocia también el "item" a un dataset específico:<p class="paragraph"/><div class="code"><pre>&#123;
+construct
+    &#91; a scv:Item ;
+        scv:dataset ex:DedicacionEmpleadoMesDataSet ;
+        scv:dimension ?resourceEmployee ;
+        rdf:value ?horasEmployee;
+        scv:dimension ?resourceMesEmployee
+	&#93;
+&#125;</pre></div><p class="paragraph"/>Es interesante notar también que aquellos templates que no dependen de ninguna variable serán generados en el resultado sólo una vez. Es el caso en nuestro ejemplo de los templates que definen los "Datasets" del vocabulario "scovo", por ejemplo el de dedicaciones empleado-mes:<p class="paragraph"/><div class="code"><pre>construct
+&#123;
+    ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Mes"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span>
+&#125;</pre></div><p class="paragraph"/>Todavía dentro de la iteración sobre los empleados, para recuperar las horas dedicadas a actividades específicas se define una nueva iteración. Esta subiteración itera sobre las filas de la excel pero solo entre las filas correspondientes a la iteración exterior de los empleados:<p class="paragraph"/><div class="code"><pre>FOR ?actividad IN rows FILTER matches(?actividad,<span class="java&#45;quote">"&#91;a&#45;z&#93;&#91;a&#45;z0&#45;9&#93;&#45;&#91;a&#45;zA&#45;Z0&#45;9&#93;+&#91;a&#45;zA&#45;Z0&#45;9 &#93;&#42;"</span>)
+	LET ?resourceActividad = resource(?actividad,&#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)
+          &#123;
+ 			....
+		  &#125;</pre></div><p class="paragraph"/>El resto de iteraciones para recorrer las horas de una actividad y de sus subactividades siguen reglas similares a las ya explicadas. Finalmente, este sería el código completo que transformaría en RDF todos los datos de la excel de ejemplo:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://example.org/ex&#35;&#62;
 PREFIX scv: &#60;http://purl.org/NET/scovo&#35;&#62;
 PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
 PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
@@ -442,77 +579,332 @@ PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p clas
                                 	LET ?resourceMesSubActividad = resource( ?mesSubActividad, &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;)<p class="paragraph"/>	  &#125;
          &#125;<p class="paragraph"/>            	
 ////////////////////DEDICACIÓN EMPLEADO MES//////////////////////////////<p class="paragraph"/>//DIMENSION TRABAJADOR
+construct
 &#123;
     ?resourceEmployee a ex:worker ;
                       skos:prefLabel ?employee .
     ex:worker rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Trabajador"</span><p class="paragraph"/>&#125;
 //DIMENSION MES
+construct
 &#123;
     ?resourceMesEmployee a ex:month ;
                       skos:prefLabel ?mesEmployee .
     ex:month rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
 //DATA SET
+construct
 &#123;
     &#91; a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoMesDataSet ;
         scv:dimension ?resourceEmployee ;
         rdf:value ?horasEmployee;
-        scv:dimension ?resourceMesEmployee&#93;
-&#125;<p class="paragraph"/>&#123;
+        scv:dimension ?resourceMesEmployee
+	&#93;
+&#125;<p class="paragraph"/>construct 
+&#123;
     ex:DedicacionEmpleadoMesDataSet a scv:Dataset ;
   	 skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Mes"</span> ;
-         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;<p class="paragraph"/>/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;<p class="paragraph"/>/////////////////////DATA SET DEDICACIÓN EMPLEADO ACTIVIDAD MES//////////////////////
+construct
+&#123;
     ?resourceActividad a ex:actividad ;
                       skos:prefLabel ?actividad .
     ex:actividad rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Actividad"</span><p class="paragraph"/>&#125;
+construct
 &#123;
     ?resourceMesActividad a ex:month ;
                       skos:prefLabel ?mesActividad .
     ex:month rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+construct
 &#123;<p class="paragraph"/>    &#91; a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoActividadMesDataSet ;
         scv:dimension ?resourceEmployee ;
         scv:dimension ?resourceActividad ;
         rdf:value ?horasActividad;
         scv:dimension ?resourceMesActividad&#93;
-&#125;<p class="paragraph"/>&#123;
+&#125;
+construct
+&#123;
     ex:DedicacionEmpleadoActividadMesDataSet a scv:Dataset ;
                                              skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;Actividad&#45;Mes"</span> ;
                                              scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span>
 &#125;<p class="paragraph"/>
-//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////<p class="paragraph"/>&#123;
+//////////////////DATA SET EMPLEADO SUBACTIVIDAD MES//////////////////////
+construct
+&#123;
     ?resourceSubActividad a ex:subactividad ;
                       skos:prefLabel ?subactividad .
     ex:subactividad rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"SubActividad"</span><p class="paragraph"/>&#125;
+construct
 &#123;
     ?resourceMesSubActividad a ex:month ;
                       skos:prefLabel ?mesSubActividad .
     ex:month rdfs:subClassOf scv:Dimension ;
               skos:prefLabel <span class="java&#45;quote">"Mes"</span><p class="paragraph"/>&#125;
+construct
 &#123;<p class="paragraph"/>    &#91; a scv:Item ;
         scv:dataset ex:DedicacionEmpleadoSubActividadMesDataSet ;
         scv:dimension ?resourceEmployee ;
         scv:dimension ?resourceSubActividad ;
         rdf:value ?horasSubActividad;
         scv:dimension ?resourceMesSubActividad&#93;
-&#125;<p class="paragraph"/>&#123;
+&#125;
+construct 
+&#123;
     ex:DedicacionEmpleadoSubActividadMesDataSet a scv:Dataset ;
                                              skos:prefLabel <span class="java&#45;quote">"Dedicacion Empleado&#45;SubActividad&#45;Mes"</span> ;
                                              scvxl:valuesMeasuredIn <span class="java&#45;quote">"Horas"</span><p class="paragraph"/>&#125;</pre></div>
 
 
 
-<h2 id="ejemplo2">3.2 Ejemplo 2</h2>
+<h2 id="ejemplo2">3.2 Tabla HTML en página web</h2>
+
+En este segundo ejemplo el origen de los datos tabulares no es un fichero excel sino una página web. Tabels es capaz de identificar la información de una tabla HTML en una página web y aplicarle los mapeos programados de la misma manera que si fuera una hoja excel.<p class="paragraph"/>La página que se va a utilizar es la que contiene la tabla con las 250 peliculas 'top' de imdb (http://www.imdb.com/chart/top). La siguiente imagen muestra esa tabla:<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo2.png"></img><p class="paragraph"/>Primero mostramos el código completo de este ejemplo y a continuación destacaremos las partes más interesantes:<p class="paragraph"/><div class="code"><pre>PREFIX ex: &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;
+PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
+PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;<p class="paragraph"/>SET files <span class="java&#45;quote">"/<span class="java&#45;keyword">private</span>/<span class="java&#45;keyword">var</span>/folders/zz/zyxvpxvq6csfxvn_n0000000000000/T/tabels/projects/p1/upload/download&#45;1340095324674.html"</span>
+ SET sheets <span class="java&#45;quote">"0"</span>
+    FOR ?rowId IN rows FILTER get&#45;row(?rowId)
+        MATCH &#91;?rank,?rating,?title,?votes&#93; IN horizontal 
+        LET ?titleTrimmed = trim(substring&#45;before(?title,<span class="java&#45;quote">"("</span>))
+        LET ?year = <span class="java&#45;object">int</span>(substring(?title,<span class="java&#45;object">int</span>&#45;add(last&#45;index&#45;of(?title,<span class="java&#45;quote">"("</span>),1),4))
+        LET ?rankInt = <span class="java&#45;object">int</span>(substring&#45;before(?rank,<span class="java&#45;quote">"."</span>))
+        LET ?votesInt = <span class="java&#45;object">int</span>(translate(?votes,<span class="java&#45;quote">","</span>,<span class="java&#45;quote">""</span>))<p class="paragraph"/>    	CONSTRUCT
+        &#123;
+           &#91;    rdf:type ex:Movie;
+                ex:rank ?rankInt ;
+    	        ex:rating ?rating ;
+    	        rdfs:label ?titleTrimmed ;
+                ex:year ?year ;
+    	        ex:votes ?votesInt &#93;
+        &#125;</pre></div><p class="paragraph"/>En primer lugar se identifica el origen de los datos para la transformación. La construcción 'SET file' identifica la ruta local al fichero html. A su vez 'SET sheets' vale para especificar la hoja en un fichero excel pero también para especificar la tabla en una página web atendiendo al orden en que aparecen.<p class="paragraph"/>Para iterar sobre las filas de la tabla se usa la sentencia de iteración 'FOR'. La variable de iteración 'rowId' va adquiriendo los valores de la primera columna de la tabla, en este caso los de la columna 'Rank'. La función 'get-row' devuelve el número de fila donde se encuentra el contenido de la variable, siendo la primera fila la 0. El uso de 'FILTER' sobre el valor de la función 'get-row' nos vale para saltar la primera fila correspondiente a los encabezados: para esa fila 'get-row' devuelve 0 que se evalúa como 'false' por 'FILTER'.<p class="paragraph"/><div class="code"><pre>FOR ?rowId IN rows FILTER get&#45;row(?rowId)
+    MATCH &#91;?rank,?rating,?title,?votes&#93; IN horizontal</pre></div><p class="paragraph"/>La sentencia 'MATCH' usada permite asignar los valores de la fila actual a cuatro variables diferentes. Es interesante notar que en este ejemplo particular el valor de las variables '?rowId' y '?rank' sería el mismo. Una forma paralela de lograr capturar los mismos valores sería moviendo el ámbito del 'MATCH' 1 celda a la derecha de la variable de iteración, de esta forma:<p class="paragraph"/><div class="code"><pre>FOR ?rowId IN rows FILTER get&#45;row(?rowId)
+   LET ?rank = ?rowId
+   MATCH &#91;?rating,?title,?votes&#93; IN horizontal AT 1 right of ?rowId</pre></div><p class="paragraph"/>Una vez que las variables base están establecidas se entra en una sección en que en cada iteración se crean nuevas variables refinadas a partir del valor de las variables base. Se usan algunas funciones de tratamiento de cadenas y transformación de tabels. Por ejemplo, en la variable '?rankInt' se guarda el ranking de la película como valor entero. Primero se usa la función 'substring-before' para eliminar el '.' al final de cada número, y a continuación se usa 'int' para transformar el número como cadena a entero:<p class="paragraph"/><div class="code"><pre>LET ?rankInt = <span class="java&#45;object">int</span>(substring&#45;before(?rank,<span class="java&#45;quote">"."</span>))</pre></div><p class="paragraph"/>Otro ejemplo del uso de las funciones lo tenemos en el trato que se la da al valor de la columna 'Title' (guardado en la variable '?title'). De estas celdas queremos diferenciar dos datos diferenciados, el título y el año de la película. Para ello, de nuevo con la función 'substring-before' se obtiene el título, que es el texto que se encuentra antes del primer paréntesis. Para obtener el año hay que recuperar los 4 caracteres justo a la derecha del primer paréntesis: con la función 'last-index-of' se devuelve la posición en la cadena de texto del primer paréntesis '(', a este valor se le suma 1 con la función 'int-add' y finalmente con la función 'substring' se forma una nueva cadena con los cuatro caracteres que empiezan en ese valor:<p class="paragraph"/><div class="code"><pre>LET ?titleTrimmed = trim(substring&#45;before(?title,<span class="java&#45;quote">"("</span>))
+LET ?year = <span class="java&#45;object">int</span>(substring(?title,<span class="java&#45;object">int</span>&#45;add(last&#45;index&#45;of(?title,<span class="java&#45;quote">"("</span>),1),4))</pre></div><p class="paragraph"/>Finalmente, la lista de templates consta en este ejemplo de una sola template. Esta template se activaría cada vez que cambia el valor de una de las variables que utiliza. El comienzo de la template se define con la palabra reservada 'construct' y con RDF en sintaxis N3 entre llaves.<p class="paragraph"/><div class="code"><pre>CONSTRUCT
+&#123;
+   &#91;    rdf:type ex:Movie;
+        ex:rank ?rankInt ;
+        ex:rating ?rating ;
+        rdfs:label ?titleTrimmed ;
+        ex:year ?year ;
+        ex:votes ?votesInt &#93;
+&#125;</pre></div><p class="paragraph"/>En este caso este ejemplo no asigna ninguna URI a cada película y por tanto usa corchetes ('&#91;' y '&#93;') para establecer que es un blank node.<p class="paragraph"/>Una consulta SPARQL que listaría las películas obtenidas por el mapeo anterior sería esta:<p class="paragraph"/><div class="code"><pre>PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
+PREFIX ex: &#60;http://localhost:8080/tabels&#45;web/pubby/resource/&#62;<p class="paragraph"/>SELECT &#42;
+FROM &#60;http://localhost:8080/tabels&#45;web&#62; 
+WHERE &#123; ?s rdfs:label ?titulo ;
+      	   ex:year ?anio ;
+           ex:rating ?clasificacion;
+      	   ex:rank ?puesto&#125;
+ORDER BY DESC (?anio)</pre></div><p class="paragraph"/>
 
 
+<h2 id="ejemplo3">3.3 Selecciones y filtros de información avanzados</h2>
 
-<h2 id="ejemplo3">3.3 Ejemplo 3</h2>
+En este tercer ejemplo volvemos a trabajar con un fichero excel fijándonos en alguna nueva funcionalidad que ofrece Tabels. La excel en este caso contiene resultados de experimentos y se trata de una excel muy densa, con muchos datos. Lo que se va a mostrar es como Tabels nos permite ser muy concretos identificando mediante un programa secciones específicas de datos para contruir un programa de transformación.<p class="paragraph"/>La imagen a continuación es una captura de una porción de la hoja 'Hoja2' de la excel que muestra parcialmente los grupos de datos que queremos capturar.<p class="paragraph"/><img border="0" class="center" src="../img/ejemplo3.png"></img><p class="paragraph"/>Los resultados de los experimentos que nos interesan se encuentran en esta hoja 'Hoja2', entre las columnas 'A' y 'H', y empiezan en bloques por días a partir de la fila nº 25. Para los resultados de cada día se abre un bloque de filas: para el día 10 por ejemplo desde la fila 27 hasta la 47, representan los resultados para un animal concreto. En cada fila la columna 'A' contiene el valor del tratamiento que se ha dado al animal. Entre las columnas 'B' y 'I' se encuentran los números de los resultados obtenidos.<p class="paragraph"/>Para empezar a iterar sobre esos datos lo único que hay que especificar en el programa Tabels es primero la hoja en la que se encuentran, con la construcción 'SET sheets'. A continuación, creamos una iteración por filas para cada día de experimentos, pero al 'FOR' por filas le especificamos que empiece en la primera celda con la expresión 'STARTS AT A25'. Además, como ya hemos visto en ejemplos anteriores, creamos una 'ventana' para el día de experimentos mediante un filtro por expresión regular:<p class="paragraph"/><div class="code"><pre>SET sheets <span class="java&#45;quote">"Hoja2"</span>
+    FOR ?experimentDay IN rows STARTS AT A25 FILTER matches(?experimentDay, <span class="java&#45;quote">"DAY &#91;0&#45;9&#93;+"</span>)
+		LET ?resourceExperimentDay = resource(?experimentDay, &#60;http://example.com&#35;&#62;)</pre></div><p class="paragraph"/>A partir de la variable de iteración '?experimentDay' se crea una variable para el recurso 'día de experimento' '?resourceExperimentDay'.<p class="paragraph"/>Para iterar por los experimentos efectuados por cada uno de los días se crea un iteración anidada por filas mediante otro 'FOR'. En esta ocasión el comienzo de la iteración se marca de forma relativa a la variable de la iteración padre, 2 celdas por debajo de la variable '?experimentDay', mediante especificar 'starts at 2 bottom'. El filtro usado selecciona sólo las celdas cuyo contenido esté formado por caracteres alfanuméricos o el carácter '.' (la cifras que aparecen como porcentajes en la excel son leídas como flotantes, por ejemplo, 21% como 0.21).<p class="paragraph"/><div class="code"><pre>FOR ?treatment IN rows starts at 2 bottom of ?experimentDay filter matches(?treatment,<span class="java&#45;quote">"&#91;a&#45;zA&#45;Z0&#45;9.&#93;+"</span>)
+	LET ?resourceTreatment = resource(concat(<span class="java&#45;quote">"F1+"</span>,?treatment), &#60;http://example.com&#35;&#62;)
+	LET ?mouse = <span class="java&#45;object">int</span>&#45;substract(get&#45;row( ?treatment),get&#45;row(?experimentDay))
+	LET ?resourceMouse = resource(?mouse,&#60;http://example.com&#35;&#62;) &#123;
+	..........
+	&#125;</pre></div><p class="paragraph"/>Cada fila de esta iteración representaría dos entidades diferentes: por un lado el tratamiento usado (columna 'A') y por otro lado el ratón sobre el que se experimenta. Se crean variables de recursos para representar esas dos entidades. Para el ratón, se le asigna un número, que es la diferencia entre el número de la fila del experimento y el número de la fila base del día de experimentos: se usa para esto la función 'get-row', y la función 'int-substract' para hacer la resta.<p class="paragraph"/>Ya habíamos visto también en un ejemplo anterior el uso de 'MATCH' para recuperar bloques de variables a partir de celdas consecutivas. Para este programa se utiliza para recuperar los resultados del experimento en las celdas a la derecha en la misma fila que la variable de iteración '?treatment'. Se usa 'AT 6' y 'AT 1' para mover el comienzo de la captura de las variables entre corchetes. De esta forma el primer 'MATCH' capturaría los valores de dos celdas ('G' y 'H') y el segundo de cinco columnas (de la 'B' a la 'F'). Además se usan filtros específicos para estas capturas de tal forma que si no se cumple la condición en 'FILTER' ninguna de las variables del 'MATCH' captura su valor. Por ejemplo, en el segundo 'MATCH' del ejemplo, si en la celda 'F' (variable '?volume') no se encuentra un valor de número flotante ninguna de las cinco variables capturará el valor de su celda correspondiente:<p class="paragraph"/><div class="code"><pre>MATCH &#91;?averageVolume,?deviation&#93; IN horizontal AT 6 right of ?treatment FILTER matches(?averageVolume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>) ;
+MATCH &#91;?height,?width,?depth,?death,?volume&#93; IN horizontal AT 1 right of ?treatment FILTER matches(?volume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>)</pre></div><p class="paragraph"/>Al final del programa aparece la lista de templates que generan el RDF (N3), usando el vocabulario de estadísticas Scovo. Se crean dimensiones scovo para representar las entidades 'día de experimento', 'tratamiento' y 'ratón'. Cada una de esas templates solo generaría código RDF cuando cambiara la variable de la que depende. Se crean 'items' que representan valores estadísticos granulares para las variables '?volume' y '?averageVolume'. Por ejemplo, para esta última su valor se asocia a un dataset y dos dimensiones, además de aplicar al item también la desviación estándar en la variable '?deviation' mediante la propiedad de Scovo 'ex:standardDeviation':<p class="paragraph"/><div class="code"><pre>construct
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:AverageTumorVolume ;
+        scv:dimension ?resourceExperimentDay ;
+        rdf:value ?averageVolume;
+        scv:dimension ?resourceTreatment;
+        ex:standardDeviation ?deviation&#93;
+&#125;</pre></div><p class="paragraph"/>A continuación se lista el código completo del ejemplo:<p class="paragraph"/><div class="code"><pre>@fetch (<span class="java&#45;quote">"dbpedia"</span>)
+PREFIX ex: &#60;http://example.org/ex&#35;&#62;
+PREFIX scv: &#60;http://purl.org/NET/scovo&#35;&#62;
+PREFIX rdf: &#60;http://www.w3.org/1999/02/22&#45;rdf&#45;syntax&#45;ns&#35;&#62;
+PREFIX rdfs: &#60;http://www.w3.org/2000/01/rdf&#45;schema&#35;&#62;
+PREFIX skos: &#60;http://www.w3.org/2004/02/skos/core&#35;&#62;
+PREFIX scvxl: &#60;http://idi.fundacionctic.org/scovoxl/scovoxl&#35;&#62;<p class="paragraph"/>set sheets <span class="java&#45;quote">"Hoja2"</span>
+    FOR ?experimentDay IN rows STARTS AT A25 FILTER matches(?experimentDay, <span class="java&#45;quote">"DAY &#91;0&#45;9&#93;+"</span>)
+		LET ?resourceExperimentDay = resource(?experimentDay, &#60;http://example.com&#35;&#62;)
+		FOR ?treatment IN rows starts at 2 bottom of ?experimentDay filter matches(?treatment,<span class="java&#45;quote">"&#91;a&#45;zA&#45;Z0&#45;9.&#93;+"</span>)
+ 	    	LET ?resourceTreatment = resource(concat(<span class="java&#45;quote">"F1+"</span>,?treatment), &#60;http://example.com&#35;&#62;)
+	   		LET ?mouse = <span class="java&#45;object">int</span>&#45;substract(get&#45;row( ?treatment),get&#45;row(?experimentDay))
+	   		LET ?resourceMouse = resource(?mouse,&#60;http://example.com&#35;&#62;) &#123;
+            	MATCH &#91;?averageVolume,?deviation&#93; IN horizontal AT 6 right of ?treatment FILTER matches(?averageVolume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>) ;
+            	MATCH &#91;?height,?width,?depth,?death,?volume&#93; IN horizontal AT 1 right of ?treatment FILTER matches(?volume,<span class="java&#45;quote">"&#91;0&#45;9,.&#93;+"</span>)
+	    	&#125;
+//SCOVO TEMPLATE DATASET Mouse&#45;Day&#45;Treatment
+//DIMENSION EXPERIMENT DAY
+construct 
+&#123; 
+    ?resourceExperimentDay a  ex:ExperimentDay ; 
+                           skos:prefLabel ?experimentDay .<p class="paragraph"/>    ex:ExperimentDay rdfs:subClassOf scv:Dimension ; 
+                     skos:prefLabel <span class="java&#45;quote">"Experiment Day"</span><p class="paragraph"/>&#125;<p class="paragraph"/>//DIMENSION TREATMENT<p class="paragraph"/>construct 
+&#123; 
+    ?resourceTreatment a ex:Treatment ;
+                           skos:prefLabel ?treatment .
+    ex:Treatment rdfs:subClassOf scv:Dimension ;
+                     skos:prefLabel <span class="java&#45;quote">"Treatment"</span><p class="paragraph"/>&#125;
+//DIMENSION MOUSE
+construct
+&#123; 
+    ?resourceMouse a ex:Mouse ;
+                           skos:prefLabel ?mouse .<p class="paragraph"/>    ex:Mouse rdfs:subClassOf scv:Dimension ;
+                     skos:prefLabel <span class="java&#45;quote">"Mouse"</span><p class="paragraph"/>&#125;
+//DATA SEt &#38; ITEM
+construct
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:IndividualTumorVolume ;
+        scv:dimension ?resourceMouse ;
+        scv:dimension ?resourceExperimentDay ;
+        rdf:value ?volume;
+        scv:dimension ?resourceTreatment;
+        ex:height ?height;
+        ex:width ?width;
+        ex:depth ?depth&#93;
+&#125;
+ construct 
+&#123;
+    ex:IndividualTumorVolume a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Individual Tumor Volume"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Unidad volumen"</span><p class="paragraph"/>&#125;<p class="paragraph"/>//SCOVO TEMPLATE DATASET Day&#45;Treatment<p class="paragraph"/>
+//DATA SEt &#38; ITEM
+construct
+&#123;
+    &#91; a scv:Item ;
+        scv:dataset ex:AverageTumorVolume ;
+        scv:dimension ?resourceExperimentDay ;
+        rdf:value ?averageVolume;
+        scv:dimension ?resourceTreatment;
+        ex:standardDeviation ?deviation&#93;
+&#125;
+construct  
+&#123;
+    ex:AverageTumorVolume a scv:Dataset ;
+  	 skos:prefLabel <span class="java&#45;quote">"Average Tumor Volume"</span> ;
+         scvxl:valuesMeasuredIn <span class="java&#45;quote">"Unidad volumen"</span><p class="paragraph"/>&#125;</pre></div>
 
+
+<h1 id="restApi">4 API REST</h1>
+Tabels ofrece un API de servicios web REST que permite hacer
+transformaciones y gestionar proyectos. A continuación se encuentran las
+especificaciones de los servicios REST ofrecidos por Tabels.<p class="paragraph"/>Se asume que existe una instancia de Tabels desplegada en la URL
+<code>{tabelsURL}</code>, por ejemplo, en http://example.org/tabels.<p class="paragraph"/>
+
+
+<h2 id="gestionProyectos">4.1 Gestión de proyectos</h2>
+<h3>Listado de proyectos</h3><p class="paragraph"/>URL: <code>{tabelsURL}</code><p class="paragraph"/>Método: <code>GET</code><p class="paragraph"/>Parámetros de consulta:
+<ul class="star">
+<li><code>format</code>=<code>json</code> (obligatorio, o en su defecto, se puede emplear negociación de contenidos HTTP).</li>
+</ul><p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code></li>
+</ul><p class="paragraph"/>Contenido de la respuesta: una lista JSON de cadenas de texto que contiene los nombres de los proyectos
+registrados en la instancia de Tabels, por ejemplo <code>["proyecto-uno", "proyecto-dos"]</code>.<p class="paragraph"/><p class="paragraph"/><h3>Creación de un proyecto</h3><p class="paragraph"/>URL: <code>{tabelsURL}/createProject</code><p class="paragraph"/>Método: <code>POST</code><p class="paragraph"/><blockquote class="note">
+Por el momento no se permite la creación de proyectos mediante el método <code>PUT</code>. Es posible que
+en el futuro se añada esta posibilidad.
+</blockquote><p class="paragraph"/>Parámetros de consulta:
+<ul class="star">
+<li><code>newProjectId</code> (obligatorio): cadena de texto con el nombre del nuevo proyecto</li>
+</ul><p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> si la creación tuvo éxito.</li>
+</ul><p class="paragraph"/><blockquote class="warning">
+Por el momento no se dispone de un código de respuesta para indicar un fallo en la creación del proyecto, por
+ejemplo, debido a un nombre de proyecto inválido o repetido.
+</blockquote><p class="paragraph"/><p class="paragraph"/><h3>Borrado de un proyecto</h3><p class="paragraph"/>URL: <code>{tabelsURL}/project/{nombreProyecto}/delete</code><p class="paragraph"/>Método: <code>POST</code><p class="paragraph"/><blockquote class="note">
+Por el momento no se permite el borrado de proyectos mediante el método <code>DELETE</code>. Es posible
+que en el futuro se añada esta posibilidad.
+</blockquote><p class="paragraph"/>Parámetros de consulta:
+<ul class="star">
+<li><code>proyectId</code> (obligatorio): cadena de texto con nombre del proyecto que se desea borrar.</li>
+<li><code>confirm=1</code> (obligatorio): parámetro de confirmación. La acción sólo se ejecuta si el parámetro</li>
+</ul><p class="paragraph"/>tiene un valor que se evalúe a "verdadero".<p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> si el borrado tuvo éxito.</li>
+<li><code>404 Not found</code> si el proyecto no existía previamente.</li>
+</ul><p class="paragraph"/>
+
+
+<h2 id="gestionFicherosEntrada">4.2 Gestión de ficheros de entrada</h2>
+<h3>Listado de ficheros de entrada</h3><p class="paragraph"/>URL: <code>{tabelsURL}/project/{nombreProyecto}/input/</code><p class="paragraph"/>Método: <code>GET</code><p class="paragraph"/>Parámetros de consulta:
+<ul class="star">
+<li><code>format=json</code></li>
+</ul><p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> en caso normal.</li>
+<li><code>404 Not Found</code> si el proyecto no existe.</li>
+</ul><p class="paragraph"/>Contenido de la respuesta: una lista JSON de cadenas de texto que contiene los nombres de los
+ficheros de entrada registrados en el proyecto, por ejemplo: <code>["fichero1.xls", "fichero2.csv"]</code>.<p class="paragraph"/>
+<h3>Subida de un fichero de entrada</h3><p class="paragraph"/>URL: <code>{tabelsURL}/project/{nombreProyecto}/input/</code><p class="paragraph"/>Método: <code>POST</code><p class="paragraph"/>{info}
+Por el momento no se permite la subida de ficheros mediante el método <code>PUT</code>. Es posible que
+en el futuro se añada esta posibilidad.
+{info}<p class="paragraph"/>
+Parámetros de consulta:
+<ul class="star">
+<li><code>file</code> (obligatorio): un fichero adjunto a la petición en formato multipart/mime.</li>
+</ul><p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> en caso normal.</li>
+<li><code>404 Not Found</code> si el proyecto no existe.</li>
+</ul><p class="paragraph"/><h3>Borrado de un fichero de entrada</h3><p class="paragraph"/>URL: <code>{tabelsURL}/project/{nombreProyecto}/input/{nombreFichero}</code><p class="paragraph"/>Método: <code>DELETE</code><p class="paragraph"/>Parámetros de consulta: ninguno<p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> si el borrado tuvo éxito.</li>
+<li><code>404 Not Found</code> si el proyecto o el fichero no existen.</li>
+</ul><p class="paragraph"/>
+
+
+<h2 id="gestionPrograma">4.3 Gestión de programas de transformación</h2>
+<h3>Descarga del programa de transformación</h3><p class="paragraph"/>URL: <code>{tabelsURL}/project/{nombreProyecto}/program</code><p class="paragraph"/>Método: <code>GET</code><p class="paragraph"/>Parámetros de consulta: ninguno.<p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> en caso de éxito.</li>
+<li><code>404 Not Found</code> si el proyecto no existe.</li>
+</ul><p class="paragraph"/>Contenido de la respuesta: el programa asociado al proyecto, representado como una cadena en texto plano.<p class="paragraph"/>
+<h3>Subida de un programa de transformación</h3><p class="paragraph"/>URL: <code>{tabelsURL}/project/{nombreProyecto}/saveProgram</code><p class="paragraph"/>Método: <code>POST</code><p class="paragraph"/><blockquote class="note">
+Por el momento no se permite la subida de programas mediante el método <code>PUT</code>. Es posible que
+en el futuro se añada esta posibilidad.
+</blockquote><p class="paragraph"/>Parámetros de consulta:
+<ul class="star">
+<li><code>program</code> (obligatorio): una cadena de texto con el contenido del nuevo programa.</li>
+</ul><p class="paragraph"/>Código de respuesta:
+<ul class="star">
+<li><code>200 OK</code> si el programa quedó almacenado con éxito.</li>
+<li><code>404 Not Found</code> si el proyecto no existe.</li>
+<li><code>400 Bad request</code> si el programa no es válido.</li>
+</ul><p class="paragraph"/><blockquote class="note">
+Por el momento, el servicio REST no proporciona más información sobre las causas del
+rechazo de un programa. Es posible que en el futuro se añadan detalles tales como 
+la localización y mensaje asociados a los errores sintácticos.
+</blockquote>
+
+
+<h2 id="accesoDatos">4.4 Acceso a datos y consultas</h2>
+<h3>Descarga de datos</h3><p class="paragraph"/>El resultado de las transformaciones son datos RDF, y se pueden descargar en la URL:<p class="paragraph"/><div class="code"><pre>&#123;tabelsURL&#125;/project/&#123;nombreProyecto&#125;/data</pre></div><p class="paragraph"/>Mediante negociación de contenidos o mediante un parámetro en la petición llamado <code>format</code> se puede
+elegir la representación de los datos. Están disponibles las siguientes:
+<ul class="star">
+<li>RDF/XML: tipo MIME <code>application/rdf+xml</code>, o bien el parámetro <code>format=rdfxml</code>.</li>
+<li>NTriples: tipo MIME <code>text/plain</code>, o bien el parámetro <code>format=text</code>.</li>
+<li>Turtle: tipo MIME <code>text/turtle</code>, o bien el parámetro <code>format=ttl</code>.</li>
+</ul><p class="paragraph"/><h3>Datos enlazados</h3><p class="paragraph"/>
+Los recursos generados por Tabels pueden ser accedidos mediante un interfaz de
+datos enlazados que proporciona representaciones HTML y RDF de los mismos. A tal
+fin, es necesario que los recursos estén definidos en el espacio de nombres<p class="paragraph"/><div class="code"><pre>&#123;tabelsURL&#125;/pubby/resource/&#123;nombreProyecto&#125;/</pre></div><p class="paragraph"/>siendo el último componente
+(el nombre del proyecto) opcional, pero recomendable para evitar colisiones.<p class="paragraph"/>Mediante negociación de contenidos, se pueden obtener las distintas representaciones
+de los recursos, por ejemplo:<p class="paragraph"/><div class="code"><pre>GET /tabels/pubby/resource/mi&#45;proyecto/mi&#45;recurso
+Accept: application/rdf+xml</pre></div><p class="paragraph"/>devuelve la representación en RDF/XML (tras una redirección a <code>/tabels/pubby/data/mi-proyecto/mi-recurso</code>), mientras que<p class="paragraph"/><div class="code"><pre>GET /tabels/pubby/resource/mi&#45;proyecto/mi&#45;recurso
+Accept: application/xhtml</pre></div><p class="paragraph"/>devuelve la representación en HTML (tras una redirección a <code>/tabels/pubby/page/mi-proyecto/mi-recurso</code>).<p class="paragraph"/><h3>Punto de consulta SPARQL</h3><p class="paragraph"/>Tabels proporciona puntos de consulta SPARQL específicos para cada proyecto, y un
+punto de consulta SPARQL global que agrupa todos los proyectos (cada proyecto está
+en un grafo distinto al que se puede acceder mediante <code>FROM</code> o <code>FROM NAMED</code>):
+<ul class="star">
+<li>Punto de consulta por proyecto: <code>{tabelsURL}/project/{nombreProyecto}/sparql</code></li>
+<li>Punto de consulta global: <code>{tabelsURL}/sparql</code></li>
+</ul><p class="paragraph"/>Para más información sobre cómo acceder a un punto de consulta SPARQL, se puede
+consultar las especificaciones del <a href="http://www.w3.org/TR/sparql11-protocol/" target="blank">protocolo SPARQL</a> y 
+del <a href="http://www.w3.org/TR/sparql11-query/" target="blank">lenguaje de consultas SPARQL</a>.
 
                     </div>
                 </td>
