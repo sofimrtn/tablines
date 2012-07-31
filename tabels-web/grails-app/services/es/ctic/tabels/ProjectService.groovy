@@ -148,12 +148,7 @@ class ProjectService {
         def program = getProgramFile(projectId).exists() ? parser.parseProgram(getProgramFile(projectId)) : autogenerator.autogenerateProgram(dataSource)
 		def interpreter = new Interpreter()
 		def dataOutput = new JenaDataOutput(program.prefixesAsMap())
-		def trace = interpreter.interpret(program, dataSource, dataOutput)
-    
-		if (getProgramFile(projectId).exists() == false) {
-		    saveProgram(projectId, program)
-	    }
-	    
+
 	    // add local RDF and OWL files
 	    FileUtils.listFiles(getInputDir(projectId), ["owl", "rdf"] as String[], false).each {
 	        dataOutput.model.read(new FileInputStream(it), null, "RDF/XML")
@@ -162,6 +157,13 @@ class ProjectService {
 	        dataOutput.model.read(new FileInputStream(it), null, "N3")
 	    }
 
+        // execute the interpreter
+		def trace = interpreter.interpret(program, dataSource, dataOutput)
+    
+		if (getProgramFile(projectId).exists() == false) {
+		    saveProgram(projectId, program)
+	    }
+	    
 	    // save cache
 	    def os = new FileOutputStream(getOutputCache(projectId))
         dataOutput.model.write(os, "RDF/XML")
