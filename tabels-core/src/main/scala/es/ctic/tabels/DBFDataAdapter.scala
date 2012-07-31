@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-import java.io.{ File, FileNotFoundException, FileInputStream }
+import java.io.{InputStream, File, FileNotFoundException, FileInputStream}
 import scala.collection.mutable.HashMap
 import collection.JavaConversions._
 import com.linuxense.javadbf._
@@ -22,6 +22,7 @@ import javax.xml.xpath._
   */
 class DBFDataAdapter(file: File) extends DataAdapter with Logging {
 
+
   val reader = try {
 
     new DBFReader(new FileInputStream(file))
@@ -37,6 +38,7 @@ class DBFDataAdapter(file: File) extends DataAdapter with Logging {
   logger.trace("Fields: "+ headers)
   val dataMatrix = (1 until getRows()).map(record =>{logger.trace("record" + record);reader.nextRecord()})
   logger.trace("Number of rows in dataMatrix: "+ dataMatrix length)
+
   override val uri = file.getCanonicalPath()
   override def getTabs(): Seq[String] = Seq("")
   override def getRows(tabName: String = ""): Int = reader.getRecordCount() + 1
