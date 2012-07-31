@@ -33,7 +33,9 @@ class LinkedDataTagLib {
 		"dct": "http://purl.org/dc/terms/",
 		"dc": "http://purl.org/dc/elements/1.1/",
 		"foaf": "http://xmlns.com/foaf/0.1/",
-		"sioc": "http://rdfs.org/sioc/ns#"
+		"sioc": "http://rdfs.org/sioc/ns#",
+		"skos": "http://www.w3.org/2004/02/skos/core#",
+		"scovo": "http://purl.org/NET/scovo#"
 	]
 
 	String shortUri(Resource resource) {
