@@ -48,6 +48,14 @@ libraryDependencies += "org.apache.commons" % "commons-compress" % "1.0"
 
 libraryDependencies += "com.linuxense" % "javadbf" % "0.4.0"
 
+// Geotools dependencies
+geotoolsVersion := "8.0-RC2"
+libraryDependencies += "org.geotools" % "gt-shapefile" % geotoolsVersion
+libraryDependencies += "org.geotools" % "gt-swing" % geotoolsVersion // FIXME Im not sure we will need this
+libraryDependencies += "org.geotools" % "gt-epsg-hsql" % geotoolsVersion
+libraryDependencies += "org.geotools" % "gt-opengis" % geotoolsVersion
+libraryDependencies += "org.geotools.xsd" % "gt-xsd-kml" % geotoolsVersion
+
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
@@ -68,4 +76,8 @@ libraryDependencies += "xerces" % "xercesImpl" % "2.9.1"
 
 resolvers += "3rd party repo" at
 "http://wopr.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
+
+// Geotools resolver
+resolvers += "Open Source Geospatial Foundation Repository" at
+"http://download.osgeo.org/webdav/geotools/"
 
