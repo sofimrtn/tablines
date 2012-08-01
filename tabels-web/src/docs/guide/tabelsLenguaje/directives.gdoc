@@ -12,26 +12,30 @@ descargue las descripciones de todos los
 recursos que comiencen por el prefijo indicado. Por ejemplo:
 
 {code}
-@FETCH("http://dbpedia.org/")
+\@FETCH("http://dbpedia.org/")
 {code}
 
-Provoca que Tabels descargue las descripciones de recursos como http://dbpedia.org/resource/Asturias.
+Provoca que Tabels descargue las descripciones de recursos como @http://dbpedia.org/resource/Asturias@.
 
 h5. Directiva '\@jenarule'
 
 Esta directiva permite ejecutar reglas Jena al terminar la transformación.
 Una única directiva puede contener múltiples reglas. La sintaxis de las reglas
-Jena se encuentra descrita en la documentación de Jena: http://jena.apache.org/documentation/inference/index.html#rules
+Jena se encuentra descrita en la "documentación de Jena":http://jena.apache.org/documentation/inference/index.html#rules .
 Los prefijos declarados para el programa Tabels son automáticamente introducidos
 en las reglas, por lo que no es necesario declararlos de nuevo. Un ejemplo:
 
 {code}
-@JENARULE("[R1: (?x foaf:knows ?z) -> (?z foaf:knows ?x)]")
+\@JENARULE("[R1: (?x foaf:knows ?z) -> (?z foaf:knows ?x)]")
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 {code}
 
-La regla anterior convierte todas las relaciones foaf:knows en simétricas.
+La regla anterior convierte todas las relaciones @foaf:knows@ en simétricas.
 
 h5. Directiva '\@sparql'
+
+FIXME
+
+h5. Directiva '\@load'
 
 FIXME

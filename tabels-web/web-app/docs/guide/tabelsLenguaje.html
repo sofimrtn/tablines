@@ -458,12 +458,12 @@ modifican la generación de la salida. Las directivas son específicas del tipo 
 salida que se genera, y por tanto, pueden estar disponibles sólo en algunos casos.<p class="paragraph"/>Mediante estas directivas resulta posible realizar integración de datos, mediación
 de vocabularios, inferencias y algunas comprobaciones.<p class="paragraph"/><h5>Directiva '&#64;fetch'</h5><p class="paragraph"/>Esta directiva indica a Tabels que, una vez finalizada la transformación,
 descargue las descripciones de todos los
-recursos que comiencen por el prefijo indicado. Por ejemplo:<p class="paragraph"/><div class="code"><pre>@FETCH(<span class="java&#45;quote">"http://dbpedia.org/"</span>)</pre></div><p class="paragraph"/>Provoca que Tabels descargue las descripciones de recursos como http://dbpedia.org/resource/Asturias.<p class="paragraph"/><h5>Directiva '&#64;jenarule'</h5><p class="paragraph"/>Esta directiva permite ejecutar reglas Jena al terminar la transformación.
+recursos que comiencen por el prefijo indicado. Por ejemplo:<p class="paragraph"/><div class="code"><pre>&#64;FETCH(<span class="java&#45;quote">"http://dbpedia.org/"</span>)</pre></div><p class="paragraph"/>Provoca que Tabels descargue las descripciones de recursos como <code>http://dbpedia.org/resource/Asturias</code>.<p class="paragraph"/><h5>Directiva '&#64;jenarule'</h5><p class="paragraph"/>Esta directiva permite ejecutar reglas Jena al terminar la transformación.
 Una única directiva puede contener múltiples reglas. La sintaxis de las reglas
-Jena se encuentra descrita en la documentación de Jena: http://jena.apache.org/documentation/inference/index.html#rules
+Jena se encuentra descrita en la <a href="http://jena.apache.org/documentation/inference/index.html#rules" target="blank">documentación de Jena</a> .
 Los prefijos declarados para el programa Tabels son automáticamente introducidos
-en las reglas, por lo que no es necesario declararlos de nuevo. Un ejemplo:<p class="paragraph"/><div class="code"><pre>@JENARULE(<span class="java&#45;quote">"&#91;R1: (?x foaf:knows ?z) &#45;&#62; (?z foaf:knows ?x)&#93;"</span>)
-PREFIX foaf: &#60;http://xmlns.com/foaf/0.1/&#62;</pre></div><p class="paragraph"/>La regla anterior convierte todas las relaciones foaf:knows en simétricas.<p class="paragraph"/><h5>Directiva '@sparql'</h5><p class="paragraph"/>FIXME
+en las reglas, por lo que no es necesario declararlos de nuevo. Un ejemplo:<p class="paragraph"/><div class="code"><pre>&#64;JENARULE(<span class="java&#45;quote">"&#91;R1: (?x foaf:knows ?z) &#45;&#62; (?z foaf:knows ?x)&#93;"</span>)
+PREFIX foaf: &#60;http://xmlns.com/foaf/0.1/&#62;</pre></div><p class="paragraph"/>La regla anterior convierte todas las relaciones <code>foaf:knows</code> en simétricas.<p class="paragraph"/><h5>Directiva '&#64;sparql'</h5><p class="paragraph"/>FIXME<p class="paragraph"/><h5>Directiva '&#64;load'</h5><p class="paragraph"/>FIXME
 
 
 
