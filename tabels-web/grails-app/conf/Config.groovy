@@ -124,4 +124,7 @@ log4j = {
     
     info  'es.ctic.tapinos'
 
+    trace  'es.ctic.tabels.SHPDataAdapter'
+
+
 }

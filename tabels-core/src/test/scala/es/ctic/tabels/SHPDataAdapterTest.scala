@@ -37,9 +37,18 @@ class SHPDataAdapterNLWaterIntegrationTest extends JUnitSuite {
   }
 
   @Test def getValue {
+    assertEquals(Literal(0.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 3)).getContent)
     // header
     assertNotSame(Literal("COUNT,N,11,0"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
     assertEquals(Literal("COUNT"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
+
+    // row 1 is problematic
+    assertEquals(Literal(6213, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 0)).getContent)
+    assertEquals(Literal(903, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
+    assertEquals(Literal("", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 2)).getContent)
+    assertEquals(Literal(0.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 3)).getContent)
+    assertEquals(Literal(0.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 4)).getContent)
+    assertEquals(Literal(0.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 5)).getContent)
 
     // one for each column but picking random row
     assertEquals(Literal(6113, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)

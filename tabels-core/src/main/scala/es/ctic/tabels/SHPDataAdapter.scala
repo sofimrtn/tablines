@@ -2,7 +2,7 @@ package es.ctic.tabels
 
 import java.io._
 import grizzled.slf4j.Logging
-import java.util
+import java.{lang, util}
 import util.zip.{ZipFile, ZipEntry}
 import collection.{mutable, JavaConversions}
 import scala.collection.JavaConversions._
@@ -45,6 +45,7 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
   // headers
   val schema = featureSource.getSchema
   val headers = (1 until schema.getAttributeCount).map(index => schema.getAttributeDescriptors.get(index).getName)
+  trace("headers read: "+headers)
 
   // datamatrix
  /* val featuresIterator:Iterable[org.opengis.feature.simple.SimpleFeature] = JavaConversions.collectionAsScalaIterable(featureSource.getFeatures)
@@ -76,12 +77,17 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
     logger.trace("Getting value at " + point)
     try {
 
+
       // If header use the header information
       if (point.row == 0) {
+        trace("is header row")
         return SHPCellValue(headers(point.col))
       } else {
 
-        val cell =  dataMatrix(point.row - 1) apply point.col
+        // FIXME If cell is null default as double, this code should consider diferent types: String, Double, Integer based
+        // on the attribute type
+        val cell =  Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
+        trace("cell: "+cell)
         logger.trace ("cell type is "+cell.getClass.getCanonicalName+" but field is "+schema.getAttributeDescriptors.get(point.col+1).toString )
         return SHPCellValue(cell)
       }

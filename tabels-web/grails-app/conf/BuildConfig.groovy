@@ -38,7 +38,7 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         compile('es.ctic.tabels:tabels-core_2.9.1:0.4-SNAPSHOT') {
-            excludes 'jena', 'arq'
+            excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces'
         }
         compile('es.ctic.tapinos:tapinos-services:1.9.3')
         compile('commons-lang:commons-lang:2.6')
