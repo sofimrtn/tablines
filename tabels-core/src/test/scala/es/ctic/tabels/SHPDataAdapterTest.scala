@@ -55,7 +55,7 @@ class SHPDataAdapterNLWaterIntegrationTest extends JUnitSuite {
 
 }
 
-class SHPDataAdapterTest extends JUnitSuite {
+class SHPDataAdapterGemeentegrenzenTest extends JUnitSuite {
 
   var dataAdapter : SHPDataAdapter = null
   val filename1 : String = this.getClass.getResource("/es/ctic/tabels/2012-NL-Gemeentegrenzen.zip").getFile.replace("%20"," ")
@@ -95,5 +95,47 @@ class SHPDataAdapterTest extends JUnitSuite {
     // last row
     assertEquals(Literal(4723, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 418, col = 0)).getContent)
   }
-
 }
+
+  class SHPDataAdapterSafetyRegionsTest extends JUnitSuite {
+
+    var dataAdapter : SHPDataAdapter = null
+    val filename1 : String = this.getClass.getResource("/es/ctic/tabels/2012-NL-Safety-regions-borders-incl-water.zip").getFile.replace("%20"," ")
+    val sheet1 = ""
+
+    @Before def setUp {
+      val file1 = new File(filename1)
+      dataAdapter = new SHPDataAdapter(file1)
+    }
+
+    @Test def getTabs {
+      assertEquals(Seq(""), dataAdapter.getTabs())
+    }
+
+    /*       */
+
+    @Test def getCols {
+      assertEquals(4, dataAdapter.getCols(sheet1))
+    }
+
+    @Test def getRows {
+      assertEquals(26, dataAdapter.getRows(sheet1))
+    }
+
+    @Test def getValue {
+      // header
+      assertNotSame(Literal("OMSCHRIJVI,C,28"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
+      assertEquals(Literal("OMSCHRIJVI"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
+
+      // one for each column but picking random row
+      assertEquals(Literal(3, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
+      assertEquals(Literal("Fryslân", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
+      assertEquals(Literal(30113, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 2)).getContent)
+      assertEquals(Literal("Overijssel", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 5, col = 3)).getContent)
+
+
+      // last row
+      assertEquals(Literal(20, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 25, col = 0)).getContent)
+    }
+  }
+
