@@ -34,6 +34,7 @@ object DataAdapter {
     val HTMLFilePattern = """.+\.html$""".r
     val DBFFilePattern =  """.+\.dbf$""".r
     val ZIPFilePattern =  """.+\.zip$""".r
+    val ZIPSHPFilePattern =  """.+\.zip.shp$""".r
     
     def createAdapter(url : String) : DataAdapter =
         url match {
@@ -43,12 +44,19 @@ object DataAdapter {
             case HTMLFilePattern() => new HTMLDataAdapter(new File(url))
             case DBFFilePattern() => new DBFDataAdapter(new File(url))
             case ZIPFilePattern() => new ZIPDataAdapter(new File(url))
+            case ZIPSHPFilePattern() => new SHPDataAdapter(new File(url))
             case _ => throw new UnrecognizedSpreadsheetFormatException(url)
         }
     
     def findAllRecognizedFilesFromDirectory(dir : File) : Seq[File] =
         dir.listFiles.toList.filter(_.getName match {
-            case CSVFilePattern() | ExcelFilePattern() | HTMLFilePattern() | ODFFilePattern() | DBFFilePattern() | ZIPFilePattern() => true
+            case CSVFilePattern()
+                 | ExcelFilePattern()
+                 | HTMLFilePattern()
+                 | ODFFilePattern()
+                 | DBFFilePattern()
+                 | ZIPFilePattern()
+                 | ZIPSHPFilePattern() => true
             case _ => false
         })
 
