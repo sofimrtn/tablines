@@ -73,8 +73,9 @@ class BasicAutogenerator(defaultNamespace : Namespace = EX, projectId: String = 
         val matchStmt = MatchStatement(tuple)
         val letStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchStmt))
         val forStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(GetRowExpression(rowId)) else None, nestedStatement = Some(letStmt))
-        val inSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(forStmt))
-        val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(inSheetStmt))
+        val inSheetStmt = if (dataSource.getTabs(filename).length <= 1) forStmt else SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(forStmt))
+        val inFileStmt = if (dataSource.filenames.length <= 1) inSheetStmt else SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(inSheetStmt))
+
         statements += inFileStmt
         
         val resourceClass = my("SomeResource")
@@ -146,8 +147,9 @@ class ScovoAutogenerator(defaultNamespace : Namespace = EX, projectId: String  =
         )
         
         val matchHeadersStmt = MatchStatement(headerTuple, position = Some(FixedPosition(row = 0, col = 0)), nestedStatement = Some(letDimensions))
-        val inSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(matchHeadersStmt))
-        val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(inSheetStmt))
+        
+        val inSheetStmt = if (dataSource.getTabs(filename).length <= 1) matchHeadersStmt else SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(matchHeadersStmt))
+        val inFileStmt = if (dataSource.filenames.length <= 1) inSheetStmt else SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(inSheetStmt))
 
         val templates = new ListBuffer[Template]
         
