@@ -5,6 +5,8 @@ import grizzled.slf4j.Logging
 import com.hp.hpl.jena.rdf.model.{Model,ModelFactory,AnonId}
 import com.hp.hpl.jena.datatypes.xsd.XSDDatatype
 import com.hp.hpl.jena.reasoner.rulesys.{GenericRuleReasoner,Rule}
+import com.hp.hpl.jena.query.DatasetFactory
+import com.hp.hpl.jena.update.{UpdateAction,GraphStoreFactory}
 import java.io.{BufferedReader,StringReader}
 
 class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataOutput with Logging {
@@ -21,6 +23,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
 		case FetchDirective(resourceUriRe) => fetchDescriptions(resourceUriRe)
 		case JenaRuleDirective(jenaRule) => executeJenaRule(jenaRule)
 		case LoadDirective(url) => fetchDescription(url)
+		case SparqlDirective(sparqlQuery) => executeSparql(sparqlQuery)
 	  })
   }
   
@@ -67,6 +70,13 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
         def reasoner = new GenericRuleReasoner(parsedRules)
         def inferredModel = ModelFactory.createInfModel(reasoner, model)
         model.add(inferredModel)
+    }
+    
+    def executeSparql(sparqlQuery : String) {
+        val dataSource = DatasetFactory.create()
+        dataSource.setDefaultModel(model)
+        val graphStore = GraphStoreFactory.create(dataSource)
+        UpdateAction.parseExecute(sparqlQuery, graphStore)
     }
   
     def fetchDescription(resourceUri : String) {

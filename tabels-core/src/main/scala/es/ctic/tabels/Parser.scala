@@ -53,6 +53,7 @@ class TabelsParser extends JavaTokenParsers {
 	def PREFIX = "prefix".ignoreCase
 	def FETCH = "fetch".ignoreCase
 	def JENARULE = "jenarule".ignoreCase
+	def SPARQL = "sparql".ignoreCase
 	def LOAD = "load".ignoreCase
 //	def PLACED = "placed".ignoreCase
 //	def WITH = "with".ignoreCase
@@ -181,13 +182,15 @@ class TabelsParser extends JavaTokenParsers {
 	def directives : Parser[Seq[Directive]] = rep(directive)
 	
 	def directive : Parser[Directive] =
-		fetchDirective | jenaRuleDirective
+		fetchDirective | jenaRuleDirective | loadDirective | sparqlDirective
 		
 	def fetchDirective = "@" ~> FETCH ~> parens(regex) ^^ { FetchDirective(_) }
 	
 	def jenaRuleDirective = "@" ~> JENARULE ~> parens(quotedString) ^^ { JenaRuleDirective(_) }
 	
 	def loadDirective = "@" ~> LOAD ~> parens(quotedString) ^^ { LoadDirective(_) }
+	
+	def sparqlDirective = "@" ~> SPARQL ~> parens(quotedString) ^^ { SparqlDirective(_) }
 	
 	def prefixDecl : Parser[(String,NamedResource)] = (PREFIX ~> ident) ~ (":" ~> iriRef) ^^
 	    { case prefix~ns => prefixes += (prefix -> ns)

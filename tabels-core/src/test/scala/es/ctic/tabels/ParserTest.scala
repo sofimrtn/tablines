@@ -126,6 +126,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (jenaRuleDirective, "@JENARULE")
 	}
 	
+	@Test def parseSparqlDirective() {
+		assertParse(sparqlDirective, """@SPARQL("DROP ALL")""", SparqlDirective("DROP ALL"))
+		assertFail (sparqlDirective, "@SPARQL")
+	}
+	
 	@Test def parseLoadDirective() {
 	    assertParse(loadDirective, """@LOAD("http://example.org/data.rdf")""", LoadDirective("http://example.org/data.rdf"))
 	    assertFail (loadDirective, "@LOAD")

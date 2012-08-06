@@ -28,6 +28,10 @@ case class JenaRuleDirective(jenaRule : String) extends Directive {
 	override def toString() = "@JENARULE(\"" + jenaRule + "\")"
 }
 
+case class SparqlDirective(sparqlQuery : String) extends Directive {
+    override def toString() = "@SPARQL(\"" + sparqlQuery + "\")"
+}
+
 case class LoadDirective(url : String) extends Directive {
     override def toString() = "@LOAD(\"" + url + "\")"
 }

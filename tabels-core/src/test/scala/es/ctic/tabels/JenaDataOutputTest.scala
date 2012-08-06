@@ -3,20 +3,35 @@ package es.ctic.tabels
 import org.scalatest.junit.JUnitSuite
 import org.junit.Test
 import org.junit.Assert._
+import com.hp.hpl.jena.query.QueryParseException
 
 class JenaDataOutputTest extends JUnitSuite {
 
     val prefixes = Map("ex" -> NamedResource("http://example.org/"))
     val jenaDataOutput = new JenaDataOutput(prefixes)
+    val statement1 = jenaDataOutput.model.createStatement(jenaDataOutput.model.createResource("http://example.org/a"),jenaDataOutput.model.createProperty("http://example.org/b"),jenaDataOutput.model.createResource("http://example.org/c") : com.hp.hpl.jena.rdf.model.Resource)
     
     @Test def executeJenaRule() {
-        def statement1 = jenaDataOutput.model.createStatement(jenaDataOutput.model.createResource("http://example.org/a"),jenaDataOutput.model.createProperty("http://example.org/b"),jenaDataOutput.model.createResource("http://example.org/c") : com.hp.hpl.jena.rdf.model.Resource)
         jenaDataOutput.model.add(statement1)
         assertEquals(1, jenaDataOutput.model.size())
         jenaDataOutput.executeJenaRule("[rule1: (?x ex:b ?z) -> (?z ex:d ?x)]")
         assertEquals(2, jenaDataOutput.model.size())
     }
     
+    @Test def executeSparql() {
+        jenaDataOutput.model.add(statement1)
+        assertEquals(1, jenaDataOutput.model.size())
+        jenaDataOutput.executeSparql("DROP ALL")
+        assertEquals(0, jenaDataOutput.model.size())
+        jenaDataOutput.executeSparql("INSERT DATA { <http://example.org/foo> <http://example.org/bar> <http://example.org/baz> } ")
+        assertEquals(1, jenaDataOutput.model.size())
+        jenaDataOutput.executeSparql("INSERT { ?x ?y ?z } WHERE { ?z ?y ?x } ")
+        assertEquals(2, jenaDataOutput.model.size())
+    }
+    
+    @Test(expected = classOf[QueryParseException]) def executeInvalidSparql() {
+        jenaDataOutput.executeSparql("CRASH")
+    }
     
   @Test def createStringLiteralObject {
       val input = Literal("hello")
