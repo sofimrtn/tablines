@@ -20,6 +20,7 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
 	  program.directives.foreach(_ match {
 		case FetchDirective(resourceUriRe) => fetchDescriptions(resourceUriRe)
 		case JenaRuleDirective(jenaRule) => executeJenaRule(jenaRule)
+		case LoadDirective(url) => fetchDescription(url)
 	  })
   }
   

@@ -28,6 +28,10 @@ case class JenaRuleDirective(jenaRule : String) extends Directive {
 	override def toString() = "@JENARULE(\"" + jenaRule + "\")"
 }
 
+case class LoadDirective(url : String) extends Directive {
+    override def toString() = "@LOAD(\"" + url + "\")"
+}
+
 abstract class TabelsStatement extends ASTNode
 
 case class BlockStatement(childStatements : Seq[TabelsStatement]) extends TabelsStatement {

@@ -126,6 +126,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertFail (jenaRuleDirective, "@JENARULE")
 	}
 	
+	@Test def parseLoadDirective() {
+	    assertParse(loadDirective, """@LOAD("http://example.org/data.rdf")""", LoadDirective("http://example.org/data.rdf"))
+	    assertFail (loadDirective, "@LOAD")
+	}
+	
 	@Test def parsePrefixDecl() {
 		assertParse(prefixDecl, "PREFIX foo: <http://example.org/>", ("foo" -> NamedResource("http://example.org/")))
 		assertEquals(NamedResource("http://example.org/"), prefixes("foo"))
