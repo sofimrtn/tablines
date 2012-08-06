@@ -18,6 +18,10 @@ class JenaDataOutputTest extends JUnitSuite {
         assertEquals(2, jenaDataOutput.model.size())
     }
     
+    @Test(expected = classOf[com.hp.hpl.jena.reasoner.rulesys.Rule$ParserException]) def executeInvalidJenaRule() {
+        jenaDataOutput.executeJenaRule("CRASH")
+    }
+    
     @Test def executeSparql() {
         jenaDataOutput.model.add(statement1)
         assertEquals(1, jenaDataOutput.model.size())
