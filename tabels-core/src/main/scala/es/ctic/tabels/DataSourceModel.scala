@@ -48,7 +48,7 @@ object DataAdapter {
     
     def findAllRecognizedFilesFromDirectory(dir : File) : Seq[File] =
         dir.listFiles.toList.filter(_.getName match {
-            case CSVFilePattern() | ExcelFilePattern() | HTMLFilePattern() | ODFFilePattern() | DBFFilePattern()=> true
+            case CSVFilePattern() | ExcelFilePattern() | HTMLFilePattern() | ODFFilePattern() | DBFFilePattern() | ZIPFilePattern() => true
             case _ => false
         })
 
