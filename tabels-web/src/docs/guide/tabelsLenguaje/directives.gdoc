@@ -56,3 +56,4 @@ hay soporte para leer ficheros RDF/XML. Ejemplo:
 
 {code}
 \@LOAD("http://www.w3.org/People/Berners-Lee/card.rdf")
+{code}
