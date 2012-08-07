@@ -29,7 +29,7 @@ class JenaDataOutputTest extends JUnitSuite {
         assertEquals(0, jenaDataOutput.model.size())
         jenaDataOutput.executeSparql("INSERT DATA { <http://example.org/foo> <http://example.org/bar> <http://example.org/baz> } ")
         assertEquals(1, jenaDataOutput.model.size())
-        jenaDataOutput.executeSparql("INSERT { ?x ?y ?z } WHERE { ?z ?y ?x } ")
+        jenaDataOutput.executeSparql("INSERT { ?x ex:bar ?z } WHERE { ?z ex:bar ?x } ")
         assertEquals(2, jenaDataOutput.model.size())
     }
     

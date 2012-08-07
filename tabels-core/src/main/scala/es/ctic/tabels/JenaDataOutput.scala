@@ -73,10 +73,13 @@ class JenaDataOutput(prefixes : Map[String,NamedResource] = Map()) extends DataO
     }
     
     def executeSparql(sparqlQuery : String) {
+        val prefixDecls = prefixes map { case (prefix, namespace) => "PREFIX %s: <%s>\n".format(prefix, namespace.uri)} mkString "\n"
+        val sparqlQueryWithPrefixes = prefixDecls + sparqlQuery
+        logger.info("Executing SPARQL query: " + sparqlQueryWithPrefixes)
         val dataSource = DatasetFactory.create()
         dataSource.setDefaultModel(model)
         val graphStore = GraphStoreFactory.create(dataSource)
-        UpdateAction.parseExecute(sparqlQuery, graphStore)
+        UpdateAction.parseExecute(sparqlQueryWithPrefixes, graphStore)
     }
   
     def fetchDescription(resourceUri : String) {
