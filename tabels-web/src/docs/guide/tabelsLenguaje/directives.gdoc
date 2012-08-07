@@ -5,6 +5,9 @@ salida que se genera, y por tanto, pueden estar disponibles sólo en algunos cas
 Mediante estas directivas resulta posible realizar integración de datos, mediación
 de vocabularios, inferencias y algunas comprobaciones.
 
+Un programa puede contener múltiples directivas, que además pueden aparecer en
+varias ocasiones. Las directivas se ejecutan en el orden en el que son declaradas.
+
 h5. Directiva '\@fetch'
 
 Esta directiva indica a Tabels que, una vez finalizada la transformación,
@@ -34,8 +37,22 @@ La regla anterior convierte todas las relaciones @foaf:knows@ en simétricas.
 
 h5. Directiva '\@sparql'
 
-FIXME
+Esta directiva permite ejecutar sentencias "SPARQL 1.1 Update":http://www.w3.org/TR/sparql11-update/
+como INSERT y DELETE para modificar el resultado. La sintaxis de estas sentencias
+se encuentra descrita en la especificación de SPARQL 1.1. Los prefijos declarados para el
+programa Tabels son automáticamente introducidos en las consultas, por lo que no es
+necesario declararlos de nuevo. Por ejemplo:
+
+{code}
+\@SPARQL("INSERT { ?x foaf:knows ?z } WHERE { ?z foaf:knows ?x }")
+PREFIX foaf: <http://xmlns.com/foaf/0.1>
+{code}
 
 h5. Directiva '\@load'
 
-FIXME
+Esta directiva descarga un fichero RDF a partir de una URL, y lo incorpora al
+resultado. Recibe un parámetro: la URL del fichero a descargar. Actualmente sólo
+hay soporte para leer ficheros RDF/XML. Ejemplo:
+
+{code}
+\@LOAD("http://www.w3.org/People/Berners-Lee/card.rdf")
