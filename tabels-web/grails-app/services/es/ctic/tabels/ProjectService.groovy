@@ -7,7 +7,8 @@ import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.rdf.model.ModelFactory
 import com.hp.hpl.jena.query.QueryExecutionFactory
 import org.apache.commons.io.FileUtils
-import org.codehaus.groovy.grails.commons.ConfigurationHolder
+import org.codehaus.groovy.grails.commons.ConfigurationHolder     
+import scala.Some
 
 class ProjectService {
 
@@ -115,7 +116,7 @@ class ProjectService {
     }
     
     def getDataSource(String projectId) throws ProjectDoesNotExistException {
-        return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(getInputDir(projectId)))
+        return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(getInputDir(projectId)), new Some(getInputDir(projectId)))
     }
     
     def getModel(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {

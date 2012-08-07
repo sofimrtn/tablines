@@ -54,15 +54,20 @@ object DataAdapter {
 
 }
 
-class DataAdaptersDelegate(fl : Seq[File]) extends DataSource {
+class DataAdaptersDelegate(fl : Seq[File], baseDir : Option[File] = None) extends DataSource {
 
-    private val adapters : Map[String, DataAdapter] = Map() ++ fl.map(file => (file.getCanonicalPath(), DataAdapter.createAdapter(file.getCanonicalPath())))
+    private val adapters : Map[String, DataAdapter] = Map() ++ fl.map(file => (relativizeFilename(file), DataAdapter.createAdapter(file.getCanonicalPath())))
 
-    val filenames : Seq[String] = fl.map(_.getCanonicalPath())
+    val filenames : Seq[String] = adapters.keySet.toSeq
     override def getValue(point : Point) = adapters(point.path).getValue(point)
     override def getTabs(filename : String) = adapters(filename).getTabs()
     override def getRows(filename : String, tabName : String) = adapters(filename).getRows(tabName)
-    override def getCols(filename : String, tabName : String) = adapters(filename).getCols(tabName)
+    override def getCols(filename : String, tabName : String) = adapters(filename).getCols(tabName) 
+    
+    def relativizeFilename(file : File) : String = baseDir match {
+        case Some(prefix) if (file.getCanonicalPath().startsWith(prefix.getCanonicalPath())) => prefix.toURI().relativize(file.toURI()).getPath()
+        case None => file.getCanonicalPath()
+    }
     
 }
 

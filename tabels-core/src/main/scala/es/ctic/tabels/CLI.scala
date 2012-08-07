@@ -8,8 +8,9 @@ import scala.collection.JavaConversions
 object CLI extends Logging {
 
 	val defaultTabelsFilename = "transform.tabels"
-	//val defaultDebugOutputFilename = "debug.html"
-	lazy val recognizedFilesCurrentDirectory : Seq[File] = DataAdapter.findAllRecognizedFilesFromDirectory(new File("."))
+	//val defaultDebugOutputFilename = "debug.html"                                                                        
+	val currentDirectory = new File(".")
+	lazy val recognizedFilesCurrentDirectory : Seq[File] = DataAdapter.findAllRecognizedFilesFromDirectory(currentDirectory)
 	
 	def main(args: Array[String]) {
 	    val options = new Options()
@@ -22,7 +23,7 @@ object CLI extends Logging {
 
             val spreadsheetFiles : Seq[File] = if (cmd.getArgs isEmpty) recognizedFilesCurrentDirectory else cmd.getArgs.map(new File(_))
 			if (spreadsheetFiles.isEmpty) throw new NoInputFiles()
-			val dataSource : DataSource = new DataAdaptersDelegate(spreadsheetFiles)
+			val dataSource : DataSource = new DataAdaptersDelegate(spreadsheetFiles, Some(currentDirectory))
 			logger.debug("Processing these input files: " + dataSource.filenames)
 			
 			logger.debug("Parsing Tabels program")
