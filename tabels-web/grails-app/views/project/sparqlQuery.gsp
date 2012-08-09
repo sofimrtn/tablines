@@ -14,7 +14,9 @@
    	<p class="permaLink"><g:link action="sparql" params="[query: query]" id="${params.id}"><g:message code="msg.sparql.permalink"/></g:link></p>
    	
    	<p class="csvDownload"><g:link action="sparql" params="[query: query, format: 'text/csv']" id="${params.id}"><g:message code="msg.sparql.download.csv.link"/></g:link></p>
-  
+                               
+    <p><g:message code="msg.sparql.result.count" args="[tuples.size()]"/></p>
+    
     <table class="sparql">
       <thead>
         <tr>
