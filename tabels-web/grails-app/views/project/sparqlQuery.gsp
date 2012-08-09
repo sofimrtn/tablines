@@ -11,9 +11,9 @@
     
    	<p class="backLink"><g:link action="sparql" params="[forceForm: '1', query: query]" id="${params.id}"><g:message code="msg.sparql.back.to.form"/></g:link></p>     
    	
-   	<p class="permaLink"><g:link action="sparql" params="[query: query]" id="${params.id}">Permalink</g:link></p>
+   	<p class="permaLink"><g:link action="sparql" params="[query: query]" id="${params.id}"><g:message code="msg.sparql.permalink"/></g:link></p>
    	
-   	<p class="csvDownload"><g:link action="sparql" params="[query: query, format: 'text/csv']" id="${params.id}">Download CSV</g:link></p>
+   	<p class="csvDownload"><g:link action="sparql" params="[query: query, format: 'text/csv']" id="${params.id}"><g:message code="msg.sparql.download.csv.link"/></g:link></p>
   
     <table class="sparql">
       <thead>
