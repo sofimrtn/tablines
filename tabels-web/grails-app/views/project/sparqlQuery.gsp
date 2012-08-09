@@ -19,7 +19,8 @@
     
     <table class="sparql">
       <thead>
-        <tr>
+        <tr>   
+          <th scope="col">#</th>
         <g:each var="var" in="${vars}">
           <th scope="col" id="${var}">${var}</th>
         </g:each>
@@ -27,7 +28,8 @@
       </thead>
       <tbody>
         <g:each var="tuple" in="${tuples}" status="i">
-        <tr class="${(i % 2 == 0) ? 'even' : 'odd'}">
+        <tr class="${(i % 2 == 0) ? 'even' : 'odd'}"> 
+            <td>${i+1}</td>
           <g:each var="var" in="${vars}">
             <td headers="${var}">
               <g:showRdfNode rdfNode="${tuple.get(var)}"/>
