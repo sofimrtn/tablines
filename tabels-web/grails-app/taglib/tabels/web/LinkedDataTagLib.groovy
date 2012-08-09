@@ -4,7 +4,8 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.vocabulary.RDF
 import com.hp.hpl.jena.vocabulary.RDFS
-import com.hp.hpl.jena.vocabulary.OWL  
+import com.hp.hpl.jena.vocabulary.OWL 
+import com.hp.hpl.jena.vocabulary.XSD 
 import org.codehaus.groovy.grails.commons.ConfigurationHolder     
 
 class LinkedDataTagLib {
@@ -20,8 +21,14 @@ class LinkedDataTagLib {
 				}
 				break
 			case Literal:
-				def literal = args.rdfNode as Literal
-				out << literal.toString()
+				def literal = args.rdfNode as Literal       
+				out << literal.value.toString()      
+				if (!literal.language.equals("")) {
+				    out << "<span class='rdfLang'>@${literal.language}</span>"
+				}
+				if (literal.datatype != null) {
+				    out << " <span class='rdfDatatype'>(${shortUri(literal.datatypeURI)})</span>"
+				}
 				break
 		}
     }
@@ -29,7 +36,8 @@ class LinkedDataTagLib {
 	def wellKnownPrefixes = [
 		"rdf": RDF.getURI(),
 		"owl": OWL.getURI(),
-		"rdfs": RDFS.getURI(),
+		"rdfs": RDFS.getURI(),    
+		"xsd": XSD.getURI(),
 		"dcat": "http://www.w3.org/ns/dcat#",
 		"dct": "http://purl.org/dc/terms/",
 		"dc": "http://purl.org/dc/elements/1.1/",
@@ -39,20 +47,24 @@ class LinkedDataTagLib {
 		"scovo": "http://purl.org/NET/scovo#"
 	]
 
-	String shortUri(Resource resource) {
-		if (resource.getURI().equals(RDF.type.getURI())) {
+	String shortUri(Resource resource) {   
+	    return shortUri(resource.getURI())
+	}
+	
+	String shortUri(String resourceUri) {
+		if (resourceUri.equals(RDF.type.getURI())) {
 			return "a"
-		} else if (resource.getURI().startsWith(ConfigurationHolder.config.grails.serverURL + "/project/")) {
-		     def fragment = resource.getURI().substring((ConfigurationHolder.config.grails.serverURL + "/project/").length())
+		} else if (resourceUri.startsWith(ConfigurationHolder.config.grails.serverURL + "/project/")) {
+		     def fragment = resourceUri.substring((ConfigurationHolder.config.grails.serverURL + "/project/").length())
 		     def projectId = fragment.substring(0, fragment.indexOf('/'))
 		     def localName = fragment.substring(fragment.indexOf('/')+1)
 		     return "${projectId}:${localName}"
 		} else {
-			def matchedPrefix = wellKnownPrefixes.find { resource.getURI().startsWith(it.value) }
+			def matchedPrefix = wellKnownPrefixes.find { resourceUri.startsWith(it.value) }
 			if (matchedPrefix) {
-				return "${matchedPrefix.key}:${resource.toString().substring(matchedPrefix.value.length())}"
+				return "${matchedPrefix.key}:${resourceUri.substring(matchedPrefix.value.length())}"
 			} else {
-				return resource.toString()
+				return resourceUri
 			}
 		}
 	}

@@ -158,6 +158,14 @@ h2 {
     color: gold;
     font-size: 11pt;
     text-align: right;
+}  
+
+.rdfDatatype {
+    color: gray;
+}              
+
+.rdfLang {
+    color: gray;
 }
 
 div .CodeMirror {
