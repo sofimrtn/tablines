@@ -293,11 +293,8 @@ class ProjectController {
     				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}) over projects ${projects}: ${params.query}")
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
     					def results = endpoint.getResults().getResult()
-    					def vars = ResultSetHelper.extractVariables(results)
-    					def tuples = ResultSetHelper.extractTuples(results)
-    					def size = tuples.size()					
-    					log.debug "Serializing to HTML ${size} results"
-    					render(view: "sparqlQuery", model: [vars: vars, tuples: tuples, size: size, query: params.query])
+    					log.debug "Showing SPARQL results as HTML"
+    					render(view: "sparqlQuery", model: [tuples: results, vars: results.resultVars, query: params.query])
     				} else {
     					endpoint.query() // bypass GSP rendering
     				}

@@ -15,7 +15,7 @@
    	
    	<p class="csvDownload"><g:link action="sparql" params="[query: query, format: 'text/csv']" id="${params.id}"><g:message code="msg.sparql.download.csv.link"/></g:link></p>
                                
-    <p><g:message code="msg.sparql.result.count" args="[tuples.size()]"/></p>
+    <!-- <p><g:message code="msg.sparql.result.count" args="[tuples.size()]"/></p> -->
     
     <table class="sparql">
       <thead>
@@ -30,12 +30,7 @@
         <tr class="${(i % 2 == 0) ? 'even' : 'odd'}">
           <g:each var="var" in="${vars}">
             <td headers="${var}">
-                <g:if test="${tuple.get(var).startsWith('http://')}">
-                    <a href="${tuple.get(var)}">${tuple.get(var)}</a>
-                </g:if>
-                <g:else>
-                    ${tuple.get(var)}
-                </g:else>
+              <g:showRdfNode rdfNode="${tuple.get(var)}"/>
             </td>
           </g:each>
         </tr>
