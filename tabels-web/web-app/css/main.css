@@ -132,6 +132,16 @@ h2 {
 .backLink {
     background: url(../images/1333379171_restart-1.png) no-repeat;
     padding-left: 20px;        
+}   
+
+.permaLink {
+    background: url(../images/1344505874_link.png) no-repeat;
+    padding-left: 20px;
+}
+
+.csvDownload {
+    background: url(../images/1344505919_doc_excel_csv.png) no-repeat;
+    padding-left: 20px;
 }
 
 .renameLink {
