@@ -4,7 +4,8 @@ import com.hp.hpl.jena.rdf.model.Resource
 import com.hp.hpl.jena.rdf.model.Literal
 import com.hp.hpl.jena.vocabulary.RDF
 import com.hp.hpl.jena.vocabulary.RDFS
-import com.hp.hpl.jena.vocabulary.OWL
+import com.hp.hpl.jena.vocabulary.OWL  
+import org.codehaus.groovy.grails.commons.ConfigurationHolder     
 
 class LinkedDataTagLib {
     
@@ -41,6 +42,11 @@ class LinkedDataTagLib {
 	String shortUri(Resource resource) {
 		if (resource.getURI().equals(RDF.type.getURI())) {
 			return "a"
+		} else if (resource.getURI().startsWith(ConfigurationHolder.config.grails.serverURL + "/project/")) {
+		     def fragment = resource.getURI().substring((ConfigurationHolder.config.grails.serverURL + "/project/").length())
+		     def projectId = fragment.substring(0, fragment.indexOf('/'))
+		     def localName = fragment.substring(fragment.indexOf('/')+1)
+		     return "${projectId}:${localName}"
 		} else {
 			def matchedPrefix = wellKnownPrefixes.find { resource.getURI().startsWith(it.value) }
 			if (matchedPrefix) {
