@@ -31,7 +31,7 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
   logger.trace("Tmp files are in " + System.getProperty("java.io.tmpdir"))
 
   // First we need to extract to a temp dir
-  val extracted = new ZipDeflater().deflate(new ZipFile(file))
+  val extracted = new ZipDeflater().deflate(new ZipFile(file),true)
 
   // Find .shp
   val found = extracted.list().find(fileName => fileName.endsWith(".shp"))
@@ -84,7 +84,7 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
         return SHPCellValue(headers(point.col))
       } else {
 
-        // FIXME If cell is null default as double, this code should consider diferent types: String, Double, Integer based
+        // FIXME If cell is null default as double, this code should consider different types: String, Double, Integer based
         // on the attribute type
         val cell =  Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
         trace("cell: "+cell)

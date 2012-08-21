@@ -14,16 +14,18 @@ import scala.collection.JavaConversions._
 
 class ZipDeflater() extends Logging {
 
-  def deflate(zipFile: ZipFile): File =
+  def deflate(zipFile: ZipFile, deflateOnParent: Boolean = false): File =
   {
     // Create temp dir
 
-    val dirNamePre = zipFile.getName.split("/").last.replace(".","-")
-
-    val dirNameSuf = "-temp-"+ System.currentTimeMillis()+"-shp"
-    logger.trace("Creating dir p:"+ dirNamePre+" s:"+dirNameSuf)
-    // FIXME Hardcoded temp directory
-    val extractedZipDir =  new File(new File("/home/guille/tmp"),dirNamePre+dirNameSuf)
+    // Create on parent dir in case flag deflateOnParent is on (we are working on webapp)
+    val pathSplitted = zipFile.getName.split("/")
+    val fileName = pathSplitted.last + "-"+System.currentTimeMillis()+"-temp"
+    trace(".zip.shp input file name: "+fileName)
+    val pathOnly = if(deflateOnParent) pathSplitted.dropRight(2) else pathSplitted.dropRight(1)
+    val path = pathOnly.mkString("/") + "/" + fileName
+    trace("to be extracted on path: "+path)
+    val extractedZipDir =  new File(path)
     extractedZipDir.mkdir()
 
     zipFile.entries().foreach(e => {
