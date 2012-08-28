@@ -28,7 +28,7 @@ grails.project.dependency.resolution = {
         mavenRepo "http://www.scala-tools.org/repo-releases/"
     }
     plugins {
-        runtime ':tapinos-js:1.4',
+        runtime ':tapinos-js:1.5.2',
         		':highcharts:2.2.1.0', // this should be unnecessary, but for some reason, it is not included by tapinos-js
                 ':uploadr:0.5.10',
                 ':svn:1.0.2'

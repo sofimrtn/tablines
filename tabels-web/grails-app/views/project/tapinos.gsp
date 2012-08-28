@@ -5,7 +5,7 @@
     <r:require modules="tapinos-js,fancybox,protovis,highcharts,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
 </head>
 <body>
-       
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<r:script>
 	
     function getCurrentDataset() {
@@ -39,7 +39,7 @@
         // Callback to execute on dimension change events
         // (Combos --> Chart --> Table)
         callback: function(chartParameters) { 
-            chartParameters.yLabel = "Porcentaje (%)";
+        	//chartParameters.yLabel = "Porcentaje (%)";
             $("#chart").tapinosChartDraw(chartParameters); 
             $(".permalink").tapinosPermalinkRefresh();
             return; 
