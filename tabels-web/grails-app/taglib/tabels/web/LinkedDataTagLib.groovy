@@ -56,9 +56,16 @@ class LinkedDataTagLib {
 			return "a"
 		} else if (resourceUri.startsWith(ConfigurationHolder.config.grails.serverURL + "/project/")) {
 		     def fragment = resourceUri.substring((ConfigurationHolder.config.grails.serverURL + "/project/").length())
-		     def projectId = fragment.substring(0, fragment.indexOf('/'))
-		     def localName = fragment.substring(fragment.indexOf('/')+1)
-		     return "${projectId}:${localName}"
+		     if(fragment.indexOf('/') >=0){
+    		     def projectId = fragment.substring(0, fragment.indexOf('/'))
+    		     def localName = fragment.substring(fragment.indexOf('/')+1)
+    		     return "${projectId}:${localName}"
+		     }else{
+                 def projectId = fragment
+                 def localName = ""
+                 return "${projectId}:${localName}"
+             }
+		     
 		} else {
 			def matchedPrefix = wellKnownPrefixes.find { resourceUri.startsWith(it.value) }
 			if (matchedPrefix) {
