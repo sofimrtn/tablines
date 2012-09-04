@@ -6,15 +6,15 @@
 	    <r:script>
 			$(document).ready(function() {
 				var editor = CodeMirror.fromTextArea(program, {
-					mode: "tabelscomplete",
+					mode: "tabels",
 					lineNumbers: true,
-					matchBrackets: true,
-					extraKeys: {"Ctrl-Space": "autocomplete"}
+					matchBrackets: true/*,
+					extraKeys: {"Ctrl-Space": "autocomplete"}*/
 				});
 			});
-			CodeMirror.commands.autocomplete = function(cm) {
+			 /* CodeMirror.commands.autocomplete = function(cm) {
 		        CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
-		      }
+		      }*/
 	    </r:script>
     </head>
     <body>
