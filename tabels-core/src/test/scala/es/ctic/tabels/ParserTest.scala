@@ -234,6 +234,10 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(blankNodeBlock, "[ ?y ?z ; ?a ?b ]",
  			List(TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?y")), Right(Variable("?z"))),
  			     TripleTemplate(Left(BlankNode(Right(1))), Right(Variable("?a")), Right(Variable("?b")))))
+ 	    assertParse(blankNodeBlock, "[ ?y ?z ; ?a ?b .]",
+ 			List(TripleTemplate(Left(BlankNode(Right(2))), Right(Variable("?y")), Right(Variable("?z"))),
+ 			     TripleTemplate(Left(BlankNode(Right(2))), Right(Variable("?a")), Right(Variable("?b")))))
+ 		
 		assertFail (blankNodeBlock, "[]")
 		assertFail (blankNodeBlock, "[ ?x ]")
 		assertFail (triplesSameSubjectTemplate, ".")
@@ -318,7 +322,11 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
 		assertParse(template, "{ ?x ?y ?z . [] ?b [] }",
 			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))),
 			              TripleTemplate(Left(BlankNode(Right(0))), Right(Variable("?b")), Left(BlankNode(Right(1)))))))
-		assertFail (template, "")
+		assertParse(template, "{ ?x ?y ?z .}",
+			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))))))
+		assertParse(template, "{ ?x ?y ?z }",
+			Template(Seq(TripleTemplate(Right(Variable("?x")), Right(Variable("?y")), Right(Variable("?z"))))))
+	    assertFail (template, "")
 		assertFail (template, "{ }")
 	}
 

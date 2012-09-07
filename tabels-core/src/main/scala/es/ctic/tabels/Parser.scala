@@ -406,7 +406,7 @@ class TabelsParser extends JavaTokenParsers {
     	
     // templates
     def blankNodeBlock : Parser[Seq[TripleTemplate]] =
-	   "[" ~> predicateObjectsTemplate <~ "]" ^^
+	   "[" ~> predicateObjectsTemplate <~ (("."<~ "]") | "]") ^^
 	  { case predObjs => 
 	      val bn = createFreshBlankNode()
 	      for ((pred,obj) <- predObjs._1) yield TripleTemplate(Left(bn),pred,obj) }/***Revisar***/
@@ -429,7 +429,7 @@ class TabelsParser extends JavaTokenParsers {
 	  { case subj~predObjs => predObjs._2 ++(for ((pred,obj) <- predObjs._1) yield TripleTemplate(subj,pred,obj)) } |
 	  blankNodeBlock
 	
-	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ "}" ^^
+	def template : Parser[Template] = "{" ~> rep1sep(triplesSameSubjectTemplate, ".") <~ (("."<~ "}") | "}")  ^^
 	  { triples => Template((triples flatten)) }
 	
 
