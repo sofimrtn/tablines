@@ -1,14 +1,9 @@
 <html>
     <head>
         <title>Tabels trace</title>
-        <meta name="layout" content="main" />
-       
-        <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/south-street/jquery-ui.css" rel="stylesheet"></link>
-       	<link rel="stylesheet" id="style-theme-link" href="http://imakewebthings.com/deck.js/themes/style/web-2.0.css"></link>
-    	<link rel="stylesheet" id="transition-theme-link" href="http://imakewebthings.com/deck.js/themes/transition/horizontal-slide.css"></link>
-        
         <r:require modules="trace"/>
-        
+        <meta name="layout" content="main" />
+      
         <style type="text/css">
         .recentlyBound { background-color: lightyellow; }
         .var { font-weight: bold; }
