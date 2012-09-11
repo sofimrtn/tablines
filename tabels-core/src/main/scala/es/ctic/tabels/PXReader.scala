@@ -32,9 +32,20 @@ class PXReader(file : File)/* with Logging */{
    readKeyWord("VALUES(\""+keyWord+"\")")
   }
   
-  def readData = {
+  def getDataColsSize : Int ={
+    return readHeadings.foldLeft(1)((result,head)=>result*readValues(head).size)
+  }
+  def getDataRowsSize : Int ={
+    return readStub.foldLeft(1)((result,stub)=>result*readValues(stub).size)
+  }
+  def readData:Seq[Array[String]] = {
+    
    //println("------: "+stringSource.drop(stringSource.indexOf("DATA")).replace(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1))
-    stringSource.drop(stringSource.indexOf("DATA")).replace(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1).split("\n|\r|\r\n").map(_.split(" +"))
+   //stringSource.drop(stringSource.indexOf("DATA")).replace(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1).split("\n|\r|\r\n").map(_.split(" +"))
+  //println(stringSource.drop(stringSource.indexOf("DATA")).replace(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1).replaceAll(" *\n *"," "))
+    val array = (stringSource.drop(stringSource.indexOf("DATA")).replaceAll(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1).replaceAll(" *\n *| +"," ")).trim.split(" ")
+   //((0 until getDataRowsSize).map(element=>array.filter(array.indexOf(_)/getDataColsSize==element))).foreach(arr =>{ arr.foreach(elem=>print(elem+" "));println()})
+   return (0 until getDataRowsSize).map(element=>array.take((element+1)*getDataColsSize).drop(element*getDataColsSize))
   }
   
   def calculateHeaders(dim:Int) ={
