@@ -1,0 +1,48 @@
+AXIS-VERSION="2000";
+CREATION-DATE="20120511 10:15";
+SUBJECT-AREA="Series Anuales";
+SUBJECT-CODE="01";
+MATRIX="01001";
+TITLE="Profesorado y su evoluci¢n por tipo de presentaci¢n, clase de "
+"ense¤anzas y curso acad‚mico. ";
+CONTENTS="Profesorado y su evoluci¢n";
+DECIMALS=0;
+SHOWDECIMALS=0;
+STUB="tipo de presentaci¢n","clase de ense¤anzas";
+HEADING="curso acad‚mico";
+UNITS="Profesorado";
+LAST-UPDATED="20100526";
+CONTACT="INE Difusi¢n. E-mail: www.ine.es/infoine. Internet: www.ine.es. Tel: "
+"+34 91 583 91 00 Fax: +34 91 583 91 58                                "
+"";
+VALUES("tipo de presentaci¢n")="Valores absolutos",
+"Indices (base 2000/2001 = 100)         ";
+VALUES("clase de ense¤anzas")="ENSE¥ANZA UNIVERSITARIA (1)",
+"- ESTUDIOS DE PRIMER CICLO","- ESTUDIOS DE 1ER Y 2§ CICLO (2)",
+"EE. NIVEL SUP. EQUIVALENTES A E. UNIV.(3)";
+VALUES("curso acad‚mico")="2000/2001","2001/2002","2002/2003",
+"2003/2004","2004/2005","2005/2006","2006/2007","2007/2008",
+"2008/2009","2009/2010","2010/2011";
+PRESTEXT("clase de ense¤anzas")="0";
+PRESTEXT("curso acad‚mico")="0";
+PRECISION("tipo de presentaci¢n","Indices (base 2000/2001 = 100)         ")=2;
+INFOFILE="ayuda1";
+SOURCE="Ministerio de Defensa, Guardia Civil e I.N.E.                         "
+"          ";
+COPYRIGHT=YES;
+NOTE="(1) A partir del curso 2001-2002 no se dispone de la distribuci¢n del "
+"profesorado seg£n la duraci¢n de los estudios.    #"
+"(2) Incluye el profesorado de los estudios de tercer ciclo "
+"universitario (Doctorado).     #"
+"(3) Incluye el profesorado de E.Militar (G§ Superior y G§ Medio) y "
+"Turismo.        #"
+"         ";
+DATA=
+104076.00 103067.00 102844.00 105469.00 107840.00 109838.00 113236.00 116581.00 120447.00 125169.00 130116.00 
+19476.00 ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." 
+84600.00 ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." 
+920.00 869.00 767.00 767.00 608.00 681.00 683.00 667.00 491.00 459.00 424.00 
+100.00 99.03 98.82 101.34 103.62 105.54 108.80 112.02 115.73 120.27 125.02 
+100.00 ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." 
+100.00 ".." ".." ".." ".." ".." ".." ".." ".." ".." ".." 
+100.00 94.46 83.37 83.37 66.09 74.02 74.24 72.50 53.37 49.89 46.09 ;
