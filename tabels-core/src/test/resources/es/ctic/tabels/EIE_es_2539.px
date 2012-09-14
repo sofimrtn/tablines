@@ -1,0 +1,176 @@
+AXIS-VERSION="1.5";
+CREATION-DATE="20120822 02:17";
+DIVISION="Encuesta Industrial de Empresas (EIE)";
+JERARQUIA="EIE CNAE 09 >>  Resultados nacionales";
+SUBJECT-AREA=" Resultados nacionales";
+SUBJECT-CODE="421";
+CHARSET="ANSI";
+MATRIX="EIE_es_2539.px";
+TITLE="Número de empresas por sectores de actividad";
+LANGUAGE="ES";
+CONTENTS="Número de empresas por sectores de actividad";
+UNITS="Número de empresas";
+LAST-UPDATED="20120302 13:34";
+STUB="Sectores";
+HEADING="Grupos de tamano","Periodo";
+VALUES("Sectores")=
+"Total industria",
+"001 CNAE 05. Extracción de carbón (antracita, hulla y lignito)",
+"002 CNAE 06, 09, 19. Industrias del petróleo y gas natural",
+"003 CNAE 07, 08. Extracción de rocas y minerales metálicos",
+"004 Procesado y conservación de carne y elaboración de productos cárnicos",
+"005 Procesado y conservación de pescados, crustáceos y moluscos",
+"006 Procesado y conservación de frutas y hortalizas",
+"007 Fabricación de aceites y grasas vegetales y animales",
+"008 Fabricación de productos lácteos",
+"009 Fabricación de productos de molinería, almidones y productos amiláceos",
+"010 Fabricación de productos de panadería y pastas alimenticias",
+"011 CNAE 10.81,10.82,10.83. Azúcar, café, té e  infusiones y productos de confitería",
+"012 CNAE 10.84,10.85,10.86,10.89. Otros productos alimenticios",
+"013 CNAE 10.9. Comida para animales",
+"014 CNAE 11.01,11.02,11.03,11.04,11.05,11.06. Fabricación de bebidas",
+"015 CNAE 11.07. Producción de aguas embotelladas y bebidas aromatizadas ó azucaradas",
+"016 CNAE 12. Industria del tabaco",
+"017 CNAE 13.1. Preparación e hilado de fibras textiles",
+"018 Fabricación de tejidos textiles",
+"019 Acabado de textiles",
+"020 CNAE 13.91,13.92. Fabricación de tejidos de punto y productos a partir de textiles, excepto prendas de vestir",
+"021 CNAE 13.93,13.94,13.95,13.96,13.99. Otras industrias textiles",
+"022 Confección de prendas de vestir, excepto de peletería",
+"023 Fabricación de artículos de peletería",
+"024 Confección de prendas de vestir de punto",
+"025 Preparación, curtido y acabado del cuero; fabricación de artículos de marroquinería, viaje y de guarnicionería y talabartería; preparación y teñido de pieles",
+"026 Fabricación de calzado",
+"027 CNAE 16.10. Aserrado y cepillado de la madera",
+"028 CNAE 16.21. Fabricación de chapas, tableros y paneles de madera",
+"029 CNAE 16.22,16.23. Estructuras de madera y piezas de carpintería y ebanistería para la construcción",
+"030 CNAE 16.24. Fabricación de envases y embalajes de madera",
+"031 CNAE 16.29. Fabricación de artículos de corcho, cestería y espartería y otros productos de madera",
+"032 CNAE 17.1. Fabricación de pasta papelera, papel y cartón",
+"033 Fabricación de artículos de papel y de cartón",
+"034 CNAE 18. Artes gráficas y reproducción de soportes grabados",
+"035 Fabricación de productos químicos básicos, compuestos nitrogenados, fertilizantes, plásticos y caucho sintético en formas primarias",
+"036 CNAE 20.2. Fabricación de pesticidas y otros productos agroquímicos",
+"037 CNAE 20.3. Pinturas, barnices, tintas de imprenta y masillas",
+"038 CNAE 20.4. Artículos de limpieza y abrillantamiento, perfumes y cosméticos",
+"039 Fabricación de otros productos químicos",
+"040 CNAE 20.6. Fabricación de fibras artificiales y sintéticas",
+"041 Fabricación de productos farmacéuticos de base",
+"042 Fabricación de especialidades farmacéuticas",
+"043 Fabricación de productos de caucho",
+"044 Fabricación de productos de plástico",
+"045 CNAE 23.1. Fabricación de vidrio y productos de vidrio",
+"046 CNAE 23.2,23.4. Fabricación de productos cerámicos excepto los destinados a la construcción",
+"047 Fabricación de productos cerámicos para la construcción",
+"048 CNAE 23.5. Fabricación de cemento, cal  y yeso",
+"049 CNAE 23.6. Fabricación de elementos de hormigón, cemento y yeso",
+"050 CNAE 23.7. Corte, tallado y acabado de la piedra",
+"051 Fabricación de productos abrasivos y productos minerales no metálicos n.c.o.p.",
+"052 CNAE 24.1. Fabricación de productos básicos de hierro, acero y ferroaleaciones",
+"053 Fabricación de tubos, tuberías, perfiles huecos y sus accesorios, de acero",
+"054 Fabricación de otros productos de primera transformación del acero",
+"055 Producción de metales preciosos y de otros metales no férreos",
+"056 Fundición de metales",
+"057 CNAE 25.11. Fabricación de estructuras metálicas y sus componentes",
+"058 CNAE 25.12. Fabricación de carpintería metálica",
+"059 Fabricación de cisternas, grandes depósitos y contenedores de metal",
+"060 Fabricación de generadores de vapor, excepto calderas de calefacción central",
+"061 CNAE 25.4. Fabricación de armas y municiones",
+"062 CNAE 25.5. Forja, estampación y embutición de metales; metalurgia de polvos",
+"063 CNAE 25.61. Tratamiento y revestimiento de metales",
+"064 CNAE 25.62. Ingeniería mecánica por cuenta de terceros",
+"065 Fabricación de artículos de cuchillería y cubertería, herramientas y ferretería",
+"066 Fabricación de otros productos metálicos",
+"067 Fabricación de componentes electrónicos y circuitos impresos ensamblados",
+"068 Fabricación de ordenadores y equipos periféricos",
+"069 Fabricación de equipos de telecomunicaciones",
+"070 Fabricación de productos electrónicos de consumo",
+"071 Fabricación de instrumentos y aparatos de medida, verificación y navegación; fabricación de relojes",
+"072 CNAE 26.6,26.7,26.8. Equipos de radiación y electromédicos; instrumentos de óptica y fotográficos; soportes magnéticos y ópticos",
+"073 Fabricación de motores, generadores y transformadores eléctricos, y de aparatos de distribución y control eléctrico",
+"074 Fabricación de cables y dispositivos de cableado",
+"075 Fabricación de lámparas y aparatos eléctricos de iluminación",
+"076 CNAE 27.5. Fabricación de aparatos domésticos",
+"077 CNAE 27.2,27.9. Fabricación de pilas y acumuladores y otro material y equipo eléctrico",
+"078 Fabricación de maquinaria de uso general",
+"079 Fabricación de otra maquinaria de uso general",
+"080 Fabricación de maquinaria agraria y forestal",
+"081 Fabricación de máquinas herramienta para trabajar el metal y otras máquinas herramienta",
+"082 Fabricación de otra maquinaria para usos específicos",
+"083 Fabricación de vehículos de motor",
+"084 Fabricación de carrocerías para vehículos de motor; fabricación de remolques y semirremolques",
+"085 Fabricación de componentes, piezas y accesorios para vehículos de motor",
+"086 Construcción naval",
+"087 Fabricación de locomotoras y material ferroviario",
+"088 CNAE 30.3,30.4. Construcción aeronaútica y espacial y de vehículos militares de combate",
+"089 CNAE 30.9. Fabricación de otro material de transporte n.c.o.p. ",
+"090 CNAE 31. Fabricación de muebles",
+"091 Fabricación de artículos de joyería, bisutería y similares",
+"092 CNAE 32.3,32.4. Fabricación de artículos de deporte, juegos y juguetes",
+"093 CNAE 32.5. Fabricación de instrumentos y suministros médicos y odontológicos",
+"094 CNAE 32.2, 32.9. Fabricación de instrumentos musicales. Otras industrias manufactureras diversas",
+"095 Reparación de productos metálicos, maquinaria y equipo",
+"096 Instalación de máquinas y equipos industriales",
+"097 Producción, transporte y distribución de energía eléctrica",
+"098 CNAE 35.2, 35.3. Producción y distribución de gas, vapor y aire acondicionado",
+"099 CNAE 36. Captación, depuración y distribución de agua",
+"100 CNAE 37, 38, 39. Actividades de saneamiento, gestión de residuos y descontaminación";
+VALUES("Grupos de tamano")=
+"Total",
+"Menos de 20 personas ocupadas",
+"20 o más personas ocupadas";
+VALUES("Periodo")=
+"2008",
+"2009",
+"2010";
+DECIMALS=0;
+SHOWDECIMALS=0;
+SOURCE="Instituto Nacional de Estadística";
+CONTACT="INE Difusión e-mail: http://www.ine.es/infoine; internet: www.ine.es; tel:+34 91 583 9100";
+COPYRIGHT=YES;
+DATA=149601 136558 135966 126833 116974 117505 22768 19585 18462 62 48 48 33 20 22 29 29 27 33 38 
+45 20 22 30 13 16 15 1882 1771 1774 1504 1481 1507 378 290 267 3322 3249 3205 2474 
+2437 2398 848 812 807 572 585 552 336 350 335 236 235 217 972 975 1091 622 676 795 
+350 300 296 1229 1275 1315 1126 1172 1207 103 104 108 994 1008 981 829 847 826 165 162 
+155 378 377 385 310 304 320 68 72 65 8044 7116 7572 7279 6376 6851 764 740 721 855 
+833 773 646 638 610 209 196 164 1187 1104 1134 968 886 912 218 218 222 726 720 721 
+539 544 550 187 176 171 2781 2500 2753 2451 2193 2457 330 307 296 356 322 299 269 240 
+208 87 82 92 30 19 23 19 8 12 11 11 11 520 403 386 422 341 321 98 
+62 65 407 334 331 328 267 267 79 67 64 633 547 502 500 444 406 133 102 96 
+2621 2167 2087 2403 2017 1941 218 151 146 801 760 738 687 652 637 115 108 101 6254 5178 
+4796 5574 4610 4313 680 568 483 179 169 125 175 166 123 4 3 2 603 557 479 523 
+492 421 81 65 58 981 757 706 875 662 626 106 95 81 2908 2248 2194 2431 1885 1848 
+477 363 346 1042 957 902 945 885 823 97 73 79 412 339 311 293 250 233 120 89 
+78 6176 5817 5231 5815 5555 4975 361 262 256 732 709 732 639 626 651 94 82 81 1483 
+1151 1069 1377 1072 1003 106 79 66 233 195 189 139 128 123 93 67 66 1439 1368 1325 
+1016 973 970 424 394 354 10120 9618 9273 9258 8870 8637 862 748 636 844 812 807 581 564 
+560 264 249 247 83 81 73 51 54 46 32 27 27 491 466 446 342 315 310 150 
+152 136 831 857 817 638 663 619 193 195 198 612 603 618 453 453 456 160 151 161 
+43 37 41 23 23 26 20 14 15 84 71 73 36 26 28 48 45 45 228 218 
+227 88 89 88 140 129 138 670 601 586 514 465 451 156 136 135 3576 3454 3388 2596 
+2584 2580 980 870 808 975 960 953 731 769 770 244 191 183 650 599 570 572 541 519 
+77 58 50 844 718 629 459 413 367 386 305 262 168 162 177 105 104 121 63 58 
+56 2615 2466 2270 1872 1894 1796 743 573 474 3642 3107 3235 3295 2828 3021 347 278 214 264 
+263 276 178 180 197 86 82 79 207 202 180 129 134 119 78 69 62 98 100 138 
+47 55 91 51 45 47 189 169 185 128 117 134 61 52 51 239 211 202 135 119 
+117 104 92 85 547 517 492 361 359 349 187 158 143 2912 2689 2578 2080 2041 2053 832 
+647 525 14830 12573 13158 14039 12008 12642 791 565 516 660 722 694 449 543 528 211 179 166 
+58 54 48 26 29 25 32 25 23 49 41 36 30 28 22 19 13 14 1463 1440 
+1545 1108 1153 1251 355 288 294 1646 1504 1407 1349 1249 1172 297 255 236 4685 4094 3818 4092 
+3614 3360 593 480 458 2721 2385 2575 2481 2202 2389 240 183 186 2973 2676 2291 2518 2259 1913 
+455 417 378 404 377 386 313 294 305 91 84 81 338 288 317 317 270 304 21 17 
+13 181 169 170 120 118 117 61 51 53 55 56 54 32 37 34 23 19 20 533 
+473 455 397 354 342 135 119 113 242 213 182 186 168 149 56 45 32 823 777 741 
+564 549 500 259 228 241 219 175 163 156 115 107 63 60 56 593 534 487 463 428 
+395 130 106 92 264 239 199 190 175 141 73 64 58 275 321 376 173 219 276 102 
+102 100 529 553 584 336 377 417 193 175 167 1832 1788 1607 1340 1320 1160 492 467 447 
+741 662 676 635 567 587 106 95 89 454 472 364 351 366 271 102 106 93 2178 2000 
+1890 1663 1588 1529 515 413 362 111 97 101 82 69 76 29 28 25 798 756 704 630 
+637 601 168 119 102 901 939 857 457 563 493 444 375 364 361 363 341 247 249 263 
+114 114 78 46 48 51 13 18 21 33 30 31 92 91 86 37 33 32 55 58 
+54 127 115 115 90 86 90 37 28 25 11408 9542 9883 10194 8619 9000 1214 922 882 1303 
+1178 1160 1227 1117 1104 76 61 55 378 312 338 300 247 275 77 65 64 2085 2083 2171 
+1998 2001 2084 87 82 87 1102 1009 905 992 902 810 110 107 96 6035 6174 5347 5407 5633 
+4804 628 541 543 237 267 333 162 173 229 75 94 104 961 1077 1381 888 1000 1301 72 
+77 81 169 185 220 145 157 192 24 29 29 906 968 2238 735 787 2046 171 181 191 
+2060 2192 2504 1663 1779 1972 397 413 532 

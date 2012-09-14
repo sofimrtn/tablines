@@ -1,9 +1,10 @@
 package es.ctic.tabels
 
 import org.scalatest.junit.JUnitSuite
-import org.junit.Test
+import org.junit.{Test,Before}
 import org.junit.Assert._
 import java.io.File
+
 
 class PXDataAdapterTest extends JUnitSuite {
    
@@ -11,10 +12,10 @@ class PXDataAdapterTest extends JUnitSuite {
 	val filename2 : String = this.getClass.getResource("/es/ctic/tabels/simple.px").getFile.replace("%20"," ")
     private val dataAdapter =new PXDataAdapter(new File(filename1))
 	private val dataAdapter2 =new PXDataAdapter(new File(filename2))
-    val sheet1 = ""
-      
+    val sheet1 = "Contents"
+    val sheet2 = "MetaData"
     @Test def getTabs {
-    assertEquals(Seq(""), dataAdapter.getTabs())
+    assertEquals(Seq("Contents", "MetaData"), dataAdapter.getTabs())
   }
 
   @Test def getCols {
@@ -45,8 +46,12 @@ class PXDataAdapterTest extends JUnitSuite {
     assertEquals(Literal("17", XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 129, col = 42)).getContent)
     
     assertEquals(Literal("602", XSD_INT), dataAdapter2.getValue(Point(filename2, sheet1, row = 2, col = 7)).getContent)
+    assertEquals(Literal("Suministro de agua pública por país, periodo y sector"), dataAdapter2.getValue(Point(filename2, sheet2, row = 0, col = 1)).getContent)
+    assertEquals(Literal("millones de metros cúbicos."), dataAdapter2.getValue(Point(filename2, sheet2, row = 2, col = 1)).getContent)
+    assertEquals(Literal("EUROSTAT"), dataAdapter2.getValue(Point(filename2, sheet2, row = 3, col = 1)).getContent)
     
     
   }
   
 }
+

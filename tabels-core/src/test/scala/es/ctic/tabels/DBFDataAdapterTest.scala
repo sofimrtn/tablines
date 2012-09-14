@@ -95,6 +95,7 @@ class DBFDataAdapterGemeentegrenzenIntegrationTest extends JUnitSuite {
 
 }
 
+
 class DBFDataAdapterTest extends JUnitSuite {
 
   @Test def decimalFormatPattern {
