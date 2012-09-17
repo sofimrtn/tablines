@@ -12,6 +12,8 @@ import org.apache.commons.httpclient.HttpMethod
 import org.codehaus.groovy.grails.commons.ConfigurationHolder
 import com.hp.hpl.jena.query.QueryParseException
 import grails.converters.*
+import es.ctic.tapinos.source.RemoteSparqlDataSource;
+import es.ctic.tapinos.services.AutocompleteFromEndpoint;
 
 class ProjectController {
 
@@ -23,7 +25,7 @@ class ProjectController {
     private def indexModel(String projectId) throws ProjectDoesNotExistException {
         return [path: projectService.getInputDir(projectId),
          files: projectService.getFiles(projectId),
-         program: projectService.getProgram(projectId)]
+         program: projectService.getProgram(projectId), endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/"]
     }
     
     def index = {
@@ -383,9 +385,27 @@ class ProjectController {
 	
 	def tapinos = {
 	    try {
+            def endpoint = params.endpoint;
+            def namedgraph = params.namedgraph;
             log.info("Providing the list of datasets to the view");
-            def datasets = datasetProvider.getSuggestions(null); // FIXME: broken due to multi-project
-    	    [datasets: datasets ]
+            //Si me pasan un endpoint ignoro el provider que tengo y creo uno nuevo
+            System.out.println(namedgraph);
+            def datasets
+            if (params.endpoint != null) {
+                try{
+                    def provider = new AutocompleteFromEndpoint(
+                        new RemoteSparqlDataSource(endpoint, namedgraph));
+                    provider.setRdfLocale(datasetProvider.getRdfLocale());
+                    provider.setLabelProperty(datasetProvider.getLabelProperty());
+                    datasets = provider.getSuggestions(null);
+                }
+                catch( e ){
+                    render(status: 404, text: e.getMessage())
+                }
+            }else{
+                datasets = datasetProvider.getSuggestions(null);
+            }
+            [datasets: datasets , endpoint: endpoint, namedgraph: namedgraph]
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())

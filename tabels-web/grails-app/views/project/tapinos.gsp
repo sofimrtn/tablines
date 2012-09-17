@@ -7,71 +7,78 @@
 <body>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<r:script>
-	
-    function getCurrentDataset() {
-      return $("#dataset > option:selected").val();
-    }	
+       function getCurrentDataset() {
+         return $("#dataset > option:selected").val();
+       }    
 
-    $(document).ready(function() {
-      $("#dataset").each(function() { 
-        $(this).bind('change', function() {
-          $("#dimensions").tapinosCombosReload(getCurrentDataset());
-        });
-      });
+       $(document).ready(function() {
+  // initialize(); //only for googleMaps
+         $("#dataset").each(function() { 
+           $(this).bind('change', function() {
+             $("#dimensions").tapinosCombosReload(getCurrentDataset());
+           });
+         });
 
-      $("#chart").tapinosChart({
-        // jQuery object: a Tapinos Table to refresh (opt)
-        ws: "${resource(dir:'ws', file:'chart')}",
-        table: $("#table"),
-      });
+   $("#GooglechartsChart").tapinosChart({
+           // jQuery object: a Tapinos Table to refresh (opt)
+           ws: "<g:resource dir='ws' file='chart'/>",
+           endpoint: "${endpoint}",
+           namedgraph: "${namedgraph}",
+           table: $("#table"),
+   chartService: "google",
+         });
 
-      $("#dimensions").tapinosCombos({
-        // String: Dimension Web Service URI
-        ws: "${resource(dir:'ws', file:'dimensions')}",
-        // jQuery object: A div to insert error messages
-        errorMsgsDiv: $("#errors"),
-        // jQuery object: A checkbox to switch values/series variables (opt)
-        //seriesSwitchCheckbox: $("#seriesSwitchCheckbox"),
-        seriesSwitchDiv: $("#seriesSwitchDiv"),
-        // Array of jQuery objects to empty() if failure {userError, networkError} (opt)
-        toClearIfFailure: $("#chart, #table"),
-        URLFieldSavedState: "tapinosCombos",
-        // Callback to execute on dimension change events
-        // (Combos --> Chart --> Table)
-        callback: function(chartParameters) { 
-        	//chartParameters.yLabel = "Porcentaje (%)";
-            $("#chart").tapinosChartDraw(chartParameters); 
-            $(".permalink").tapinosPermalinkRefresh();
-            return; 
-            }
-      });
+        
 
-      $(".permalink").tapinosPermalink({
-          selects: $("#dataset"),
-          tapinosCombos: $("#dimensions"),
-      });
+         $("#dimensions").tapinosCombos({
+           // String: Dimension Web Service URI
+           ws: "<g:resource dir='ws' file='dimensions'/>",
+           endpoint: "${endpoint}",
+           namedgraph: "${namedgraph}",
+           // jQuery object: A div to insert error messages
+           errorMsgsDiv: $("#errors"),
+           // jQuery object: A checkbox to switch values/series variables (opt)
+           //seriesSwitchCheckbox: $("#seriesSwitchCheckbox"),
+           seriesSwitchDiv: $("#seriesSwitchDiv"),
+           // Array of jQuery objects to empty() if failure {userError, networkError} (opt)
+           toClearIfFailure: $("#table"), //TODO: checking if googlecharts should be added
+           URLFieldSavedState: "tapinosCombos",
+           // Callback to execute on dimension change events
+           // (Combos --> Chart --> Table)
+           callback: function(chartParameters) { 
+               // chartParameters.yLabel = "Porcentaje (%)";
+   $("#GooglechartsChart").tapinosChartDraw(chartParameters); 
+               $(".permalink").tapinosPermalinkRefresh();
+               return; 
+               }
+         });
 
-      // Populate initial values
-      $("#dimensions").tapinosCombosReload(getCurrentDataset());
+         $(".permalink").tapinosPermalink({
+             selects: $("#dataset"),
+             tapinosCombos: $("#dimensions"),
+         });
 
-      // Link builder
-      function tapinosCombosState() {
-         return $("#dimensions").tapinosCombosGetState()[0].toSource();
-      }
+         // Populate initial values
+         $("#dimensions").tapinosCombosReload(getCurrentDataset());
 
-      function datasetState() {
-          return getCurrentDataset().toSource();
-      }
+         // Link builder
+         function tapinosCombosState() {
+            return $("#dimensions").tapinosCombosGetState()[0].toSource();
+         }
 
-      //var linkBuilder = new TapinosPermLinkBuilder({
-      //            'tapinosCombos': function () {
-      //                return $("#dimensions").tapinosCombosGetState()[0].toSource();
-      //              },
-      //            'dataset': function() {
-      //                return getCurrentDataset().toSource();
-      //            }});
-    });
-	</r:script>
+         function datasetState() {
+             return getCurrentDataset().toSource();
+         }
+
+         //var linkBuilder = new TapinosPermLinkBuilder({
+         //            'tapinosCombos': function () {
+         //                return $("#dimensions").tapinosCombosGetState()[0].toSource();
+         //              },
+         //            'dataset': function() {
+         //                return getCurrentDataset().toSource();
+         //            }});
+       });
+</r:script>
             
 	<h2>Chart view</h2>
 	
@@ -109,7 +116,7 @@
 
         <h3>Visualización gráfica</h3>
 
-        <div id="chart">
+        <div id="GooglechartsChart">
         </div>
 
         <h3>Visualización en forma de tabla</h3>

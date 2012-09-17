@@ -2,7 +2,7 @@ grails.project.class.dir = "target/classes"
 grails.project.test.class.dir = "target/test-classes"
 grails.project.test.reports.dir = "target/test-reports"
 grails.project.war.file = "target/${appName}.war"
-grails.project.docs.output.dir = "web-app/docs"
+grails.project.docs.output.dir = "${appName}/docs"
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -25,6 +25,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
         //mavenRepo "http://repository.jboss.com/maven2/"
+        mavenRepo "http://resources.smile.deri.ie/maven-repository/"
         mavenRepo "http://www.scala-tools.org/repo-releases/"
     }
     plugins {
@@ -40,7 +41,8 @@ grails.project.dependency.resolution = {
         compile('es.ctic.tabels:tabels-core_2.9.1:0.4-SNAPSHOT') {
             excludes 'jena', 'arq'
         }
-        compile('es.ctic.tapinos:tapinos-services:1.9.3')
+        //compile('es.ctic.tapinos:tapinos-services:1.9.3')
+        compile('es.ctic.understats:understats:2.1')
         compile('commons-lang:commons-lang:2.6')
         compile('commons-io:commons-io:2.1')
         compile('commons-httpclient:commons-httpclient:3.0')

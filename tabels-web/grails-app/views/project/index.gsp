@@ -94,6 +94,8 @@
 		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
 		
 		<p class="facetedLink"><g:link action="exhibit" id="${params.id}"><g:message code="msg.faceted.link"/></g:link></p>
+		 
+		<p class="chartsLink"><g:link mapping="globalTapinos" params="[endpoint:endpoint]"><g:message code="msg.charts.link"/></g:link></p>   
 		    
 		<p class="mapLink"><g:link action="map" id="${params.id}"><g:message code="msg.map.link"/></g:link></p>
 		
