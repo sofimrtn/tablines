@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import java.net.HttpURLConnection
+import java.net.URLEncoder
 import javax.servlet.http.HttpServletResponse
 import org.fundacionctic.su4j.endpoint.EndpointFactory
 import org.fundacionctic.su4j.endpoint.SparqlEndpoint
@@ -336,6 +337,7 @@ class ProjectController {
 				nextAction = "resourceData"
 			}
         }
+        log.info("Creating action ${nextAction} for "+params.localName)
 		String url = g.createLink(action: nextAction, id: params.id, params: [localName: params.localName])
 		response.setHeader("Vary", "Accept")
 		response.setHeader("Location", url)
@@ -363,9 +365,10 @@ class ProjectController {
 	
 	def resourcePage = {
 		String projectId = params.id
-		String localName = params.localName
+		String localName =java.net.URLEncoder.encode(params.localName, "UTF-8")
 		String fullUri = "${projectService.getDefaultNamespace(projectId)}resource/${localName}"
 		try {
+		    log.info("Getting page for resource ${localName}")
 			def model = projectService.getModel(projectId)
 			if (model.containsResource(model.getResource(fullUri))) {
 				def resource = model.getResource(fullUri)

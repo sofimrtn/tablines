@@ -6,7 +6,8 @@ import com.hp.hpl.jena.vocabulary.RDF
 import com.hp.hpl.jena.vocabulary.RDFS
 import com.hp.hpl.jena.vocabulary.OWL 
 import com.hp.hpl.jena.vocabulary.XSD 
-import org.codehaus.groovy.grails.commons.ConfigurationHolder     
+import org.codehaus.groovy.grails.commons.ConfigurationHolder 
+import java.net.URLDecoder    
 
 class LinkedDataTagLib {
     
@@ -17,7 +18,7 @@ class LinkedDataTagLib {
 				if (resource.getURI() == null) {
 					out << "Blank node (${resource.toString()})"
 				} else {
-	        		out << "<a href='${resource.getURI()}'>${shortUri(resource)}</a>"
+	        		out << "<a href='${java.net.URLDecoder.decode(resource.getURI(), "UTF-8")}'>${shortUri(resource)}</a>"
 				}
 				break
 			case Literal:
