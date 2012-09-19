@@ -41,7 +41,11 @@ class CannotConvertResourceToLiteralException(resource : Resource) extends RunTi
 /*functions exceptions*/
 class InvalidFucntionParameterException(parameter : String) extends RunTimeTabelsException("Invalid function parameter value: " + parameter)
 
+class IllegalArgumentException(msg:String) extends RunTimeTabelsException(msg)
+
 class ZeroDivisionException extends InvalidFucntionParameterException("Division by Zero")
+
+class ServerReferedURIException(uri:String) extends CompileTimeTabelsException("Not valid URI - " + uri)
 
 class LuceneQueryException(msg:String) extends RunTimeTabelsException(msg)
 

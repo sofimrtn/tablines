@@ -86,7 +86,8 @@ abstract sealed class Resource() extends RDFNode {
 }
 //FIXMe to be lazy
 case class NamedResource(uri : String) extends Resource {
-    
+    if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
+		throw new ServerReferedURIException(uri)
     override def toString() = "<" + uri + ">"
     
     def toAbbrString(prefixes : Seq[(String,NamedResource)]) : String = toCurie(prefixes) getOrElse toString()

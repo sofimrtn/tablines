@@ -40,8 +40,8 @@ case class GetColExpression(variable:Variable) extends Expression {
  */
 
 case class ResourceExpression(expression:Expression, uri : NamedResource) extends Expression {
-  
-  override def evaluate(evaluationContext : EvaluationContext) = uri + URLEncoder.encode(expression.evaluateAsStringValue(evaluationContext),"UTF-8")
+  override def evaluate(evaluationContext : EvaluationContext) = uri + ((URLEncoder.encode(expression.evaluateAsStringValue(evaluationContext),"cp1252")).replaceAll("%[0-9a-fA-F][0-9a-fA-F]|\\+", "_"))
+  																
   override def prettyPrint = "resource(" + expression.toString + "," + uri.toString + ")"
 
 }

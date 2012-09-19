@@ -25,15 +25,21 @@ case class FetchDirective(regex : Regex) extends Directive {
 }
 
 case class JenaRuleDirective(jenaRule : String) extends Directive {
-	override def toString() = "@JENARULE(\"" + jenaRule + "\")"
+	 if(!(jenaRule.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|jenaRule.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(jenaRule.toLowerCase.contains("192.168.")|jenaRule.toLowerCase.contains("fundacionctic")))
+		throw new ServerReferedURIException(jenaRule)
+	 override def toString() = "@JENARULE(\"" + jenaRule + "\")"
 }
 
 case class SparqlDirective(sparqlQuery : String) extends Directive {
-    override def toString() = "@SPARQL(\"" + sparqlQuery + "\")"
+	 if(!(sparqlQuery.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|sparqlQuery.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(sparqlQuery.toLowerCase.contains("192.168.")|sparqlQuery.toLowerCase.contains("fundacionctic")))
+		throw new ServerReferedURIException(sparqlQuery)
+	 override def toString() = "@SPARQL(\"" + sparqlQuery + "\")"
 }
 
 case class LoadDirective(url : String) extends Directive {
-    override def toString() = "@LOAD(\"" + url + "\")"
+	 if(!(url.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|url.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(url.toLowerCase.contains("192.168.")|url.toLowerCase.contains("fundacionctic")))
+		throw new ServerReferedURIException(url)
+	 override def toString() = "@LOAD(\"" + url + "\")"
 }
 
 abstract class TabelsStatement extends ASTNode
