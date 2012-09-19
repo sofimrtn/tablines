@@ -29,7 +29,7 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       multipartForm: 'multipart/form-data'
                     ]
 
-grails.doc.title = "Documentación Tabels"
+grails.doc.title = "Documentacion Tabels"
 grails.doc.images = new File("src/docs/images")
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
@@ -60,7 +60,8 @@ grails.views.javascript.library="jquery"
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://wopr:8080/${appName}"
+        grails.serverURL = "http://idi.fundacionctic.org/${appName}"
+        //grails.serverURL = "http://wopr:8080/${appName}"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
@@ -123,5 +124,6 @@ log4j = {
             'grails.app.controllers'
     
     info  'es.ctic.tapinos'
+
 
 }
