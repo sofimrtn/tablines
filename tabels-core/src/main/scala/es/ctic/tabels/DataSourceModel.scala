@@ -44,7 +44,7 @@ object DataAdapter {
             case HTMLFilePattern() => new HTMLDataAdapter(new File(url))
             case DBFFilePattern() => new DBFDataAdapter(new File(url))
             case ZIPFilePattern() => new ZIPDataAdapter(new File(url))
-            case ZIPSHPFilePattern() => new SHPDataAdapter(new File(url))
+            case ZIPSHPFilePattern() => new SHPMaplabDataAdapter(new File(url))
             case _ => throw new UnrecognizedSpreadsheetFormatException(url)
         }
     
