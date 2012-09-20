@@ -189,7 +189,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
 
   implicit val evaluationContext = EvaluationContext()
 
-  val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()),("neogeo", NEOGEO()),("skos", SKOS()),("dis",DIS()))
+  val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()),("neogeospatial", NEOGEOSPATIAL()),("neogeogeometry", NEOGEOGEOMETRY()),("skos", SKOS()),("dis",DIS()))
   val my = Namespace(defaultNamespace().toString.substring(1,(defaultNamespace().toString).length - 1) + "resource/")
   
   
@@ -244,17 +244,20 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(blockStmt))
     statements += inFileStmt
 
-    val resourceClass = NEOGEO("Feature")
+    val resourceClass = NEOGEOSPATIAL("Feature")
     tripleTemplates += TripleTemplate(resource, RDF_TYPE, resourceClass)
     
     tripleTemplates ++= properties zip variables map { case (p,v) => TripleTemplate(resource, p, v) }
    /*Last triple property being replaced by neogeo:geometry*/
-    val geometryTriple = TripleTemplate(tripleTemplates.last.s,NEOGEO("geometry"),tripleTemplates.last.o)
-    tripleTemplates.dropRight(1)+=geometryTriple
+    val geometryTriple = TripleTemplate(tripleTemplates.last.s,NEOGEOGEOMETRY("geometry"),tripleTemplates.last.o)
+    tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))
+    val geometryTypeTriple = TripleTemplate(geometryTriple.o,RDF_TYPE,tripleTemplates.last.o)
+    tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))
+    tripleTemplates++=Seq(geometryTriple,geometryTypeTriple)
     
     tripleTemplates += TripleTemplate(resource,DCT("subject"),typeResource)
     val templateFeature = Template(tripleTemplates)
-    
+     
     tripleTemplates.clear()
     tripleTemplates += TripleTemplate(typeResource,RDF_TYPE,SKOS("Concept"))
     tripleTemplates += TripleTemplate(typeResource,DIS("symbol"),uri)
