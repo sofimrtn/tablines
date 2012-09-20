@@ -111,7 +111,7 @@
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 		</g:form>
 		<g:form action="autogenerateProgram" id="${params.id}" method="post">
-		    <g:select name="strategy" from="${['Simple','SCOVO']}" />
+		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" />
 		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" /></p>
 		</g:form>
 		</div>

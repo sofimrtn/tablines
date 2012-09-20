@@ -107,9 +107,11 @@ class ProjectService {
         def autogenerator
         if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId), projectId)
-        } else {
-            autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
-        }
+        }else if (strategy == "MAPS") {
+                    autogenerator = new mapLabAutogenerator(getDefaultNamespace(projectId), projectId)
+                } else {
+                    autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
+                }
         def program = autogenerator.autogenerateProgram(getDataSource(projectId))
         saveProgram(projectId, program)
     }
