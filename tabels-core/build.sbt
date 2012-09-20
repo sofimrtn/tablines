@@ -60,6 +60,10 @@ libraryDependencies += "org.geotools" % "gt-opengis" % "8.0-RC2"
 
 libraryDependencies += "org.geotools.xsd" % "gt-xsd-kml" % "8.0-RC2"
 
+// maplab-geotools
+
+libraryDependencies += "es.ctic.maplab" % "maplab-geotools" % "0.3"
+
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
@@ -80,6 +84,10 @@ libraryDependencies += "xerces" % "xercesImpl" % "2.9.1"
 
 resolvers += "3rd party repo" at
 "http://wopr.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
+
+// maplab-geotools resolver
+resolvers += "CTIC releases" at
+"http://wopr.fundacionctic.org:8081/nexus/content/repositories/releases/"
 
 // Geotools resolver
 resolvers += "Open Source Geospatial Foundation Repository" at
