@@ -19,23 +19,23 @@ class PXDataAdapter(file : File) extends DataAdapter with Logging {
 	
 	override val uri = file.getCanonicalPath()
     override def getValue(point : Point) : CellValue ={point.tab match{
-      																case "Contents" => tables._1 getPXCellValue(point.row, point.col)
-      																case "MetaData" => tables._2 getPXCellValue(point.row, point.col)
-      																case _ => null//throw exception index out of bounds
+      																case "Contents" => tables._1 getPXCellValue(point)
+      																case "MetaData" => tables._2 getPXCellValue(point)
+      																case _ => throw new InvalidInputTab(point.tab)
       																  }
     }
     override def getTabs() : Seq[String] = Seq("Contents","MetaData")
     override def getRows(tabName : String) : Int ={tabName match{
       																case "Contents" => tables._1 rows
       																case "MetaData" => tables._2 rows
-      																case _ => 0//throw exception index out of bounds
+      																case _ => throw new InvalidInputTab(tabName)
       																  }
     }
       
     override def getCols(tabName : String) : Int = {tabName match{
       																case "Contents" => tables._1 cols
       																case "MetaData" => tables._2 cols
-      																case _ => 0//throw exception index out of bounds
+      																case _ => throw new InvalidInputTab(tabName)
       																  }
     												}
 }
@@ -45,12 +45,11 @@ case class PXTable(matrix : Seq[Array[String]]) {
     
     val cols : Int = matrix map (_.size) max
     
-    def getPXCellValue(row : Int, col : Int) : PXCellValue =
-        if (col < matrix(row).size)
-            return PXCellValue(matrix(row)(col))
+    def getPXCellValue(point:Point) : PXCellValue =
+        if (point.col < matrix(point.row).size)
+            return PXCellValue(matrix(point.row)(point.col))
         else{
-            //throw exception index out of bounds
-        	return PXCellValue("")
+            throw new IndexOutOfBounds(point)
             }
     
 }
