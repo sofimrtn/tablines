@@ -30,6 +30,8 @@ class NoInputFiles extends RunTimeTabelsException("No input file(s) selected")
 
 class IndexOutOfBounds(point: Point) extends RunTimeTabelsException(point +"out of bounds")
 
+class InvalidInputTab(tabName:String) extends RunTimeTabelsException("Unable to read tab " + tabName)
+
 class InvalidInputFile(filename:String) extends RunTimeTabelsException("Unable to read input file " + filename)
 
 class UnrecognizedSpreadsheetFormatException(uri:String) extends RunTimeTabelsException("Unable to recognize spreadsheet file format: " + uri)

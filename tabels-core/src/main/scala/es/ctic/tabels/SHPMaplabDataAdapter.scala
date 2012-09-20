@@ -47,8 +47,8 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // headers
   val schema = featureSource.getSchema
-  val headers = ((1 until schema.getAttributeCount).map(index => schema.getAttributeDescriptors.get(index).getName)).toList ::: List("geometry","kml")
-  trace("headers read: " + headers)
+  val dbfHeaders = ((1 until schema.getAttributeCount).map(index => schema.getAttributeDescriptors.get(index).getName)).toList ::: List("geometry","kml")
+  trace("DBF headers read: " + dbfHeaders)
 
   // 2 - SHP Handling: geometries are appended as last column so we need to generate KML before we calculate datamatrix
   val kmlConverter = new Shp2KmlConverter()
@@ -57,9 +57,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   convertedKmlDir.mkdir()
   val kmlConversionResults = kmlConverter.convert(shpFile,convertedKmlDir)
 
-
-
-  // datamatrix
+  // datamatrix: dbf + geometry + kml
   var dataMatrix = new mutable.MutableList[List[java.lang.Object]]()
   val featuresIterator: org.geotools.data.simple.SimpleFeatureIterator = featureSource.getFeatures.features
   while (featuresIterator.hasNext) {
@@ -76,11 +74,6 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     // trace("dM after insertion: "+dataMatrix)
   }
   featuresIterator.close
-  // Append kml column
-
-  // Append geometry type column
-
-
 
   // 3 - SLD Handling
   // Find .sld
@@ -95,7 +88,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     val sldMap = converter.convert(sldFile,convertedSldDir)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
-    val indexOfStyleAttributeInHeaders = headers.indexOf(firstAttributeInMap)
+    val indexOfStyleAttributeInHeaders = dbfHeaders.indexOf(firstAttributeInMap)
 
     val styleForFirstAttributeMap = sldMap.get(firstAttributeInMap)
     val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap
@@ -109,11 +102,23 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   override def getTabs(): Seq[String] = Seq("dbf","sld")
 
   override def getRows(tabName: String = "dbf"): Int = {
-    // TODO switch with default indexOutOfBounds
-    return if("dbf".equals(tabName)) dataMatrix.length + 1 else styleMatrix.length
+
+    tabName match {
+      case "dbf" => dataMatrix.length + 1
+      case "sld" => styleMatrix.length
+      case _ => throw new InvalidInputTab(tabName)
+    }
   }
 
-  override def getCols(tabName: String = "dbf"): Int = headers.length
+  override def getCols(tabName: String = "dbf"): Int = {
+
+    tabName match {
+
+      case "dbf" => dbfHeaders.length
+      case "sld" => 3
+      case _ => throw new InvalidInputTab(tabName)
+    }
+  }
 
   /** Gets the value of a cell as a CellValue.
     * @param point current cell coordinates
@@ -121,25 +126,36 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     */
   override def getValue(point: Point): CellValue = {
     logger.trace("Getting value at " + point)
-    try {
 
 
-      // If header use the header information
-      if (point.row == 0) {
-        trace("is header row")
-        return SHPCellValue(headers(point.col))
-      } else {
+      point.tab match {
 
-        // FIXME If cell is null default as double, this code should consider different types: String, Double, Integer based
-        // on the attribute type
-        val cell = Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
-        trace("cell: " + cell)
-        logger.trace("cell type is " + cell.getClass.getCanonicalName + " but field is " + schema.getAttributeDescriptors.get(point.col + 1).toString)
-        return SHPCellValue(cell)
+        case "dbf" => {
+
+          try {
+            // If header use the header information
+            if (point.row == 0) {
+              trace("is header row")
+              return SHPCellValue(dbfHeaders(point.col))
+            } else {
+
+              // FIXME If cell is null default as double, this code should consider different types: String, Double, Integer based
+              // on the attribute type
+              val cell = Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
+              trace("cell: " + cell)
+              logger.trace("cell type is " + cell.getClass.getCanonicalName + " but field is " + schema.getAttributeDescriptors.get(point.col + 1).toString)
+              return SHPCellValue(cell)
+            }
+          } catch {
+            case e => throw new IndexOutOfBounds(point)
+          }
+        }
+        case "sld" => {
+          return SHPCellValue((styleMatrix(point.row) apply point.col).asInstanceOf[AnyRef])
+          // return SHPCellValue(styleMatrix(point.row) apply point.col)
+        }
+        case _ => throw new IndexOutOfBounds(point)
       }
-    } catch {
-      case e => throw new IndexOutOfBounds(point)
-    }
   }
 
 
