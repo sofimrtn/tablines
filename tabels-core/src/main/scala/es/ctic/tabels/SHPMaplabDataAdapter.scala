@@ -47,7 +47,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // headers
   val schema = featureSource.getSchema
-  val dbfHeaders = ((1 until schema.getAttributeCount).map(index => schema.getAttributeDescriptors.get(index).getName)).toList ::: List("geometry","kml")
+  val dbfHeaders = ((1 until schema.getAttributeCount).map(index => schema.getAttributeDescriptors.get(index).getName.toString)).toList ::: List("geometry","kml")
   trace("DBF headers read: " + dbfHeaders)
 
   // 2 - SHP Handling: geometries are appended as last column so we need to generate KML before we calculate datamatrix
@@ -88,8 +88,9 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     val sldMap = converter.convert(sldFile,convertedSldDir)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
-    val indexOfStyleAttributeInHeaders = dbfHeaders.indexOf(firstAttributeInMap)
 
+    val indexOfStyleAttributeInHeaders = dbfHeaders.indexOf(firstAttributeInMap)
+    trace("trying to find "+firstAttributeInMap+ " in "+dbfHeaders + ": "+indexOfStyleAttributeInHeaders)
     val styleForFirstAttributeMap = sldMap.get(firstAttributeInMap)
     val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap
 
@@ -143,7 +144,6 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
               // on the attribute type
               val cell = Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
               trace("cell: " + cell)
-              logger.trace("cell type is " + cell.getClass.getCanonicalName + " but field is " + schema.getAttributeDescriptors.get(point.col + 1).toString)
               return SHPCellValue(cell)
             }
           } catch {
