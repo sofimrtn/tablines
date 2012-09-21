@@ -62,7 +62,7 @@ libraryDependencies += "org.geotools.xsd" % "gt-xsd-kml" % "8.0-RC2"
 
 // maplab-geotools
 
-libraryDependencies += "es.ctic.maplab" % "maplab-geotools" % "0.3"
+libraryDependencies += "es.ctic.maplab" % "maplab-geotools" % "0.4"
 
 //managedStyle := ManagedStyle.Maven
 
