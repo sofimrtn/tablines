@@ -29,7 +29,7 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       multipartForm: 'multipart/form-data'
                     ]
 
-grails.doc.title = "Documentación Tabels"
+grails.doc.title = "Documentaciï¿½n Tabels"
 grails.doc.images = new File("src/docs/images")
 // URL Mapping Cache Max Size, defaults to 5000
 //grails.urlmapping.cache.maxsize = 1000
@@ -118,13 +118,13 @@ log4j = {
 
     warn   'org.mortbay.log'
     
-    info   'es.ctic.tabels',
-            'grails.app.services',
+    info    'grails.app.services',
             'grails.app.controllers'
     
     info  'es.ctic.tapinos'
 
-    trace  'es.ctic.tabels.SHPDataAdapter'
+    trace  'es.ctic.tabels',
+           'es.ctic.tabels.SHPMaplabDataAdapter'
 
 
 }

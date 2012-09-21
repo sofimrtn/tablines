@@ -38,9 +38,11 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
         compile('es.ctic.tabels:tabels-core_2.9.1:0.4-SNAPSHOT') {
-            excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces'
+            excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12'
         }
-        compile('es.ctic.tapinos:tapinos-services:1.9.3')
+        compile('es.ctic.tapinos:tapinos-services:1.9.3'){
+            excludes 'arq'
+        }
         compile('commons-lang:commons-lang:2.6')
         compile('commons-io:commons-io:2.1')
         compile('commons-httpclient:commons-httpclient:3.0')
@@ -55,7 +57,7 @@ grails.project.dependency.resolution = {
             excludes 'slf4j-log4j12'
         }
         runtime('com.hp.hpl.jena:arq:2.8.8') { // transitive dependency, added here because we exclude it above
-            excludes 'slf4j-log4j12'
+            excludes 'slf4j-log4j12',  'stax-api'
         }
     }
 }
