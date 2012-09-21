@@ -198,16 +198,17 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
       return S()
     }
    
-    
     val statements = new ListBuffer[TabelsStatement]
     val tripleTemplates = new ListBuffer[TripleTemplate]
     val filename = dataSource.filenames(0)
     val sheet = dataSource.getTabs(filename)(0)
    
-    val stylePosition =  dataSource.getValue(new Point(filename,"sld",0,0)).getContent.asInt
-    
     logger.info("Autogenerating Tabels program for project "+ projectId +", file " + filename + ", sheet " + sheet)
 
+    val stylePosition =  dataSource.getValue(new Point(filename,"sld",0,0)).getContent.asInt
+    
+    logger.trace("Style col number: "+ stylePosition)
+    
     val hasHeader = hasHeaderRow(dataSource, filename, sheet)
     lazy val headerRow = dataSource.getRow(filename, sheet, 0)
     val cols = dataSource.getCols(filename, sheet)
@@ -233,7 +234,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val matchStyleStmt = MatchStatement(tupleType, nestedStatement= Some(letStyleStmt))
     val forStyleStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(matchStyleStmt))
     val inStyleSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheet, nestedStatement = Some(forStyleStmt))
-    
+    logger.trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
     val letDataStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(variables(stylePosition)), my("style/")))
     val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letDataStyleStmt))
     val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
