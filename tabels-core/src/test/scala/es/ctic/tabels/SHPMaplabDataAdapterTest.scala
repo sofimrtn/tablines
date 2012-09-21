@@ -67,7 +67,7 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
       val file1 = new File(filename1)
       dataAdapter = new SHPMaplabDataAdapter(file1)
     }
-
+        /*
     @Test def getTabs {
       assertEquals(Seq("dbf","sld"), dataAdapter.getTabs())
     }
@@ -80,7 +80,7 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
     @Test def getRows {
       assertEquals(425, dataAdapter.getRows(sheet1))
       assertEquals(16, dataAdapter.getRows(sheet2))
-    }
+    }           */
 
     @Test def getValue {
       // header
@@ -99,6 +99,10 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
 
       // last row
       assertEquals(Literal(424, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 424, col = 0)).getContent)
+
+
+      // sld sheet
+      assertEquals(Literal(1, XSD_INT), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 0)).getContent)
     }
 
 
