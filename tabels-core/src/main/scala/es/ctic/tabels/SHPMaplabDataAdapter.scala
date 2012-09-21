@@ -35,13 +35,13 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   val extracted = new ZipDeflater().deflate(new ZipFile(file), true)
 
   // Find .shp
-  val found = extracted.list().find(fileName => fileName.endsWith(".shp"))
-  logger.trace("we found this shp in zip entries: " + found)
+  val shpFound = extracted.list().find(fileName => fileName.endsWith(".shp"))
+  logger.trace("we found this shp in zip entries: " + shpFound)
 
   // 1 - DBF Handling
 
   // FIXME what should we do if no shp is found?
-  val shpFile = new File(extracted, found.get)
+  val shpFile = new File(extracted, shpFound.get)
   val store = FileDataStoreFinder.getDataStore(shpFile)
   val featureSource = store.getFeatureSource()
 
@@ -84,7 +84,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     val convertedSldDir = new File(extracted,"sld")
     convertedSldDir.mkdir()
     val converter = new Sld2GmapsConverter()
-    val sldFile = new File(extracted, found.get)
+    val sldFile = new File(extracted, sldFound.get)
     val sldMap = converter.convert(sldFile,convertedSldDir)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
