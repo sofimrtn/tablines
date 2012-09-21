@@ -143,7 +143,6 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
               // on the attribute type
               val cell = Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
               trace("cell: " + cell)
-              logger.trace("cell type is " + cell.getClass.getCanonicalName + " but field is " + schema.getAttributeDescriptors.get(point.col + 1).toString)
               return SHPCellValue(cell)
             }
           } catch {
