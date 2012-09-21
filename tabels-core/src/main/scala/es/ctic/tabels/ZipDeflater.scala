@@ -54,4 +54,23 @@ class ZipDeflater() extends Logging {
     doStream()
   }
 
+  def deleteDir(dirToDelete: File): Boolean = {
+    if (dirToDelete.isDirectory()) {
+      val children = dirToDelete.list();
+      for (i <- 0 until children.length) {
+        val success = deleteDir(new File(dirToDelete, children(i)));
+        if (!success) {
+          return false;
+        }
+      }
+    }
+
+    // The directory is now empty so delete it
+    return dirToDelete.delete();
+  }
+
+}
+
+object ZipDeflater extends ZipDeflater {
+
 }

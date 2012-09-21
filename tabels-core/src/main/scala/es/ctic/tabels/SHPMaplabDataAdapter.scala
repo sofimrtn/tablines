@@ -32,16 +32,16 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   logger.trace("Tmp files are in " + System.getProperty("java.io.tmpdir"))
 
   // First we need to extract to a temp dir
-  val extracted = new ZipDeflater().deflate(new ZipFile(file), true)
+  val extractedZipDir = ZipDeflater.deflate(new ZipFile(file), true)
 
   // Find .shp
-  val shpFound = extracted.list().find(fileName => fileName.endsWith(".shp"))
+  val shpFound = extractedZipDir.list().find(fileName => fileName.endsWith(".shp"))
   logger.trace("we found this shp in zip entries: " + shpFound)
 
   // 1 - DBF Handling
 
   // FIXME what should we do if no shp is found?
-  val shpFile = new File(extracted, shpFound.get)
+  val shpFile = new File(extractedZipDir, shpFound.get)
   val store = FileDataStoreFinder.getDataStore(shpFile)
   val featureSource = store.getFeatureSource()
 
@@ -53,7 +53,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   // 2 - SHP Handling: geometries are appended as last column so we need to generate KML before we calculate datamatrix
   val kmlConverter = new Shp2KmlConverter()
   val geometryType = kmlConverter.getGeometryType(shpFile)
-  val convertedKmlDir = new File(extracted,"kml")
+  val convertedKmlDir = new File(extractedZipDir,"kml")
   convertedKmlDir.mkdir()
   val kmlConversionResults = kmlConverter.convert(shpFile,convertedKmlDir)
 
@@ -68,8 +68,12 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
     // get kml path
     val currentKmlPath = kmlConversionResults.get(feature.getID).getAbsolutePath
+    // val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPath)
 
-    val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPath)
+    // get filename  FIXME hardcoded uri
+    val currentKmlFakePath = "http://www.tabels.com/botanico/geo/" + kmlConversionResults.get(feature.getID).getName
+    val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlFakePath)
+
     dataMatrix += currentRow
     // trace("dM after insertion: "+dataMatrix)
   }
@@ -77,26 +81,45 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // 3 - SLD Handling
   // Find .sld
-  val sldFound = extracted.list().find(fileName => fileName.endsWith(".sld"))
+  val sldFound = extractedZipDir.list().find(fileName => fileName.endsWith(".sld"))
   logger.trace("we found this sld in zip entries: " + sldFound)
   val styleMatrix = if (sldFound == null) List() else {
 
-    val convertedSldDir = new File(extracted,"sld")
+    val convertedSldDir = new File(extractedZipDir,"sld")
     convertedSldDir.mkdir()
     val converter = new Sld2GmapsConverter()
-    val sldFile = new File(extracted, sldFound.get)
+    val sldFile = new File(extractedZipDir, sldFound.get)
     val sldMap = converter.convert(sldFile,convertedSldDir)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
 
     val indexOfStyleAttributeInHeaders = dbfHeaders.indexOf(firstAttributeInMap)
     trace("trying to find "+firstAttributeInMap+ " in "+dbfHeaders + ": "+indexOfStyleAttributeInHeaders)
+
     val styleForFirstAttributeMap = sldMap.get(firstAttributeInMap)
+    trace("style map: "+styleForFirstAttributeMap)
+
+    // start of real path
+            /*
     val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap
 
     (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2._1,zippedMap(index)._2._2))
-  }
+              */
+    // end of real path
 
+    // start of fake path mode
+    val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap.keySet()
+    trace ("new zipped map: " + zippedMap)
+    val fakeStylePath = "http://www.tabels.com/botanico/style/"
+    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,fakeStylePath + zippedMap(index)._2 + ".json"))
+
+    // end of fake path mode
+
+  }
+  trace("style matrix: "+styleMatrix)
+
+  // TODO delete extractedDir
+  ZipDeflater.deleteDir(extractedZipDir)
 
   override val uri = file.getCanonicalPath()
 
