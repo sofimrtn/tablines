@@ -27,6 +27,7 @@ import es.ctic.maplab.shp2kml.Shp2KmlConverter
   */
 class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
+  // ****************
   // 0 - ZIP extraction
   logger.trace("Starting to process file: " + file.getAbsolutePath)
   logger.trace("Tmp files are in " + System.getProperty("java.io.tmpdir"))
@@ -38,6 +39,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   val shpFound = extractedZipDir.list().find(fileName => fileName.endsWith(".shp"))
   logger.trace("we found this shp in zip entries: " + shpFound)
 
+  // ****************
   // 1 - DBF Handling
 
   // FIXME what should we do if no shp is found?
@@ -50,11 +52,45 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   val dbfHeaders = ((1 until schema.getAttributeCount).map(index => schema.getAttributeDescriptors.get(index).getName.toString)).toList ::: List("geometry","kml")
   trace("DBF headers read: " + dbfHeaders)
 
-  // 2 - SHP Handling: geometries are appended as last column so we need to generate KML before we calculate datamatrix
+  // ****************
+  // 2 - Generate local and public paths
+  // public root: Obtain from Config
+  val publicUrlRoot = if(Config.publicTomcatWrittablePath != null) Config.publicTomcatWrittablePath  else  {
+    logger.warn("No public URL root specified in tabels.publicTomcatWrittablePath, using default http://www.tabels.com/")
+    "http://www.tabels.com"
+  }
+
+  val localTomcatPath = if(Config.localTomcatWrittablePath != null) Config.localTomcatWrittablePath  else  {
+    logger.warn("No local tomcat writtable path specified in tabels.localTomcatWrittablePath, using default "+extractedZipDir.getAbsolutePath)
+    extractedZipDir.getAbsolutePath
+  }
+
+  // Guess projectId from extractedZipDir path
+  val projectId = "" // TODO where is it?
+
+  // final results
+  // local writable
+  val localWritableDirKml = localTomcatPath + "/" + projectId + "/kml"
+  val localWritableDirJson = localTomcatPath + "/" + projectId + "/json"
+
+  // public
+  val publicDirKml = publicUrlRoot + "/" + projectId +"/kml/"
+  val publicDirJson = publicUrlRoot + "/" + projectId +"/json/"
+
+  trace("localWritableDirKml: "+ localWritableDirKml)
+  trace("localWritableDirJson: "+ localWritableDirJson)
+  trace("publicDirKml: "+ publicDirKml)
+  trace("publicDirJson: "+ publicDirJson)
+
+
+  // ****************
+  // 3 - SHP Handling: geometries are appended as last column so we need to generate KML before we calculate datamatrix
   val kmlConverter = new Shp2KmlConverter()
   val geometryType = kmlConverter.getGeometryType(shpFile)
-  val convertedKmlDir = new File(extractedZipDir,"kml")
+
+  val convertedKmlDir = new File(localWritableDirKml)
   convertedKmlDir.mkdir()
+  logger.trace("Created dir to store kml files in: "+convertedKmlDir.getAbsolutePath)
   val kmlConversionResults = kmlConverter.convert(shpFile,convertedKmlDir)
 
   // datamatrix: dbf + geometry + kml
@@ -70,26 +106,27 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     val currentKmlPath = kmlConversionResults.get(feature.getID).getAbsolutePath
     // val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPath)
 
-    // get filename  FIXME hardcoded uri
-    val currentKmlFakePath = "http://www.tabels.com/botanico/geo/" + kmlConversionResults.get(feature.getID).getName
-    val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlFakePath)
+    val currentKmlPublicPath = publicDirKml + kmlConversionResults.get(feature.getID).getName
+    val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPublicPath)
 
     dataMatrix += currentRow
     // trace("dM after insertion: "+dataMatrix)
   }
   featuresIterator.close
 
-  // 3 - SLD Handling
+  // ****************
+  // 4 - SLD Handling
   // Find .sld
   val sldFound = extractedZipDir.list().find(fileName => fileName.endsWith(".sld"))
   logger.trace("we found this sld in zip entries: " + sldFound)
   val styleMatrix = if (sldFound == null) List() else {
 
-    val convertedSldDir = new File(extractedZipDir,"sld")
-    convertedSldDir.mkdir()
+    val convertedJsonDir = new File(localWritableDirJson)
+    convertedJsonDir.mkdir()
+    logger.trace("Created dir to store json files in: "+convertedJsonDir.getAbsolutePath)
     val converter = new Sld2GmapsConverter()
     val sldFile = new File(extractedZipDir, sldFound.get)
-    val sldMap = converter.convert(sldFile,convertedSldDir)
+    val sldMap = converter.convert(sldFile,convertedJsonDir)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
 
@@ -110,15 +147,16 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     // start of fake path mode
     val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap.keySet()
     trace ("new zipped map: " + zippedMap)
-    val fakeStylePath = "http://www.tabels.com/botanico/style/"
-    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,fakeStylePath + zippedMap(index)._2 + ".json"))
+
+    trace("final public url root for json files: "+publicDirJson)
+    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,publicDirJson + zippedMap(index)._2 + ".json"))
 
     // end of fake path mode
 
   }
   trace("style matrix: "+styleMatrix)
 
-  // TODO delete extractedDir
+  // Delete extractedDir
   ZipDeflater.deleteDir(extractedZipDir)
 
   override val uri = file.getCanonicalPath()

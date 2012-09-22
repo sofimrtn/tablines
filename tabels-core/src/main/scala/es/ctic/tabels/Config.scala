@@ -17,6 +17,9 @@ class Config extends Logging {
     val proxyHost = configuration.getString("tabels.proxyHost")
     val proxyPort = configuration.getString("tabels.proxyPort")
 
+    val localTomcatWrittablePath = configuration.getString("tabels.localTomcatWrittablePath")
+    val publicTomcatWrittablePath = configuration.getString("tabels.publicTomcatWrittablePath")
+
     val tabelsDir = if (tabelsPath != null) new File(tabelsPath) else new File(FileUtils.getTempDirectory(), "tabels")
         
 }
