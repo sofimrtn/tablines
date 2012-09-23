@@ -19,6 +19,7 @@ class ZipDeflater() extends Logging {
     // Create temp dir
 
     // Create on parent dir in case flag deflateOnParent is on (we are working on webapp)
+    // zipFile.getName returns the complete path of zipFile
     val pathSplitted = zipFile.getName.split("/")
     val fileName = pathSplitted.last + "-"+System.currentTimeMillis()+"-temp"
     trace(".zip.shp input file name: "+fileName)

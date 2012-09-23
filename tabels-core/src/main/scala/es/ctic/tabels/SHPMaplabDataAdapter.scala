@@ -55,20 +55,30 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   // ****************
   // 2 - Generate local and public paths
   // public root: Obtain from Config
-  val publicUrlRoot = if(Config.publicTomcatWrittablePath != null) Config.publicTomcatWrittablePath  else  {
-    logger.warn("No public URL root specified in tabels.publicTomcatWrittablePath, using default http://www.tabels.com/")
+  val publicUrlRoot = if(Config.publicTomcatWritablePath != null) Config.publicTomcatWritablePath  else  {
+    logger.warn("No public URL root specified in tabels.publicTomcatWritablePath, using default http://www.tabels.com/")
     "http://www.tabels.com"
   }
 
-  val localTomcatPath = if(Config.localTomcatWrittablePath != null) Config.localTomcatWrittablePath  else  {
-    logger.warn("No local tomcat writtable path specified in tabels.localTomcatWrittablePath, using default "+extractedZipDir.getAbsolutePath)
+  val localTomcatPath = if(Config.localTomcatWritablePath != null) Config.localTomcatWritablePath  else  {
+    logger.warn("No local tomcat writable path specified in tabels.localTomcatWritablePath, using default "+extractedZipDir.getAbsolutePath)
     extractedZipDir.getAbsolutePath
   }
 
   // Guess projectId from extractedZipDir path
-  val projectId = "" // TODO where is it?
+  val splittedPath = file.getAbsolutePath.split("/")
+  val projectId = splittedPath(splittedPath.length-3)
+  trace("projectId guessed from zipfile path is "+projectId)
 
   // final results
+  val projectPath = new File(localTomcatPath + "/" + projectId)
+  if (!projectPath.exists) {
+
+    val projectPath = new File(localTomcatPath + "/" + projectId)
+    projectPath.mkdir
+    trace("Created path: "+ projectPath.getAbsolutePath)
+  }
+
   // local writable
   val localWritableDirKml = localTomcatPath + "/" + projectId + "/kml"
   val localWritableDirJson = localTomcatPath + "/" + projectId + "/json"
@@ -136,22 +146,12 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     val styleForFirstAttributeMap = sldMap.get(firstAttributeInMap)
     trace("style map: "+styleForFirstAttributeMap)
 
-    // start of real path
-            /*
-    val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap
-
-    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2._1,zippedMap(index)._2._2))
-              */
-    // end of real path
-
-    // start of fake path mode
     val zippedMap=(0 until styleForFirstAttributeMap.size) zip styleForFirstAttributeMap.keySet()
     trace ("new zipped map: " + zippedMap)
 
     trace("final public url root for json files: "+publicDirJson)
-    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,publicDirJson + zippedMap(index)._2 + ".json"))
-
-    // end of fake path mode
+    // (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,publicDirJson + zippedMap(index)._2 + ".json"))
+    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,publicDirJson + styleForFirstAttributeMap.get(zippedMap(index)._2).getName))
 
   }
   trace("style matrix: "+styleMatrix)
@@ -197,22 +197,25 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
           try {
             // If header use the header information
             if (point.row == 0) {
-              trace("is header row")
-              return SHPCellValue(dbfHeaders(point.col))
+              val cell = dbfHeaders(point.col)
+              trace("is header row: "+cell)
+              SHPCellValue(cell)
             } else {
 
               // FIXME If cell is null default as double, this code should consider different types: String, Double, Integer based
               // on the attribute type
               val cell = Option(dataMatrix(point.row - 1) apply point.col).getOrElse(new java.lang.Double(0.0))
               trace("cell: " + cell)
-              return SHPCellValue(cell)
+              SHPCellValue(cell)
             }
           } catch {
             case e => throw new IndexOutOfBounds(point)
           }
         }
         case "sld" => {
-          return SHPCellValue((styleMatrix(point.row) apply point.col).asInstanceOf[AnyRef])
+          val cell = (styleMatrix(point.row) apply point.col).asInstanceOf[AnyRef]
+          trace("cell: " + cell)
+          SHPCellValue(cell)
           // return SHPCellValue(styleMatrix(point.row) apply point.col)
         }
         case _ => throw new IndexOutOfBounds(point)

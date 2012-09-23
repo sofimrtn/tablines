@@ -64,6 +64,8 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
     val sheet2 = "sld"
 
     @Before def setUp {
+
+      System.setProperty("tabels.localTomcatWritablePath","/Users/guille/tmp/tabels-writable")
       val file1 = new File(filename1)
       dataAdapter = new SHPMaplabDataAdapter(file1)
     }
@@ -101,8 +103,12 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
       assertEquals(Literal(424, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 424, col = 0)).getContent)
 
 
-      // sld sheet
+      // sld sheet: attr index
       assertEquals(Literal(1, XSD_INT), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 0)).getContent)
+      // sld sheet: attr value
+      assertEquals(Literal("6.2a", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 1)).getContent)
+      // sld sheet: style in json public path
+      assertEquals(Literal("http://www.tabels.com/ctic/json/1-1.json", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 2)).getContent)
     }
 
 
