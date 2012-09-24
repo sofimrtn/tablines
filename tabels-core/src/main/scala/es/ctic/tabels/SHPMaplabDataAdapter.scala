@@ -157,7 +157,10 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   trace("style matrix: "+styleMatrix)
 
   // Delete extractedDir
+  trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath)
   ZipDeflater.deleteDir(extractedZipDir)
+  if(!extractedZipDir.exists)
+    trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath + ": removed.")
 
   override val uri = file.getCanonicalPath()
 
