@@ -121,10 +121,13 @@ log4j = {
     info    'grails.app.services',
             'grails.app.controllers'
     
-    info  'es.ctic.tapinos'
+    info  'es.ctic.tapinos',
+		  'es.ctic.maplab.shp2kml.Shp2KmlConverter',
+		  'es.ctic.tabels.SHPMaplabDataAdapter'
 
-    trace  'es.ctic.tabels',
-           'es.ctic.tabels.SHPMaplabDataAdapter'
+   // trace  'es.ctic.tabels.SHPMaplabDataAdapter'
+			//'es.ctic.tabels',
+           
 
 
 }
