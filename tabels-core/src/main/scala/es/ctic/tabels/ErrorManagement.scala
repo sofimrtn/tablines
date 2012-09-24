@@ -40,6 +40,9 @@ class TypeConversionException(literal:Literal, targetType:Resource) extends RunT
 
 class CannotConvertResourceToLiteralException(resource : Resource) extends RunTimeTabelsException("Cannot convert resource " + resource + " to literal")
 
+class NotValidUriException(uri:String) extends CompileTimeTabelsException("Not valid URI: " + uri)
+
+
 /*functions exceptions*/
 class InvalidFucntionParameterException(parameter : String) extends RunTimeTabelsException("Invalid function parameter value: " + parameter)
 
