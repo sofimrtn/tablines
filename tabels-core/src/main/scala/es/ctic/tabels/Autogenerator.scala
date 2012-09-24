@@ -240,7 +240,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     
     logger.trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
     
-    val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("file://")))
+    val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")))
     val letDataStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(variables(stylePosition)), my("style/")), Some(letKmlResourceStmt))
     val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letDataStyleStmt))
     val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
