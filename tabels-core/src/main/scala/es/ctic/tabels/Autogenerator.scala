@@ -256,7 +256,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     
     tripleTemplates ++= properties zip variables map { case (p,v) => TripleTemplate(resource, p, v) }
    /*Last triple property being replaced by neogeo:geometry*/
-    val geometryTriple = TripleTemplate(typeResource,NEOGEOGEOMETRY("geometry"),kmlResource)
+    val geometryTriple = TripleTemplate(resource,NEOGEOGEOMETRY("geometry"),kmlResource)
     tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))
     val geometryTypeTriple = TripleTemplate(geometryTriple.o,RDF_TYPE,tripleTemplates.last.o)
     tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))

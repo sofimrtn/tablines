@@ -41,7 +41,8 @@ case class GetColExpression(variable:Variable) extends Expression {
 
 case class ResourceExpression(expression:Expression, uri : NamedResource) extends Expression {
   
-  override def evaluate(evaluationContext : EvaluationContext) = uri + URLEncoder.encode(expression.evaluateAsStringValue(evaluationContext),"UTF-8")
+  override def evaluate(evaluationContext : EvaluationContext) =try{ uri + expression.evaluateAsStringValue(evaluationContext)}
+  																catch{ case e =>  uri +  URLEncoder.encode(expression.evaluateAsStringValue(evaluationContext),"UTF-8")}
   override def prettyPrint = "resource(" + expression.toString + "," + uri.toString + ")"
 
 }
