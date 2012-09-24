@@ -66,7 +66,8 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   }
 
   // Guess projectId from extractedZipDir path
-  val splittedPath = file.getAbsolutePath.split("/")
+  val splittedPath = if (file.getAbsolutePath.contains("""\""")) file.getAbsolutePath.split("""\\""")
+  					 else file.getAbsolutePath.split("/") 
   val projectId = splittedPath(splittedPath.length-3)
   trace("projectId guessed from zipfile path is "+projectId)
 
