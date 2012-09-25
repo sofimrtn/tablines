@@ -23,7 +23,8 @@ class ProjectController {
     private def indexModel(String projectId) throws ProjectDoesNotExistException {
         return [path: projectService.getInputDir(projectId),
          files: projectService.getFiles(projectId),
-         program: projectService.getProgram(projectId)]
+         program: projectService.getProgram(projectId),
+         endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/"]
     }
     
     def index = {
@@ -424,13 +425,10 @@ class ProjectController {
 	}
 	
 	def map = {
-	    String projectId = params.id
-	    try {
-	        //[geopoints: projectService.getGeopoints(projectId)]
-        } catch (ProjectDoesNotExistException e) {
-            log.error("While trying to access project ${e.projectId}", e)
-            render(status: 404, text: e.getMessage())
-        }
+	    def endpoint = params.endpoint;
+        def namedgraph = params.namedgraph;
+        System.out.println("endpoint:" + endpoint);
+        [endpoint: endpoint, namedgraph: namedgraph]
 	}
 	
 	def parrot = {

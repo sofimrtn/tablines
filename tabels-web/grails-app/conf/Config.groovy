@@ -119,15 +119,9 @@ log4j = {
     warn   'org.mortbay.log'
     
     info    'grails.app.services',
-            'grails.app.controllers'
-    
-    info  'es.ctic.tapinos',
-		  'es.ctic.maplab.shp2kml.Shp2KmlConverter',
-		  'es.ctic.tabels.SHPMaplabDataAdapter'
-
-   // trace  'es.ctic.tabels.SHPMaplabDataAdapter'
-			//'es.ctic.tabels',
-           
-
-
+            'grails.app.controllers',
+            'es.ctic.tapinos',
+            'es.ctic.maplab.controllers.TreeController',
+            'es.ctic.maplab.shp2kml.Shp2KmlConverter',
+            'es.ctic.tabels.SHPMaplabDataAdapter'
 }

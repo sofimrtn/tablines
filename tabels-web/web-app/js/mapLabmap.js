@@ -21,7 +21,11 @@ function mapLabMap_initializateData(mapLabMapComponent){
 		 dataType: 'text',
 		 //TODO Change for ws url
 		 url: mapLabMapComponent.data("settings").mapAreaWs, //'ws/map2.json',
-		 data: {'types': selKeys },
+		 data: {
+			 'types': selKeys,
+			 'endpoint': settings.endpoint,
+			 'namedgraph': settings.namedgraph
+		 },
 		 success: function(data) {
 			 mapLabMapComponent.data("requestData", data);
 		 }
@@ -177,6 +181,9 @@ function mapLabMap_setDefaultSettings(settings) {
 	
 	if(settings.treeRef == undefined){
 		settings.treeRef = "tree";
+	}
+	if(settings.namedgraph == undefined){
+		settings.namedgraph = "";
 	}
 }
 

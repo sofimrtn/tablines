@@ -95,7 +95,7 @@
 		
 		<p class="facetedLink"><g:link action="exhibit" id="${params.id}"><g:message code="msg.faceted.link"/></g:link></p>
 		    
-		<p class="mapLink"><g:link action="map" id="${params.id}"><g:message code="msg.map.link"/></g:link></p>
+		<p class="mapLink"><g:link mapping="newMap" id="${params.id}" params="[endpoint:endpoint]"><g:message code="msg.map.link"/></g:link></p>
 		
 		<p class="parrotLink"><g:link action="parrot" id="${params.id}"><g:message code="msg.parrot.link"/></g:link></p>
 		

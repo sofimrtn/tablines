@@ -7,6 +7,7 @@ function mapLabLayers(mapLabLayersComponent){
 }
 
 function  mapLabTree_initializateTree(mapLabTreeComponent){
+	var settings=mapLabTreeComponent.data("settings");
 	mapLabTreeComponent.dynatree({
 		checkbox: true,
 		// Override class name for checkbox icon, so rasio buttons are displayed:
@@ -14,9 +15,12 @@ function  mapLabTree_initializateTree(mapLabTreeComponent){
 		// Select mode 3: multi-hier
 		selectMode: 3,
 		initAjax: {
-			url: mapLabTreeComponent.data("settings").treeWs,//"ws/tree.json",
-			data: {key: "root", // Optional arguments to append to the url
-			  	mode: "all"
+			url: settings.treeWs,//"ws/tree.json",
+			data: {
+				key: "root", // Optional arguments to append to the url
+			  	mode: "all",
+			  	endpoint: settings.endpoint,
+			  	namedgraph: settings.namedgraph
 			}
 	    },
 		
@@ -84,9 +88,11 @@ function mapLabTree_setDefaultSettings(settings){
 	if(settings.legendRef == undefined){
 		settings.legendRef = "legend";
 	}
-	
 	if(settings.mapRef == undefined){
 		settings.mapRef = "mapGoogle";
+	}
+	if(settings.namedgraph == undefined){
+		settings.namedgraph = "";
 	}
 }
 

@@ -8,6 +8,7 @@ class UrlMappings {
 		"/project/$id/input/$filename?"(controller: "project") {
 		    action = [GET: "listInputs", POST: "uploadInput", DELETE: "deleteInput"]
 		}
+		name newMap: "/map"(controller: "project", action: "map")
 		name projectSpecific: "/project/$id/$action?"(controller: "project")
 		"/project/$id/resource/$localName"(controller: "project", action: "resourceRedirect")
 		"/project/$id/data/$localName"(controller: "project", action: "resourceData")

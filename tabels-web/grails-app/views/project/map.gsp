@@ -53,15 +53,15 @@
             treeWs: "<g:resource dir='ws' file='tree'/>",
             mapRef: "mapGoogle",
             legendRef: "legend",
-            endpoint: ${endpoint},
-            namedgraph: ${namedgraph}
+            endpoint: "${endpoint}",
+            namedgraph: "${namedgraph}"
         });
         
         $("#mapGoogle").mapLabMap({
             mapAreaWs: "<g:resource dir='ws' file='mapArea'/>",
             treeRef: "tree",
-            endpoint: ${endpoint},
-            namedgraph: ${namedgraph}
+            endpoint: "${endpoint}",
+            namedgraph: "${namedgraph}"
         });
         
     </script>
