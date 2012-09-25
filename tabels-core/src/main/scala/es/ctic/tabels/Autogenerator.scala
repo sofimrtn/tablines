@@ -262,7 +262,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
    /*Last triple property being replaced by neogeo:geometry*/
     val geometryTriple = TripleTemplate(resource,NEOGEOGEOMETRY("geometry"),kmlResource)
     tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))
-    val geometryTypeTriple = TripleTemplate(geometryTriple.o,RDF_TYPE,tripleTemplates.last.o)
+    val geometryTypeTriple = TripleTemplate(kmlResource,RDF_TYPE,geometryResource)
     tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))
     tripleTemplates++=Seq(geometryTriple,geometryTypeTriple)
     
@@ -271,6 +271,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
      
   
     tripleTemplatesStyle += TripleTemplate(typeResource,RDF_TYPE,SKOS("Concept"))
+    tripleTemplatesStyle += TripleTemplate(typeResource,SKOS("prefLabel"),style)
     tripleTemplatesStyle += TripleTemplate(typeResource,DIS("prefStyle"),jsonResource)
     tripleTemplatesStyle += TripleTemplate(typeResource,SKOS("inScheme"),my("collection"))
     
