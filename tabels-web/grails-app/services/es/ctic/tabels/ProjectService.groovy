@@ -45,8 +45,8 @@ class ProjectService {
         return new File(getProjectDir(projectId), defaultProgramFilename)
     }
     
-    File getProgramKml(String projectId,String fileName) throws ProjectDoesNotExistException {
-        return new File(getProjectDir(projectId), fileName)
+    File getProgramMapResource(String projectId,String fileName, String folder) throws ProjectDoesNotExistException {
+        return new File(getProjectDir(projectId).getAbsolutePath()+"/"+folder , fileName)
     }
     
     File getOutputCache(String projectId) throws ProjectDoesNotExistException {

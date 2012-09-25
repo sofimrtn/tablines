@@ -19,6 +19,10 @@ class ProjectController {
     
     def projectService
     def datasetProvider
+	
+	static {
+		System.setProperty("tabels.publicTomcatWritablePath", ConfigurationHolder.config.grails.serverURL+"/project")
+	}
     
     private def indexModel(String projectId) throws ProjectDoesNotExistException {
         return [path: projectService.getInputDir(projectId),
@@ -38,9 +42,17 @@ class ProjectController {
     
     def kml = {
         def filename=params.filename;
-        def file = projectService.getProgramKml(params.id,filename);
+		def folder= "kml"
+        def file = projectService.getProgramMapResource(params.id,filename,folder);
         render(text: file.text)
     }
+	
+	def json = {
+		def filename=params.filename;
+		def folder= "json"
+		def file = projectService.getProgramMapResource(params.id,filename,folder);
+		render(text: file.text)
+	}
     
     def list = {
         def projects = projectService.listProjects()
