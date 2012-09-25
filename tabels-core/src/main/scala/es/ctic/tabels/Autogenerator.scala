@@ -224,6 +224,8 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     
     val resource = Variable("?featureResource")
     val typeResource = Variable("?typeResource")
+    val jsonResource = Variable("?jsonResource")
+    val geometryResource = Variable("?geometryResource")
     val kmlResource = Variable("?kmlResource")
     val col = Variable("?col")
     val style= Variable("?type")
@@ -233,14 +235,16 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val tupleData = Tuple(variables)
     val tupleType = Tuple(Seq(col,style,uri))
     
-    val letStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(style), my("style/")))
+    val letJsonStmt = LetStatement(jsonResource, ResourceExpression(VariableReference(uri), NamedResource("")))
+    val letStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(style), my("style/")),nestedStatement= Some(letJsonStmt))
     val matchStyleStmt = MatchStatement(tupleType, nestedStatement= Some(letStyleStmt))
     val forStyleStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(matchStyleStmt))
     val inStyleSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetStyle, nestedStatement = Some(forStyleStmt))
     
     logger.trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
     
-    val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")))
+    val letGeometryResourceStmt = LetStatement(geometryResource, ResourceExpression(VariableReference(variables.dropRight(1).last), NamedResource("")))
+    val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")),Some(letGeometryResourceStmt))
     val letDataStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(variables(stylePosition)), my("style/")), Some(letKmlResourceStmt))
     val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letDataStyleStmt))
     val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
@@ -267,7 +271,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
      
   
     tripleTemplatesStyle += TripleTemplate(typeResource,RDF_TYPE,SKOS("Concept"))
-    tripleTemplatesStyle += TripleTemplate(typeResource,DIS("symbol"),uri)
+    tripleTemplatesStyle += TripleTemplate(typeResource,DIS("prefStyle"),jsonResource)
     tripleTemplatesStyle += TripleTemplate(typeResource,SKOS("inScheme"),my("collection"))
     
     val templateType = Template(tripleTemplatesStyle)
