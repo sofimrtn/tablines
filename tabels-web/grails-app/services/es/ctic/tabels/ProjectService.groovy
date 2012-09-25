@@ -45,6 +45,10 @@ class ProjectService {
         return new File(getProjectDir(projectId), defaultProgramFilename)
     }
     
+    File getProgramKml(String projectId,String fileName) throws ProjectDoesNotExistException {
+        return new File(getProjectDir(projectId), fileName)
+    }
+    
     File getOutputCache(String projectId) throws ProjectDoesNotExistException {
         return new File(getProjectDir(projectId), "output.rdf")
     }

@@ -36,6 +36,12 @@ class ProjectController {
         }
     }
     
+    def kml = {
+        def filename=params.filename;
+        def file = projectService.getProgramKml(params.id,filename);
+        render(text: file.text)
+    }
+    
     def list = {
         def projects = projectService.listProjects()
         withFormat {
