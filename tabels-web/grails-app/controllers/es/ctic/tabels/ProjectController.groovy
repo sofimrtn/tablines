@@ -426,7 +426,7 @@ class ProjectController {
 	def map = {
 	    String projectId = params.id
 	    try {
-	        [geopoints: projectService.getGeopoints(projectId)]
+	        //[geopoints: projectService.getGeopoints(projectId)]
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())
