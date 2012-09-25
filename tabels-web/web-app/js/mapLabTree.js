@@ -34,7 +34,7 @@ function  mapLabTree_initializateTree(mapLabTreeComponent){
 				return node.data.key;
 			});
 			
-			$("#echoSelection").text(selKeys.join(", "));
+			//$("#echoSelection").text(selKeys.join(", "));
 			
 			mapLabTreeComponent.data("selKeys", selKeys);
 			//selKeys contains all selected keys 

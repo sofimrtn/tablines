@@ -29,8 +29,6 @@
                 </div>
             </div>
             
-            <div>Selected keys: <span id="echoSelection">-</span></div>
-            
             <div id="layerLegend">
                 <div class="introLegend">   
                     <a href="javascript:void(0);" onclick="javascript:mapLabLayers($('#legend'))">Legend</a>

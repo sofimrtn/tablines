@@ -44,7 +44,9 @@ grails.project.dependency.resolution = {
         compile('es.ctic.tapinos:tapinos-services:1.9.3'){
             excludes 'arq'
         }
-		compile('es.ctic.maplab:maplab-ws:0.1')
+		compile('es.ctic.maplab:maplab-ws:0.1'){
+		  excludes 'arq'
+		}
 
         compile('commons-lang:commons-lang:2.6')
         compile('commons-io:commons-io:2.1')
