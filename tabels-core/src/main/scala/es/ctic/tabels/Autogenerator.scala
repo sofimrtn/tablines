@@ -203,7 +203,8 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
    
     val statements = new ListBuffer[TabelsStatement]
     val tripleTemplates = new ListBuffer[TripleTemplate]
-     val tripleTemplatesStyle = new ListBuffer[TripleTemplate]
+    val tripleTemplatesStyle = new ListBuffer[TripleTemplate]
+    val tripleTemplatesShapeFileConcept = new ListBuffer[TripleTemplate]
     val filename = dataSource.filenames(0)
     val sheetData = dataSource.getTabs(filename)(0)
     val sheetStyle = dataSource.getTabs(filename)(1)
@@ -225,20 +226,24 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
       if (hasHeader) (literalsToUniqueLocalNames(headerRow, "prop") map (ln => my(ln)))
       else for (col <- List.range(1, cols+1)) yield my("attr" + col)
     
+    val shapeFileConcept = Variable("?shapefileConcept")
     val resource = Variable("?featureResource")
-    val typeResource = Variable("?typeResource")
-    val jsonResource = Variable("?jsonResource")
-    val geometryResource = Variable("?geometryResource")
-    val kmlResource = Variable("?kmlResource")
+    val typeResource = Variable("?styleConcept")
+    val jsonResource = Variable("?styleResource")
+    val geometryResource = Variable("?geometryType")
+    val kmlResource = Variable("?geometryResource")
+    
+    val shapeFile = Variable("?shapeFile")
     val col = Variable("?col")
-    val style= Variable("?type")
-    val uri= Variable("?uri")
+    val style= Variable("?style")
+    val uri= Variable("?json")
     val rowId = Variable("?feature")
     
     val tupleData = Tuple(variables)
     val tupleType = Tuple(Seq(col,style,uri))
     
-    val letJsonStmt = LetStatement(jsonResource, ResourceExpression(VariableReference(uri), NamedResource("")))
+    val letShapeFileConcept = LetStatement(shapeFileConcept, ResourceExpression(VariableReference(shapeFile), my()))
+    val letJsonStmt = LetStatement(jsonResource, ResourceExpression(VariableReference(uri), NamedResource("")),nestedStatement= Some(letShapeFileConcept))
     val letStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(style), my("style/")),nestedStatement= Some(letJsonStmt))
     val matchStyleStmt = MatchStatement(tupleType, nestedStatement= Some(letStyleStmt))
     val forStyleStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(matchStyleStmt))
@@ -255,7 +260,7 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val inDataSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetData, nestedStatement = Some(forDataStmt))
     
     val blockStmt = BlockStatement(Seq(inDataSheetStmt,inStyleSheetStmt))
-    val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(blockStmt))
+    val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(blockStmt),variable=Some(shapeFile))
     statements += inFileStmt
 
     val resourceClass = NEOGEOSPATIAL("Feature")
@@ -280,10 +285,16 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     
     val templateType = Template(tripleTemplatesStyle)
     
+    tripleTemplatesShapeFileConcept+=TripleTemplate(shapeFileConcept,RDF_TYPE,SKOS("Concept"))
+    tripleTemplatesStyle += TripleTemplate(shapeFileConcept,SKOS("prefLabel"),shapeFile)
+    tripleTemplatesShapeFileConcept+=TripleTemplate(shapeFileConcept,SKOS("narrower"),typeResource)
+    
+    val templateShapeFile = Template(tripleTemplatesShapeFileConcept)
+    
     val collectionDefinitionTemplate = Template(Seq(TripleTemplate(my("collection"), RDF_TYPE, SKOS("ConceptScheme"))))
     val propertyDefinitionTemplate = Template(properties map (p => TripleTemplate(p,RDF_TYPE,RDF("Property"))))
 
-    val templates = List( templateFeature,templateType, propertyDefinitionTemplate/*, dcatTriples.dataSetMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetRDFDistributionMetadataTemplate(defaultNamespace,my),dcatTriples.dataSetTurtleDistributionMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetN3DistributionMetadataTemplate(defaultNamespace,my)*/)
+    val templates = List( templateFeature,templateType,templateShapeFile, propertyDefinitionTemplate/*, dcatTriples.dataSetMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetRDFDistributionMetadataTemplate(defaultNamespace,my),dcatTriples.dataSetTurtleDistributionMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetN3DistributionMetadataTemplate(defaultNamespace,my)*/)
 
     val directives = Seq()
     val program = S(directives, prefixes, statements, templates)
