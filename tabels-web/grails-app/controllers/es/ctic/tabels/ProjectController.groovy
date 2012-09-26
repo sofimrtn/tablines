@@ -22,11 +22,16 @@ class ProjectController {
     
     def projectService
     def datasetProvider
+	
+	static {
+		System.setProperty("tabels.publicTomcatWritablePath", ConfigurationHolder.config.grails.serverURL+"/project")
+	}
     
     private def indexModel(String projectId) throws ProjectDoesNotExistException {
         return [path: projectService.getInputDir(projectId),
          files: projectService.getFiles(projectId),
-         program: projectService.getProgram(projectId), endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/"]
+         program: projectService.getProgram(projectId),
+         endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/"]
     }
     
     def index = {
@@ -37,6 +42,20 @@ class ProjectController {
             render(status: 404, text: e.getMessage())
         }
     }
+    
+    def kml = {
+        def filename=params.filename;
+		def folder= "kml"
+        def file = projectService.getProgramMapResource(params.id,filename,folder);
+        render(text: file.text)
+    }
+	
+	def json = {
+		def filename=params.filename;
+		def folder= "json"
+		def file = projectService.getProgramMapResource(params.id,filename,folder);
+		render(text: file.text)
+	}
     
     def list = {
         def projects = projectService.listProjects()
@@ -444,13 +463,10 @@ class ProjectController {
 	}
 	
 	def map = {
-	    String projectId = params.id
-	    try {
-	        [geopoints: projectService.getGeopoints(projectId)]
-        } catch (ProjectDoesNotExistException e) {
-            log.error("While trying to access project ${e.projectId}", e)
-            render(status: 404, text: e.getMessage())
-        }
+	    def endpoint = params.endpoint;
+        def namedgraph = params.namedgraph;
+        System.out.println("endpoint:" + endpoint);
+        [endpoint: endpoint, namedgraph: namedgraph]
 	}
 	
 	def parrot = {

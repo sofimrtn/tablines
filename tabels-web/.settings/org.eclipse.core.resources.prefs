@@ -1,15 +1,19 @@
-#Tue Apr 24 17:57:35 CEST 2012
 eclipse.preferences.version=1
+encoding//.link_to_grails_plugins/highcharts-2.2.1.0/grails-app/i18n/messages.properties=UTF-8
 encoding//.link_to_grails_plugins/jquery-1.6.1.1/grails-app/i18n=UTF-8
 encoding//.link_to_grails_plugins/jquery-1.6.1.1/grails-app/i18n/messages.properties=UTF-8
+encoding//.link_to_grails_plugins/jquery-1.7.1/grails-app/i18n/messages.properties=UTF-8
 encoding//.link_to_grails_plugins/jquery-ui-1.8.15/grails-app/i18n=UTF-8
 encoding//.link_to_grails_plugins/jquery-ui-1.8.15/grails-app/i18n/messages.properties=UTF-8
 encoding//.link_to_grails_plugins/modernizr-1.7.2/grails-app/i18n=UTF-8
 encoding//.link_to_grails_plugins/modernizr-1.7.2/grails-app/i18n/messages.properties=UTF-8
 encoding//.link_to_grails_plugins/resources-1.1.1/grails-app/i18n=UTF-8
 encoding//.link_to_grails_plugins/resources-1.1.1/grails-app/i18n/messages.properties=UTF-8
+encoding//.link_to_grails_plugins/resources-1.1.6/grails-app/i18n/messages.properties=UTF-8
+encoding//.link_to_grails_plugins/tapinos-js-1.4/grails-app/i18n/messages.properties=UTF-8
 encoding//.link_to_grails_plugins/uploadr-0.5.0/grails-app/i18n=UTF-8
 encoding//.link_to_grails_plugins/uploadr-0.5.0/grails-app/i18n/messages.properties=UTF-8
+encoding//.link_to_grails_plugins/uploadr-0.5.10/grails-app/i18n/messages.properties=UTF-8
 encoding//grails-app/i18n=UTF-8
 encoding//grails-app/i18n/messages.properties=UTF-8
 encoding//grails-app/i18n/messages_da.properties=UTF-8

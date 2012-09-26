@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import scala.util.matching.Regex
+import java.net.URL
 
 sealed abstract class RDFNode {
     
@@ -86,8 +87,17 @@ abstract sealed class Resource() extends RDFNode {
 }
 //FIXMe to be lazy
 case class NamedResource(uri : String) extends Resource {
-    if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
-		throw new ServerReferedURIException(uri)
+   
+	try
+    { 
+      if(uri!="")new URL(uri).toURI
+      if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
+  		throw new ServerReferedURIException(uri)
+    }
+    catch 
+    { 
+      case e => throw new NotValidUriException("<" + uri + ">")
+    }
     override def toString() = "<" + uri + ">"
     
     def toAbbrString(prefixes : Seq[(String,NamedResource)]) : String = toCurie(prefixes) getOrElse toString()
@@ -151,6 +161,9 @@ object CommonNamespaces {
     object DCAT  extends Namespace("http://www.w3.org/ns/dcat#")
     object DCT  extends Namespace("http://purl.org/dc/terms/")
     object FOAF  extends Namespace("http://xmlns.com/foaf/0.1/#")
+    object NEOGEOSPATIAL  extends Namespace("http://geovocab.org/spatial#")
+    object NEOGEOGEOMETRY  extends Namespace("http://geovocab.org/geometry#")
+    object DIS  extends Namespace("http://disaster-fp7.eu/ontology/core#")
     
 }
 

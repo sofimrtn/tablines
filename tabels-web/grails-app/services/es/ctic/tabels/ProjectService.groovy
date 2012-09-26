@@ -46,6 +46,10 @@ class ProjectService {
         return new File(getProjectDir(projectId), defaultProgramFilename)
     }
     
+    File getProgramMapResource(String projectId,String fileName, String folder) throws ProjectDoesNotExistException {
+        return new File(getProjectDir(projectId).getAbsolutePath()+"/"+folder , fileName)
+    }
+    
     File getOutputCache(String projectId) throws ProjectDoesNotExistException {
         return new File(getProjectDir(projectId), "output.rdf")
     }
@@ -108,9 +112,11 @@ class ProjectService {
         def autogenerator
         if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId), projectId)
-        } else {
-            autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
-        }
+        }else if (strategy == "MAPS") {
+                    autogenerator = new mapLabAutogenerator(getDefaultNamespace(projectId), projectId)
+                } else {
+                    autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
+                }
         def program = autogenerator.autogenerateProgram(getDataSource(projectId))
         saveProgram(projectId, program)
     }

@@ -11,7 +11,8 @@
 // }
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
-grails.mime.file.extensions = true // enables the parsing of file extensions from URLs into the request format
+//BE CAREFUL: http://jira.grails.org/browse/GRAILS-2114
+grails.mime.file.extensions = true // false //enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = true
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       xml: ['text/xml', 'application/xml'],
@@ -50,7 +51,7 @@ grails.enable.native2ascii = true
 // whether to install the java.util.logging bridge for sl4j. Disable for AppEngine!
 grails.logging.jul.usebridge = true
 // packages to include in Spring bean scanning
-grails.spring.bean.packages = ['es.ctic.tapinos.springcontrollers']
+grails.spring.bean.packages = ['es.ctic.tapinos.springcontrollers','es.ctic.maplab.controllers']
 
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
@@ -119,11 +120,11 @@ log4j = {
 
     warn   'org.mortbay.log'
     
-    info   'es.ctic.tabels',
-            'grails.app.services',
-            'grails.app.controllers'
-    
-    info  'es.ctic.tapinos'
-
+    info    'grails.app.services',
+            'grails.app.controllers',
+            'es.ctic.tapinos',
+            'es.ctic.maplab.controllers.TreeController',
+            'es.ctic.maplab.shp2kml.Shp2KmlConverter',
+            'es.ctic.tabels.SHPMaplabDataAdapter'
 
 }

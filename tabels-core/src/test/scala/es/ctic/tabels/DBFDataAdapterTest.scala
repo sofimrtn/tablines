@@ -12,6 +12,10 @@ import java.io.File
  * Time: 1:15 PM
  */
    /*  This is commented until we find a better DBFReader (current javadbf does now work with this file
+   *
+   * Error trace: DBFDatcom.linuxense.javadbf.DBFException: Failed to parse Number: For input string: "****************"
+aAdapterNLWaterIntegrationTest
+   *
 class DBFDataAdapterNLWaterIntegrationTest extends JUnitSuite {
 
   var dataAdapter : DBFDataAdapter = null
@@ -52,7 +56,7 @@ class DBFDataAdapterNLWaterIntegrationTest extends JUnitSuite {
     assertEquals(Literal(458, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 2624, col = 1)).getContent)
   }
 
-}*/
+}       */
 
 class DBFDataAdapterGemeentegrenzenIntegrationTest extends JUnitSuite {
 
@@ -93,20 +97,6 @@ class DBFDataAdapterGemeentegrenzenIntegrationTest extends JUnitSuite {
     assertEquals(Literal(4723.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 418, col = 0)).getContent)
   }
 
-}
-
-
-class DBFDataAdapterTest extends JUnitSuite {
-
-  @Test def decimalFormatPattern {
-    assertFalse( "Testing '0'",ODFCellValue(null).decimalFormatPattern.findFirstIn("0").isEmpty)
-    assertFalse( "Testing '0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("0.00").isEmpty)
-    assertFalse( "Testing '#,##0'",ODFCellValue(null).decimalFormatPattern.findFirstIn("#,##0").isEmpty)
-    assertFalse( "Testing '#,##0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("#,##0.00").isEmpty)
-    assertFalse( "Testing '0.00;[Red]0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("0.00;[Red]0.00").isEmpty)
-    assertTrue( "Testing '1.00;[Red]0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("1.00;[Red]0.00").isEmpty)
-
-  }
 
 }
 

@@ -48,6 +48,22 @@ libraryDependencies += "org.apache.commons" % "commons-compress" % "1.0"
 
 libraryDependencies += "com.linuxense" % "javadbf" % "0.4.0"
 
+// Geotools dependencies
+
+libraryDependencies += "org.geotools" % "gt-shapefile" % "8.0-RC2"
+
+libraryDependencies += "org.geotools" % "gt-swing" % "8.0-RC2" // FIXME Im not sure we will need this
+
+libraryDependencies += "org.geotools" % "gt-epsg-hsql" % "8.0-RC2"
+
+libraryDependencies += "org.geotools" % "gt-opengis" % "8.0-RC2"
+
+libraryDependencies += "org.geotools.xsd" % "gt-xsd-kml" % "8.0-RC2"
+
+// maplab-geotools
+
+libraryDependencies += "es.ctic.maplab" % "maplab-geotools" % "0.4"
+
 //managedStyle := ManagedStyle.Maven
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
@@ -68,4 +84,15 @@ libraryDependencies += "xerces" % "xercesImpl" % "2.9.1"
 
 resolvers += "3rd party repo" at
 "http://wopr.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
+
+// maplab-geotools resolver
+resolvers += "CTIC releases" at
+"http://wopr.fundacionctic.org:8081/nexus/content/repositories/releases/"
+
+// Geotools resolver
+resolvers += "Open Source Geospatial Foundation Repository" at
+"http://download.osgeo.org/webdav/geotools/"
+
+// local mvn repo
+// resolvers += "Local Maven Repository" at "file:///home/guille/.m2/repository"
 

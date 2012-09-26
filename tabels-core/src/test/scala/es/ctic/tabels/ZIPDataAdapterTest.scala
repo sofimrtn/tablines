@@ -12,7 +12,7 @@ import java.io.File
  * Time: 1:41 PM
  */
 
-class ZIPDataAdapterIntegrationTest extends JUnitSuite {
+class ZIPDataAdapterTest extends JUnitSuite {
 
   var dataAdapter : ZIPDataAdapter = null
   val filename1 : String = this.getClass.getResource("/es/ctic/tabels/2012-NL-Gemeentegrenzen.zip").getFile.replace("%20"," ")
@@ -53,16 +53,3 @@ class ZIPDataAdapterIntegrationTest extends JUnitSuite {
 
 }
 
-class ZIPDataAdapterTest extends JUnitSuite {
-
-  @Test def decimalFormatPattern {
-    assertFalse( "Testing '0'",ODFCellValue(null).decimalFormatPattern.findFirstIn("0").isEmpty)
-    assertFalse( "Testing '0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("0.00").isEmpty)
-    assertFalse( "Testing '#,##0'",ODFCellValue(null).decimalFormatPattern.findFirstIn("#,##0").isEmpty)
-    assertFalse( "Testing '#,##0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("#,##0.00").isEmpty)
-    assertFalse( "Testing '0.00;[Red]0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("0.00;[Red]0.00").isEmpty)
-    assertTrue( "Testing '1.00;[Red]0.00'",ODFCellValue(null).decimalFormatPattern.findFirstIn("1.00;[Red]0.00").isEmpty)
-
-  }
-
-}

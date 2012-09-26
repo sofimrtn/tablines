@@ -27,33 +27,14 @@ class ZIPDataAdapter(file: File) extends DataAdapter with Logging {
   val fileAsZip = new java.util.zip.ZipFile(file)
   val dbfFile = File.createTempFile("dbf-in-zip",".dbf")
   val zipContainsDBF = fileAsZip.entries.find(_.getName.endsWith(".dbf")).
-    foreach(e => stream(fileAsZip.getInputStream(e), new FileOutputStream(dbfFile)))
+    foreach(e => new ZipDeflater().stream(fileAsZip.getInputStream(e), new FileOutputStream(dbfFile)))
 
-  // FIXME Return error hwen dbfFile is empty
+  // FIXME Return error when dbfFile is empty
   val adapter: DBFDataAdapter = new DBFDataAdapter(dbfFile)
 
-  override val uri = file.getCanonicalPath()     // TODO check is the zip, not the dbf
+  override val uri = file.getCanonicalPath()
   override def getTabs(): Seq[String] = adapter.getTabs()
   override def getRows(tabName: String = ""): Int = adapter.getRows(tabName)
   override def getCols(tabName: String = ""): Int = adapter.getCols(tabName)
   override def getValue(point: Point): CellValue = adapter.getValue(point)
-
-  def stream(inputStream: InputStream, outputStream: OutputStream) =
-  {
-    val buffer = new Array[Byte](1024)
-
-    def doStream(total: Int = 0): Int = {
-      val n = inputStream.read(buffer)
-      if (n == -1)
-        total
-      else {
-        outputStream.write(buffer, 0, n)
-        doStream(total + n)
-      }
-    }
-
-    doStream()
-  }
-
-
 }

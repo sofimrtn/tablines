@@ -97,7 +97,7 @@
 		 
 		<p class="chartsLink"><g:link mapping="globalTapinos" params="[endpoint:endpoint]"><g:message code="msg.charts.link"/></g:link></p>   
 		    
-		<p class="mapLink"><g:link action="map" id="${params.id}"><g:message code="msg.map.link"/></g:link></p>
+		<p class="mapLink"><g:link mapping="newMap" id="${params.id}" params="[endpoint:endpoint]"><g:message code="msg.map.link"/></g:link></p>
 		
 		<p class="parrotLink"><g:link action="parrot" id="${params.id}"><g:message code="msg.parrot.link"/></g:link></p>
 		
@@ -113,7 +113,7 @@
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 		</g:form>
 		<g:form action="autogenerateProgram" id="${params.id}" method="post">
-		    <g:select name="strategy" from="${['Simple','SCOVO']}" />
+		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" />
 		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" /></p>
 		</g:form>
 		</div>

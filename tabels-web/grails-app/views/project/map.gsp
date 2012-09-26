@@ -1,40 +1,67 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
-	<title><g:message code="msg.map.title"/></title>
-    <script type="text/javascript"
-          src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBrr-fgXpidTazB9PUI0U6YjzaHh5BSgMA&amp;sensor=false"></script>
-    <script type="text/javascript">
-		$(document).ready(function() {
-        var myOptions = {
-          center: new google.maps.LatLng(0, 0),
-          zoom: 2,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-        <g:each in="${geopoints}">
-            var point${it.id} = new google.maps.LatLng(${it.lat}, ${it.lon})
-            var marker${it.id} = new google.maps.Marker({
-                position: point${it.id},
-                map: map,
-                title: "${it.label}",
-                animation: google.maps.Animation.DROP
-            })
-        </g:each>
-		});
-    </script>
-    <meta name="layout" content="main" />
+    <!--<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">-->
+    <title>My Tree Example</title>
+
+    <script src="http://wwwendt.de/tech/dynatree/jquery/jquery.js" type="text/javascript"></script>
+    <script src="http://wwwendt.de/tech/dynatree/jquery/jquery-ui.custom.js" type="text/javascript"></script>
+    <script src="http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js" type="text/javascript"></script>
+
+    <link href="http://wwwendt.de/tech/dynatree/src/skin/ui.dynatree.css" rel="stylesheet" type="text/css" id="skinSheet">
+    <script src="http://wwwendt.de/tech/dynatree/src/jquery.dynatree.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    
+    <link href="${resource(dir:'css',file:'maplab.css')}" rel="stylesheet" type="text/css">
+    <script src="${resource(dir:'js',file:'mapLabmap.js')}" type="text/javascript"></script>
+    <script src="${resource(dir:'js',file:'mapLabTree.js')}" type="text/javascript"></script>
 </head>
-<body onload="initialize()">       
 
-	<h2><g:message code="msg.map.title"/></h2>
-	
-	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
-	
-	<g:if test="${!geopoints}">
-	    <div class="messagebox"><p><g:message code="msg.why.nothing.in.map.msg"/></p></div>
-	</g:if>
-	
-    <div id="map_canvas"></div>
-
+<body>
+    <div id="container">
+        <div id="leftContainer">
+            <div id="layerMap">
+                <div class="introMap">  
+                    <a href="javascript:void(0);" onclick="javascript:mapLabLayers($('#tree'))">Maps Layers</a>
+                </div>
+                <div id="tree" name="selNodes">
+                </div>
+            </div>
+            
+            <div id="layerLegend">
+                <div class="introLegend">   
+                    <a href="javascript:void(0);" onclick="javascript:mapLabLayers($('#legend'))">Legend</a>
+                </div>
+                <div id="legend"><ul><li>No hay nada seleccionado</li></ul></div>
+            </div>
+            
+            <div id="visualize">
+                <a href="javascript:void(0);" onclick="javascript:mapLabReload($('#tree'), $('#mapGoogle'))">Visualize</a>
+            </div>
+        </div>
+        <div id="rightContainer">
+            <div id="mapGoogle">
+            </div>
+        </div>
+    </div>
+    <script>
+        //Tree must be defined before map
+        $("#tree").mapLabTree({
+            treeWs: "<g:resource dir='ws' file='tree'/>",
+            mapRef: "mapGoogle",
+            legendRef: "legend",
+            endpoint: "${endpoint}",
+            namedgraph: "${namedgraph}"
+        });
+        
+        $("#mapGoogle").mapLabMap({
+            mapAreaWs: "<g:resource dir='ws' file='mapArea'/>",
+            treeRef: "tree",
+            endpoint: "${endpoint}",
+            namedgraph: "${namedgraph}"
+        });
+        
+    </script>
 </body>
 </html>
