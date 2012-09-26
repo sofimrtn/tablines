@@ -17,5 +17,21 @@ modules = {
 	   resource url:'http://imakewebthings.com/deck.js/core/deck.core.js'
        resource url:'http://imakewebthings.com/deck.js/extensions/status/deck.status.js'
        resource url:'http://imakewebthings.com/deck.js/extensions/navigation/deck.navigation.js'
-	   }
+	}
+	dynatree {
+		dependsOn 'jquery'
+		dependsOn 'jquery-ui'
+		resource url:'http://wwwendt.de/tech/dynatree/src/skin/ui.dynatree.css'
+		resource url:'http://wwwendt.de/tech/dynatree/src/jquery.dynatree.js'
+		resource url:'http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js'
+	}
+	maplab {
+		dependsOn 'jquery'
+		resource url:'js/mapLabmap.js'
+		resource url:'js/mapLabTree.js'
+		resource url:'css/maplab.css'
+	}
+	googlemaps {
+		resource url:'http://maps.google.com/maps/api/js?sensor=true', attrs:[type:'js']
+	}
 }
