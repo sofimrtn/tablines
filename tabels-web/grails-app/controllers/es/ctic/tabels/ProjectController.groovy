@@ -43,7 +43,19 @@ class ProjectController {
         }
     }
     
-    def kml = {
+    def file = {
+        def filename=params.filename;
+        def folder=params.filetype
+        def mimetype="text/plain"
+        if("svg"==folder){
+            folder='json'
+            mimetype='image/svg+xml'
+        }
+        def file = projectService.getProgramMapResource(params.id,filename,folder);
+        render(text: file.text, contentType: mimetype)
+    }
+    
+    /*def kml = {
         def filename=params.filename;
 		def folder= "kml"
         def file = projectService.getProgramMapResource(params.id,filename,folder);
@@ -56,6 +68,13 @@ class ProjectController {
 		def file = projectService.getProgramMapResource(params.id,filename,folder);
 		render(text: file.text)
 	}
+	
+	def svg = {
+        def filename=params.filename;
+        def folder= "json"
+        def file = projectService.getProgramMapResource(params.id,filename,folder);
+        render(text: file.text, contentType: "image/svg+xml")
+    }*/
     
     def list = {
         def projects = projectService.listProjects()
