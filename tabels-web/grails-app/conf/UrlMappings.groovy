@@ -10,12 +10,19 @@ class UrlMappings {
 		}
 		
 		name newMap: "/map"(controller: "project", action: "map")
-		"/project/$id/kml/$filename"(controller: "project", action: "kml")
-		"/project/$id/json/$filename"(controller: "project", action: "json")
 		name projectSpecific: "/project/$id/$action?"(controller: "project")
 		"/project/$id/resource/$localName**"(controller: "project", action: "resourceRedirect")
 		"/project/$id/data/$localName**"(controller: "project", action: "resourceData")
 		"/project/$id/page/$localName**"(controller: "project", action: "resourcePage")
+		
+		"/project/$id/$filetype/$filename"{
+		   controller="project"
+		   action="file"
+		   constraints{
+		      filetype(matches:/kml|json|svg/)
+		   }
+		 }
+		
 /*		"/$controller/$action?/$id?"{
 			constraints {
 				// apply constraints here
