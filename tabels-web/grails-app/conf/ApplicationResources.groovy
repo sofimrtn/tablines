@@ -24,6 +24,7 @@ modules = {
 		resource url:'http://wwwendt.de/tech/dynatree/src/skin/ui.dynatree.css'
 		resource url:'http://wwwendt.de/tech/dynatree/src/jquery.dynatree.js'
 		resource url:'http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js'
+		resource url:'css/dynatree.custom.css'
 	}
 	maplab {
 		dependsOn 'jquery'
