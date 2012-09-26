@@ -11,12 +11,13 @@
 </head>
 
 <body>
+	<h2><g:message code="msg.map.view.title"/></h2>
+	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
+
     <div id="container">
         <div id="leftContainer">
             <div id="layerMap">
-                <div class="introMap">  
-                    <span>Maps Layers</span>
-                </div>
+                 <h3>Maps Layers</h3>
                 <div id="tree" name="selNodes">
                 </div>
             </div>
@@ -50,6 +51,7 @@
         
         $("#mapGoogle").mapLabMap({
             mapAreaWs: "<g:resource dir='ws' file='mapArea'/>",
+            mapZoom : 2,
             treeRef: "tree",
             endpoint: "${endpoint}",
             namedgraph: "${namedgraph}"
