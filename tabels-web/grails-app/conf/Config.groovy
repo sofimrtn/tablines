@@ -12,7 +12,7 @@
 
 grails.project.groupId = appName // change this to alter the default package name and Maven publishing destination
 //BE CAREFUL: http://jira.grails.org/browse/GRAILS-2114
-grails.mime.file.extensions = true // false //enables the parsing of file extensions from URLs into the request format
+grails.mime.file.extensions = false //enables the parsing of file extensions from URLs into the request format
 grails.mime.use.accept.header = true
 grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
                       xml: ['text/xml', 'application/xml'],
