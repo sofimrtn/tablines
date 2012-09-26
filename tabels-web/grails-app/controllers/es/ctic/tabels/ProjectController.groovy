@@ -384,7 +384,7 @@ class ProjectController {
 	
 	def resourcePage = {
 		String projectId = params.id
-		String localName =java.net.URLEncoder.encode(params.localName, "UTF-8")
+		String localName = params.localName//java.net.URLEncoder.encode(params.localName, "UTF-8")
 		String fullUri = "${projectService.getDefaultNamespace(projectId)}resource/${localName}"
 		try {
 		    log.info("Getting page for resource ${localName}")
