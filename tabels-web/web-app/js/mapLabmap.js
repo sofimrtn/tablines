@@ -32,33 +32,96 @@ function mapLabMap_initializateData(mapLabMapComponent){
 	});
 }
 
+function mapLabMap_showInfo(typeGeo, i, location, mapLabMapComponent){
+
+	var infoMap = mapLabMapComponent.data("mapLabMapInfoMap");
+	var infowindow = mapLabMapComponent.data("mapLabMapInfoWindow");
+	var map = mapLabMapComponent.data("mapLabGoogleMap");
+	var location ="";
+	
+	switch (typeGeo){
+		case 0: var arrayPolygons = mapLabMapComponent.data("mapLabMapPolygons");
+				var polygon = arrayPolygons[i];
+				location = mapLabMap_centerElement(polygon);
+				break;
+				
+		case 1: break;
+		case 2: var arrayMaker = mapLabMapComponent.data("mapLabMapMakers");
+				var maker = arrayMaker[i];
+				location = maker.getPosition();
+				location = new google.maps.LatLng(location.lat()+0.01, location.lng()+0.01);
+				break;
+	}
+
+	infowindow.setContent(infoMap[typeGeo][i]);
+	infowindow.setPosition(location);
+	infowindow.open(map);
+}
+
 function mapLabMap_paintMap(mapLabMapComponent){
 
+	var infoMap = new Array();
+	
 	var data = eval(mapLabMapComponent.data("requestData"));
 	var polygons = new Array();
 	var polylines = new Array();
 	var makers = new Array();	
 	var map = mapLabMapComponent.data("mapLabGoogleMap");
 	
-	for (var i=0; i<data[0].length; i++ ){
-		polygons.push(eval(data[0][i]));
+	infoMap[0] = new Array();
+	$(data[0]).each(function(i,polygon){ 
+		polygons.push(eval(polygon));
 		polygons[i].setMap(map); 
-	} 
+		infoMap[0].push("<div>"+polygons[i].html+"</div>");
+		console.log(data[0][i].html);
+		google.maps.event.addListener(polygons[i], "click", function(){
+				mapLabMap_showInfo(0,i, event.latLng, mapLabMapComponent);
+		});
+	}); 
 	
-	for (var i=0; i<data[1].length; i++ ){
-		polylines.push(eval(data[1][i]));
-		polylines[i].setMap(map); 
-	} 
+	infoMap[1] = new Array();
+	$(data[1]).each(function(i,polyline){ 
+		polylines.push(eval(polyline));
+		polylines[i].setMap(map);
+		infoMap[1][i] = "<div>"+polylines[i].html+"</div>"; 
+		google.maps.event.addListener(polylines[i], "click", function(){
+				mapLabMap_showInfo(0,i, event.latLng, mapLabMapComponent);
+		});
+	} );
 	
-	for (var i=0; i<data[2].length; i++ ){
-		makers.push(eval(data[2][i]));
+	infoMap[2] = new Array();
+	$(data[2]).each(function(i,maker){ 
+		makers.push(eval(maker));
 		makers[i].setMap(map); 
-	} 
+		infoMap[2].push("<div>"+makers[i].html+"</div>");
+				
+		google.maps.event.addListener(makers[i], "click", function(){
+				mapLabMap_showInfo(2,i, event.latLng, mapLabMapComponent);
+		});
+	});
+	
+	var infowindow = new google.maps.InfoWindow({
+		disableAutoPan: true,
+	});
+	
+	mapLabMapComponent.data("mapLabMapInfoWindow", infowindow);
 	
 	mapLabMapComponent.data("mapLabMapPolygons", polygons);
 	mapLabMapComponent.data("mapLabMapPolylines", polylines);
 	mapLabMapComponent.data("mapLabMapMakers", makers);
+	mapLabMapComponent.data("mapLabMapInfoMap", infoMap);
+	
 	mapLabMap_centerMap(mapLabMapComponent);  
+}
+
+
+function mapLabMap_centerElement(geoElement){
+	var bounds = new google.maps.LatLngBounds();
+	
+	geoElement.getPath().forEach(function (element, index){
+		bounds.extend(element);
+	});
+	return bounds.getCenter();
 }
 
 function mapLabMap_centerMap(mapLabMapComponent){
@@ -67,11 +130,7 @@ function mapLabMap_centerMap(mapLabMapComponent){
 	var makers = mapLabMapComponent.data("mapLabMapMakers");
 	var map = mapLabMapComponent.data("mapLabGoogleMap");
 
-	var mayorLat = 0;
-	var menorLat = 0;
-	var mayorLng = 0;
-	var menorLng = 0;
-	var primer = true;
+	var bounds = new google.maps.LatLngBounds();
 
 	$(polygons).each(function(i,fpolygon){ 
 	  if (fpolygon != null){
@@ -80,21 +139,7 @@ function mapLabMap_centerMap(mapLabMapComponent){
 				var auxlng = 0;
 				var auxlat = 0;
 			  	polygon.getPath().forEach(function (element, index){
-					
-			  	 if (primer && index == 0 ){
-			  		primer = false;
-			  		mayorLat = element.lat();
-			  		menorLat = element.lat();
-			  		mayorLng = element.lng();
-			  		menorLng = element.lng();
-			  	 }else{
-			  		auxlat = element.lat();
-			  		auxlng = element.lng();
-			  		if (auxlat < menorLat) menorLat = auxlat;
-			  		if (auxlat > mayorLat) mayorLat = auxlat;
-			  		if (auxlng < menorLng) menorLng = auxlng;
-			  		if (auxlng > mayorLng) mayorLng = auxlng;
-			  	 }
+					bounds.extend(element);
 			  });
 	    	}
 	    });
@@ -108,21 +153,7 @@ function mapLabMap_centerMap(mapLabMapComponent){
 				var auxlng = 0;
 				var auxlat = 0;
 			  	polyline.getPath().forEach(function (element, index){
-					
-			  	 if (primer && index == 0 ){
-			  		primer = false;
-			  		mayorLat = element.lat();
-			  		menorLat = element.lat();
-			  		mayorLng = element.lng();
-			  		menorLng = element.lng();
-			  	 }else{
-			  		auxlat = element.lat();
-			  		auxlng = element.lng();
-			  		if (auxlat < menorLat) menorLat = auxlat;
-			  		if (auxlat > mayorLat) mayorLat = auxlat;
-			  		if (auxlng < menorLng) menorLng = auxlng;
-			  		if (auxlng > mayorLng) mayorLng = auxlng;
-			  	 }
+			  	bounds.extend(element);
 			  });
 	    	}
 	    });
@@ -131,27 +162,11 @@ function mapLabMap_centerMap(mapLabMapComponent){
 	
 	$(makers).each(function(i,maker){ 
 	  if (maker != null){
-		var element = maker.getPosition();
-			
-	  	 if (primer){
-	  		primer = false;
-	  		mayorLat = element.lat();
-	  		menorLat = element.lat();
-	  		mayorLng = element.lng();
-	  		menorLng = element.lng();
-	  	 }else{
-	  		if (element.lat() < menorLat) menorLat = element.lat();
-	  		if (element.lat() > mayorLat) mayorLat = element.lat();
-	  		if (element.lng() < menorLng) menorLng = element.lng();
-	  		if (element.lng() > mayorLng) mayorLng = element.lng();
-	  	 }
-	}
+		var element = maker.getPosition();	
+		bounds.extend(element);	
+	  }
 	});
 
-	var nw = new google.maps.LatLng(mayorLat, menorLng);
-	var se = new google.maps.LatLng(menorLat, mayorLng);
-	var bounds = new google.maps.LatLngBounds(new google.maps.LatLng(mayorLat, menorLng), new google.maps.LatLng(menorLat, mayorLng));
-	  
 	map.setCenter(bounds.getCenter());
 	map.fitBounds(bounds);
 }
