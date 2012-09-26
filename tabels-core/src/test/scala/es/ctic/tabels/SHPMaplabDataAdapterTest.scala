@@ -65,7 +65,8 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
 
     @Before def setUp {
 
-      System.setProperty("tabels.localTomcatWritablePath","/Users/guille/tmp/tabels-writable")
+
+      System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
       val file1 = new File(filename1)
       dataAdapter = new SHPMaplabDataAdapter(file1)
     }
@@ -108,7 +109,7 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
       // sld sheet: attr value
       assertEquals(Literal("6.2a", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 1)).getContent)
       // sld sheet: style in json public path
-      assertEquals(Literal("http://www.tabels.com/ctic/json/1-1.json", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 2)).getContent)
+      assertEquals(Literal("http://www.tabels.com/ctic/json/leyenda_no_validated-1-1.json", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 2)).getContent)
     }
 
 
