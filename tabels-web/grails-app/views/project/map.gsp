@@ -30,7 +30,7 @@
             -->
             
             <div id="visualize">
-                <a href="javascript:void(0);" onclick="javascript:mapLabReload($('#tree'), $('#mapGoogle'))">Visualize</a>
+                <div class="centerButton"><a id="visulize-button">Visualize</a></div>
             </div>
         </div>
         <div id="rightContainer">
@@ -55,6 +55,11 @@
             namedgraph: "${namedgraph}"
         });
         window.onload = mapLabLayers($('#tree'));
+        
+        $(function() {
+		$( "#visulize-button" ).button();
+		$( "#visulize-button" ).click(function() { mapLabReload($('#tree'), $('#mapGoogle')); return false; });
+	});
     </r:script>
 </body>
 </html>
