@@ -37,7 +37,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #layerMap, #layerTree{
-	margin: 0 0 10px 0;
 	padding-bottom: 10px;	
 	border: 1px solid #000; 
 	
@@ -62,6 +61,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #visualize{
 	width: 100%;
+	margin: 0 0 10px 0;
 }
 
 .centerButton{

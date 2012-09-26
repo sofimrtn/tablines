@@ -15,6 +15,10 @@
 
     <div id="container">
         <div id="leftContainer">
+            <div id="visualize">
+                <div class="centerButton"><a id="visulize-button">Visualize</a></div>
+            </div>
+            
             <div id="layerMap">
                  <h3>Maps Layers</h3>
                 <div id="tree" name="selNodes">
@@ -28,10 +32,7 @@
                 <div id="legend"><ul><li>No hay nada seleccionado</li></ul></div>
             </div>
             -->
-            
-            <div id="visualize">
-                <div class="centerButton"><a id="visulize-button">Visualize</a></div>
-            </div>
+
         </div>
         <div id="rightContainer">
             <div id="mapGoogle">
