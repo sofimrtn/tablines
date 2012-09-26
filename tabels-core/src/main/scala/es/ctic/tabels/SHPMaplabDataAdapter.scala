@@ -137,7 +137,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     logger.trace("Created dir to store json files in: "+convertedJsonDir.getAbsolutePath)
     val converter = new Sld2GmapsConverter()
     val sldFile = new File(extractedZipDir, sldFound.get)
-    val sldMap = converter.convert(sldFile,convertedJsonDir)
+    val sldMap = converter.convert(sldFile,convertedJsonDir, publicDirJson)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
 
