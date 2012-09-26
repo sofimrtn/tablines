@@ -465,7 +465,7 @@ class ProjectController {
 	def map = {
 	    def endpoint = params.endpoint;
         def namedgraph = params.namedgraph;
-        System.out.println("endpoint:" + endpoint);
+        log.trace("endpoint:" + endpoint);
         [endpoint: endpoint, namedgraph: namedgraph]
 	}
 	

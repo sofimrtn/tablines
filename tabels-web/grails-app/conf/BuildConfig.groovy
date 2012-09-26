@@ -42,14 +42,14 @@ grails.project.dependency.resolution = {
             excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12'
         }
 
-        compile('es.ctic.tapinos:tapinos-services:1.9.3'){
-            excludes 'arq'
-        }
-       		compile('es.ctic.maplab:maplab-ws:0.1'){
+        compile('es.ctic.maplab:maplab-ws:0.1'){
 		  excludes 'arq'
 		}
-
-        compile('es.ctic.understats:understats:2.1')
+		
+ // compile('es.ctic.tapinos:tapinos-services:1.9.3')
+        compile('es.ctic.understats:understats:2.1'){
+            excludes 'arq'
+        }
         compile('commons-lang:commons-lang:2.6')
         compile('commons-io:commons-io:2.1')
         compile('commons-httpclient:commons-httpclient:3.0')
