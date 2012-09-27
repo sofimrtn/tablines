@@ -45,7 +45,10 @@ function mapLabMap_showInfo(typeGeo, i, location, mapLabMapComponent){
 				location = mapLabMap_centerElement(polygon);
 				break;
 				
-		case 1: break;
+		case 1: var arrayPolyline = mapLabMapComponent.data("mapLabMapPolylines");
+			    var polyline = arrayPolyline[i];
+			    location = mapLabMap_centerElement(polyline);	
+				break;
 		case 2: var arrayMaker = mapLabMapComponent.data("mapLabMapMakers");
 				var maker = arrayMaker[i];
 				location = maker.getPosition();
@@ -85,7 +88,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 		polylines[i].setMap(map);
 		infoMap[1][i] = "<div>"+polylines[i].html+"</div>"; 
 		google.maps.event.addListener(polylines[i], "click", function(){
-				mapLabMap_showInfo(0,i, event.latLng, mapLabMapComponent);
+				mapLabMap_showInfo(1,i, event.latLng, mapLabMapComponent);
 		});
 	} );
 	
