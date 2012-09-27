@@ -39,6 +39,10 @@
             </div>
         </div>
     </div>
+    <!-- Generating -->
+	<div id="generating-dialog" title="Thank you for using Tabels">
+		<p>Tabels is generating the map</p> 
+	</div> 
     <r:script>
         //Tree must be defined before map
         $("#tree").mapLabTree({
@@ -56,12 +60,33 @@
             endpoint: "${endpoint}",
             namedgraph: "${namedgraph}"
         });
+        
         window.onload = mapLabLayers($('#tree'));
         
+        $('#generating-dialog').dialog({
+	        autoOpen: false,
+			modal: true,
+			resizable: false,
+			draggable: false,
+		    show: {
+		        complete: function() { // callback function
+		            mapLabReload($('#tree'), $('#mapGoogle')); 
+		            $('#generating-dialog').dialog('close'); // FIXME
+		            return true;	            
+		        }
+		    }
+		});
+		
         $(function() {
-		$( "#visulize-button" ).button();
-		$( "#visulize-button" ).click(function() { mapLabReload($('#tree'), $('#mapGoogle')); return false; });
-	});
+			$( "#visulize-button" ).button();
+			$( "#visulize-button" ).click(function() { 
+		        $('#generating-dialog').dialog('open');
+				return true; 
+			});
+
+		});
+		
+
     </r:script>
 </body>
 </html>
