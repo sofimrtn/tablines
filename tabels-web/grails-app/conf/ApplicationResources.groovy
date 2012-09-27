@@ -35,4 +35,9 @@ modules = {
 	googlemaps {
 		resource url:'http://maps.google.com/maps/api/js?sensor=true', attrs:[type:'js']
 	}
+	
+	infobubble{
+		resource url:'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js'
+		resource url:'css/infobubble.custom.css'
+	}
 }

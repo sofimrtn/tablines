@@ -58,7 +58,12 @@ function mapLabMap_showInfo(typeGeo, i, location, mapLabMapComponent){
 
 	infowindow.setContent(infoMap[typeGeo][i]);
 	infowindow.setPosition(location);
-	infowindow.open(map);
+	//infowindow.open(map); // TODO change after demo
+
+	var infoBubble = mapLabMapComponent.data("mapLabMapInfoBubble");
+	infoBubble.setContent(infoMap[typeGeo][i]);
+	infoBubble.setPosition(location);
+	infoBubble.open(map);
 }
 
 function mapLabMap_paintMap(mapLabMapComponent){
@@ -75,7 +80,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 	$(data[0]).each(function(i,polygon){ 
 		polygons.push(eval(polygon));
 		polygons[i].setMap(map); 
-		infoMap[0].push("<div>"+polygons[i].html+"</div>");
+		infoMap[0].push("<div class=\"phoneytext\">"+polygons[i].html+"</div>");
 		console.log(data[0][i].html);
 		google.maps.event.addListener(polygons[i], "click", function(){
 				mapLabMap_showInfo(0,i, event.latLng, mapLabMapComponent);
@@ -86,7 +91,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 	$(data[1]).each(function(i,polyline){ 
 		polylines.push(eval(polyline));
 		polylines[i].setMap(map);
-		infoMap[1][i] = "<div>"+polylines[i].html+"</div>"; 
+		infoMap[1][i] = "<div class=\"phoneytext\">"+polylines[i].html+"</div>"; 
 		google.maps.event.addListener(polylines[i], "click", function(){
 				mapLabMap_showInfo(1,i, event.latLng, mapLabMapComponent);
 		});
@@ -96,7 +101,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 	$(data[2]).each(function(i,maker){ 
 		makers.push(eval(maker));
 		makers[i].setMap(map); 
-		infoMap[2].push("<div>"+makers[i].html+"</div>");
+		infoMap[2].push("<div class=\"phoneytext\">"+makers[i].html+"</div>");
 				
 		google.maps.event.addListener(makers[i], "click", function(){
 				mapLabMap_showInfo(2,i, event.latLng, mapLabMapComponent);
@@ -107,6 +112,23 @@ function mapLabMap_paintMap(mapLabMapComponent){
 		disableAutoPan: false,
 	});
 	
+    var infoBubble = new InfoBubble({
+        position: new google.maps.LatLng(-35, 151),
+        shadowStyle: 1,
+        padding: 0,
+        backgroundColor: 'rgb(57,57,57)',
+        borderRadius: 4,
+        arrowSize: 10,
+        borderWidth: 1,
+        borderColor: '#2c2c2c',
+        hideCloseButton: true,
+        arrowPosition: 30,
+        backgroundClassName: 'phoney',
+        arrowStyle: 0
+      });
+	
+	mapLabMapComponent.data("mapLabMapInfoBubble", infoBubble);
+
 	mapLabMapComponent.data("mapLabMapInfoWindow", infowindow);
 	
 	mapLabMapComponent.data("mapLabMapPolygons", polygons);
