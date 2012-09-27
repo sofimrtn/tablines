@@ -23,7 +23,7 @@ import org.apache.lucene.analysis.PerFieldAnalyzerWrapper
 import org.apache.lucene.index.IndexWriterConfig.OpenMode
 import grizzled.slf4j.Logging
 import java.io.{File,FileNotFoundException,FileInputStream,FileOutputStream}
-import java.net.URL
+import java.net.{URLEncoder, URL}
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
 import org.apache.commons.io.FileUtils
 import scala.io.Source
@@ -149,7 +149,8 @@ class Lucene extends Logging{
 	    val hits  = isearcher.search(queryLucen,10).scoreDocs
 	    
 	    lazy val firstResult = NamedResource(isearcher.doc(hits(0).doc).get("resource"))
-	    val resourceNotDisambiguated = NamedResource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
+
+	    val resourceNotDisambiguated = NamedResource("http://example.org/ResourceNotDisambiguated?query="+URLEncoder.encode(q.toString))
 	    
 	    lazy val auxSeqResource = new ListBuffer[NamedResource]
          hits.foreach{hit =>auxSeqResource+=NamedResource(isearcher.doc(hit.doc).get("resource"))}
