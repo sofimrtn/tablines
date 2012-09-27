@@ -101,7 +101,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 	});
 	
 	var infowindow = new google.maps.InfoWindow({
-		disableAutoPan: true,
+		disableAutoPan: false,
 	});
 	
 	mapLabMapComponent.data("mapLabMapInfoWindow", infowindow);
