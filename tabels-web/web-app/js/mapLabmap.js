@@ -82,7 +82,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 		polygons[i].setMap(map); 
 		infoMap[0].push("<div class=\"phoneytext\">"+polygons[i].html+"</div>");
 		console.log(data[0][i].html);
-		google.maps.event.addListener(polygons[i], "click", function(){
+		google.maps.event.addListener(polygons[i], "click", function(event){
 				mapLabMap_showInfo(0,i, event.latLng, mapLabMapComponent);
 		});
 	}); 
@@ -92,7 +92,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 		polylines.push(eval(polyline));
 		polylines[i].setMap(map);
 		infoMap[1][i] = "<div class=\"phoneytext\">"+polylines[i].html+"</div>"; 
-		google.maps.event.addListener(polylines[i], "click", function(){
+		google.maps.event.addListener(polylines[i], "click", function(event){
 				mapLabMap_showInfo(1,i, event.latLng, mapLabMapComponent);
 		});
 	} );
@@ -102,8 +102,7 @@ function mapLabMap_paintMap(mapLabMapComponent){
 		makers.push(eval(maker));
 		makers[i].setMap(map); 
 		infoMap[2].push("<div class=\"phoneytext\">"+makers[i].html+"</div>");
-				
-		google.maps.event.addListener(makers[i], "click", function(){
+		google.maps.event.addListener(makers[i], "click", function(event){
 				mapLabMap_showInfo(2,i, event.latLng, mapLabMapComponent);
 		});
 	});
