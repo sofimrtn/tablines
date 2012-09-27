@@ -87,6 +87,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   // public
   val publicDirKml = publicUrlRoot + "/" + projectId +"/kml/"
   val publicDirJson = publicUrlRoot + "/" + projectId +"/json/"
+  val publicDirSvg = publicUrlRoot + "/" + projectId +"/svg/"
 
   trace("localWritableDirKml: "+ localWritableDirKml)
   trace("localWritableDirJson: "+ localWritableDirJson)
@@ -137,7 +138,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     logger.trace("Created dir to store json files in: "+convertedJsonDir.getAbsolutePath)
     val converter = new Sld2GmapsConverter()
     val sldFile = new File(extractedZipDir, sldFound.get)
-    val sldMap = converter.convert(sldFile,convertedJsonDir, publicDirJson)
+    val sldMap = converter.convert(sldFile,convertedJsonDir, publicDirSvg)
 
     val firstAttributeInMap = sldMap.keySet().iterator().next()
 
