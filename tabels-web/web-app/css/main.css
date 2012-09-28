@@ -289,6 +289,7 @@ div.createProjectBox{
     margin: 0em;
     box-shadow: 0 0 0.4em black;
 	width: 18em;
+	margin: auto;
 }
 div.createProjectBox h2{
 	margin-top:0;
@@ -304,24 +305,14 @@ ul.projectList h2{
 ul.projectList {
 	display: inline-block;
 	list-style: none;
-	
-	border: 0.2em orange solid ;
-    padding: 1em;
-    border-radius: 1em;
-    margin-right: 1em;
-    box-shadow: 0 0 0.4em black;
-
+	margin-bottom: 0em;
 }
 ul.projectList li{
 	float:left;
 	margin:1em;
 	position: relative;
 }
-ul.projectList h2{
-	margin-top:0;
-	color: orange;
-	border-bottom: 0.2em orange solid;
-}
+
 .projectListLink {
 background: white url('../images/projectFolderGreen.png') no-repeat center;
 display: inline-block;
@@ -368,4 +359,11 @@ table#resource-table tr:nth-child(even) {background: #ccffcc}
 table#resource-table tr:hover {
     background: #3A3;
     color: white;
+}
+
+.projectListBox{
+	border: 0.2em orange solid ;
+    border-radius: 1em;
+    margin-top: 1em;
+    box-shadow: 0 0 0.4em black;	
 }

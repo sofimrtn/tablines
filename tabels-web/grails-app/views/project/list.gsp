@@ -21,6 +21,7 @@
     		        <g:submitButton class="AddProjectButton" name="createProject" value="${message(code:'msg.create.project.button')}" />
     		    </g:form>
         </div>
+        <div class=projectListBox>
         <ul class="projectList">
         
             <h2><g:message code="msg.project.list"/></h2>
@@ -30,7 +31,7 @@
                 </li>
             </g:each>
         </ul>
-        
+        </div>
 
         <h2>Access your data</h2> <!-- FIMXE: i18 --> 
         
