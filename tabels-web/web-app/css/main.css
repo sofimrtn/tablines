@@ -351,7 +351,7 @@ form.createProject input{
 	color: #CDC9C9;
 }
 
-.AddProjectButton {
+form.createProject input.AddProjectButton {
 background: rgba(255, 255, 255, 0) url('../images/createProject.png') no-repeat  top;
 border:0;
 height: 138px;
