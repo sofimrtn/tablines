@@ -348,6 +348,7 @@ form.createProject{
 
 form.createProject input{
 	font-size: 1.5em;
+	color: #CDC9C9;
 }
 
 .AddProjectButton {
