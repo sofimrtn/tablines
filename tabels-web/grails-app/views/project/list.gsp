@@ -12,7 +12,7 @@
         
         <div class="createProjectBox" >
         <h2><g:message code="msg.create.project.button"/></h2>
-       		   <g:form action="create" method="post" class="projectListLink">
+       		   <g:form action="create" method="post" class="createProject">
     		        <g:textField name="newProjectId" value="${message(code:'msg.new.project.name')}"/>
     		        <r:script>
 	    		        $('#newProjectId').blur(function() {if (this.value == '') {this.value = '${message(code:"msg.new.project.name")}';}});

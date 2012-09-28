@@ -283,17 +283,17 @@ table.sparql a {
 }
 
 div.createProjectBox{
-    border: 0.2em orange solid ;
+    border: 0.2em #0080FF solid ;
     padding: 1em;
     border-radius: 1em;
     margin: 0em;
     box-shadow: 0 0 0.4em black;
-	width: 13em;
+	width: 18em;
 }
 div.createProjectBox h2{
 	margin-top:0;
-	color: orange;
-	border-bottom: 0.2em orange solid;
+	color: #0080FF;
+	border-bottom: 0.2em #0080FF solid;
 }
 ul.projectList h2{
 	margin-top:0;
@@ -342,13 +342,19 @@ display: inline-block;
 top: 116px;
 right: 45%;
 }
+form.createProject{
+	text-align:center;
+}
+
+form.createProject input{
+	font-size: 1.5em;
+}
+
 .AddProjectButton {
-background: rgba(255, 255, 255, 0) url('../images/createProject.png') no-repeat right top;
+background: rgba(255, 255, 255, 0) url('../images/createProject.png') no-repeat  top;
 border:0;
 height: 138px;
 width: 100%;
-position: absolute;
-display: inline-block;
 top: 22px;
 right: 0;
 cursor: pointer;
