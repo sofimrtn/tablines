@@ -124,7 +124,7 @@ h2 {
 
 div.projectInfo{
 	text-align: right;
-	padding-bottom: 0.5em;
+	padding-bottom: 0.8em;
 }
 div.projectInfo ul{
 	display: inline;
@@ -376,7 +376,7 @@ table#resource-table tr:hover {
 	background-color: orange;
 	clear:both;
 	padding-top: 0.5em;
-	padding-botom: 0.5em;
+	padding-bottom: 0.5em;
 }
 
 #footer span {
@@ -390,4 +390,8 @@ table#resource-table tr:hover {
 #footer img{
 	display: inline;
 	margin-right: 0.2em;
+}
+
+#triplesCount{
+	font-weight: bold;	
 }
