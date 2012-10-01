@@ -64,7 +64,7 @@
 		<div id="datasetInfo">
 		  <div id="datasetInfoWaiting">Espere...</div>
 		  <div id="datasetInfoData">
-		      Triples: <span id="triplesCount"></span>
+		      <g:message code="msg.triples"/>: <span id="triplesCount"></span>
 		  </div>
 		  <div id="datasetInfoError">
 		      Ooops! There was a problem running the transformation
