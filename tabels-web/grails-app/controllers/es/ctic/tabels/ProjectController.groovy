@@ -335,7 +335,7 @@ class ProjectController {
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
     					def results = endpoint.getResults().getResult()
     					log.debug "Showing SPARQL results as HTML"
-    					render(view: "sparqlQuery", model: [tuples: results, vars: results.resultVars, query: params.query])
+    					render(view: "sparqlResults", model: [tuples: results, vars: results.resultVars, query: params.query])
     				} else {
     					endpoint.query() // bypass GSP rendering
     				}
