@@ -11,3 +11,9 @@ if (Ajax && (Ajax != null)) {
 	  }
 	});
 }
+
+$( "#showHideTransformationProgram" ).click(function() {
+	$('#programDiv').toggle('blind');
+	return true;
+});
+

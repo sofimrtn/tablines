@@ -1,10 +1,11 @@
+
 body {
     margin: 0px;
     font-family: verdana, arial, helvetica, sans-serif;
 }
 
 #header {
-    background-color: darkgreen;
+    background-color: #59a559;
     color: white;
     margin: 0px;
     padding: 0em 1em 1em 1em;
@@ -145,6 +146,15 @@ padding-right: 20px;
     padding-left: 20px;            
 }
 
+.showTransformationProgramLink {
+    background: url(../images/show-hide-transformation.png) no-repeat;
+    padding-left: 20px;            
+}
+
+#showHideTransformationProgram{
+	cursor: pointer;
+	text-decoration:underline;
+}
 .stars {
     color: gold;
     font-size: 11pt;
@@ -170,6 +180,7 @@ div .CodeMirror {
     padding: 1em;
     border-radius: 1em;
     margin-right: 1em;
+    margin-bottom: 1em;
     box-shadow: 0 0 0.4em black;
 }
 
@@ -188,6 +199,8 @@ div.stepBox h2 {
 
 #programDiv {
     clear: both;
+    display:none;
+    padding-top: 0.5em;
 }
 
 /* MESSAGES AND ERRORS */
@@ -361,6 +374,7 @@ table#resource-table tr:hover {
 
 #footer{
 	background-color: orange;
+	clear:both;
 }
 
 p.helpIcon {
@@ -373,3 +387,4 @@ p.helpIcon a img{
     width: 36px;
     height: 36px;
 }
+
