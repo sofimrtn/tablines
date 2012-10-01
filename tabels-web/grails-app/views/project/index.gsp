@@ -48,7 +48,7 @@
 		
 		<g:form action="downloadSource" id="${params.id}" method="post">
 		    <p>
-		        <g:textField name="sourceUrl" value="${sourceUrl}"/>
+		        <g:textField name="sourceUrl" value="${sourceUrl}" size="65"/>
 		        <g:submitButton name="addUrl" value="${message(code:'msg.add.url.to.sources.button')}" />
 		    </p>
 		</g:form>
@@ -91,7 +91,7 @@
 			<g:link action="data" id="${params.id}" params="[format: 'text']">[N-Triples]</g:link>
 		</p>
 		
-		<p class="sparqlLink"><g:message code="msg.endpoint.sparql.link"/> <g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:createLink controller="project" action="sparql" mapping="projectSpecific" absolute="true" id="${params.id}"/></g:link></p>
+		<p class="sparqlLink"><g:link action="sparql" id="${params.id}" mapping="projectSpecific"><g:message code="msg.endpoint.sparql.link"/></g:link></p>
 		
 		<p class="facetedLink"><g:link action="exhibit" id="${params.id}"><g:message code="msg.faceted.link"/></g:link></p>
 		 
