@@ -19,9 +19,7 @@
         </div>
 		<div id="header">
 			<h1><g:link controller="project" action="list"><g:message code="product.name"/></g:link></h1>
-			<p class="undertitle"><g:message code="product.slogan" /></p>
-			<p class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" /></g:link></p>
-			
+			<p class="undertitle"><g:message code="product.slogan" /></p>			
 		</div>
 		<div id="content">
 		<g:if test="${flash.error}">
@@ -37,5 +35,8 @@
         <g:layoutBody />
 		<r:layoutResources/>
 		</div>
+		<div id="footer">
+			<p class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" />Help </g:link></p>
+		</div>		
     </body>
 </html>
