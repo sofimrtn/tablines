@@ -7,7 +7,7 @@
 
         <h2>About: <a href="${currentResource}">${currentResource}</a></h2>
 
-		<table>
+		<table id="resource-table">
 		<g:each in="${directStatements}" var="statement">
 			<tr>
 				<td><g:showRdfNode rdfNode="${statement.predicate}"/></td>
