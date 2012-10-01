@@ -15,6 +15,7 @@ import com.hp.hpl.jena.query.QueryParseException
 import grails.converters.*
 import es.ctic.tapinos.source.RemoteSparqlDataSource;
 import es.ctic.tapinos.services.AutocompleteFromEndpoint;
+import es.ctic.maplab.services.MapService;
 
 class ProjectController {
 
@@ -451,6 +452,10 @@ class ProjectController {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())
 	    }
+	}
+	def clearCacheMap ={
+	   MapService.cleanCache()
+	   redirect(action:"list")
 	}
 	
 	def exhibit = {
