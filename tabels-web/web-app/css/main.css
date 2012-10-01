@@ -375,16 +375,19 @@ table#resource-table tr:hover {
 #footer{
 	background-color: orange;
 	clear:both;
+	padding-top: 0.5em;
+	padding-botom: 0.5em;
 }
 
-p.helpIcon {
-    margin: 0px;
-    padding: 0px;
-    display:block;
-} 
-
-p.helpIcon a img{
-    width: 36px;
-    height: 36px;
+#footer span {
+    margin: 0em;
+    padding: 0em;
 }
 
+#footer img, #footer a{
+	vertical-align:middle;
+}
+#footer img{
+	display: inline;
+	margin-right: 0.2em;
+}

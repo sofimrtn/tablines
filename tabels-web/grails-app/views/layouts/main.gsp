@@ -40,7 +40,11 @@
 		</div>
 		
 		<div id="footer">
-			<p class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" />Help </g:link></p>
+			<span class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" /><g:message code="product.help"/></g:link></span>
+			<span class="contact"><g:link controller="docs" action="guide" > <img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" /><g:message code="product.contact"/></g:link></span>
+
+			<span>Disclaimer</span>
+			<span>Acknowledgments</span>
 		</div>
     </body>
 </html>
