@@ -331,6 +331,8 @@ class ProjectController {
 				}
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
+        		 if(!(params.query.toLowerCase().contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|params.query.toLowerCase().contains("/idi.fundacionctic.org/tabels/project"))&(params.query.toLowerCase().contains("192.168.")|params.query.toLowerCase().contains("fundacionctic")))
+                      throw new ServerReferedURIException(params.query)
         		if (endpoint.isQuery()) {
     				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}) over projects ${projects}: ${params.query}")
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
