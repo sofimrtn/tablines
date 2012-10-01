@@ -23,8 +23,7 @@
 			<p class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" /></g:link></p>
 			
 		</div>
-		<div id="body">
-		<p class="underheader"></p>
+		<div id="content">
 		<g:if test="${flash.error}">
 			<div class="errorsbox">
 				<g:message code="${flash.error}" args="${flash.args}" default="${flash.error.encodeAsHTML()}"/>

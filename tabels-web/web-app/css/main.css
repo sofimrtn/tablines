@@ -54,19 +54,8 @@ p.helpIcon a img{
     height: 36px;
 }
 
-#body {
-    margin: 1em;
-}
-
-p.underheader{
-	margin-top: 0px;
-    margin-bottom: 1em;
-    padding: 0px;
-}
-
-p.underheader a{
-    color: darkgreen;
-    size: 0.5em;
+#content {
+    margin: 0.5em 1em;
 }
 
 h2 {
@@ -142,6 +131,20 @@ h2 {
 .csvDownload {
     background: url(../images/1344505919_doc_excel_csv.png) no-repeat;
     padding-left: 20px;
+}
+
+div.projectInfo{
+	text-align: right;
+	padding-bottom: 0.5em;
+}
+div.projectInfo ul{
+	display: inline;
+}
+
+div.projectInfo ul li{
+display: inline;
+list-style-type: none;
+padding-right: 20px;
 }
 
 .renameLink {

@@ -20,11 +20,12 @@
     <body>
         
         <div class="projectInfo">
-            <p><g:message code="msg.project.name"/> ${params.id}</p>
-            <ul>
+        	<ul>
+            	<li><g:message code="msg.project.name"/> ${params.id}</li>
                 <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
                 <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
             </ul>
+
         </div>
      
         <div class="stepBox" id="step1">
