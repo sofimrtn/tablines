@@ -24,6 +24,7 @@
             	<li><g:message code="msg.project.name"/> ${params.id}</li>
                 <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
                 <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
+                <li class="showTransformationProgramLink"><span id="showHideTransformationProgram"><g:message code="msg.transformation.program.show.link"/></span></li>
             </ul>
 
         </div>
@@ -63,7 +64,7 @@
 		<div id="datasetInfo">
 		  <div id="datasetInfoWaiting">Espere...</div>
 		  <div id="datasetInfoData">
-		      Triples: <span id="triplesCount"></span>
+		      <g:message code="msg.triples"/>: <span id="triplesCount"></span>
 		  </div>
 		  <div id="datasetInfoError">
 		      Ooops! There was a problem running the transformation
@@ -100,9 +101,11 @@
 		    
 		<p class="mapLink"><g:link mapping="newMap" id="${params.id}" params="[endpoint:endpoint]"><g:message code="msg.map.link"/></g:link></p>
 		
-		<p class="parrotLink"><g:link action="parrot" id="${params.id}"><g:message code="msg.parrot.link"/></g:link></p>
+		<!-- Not show parrot link -->
+		<!-- <p class="parrotLink"><g:link action="parrot" id="${params.id}"><g:message code="msg.parrot.link"/></g:link></p> -->
 		
-		<p class="traceLink"><g:link action="trace" id="${params.id}"><g:message code="msg.trace.link"/></g:link></p>
+		<!-- Not show trace link -->
+		<!-- <p class="traceLink"><g:link action="trace" id="${params.id}"><g:message code="msg.trace.link"/></g:link></p> -->
 		    
 		</div>
 		

@@ -1,10 +1,11 @@
+
 body {
     margin: 0px;
     font-family: verdana, arial, helvetica, sans-serif;
 }
 
 #header {
-    background-color: darkgreen;
+    background-color: #59a559;
     color: white;
     margin: 0px;
     padding: 0em 1em 1em 1em;
@@ -123,7 +124,7 @@ h2 {
 
 div.projectInfo{
 	text-align: right;
-	padding-bottom: 0.5em;
+	padding-bottom: 0.8em;
 }
 div.projectInfo ul{
 	display: inline;
@@ -145,6 +146,15 @@ padding-right: 20px;
     padding-left: 20px;            
 }
 
+.showTransformationProgramLink {
+    background: url(../images/show-hide-transformation.png) no-repeat;
+    padding-left: 20px;            
+}
+
+#showHideTransformationProgram{
+	cursor: pointer;
+	text-decoration:underline;
+}
 .stars {
     color: gold;
     font-size: 11pt;
@@ -170,6 +180,7 @@ div .CodeMirror {
     padding: 1em;
     border-radius: 1em;
     margin-right: 1em;
+    margin-bottom: 1em;
     box-shadow: 0 0 0.4em black;
 }
 
@@ -188,6 +199,8 @@ div.stepBox h2 {
 
 #programDiv {
     clear: both;
+    display:none;
+    padding-top: 0.5em;
 }
 
 /* MESSAGES AND ERRORS */
@@ -277,11 +290,16 @@ div.createProjectBox{
     border: 0.2em #0080FF solid ;
     padding: 1em;
     border-radius: 1em;
-    margin: 0em;
+    margin: 1em;
     box-shadow: 0 0 0.4em black;
 	width: 18em;
-	margin: auto;
+	float: right;
 }
+div#projectListDiv{
+	float: left;
+	max-width: 70%;
+}
+
 div.createProjectBox h2{
 	margin-top:0;
 	color: #0080FF;
@@ -305,9 +323,9 @@ ul.projectList li{
 }
 
 .projectListLink {
-background: white url('../images/projectFolderGreen.png') no-repeat center;
+background: white url('../images/tabels-folder.png') no-repeat center;
 display: inline-block;
-min-width: 126px;
+min-width: 128px;
 min-height: 160px;
 color: black;
 text-align: center;
@@ -353,7 +371,7 @@ table#resource-table tr:hover {
 }
 
 .projectListBox{
-	border: 0.2em orange solid ;
+	border: 0.2em darkGreen solid ;
     border-radius: 1em;
     margin-top: 1em;
     box-shadow: 0 0 0.4em black;	
@@ -361,15 +379,28 @@ table#resource-table tr:hover {
 
 #footer{
 	background-color: orange;
+	clear:both;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
 }
 
-p.helpIcon {
-    margin: 0px;
-    padding: 0px;
-    display:block;
-} 
+#footer span {
+    margin: 0em;
+    padding: 0em;
+}
 
-p.helpIcon a img{
-    width: 36px;
-    height: 36px;
+#footer img, #footer a{
+	vertical-align:middle;
+}
+#footer img{
+	display: inline;
+	margin-right: 0.2em;
+}
+
+#triplesCount{
+	font-weight: bold;	
+}
+
+br.clear{
+	clear:both;
 }
