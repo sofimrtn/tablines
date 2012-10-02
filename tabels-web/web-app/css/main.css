@@ -290,11 +290,16 @@ div.createProjectBox{
     border: 0.2em #0080FF solid ;
     padding: 1em;
     border-radius: 1em;
-    margin: 0em;
+    margin: 1em;
     box-shadow: 0 0 0.4em black;
 	width: 18em;
-	margin: auto;
+	float: right;
 }
+div#projectListDiv{
+	float: left;
+	max-width: 70%;
+}
+
 div.createProjectBox h2{
 	margin-top:0;
 	color: #0080FF;
@@ -318,9 +323,9 @@ ul.projectList li{
 }
 
 .projectListLink {
-background: white url('../images/projectFolderGreen.png') no-repeat center;
+background: white url('../images/tabels-folder.png') no-repeat center;
 display: inline-block;
-min-width: 126px;
+min-width: 128px;
 min-height: 160px;
 color: black;
 text-align: center;
@@ -366,7 +371,7 @@ table#resource-table tr:hover {
 }
 
 .projectListBox{
-	border: 0.2em orange solid ;
+	border: 0.2em darkGreen solid ;
     border-radius: 1em;
     margin-top: 1em;
     box-shadow: 0 0 0.4em black;	
@@ -394,4 +399,8 @@ table#resource-table tr:hover {
 
 #triplesCount{
 	font-weight: bold;	
+}
+
+br.clear{
+	clear:both;
 }
