@@ -1,5 +1,6 @@
 syntax: glob
 .DS_Store
+tabels-web/web-app/docs
 tabels-core/project/boot
 tabels-core/project/target
 tabels-core/target
