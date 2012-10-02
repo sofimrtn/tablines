@@ -1,4 +1,5 @@
 syntax: glob
+.DS_Store
 tabels-core/project/boot
 tabels-core/project/target
 tabels-core/target
