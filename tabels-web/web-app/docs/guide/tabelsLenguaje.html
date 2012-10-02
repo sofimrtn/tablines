@@ -2,7 +2,7 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>2 Lenguaje Tabels 0.4-SNAPSHOT</title>
+    <title>2 Lenguaje Tabels 0.6</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
     <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
@@ -49,7 +49,7 @@ function addJsClass() {
         
         
     </div>
-    <p>tabels-web</p>
+    <p>tabels</p>
 </div>
 
 
@@ -74,7 +74,7 @@ function addJsClass() {
 
                     <p><strong>Authors:</strong> </p>
 
-                    <p><strong>Version:</strong> 0.4-SNAPSHOT</p>
+                    <p><strong>Version:</strong> 0.6</p>
 
                     
                 </div>
@@ -471,8 +471,7 @@ programa Tabels son automáticamente introducidos en las consultas, por lo que n
 necesario declararlos de nuevo. Por ejemplo:<p class="paragraph"/><div class="code"><pre>&#64;SPARQL(<span class="java&#45;quote">"INSERT &#123; ?x foaf:knows ?z &#125; WHERE &#123; ?z foaf:knows ?x &#125;"</span>)
 PREFIX foaf: &#60;http://xmlns.com/foaf/0.1&#62;</pre></div><p class="paragraph"/><h5>Directiva '&#64;load'</h5><p class="paragraph"/>Esta directiva descarga un fichero RDF a partir de una URL, y lo incorpora al
 resultado. Recibe un parámetro: la URL del fichero a descargar. Actualmente sólo
-hay soporte para leer ficheros RDF/XML. Ejemplo:<p class="paragraph"/><div class="code"><pre><div class="error">code: null</div>
-&#64;LOAD("http://www.w3.org/People/Berners-Lee/card.rdf")
+hay soporte para leer ficheros RDF/XML. Ejemplo:<p class="paragraph"/><div class="code"><pre>&#64;LOAD(<span class="java&#45;quote">"http://www.w3.org/People/Berners&#45;Lee/card.rdf"</span>)</pre></div>
 
 
 
