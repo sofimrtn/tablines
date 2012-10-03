@@ -4,11 +4,11 @@ body {
 }
 
 #header {
-    background-color: #59a559;
+    background-color: #444;
     color: white;
     margin: 0px;
     padding: 0em 1em 1em 1em;
-    border-bottom: 0.2em #3A3 solid;
+    border-bottom: 0.2em orange solid;
     background-image: url(../images/ctic-white.png);
     background-position: 100% 70%;
     background-repeat: no-repeat;
@@ -43,12 +43,13 @@ p.undertitle {
 }
 
 #content {
-    margin: 0.5em 1em;
+    margin: 1em auto;
+    width:90%;
 }
 
 h2 {
-    color: darkgreen;
-    border-bottom: 0.2em #3A3 solid;
+    color: #222;
+    border-bottom: 0.2em #ccc solid;
     /* padding-left: 0.2em; */
 }
 
@@ -174,8 +175,8 @@ div .CodeMirror {
 
 #step1 {
     float: left;
-    width: 45%;
-    border: 0.2em #3A3 solid ;
+    width: 48%;
+    border: 0.2em #666 solid ;
     padding: 1em;
     border-radius: 1em;
     margin-right: 1em;
@@ -186,7 +187,7 @@ div .CodeMirror {
 #step2 {
     float: left;
     width: 45%;
-    border: 0.2em #3A3 solid ;
+    border: 0.2em #666 solid ;
     padding: 1em;
     border-radius: 1em;
     box-shadow: 0 0 0.4em black;
@@ -286,13 +287,14 @@ table.sparql a {
 }
 
 div.createProjectBox{
-    border: 0.2em #0080FF solid ;
+    border: 0.2em #DDD solid ;
     padding: 1em;
     border-radius: 1em;
     margin: 1em;
     box-shadow: 0 0 0.4em black;
 	width: 18em;
 	float: right;
+    background-color: #efefef;
 }
 div#projectListDiv{
 	float: left;
@@ -301,8 +303,8 @@ div#projectListDiv{
 
 div.createProjectBox h2{
 	margin-top:0;
-	color: #0080FF;
-	border-bottom: 0.2em #0080FF solid;
+	color: #444;
+	border-bottom: 0.2em #00B8F5 solid;
 }
 ul.projectList h2{
 	margin-top:0;
@@ -346,7 +348,7 @@ form.createProject{
 }
 
 form.createProject input{
-	font-size: 1.5em;
+	font-size: 1.2em;
 	color: #CDC9C9;
 }
 
@@ -370,17 +372,19 @@ table#resource-table tr:hover {
 }
 
 .projectListBox{
-	border: 0.2em darkGreen solid ;
+	border: 0.2em #666 solid ;
     border-radius: 1em;
     margin-top: 1em;
     box-shadow: 0 0 0.4em black;	
 }
 
 #footer{
-	background-color: orange;
+	background-color: #ddd;
 	clear:both;
-	padding-top: 0.5em;
-	padding-bottom: 0.5em;
+	padding-top: 0.8em;
+	padding-bottom: 0.8em;
+    border-top: 1px solid #444;
+    text-align: center;
 }
 
 #footer span {
