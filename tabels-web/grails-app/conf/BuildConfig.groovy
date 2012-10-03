@@ -11,13 +11,12 @@ grails.project.dependency.resolution = {
     }
     log "warn" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     repositories {
-        grailsPlugins()
-        grailsHome()
-        grailsCentral()
-
         // uncomment the below to enable remote dependency resolution
         // from public Maven repositories
         mavenLocal()
+        grailsHome()
+        grailsPlugins()
+        grailsCentral()
         mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
         mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public-snapshots"
         mavenCentral()
@@ -31,7 +30,7 @@ grails.project.dependency.resolution = {
     plugins {
         runtime ':tapinos-js:1.5.2',
         		':highcharts:2.2.1.0', // this should be unnecessary, but for some reason, it is not included by tapinos-js
-                ':uploadr:0.5.10',
+                ':uploadr:0.6-CTIC',
                 ':svn:1.0.2'
     }
     dependencies {

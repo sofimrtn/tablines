@@ -28,7 +28,7 @@ function mapLabMap_initializateData(mapLabMapComponent){
 		 },
 		 success: function(data) {
 			 mapLabMapComponent.data("requestData", data);
-		 }
+		 },
 	});
 }
 
