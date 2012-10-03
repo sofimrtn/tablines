@@ -7,13 +7,17 @@ body {
     background-color: #444;
     color: white;
     margin: 0px;
-    padding: 0em 1em 1em 1em;
+    padding: 0em 1em 1em 1.5em;
     border-bottom: 0.2em orange solid;
     background-image: url(../images/ctic-white.png);
     background-position: 100% 70%;
     background-repeat: no-repeat;
     position:relative;
     overflow: hidden;
+}
+
+a{
+    color:#06C;
 }
 
 h1 {
@@ -24,12 +28,13 @@ h1 {
 h1 a {
     text-decoration: none;
     color: white;
-    padding-left: 55px;
+    padding-left: 60px;
     padding-bottom:55px;
     line-height:50px;
 	background-image: url(../images/tabels48claro.png);
 	background-position: 0% 0%;
     background-repeat: no-repeat;
+    text-shadow: -1px 1px 2px #000;
 }
 
 p.undertitle {
@@ -37,9 +42,11 @@ p.undertitle {
     margin-bottom: 0.3em;
     padding: 0px;
     color: #ffffdd;
+    font-weight: bold;
     position: absolute;
     bottom: 0;
-    left: 70px; 
+    left: 85px; 
+    text-shadow: -1px 1px 2px #000;
 }
 
 #content {
@@ -48,7 +55,7 @@ p.undertitle {
 }
 
 h2 {
-    color: #222;
+    color: #333;
     border-bottom: 0.2em #ccc solid;
     /* padding-left: 0.2em; */
 }
@@ -154,6 +161,7 @@ padding-right: 20px;
 #showHideTransformationProgram{
 	cursor: pointer;
 	text-decoration:underline;
+    color:#06C;
 }
 .stars {
     color: gold;
@@ -175,7 +183,7 @@ div .CodeMirror {
 
 #step1 {
     float: left;
-    width: 48%;
+    width: 45%;
     border: 0.2em #666 solid ;
     padding: 1em;
     border-radius: 1em;
@@ -295,6 +303,7 @@ div.createProjectBox{
 	width: 18em;
 	float: right;
     background-color: #efefef;
+    box-shadow: inset 0px -5px 10px 0px rgba(0, 0, 0, 0.5);
 }
 div#projectListDiv{
 	float: left;
@@ -303,7 +312,6 @@ div#projectListDiv{
 
 div.createProjectBox h2{
 	margin-top:0;
-	color: #444;
 	border-bottom: 0.2em #00B8F5 solid;
 }
 ul.projectList h2{
@@ -353,9 +361,9 @@ form.createProject input{
 }
 
 form.createProject input.AddProjectButton {
-background: rgba(255, 255, 255, 0) url('../images/createProject.png') no-repeat  top;
+background: rgba(255, 255, 255, 0) url('../images/createProject.png') no-repeat  bottom right;
 border:0;
-height: 138px;
+height: 100px;
 width: 100%;
 top: 22px;
 right: 0;
