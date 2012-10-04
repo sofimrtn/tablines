@@ -10,6 +10,7 @@
 		<link rel="stylesheet" href="${resource(dir:'css',file:'codemirror-default-theme.css')}">
 		<link rel="stylesheet" href="${resource(dir:'css',file:'simple-hint.css')}">
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'buttons.css')}" />
         <g:layoutHead />
 		<r:layoutResources/>
     </head>

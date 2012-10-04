@@ -83,12 +83,7 @@
 	<h2>Chart view</h2>
 	
 	<p class="backLink">
-	    <g:if test="${params.id}">
-	        <g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link>
-	    </g:if>
-	    <g:else>
-	        <g:link action="list"><g:message code="msg.back.to.project.list.link"/></g:link>
-	    </g:else>
+	   <g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link>
 	</p>
 	
 	<g:if test="${datasets}">

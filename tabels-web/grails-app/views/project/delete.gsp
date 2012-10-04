@@ -10,7 +10,7 @@
 		    <p>
 		        <g:message code="msg.are.you.sure.delete.project" args="${[params.id]}"/>
 		        <g:checkBox name="confirm" value="${false}" />
-		        <g:submitButton name="confirmDelete" value="${message(code:'msg.confirm.delete.button')}" />
+		        <g:submitButton name="confirmDelete" value="${message(code:'msg.confirm.delete.button')}" class="inputbutton white medium"/>
 		    </p>
 		</g:form>
 		

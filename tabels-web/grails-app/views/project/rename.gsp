@@ -14,7 +14,7 @@
                         $('#newProjectId').blur(function() {if (this.value == '') {this.value = '${message(code:"msg.new.project.name")}';}});
                         $('#newProjectId').focus(function() {if (this.value == '${message(code:"msg.new.project.name")}') {this.value = '';}});
                     </r:script>
-		        <g:submitButton name="changeName" value="${message(code:'msg.rename.button')}" />
+		        <g:submitButton name="changeName" value="${message(code:'msg.rename.button')}" class="inputbutton white medium"/>
 		    </p>
 		</g:form>
 		

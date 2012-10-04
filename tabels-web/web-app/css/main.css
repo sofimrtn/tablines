@@ -208,7 +208,10 @@ div.stepBox h2 {
 #programDiv {
     clear: both;
     /*display:none;*/
-    padding-top: 0.5em;
+    padding-top: 0.5em
+}
+#programDiv h2{
+    cursor: pointer;
 }
 
 /* MESSAGES AND ERRORS */
@@ -414,4 +417,8 @@ table#resource-table tr:hover {
 
 br.clear{
 	clear:both;
+}
+
+.autogenerateForm{
+    padding: 5px;
 }

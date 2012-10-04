@@ -51,7 +51,7 @@
 		<g:form action="downloadSource" id="${params.id}" method="post">
 		    <p>
 		        <g:textField name="sourceUrl" value="${sourceUrl}" size="65"/>
-		        <g:submitButton name="addUrl" value="${message(code:'msg.add.url.to.sources.button')}" />
+		        <g:submitButton name="addUrl" value="${message(code:'msg.add.url.to.sources.button')}" class="inputbutton white medium"/>
 		    </p>
 		</g:form>
 		
@@ -97,7 +97,7 @@
 		
 		<p class="facetedLink"><g:link action="exhibit" id="${params.id}"><g:message code="msg.faceted.link"/></g:link></p>
 		 
-		<p class="chartsLink"><g:link mapping="globalTapinos" params="[endpoint:endpoint]"><g:message code="msg.charts.link"/></g:link></p>   
+		<p class="chartsLink"><g:link mapping="globalTapinos" params="[endpoint:endpoint]" id="${params.id}"><g:message code="msg.charts.link"/></g:link></p>   
 		    
 		<p class="mapLink"><g:link mapping="newMap" id="${params.id}" params="[endpoint:endpoint]"><g:message code="msg.map.link"/></g:link></p>
 		
@@ -112,12 +112,12 @@
 		<h2><g:message code="msg.transformation.program"/></h2>
 		
 		<g:form action="saveProgram" id="${params.id}" method="post">
-		<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" /></p>
+		<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
 			<g:textArea name="program" value="${program}" rows="10" cols="80" />
 		</g:form>
-		<g:form action="autogenerateProgram" id="${params.id}" method="post">
-		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS"/>
-		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" /></p>
+		<g:form action="autogenerateProgram" id="${params.id}" method="post" class="autogenerateForm">
+		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS" class="inputbutton white medium"/>
+		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/></p>
 		</g:form>
 		</div>
 

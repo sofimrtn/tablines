@@ -454,7 +454,7 @@ class ProjectController {
             }else{
                 datasets = datasetProvider.getSuggestions(null);
             }
-            [datasets: datasets , endpoint: endpoint, namedgraph: namedgraph]
+            [projectId: params.id ,datasets: datasets , endpoint: endpoint, namedgraph: namedgraph]
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())

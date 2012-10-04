@@ -70,7 +70,7 @@
           
         <p style="clear:both;">
           <label for="format" class="n"><g:message code="form.sparql.result.format"/></label>
-          <select name="format" id="format">
+          <select name="format" id="format" class="inputbutton white medium">
             <option value="application/sparql-results+xml">XML</option>
             <option value="application/sparql-results+json">JSON</option>
             <option value="text/csv">CSV</option>
@@ -80,7 +80,7 @@
         </p>
           
         <p style="clear:both;">
-            <g:actionSubmit value="${message(code: 'form.sparql.query.button')}" action="sparql" id="queryButton" />
+            <g:actionSubmit value="${message(code: 'form.sparql.query.button')}" action="sparql" id="queryButton" class="inputbutton white medium"/>
         </p>              
     </g:form>
             
