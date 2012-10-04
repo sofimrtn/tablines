@@ -70,7 +70,7 @@ class ProjectService {
     
     def saveInput(String projectId, def f) throws Exception{
         //TODO: read file extensions and maxSize from a configuration file
-        def extensions=["rdf", "px", "shp.zip", "csv", "odf", "xls", "html"]
+        def extensions=["rdf", "px", "shp.zip", "csv", "ods", "xls", "html"]
         def allowed = false
         extensions.each{if(f.originalFilename.endsWith("." + it)) allowed =true}
         if(!allowed) throw new Exception("Input file format not supported")
