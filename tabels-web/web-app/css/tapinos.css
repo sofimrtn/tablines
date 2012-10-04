@@ -52,7 +52,7 @@ select:active {
 }
 
 table{
-	
+
 }
 
 th{
@@ -60,4 +60,9 @@ th{
     color: white;
     font-weight: bold;
     padding: 6px 6px;
+}
+
+.loadingIcon{
+	margin-right:1em;
+	margin-left:1em;
 }
