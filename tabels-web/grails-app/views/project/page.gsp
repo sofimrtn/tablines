@@ -5,7 +5,7 @@
     </head>
     <body>
 
-        <h2>About: <a href="${currentResource}">${currentResource}</a></h2>
+        <h2>About: <a href="${currentResource.getURI().replaceAll('#','%23')}">${currentResource}</a></h2>
 
 		<table id="resource-table">
 		<g:each in="${directStatements}" var="statement">
