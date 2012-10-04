@@ -3,6 +3,7 @@
 	<title>Chart view</title>
     <meta name="layout" content="main" />
     <r:require modules="tapinos-js,fancybox,protovis,highcharts,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
+    <link rel="stylesheet" href="${resource(dir:'css',file:'tapinos.css')}" />
 </head>
 <body>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -92,7 +93,7 @@
 
         <p><label for="dataset">Conjunto de datos:</label>
 
-        <select id="dataset" name="dataset" onchange="javascript:onDatasetChange(event)">
+        <select id="dataset" name="dataset" onchange="javascript:onDatasetChange(event)" class="inputbutton white medium">
         <g:each var="dataset" in="${datasets}">
           <option value="${dataset.uri}">${dataset.label}</option>
         </g:each>

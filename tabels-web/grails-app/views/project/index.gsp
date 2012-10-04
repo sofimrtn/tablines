@@ -24,7 +24,7 @@
             	<li><b><g:message code="msg.project.name"/></b> ${params.id}</li>
                 <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
                 <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
-                <li class="showTransformationProgramLink"><span id="showHideTransformationProgram"><g:message code="msg.transformation.program.show.link"/></span></li>
+                <!--<li class="showTransformationProgramLink"><span id="showHideTransformationProgram"><g:message code="msg.transformation.program.show.link"/></span></li>-->
             </ul>
 
         </div>
