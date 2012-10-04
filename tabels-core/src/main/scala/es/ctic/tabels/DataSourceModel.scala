@@ -58,7 +58,8 @@ object DataAdapter {
                  | ODFFilePattern()
                  | DBFFilePattern()
      //            | ZIPFilePattern()
-                 | ZIPSHPFilePattern() => true
+                 | ZIPSHPFilePattern()
+                 | PXFilePattern()=> true
             case _ => false
         })
 
