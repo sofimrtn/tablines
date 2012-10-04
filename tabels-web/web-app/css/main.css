@@ -381,11 +381,11 @@ cursor: pointer;
 color:rgba(255, 255, 255, 0);
 }
 
-table#resource-table tr:nth-child(odd) {background: #ffffcc}
-table#resource-table tr:nth-child(even) {background: #ccffcc}
+table#resource-table tr:nth-child(odd) {background: #FEFEFE}
+table#resource-table tr:nth-child(even) {background: #EEE}
 
 table#resource-table tr:hover {
-    background: #3A3;
+    background: #999;
     color: white;
 }
 
