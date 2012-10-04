@@ -68,7 +68,14 @@ class ProjectService {
         return getInputDir(projectId).listFiles().collect { it.name }
     }
     
-    def saveInput(String projectId, def f) {
+    def saveInput(String projectId, def f) throws Exception{
+        //TODO: read file extensions from a configuration file
+        def extensions=["rdf", "px", "shp.zip", "csv", "odf", "xls", "html"]
+        def allowed = false
+        extensions.each{if(f.endsWith("." + it)) allowed =true}
+        
+        if(!allowed) throw new Exception("Not suported file format")
+    
         def destination = new File(getInputDir(projectId), f.originalFilename)
         log.info "Saving new input file of project ${projectId} to ${destination}"
         return f.transferTo(destination)

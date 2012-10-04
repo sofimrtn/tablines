@@ -15,6 +15,7 @@ import com.hp.hpl.jena.query.QueryParseException
 import grails.converters.*
 import es.ctic.tapinos.source.RemoteSparqlDataSource;
 import es.ctic.tapinos.services.AutocompleteFromEndpoint;
+import es.ctic.maplab.services.MapService;
 
 class ProjectController {
 
@@ -211,7 +212,9 @@ class ProjectController {
     
     def uploadInput = {
         String projectId = params.id
+       
         def f = request.getFile('file')
+        log.info('reading file '+ f)
         if (f.empty) {
             response.sendError(400)
         } else {
@@ -221,7 +224,10 @@ class ProjectController {
             } catch (ProjectDoesNotExistException e) {
                 log.error("While trying to access project ${e.projectId}", e)
                 render(status: 404, text: e.getMessage())
-            }            
+            }  catch (Exception e) {
+                log.error("While trying to access project ${e.projectId}", e)
+                render(status: 404, text: e.getMessage())
+            }                      
         }
     }
     
@@ -330,6 +336,8 @@ class ProjectController {
 				}
         	    endpoint.setRequest(request)
         		endpoint.setResponse(response)
+        		 if(!(params.query.toLowerCase().contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|params.query.toLowerCase().contains("/idi.fundacionctic.org/tabels/project"))&(params.query.toLowerCase().contains("192.168.")|params.query.toLowerCase().contains("fundacionctic")))
+                      throw new ServerReferedURIException(params.query)
         		if (endpoint.isQuery()) {
     				log.info("Executing SPARQL query (result format=${endpoint.getFormat()}) over projects ${projects}: ${params.query}")
     				if (endpoint.isSelectQuery() && MimeTypes.HTML.equals(endpoint.getFormat())) {
@@ -451,6 +459,10 @@ class ProjectController {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())
 	    }
+	}
+	def clearCacheMap ={
+	   MapService.cleanCache()
+	   redirect(action:"list")
 	}
 	
 	def exhibit = {
