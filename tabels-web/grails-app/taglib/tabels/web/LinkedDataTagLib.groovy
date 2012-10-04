@@ -18,7 +18,7 @@ class LinkedDataTagLib {
 				if (resource.getURI() == null) {
 					out << "Blank node (${resource.toString()})"
 				} else {
-	        		out << "<a href='${resource.getURI()}'>${shortUri(resource)}</a>"
+	        		out << "<a href='${resource.getURI().replace("#","%23")}'>${shortUri(resource)}</a>"
 				}
 				break
 			case Literal:

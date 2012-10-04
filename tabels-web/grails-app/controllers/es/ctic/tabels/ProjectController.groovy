@@ -414,7 +414,7 @@ class ProjectController {
 		String localName = params.localName//java.net.URLEncoder.encode(params.localName, "UTF-8")
 		String fullUri = "${projectService.getDefaultNamespace(projectId)}resource/${localName}"
 		try {
-		    log.info("Getting page for resource ${localName}")
+		    log.info("Getting page for resource ${fullUri}")
 			def model = projectService.getModel(projectId)
 			if (model.containsResource(model.getResource(fullUri))) {
 				def resource = model.getResource(fullUri)
