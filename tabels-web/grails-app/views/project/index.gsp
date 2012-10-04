@@ -110,15 +110,15 @@
 		
 		<div id="programDiv">
 		<h2><g:message code="msg.transformation.program"/></h2>
-		
-		<g:form action="saveProgram" id="${params.id}" method="post">
-		<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
-			<g:textArea name="program" value="${program}" rows="10" cols="80" />
-		</g:form>
 		<g:form action="autogenerateProgram" id="${params.id}" method="post" class="autogenerateForm">
 		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS" class="inputbutton white medium"/>
-		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/></p>
+		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/>
 		</g:form>
+		<g:form action="saveProgram" id="${params.id}" method="post">
+			<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
+			<g:textArea name="program" value="${program}" cols="80" />
+		</g:form>
+
 		</div>
 
     </body>

@@ -421,5 +421,7 @@ br.clear{
 }
 
 .autogenerateForm{
-    padding: 5px;
+    float:right;
+    position:relative;
+    top:-2px;
 }
