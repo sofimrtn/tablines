@@ -335,15 +335,16 @@ ul.projectList li{
 }
 
 .projectListLink {
-background: white url('../images/tabels-folder.png') no-repeat center;
+background: white url('../images/tabels-folder.png') no-repeat center top;
 display: inline-block;
 min-width: 128px;
-min-height: 160px;
+
 color: black;
 text-align: center;
 position: relative;
 top: 0;
 left: 0;
+padding-top:115px;
 }
 .deleteProjectList {
 background: rgba(255, 255, 255, 0) url('../images/deleteProject.png') no-repeat left;

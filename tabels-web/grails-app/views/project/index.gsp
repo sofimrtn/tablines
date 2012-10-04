@@ -21,7 +21,7 @@
         
         <div class="projectInfo">
         	<ul>
-            	<li><g:message code="msg.project.name"/> ${params.id}</li>
+            	<li><b><g:message code="msg.project.name"/></b> ${params.id}</li>
                 <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
                 <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
                 <li class="showTransformationProgramLink"><span id="showHideTransformationProgram"><g:message code="msg.transformation.program.show.link"/></span></li>
@@ -35,7 +35,7 @@
 		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
-		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}">
+		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}" extensionsAllowed="pdf">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
