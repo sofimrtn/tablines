@@ -225,8 +225,8 @@ class ProjectController {
                 log.error("While trying to access project ${e.projectId}", e)
                 render(status: 404, text: e.getMessage())
             }  catch (Exception e) {
-                log.error("While trying to access project ${e.projectId}", e)
-                render(status: 404, text: e.getMessage())
+                log.error("While trying to access project", e)
+                render(status: 415, text: e.getMessage())
             }                      
         }
     }
