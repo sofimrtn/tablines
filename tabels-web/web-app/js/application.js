@@ -17,7 +17,7 @@ $( "#showHideTransformationProgram" ).click(function() {
 	return true;
 });
 
-$( "#programDiv h2" ).click(function() {
+$( "div.showHide h2" ).click(function() {
 	$('#programDiv').toggle('blind');
 	return true;
 });

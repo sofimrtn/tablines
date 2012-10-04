@@ -34,12 +34,24 @@ h1, h2, h3, h4, h5, h6 {
 #mapGoogle{
 	width: 100%;
   	height: 500px;
+    border: 0.2em #666 solid ;
+    padding: 1em;
+    margin-right: 1em;
+    margin-bottom: 2em;
+    box-shadow: 0 0 0.4em black;
+    background-color: #FFF;
 }
 
 #layerMap, #layerTree{
 	padding-bottom: 10px;	
 	border: 1px solid #000; 
-	
+    border: 0.2em #666 solid ;
+    padding: 1em;
+    border-radius: 1em;
+    margin-right: 1em;
+    margin-bottom: 3em;
+    box-shadow: 0 0 0.4em black;
+    background-color: #FFF;
 }
 
 #layerMap h3{

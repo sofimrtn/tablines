@@ -107,9 +107,10 @@
 		<!-- Not show trace link -->
 		<!-- <p class="traceLink"><g:link action="trace" id="${params.id}"><g:message code="msg.trace.link"/></g:link></p> -->
 		</div>
-		
+		<div class="showHide">
+			<h2><g:message code="msg.transformation.program"/><span>Show/Hide</span></h2>
+		</div>
 		<div id="programDiv">
-		<h2><g:message code="msg.transformation.program"/></h2>
 		<g:form action="autogenerateProgram" id="${params.id}" method="post" class="autogenerateForm">
 		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS" class="inputbutton white medium"/>
 		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/>
