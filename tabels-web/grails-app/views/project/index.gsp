@@ -50,7 +50,7 @@
 		
 		<g:form action="downloadSource" id="${params.id}" method="post">
 		    <p>
-		        <g:textField name="sourceUrl" value="${sourceUrl}" size="65"/>
+		        <g:textField name="sourceUrl" value="${sourceUrl}" size="65" class="sourceUrlText"/>
 		        <g:submitButton name="addUrl" value="${message(code:'msg.add.url.to.sources.button')}" class="inputbutton white medium"/>
 		    </p>
 		</g:form>
@@ -117,6 +117,7 @@
 		<g:form action="saveProgram" id="${params.id}" method="post">
 			<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
 			<g:textArea name="program" value="${program}" cols="80" />
+			<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
 		</g:form>
 
 		</div>
