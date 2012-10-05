@@ -69,13 +69,13 @@ class ProjectService {
     }
     
     def saveInput(String projectId, def f) throws Exception{
-        //TODO: read file extensions and maxSize from a configuration file
-        def extensions=["rdf", "px", "shp.zip", "csv", "ods", "xls", "html"]
+        //TODO: Add specific exceptions for each filter
+        def extensions=configObject.allowedExtensionsInJava
         def allowed = false
         extensions.each{if(f.originalFilename.endsWith("." + it)) allowed =true}
         if(!allowed) throw new Exception("Input file format not supported")
         
-        def maxSize = 8789000
+        def maxSize = configObject.maxFileSize//8789000
         if(f.size>maxSize) throw new Exception("File size too large")
         
         def destination = new File(getInputDir(projectId), f.originalFilename)

@@ -221,6 +221,7 @@ class ProjectController {
             try {
                 projectService.saveInput(projectId, f)
                 response.sendError(200, 'Done')   
+//TODO: handle specific exception for filters(error code 413 for file too large)
             } catch (ProjectDoesNotExistException e) {
                 log.error("While trying to access project ${e.projectId}", e)
                 render(status: 404, text: e.getMessage())
