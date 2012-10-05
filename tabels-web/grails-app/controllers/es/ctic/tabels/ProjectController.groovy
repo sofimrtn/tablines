@@ -32,11 +32,14 @@ class ProjectController {
         return [path: projectService.getInputDir(projectId),
          files: projectService.getFiles(projectId),
          program: projectService.getProgram(projectId),
-         endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/"]
+         endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/",
+		 maxFileSize: projectService.configObject.maxFileSize,
+		 allowedExtensions: projectService.configObject.allowedExtensions]
     }
     
     def index = {
-        try {
+		
+		try {
             indexModel(params.id)
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)

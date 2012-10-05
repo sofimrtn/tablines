@@ -70,7 +70,7 @@ class ProjectService {
     
     def saveInput(String projectId, def f) throws Exception{
         //TODO: Add specific exceptions for each filter
-        def extensions=configObject.allowedExtensionsInJava
+        def extensions=configObject.allowedExtensions.replaceAll(' ','').split(',')
         def allowed = false
         extensions.each{if(f.originalFilename.endsWith("." + it)) allowed =true}
         if(!allowed) throw new Exception("Input file format not supported")

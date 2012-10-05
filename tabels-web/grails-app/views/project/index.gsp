@@ -51,7 +51,7 @@
 		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
-		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}" maxSize="8789000" extensionsAllowed="rdf,px,shp.zip,csv,ods,xls,html">
+		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}" maxSize="${maxFileSize}" extensionsAllowed="${allowedExtensions}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
