@@ -409,12 +409,16 @@ table#resource-table tr:hover {
 }
 
 #footer{
-	background-color: #ddd;
 	clear:both;
 	padding-top: 0.8em;
 	padding-bottom: 0.8em;
-    border-top: 1px solid #444;
+    border-top: 2px groove #EEE;
     text-align: center;
+    position:absolute;
+    bottom:0px;
+    width: 100%;
+    margin: 0;
+    background-color: #DDD;
 }
 
 #footer span {
