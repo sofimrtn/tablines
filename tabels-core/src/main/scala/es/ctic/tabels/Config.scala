@@ -6,7 +6,6 @@ import org.apache.commons.configuration.CompositeConfiguration
 import org.apache.commons.configuration.SystemConfiguration
 import org.apache.commons.configuration.PropertiesConfiguration
 import java.io.File
-import scala.collection.JavaConversions._
 
 class Config extends Logging {
     
@@ -27,8 +26,8 @@ class Config extends Logging {
     val localTomcatWritablePath = tabelsDir + "/projects"
 
     val maxFileSize = 12582912 // 12MB in bytes
-    val allowedExtensions = Seq("rdf", "px", "shp.zip","csv", "ods", "xls", "html")
-    val allowedExtensionsInJava:java.util.List[String] = allowedExtensions
+    val allowedExtensions = "rdf,px,shp.zip,csv,ods,xls,html"
+
         
 }
 
