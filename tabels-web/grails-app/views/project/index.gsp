@@ -21,9 +21,25 @@
         
         <div class="projectInfo">
         	<ul>
-            	<li><b><g:message code="msg.project.name"/></b> ${params.id}</li>
-                <li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>
-                <li class="deleteLink"><g:link action="delete" id="${params.id}"><g:message code="msg.delete.project.link"/></g:link></li>
+		    	<li>
+			        <g:form action="rename" id="${params.id}" method="post" style="display:inline">
+			        <b><g:message code="msg.project.name"/></b>
+			        <g:textField id="newProjectId" name="newProjectId" value="${params.id}"/>
+	                    <r:script>
+	                    	$(document).ready(function() {
+		                        $('#newProjectId').blur(function() {if (this.value == '') {this.value = '${message(code:"msg.new.project.name")}';}});
+		                        $('#newProjectId').focus(function() {if (this.value == '${message(code:"msg.new.project.name")}') {this.value = '';}});
+		                        $('#newProjectId').change(function() {
+	  								$("#changeName").removeAttr("disabled");
+								});
+							});
+	                    </r:script>
+			        <g:submitButton id="changeName" name="changeName" value="${message(code:'msg.rename.project.link')}" class="inputbutton gray medium" disabled="disabled"/>
+			    	</g:form>
+		    	</li>
+				
+                <!--<li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>-->
+                <li><g:link action="delete" id="${params.id}" class="inputbutton red medium"><g:message code="msg.delete.project.link"/></g:link></li>
                 <!--<li class="showTransformationProgramLink"><span id="showHideTransformationProgram"><g:message code="msg.transformation.program.show.link"/></span></li>-->
             </ul>
 
