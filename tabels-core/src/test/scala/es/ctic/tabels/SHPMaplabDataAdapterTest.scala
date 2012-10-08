@@ -112,3 +112,24 @@ class SHPMaplabDataAdapterBotanicTest extends JUnitSuite {
     assertEquals(Literal("http://www.tabels.com/ctic/json/leyenda_no_validated-1-1.json", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 2)).getContent)
   }
 }
+
+class SHPMaplabDataAdapterNoSldTest extends JUnitSuite {
+
+
+  var dataAdapter : SHPMaplabDataAdapter = null
+  val filename1 : String = this.getClass.getResource("/es/ctic/tabels/one-point-no-sld.shp.zip").getFile.replace("%20"," ")
+  val sheet1 = "dbf"
+  val sheet2 = "sld"
+
+  @Test def testFileIsInvalid {
+
+    System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
+    val file1 = new File(filename1)
+    try  {
+      dataAdapter = new SHPMaplabDataAdapter(file1)
+    } catch {
+      case iie: InvalidInputFileNoSldAttached => assertTrue(true)
+      case e: Exception => fail("Should return an InvalidInputFileNoSldAttached, but returned: "+e.getClass.getCanonicalName)
+    }
+  }
+}

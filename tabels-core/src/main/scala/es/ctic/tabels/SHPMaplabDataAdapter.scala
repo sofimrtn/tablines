@@ -9,7 +9,7 @@ import org.geotools.data._
 import org.geotools.data.simple._
 import es.ctic.maplab.sld2googlemaps.Sld2GmapsConverter
 import es.ctic.maplab.shp2kml.Shp2KmlConverter
-
+import org.apache.commons.io.FileUtils
 
 
 /**
@@ -135,8 +135,15 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   // 4 - SLD Handling
   // Find .sld
   val sldFound = extractedZipDir.list().find(fileName => fileName.endsWith(".sld"))
+
+  // If no sld, throw exception
+  if (sldFound.isEmpty)       {
+    throw new InvalidInputFileNoSldAttached(file.getName)
+  }
+
   logger.trace("we found this sld in zip entries: " + sldFound)
-  val styleMatrix = if (sldFound == null) List() else {
+
+  val styleMatrix = if (sldFound.isEmpty) List() else {
 
     val convertedJsonDir = new File(localWritableDirJson)
     convertedJsonDir.mkdir()
@@ -165,7 +172,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // Delete extractedDir
   trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath)
-  ZipDeflater.deleteDir(extractedZipDir)
+  FileUtils.deleteDirectory(extractedZipDir)
   if(!extractedZipDir.exists)
     trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath + ": removed.")
 

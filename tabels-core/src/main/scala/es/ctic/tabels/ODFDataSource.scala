@@ -26,7 +26,9 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
             case e : FileNotFoundException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
                 throw new NoInputFiles
-            
+            case e : Exception =>
+              logger.error("While reading Excel file " + file.getCanonicalPath, e)
+              throw new InvalidInputFileCannotReadOds(file.getName)
 	   }
 	
 	

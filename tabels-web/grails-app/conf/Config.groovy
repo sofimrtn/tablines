@@ -125,6 +125,7 @@ log4j = {
             'es.ctic.tapinos',
             'es.ctic.maplab.controllers.TreeController',
             'es.ctic.maplab.shp2kml.Shp2KmlConverter',
-            'es.ctic.tabels.SHPMaplabDataAdapter'
+            'es.ctic.tabels.SHPMaplabDataAdapter',
+			'es.ctic.tabels'
 
 }

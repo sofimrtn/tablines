@@ -34,6 +34,11 @@ class InvalidInputTab(tabName:String) extends RunTimeTabelsException("Unable to 
 
 class InvalidInputFile(filename:String) extends RunTimeTabelsException("Unable to read input file " + filename)
 
+class InvalidInputFileCannotReadXls(filename:String) extends InvalidInputFile("Not valid Excel file " + filename)
+class InvalidInputFileCannotReadOds(filename:String) extends InvalidInputFile("Not valid ODS file " + filename)
+
+class InvalidInputFileNoSldAttached(filename:String) extends InvalidInputFile("Shapefile zip is missing sld file " + filename)
+
 class UnrecognizedSpreadsheetFormatException(uri:String) extends RunTimeTabelsException("Unable to recognize spreadsheet file format: " + uri)
 
 class TypeConversionException(literal:Literal, targetType:Resource) extends RunTimeTabelsException("Unable to convert literal " + literal + " to type " + targetType)
