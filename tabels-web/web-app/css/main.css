@@ -139,7 +139,6 @@ h2 {
 div.projectInfo{
 	text-align: right;
 	padding-bottom: 0.8em;
-    padding-right:2em;
 }
 div.projectInfo ul{
 	display: inline;
@@ -207,7 +206,7 @@ div .CodeMirror {
 }
 
 #step2 {
-    float: left;
+    float: right;
     width: 45%;
     border: 0.2em #666 solid ;
     padding: 1em;
@@ -533,7 +532,7 @@ margin:0;
     border-radius: 5px;
 border:1px solid #dedede;
 background-color: #FFF;
-width:98%;
+width:100%;
 height:24px;
 float:left;
 margin-bottom:10px;
