@@ -21,13 +21,4 @@ class ZipDeflaterTest extends JUnitSuite {
   @Before def setUp {
     deflated = ZipDeflater.deflate(new ZipFile(new File(filename1)))
   }
-
-  @Test def deleteDir {
-
-    val deflatedPath = deflated.getAbsolutePath
-    ZipDeflater.deleteDir(deflated)
-    assertFalse(new File(deflatedPath).exists())
-
-  }
-
 }
