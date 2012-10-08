@@ -7,7 +7,12 @@
         <h2><g:message code="title.tabels.projects"/></h2>
         
     	<g:if test="${!projects}">
-    	    <div class="messagebox"><p><g:message code="msg.why.nothing.in.project.list.msg"/></p></div>
+    		<g:if test="${!q}">
+    	    	<div class="messagebox"><p><g:message code="msg.why.nothing.in.project.list.msg"/></p></div>
+    	   	</g:if>
+    	    <g:else>
+    	    	<div class="messagebox"><p><g:message code="msg.why.nothing.in.project.search.msg" args="[q]"/></p></div>
+    	    </g:else>
     	</g:if>
         
         <div class=projectListBox>
