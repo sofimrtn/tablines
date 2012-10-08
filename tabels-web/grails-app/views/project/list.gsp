@@ -12,6 +12,17 @@
         
         <div class=projectListBox>
 			<div id="projectListDiv">
+				<g:form action="list" method="post">
+					<g:textField name="q" id="searchbox" class="searchbox" value="${q}"/><g:submitButton name="filter" class="button" value="" />
+					<r:script>
+						if(!$('#searchbox').val()) $('#searchbox').val('${message(code:"msg.filter.project.name")}').css('color', '#cdc9c9');;
+						console.log($('#searchbox').value);
+		    		    $('#searchbox').blur(function() {if (!this.value || this.value == '') {this.value = '${message(code:"msg.filter.project.name")}'; $(this).css('color', '#cdc9c9');}});
+		    		    console.log($('#searchbox').value);
+		    		    $('#searchbox').focus(function() {if (this.value == '${message(code:"msg.filter.project.name")}') {this.value = ''; $(this).css('color', '#000');}});
+		    		    console.log($('#searchbox').value);
+	    		    </r:script>
+				</g:form>
 	        	<ul class="projectList">
 	            <g:each in="${projects}" var="project">
 	                <li>

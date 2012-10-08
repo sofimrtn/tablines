@@ -81,9 +81,13 @@ class ProjectController {
     }*/
     
     def list = {
+        def query=params.q
         def projects = projectService.listProjects()
+        if(query){
+            projects = projects.grep( {it.contains(query)} );
+        }
         withFormat {
-            html { [projects: projects] }
+            html { [projects: projects, q: query] }
             json {
                 render projects as JSON
     	    }
