@@ -16,7 +16,8 @@ class Config extends Logging {
     val tabelsPath = configuration.getString("tabels.path")
     val proxyHost = configuration.getString("tabels.proxyHost")
     val proxyPort = configuration.getString("tabels.proxyPort")
-
+    val maxFileSizeReadFromConfiguration = configuration.getString("tabels.maxFileSize")
+    val allowedExtensionsReadFromConfiguration = configuration.getString("tabels.allowedExtensions")
 
     // val localTomcatWritablePath = configuration.getString("tabels.localTomcatWritablePath")
     val publicTomcatWritablePath = configuration.getString("tabels.publicTomcatWritablePath")
@@ -25,9 +26,9 @@ class Config extends Logging {
 
     val localTomcatWritablePath = tabelsDir + "/projects"
 
-    val maxFileSize = 12582912 // 12MB in bytes
-    val allowedExtensions = "rdf,px,shp.zip,csv,ods,xls,html"
-
+    // default: 12MB in bytes
+    val maxFileSize = if(maxFileSizeReadFromConfiguration != null) maxFileSizeReadFromConfiguration else 12582912
+    val allowedExtensions = if(allowedExtensionsReadFromConfiguration != null) allowedExtensionsReadFromConfiguration else  "rdf,px,shp.zip,csv,ods,xls,html"
         
 }
 
