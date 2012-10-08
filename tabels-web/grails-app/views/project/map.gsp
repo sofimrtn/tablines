@@ -10,8 +10,14 @@
 </head>
 
 <body>
-	<h2><g:message code="msg.map.view.title"/></h2>
-	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
+    <ul id="crumbs" class="crumbsBlock">
+        <li><g:link action="list" id="${params.id}">Home</g:link></li>
+        <li><g:link action="list" id="${params.id}">Projects</g:link></li>
+        <li><g:link action="index" id="${params.id}">Project ${params.id}</g:link></li>
+        <li>Chart view</li>
+    </ul>
+	<!--<h2><g:message code="msg.map.view.title"/></h2>
+	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>-->
 
     <div id="container">
         <div id="leftContainer">

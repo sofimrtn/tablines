@@ -4,7 +4,11 @@
         <meta name="layout" content="main" />
     </head>
     <body>
-        <h2><g:message code="title.tabels.projects"/></h2>
+    	<ul id="crumbs" class="crumbsBlock">
+			<li><g:link action="list" id="${params.id}">Home</g:link></li>
+			<li>Projects</li>
+		</ul>
+        <!--<h2><g:message code="title.tabels.projects"/></h2>-->
         
     	<g:if test="${!projects}">
     		<g:if test="${!q}">
@@ -14,7 +18,7 @@
     	    	<div class="messagebox"><p><g:message code="msg.why.nothing.in.project.search.msg" args="[q]"/></p></div>
     	    </g:else>
     	</g:if>
-        
+
         <div class=projectListBox>
 			<div id="projectListDiv">
 				<g:form action="list" method="post">

@@ -39,8 +39,15 @@
   </head>
   
   <body>
-
-    <h2><g:message code="msg.sparql.form.title"/></h2>
+    <ul id="crumbs" class="crumbsBlock">
+        <li><g:link action="list" id="${params.id}">Home</g:link></li>
+        <li><g:link action="list" id="${params.id}">Projects</g:link></li>
+        <g:if test="${params.id}">
+          <li><g:link action="index" id="${params.id}">Project ${params.id}</g:link></li>
+        </g:if>
+        <li><g:message code="msg.sparql.form.title"/></li>
+    </ul>
+    <!--<h2><g:message code="msg.sparql.form.title"/></h2>
 
 	<p class="backLink">
 	    <g:if test="${params.id}">
@@ -51,7 +58,7 @@
 	        <g:link action="list"><g:message code="msg.back.to.project.list.link"/></g:link>
             <g:set var="formMapping" value="globalSparql"/>
 	    </g:else>
-	</p>
+	</p>-->
 
     <g:form method="post" name="sparqlQueryForm" mapping="${formMapping}" id="${params.id}">
 		<g:if test="${namedGraphs.size() > 0}">

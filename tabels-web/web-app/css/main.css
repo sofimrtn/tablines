@@ -189,6 +189,7 @@ div .CodeMirror {
 }
 
 #step1 {
+    clear:left;
     float: left;
     width: 45%;
     border: 0.2em #666 solid ;
@@ -522,3 +523,43 @@ input[type=text]:focus {
 .projectList{
     margin-top:0px;
 }
+
+ul, li {
+list-style-type:none;
+padding:0;
+margin:0;
+}
+#crumbs {
+    border-radius: 5px;
+border:1px solid #dedede;
+background-color: #FFF;
+width:98%;
+height:24px;
+float:left;
+margin-bottom:10px;
+}
+
+.crumbsBlock{
+    float:none !important;
+    width:100% !important;
+}
+
+#crumbs li {
+float:left;
+line-height:24px;
+padding-left:.75em;
+color:#777;
+}
+
+#crumbs li a {
+display:inline-block;
+padding:0 15px 0 0;
+background:url(../images/crumbs.gif) no-repeat right center;
+text-decoration: none;
+color: #333;
+}
+
+#crumbs li a:hover{
+    text-decoration: underline;
+}
+
