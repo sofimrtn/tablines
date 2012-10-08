@@ -60,8 +60,8 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     "http://www.tabels.com"
   }
 
-  val localTomcatPath = if(Config.localTomcatWritablePath != null) Config.localTomcatWritablePath  else  {
-    logger.warn("No local tomcat writable path specified in tabels.localTomcatWritablePath, using default "+extractedZipDir.getAbsolutePath)
+  val localTomcatPath = if(Config.localTomcatWritablePath != null && new File(Config.localTomcatWritablePath).canWrite) Config.localTomcatWritablePath  else  {
+    logger.warn("No local tomcat writable path specified in tabels.localTomcatWritablePath or directory not writable, using default "+extractedZipDir.getAbsolutePath)
     extractedZipDir.getAbsolutePath
   }
 
@@ -102,7 +102,12 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   val convertedKmlDir = new File(localWritableDirKml)
   convertedKmlDir.mkdir()
-  logger.trace("Created dir to store kml files in: "+convertedKmlDir.getAbsolutePath)
+  if (new File(localWritableDirKml).exists()) {
+    trace("Created dir to store kml files in: "+convertedKmlDir.getAbsolutePath)
+  }  else {
+    warn("can not create dir: "+localWritableDirKml)
+  }
+
   val kmlConversionResults = kmlConverter.convert(shpFile,convertedKmlDir)
 
   // datamatrix: dbf + geometry + kml
