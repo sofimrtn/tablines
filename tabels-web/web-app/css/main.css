@@ -139,7 +139,6 @@ h2 {
 div.projectInfo{
 	text-align: right;
 	padding-bottom: 0.8em;
-    padding-right:2em;
 }
 div.projectInfo ul{
 	display: inline;
@@ -189,6 +188,7 @@ div .CodeMirror {
 }
 
 #step1 {
+    clear:left;
     float: left;
     width: 45%;
     border: 0.2em #666 solid ;
@@ -206,7 +206,7 @@ div .CodeMirror {
 }
 
 #step2 {
-    float: left;
+    float: right;
     width: 45%;
     border: 0.2em #666 solid ;
     padding: 1em;
@@ -488,3 +488,77 @@ input[type=text]:focus {
     color: #555;
     vertical-align: bottom;
 }
+
+#projectListDiv form{
+    overflow:auto;
+}
+
+#projectListDiv form input.searchbox {
+     -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+     border-radius: 5px;
+     border:1px solid #8e8e8e;
+     background-color:#f5f5f5;
+     height:17px;
+     padding:4px;
+     padding-right:28px;
+     color:#4a4a4a;
+     float:left;
+     margin-top:20px;
+     margin-left:20px;
+     font-size:16px;
+ }
+
+#projectListDiv form input.button{
+    border:0;
+    padding:0;
+    margin:21px 0 0 -34px;
+    width:24px;
+    height:24px;
+    background:transparent url('../images/icon-search.png') center center  no-repeat;
+    float:left;
+}
+
+.projectList{
+    margin-top:0px;
+}
+
+ul, li {
+list-style-type:none;
+padding:0;
+margin:0;
+}
+#crumbs {
+    border-radius: 5px;
+border:1px solid #dedede;
+background-color: #FFF;
+width:100%;
+height:24px;
+float:left;
+margin-bottom:10px;
+}
+
+.crumbsBlock{
+    float:none !important;
+    width:100% !important;
+}
+
+#crumbs li {
+float:left;
+line-height:24px;
+padding-left:.75em;
+color:#777;
+}
+
+#crumbs li a {
+display:inline-block;
+padding:0 15px 0 0;
+background:url(../images/crumbs.gif) no-repeat right center;
+text-decoration: none;
+color: #333;
+}
+
+#crumbs li a:hover{
+    text-decoration: underline;
+}
+

@@ -4,14 +4,34 @@
         <meta name="layout" content="main" />
     </head>
     <body>
-        <h2><g:message code="title.tabels.projects"/></h2>
+    	<ul id="crumbs" class="crumbsBlock">
+			<li><g:link action="home">Home</g:link></li>
+			<li>Projects</li>
+		</ul>
+        <!--<h2><g:message code="title.tabels.projects"/></h2>-->
         
     	<g:if test="${!projects}">
-    	    <div class="messagebox"><p><g:message code="msg.why.nothing.in.project.list.msg"/></p></div>
+    		<g:if test="${!q}">
+    	    	<div class="messagebox"><p><g:message code="msg.why.nothing.in.project.list.msg"/></p></div>
+    	   	</g:if>
+    	    <g:else>
+    	    	<div class="messagebox"><p><g:message code="msg.why.nothing.in.project.search.msg" args="[q]"/></p></div>
+    	    </g:else>
     	</g:if>
-        
+
         <div class=projectListBox>
 			<div id="projectListDiv">
+				<g:form action="list" method="post">
+					<g:textField name="q" id="searchbox" class="searchbox" value="${q}"/><g:submitButton name="filter" class="button" value="" />
+					<r:script>
+						if(!$('#searchbox').val()) $('#searchbox').val('${message(code:"msg.filter.project.name")}').css('color', '#cdc9c9');;
+						console.log($('#searchbox').value);
+		    		    $('#searchbox').blur(function() {if (!this.value || this.value == '') {this.value = '${message(code:"msg.filter.project.name")}'; $(this).css('color', '#cdc9c9');}});
+		    		    console.log($('#searchbox').value);
+		    		    $('#searchbox').focus(function() {if (this.value == '${message(code:"msg.filter.project.name")}') {this.value = ''; $(this).css('color', '#000');}});
+		    		    console.log($('#searchbox').value);
+	    		    </r:script>
+				</g:form>
 	        	<ul class="projectList">
 	            <g:each in="${projects}" var="project">
 	                <li>

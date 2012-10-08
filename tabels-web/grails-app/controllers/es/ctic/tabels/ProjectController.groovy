@@ -36,6 +36,10 @@ class ProjectController {
 		 maxFileSize: projectService.configObject.maxFileSize,
 		 allowedExtensions: projectService.configObject.allowedExtensions]
     }
+
+    def home = {
+        render(view:"home")
+    }
     
     def index = {
 		
@@ -83,9 +87,13 @@ class ProjectController {
     }*/
     
     def list = {
+        def query=params.q
         def projects = projectService.listProjects()
+        if(query){
+            projects = projects.grep( {it.contains(query)} );
+        }
         withFormat {
-            html { [projects: projects] }
+            html { [projects: projects, q: query] }
             json {
                 render projects as JSON
     	    }
