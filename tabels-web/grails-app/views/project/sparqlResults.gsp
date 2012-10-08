@@ -7,7 +7,7 @@
 
   <body> 
       <ul id="crumbs" class="crumbsBlock">
-        <li><g:link action="list" id="${params.id}">Home</g:link></li>
+        <li><g:link action="home">Home</g:link></li>
         <li><g:link action="list" id="${params.id}">Projects</g:link></li>
         <g:if test="${params.id}">
           <li><g:link action="index" id="${params.id}">Project ${params.id}</g:link></li>

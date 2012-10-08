@@ -2,6 +2,7 @@ class UrlMappings {
 
 	static mappings = {
 		"/"(controller: "project", action: "list")
+		"/home"(controller: "project", action: "home")
 		"/createProject"(controller: "project", action: "create")
 		"/clearCacheMap"(controller: "project", action: "clearCacheMap")
 		name globalSparql: "/sparql"(controller: "project", action: "sparql")

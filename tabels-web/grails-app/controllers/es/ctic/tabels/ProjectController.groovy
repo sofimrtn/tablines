@@ -36,6 +36,10 @@ class ProjectController {
 		 maxFileSize: projectService.configObject.maxFileSize,
 		 allowedExtensions: projectService.configObject.allowedExtensions]
     }
+
+    def home = {
+        render(view:"home")
+    }
     
     def index = {
 		

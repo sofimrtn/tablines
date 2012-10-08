@@ -5,7 +5,7 @@
     </head>
     <body>
     	<ul id="crumbs" class="crumbsBlock">
-			<li><g:link action="list" id="${params.id}">Home</g:link></li>
+			<li><g:link action="home">Home</g:link></li>
 			<li>Projects</li>
 		</ul>
         <!--<h2><g:message code="title.tabels.projects"/></h2>-->
