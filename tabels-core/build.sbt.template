@@ -82,8 +82,8 @@ libraryDependencies += "org.odftoolkit" % "odfdom-java" % "0.8.7"
 
 libraryDependencies += "xerces" % "xercesImpl" % "2.9.1"
 
-resolvers += "public repo" at
-"http://wopr.fundacionctic.org:8081/nexus/content/repositories/apache-releases/"
+resolvers += "maven2 repo" at
+"http://repo1.maven.org/maven2/"
 
 resolvers += "3rd party repo" at
 "http://wopr.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
