@@ -73,10 +73,10 @@ class ProjectService {
         def extensions=configObject.allowedExtensions.replaceAll(' ','').split(',')
         def allowed = false
         extensions.each{if(f.originalFilename.endsWith("." + it)) allowed =true}
-        if(!allowed) throw new Exception("Input file format not supported")
+        if(!allowed) throw new FileFormatNotAllowedException(f.originalFilename, configObject.allowedExtensions)
         
         def maxSize = configObject.maxFileSize//8789000
-        if(f.size>maxSize) throw new Exception("File size too large")
+        if(f.size>maxSize) throw new FileTooLargeException(f.originalFilename, f.size, maxSize)
         
         def destination = new File(getInputDir(projectId), f.originalFilename)
         log.info "Saving new input file of project ${projectId} to ${destination}"
@@ -117,7 +117,8 @@ class ProjectService {
         new Namespace(ConfigurationHolder.config.grails.serverURL + "/project/" + projectId + "/")
     }
     
-    def autogenerateProgram(String projectId, String strategy) throws ProjectDoesNotExistException {
+    def autogenerateProgram(String projectId, String strategy) throws  Exception // ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile 
+	{
         def autogenerator
         if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId), projectId)
@@ -130,11 +131,11 @@ class ProjectService {
         saveProgram(projectId, program)
     }
     
-    def getDataSource(String projectId) throws ProjectDoesNotExistException {
+    def getDataSource(String projectId) throws ProjectDoesNotExistException, InvalidInputFile {
         return new DataAdaptersDelegate(DataAdapter.findAllRecognizedFilesFromDirectory(getInputDir(projectId)), new Some(getInputDir(projectId)))
     }
     
-    def getModel(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
+    def getModel(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
         log.info "Getting model of ${projectId}"
         if (isCacheValid(projectId)) {
             log.info "Returning cached model from ${getOutputCache(projectId)}"
@@ -146,14 +147,14 @@ class ProjectService {
         }
     }
     
-    def getGlobalModel() throws RunTimeTabelsException {
+    def getGlobalModel() throws RunTimeTabelsException, InvalidInputFile {
         log.info "Getting global model of all projects"
         Model model = ModelFactory.createDefaultModel()
         listProjects().each { model.add(getModel(it)) }        
         return model
     }
     
-    def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
+    def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
         // invalidate cache
         FileUtils.deleteQuietly(getOutputCache(projectId))
         
@@ -189,11 +190,11 @@ class ProjectService {
         return [model: dataOutput.model, trace: trace]
     }
     
-    def getTrace(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
+    def getTrace(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
         return runTransformation(projectId).trace // refresh the model
     }
     
-    def getResources(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
+    def getResources(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
 		def model = getModel(projectId)
 		def subjectsIterator = model.listSubjects()
 		def subjects = []
@@ -216,7 +217,7 @@ class ProjectService {
 		return subjects
     }
     
-    def getGeopoints(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException {
+    def getGeopoints(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
         def queryString = """
         PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
         PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
@@ -283,3 +284,28 @@ class ProjectDoesNotExistException extends Exception {
     }
     
 }
+
+class FileTooLargeException extends Exception {
+		String fileName
+		double fileSize
+		double maxSize
+		
+		FileTooLargeException(String fileName, double fileSize, double maxSize) {
+			super("File size too large. File: ${fileName} was: ${fileSize} bytes but max allowed size is ${maxSize}")
+			this.fileName = fileName
+			this.fileSize = fileSize
+			this.maxSize = maxSize
+		}
+}
+
+class FileFormatNotAllowedException extends Exception {
+	String fileName
+	String allowedExtensions
+	
+	FileFormatNotAllowedException(String fileName, String allowedExtensions) {
+		super("File extension not allowed. File: ${fileName} extension not in ${allowedExtensions}")
+		this.fileName = fileName
+		this.allowedExtensions = allowedExtensions
+	}
+}
+			

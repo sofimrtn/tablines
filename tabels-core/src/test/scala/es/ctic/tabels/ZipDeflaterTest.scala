@@ -17,17 +17,12 @@ class ZipDeflaterTest extends JUnitSuite {
 
   val filename1 : String = this.getClass.getResource("/es/ctic/tabels/2012-NL-Gemeentegrenzen.zip").getFile.replace("%20"," ")
 
-  var deflated : File= null
-  @Before def setUp {
-    deflated = ZipDeflater.deflate(new ZipFile(new File(filename1)))
-  }
 
-  @Test def deleteDir {
+  @Test def testDeflate {
+    val deflated = ZipDeflater.deflate(new ZipFile(new File(filename1)))
 
-    val deflatedPath = deflated.getAbsolutePath
-    ZipDeflater.deleteDir(deflated)
-    assertFalse(new File(deflatedPath).exists())
+    assertTrue(deflated.exists())
+    assertTrue(deflated.isDirectory())
 
   }
-
 }

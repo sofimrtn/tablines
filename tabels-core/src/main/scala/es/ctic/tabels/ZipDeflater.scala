@@ -4,6 +4,7 @@ import grizzled.slf4j.Logging
 import java.util.zip.ZipFile
 import java.io.{OutputStream, InputStream, FileOutputStream, File}
 import scala.collection.JavaConversions._
+import org.apache.commons.io.FileUtils
 
 /**
  * Created with IntelliJ IDEA.
@@ -53,21 +54,6 @@ class ZipDeflater() extends Logging {
     }
 
     doStream()
-  }
-
-  def deleteDir(dirToDelete: File): Boolean = {
-    if (dirToDelete.isDirectory()) {
-      val children = dirToDelete.list();
-      for (i <- 0 until children.length) {
-        val success = deleteDir(new File(dirToDelete, children(i)));
-        if (!success) {
-          return false;
-        }
-      }
-    }
-
-    // The directory is now empty so delete it
-    return dirToDelete.delete();
   }
 
 }

@@ -28,7 +28,7 @@ class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
                 throw new NoInputFiles
             case e : BiffException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
-                throw new InvalidInputFile(file.getName)
+                throw new InvalidInputFileCannotReadXls(file.getName)
 	   }
 	}
   

@@ -9,7 +9,7 @@ import org.geotools.data._
 import org.geotools.data.simple._
 import es.ctic.maplab.sld2googlemaps.Sld2GmapsConverter
 import es.ctic.maplab.shp2kml.Shp2KmlConverter
-
+import org.apache.commons.io.FileUtils
 
 
 /**
@@ -60,8 +60,8 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     "http://www.tabels.com"
   }
 
-  val localTomcatPath = if(Config.localTomcatWritablePath != null) Config.localTomcatWritablePath  else  {
-    logger.warn("No local tomcat writable path specified in tabels.localTomcatWritablePath, using default "+extractedZipDir.getAbsolutePath)
+  val localTomcatPath = if(Config.localTomcatWritablePath != null && new File(Config.localTomcatWritablePath).canWrite) Config.localTomcatWritablePath  else  {
+    logger.warn("No local tomcat writable path specified in tabels.localTomcatWritablePath or directory not writable, using default "+extractedZipDir.getAbsolutePath)
     extractedZipDir.getAbsolutePath
   }
 
@@ -102,7 +102,12 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   val convertedKmlDir = new File(localWritableDirKml)
   convertedKmlDir.mkdir()
-  logger.trace("Created dir to store kml files in: "+convertedKmlDir.getAbsolutePath)
+  if (new File(localWritableDirKml).exists()) {
+    trace("Created dir to store kml files in: "+convertedKmlDir.getAbsolutePath)
+  }  else {
+    warn("can not create dir: "+localWritableDirKml)
+  }
+
   val kmlConversionResults = kmlConverter.convert(shpFile,convertedKmlDir)
 
   // datamatrix: dbf + geometry + kml
@@ -130,8 +135,15 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   // 4 - SLD Handling
   // Find .sld
   val sldFound = extractedZipDir.list().find(fileName => fileName.endsWith(".sld"))
+
+  // If no sld, throw exception
+  if (sldFound.isEmpty)       {
+    throw new InvalidInputFileNoSldAttached(file.getName)
+  }
+
   logger.trace("we found this sld in zip entries: " + sldFound)
-  val styleMatrix = if (sldFound == null) List() else {
+
+  val styleMatrix = if (sldFound.isEmpty) List() else {
 
     val convertedJsonDir = new File(localWritableDirJson)
     convertedJsonDir.mkdir()
@@ -160,7 +172,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // Delete extractedDir
   trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath)
-  ZipDeflater.deleteDir(extractedZipDir)
+  FileUtils.deleteDirectory(extractedZipDir)
   if(!extractedZipDir.exists)
     trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath + ": removed.")
 
