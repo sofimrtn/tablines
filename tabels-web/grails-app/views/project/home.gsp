@@ -9,7 +9,7 @@
 
         <p>Donec tempor consequat est, vitae auctor orci suscipit a. Duis vulputate turpis et urna pellentesque fermentum. Nunc sed massa augue, at placerat augue. Aliquam erat volutpat. Nulla facilisi. Donec bibendum massa vitae velit ornare nec pretium magna venenatis. Donec feugiat tellus gravida nisl suscipit pulvinar. Duis suscipit dictum semper.</p>
         <p>
-    	   <g:link action="list" id="${params.id}" class="inputbutton gray bigrounded">Go demo</g:link>	
+    	   <g:link action="list" class="inputbutton blue bigrounded">Go demo</g:link>	
         </p>
     </body>
 </html>

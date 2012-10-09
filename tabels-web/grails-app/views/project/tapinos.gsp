@@ -2,7 +2,7 @@
 <head>
 	<title>Chart view</title>
     <meta name="layout" content="main" />
-    <r:require modules="tapinos-js,fancybox,protovis,highcharts,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
+    <r:require modules="tapinos-js,fancybox,protovis,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'tapinos.css')}" />
 </head>
 <body>
