@@ -4,7 +4,11 @@
         <meta name="layout" content="main" />	   
     </head>
     <body>
-
+        <ul id="crumbs">
+			<li><g:link action="home">Home</g:link></li>
+			<li><g:link action="list" id="${params.id}">Projects</g:link></li>
+			<li>About </li>
+		</ul>
         <h2>About: <a href="${currentResource.getURI().replaceAll('#','%23')}">${currentResource}</a></h2>
 
 		<table id="resource-table">
