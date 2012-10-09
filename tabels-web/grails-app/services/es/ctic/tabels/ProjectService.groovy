@@ -14,6 +14,7 @@ class ProjectService {
 
     static transactional = true
     static scope = "singleton"
+    static modelCache = [:]
 
     static String defaultProgramFilename = "default.tabels"
     
@@ -98,6 +99,7 @@ class ProjectService {
     def deleteProject(String projectId) throws ProjectDoesNotExistException {
         log.info "Deleting project ${projectId}"
         FileUtils.forceDelete(getProjectDir(projectId))
+        modelCache.remove(projectId)
     }
     
     def renameProject(String oldProjectId, String newProjectId) throws ProjectDoesNotExistException {
@@ -136,14 +138,20 @@ class ProjectService {
     }
     
     def getModel(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
-        log.info "Getting model of ${projectId}"
-        if (isCacheValid(projectId)) {
-            log.info "Returning cached model from ${getOutputCache(projectId)}"
-            Model model = ModelFactory.createDefaultModel()
-            model.read(new FileInputStream(getOutputCache(projectId)), null, "RDF/XML")
+        if(modelCache.get(projectId)){
+            return modelCache.get(projectId);
+        }else{
+            log.info "Getting model of ${projectId}"
+            Model model
+            if (isCacheValid(projectId)) {
+                log.info "Returning cached model from ${getOutputCache(projectId)}"
+                model = ModelFactory.createDefaultModel()
+                model.read(new FileInputStream(getOutputCache(projectId)), null, "RDF/XML")
+            } else {
+                model=runTransformation(projectId).model
+            }
+            modelCache.put(projectId,model)
             return model
-        } else {
-            return runTransformation(projectId).model
         }
     }
     
@@ -157,7 +165,7 @@ class ProjectService {
     def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
         // invalidate cache
         FileUtils.deleteQuietly(getOutputCache(projectId))
-        
+        modelCache.remove(projectId)
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()
