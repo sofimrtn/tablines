@@ -165,7 +165,6 @@ class ProjectService {
     def runTransformation(String projectId) throws ProjectDoesNotExistException, RunTimeTabelsException, InvalidInputFile {
         // invalidate cache
         FileUtils.deleteQuietly(getOutputCache(projectId))
-        modelCache.remove(projectId)
         def dataSource = getDataSource(projectId)
         log.info "And Tabular Cells! Project ${projectId}. Datasource includes these files: ${dataSource.filenames}, and Tabels program: ${getProgramFile(projectId).canonicalPath} (available? ${getProgramFile(projectId).exists()})" 
 		def parser = new TabelsParser()
@@ -274,6 +273,7 @@ class ProjectService {
 
     def saveProgram(String projectId, String newProgram) throws ProjectDoesNotExistException, ParseException, CompileTimeTabelsException {
 	    log.info "Writing the following program to the file ${getProgramFile(projectId)}:\n${newProgram}"
+        modelCache.remove(projectId)
         def parser = new TabelsParser()
         def program = parser.parseProgram(newProgram) // validates the program
         getProgramFile(projectId).setText(newProgram)
