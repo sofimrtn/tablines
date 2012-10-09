@@ -60,6 +60,9 @@ libraryDependencies += "org.geotools" % "gt-opengis" % "8.0-RC2"
 
 libraryDependencies += "org.geotools.xsd" % "gt-xsd-kml" % "8.0-RC2"
 
+// troubleshooting: log4j#log4j;1.2.16
+libraryDependencies += "log4j" % "log4j" % "1.2.16"
+
 // maplab-geotools
 
 libraryDependencies += "es.ctic.maplab" % "maplab-geotools" % "0.1"
