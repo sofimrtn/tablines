@@ -1,0 +1,433 @@
+CHARSET="ANSI";
+AXIS_VERSION="2002";
+CREATION-DATE="20121010 12:24";
+LAST-UPDATED="20120731 09:45";
+DECIMALS=15;
+SHOWDECIMALS=6;
+MATRIX="isoc_tc_broad";
+SUBJECT-AREA="Broadband penetration rate";
+SUBJECT-CODE="isoc_tc_broad";
+COPYRIGHT=NO;
+TITLE="Broadband penetration rate";
+CONTENTS="Broadband penetration rate I131=Number of broadband access lines";
+SOURCE="Eurostat";
+UNITS="NOT_REPORTED";
+STUB="GEO";
+HEADING="TIME";
+VALUES("TIME")="2006M07",
+"2007M01",
+"2007M07",
+"2008M01",
+"2008M07",
+"2009M01",
+"2009M07",
+"2010M01",
+"2010M07",
+"2011M01";
+CODES("TIME")="2006M07",
+"2007M01",
+"2007M07",
+"2008M01",
+"2008M07",
+"2009M01",
+"2009M07",
+"2010M01",
+"2010M07",
+"2011M01";
+DOMAIN("TIME")="TIME";
+VALUES("GEO")="European Union (27 countries)",
+"European Union (25 countries)",
+"European Union (15 countries)",
+"Belgium",
+"Bulgaria",
+"Czech Republic",
+"Denmark",
+"Germany (including  former GDR from 1991)",
+"Estonia",
+"Ireland",
+"Greece",
+"Spain",
+"France",
+"Italy",
+"Cyprus",
+"Latvia",
+"Lithuania",
+"Luxembourg",
+"Hungary",
+"Malta",
+"Netherlands",
+"Austria",
+"Poland",
+"Portugal",
+"Romania",
+"Slovenia",
+"Slovakia",
+"Finland",
+"Sweden",
+"United Kingdom";
+CODES("GEO")="EU27",
+"EU25",
+"EU15",
+"BE",
+"BG",
+"CZ",
+"DK",
+"DE",
+"EE",
+"IE",
+"EL",
+"ES",
+"FR",
+"IT",
+"CY",
+"LV",
+"LT",
+"LU",
+"HU",
+"MT",
+"NL",
+"AT",
+"PL",
+"PT",
+"RO",
+"SI",
+"SK",
+"FI",
+"SE",
+"UK";
+DOMAIN("GEO")="GEO";
+KEYS("GEO")=CODES;
+CELLNOTE("European Union (27 countries)","2006M07")="N/A";
+CELLNOTE("European Union (27 countries)","2006M07")="N/A";
+CELLNOTE("European Union (27 countries)","2007M01")="N/A";
+CELLNOTE("European Union (27 countries)","2007M07")="N/A";
+CELLNOTE("European Union (27 countries)","2008M01")="N/A";
+CELLNOTE("European Union (27 countries)","2008M07")="N/A";
+CELLNOTE("European Union (27 countries)","2009M01")="N/A";
+CELLNOTE("European Union (27 countries)","2009M07")="N/A";
+CELLNOTE("European Union (27 countries)","2010M01")="N/A";
+CELLNOTE("European Union (27 countries)","2010M07")="N/A";
+CELLNOTE("European Union (27 countries)","2011M01")="N/A";
+CELLNOTE("European Union (25 countries)","2006M07")="N/A";
+CELLNOTE("European Union (25 countries)","2007M01")="N/A";
+CELLNOTE("European Union (25 countries)","2007M07")="N/A";
+CELLNOTE("European Union (25 countries)","2008M01")="N/A";
+CELLNOTE("European Union (25 countries)","2008M07")="N/A";
+CELLNOTE("European Union (25 countries)","2009M01")="N/A";
+CELLNOTE("European Union (25 countries)","2009M07")="N/A";
+CELLNOTE("European Union (25 countries)","2010M01")="N/A";
+CELLNOTE("European Union (25 countries)","2010M07")="N/A";
+CELLNOTE("European Union (25 countries)","2011M01")="N/A";
+CELLNOTE("European Union (15 countries)","2006M07")="N/A";
+CELLNOTE("European Union (15 countries)","2007M01")="N/A";
+CELLNOTE("European Union (15 countries)","2007M07")="N/A";
+CELLNOTE("European Union (15 countries)","2008M01")="N/A";
+CELLNOTE("European Union (15 countries)","2008M07")="N/A";
+CELLNOTE("European Union (15 countries)","2009M01")="N/A";
+CELLNOTE("European Union (15 countries)","2009M07")="N/A";
+CELLNOTE("European Union (15 countries)","2010M01")="N/A";
+CELLNOTE("European Union (15 countries)","2010M07")="N/A";
+CELLNOTE("European Union (15 countries)","2011M01")="N/A";
+CELLNOTE("Belgium","2006M07")="N/A";
+CELLNOTE("Belgium","2007M01")="N/A";
+CELLNOTE("Belgium","2007M07")="N/A";
+CELLNOTE("Belgium","2008M01")="N/A";
+CELLNOTE("Belgium","2008M07")="N/A";
+CELLNOTE("Belgium","2009M01")="N/A";
+CELLNOTE("Belgium","2009M07")="N/A";
+CELLNOTE("Belgium","2010M01")="N/A";
+CELLNOTE("Belgium","2010M07")="N/A";
+CELLNOTE("Belgium","2011M01")="N/A";
+CELLNOTE("Bulgaria","2006M07")="N/A";
+CELLNOTE("Bulgaria","2006M07")="N/A";
+CELLNOTE("Bulgaria","2007M01")="N/A";
+CELLNOTE("Bulgaria","2007M07")="N/A";
+CELLNOTE("Bulgaria","2008M01")="N/A";
+CELLNOTE("Bulgaria","2008M07")="N/A";
+CELLNOTE("Bulgaria","2009M01")="N/A";
+CELLNOTE("Bulgaria","2009M07")="N/A";
+CELLNOTE("Bulgaria","2010M01")="N/A";
+CELLNOTE("Bulgaria","2010M07")="N/A";
+CELLNOTE("Bulgaria","2011M01")="N/A";
+CELLNOTE("Czech Republic","2006M07")="N/A";
+CELLNOTE("Czech Republic","2007M01")="N/A";
+CELLNOTE("Czech Republic","2007M07")="N/A";
+CELLNOTE("Czech Republic","2008M01")="N/A";
+CELLNOTE("Czech Republic","2008M07")="N/A";
+CELLNOTE("Czech Republic","2009M01")="N/A";
+CELLNOTE("Czech Republic","2009M07")="N/A";
+CELLNOTE("Czech Republic","2010M01")="N/A";
+CELLNOTE("Czech Republic","2010M07")="N/A";
+CELLNOTE("Czech Republic","2011M01")="N/A";
+CELLNOTE("Denmark","2006M07")="N/A";
+CELLNOTE("Denmark","2007M01")="N/A";
+CELLNOTE("Denmark","2007M07")="N/A";
+CELLNOTE("Denmark","2008M01")="N/A";
+CELLNOTE("Denmark","2008M07")="N/A";
+CELLNOTE("Denmark","2009M01")="N/A";
+CELLNOTE("Denmark","2009M07")="N/A";
+CELLNOTE("Denmark","2010M01")="N/A";
+CELLNOTE("Denmark","2010M07")="N/A";
+CELLNOTE("Denmark","2011M01")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2006M07")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2007M01")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2007M07")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2008M01")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2008M07")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2009M01")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2009M07")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2010M01")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2010M07")="N/A";
+CELLNOTE("Germany (including  former GDR from 1991)","2011M01")="N/A";
+CELLNOTE("Estonia","2006M07")="N/A";
+CELLNOTE("Estonia","2007M01")="N/A";
+CELLNOTE("Estonia","2007M07")="N/A";
+CELLNOTE("Estonia","2008M01")="N/A";
+CELLNOTE("Estonia","2008M07")="N/A";
+CELLNOTE("Estonia","2009M01")="N/A";
+CELLNOTE("Estonia","2009M07")="N/A";
+CELLNOTE("Estonia","2010M01")="N/A";
+CELLNOTE("Estonia","2010M07")="N/A";
+CELLNOTE("Estonia","2011M01")="N/A";
+CELLNOTE("Ireland","2006M07")="N/A";
+CELLNOTE("Ireland","2007M01")="N/A";
+CELLNOTE("Ireland","2007M07")="N/A";
+CELLNOTE("Ireland","2008M01")="N/A";
+CELLNOTE("Ireland","2008M07")="N/A";
+CELLNOTE("Ireland","2009M01")="N/A";
+CELLNOTE("Ireland","2009M07")="N/A";
+CELLNOTE("Ireland","2010M01")="N/A";
+CELLNOTE("Ireland","2010M07")="N/A";
+CELLNOTE("Ireland","2011M01")="N/A";
+CELLNOTE("Greece","2006M07")="N/A";
+CELLNOTE("Greece","2007M01")="N/A";
+CELLNOTE("Greece","2007M07")="N/A";
+CELLNOTE("Greece","2008M01")="N/A";
+CELLNOTE("Greece","2008M07")="N/A";
+CELLNOTE("Greece","2009M01")="N/A";
+CELLNOTE("Greece","2009M07")="N/A";
+CELLNOTE("Greece","2010M01")="N/A";
+CELLNOTE("Greece","2010M07")="N/A";
+CELLNOTE("Greece","2011M01")="N/A";
+CELLNOTE("Spain","2006M07")="N/A";
+CELLNOTE("Spain","2007M01")="N/A";
+CELLNOTE("Spain","2007M07")="N/A";
+CELLNOTE("Spain","2008M01")="N/A";
+CELLNOTE("Spain","2008M07")="N/A";
+CELLNOTE("Spain","2009M01")="N/A";
+CELLNOTE("Spain","2009M07")="N/A";
+CELLNOTE("Spain","2010M01")="N/A";
+CELLNOTE("Spain","2010M07")="N/A";
+CELLNOTE("Spain","2011M01")="N/A";
+CELLNOTE("France","2006M07")="N/A";
+CELLNOTE("France","2007M01")="N/A";
+CELLNOTE("France","2007M07")="N/A";
+CELLNOTE("France","2008M01")="N/A";
+CELLNOTE("France","2008M07")="N/A";
+CELLNOTE("France","2009M01")="N/A";
+CELLNOTE("France","2009M07")="N/A";
+CELLNOTE("France","2010M01")="N/A";
+CELLNOTE("France","2010M07")="N/A";
+CELLNOTE("France","2011M01")="N/A";
+CELLNOTE("Italy","2006M07")="N/A";
+CELLNOTE("Italy","2007M01")="N/A";
+CELLNOTE("Italy","2007M07")="N/A";
+CELLNOTE("Italy","2008M01")="N/A";
+CELLNOTE("Italy","2008M07")="N/A";
+CELLNOTE("Italy","2009M01")="N/A";
+CELLNOTE("Italy","2009M07")="N/A";
+CELLNOTE("Italy","2010M01")="N/A";
+CELLNOTE("Italy","2010M07")="N/A";
+CELLNOTE("Italy","2011M01")="N/A";
+CELLNOTE("Cyprus","2006M07")="N/A";
+CELLNOTE("Cyprus","2007M01")="N/A";
+CELLNOTE("Cyprus","2007M07")="N/A";
+CELLNOTE("Cyprus","2008M01")="N/A";
+CELLNOTE("Cyprus","2008M07")="N/A";
+CELLNOTE("Cyprus","2009M01")="N/A";
+CELLNOTE("Cyprus","2009M07")="N/A";
+CELLNOTE("Cyprus","2010M01")="N/A";
+CELLNOTE("Cyprus","2010M07")="N/A";
+CELLNOTE("Cyprus","2011M01")="N/A";
+CELLNOTE("Latvia","2006M07")="N/A";
+CELLNOTE("Latvia","2007M01")="N/A";
+CELLNOTE("Latvia","2007M07")="N/A";
+CELLNOTE("Latvia","2008M01")="N/A";
+CELLNOTE("Latvia","2008M07")="N/A";
+CELLNOTE("Latvia","2009M01")="N/A";
+CELLNOTE("Latvia","2009M07")="N/A";
+CELLNOTE("Latvia","2010M01")="N/A";
+CELLNOTE("Latvia","2010M07")="N/A";
+CELLNOTE("Latvia","2011M01")="N/A";
+CELLNOTE("Lithuania","2006M07")="N/A";
+CELLNOTE("Lithuania","2007M01")="N/A";
+CELLNOTE("Lithuania","2007M07")="N/A";
+CELLNOTE("Lithuania","2008M01")="N/A";
+CELLNOTE("Lithuania","2008M07")="N/A";
+CELLNOTE("Lithuania","2009M01")="N/A";
+CELLNOTE("Lithuania","2009M07")="N/A";
+CELLNOTE("Lithuania","2010M01")="N/A";
+CELLNOTE("Lithuania","2010M07")="N/A";
+CELLNOTE("Lithuania","2011M01")="N/A";
+CELLNOTE("Luxembourg","2006M07")="N/A";
+CELLNOTE("Luxembourg","2007M01")="N/A";
+CELLNOTE("Luxembourg","2007M07")="N/A";
+CELLNOTE("Luxembourg","2008M01")="N/A";
+CELLNOTE("Luxembourg","2008M07")="N/A";
+CELLNOTE("Luxembourg","2009M01")="N/A";
+CELLNOTE("Luxembourg","2009M07")="N/A";
+CELLNOTE("Luxembourg","2010M01")="N/A";
+CELLNOTE("Luxembourg","2010M07")="N/A";
+CELLNOTE("Luxembourg","2011M01")="N/A";
+CELLNOTE("Hungary","2006M07")="N/A";
+CELLNOTE("Hungary","2007M01")="N/A";
+CELLNOTE("Hungary","2007M07")="N/A";
+CELLNOTE("Hungary","2008M01")="N/A";
+CELLNOTE("Hungary","2008M07")="N/A";
+CELLNOTE("Hungary","2009M01")="N/A";
+CELLNOTE("Hungary","2009M07")="N/A";
+CELLNOTE("Hungary","2010M01")="N/A";
+CELLNOTE("Hungary","2010M07")="N/A";
+CELLNOTE("Hungary","2011M01")="N/A";
+CELLNOTE("Malta","2006M07")="N/A";
+CELLNOTE("Malta","2007M01")="N/A";
+CELLNOTE("Malta","2007M07")="N/A";
+CELLNOTE("Malta","2008M01")="N/A";
+CELLNOTE("Malta","2008M07")="N/A";
+CELLNOTE("Malta","2009M01")="N/A";
+CELLNOTE("Malta","2009M07")="N/A";
+CELLNOTE("Malta","2010M01")="N/A";
+CELLNOTE("Malta","2010M07")="N/A";
+CELLNOTE("Malta","2011M01")="N/A";
+CELLNOTE("Netherlands","2006M07")="N/A";
+CELLNOTE("Netherlands","2007M01")="N/A";
+CELLNOTE("Netherlands","2007M07")="N/A";
+CELLNOTE("Netherlands","2008M01")="N/A";
+CELLNOTE("Netherlands","2008M07")="N/A";
+CELLNOTE("Netherlands","2009M01")="N/A";
+CELLNOTE("Netherlands","2009M07")="N/A";
+CELLNOTE("Netherlands","2010M01")="N/A";
+CELLNOTE("Netherlands","2010M07")="N/A";
+CELLNOTE("Netherlands","2011M01")="N/A";
+CELLNOTE("Austria","2006M07")="N/A";
+CELLNOTE("Austria","2007M01")="N/A";
+CELLNOTE("Austria","2007M07")="N/A";
+CELLNOTE("Austria","2008M01")="N/A";
+CELLNOTE("Austria","2008M07")="N/A";
+CELLNOTE("Austria","2009M01")="N/A";
+CELLNOTE("Austria","2009M07")="N/A";
+CELLNOTE("Austria","2010M01")="N/A";
+CELLNOTE("Austria","2010M07")="N/A";
+CELLNOTE("Austria","2011M01")="N/A";
+CELLNOTE("Poland","2006M07")="N/A";
+CELLNOTE("Poland","2007M01")="N/A";
+CELLNOTE("Poland","2007M07")="N/A";
+CELLNOTE("Poland","2008M01")="N/A";
+CELLNOTE("Poland","2008M07")="N/A";
+CELLNOTE("Poland","2009M01")="N/A";
+CELLNOTE("Poland","2009M07")="N/A";
+CELLNOTE("Poland","2010M01")="N/A";
+CELLNOTE("Poland","2010M07")="N/A";
+CELLNOTE("Poland","2011M01")="N/A";
+CELLNOTE("Portugal","2006M07")="N/A";
+CELLNOTE("Portugal","2007M01")="N/A";
+CELLNOTE("Portugal","2007M07")="N/A";
+CELLNOTE("Portugal","2008M01")="N/A";
+CELLNOTE("Portugal","2008M07")="N/A";
+CELLNOTE("Portugal","2009M01")="N/A";
+CELLNOTE("Portugal","2009M07")="N/A";
+CELLNOTE("Portugal","2010M01")="N/A";
+CELLNOTE("Portugal","2010M07")="N/A";
+CELLNOTE("Portugal","2011M01")="N/A";
+CELLNOTE("Romania","2006M07")="N/A";
+CELLNOTE("Romania","2006M07")="N/A";
+CELLNOTE("Romania","2007M01")="N/A";
+CELLNOTE("Romania","2007M07")="N/A";
+CELLNOTE("Romania","2008M01")="N/A";
+CELLNOTE("Romania","2008M07")="N/A";
+CELLNOTE("Romania","2009M01")="N/A";
+CELLNOTE("Romania","2009M07")="N/A";
+CELLNOTE("Romania","2010M01")="N/A";
+CELLNOTE("Romania","2010M07")="N/A";
+CELLNOTE("Romania","2011M01")="N/A";
+CELLNOTE("Slovenia","2006M07")="N/A";
+CELLNOTE("Slovenia","2007M01")="N/A";
+CELLNOTE("Slovenia","2007M07")="N/A";
+CELLNOTE("Slovenia","2008M01")="N/A";
+CELLNOTE("Slovenia","2008M07")="N/A";
+CELLNOTE("Slovenia","2009M01")="N/A";
+CELLNOTE("Slovenia","2009M07")="N/A";
+CELLNOTE("Slovenia","2010M01")="N/A";
+CELLNOTE("Slovenia","2010M07")="N/A";
+CELLNOTE("Slovenia","2011M01")="N/A";
+CELLNOTE("Slovakia","2006M07")="N/A";
+CELLNOTE("Slovakia","2007M01")="N/A";
+CELLNOTE("Slovakia","2007M07")="N/A";
+CELLNOTE("Slovakia","2008M01")="N/A";
+CELLNOTE("Slovakia","2008M07")="N/A";
+CELLNOTE("Slovakia","2009M01")="N/A";
+CELLNOTE("Slovakia","2009M07")="N/A";
+CELLNOTE("Slovakia","2010M01")="N/A";
+CELLNOTE("Slovakia","2010M07")="N/A";
+CELLNOTE("Slovakia","2011M01")="N/A";
+CELLNOTE("Finland","2006M07")="N/A";
+CELLNOTE("Finland","2007M01")="N/A";
+CELLNOTE("Finland","2007M07")="N/A";
+CELLNOTE("Finland","2008M01")="N/A";
+CELLNOTE("Finland","2008M07")="N/A";
+CELLNOTE("Finland","2009M01")="N/A";
+CELLNOTE("Finland","2009M07")="N/A";
+CELLNOTE("Finland","2010M01")="N/A";
+CELLNOTE("Finland","2010M07")="N/A";
+CELLNOTE("Finland","2011M01")="N/A";
+CELLNOTE("Sweden","2006M07")="N/A";
+CELLNOTE("Sweden","2007M01")="N/A";
+CELLNOTE("Sweden","2007M07")="N/A";
+CELLNOTE("Sweden","2008M01")="N/A";
+CELLNOTE("Sweden","2008M07")="N/A";
+CELLNOTE("Sweden","2009M01")="N/A";
+CELLNOTE("Sweden","2009M07")="N/A";
+CELLNOTE("Sweden","2010M01")="N/A";
+CELLNOTE("Sweden","2010M07")="N/A";
+CELLNOTE("Sweden","2011M01")="N/A";
+CELLNOTE("United Kingdom","2006M07")="N/A";
+CELLNOTE("United Kingdom","2007M01")="N/A";
+CELLNOTE("United Kingdom","2007M07")="N/A";
+CELLNOTE("United Kingdom","2008M01")="N/A";
+CELLNOTE("United Kingdom","2008M07")="N/A";
+CELLNOTE("United Kingdom","2009M01")="N/A";
+CELLNOTE("United Kingdom","2009M07")="N/A";
+CELLNOTE("United Kingdom","2010M01")="N/A";
+CELLNOTE("United Kingdom","2010M07")="N/A";
+CELLNOTE("United Kingdom","2011M01")="N/A";
+DATA=
+"EU27",: 80047141 90207122 99846053 107601796 113446213 119375156 123738941 128658446 133062126
+"EU25",68658781 78614140 88347916 97316806 104561360 110085499 115820445 119949213 124673591 128936775
+"EU15",64322194 73010573 81530947 89041247 95356495 99625349 104478992 107924861 111829782 115314512
+"BE",2172246 2354850 2509456 2714335 2811591 2938605 3041315 3134076 3254833 3373143
+"BG",: 345577 435199 580226 730373 853089 905340 986434 1047652 1125590
+"CZ",860508 1087520 1252269 1497420 1626330 1770184 1867535 2003843 2142057 2268468
+"DK",1606531 1703605 2025538 1961164 2035468 2026185 2049975 2084000 2115652 2150221
+"DE",12608400 14902200 17401503 19579000 21618300 22618000 24100288 24977400 25642020 26161950
+"EE",222987 246887 268586 298291 316969 329436 352739 348404 348716 357797
+"IE",372172 517324 652832 752856 841590 890371 948814 991158 1022220 1035772
+"EL",297090 487889 760858 1017475 1245974 1506614 1753434 1916630 2105077 2252653
+"ES",5784862 6652665 7480342 8155021 8793517 9157465 9477901 9846069 10325172 10892519
+"FR",11297543 12816164 14117236 15687000 16617641 17688008 18763211 19495186 20410090 21261000
+"IT",7690503 8497422 9402180 10122126 10727651 11304522 11888074 12395106 12870838 13274398
+"CY",50566 68014 86260 107556 124263 143302 166681 176024 186340 194455
+"LV",155738 241550 263602 343076 370772 395896 394973 437050 422617 434655
+"LT",286059 359564 431449 507719 546082 588347 609408 633583 650874 684052
+"LU",80105 98765 112927 120973 130113 139501 153995 158552 166759 166259
+"HU",760271 995784 1172067 1428726 1576937 1640444 1728021 1879181 1968049 2057820
+"MT",51943 50493 56400 68950 83767 98109 108554 110769 117500 121880
+"NL",4741829 5192200 5418971 5587600 5851300 5935000 6221800 6221800 6359524 6416886
+"AT",1310096 1440180 1524854 1655519 1723271 1786052 1818547 1893785 1965593 2002307
+"PL",1504274 1994460 2605958 3199663 3659289 4478465 4892494 5166956 5681833 6115850
+"PT",1359744 1470810 1565869 1596644 1672312 1754653 1868453 1975233 2087713 2175679
+"RO",: 1087424 1424007 1949021 2310243 2507625 2649371 2803294 2937203 2999761
+"SI",228962 279660 307985 347492 383521 426070 449024 465353 483925 494065
+"SK",215279 279635 372393 476666 516935 589897 772024 803189 841898 893221
+"FI",1308459 1426351 1518428 1619029 1618098 1625745 1626700 1565500 1555100 1559400
+"SE",2069685 2347850 2575700 2842500 2959500 2861000 3009978 2916401 2980000 2981962
+"UK",11622929 13102298 14464253 15630005 16710169 17393628 17756507 18353965 18969191 19610363
