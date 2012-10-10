@@ -69,7 +69,7 @@ class PXReaderSimpleTest extends JUnitSuite {
 
 class PXReaderSimpleDotsTest extends JUnitSuite {
    
-    private val reader =new PXReader(new File(this.getClass.getResource("/es/ctic/tabels/Simple.px").getFile.replace("%20"," ")))
+    private val reader =new PXReader(new File(this.getClass.getResource("/es/ctic/tabels/simple.px").getFile.replace("%20"," ")))
        
     @Test def testReadHeadings {
         assertEquals("sector", reader.readHeadings(1))
@@ -192,7 +192,7 @@ class PXReaderFormatTest extends JUnitSuite {
 
 class PXReaderEduTest extends JUnitSuite {
    
-    private val reader =new PXReader(new File(this.getClass.getResource("/es/ctic/tabels/Edu.px").getFile.replace("%20"," ")))
+    private val reader =new PXReader(new File(this.getClass.getResource("/es/ctic/tabels/edu.px").getFile.replace("%20"," ")))
        
   /*  @Test def testReadHeadings {
        assertEquals("curso acad?mico", reader.readHeadings(0))
