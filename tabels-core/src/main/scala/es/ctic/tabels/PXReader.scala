@@ -47,7 +47,7 @@ class PXReader(file : File)/* with Logging */{
 	  return readStub.foldLeft(1)((result,stub)=>result*readValues(stub).size)
   }
   def readData:Seq[Array[String]] = {
-	  val array = (stringSource.drop(stringSource.indexOf("DATA")).replaceAll(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1).replaceAll(" *\n *| +"," ")).trim.split(" ")
+	  val array = (stringSource.drop(stringSource.indexOf("DATA")).replaceAll(";","").replace("=\n","=").drop(stringSource.drop(stringSource.indexOf("DATA")).indexOf("=")+1).replaceAll(" *\n *| +"," ")).replaceAll("\".+\" *,","").trim.split(" ")
 	  return (0 until getDataRowsSize).map(element=>array.take((element+1)*getDataColsSize).drop(element*getDataColsSize))
   }
   
