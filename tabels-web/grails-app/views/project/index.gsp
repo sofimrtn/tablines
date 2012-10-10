@@ -48,7 +48,6 @@
             </ul>
 
         </div>
-     
         <div class="stepBox" id="step1">
 		<h2><g:message code="msg.step1.drag"/></h2>
 		

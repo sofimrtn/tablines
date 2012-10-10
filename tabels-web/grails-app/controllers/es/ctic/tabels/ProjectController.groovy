@@ -474,7 +474,7 @@ class ProjectController {
 				def resource = model.getResource(fullUri)
 				def directStatements = model.listStatements(resource, null, null)
 				def inverseStatements = model.listStatements(null, null, resource)
-				render(view: "page", model: [currentResource: resource, directStatements: directStatements, inverseStatements: inverseStatements])
+				render(view: "page", model: [id: projectId, currentResource: resource, directStatements: directStatements, inverseStatements: inverseStatements])
 			} else {
 				log.error("Resource ${fullUri} does not exist in the model of project ${projectId}")
 				render(status: 404)

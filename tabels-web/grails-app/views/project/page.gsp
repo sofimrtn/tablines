@@ -6,7 +6,8 @@
     <body>
         <ul id="crumbs">
 			<li><g:link action="home">Home</g:link></li>
-			<li><g:link action="list" id="${params.id}">Projects</g:link></li>
+			<li><g:link action="list">Projects</g:link></li>
+			<li><g:link action="index" id="${id}">Project ${id}</g:link></li>
 			<li>About </li>
 		</ul>
         <h2>About: <a href="${currentResource.getURI().replaceAll('#','%23')}">${currentResource}</a></h2>
