@@ -1,8 +1,8 @@
 class UrlMappings {
 
 	static mappings = {
-		"/"(controller: "project", action: "list")
-		"/home"(controller: "project", action: "home")
+		"/"(controller: "project", action: "home")
+		"/list"(controller: "project", action: "list")
 		"/contact"(controller: "project", action: "contact")
 		"/disclaimer"(controller: "project", action: "disclaimer")
 		"/createProject"(controller: "project", action: "create")

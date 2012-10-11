@@ -1,12 +1,16 @@
 html{
     background-color: #DDD;
+    overflow-y: scroll;
+    text-align: justify;
 }
 
 body {
     margin: 0px;
-    font-family: verdana, arial, helvetica, sans-serif;
+    font-family: "Helvetica Neue",Helvetica,Arial,Verdana,Geneva,sans-serif;
     background-color: #f0f0f0;
     background: #f0f0f0 url('../images/bg.png') repeat;
+    color: #333;
+    line-height: 1.5;
 }
 
 #header {
@@ -15,8 +19,8 @@ body {
     margin: 0px;
     padding: 0em 1em 1em 1.5em;
     border-bottom: 2px orange solid;
-    background-image: url(../images/ctic-white.png);
-    background-position: 100% 70%;
+    background-image: url('http://www.fundacionctic.org/sites/default/files/logo_blanco_ctic_0_0_0.png');
+    background-position: 99% 70%;
     background-repeat: no-repeat;
     position:relative;
     overflow: hidden;
@@ -421,10 +425,11 @@ table#resource-table tr:hover {
     width: 100%;
     margin: 0;
     background-color: #DDD;
-    background: -webkit-gradient(linear, left top, left bottom, from(#AAA), to(#DDD));
-    background: -moz-linear-gradient(top,  #AAA,  #DDD);
-    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#AAA', endColorstr='#DDD');
-    height: 8px;
+    background: -webkit-gradient(linear, left top, left bottom, from(#BBB), to(#DDD));
+    background: -moz-linear-gradient(top,  #BBB,  #DDD);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#BBB', endColorstr='#DDD');
+    height: 80px;
+    line-height: 22px;
 }
 
 #footer span {
@@ -621,4 +626,24 @@ color: #333;
 .homePage li{
     list-style: disc;
     margin-left:1em;
+}
+
+.homePage ol>li{
+    list-style: decimal;
+}
+
+.screenshot{
+    float: right;
+    background-color: white;
+    border: 1px solid #666;
+    padding:5px;
+    margin: 10px 20px;
+}
+
+.screenshotLeft{
+    float: left;
+}
+
+.screenshot img{
+    width:200px;
 }

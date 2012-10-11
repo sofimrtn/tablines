@@ -28,3 +28,5 @@ $( ".accordion" ).click(function() {
 	$(this).next('div').slideToggle();
 	return true;
 });
+
+$(".screenshot a").fancybox();

@@ -41,7 +41,7 @@
 		</div>
 		
 		<div id="footer">
-			<span>&copy; 2012 CTIC-CT All Rights Reserved</span> - 
+			
 			<span class="helpIcon">
 				<g:link controller="docs" action="guide"> 
 				<!--<img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" />-->
@@ -49,7 +49,8 @@
 			</span> - 
 			<span class="contact">
 				<g:link action="contact" > <!--<img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" />--><g:message code="product.contact"/></g:link></span> - 
-			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span>
+			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span><br/>
+			<span>&copy; 2012 <a href="http://www.fundacionctic.org/" title="CTIC-CT">CTIC-CT</a> All Rights Reserved</span>
 		</div>
     </body>
 </html>
