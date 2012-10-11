@@ -563,6 +563,43 @@ color: #333;
 }
 
 .homePage{
-    width:90%;
+    width:80%;
     margin: 1em auto;
+    vertical-align: top;
+}
+
+.left{
+    float:left;
+    width:70%;
+    margin: 1% 2%;
+}
+
+.right{
+    float:right;
+    width:20%;
+    margin-right:2%;
+    text-align: center;
+}
+
+.clear{
+    clear:both;
+}
+
+.title{
+    width:95%;
+    text-align:left !important;
+    margin-bottom: 0.3em !important;
+}
+
+.title div{
+
+}
+
+.demo{
+    display: block;
+    background: url(../images/demo.png) no-repeat center top;
+    height: 170px;
+    width:200px;
+    padding-top: 130px;
+    text-decoration: none;
 }

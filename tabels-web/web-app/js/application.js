@@ -22,6 +22,8 @@ $( "div.showHide h2" ).click(function() {
 	return true;
 });
 
+$( ".accordion" ).next('div').hide();
+
 $( ".accordion" ).click(function() {
 	$(this).next('div').slideToggle();
 	return true;
