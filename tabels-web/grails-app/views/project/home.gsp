@@ -58,48 +58,93 @@
 			    	the transformation process. There are a number of already defined functions to this end, such 
 			    	as the XPath operations.</p>
 		    	</div>
-
-				<h3 class="accordion inputbutton green title">Data mediation and manipulation</h3>
-				<div>
-					<p>FIXME</p>
-				</div>
-
-				<h3 class="accordion inputbutton white title">Entity recognition and reconciliation</h3>
-				<div>
-					<p></p>
-				</div>
-
+		    	
 				<h3 class="accordion inputbutton gray title">APIs and data access</h3>
-				<div>
-					<p>FIXME </p>
-				</div>
-		
+    			<div>
+    				<p>Tabels has been designed as a data-experts tool providing some functionalities to
+    				    transform, integrate and explore data tables. To this end, Tabels has been geared
+    				    with a complete data-explotation toolkit: faceted views, interactive charts, etc. In addition,
+    				    Tabels allows to download the produced RDF dataset in several syntaxes, namely RDF/XML,
+    				    N3 and Turtle; and complementarily it provides a SPARL data-access endpoint, 
+    				    where queries can be performed by both domain experts and third-party tools.</p>
+    				<p>Besides the web front-end usage, Tabels is equipped with a set of REST services
+    				    and a native Scala API to enable its integration into a more complex software
+    				    architecture as a library.</p>
+    			</div>
+
+				<h3 class="accordion inputbutton green title">RDF transformation, mediation and reconciliation</h3>
+    			<div>
+    				<p>Tabels also supports some data operations over RDF graphs. The language
+    				    has special commands (called directives) empowering domain experts
+    				    to perform data cleaning, merging, preparation, etc. Following,
+    				    Tabels directives are briefly described:</p>
+    				<ul>
+    				    <li>@LOAD directive, to upload and merge RDF files with the current dataset.</li>
+    				    <li>@JENARULE directive, to define (recursive) data transformations as Jena rules,
+    				        both backward and forward chaining.</li>
+    				    <li>@SPARQL directive, to perform an SPARQL Update query in order to update the
+    				        current dataset. They can be also used as (non-recursive) production rules to 
+    				        transform the RDF graph.</li>
+    				    <li>@FETCH directive, which retrieves external resources descriptions after the 
+    				        transformation process. For instance, in case a DBpedia URI is used, Tabels
+    				        performs a GET request to bring back its description and feed the current
+    				        dataset.</li> 
+    				</ul>
+    				<p>In addtion, Tabels is supplied with some disambiguation functions applied
+    				    during the transformation process. These algorithms implement string-matching
+    				    metrics such as the Levenshtein distance. There are a number of data-disamiguation 
+    				    corpora to this end: DBpedia, Geonames, etc.</p>
+    			</div>
+
 				<h3 class="accordion inputbutton gray title">Charts and statistics</h3>
 				<div>
 					<p>Tabels benefits from the Understats (Understanding Statistics) technology, 
 			    	an easy-to-deploy HTML5-based component which facilitates end-users an
 			    	interactive exploration of statistical and multidimensional data.</p>
-					<p>Understats is an data-sensitive front-end that generates
+					<p>Understats is a data-sensitive front-end that generates
 			    	responsive charts from the inspection of the dimensions and measures comprising
 			    	an statistical indicator represented with the RDF Data Cube vocabulary. Tabels
-			    	can be used then to automatically provide visualizations of statistical datasets 
+			    	can be used then to automatically provide visualizations of multidimensional datasets 
 			    	published by national and international agencies, such as Eurostat, FAO or IFM ones,
 			    	typically encoded in csv, spreadsheets or even PC-Axis (*.px) formats.</p>		
 		    	</div>
 				
 				<h3 class="accordion inputbutton gray title">Maps and geographic data</h3>
-				<div>	
-					<p>Tabels also integrates the Undermaps (Understanding Maps) component. In a similar
-		    		fashion as Understats works with multidimensional data described with the Data Cube vocabulary,
-		    		these HTML5 front-end widgets produces web-map visualizations of geographic
-		    		and cartographic information. Undermaps is NeoGeo vocabulary FIXME</p>
-				
-					<p>Shapefiles FIXME</p>
-				</div>
+				<div>
+    				<p>The most popular format to exchange geospatial data between geographic information
+    				    systems (GIS) is the ESRI shapefile, a vector data format to represent points, polilynes
+    				    and polygons. Tabels, empowered by the GeoTools library, is able to transform the information
+    				    encoded in a shapefile into a partial RDF representation. On the one hand, 
+    				    features are actually captured as RDF resources. On the other, their spatial
+    				    geometries are transformed to a KML standard representation. In addition, there
+    				    is another relevant information in a shapefile to draw and interpret the map:
+    				    the style (icons, colors, line format, etc.). These styles must be originally 
+    				    expressed in the XML-based SLD standard (Styled Layer Descriptor) defined by the OGC
+    				    consortium.</p>
+    				<p>To visualize these geospatial data, Tabels also integrates the Undermaps (Understanding Maps) 
+    				    component. In a similar fashion as Understats works with multidimensional data described 
+    				    with the Data Cube vocabulary, these HTML5 front-end widgets produces web-map visualizations 
+    				    of geographic and cartographic information.</p>
+    	    		<p>Undermaps is sensitive to geospatial data expressed in the following way:
+    	    		    <ul>
+    	    		        <li>Features are RDF resources and are linked to their geometries (a KML file)
+    	    		            through the NeoGeo Vocabulary property: neogeo:geometry. In addition, Undermaps
+    	    		            also supports the <a href="http://www.w3.org/2003/01/geo/">W3C Basic Geo Vocabulary</a>
+    	    		            in case of points.</li>
+    	    		        <li>(Spatial) Types of features should be represented as SKOS concepts and these
+    	    		            relationship is done with the Dublin Core property: dct:subject</li>
+    	    		        <li>Map styles, comprising the legend, are related to the SKOS hierarchy. An style 
+    	    		            can be a SVG-designed symbol or a Google Maps JSON. The relationship between 
+    	    		            an SKOS concept and its map-style is made via an ad-hoc property called:
+    	    		            http://disaster-fp7.eu/ontology/core#prefSymbol.</li>    
+    	    		    </ul>
+    	    	    </p>
+    			</div>
 			</div>
+
 			<div class="right">
 				<p>
-	    	   		<g:link action="list" class="demo">Go demo</g:link>	
+	    	   		<g:link action="list" class="demo">Go to Tabels online</g:link>	
 		    	</p>
 		    </div>
 		    <div class="clear"></div>
