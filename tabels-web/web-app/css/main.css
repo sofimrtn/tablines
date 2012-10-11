@@ -562,3 +562,7 @@ color: #333;
     text-decoration: underline;
 }
 
+.homePage{
+    width:90%;
+    margin: 1em auto;
+}

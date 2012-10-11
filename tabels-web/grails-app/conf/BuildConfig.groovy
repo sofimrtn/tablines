@@ -28,10 +28,19 @@ grails.project.dependency.resolution = {
         mavenRepo "http://www.scala-tools.org/repo-releases/"
     }
     plugins {
-        runtime ':tapinos-js:1.5.3',
-        		':highcharts:2.2.1.0', // this should be unnecessary, but for some reason, it is not included by tapinos-js
-                ':uploadr:0.6-CTIC',
-                ':svn:1.0.2'
+        runtime ':uploadr:0.6-CTIC',//':tapinos-js:1.6',
+                ':svn:1.0.2',
+                //Added for tapinos-ws
+                ":jquery:1.7.1",
+                ":fancybox:1.3.4",
+                ":protovis:3.3.1",
+                ":jquery-geturlparam:2.1",
+                ":jquery-datatables:1.8.2",
+                ":jquery-tipsy:1.0.0a",
+                ":jquery-tooltip:1.3",
+                ":jquery-ui:1.8.15",
+                ":jquery-svg:1.4.4.0",
+                ":resources:1.1.6"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
@@ -46,7 +55,7 @@ grails.project.dependency.resolution = {
 		}
 		
  // compile('es.ctic.tapinos:tapinos-services:1.9.3')
-        compile('es.ctic.understats:understats:2.1'){
+        compile('es.ctic.understats:understats:2.2'){
             excludes 'arq'
         }
         compile('commons-lang:commons-lang:2.6')

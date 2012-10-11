@@ -40,4 +40,18 @@ modules = {
 		resource url:'http://google-maps-utility-library-v3.googlecode.com/svn/trunk/infobubble/src/infobubble.js'
 		resource url:'css/infobubble.custom.css'
 	}
+
+    'tapinos-js' {
+        dependsOn 'jquery,fancybox,protovis,jquery-ui,jquery-svg,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip'
+//        defaultBundle 'ui'
+        resource url:'js/tapinos/jquery.tapinosCommon.js'
+        resource url:'js/tapinos/jquery.tapinosChart.js'
+        resource url:'js/tapinos/jquery.tapinosCombos.js'
+        resource url:'js/tapinos/jquery.tapinosMap.js'
+        resource url:'js/tapinos/jquery.tapinosPermLinkBuilder.js'
+        resource url:'js/tapinos/jquery.tapinosSelectSearch.js'
+        resource url:'js/tapinos/jquery.tapinosTable.js'
+        resource url:'css/tapinos.css'
+    }
+
 }

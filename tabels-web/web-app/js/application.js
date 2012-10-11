@@ -21,3 +21,8 @@ $( "div.showHide h2" ).click(function() {
 	$('#programDiv').toggle('blind');
 	return true;
 });
+
+$( ".accordion" ).click(function() {
+	$(this).next('div').slideToggle();
+	return true;
+});
