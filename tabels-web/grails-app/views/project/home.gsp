@@ -52,14 +52,14 @@
 			  			<li>The RDF template section: where the program specifies the RDF graph pattern which 
 			      		variables are to be instantiated with the bindings obtained during the data tables 
 			      		processing. Graph patterns can be separated and are expressed in N3 syntax (in a similar 
-			      		fashion as SPARQL language).<li>
+			      		fashion as SPARQL language).</li>
 					</ol>
 					<p>The Tabels language also provides auxiliary machinery to filter and compare data values during 
 			    	the transformation process. There are a number of already defined functions to this end, such 
 			    	as the XPath operations.</p>
 		    	</div>
 		    	
-				<h3 class="accordion inputbutton gray title">APIs and data access</h3>
+				<h3 class="accordion inputbutton orange title">APIs and data access</h3>
     			<div>
     				<p>Tabels has been designed as a data-experts tool providing some functionalities to
     				    transform, integrate and explore data tables. To this end, Tabels has been geared
@@ -72,7 +72,7 @@
     				    architecture as a library.</p>
     			</div>
 
-				<h3 class="accordion inputbutton green title">RDF transformation, mediation and reconciliation</h3>
+				<h3 class="accordion inputbutton orange title">RDF transformation, mediation and reconciliation</h3>
     			<div>
     				<p>Tabels also supports some data operations over RDF graphs. The language
     				    has special commands (called directives) empowering domain experts
@@ -90,13 +90,14 @@
     				        performs a GET request to bring back its description and feed the current
     				        dataset.</li> 
     				</ul>
+    				
     				<p>In addtion, Tabels is supplied with some disambiguation functions applied
     				    during the transformation process. These algorithms implement string-matching
     				    metrics such as the Levenshtein distance. There are a number of data-disamiguation 
     				    corpora to this end: DBpedia, Geonames, etc.</p>
     			</div>
 
-				<h3 class="accordion inputbutton gray title">Charts and statistics</h3>
+				<h3 class="accordion inputbutton orange title">Charts and statistics</h3>
 				<div>
 					<p>Tabels benefits from the Understats (Understanding Statistics) technology, 
 			    	an easy-to-deploy HTML5-based component which facilitates end-users an
@@ -109,7 +110,7 @@
 			    	typically encoded in csv, spreadsheets or even PC-Axis (*.px) formats.</p>		
 		    	</div>
 				
-				<h3 class="accordion inputbutton gray title">Maps and geographic data</h3>
+				<h3 class="accordion inputbutton orange title">Maps and geographic data</h3>
 				<div>
     				<p>The most popular format to exchange geospatial data between geographic information
     				    systems (GIS) is the ESRI shapefile, a vector data format to represent points, polilynes
@@ -125,26 +126,25 @@
     				    component. In a similar fashion as Understats works with multidimensional data described 
     				    with the Data Cube vocabulary, these HTML5 front-end widgets produces web-map visualizations 
     				    of geographic and cartographic information.</p>
-    	    		<p>Undermaps is sensitive to geospatial data expressed in the following way:
-    	    		    <ul>
-    	    		        <li>Features are RDF resources and are linked to their geometries (a KML file)
-    	    		            through the NeoGeo Vocabulary property: neogeo:geometry. In addition, Undermaps
-    	    		            also supports the <a href="http://www.w3.org/2003/01/geo/">W3C Basic Geo Vocabulary</a>
-    	    		            in case of points.</li>
-    	    		        <li>(Spatial) Types of features should be represented as SKOS concepts and these
-    	    		            relationship is done with the Dublin Core property: dct:subject</li>
-    	    		        <li>Map styles, comprising the legend, are related to the SKOS hierarchy. An style 
-    	    		            can be a SVG-designed symbol or a Google Maps JSON. The relationship between 
-    	    		            an SKOS concept and its map-style is made via an ad-hoc property called:
-    	    		            http://disaster-fp7.eu/ontology/core#prefSymbol.</li>    
-    	    		    </ul>
-    	    	    </p>
+    	    		<p>Undermaps is sensitive to geospatial data expressed in the following way:</p>
+    	    		<ul>
+	    		        <li>Features are RDF resources and are linked to their geometries (a KML file)
+	    		            through the NeoGeo Vocabulary property: neogeo:geometry. In addition, Undermaps
+	    		            also supports the <a href="http://www.w3.org/2003/01/geo/">W3C Basic Geo Vocabulary</a>
+	    		            in case of points.</li>
+	    		        <li>(Spatial) Types of features should be represented as SKOS concepts and these
+	    		            relationship is done with the Dublin Core property: dct:subject</li>
+	    		        <li>Map styles, comprising the legend, are related to the SKOS hierarchy. An style 
+	    		            can be a SVG-designed symbol or a Google Maps JSON. The relationship between 
+	    		            an SKOS concept and its map-style is made via an ad-hoc property called:
+	    		            http://disaster-fp7.eu/ontology/core#prefSymbol.</li>    
+    	    		</ul>
     			</div>
 			</div>
 
 			<div class="right">
 				<p>
-	    	   		<g:link action="list" class="demo">Go to Tabels online</g:link>	
+	    	   		<g:link action="list" class="demo">Go to Demo online</g:link>	
 		    	</p>
 		    </div>
 		    <div class="clear"></div>

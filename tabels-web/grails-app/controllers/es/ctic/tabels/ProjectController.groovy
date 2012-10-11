@@ -40,6 +40,14 @@ class ProjectController {
     def home = {
         render(view:"home")
     }
+
+    def contact = {
+        render(view:"contact")
+    }
+
+    def disclaimer = {
+        render(view:"disclaimer")
+    }
     
     def index = {
 		

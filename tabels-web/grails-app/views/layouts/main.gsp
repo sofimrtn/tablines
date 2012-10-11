@@ -20,7 +20,7 @@
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />
         </div>
 		<div id="header">
-			<h1><g:link controller="project" action="list"><g:message code="product.name"/></g:link></h1>
+			<h1><g:link controller="project" action="home"><g:message code="product.name"/></g:link></h1>
 			<p class="undertitle"><g:message code="product.slogan" /></p>			
 		</div>
 		<div id="content">
@@ -41,11 +41,15 @@
 		</div>
 		
 		<div id="footer">
-			<span class="helpIcon"><g:link controller="docs" action="guide"> <img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" /><g:message code="product.help"/></g:link></span>
-			<span class="contact"><g:link controller="docs" action="guide" > <img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" /><g:message code="product.contact"/></g:link></span>
-
-			<span>Disclaimer</span>
-			<span>Acknowledgments</span>
+			<span>&copy; 2012 CTIC-CT All Rights Reserved</span> - 
+			<span class="helpIcon">
+				<g:link controller="docs" action="guide"> 
+				<!--<img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" />-->
+				<g:message code="product.help"/></g:link>
+			</span> - 
+			<span class="contact">
+				<g:link action="contact" > <!--<img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" />--><g:message code="product.contact"/></g:link></span> - 
+			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span>
 		</div>
     </body>
 </html>

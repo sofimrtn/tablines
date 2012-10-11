@@ -63,7 +63,7 @@ p.undertitle {
 
 h2 {
     color: #333;
-    border-bottom: 0.2em #BBB solid;
+    border-bottom: 0.2em orange groove;
     /* padding-left: 0.2em; */
 }
 
@@ -421,11 +421,23 @@ table#resource-table tr:hover {
     width: 100%;
     margin: 0;
     background-color: #DDD;
+    background: -webkit-gradient(linear, left top, left bottom, from(#AAA), to(#DDD));
+    background: -moz-linear-gradient(top,  #AAA,  #DDD);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#AAA', endColorstr='#DDD');
+    height: 8px;
 }
 
 #footer span {
     margin: 0em;
     padding: 0em;
+}
+
+#footer a{
+    text-decoration: none;
+}
+
+#footer a:hover{
+    text-decoration: underline;
 }
 
 #footer img, #footer a{
@@ -525,8 +537,8 @@ input[type=text]:focus {
 
 ul, li {
 list-style-type:none;
-padding:0;
-margin:0;
+/*padding:0;*/
+/*margin:0;*/
 }
 #crumbs {
     border-radius: 5px;
@@ -536,6 +548,7 @@ width:100%;
 height:24px;
 float:left;
 margin-bottom:10px;
+padding-left:0px;
 }
 
 .crumbsBlock{
@@ -565,19 +578,19 @@ color: #333;
 .homePage{
     width:80%;
     margin: 1em auto;
+    padding:2%;
     vertical-align: top;
 }
 
 .left{
     float:left;
-    width:70%;
-    margin: 1% 2%;
+    width:75%;
 }
 
 .right{
     float:right;
     width:20%;
-    margin-right:2%;
+    margin-top:2em;
     text-align: center;
 }
 
@@ -589,6 +602,7 @@ color: #333;
     width:95%;
     text-align:left !important;
     margin-bottom: 0.3em !important;
+    padding-left:1em !important;
 }
 
 .title div{
@@ -600,6 +614,11 @@ color: #333;
     background: url(../images/demo.png) no-repeat center top;
     height: 170px;
     width:200px;
-    padding-top: 130px;
+    padding-top: 135px;
     text-decoration: none;
+}
+
+.homePage li{
+    list-style: disc;
+    margin-left:1em;
 }
