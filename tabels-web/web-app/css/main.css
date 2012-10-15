@@ -168,7 +168,7 @@ list-style-type: none;
     padding-left: 20px;            
 }
 
-#showHideTransformationProgram{
+#showHideTransformationProgram span{
 	cursor: pointer;
 	text-decoration:underline;
     color:#06C;
@@ -227,7 +227,7 @@ div.stepBox h2 {
     clear: both;
     /*display:none;*/
 }
-#showHide h2{
+#showHide span{
     cursor: pointer;
 }
 
@@ -445,9 +445,6 @@ table#resource-table tr:hover {
     text-decoration: underline;
 }
 
-#footer img, #footer a{
-	vertical-align:middle;
-}
 #footer img{
 	display: inline;
 	margin-right: 0.2em;
@@ -494,16 +491,15 @@ input[type=text]:focus {
 
 .showHide{
     clear:both;
-    cursor: pointer;
 }
 
 .showHide span{
     /*float:right;*/
     margin-left:1em;
-    line-height: 1.5em;
+    /*line-height: 1.5em;
     font-size: 0.6em;
     color: #555;
-    vertical-align: bottom;
+    vertical-align: bottom;*/
 }
 
 #projectListDiv form{
@@ -583,7 +579,7 @@ color: #333;
 .homePage{
     width:80%;
     margin: 1em auto;
-    padding:2%;
+    padding:0px 2% 2% 2%;
     vertical-align: top;
 }
 
@@ -652,4 +648,8 @@ color: #333;
     position:relative;
     top: -10px;
     left:5px;
+}
+
+.smallText{
+    font-size: 80%;
 }
