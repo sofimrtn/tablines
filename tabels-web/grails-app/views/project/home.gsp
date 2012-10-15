@@ -167,7 +167,7 @@
 	    		            an SKOS concept and its map-style is made for the moment via an ad-hoc property called:
 	    		            <code>http://disaster-fp7.eu/ontology/core#prefStyle</code>.</li>    
     	    		</ul>
-    	    		<p>For instance: <g:link action="index" id="safetyRegions">Safety regions project</g:link> and <g:link action="index" id="AsturiasFlora">Asturias Flora project</g:link></p>
+    	    		<p>For instance: <g:link action="index" id="safetyRegions">Safety regions project</g:link> and <g:link action="index" id="FloraOfAsturias">Flora of Asturias project</g:link></p>
     	    		
     			</div>
 			</div>
