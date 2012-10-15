@@ -360,17 +360,21 @@ ul.projectList li{
 }
 
 .projectListLink {
-background: white url('../images/tabels-folder.png') no-repeat center top;
-display: inline-block;
-min-width: 128px;
-
-color: black;
-text-align: center;
-position: relative;
-top: 0;
-left: 0;
-padding-top:115px;
+    background: white url('../images/tabels-folder.png') no-repeat center top;
+    display: inline-block;
+    min-width: 128px;
+    color: black;
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: 0;
+    padding-top:115px;
 }
+
+.projectListLinkReadOnly {
+    background: white url('../images/tabels-folder-readonly.png') no-repeat center top;
+}
+
 .deleteProjectList {
 background: rgba(255, 255, 255, 0) url('../images/deleteProject.png') no-repeat left;
 height: 24px;
@@ -496,6 +500,7 @@ input[type=text]:focus {
 .showHide span{
     /*float:right;*/
     margin-left:1em;
+    font-size: 16px;
     /*line-height: 1.5em;
     font-size: 0.6em;
     color: #555;
@@ -652,4 +657,8 @@ color: #333;
 
 .smallText{
     font-size: 80%;
+}
+
+code {
+    font-size: 14px;
 }

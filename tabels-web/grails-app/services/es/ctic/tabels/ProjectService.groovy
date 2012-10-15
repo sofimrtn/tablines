@@ -111,6 +111,11 @@ class ProjectService {
         conf.createNewFile()
         conf.append("readonly=false\n");
     }
+
+    def isReadOnly(projectId){
+        def conf=getConfigurationFile(projectId)
+        return conf["readonly"].toBoolean();
+    }
     
     def deleteProject(String projectId) throws ProjectDoesNotExistException {
         log.info "Deleting project ${projectId}"

@@ -17,7 +17,7 @@
 		            Data tables are everywhere in our life. Calendars, maps, 
 		            forms, reports and charts are only some examples of this tables omnipresence in organizations everyday work.</p>
 					<p>The aim is to provide means to discover and to surface the data structures hidden 
-			   		in tables, and to enable users to combine data past the limits of files and formats. 
+			   		in tables, and to enable users to combine data over and above the limits of files and formats. 
 			    	By transforming data tables to RDF datasets, the information integration achieves 
 			    	a new dimension. Raw data transcends into a world of linked resources brimming 
 			    	with enrichment and entity reconciliation opportunities. <strong>Tabels</strong> is not a mere 
@@ -37,7 +37,7 @@
 			    	from data tables to RDF. This language allows to declaratively express mappings 
 			    	between the two worlds: tables and graphs. A <strong>Tabels</strong> program comprises three different parts:</p>
 					<ol>
-			  			<li>The <code>PREFIX</code> section: where namespaces and prefixes are declared in a similar fashion as 
+			  			<li>The <code>PREFIX</code> section: where namespaces and prefixes are declared in a similar fashion as in 
 			      		the SPARQL language.</li>
 			  			<li>The data tables interpretation section: where the program specifies how 
 			      		to go through the tables according to four complementary dimensions: 
@@ -73,8 +73,8 @@
     				<div class="screenshot">
 			    		<a href="${resource(dir:'images',file:'architecture.png')}"><img src="${resource(dir:'images',file:'architecture.png')}" alt="Tabels architecture" /></a>
 			    	</div>
-    				<p><strong>Tabels</strong> has been designed as a data-experts tool providing some functionalities to
-    				    transform, integrate and explore data tables. To this end, <strong>Tabels</strong> has been geared
+    				<p><strong>Tabels</strong> has been designed as a tool for data-experts providing some functionalities to
+    				    transform, integrate and explore data tables. To this end, <strong>Tabels</strong> has been geared up 
     				    with a complete data-explotation toolkit: faceted views, interactive charts, etc. In addition,
     				    <strong>Tabels</strong> allows to download the produced RDF dataset in several syntaxes, namely RDF/XML,
     				    N3 and Turtle; and complementarily it provides a SPARQL data-access endpoint, 
@@ -121,7 +121,7 @@
 			    	interactive exploration of statistical and multidimensional data.</p>
 					<p>Understats is a data-sensitive front-end that generates
 			    	responsive charts from the inspection of the dimensions and measures comprising
-			    	an statistical indicator represented with the RDF Data Cube vocabulary. <strong>Tabels</strong>
+			    	a statistical indicator represented with the RDF Data Cube vocabulary. <strong>Tabels</strong>
 			    	can be used then to automatically provide visualizations of multidimensional datasets 
 			    	published by national and international agencies, such as 
 			    	<a href="http://epp.eurostat.ec.europa.eu/" title="Eurostat">Eurostat</a>, 
@@ -162,7 +162,7 @@
 	    		        <li>(Spatial) Types of features should be represented as SKOS concepts and these
 	    		            relationship is done with the Dublin Core property: 
 	    		            <a href="http://purl.org/dc/terms/subject" title="dct:subject"><code>dct:subject</code></a></li>
-	    		        <li>Map styles, comprising the legend, are related to the SKOS hierarchy. An style 
+	    		        <li>Map styles, comprising the legend, are related to the SKOS hierarchy. A style 
 	    		            can be a SVG-designed symbol or a Google Maps JSON. The relationship between 
 	    		            an SKOS concept and its map-style is made for the moment via an ad-hoc property called:
 	    		            <code>http://disaster-fp7.eu/ontology/core#prefStyle</code>.</li>    

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Tabels project</title>
+        <title>Tabels project - Team and contact</title>
         <meta name="layout" content="main" />
     </head>
     <body>
@@ -11,7 +11,7 @@
     	<div class="projectListBox homePage">
     		<div class="left">
 	    		<h2>Team and contact</h2>
-	    		<p><strong>Tabels</strong> is an on-going work developed by researchers from <a href="http://fundacionctic.org/en">CTIC</a>. Please, contact
+			<p><strong>Tabels</strong> is an on-going work developed by researchers from <a href="http://fundacionctic.org/en">CTIC</a>. Please, contact
 	    		    any of us whether you have any question, suggestion or
 	    		    comment about <strong>Tabels</strong>, its features and the data-sensitive visualization toolkit.</p>
 	    		<ul>

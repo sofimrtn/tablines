@@ -1,3 +1,7 @@
+<%@ page import="es.ctic.tabels.ProjectService" %>
+<%
+	def service=new ProjectService()
+%>
 <html>
     <head>
         <title><g:message code="title.tabels.projects"/></title>
@@ -35,7 +39,12 @@
 	        	<ul class="projectList">
 	            <g:each in="${projects}" var="project">
 	                <li>
-	                    <g:link action="index" id="${project}" class="projectListLink">${project}</g:link>
+	                	<g:if test="${!service.isReadOnly(project)}">
+	                    	<g:link action="index" id="${project}" class="projectListLink">${project}</g:link>
+	                    </g:if>
+	                    <g:else>
+	                    	<g:link action="index" id="${project}" class="projectListLink projectListLinkReadOnly">${project}</g:link>
+	                	</g:else>
 	                </li>
 	            </g:each>
 	        	</ul>
