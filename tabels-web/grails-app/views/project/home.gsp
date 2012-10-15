@@ -31,7 +31,7 @@
 				<h3 class="accordion inputbutton orange title"> <strong>Tabels</strong> language</h3>
 				<div>
 					<div class="screenshot">
-			    		<a href="${resource(dir:'images',file:'code-screenshot.png')}"><img src="${resource(dir:'images',file:'code-screenshot.png')}" alt="Chart Screenshot" /></a>
+			    		<a href="${resource(dir:'images',file:'code-screenshot.png')}"><img src="${resource(dir:'images',file:'code-screenshot.png')}" alt="Code Screenshot" /></a>
 			    	</div>
 					<p><strong>Tabels</strong> comes with its own DSL (Domain Specific Language) to define the transformations 
 			    	from data tables to RDF. This language allows to declaratively express mappings 
@@ -71,7 +71,7 @@
 				<h3 class="accordion inputbutton orange title">APIs and data access</h3>
     			<div>
     				<div class="screenshot">
-			    		<a href="${resource(dir:'images',file:'project-screenshot.png')}"><img src="${resource(dir:'images',file:'project-screenshot.png')}" alt="Chart Screenshot" /></a>
+			    		<a href="${resource(dir:'images',file:'architecture.png')}"><img src="${resource(dir:'images',file:'architecture.png')}" alt="Tabels architecture" /></a>
 			    	</div>
     				<p><strong>Tabels</strong> has been designed as a data-experts tool providing some functionalities to
     				    transform, integrate and explore data tables. To this end, <strong>Tabels</strong> has been geared
@@ -135,7 +135,7 @@
 				<h3 class="accordion inputbutton orange title">Maps and geographic data</h3>
 				<div>
 					<div class="screenshot">
-			    		<a href="${resource(dir:'images',file:'map-screenshot.png')}"><img src="${resource(dir:'images',file:'map-screenshot.png')}" alt="Chart Screenshot" /></a>
+			    		<a href="${resource(dir:'images',file:'map-screenshot.png')}"><img src="${resource(dir:'images',file:'map-screenshot.png')}" alt="Map Screenshot" /></a>
 			    	</div>
     				<p>The most popular format to exchange geospatial data between geographic information
     				    systems (GIS) is the ESRI shapefile, a vector data format to represent points, polylines
