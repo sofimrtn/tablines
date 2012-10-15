@@ -9,32 +9,32 @@
 		    <div class="left">
 	        	<h2>Tabels project</h2>
 	        	<div>
-		        	<p>Tabels (Tabular Cells) is an R&D tool, developed by <a href="http://www.fundacionctic.org/" title="CTIC">CTIC</a>, 
+		        	<p><strong>Tabels</strong> (Tabular Cells) is an R&amp;D tool, developed by <a href="http://www.fundacionctic.org/en" title="CTIC">CTIC</a>, 
 		        		to make meaning of 
-		            tabular data. Tabels goes beyond spreadsheets and csv files to include other 
-		            formats such as PC-Axis, Shapefiles, analysis-tools formats and so forth. 
+		            tabular data. <strong>Tabels</strong> goes beyond spreadsheets and csv files to include other 
+		            formats such as PC-Axis, ESRI shapefile, analysis-tools formats and so forth. 
 		            Data tables are everywhere in our life and organizations. Calendars, maps, 
 		            forms, reports and charts are only some examples of this tables omnipresence.</p>
 					<p>The aim is to provide means to discover and to surface the data structures hidden 
 			   		in tables, and to enable users to combine data past the limits of files and formats. 
 			    	By transforming data tables to RDF datasets, the information integration achieves 
 			    	a new dimension. Raw data transcends into a world of linked resources brimming 
-			    	with enrichment and entity reconciliation opportunities. Tabels is not a mere 
+			    	with enrichment and entity reconciliation opportunities. <strong>Tabels</strong> is not a mere 
 			    	transformation tool, but it facilitates end-user exploitation of data by supplying 
 			    	front-end interactive mechanisms.</p> 
-			    	<p>Give a try to our <g:link action="list">online demo service</g:link>
+			    	<p>Give a <g:link action="list">try to our online demo service</g:link>
 	    		    and <g:link action="contact">tell us</g:link> about your experience!</p>
 
 			    </div>
 
-				<h3 class="accordion inputbutton orange title"> Tabels language</h3>
+				<h3 class="accordion inputbutton orange title"> <strong>Tabels</strong> language</h3>
 				<div>
 					<div class="screenshot">
 			    		<a href="${resource(dir:'images',file:'code-screenshot.png')}"><img src="${resource(dir:'images',file:'code-screenshot.png')}" alt="Chart Screenshot" /></a>
 			    	</div>
-					<p>Tabels comes with its own DSL (Domain Specific Language) to define the transformations 
+					<p><strong>Tabels</strong> comes with its own DSL (Domain Specific Language) to define the transformations 
 			    	from data tables to RDF. This language allows to declaratively express mappings 
-			    	between the two worlds: tabels and graphs. A Tabels program comprises three different parts:</p>
+			    	between the two worlds: tables and graphs. A <strong>Tabels</strong> program comprises three different parts:</p>
 					<ol>
 			  			<li>The <code>PREFIX</code> section: where namespaces and prefixes are declared in a similar fashion as 
 			      		the SPARQL language.</li>
@@ -62,7 +62,7 @@
 			  			    table processing. Graph patterns can be separated and are expressed in N3 
 			  			    syntax.</li>
 					</ol>
-					<p>The Tabels language also provides auxiliary machinery to filter and compare data values during 
+					<p>The <strong>Tabels</strong> language also provides auxiliary machinery to filter and compare data values during 
 			    	the transformation process. There are a number of already defined functions to this end, such 
 			    	as the XPath operations.</p>
 		    	</div>
@@ -72,24 +72,24 @@
     				<div class="screenshot">
 			    		<a href="${resource(dir:'images',file:'project-screenshot.png')}"><img src="${resource(dir:'images',file:'project-screenshot.png')}" alt="Chart Screenshot" /></a>
 			    	</div>
-    				<p>Tabels has been designed as a data-experts tool providing some functionalities to
-    				    transform, integrate and explore data tables. To this end, Tabels has been geared
+    				<p><strong>Tabels</strong> has been designed as a data-experts tool providing some functionalities to
+    				    transform, integrate and explore data tables. To this end, <strong>Tabels</strong> has been geared
     				    with a complete data-explotation toolkit: faceted views, interactive charts, etc. In addition,
-    				    Tabels allows to download the produced RDF dataset in several syntaxes, namely RDF/XML,
+    				    <strong>Tabels</strong> allows to download the produced RDF dataset in several syntaxes, namely RDF/XML,
     				    N3 and Turtle; and complementarily it provides a SPARQL data-access endpoint, 
     				    where queries can be performed by both domain experts and third-party tools.</p>
     				
-    				<p>Besides the web front-end usage, Tabels is equipped with a set of REST services
+    				<p>Besides the web front-end usage, <strong>Tabels</strong> is equipped with a set of REST services
     				    and a native Scala API to enable its integration into a more complex software
     				    architecture as a library.</p>
     			</div>
 
 				<h3 class="accordion inputbutton orange title">RDF transformation, mediation and reconciliation</h3>
     			<div>
-    				<p>Tabels also supports some data operations over RDF graphs. The language
+    				<p><strong>Tabels</strong> also supports some data operations over RDF graphs. The language
     				    has special commands (called directives) empowering domain experts
     				    to perform data cleaning, merging, preparation, etc. Following,
-    				    Tabels directives are briefly described:</p>
+    				    <strong>Tabels</strong> directives are briefly described:</p>
     				<ul>
     				    <li><code>@LOAD</code> directive, to upload and merge RDF files with the current dataset.</li>
     				    <li><code>@JENARULE</code> directive, to define (recursive) data transformations as Jena rules,
@@ -98,12 +98,12 @@
     				        current dataset. They can be also used as (non-recursive) production rules to 
     				        transform the RDF graph.</li>
     				    <li><code>@FETCH</code> directive, which retrieves external resources descriptions after the 
-    				        transformation process. For instance, in case a DBpedia URI is used, Tabels
+    				        transformation process. For instance, in case a DBpedia URI is used, <strong>Tabels</strong>
     				        performs a <code>GET</code> request to bring back its description and feed the current
     				        dataset.</li> 
     				</ul>
     				
-    				<p>In addition, Tabels is supplied with some disambiguation functions that can be 
+    				<p>In addition, <strong>Tabels</strong> is supplied with some disambiguation functions that can be 
     				    used in the transformation process. These algorithms implement string-matching
     				    metrics such as the Levenshtein distance. There are a number of data-disambiguation 
     				    corpora to this end: DBpedia, Geonames, etc.</p>
@@ -114,12 +114,12 @@
 					<div class="screenshot screenshotLeft">
 			    		<a href="${resource(dir:'images',file:'chart-screenshot.png')}"><img src="${resource(dir:'images',file:'chart-screenshot.png')}" alt="Chart Screenshot" /></a>
 			    	</div>
-					<p>Tabels benefits from the Understats (Understanding Statistics) technology, 
+					<p><strong>Tabels</strong> benefits from the Understats (Understanding Statistics) technology, 
 			    	an easy-to-deploy HTML5-based component which facilitates end-users an
 			    	interactive exploration of statistical and multidimensional data.</p>
 					<p>Understats is a data-sensitive front-end that generates
 			    	responsive charts from the inspection of the dimensions and measures comprising
-			    	an statistical indicator represented with the RDF Data Cube vocabulary. Tabels
+			    	an statistical indicator represented with the RDF Data Cube vocabulary. <strong>Tabels</strong>
 			    	can be used then to automatically provide visualizations of multidimensional datasets 
 			    	published by national and international agencies, such as 
 			    	<a href="http://epp.eurostat.ec.europa.eu/" title="Eurostat">Eurostat</a>, 
@@ -135,7 +135,7 @@
 			    	</div>
     				<p>The most popular format to exchange geospatial data between geographic information
     				    systems (GIS) is the ESRI shapefile, a vector data format to represent points, polilynes
-    				    and polygons. Tabels, empowered by the GeoTools library, is able to transform the information
+    				    and polygons. <strong>Tabels</strong>, empowered by the GeoTools library, is able to transform the information
     				    encoded in a shapefile into a partial RDF representation. On the one hand, 
     				    features are actually captured as RDF resources. On the other, their spatial
     				    geometries are transformed to a KML standard representation. In addition, there
@@ -143,7 +143,7 @@
     				    the style (icons, colors, line format, etc.). These styles must be originally 
     				    expressed in the XML-based SLD standard (Styled Layer Descriptor) defined by the OGC
     				    consortium.</p>
-    				<p>To visualize these geospatial data, Tabels also integrates the Undermaps (Understanding Maps) 
+    				<p>To visualize these geospatial data, <strong>Tabels</strong> also integrates the Undermaps (Understanding Maps) 
     				    component. In a similar fashion as Understats works with multidimensional data described 
     				    with the Data Cube vocabulary, these HTML5 front-end widgets produces web-map visualizations 
     				    of geographic and cartographic information.</p>
@@ -168,7 +168,7 @@
 
 			<div class="right">
 				<p>
-	    	   		<g:link action="list" class="demo">Go to Demo online</g:link>	
+	    	   		<g:link action="list" class="demo">Try Tabels Demo</g:link>	
 		    	</p>
 		    </div>
 		    <div class="clear"></div>
