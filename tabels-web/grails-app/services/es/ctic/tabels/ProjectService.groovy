@@ -59,6 +59,14 @@ class ProjectService {
         log.debug "Listing files in temporary dir: ${getInputDir(projectId)}"
         getInputDir(projectId).listFiles()
     }
+
+    def getConfigurationFile(String projectId) throws ProjectDoesNotExistException {
+        def props = new Properties()
+        new File(getProjectDir(projectId), "config.properties").withInputStream { 
+            stream -> props.load(stream) 
+        }
+        return props;
+    }
     
     def listProjects() {
         FileUtils.forceMkdir(projectsDir)
@@ -94,6 +102,13 @@ class ProjectService {
         log.info "Creating project ${projectId}"
         FileUtils.forceMkdir(getProjectDir(projectId, true))
         FileUtils.forceMkdir(getInputDir(projectId))
+        createConfigurationFile(projectId)
+    }
+
+    def createConfigurationFile(String projectId) throws ProjectDoesNotExistException{
+        def conf = new File(getProjectDir(projectId), "config.properties")
+        conf.createNewFile()
+        conf.append("readonly=false\n");
     }
     
     def deleteProject(String projectId) throws ProjectDoesNotExistException {

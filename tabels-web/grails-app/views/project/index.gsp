@@ -19,7 +19,7 @@
         <ul id="crumbs">
 			<li><g:link action="home">Home</g:link></li>
 			<li><g:link action="list" id="${params.id}">Projects</g:link></li>
-			<li>Project ${params.id} ${readonly}</li>
+			<li>Project ${params.id}</li>
 		</ul>
         <div class="projectInfo">
         	<ul>
