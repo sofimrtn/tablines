@@ -14,8 +14,8 @@
 		        	to make meaning of 
 		            tabular data. <strong>Tabels</strong> goes beyond spreadsheets and csv files to include other 
 		            tabular formats such as PC-Axis, ESRI shapefile, analysis-tools formats and so forth. 
-		            Data tables are everywhere in our life and organizations. Calendars, maps, 
-		            forms, reports and charts are only some examples of this tables omnipresence.</p>
+		            Data tables are everywhere in our life. Calendars, maps, 
+		            forms, reports and charts are only some examples of this tables omnipresence in organizations everyday work.</p>
 					<p>The aim is to provide means to discover and to surface the data structures hidden 
 			   		in tables, and to enable users to combine data past the limits of files and formats. 
 			    	By transforming data tables to RDF datasets, the information integration achieves 
