@@ -95,9 +95,9 @@
 	
 	<g:if test="${datasets}">
 	
-    	<h3>Seleccione los datos</h3>
+    	<h3>Select data</h3>
 
-        <p><label for="dataset">Conjunto de datos:</label>
+        <p><label for="dataset">Dataset:</label>
 
         <select id="dataset" name="dataset" onchange="javascript:onDatasetChange(event)" class="inputbutton white medium">
         <g:each var="dataset" in="${datasets}">
@@ -108,7 +108,7 @@
         </p>
 
         <fieldset>
-        	<legend>Seleccione los valores a consultar</legend>
+        	<legend>Select the values to query about</legend>
         	<div id="dimensions">
         	</div>
           	<div id="errors"></div>
@@ -116,12 +116,12 @@
 
         <div id="seriesSwitchDiv"></div>
 
-        <h3>Visualización gráfica</h3>
+        <h3>Chart visualization</h3>
 
         <div id="GooglechartsChart">
         </div>
 
-        <h3>Visualización en forma de tabla</h3>
+        <h3>Table visualization</h3>
         <div id="table">
         </div>
     </g:if>
