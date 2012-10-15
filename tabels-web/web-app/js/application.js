@@ -12,12 +12,7 @@ if (Ajax && (Ajax != null)) {
 	});
 }
 
-$( "#showHideTransformationProgram" ).click(function() {
-	$('#programDiv').toggle('blind');
-	return true;
-});
-
-$( "div.showHide h2" ).click(function() {
+$( "div.showHide span" ).click(function() {
 	$('#programDiv').toggle('blind');
 	return true;
 });

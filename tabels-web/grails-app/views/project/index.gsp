@@ -1,50 +1,50 @@
 <html>
     <head>
-        <title>Tabels project</title>
+        <title>Tabels Project - ${params.id}</title>
 		<r:require modules="uploadr,codemirror"/>
         <meta name="layout" content="main" />	   
 	    <r:script>
 			$(document).ready(function() {
 				var editor = CodeMirror.fromTextArea(program, {
+					<g:if test="${readonly}">readOnly: true,</g:if>
 					mode: "tabels",
 					lineNumbers: true,
 					matchBrackets: true/*,
 					extraKeys: {"Ctrl-Space": "autocomplete"}*/
 				});
 			});
-			 /* CodeMirror.commands.autocomplete = function(cm) {
-		        CodeMirror.simpleHint(cm, CodeMirror.javascriptHint);
-		      }*/
 	    </r:script>
     </head>
     <body>
         <ul id="crumbs">
 			<li><g:link action="home">Home</g:link></li>
 			<li><g:link action="list" id="${params.id}">Projects</g:link></li>
-			<li>Project ${params.id}</li>
+			<li>Project ${params.id} ${readonly}</li>
 		</ul>
         <div class="projectInfo">
         	<ul>
-		    	<li>
-			        <g:form action="rename" id="${params.id}" method="post" style="display:inline">
-			        <b><g:message code="msg.project.name"/></b>
-			        <g:textField id="newProjectId" name="newProjectId" value="${params.id}"/>
-	                    <r:script>
-	                    	$(document).ready(function() {
-		                        $('#newProjectId').blur(function() {if (this.value == '') {this.value = '${message(code:"msg.new.project.name")}';}});
-		                        $('#newProjectId').focus(function() {if (this.value == '${message(code:"msg.new.project.name")}') {this.value = '';}});
-		                        $('#newProjectId').change(function() {
-	  								$("#changeName").removeAttr("disabled");
+        		<g:if test="${!readonly}">
+		    		<li>
+				        <g:form action="rename" id="${params.id}" method="post" style="display:inline">
+				        <strong><g:message code="msg.project.name"/></strong>
+				        <g:textField id="newProjectId" name="newProjectId" value="${params.id}"/>
+		                    <r:script>
+		                    	$(document).ready(function() {
+			                        $('#newProjectId').blur(function() {if (this.value == '') {this.value = '${message(code:"msg.new.project.name")}';}});
+			                        $('#newProjectId').focus(function() {if (this.value == '${message(code:"msg.new.project.name")}') {this.value = '';}});
+			                        $('#newProjectId').change(function() {
+		  								$("#changeName").removeAttr("disabled");
+									});
 								});
-							});
-	                    </r:script>
-			        <g:submitButton id="changeName" name="changeName" value="${message(code:'msg.rename.project.link')}" class="inputbutton gray medium" disabled="disabled"/>
-			    	</g:form>
-		    	</li>
-				
-                <!--<li class="renameLink"><g:link action="rename" id="${params.id}"><g:message code="msg.rename.project.link"/></g:link></li>-->
-                <li><g:link action="delete" id="${params.id}" class="inputbutton red medium"><g:message code="msg.delete.project.link"/></g:link></li>
-                <!--<li class="showTransformationProgramLink"><span id="showHideTransformationProgram"><g:message code="msg.transformation.program.show.link"/></span></li>-->
+		                    </r:script>
+				        <g:submitButton id="changeName" name="changeName" value="${message(code:'msg.rename.project.link')}" class="inputbutton gray medium" disabled="disabled"/>
+				    	</g:form>
+		    		</li>
+                	<li><g:link action="delete" id="${params.id}" class="inputbutton red medium"><g:message code="msg.delete.project.link"/></g:link></li>
+                </g:if>
+                <g:else>
+                	<li><strong><g:message code="msg.project.name"/></strong> ${params.id}</li>
+            	</g:else>
             </ul>
 
         </div>
@@ -54,7 +54,7 @@
 		<img id="spreadsheet-icon" src="${resource(dir:'images', file:'spreadsheet.png')}" alt="Spreadsheet file icon"/><br/>
 		<img id="drag-icon" src="${resource(dir:'images', file:'down-arrow.png')}" alt="An arrow indicating where to drag your spreadsheet files"/>
 
-		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}" maxSize="${maxFileSize}" extensionsAllowed="${allowedExtensions}">
+		<uploadr:add name="uploadr${params.id.replaceAll(/-/, "")}" path="${path}" maxSize="${maxFileSize}" extensionsAllowed="${allowedExtensions}" viewable="false" deletable="${!readonly}">
 			<g:each in="${path.listFiles()}" var="file"> <!-- FIXME: use ${files} -->
 				<uploadr:file name="${file.name}">
 					<uploadr:fileSize>${file.size()}</uploadr:fileSize>
@@ -66,14 +66,14 @@
 				</uploadr:file>
 			</g:each>
 		</uploadr:add>
-		
+		<g:if test="${!readonly}">
 		<g:form action="downloadSource" id="${params.id}" method="post">
 		    <p>
 		        <g:textField name="sourceUrl" value="${sourceUrl}" size="65" class="sourceUrlText"/>
 		        <g:submitButton name="addUrl" value="${message(code:'msg.add.url.to.sources.button')}" class="inputbutton white medium"/>
 		    </p>
 		</g:form>
-		
+		</g:if>
 		</div>
 		
 		<div class="stepBox" id="step2">
@@ -120,24 +120,21 @@
 		    
 		<p class="mapLink"><g:link mapping="newMap" id="${params.id}" params="[endpoint:endpoint]"><g:message code="msg.map.link"/></g:link></p>
 		
-		<!-- Not show parrot link -->
-		<!-- <p class="parrotLink"><g:link action="parrot" id="${params.id}"><g:message code="msg.parrot.link"/></g:link></p> -->
-		
-		<!-- Not show trace link -->
-		<!-- <p class="traceLink"><g:link action="trace" id="${params.id}"><g:message code="msg.trace.link"/></g:link></p> -->
 		</div>
 		<div class="showHide">
-			<h2><g:message code="msg.transformation.program"/><span>Show/Hide</span></h2>
+			<h2><g:message code="msg.transformation.program"/><span class="inputbutton white small">Show/Hide</span></h2>
 		</div>
 		<div id="programDiv">
-		<g:form action="autogenerateProgram" id="${params.id}" method="post" class="autogenerateForm">
-		    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS" class="inputbutton white medium"/>
-		    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/>
-		</g:form>
+		<g:if test="${!readonly}">
+			<g:form action="autogenerateProgram" id="${params.id}" method="post" class="autogenerateForm">
+			    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS" class="inputbutton white medium"/>
+			    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/>
+			</g:form>
+		</g:if>
 		<g:form action="saveProgram" id="${params.id}" method="post">
-			<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
+			<g:if test="${!readonly}"><p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p></g:if>
 			<g:textArea name="program" value="${program}" cols="80" />
-			<p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p>
+			<g:if test="${!readonly}"><p><g:submitButton name="save" value="${message(code: 'msg.save.program.button')}" class="inputbutton white medium"/></p></g:if>
 		</g:form>
 
 		</div>

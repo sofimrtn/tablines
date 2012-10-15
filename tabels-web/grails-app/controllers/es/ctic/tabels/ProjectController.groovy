@@ -34,7 +34,8 @@ class ProjectController {
          program: projectService.getProgram(projectId),
          endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/",
 		 maxFileSize: projectService.configObject.maxFileSize,
-		 allowedExtensions: projectService.configObject.allowedExtensions]
+		 allowedExtensions: projectService.configObject.allowedExtensions,
+         readonly: false]
     }
 
     def home = {

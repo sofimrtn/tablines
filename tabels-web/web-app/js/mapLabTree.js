@@ -40,6 +40,10 @@ function  mapLabTree_initializateTree(mapLabTreeComponent){
 			//selKeys contains all selected keys 
 			//alert (selKeys);			
 		},
+		strings: {
+        	loading: "Loading…",
+       		loadError: "No geospatial data found"
+    	}
 	
 	});
 	
