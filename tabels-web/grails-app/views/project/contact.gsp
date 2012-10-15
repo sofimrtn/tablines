@@ -23,7 +23,7 @@
 	    		</ul>
 	    		<p>We are open to collaborations and would like to understand what data problems Tabels may 
 	    		    suit for. Feedback is more than welcome about tabular formats, spread files in organizations, 
-	    		    data visualizations, data integration issues, etc.</p> 
+	    		    data visualization and integration issues, etc.</p> 
 	    		<p>Give a try to our <g:link action="list">online demo service</g:link>
 	    		    and tell us about your experience!</p>
     		</div>

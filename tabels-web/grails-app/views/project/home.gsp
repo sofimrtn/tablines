@@ -9,10 +9,11 @@
 		    <div class="left">
 	        	<h2>Tabels project</h2>
 	        	<div>
-		        	<p><strong>Tabels</strong> (Tabular Cells) is an R&amp;D tool, developed by <a href="http://www.fundacionctic.org/en" title="CTIC">CTIC</a>, 
-		        		to make meaning of 
+		        	<p><strong>Tabels</strong> (<em>Tabular Cells</em>) is an R&amp;D tool, 
+		        	developed by <a href="http://www.fundacionctic.org/en" title="CTIC">CTIC</a>, 
+		        	to make meaning of 
 		            tabular data. <strong>Tabels</strong> goes beyond spreadsheets and csv files to include other 
-		            formats such as PC-Axis, ESRI shapefile, analysis-tools formats and so forth. 
+		            tabular formats such as PC-Axis, ESRI shapefile, analysis-tools formats and so forth. 
 		            Data tables are everywhere in our life and organizations. Calendars, maps, 
 		            forms, reports and charts are only some examples of this tables omnipresence.</p>
 					<p>The aim is to provide means to discover and to surface the data structures hidden 
@@ -134,7 +135,7 @@
 			    		<a href="${resource(dir:'images',file:'map-screenshot.png')}"><img src="${resource(dir:'images',file:'map-screenshot.png')}" alt="Chart Screenshot" /></a>
 			    	</div>
     				<p>The most popular format to exchange geospatial data between geographic information
-    				    systems (GIS) is the ESRI shapefile, a vector data format to represent points, polilynes
+    				    systems (GIS) is the ESRI shapefile, a vector data format to represent points, polylines
     				    and polygons. <strong>Tabels</strong>, empowered by the GeoTools library, is able to transform the information
     				    encoded in a shapefile into a partial RDF representation. On the one hand, 
     				    features are actually captured as RDF resources. On the other, their spatial
@@ -160,8 +161,8 @@
 	    		            <a href="http://purl.org/dc/terms/subject" title="dct:subject"><code>dct:subject</code></a></li>
 	    		        <li>Map styles, comprising the legend, are related to the SKOS hierarchy. An style 
 	    		            can be a SVG-designed symbol or a Google Maps JSON. The relationship between 
-	    		            an SKOS concept and its map-style is made via an ad-hoc property called:
-	    		            http://disaster-fp7.eu/ontology/core#prefSymbol.</li>    
+	    		            an SKOS concept and its map-style is made for the moment via an ad-hoc property called:
+	    		            <code>http://disaster-fp7.eu/ontology/core#prefStyle</code>.</li>    
     	    		</ul>
     			</div>
 			</div>
