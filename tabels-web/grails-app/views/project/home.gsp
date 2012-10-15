@@ -21,9 +21,10 @@
 			    	a new dimension. Raw data transcends into a world of linked resources brimming 
 			    	with enrichment and entity reconciliation opportunities. Tabels is not a mere 
 			    	transformation tool, but it facilitates end-user exploitation of data by supplying 
-			    	interactive mechanisms.</p>
-			    	<p>Give a try to our <g:link action="list">demo service online</g:link>
+			    	front-end interactive mechanisms.</p> 
+			    	<p>Give a try to our <g:link action="list">online demo service</g:link>
 	    		    and <g:link action="contact">tell us</g:link> about your experience!</p>
+
 			    </div>
 
 				<h3 class="accordion inputbutton orange title"> Tabels language</h3>
@@ -44,22 +45,22 @@
 			      		express the process of data structures by means of three kind of statements:
 						<ul>
 				  			<li>Dimension statements: the <code>SET</code> operator is used to fix the dimension into 
-				      		a single value (for instance, to cover a particular file). On the other, 
+				      		a single value (for instance, to cover a particular file). On the other hand, 
 				      		the <code>FOR</code> operator is used to iterate through all the values comprising a 
 				      		given dimension (for instance, all the rows).</li>
 				  			<li>Conditional statements: the <code>WHEN</code> operator is used to restrict the iteration 
 				      		through data by specifying boolean conditions that must be fulfilled. The <code>WHEN</code> 
 				      		statements are semantically similar to <code>IF/THEN</code> rules.</li>
 				  			<li>Binding statements: the <code>LET</code> operator is used to assign a value to a new variable. 
-				      		This value may be direct values from the data tables or the result of another 
-				      		data operation. The <code>MATCH</code> operator provides a mechanism to defube tuples of variables 
-				      		which values are taken from the data tables themselves.</li>
+				      		This binding may be direct values from a data table or the result of another 
+				      		data operation. The <code>MATCH</code> operator provides a mechanism to define tuples of variables 
+				      		which values are obtained from a data table.</li>
 						</ul>
 			  			</li>
-			  			<li>The RDF template section: where the program specifies the RDF graph pattern which 
-			      		variables are to be instantiated with the bindings obtained during the data tables 
-			      		processing. Graph patterns can be separated and are expressed in N3 syntax (in a similar 
-			      		fashion as SPARQL language).</li>
+			  			<li>The RDF template section: where the program specifies the RDF graph pattern 
+			  			    in which variables are instantiated with the bindings obtained from the data 
+			  			    table processing. Graph patterns can be separated and are expressed in N3 
+			  			    syntax.</li>
 					</ol>
 					<p>The Tabels language also provides auxiliary machinery to filter and compare data values during 
 			    	the transformation process. There are a number of already defined functions to this end, such 
@@ -75,7 +76,7 @@
     				    transform, integrate and explore data tables. To this end, Tabels has been geared
     				    with a complete data-explotation toolkit: faceted views, interactive charts, etc. In addition,
     				    Tabels allows to download the produced RDF dataset in several syntaxes, namely RDF/XML,
-    				    N3 and Turtle; and complementarily it provides a SPARL data-access endpoint, 
+    				    N3 and Turtle; and complementarily it provides a SPARQL data-access endpoint, 
     				    where queries can be performed by both domain experts and third-party tools.</p>
     				
     				<p>Besides the web front-end usage, Tabels is equipped with a set of REST services
@@ -102,9 +103,9 @@
     				        dataset.</li> 
     				</ul>
     				
-    				<p>In addtion, Tabels is supplied with some disambiguation functions applied
-    				    during the transformation process. These algorithms implement string-matching
-    				    metrics such as the Levenshtein distance. There are a number of data-disamiguation 
+    				<p>In addition, Tabels is supplied with some disambiguation functions that can be 
+    				    used in the transformation process. These algorithms implement string-matching
+    				    metrics such as the Levenshtein distance. There are a number of data-disambiguation 
     				    corpora to this end: DBpedia, Geonames, etc.</p>
     			</div>
 
