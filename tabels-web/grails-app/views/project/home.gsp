@@ -85,7 +85,7 @@
     				    architecture as a library.</p>
     			</div>
 
-				<h3 class="accordion inputbutton orange title">RDF transformation, mediation and reconciliation</h3>
+				<h3 class="accordion inputbutton orange title">RDF mediation and reconciliation</h3>
     			<div>
     				<p><strong>Tabels</strong> also supports some data operations over RDF graphs. The language
     				    has special commands (called directives) empowering domain experts
@@ -108,7 +108,15 @@
     				    used in the transformation process. These algorithms implement string-matching
     				    metrics such as the Levenshtein distance. There are a number of data-disambiguation 
     				    corpora to this end: DBpedia, Geonames, etc.</p>
-    	    		<p>For instance: <g:link action="index" id="safetyRegions">Safety regions project</g:link> and <g:link action="index" id="imdb">IMDB</g:link></p>
+    	    		
+    	    		<p>Take a look to our sample projects. In the 
+    	    		    <g:link action="index" id="imdb">IMDb project</g:link>, the IMDb 250 top movies list voted by users
+    	    		    is transformed to an RDF graph and the movies titles are disambiguated against the DBpedia. As
+    	    		    a result, an HTML table is transformed into an enriched, exploitable RDF dataset. Furthermore,
+    	    		    the <g:link action="index" id="safetyRegions">Safety regions project</g:link> takes a shapefile
+    	    		    with the Safety Regions of the Netherlands, which descriptions are augmented with information coming from the 
+    	    		    DBpedia source.
+    	    		</p>
     			</div>
 
 				<h3 class="accordion inputbutton orange title">Charts and statistics</h3>
@@ -128,7 +136,16 @@
 			    	<a href="http://www.fao.org/" title="FAO">FAO</a> or 
 			    	<a href="http://www.imf.org/" title="IMF">IMF</a> ones,
 			    	typically encoded in csv, spreadsheets or even PC-Axis (*.px) formats.</p>
-    	    		<p>For instance: <g:link action="index" id="MouseStatsQB">Mouse project</g:link> and <g:link action="index" id="eurostat">Eurostats Flora project</g:link></p>
+    	    		
+    	    		<p>Have a look to our chart-exploitable projects from Data-Cube-compliant datasets. First, the 
+    	    		<g:link action="index" id="MouseStatsQB">Mouse project</g:link> presents a spreadsheet file
+    	    		of an imaginary study of tumor growth in mouses. The results of the experiments are translated
+    	    		into a multidimensional structure. Second, in the 
+    	    		<g:link action="index" id="eurostat">Eurostats project</g:link>,
+    	    		a statistical indicator published by EU regarding internet broad band
+                    penetration rate in european countries is transformed to the Data Cube Vocabulary using a 
+                    <strong>Tabels</strong> generic program for the PC-Axis (*.px) format. 	    
+    	    		</p>
 			    			
 		    	</div>
 				
@@ -167,7 +184,12 @@
 	    		            an SKOS concept and its map-style is made for the moment via an ad-hoc property called:
 	    		            <code>http://disaster-fp7.eu/ontology/core#prefStyle</code>.</li>    
     	    		</ul>
-    	    		<p>For instance: <g:link action="index" id="safetyRegions">Safety regions project</g:link> and <g:link action="index" id="FloraOfAsturias">Flora of Asturias project</g:link></p>
+    	    		<p>You can freely play with our geographic sample projects, such as again the 
+    	    		<g:link action="index" id="safetyRegions">Safety regions project</g:link> and the
+    	            <g:link action="index" id="FloraOfAsturias">Flora of Asturias project</g:link></p>. The latter is
+    	            is created from a shapefile, published by the Ministry of Agriculture, Food and Environment of Spain,
+    	            comprising the botanic species in the region of Asturias.
+    	            </p>
     	    		
     			</div>
 			</div>
