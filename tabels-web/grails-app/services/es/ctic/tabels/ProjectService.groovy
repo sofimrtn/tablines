@@ -17,6 +17,7 @@ class ProjectService {
     static modelCache = [:]
 
     static String defaultProgramFilename = "default.tabels"
+    static String configurationFilename = "configuration.properties"
     
     def configObject = new es.ctic.tabels.Config()
 
@@ -62,7 +63,7 @@ class ProjectService {
 
     def getConfigurationFile(String projectId) throws ProjectDoesNotExistException {
         def props = new Properties()
-        new File(getProjectDir(projectId), "config.properties").withInputStream { 
+        new File(getProjectDir(projectId), configurationFilename).withInputStream { 
             stream -> props.load(stream) 
         }
         return props;
@@ -106,7 +107,7 @@ class ProjectService {
     }
 
     def createConfigurationFile(String projectId) throws ProjectDoesNotExistException{
-        def conf = new File(getProjectDir(projectId), "config.properties")
+        def conf = new File(getProjectDir(projectId), configurationFilename)
         conf.createNewFile()
         conf.append("readonly=false\n");
     }
