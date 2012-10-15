@@ -515,8 +515,9 @@ class ProjectController {
                 try{
                     def provider = new AutocompleteFromEndpoint(
                         new RemoteSparqlDataSource(endpoint, namedgraph));
-                    provider.setRdfLocale(datasetProvider.getRdfLocale());
+                    //provider.setRdfLocale(datasetProvider.getRdfLocale());
                     provider.setLabelProperty(datasetProvider.getLabelProperty());
+                    provider.setRdfType(datasetProvider.getRdfType())
                     datasets = provider.getSuggestions(null);
                 } catch(Exception e ){
 					log.error("Tapinos caused exception: " + e.getMessage())
@@ -543,7 +544,7 @@ class ProjectController {
 		try {
     	    Set facets = projectService.getResources(projectId).collectMany { it.keySet() }.toList() as Set
     	    facets = facets -  ["label", "type", "prefLabel", "uri", "id"]
-    	    [facets: facets]
+    	    [facets: facets, id: projectId]
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())

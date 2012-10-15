@@ -14,9 +14,15 @@
 </head>
 <body>       
 
-	<h2><g:message code="msg.faceted.view.title"/></h2>
-	
-	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>
+    <ul id="crumbs" class="crumbsBlock">
+        <li><g:link action="home">Home</g:link></li>
+        <li><g:link action="list" id="${params.id}">Projects</g:link></li>
+        <li><g:link action="index" id="${params.id}">Project ${params.id}</g:link></li>
+        <li><g:message code="msg.faceted.view.title"/></li>
+    </ul>
+    
+	<!--<h2><g:message code="msg.faceted.view.title"/></h2>
+	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>-->
 	
     <table width="100%">
             <tr valign="top" class="exhibit">

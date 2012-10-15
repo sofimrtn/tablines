@@ -647,3 +647,9 @@ color: #333;
 .screenshot img{
     width:200px;
 }
+
+.beta{
+    position:relative;
+    top: -10px;
+    left:5px;
+}
