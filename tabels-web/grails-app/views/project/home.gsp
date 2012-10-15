@@ -149,7 +149,7 @@
     				    consortium.</p>
     				<p>To visualize these geospatial data, <strong>Tabels</strong> also integrates the Undermaps (Understanding Maps) 
     				    component. In a similar fashion as Understats works with multidimensional data described 
-    				    with the Data Cube vocabulary, these HTML5 front-end widgets produces web-map visualizations 
+    				    with the Data Cube vocabulary, these HTML5 front-end widgets produce web-map visualizations 
     				    of geographic and cartographic information.</p>
     	    		<p>Undermaps is sensitive to geospatial data expressed in the following way:</p>
     	    		<ul>
