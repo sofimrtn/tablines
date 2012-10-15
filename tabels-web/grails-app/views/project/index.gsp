@@ -127,7 +127,7 @@
 		<div id="programDiv">
 		<g:if test="${!readonly}">
 			<g:form action="autogenerateProgram" id="${params.id}" method="post" class="autogenerateForm">
-			    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="MAPS" class="inputbutton white medium"/>
+			    <g:select name="strategy" from="${['Simple','SCOVO','MAPS']}" value="Simple" class="inputbutton white medium"/>
 			    <g:submitButton name="autogenerate" value="${message(code: 'msg.autogenerate.program.button')}" class="inputbutton white medium"/>
 			</g:form>
 		</g:if>
