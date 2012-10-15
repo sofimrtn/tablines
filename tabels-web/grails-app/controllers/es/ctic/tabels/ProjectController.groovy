@@ -29,13 +29,15 @@ class ProjectController {
 	}
     
     private def indexModel(String projectId) throws ProjectDoesNotExistException {
+        def conf=projectService.getConfigurationFile(projectId)
+
         return [path: projectService.getInputDir(projectId),
          files: projectService.getFiles(projectId),
          program: projectService.getProgram(projectId),
          endpoint:projectService.getDefaultNamespace(params.id).toString()+"sparql/",
 		 maxFileSize: projectService.configObject.maxFileSize,
 		 allowedExtensions: projectService.configObject.allowedExtensions,
-         readonly: false]
+         readonly: conf['readonly'].toBoolean() ]
     }
 
     def home = {
