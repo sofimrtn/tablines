@@ -108,6 +108,7 @@
     				    used in the transformation process. These algorithms implement string-matching
     				    metrics such as the Levenshtein distance. There are a number of data-disambiguation 
     				    corpora to this end: DBpedia, Geonames, etc.</p>
+    	    		<p>For instance: <g:link action="index" id="foo">Safety regions project</g:link>.</p>
     			</div>
 
 				<h3 class="accordion inputbutton orange title">Charts and statistics</h3>
@@ -126,7 +127,9 @@
 			    	<a href="http://epp.eurostat.ec.europa.eu/" title="Eurostat">Eurostat</a>, 
 			    	<a href="http://www.fao.org/" title="FAO">FAO</a> or 
 			    	<a href="http://www.imf.org/" title="IMF">IMF</a> ones,
-			    	typically encoded in csv, spreadsheets or even PC-Axis (*.px) formats.</p>		
+			    	typically encoded in csv, spreadsheets or even PC-Axis (*.px) formats.</p>
+    	    		<p>For instance: <g:link action="index" id="foo">Mouse project</g:link> and <g:link action="index" id="foo">Eurostats Flora project</g:link></p>
+			    			
 		    	</div>
 				
 				<h3 class="accordion inputbutton orange title">Maps and geographic data</h3>
@@ -164,6 +167,8 @@
 	    		            an SKOS concept and its map-style is made for the moment via an ad-hoc property called:
 	    		            <code>http://disaster-fp7.eu/ontology/core#prefStyle</code>.</li>    
     	    		</ul>
+    	    		<p>For instance: <g:link action="index" id="foo">Safety regions project</g:link> and <g:link action="index" id="foo">Asturias Flora project</g:link></p>
+    	    		
     			</div>
 			</div>
 
