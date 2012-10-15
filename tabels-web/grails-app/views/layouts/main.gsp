@@ -49,7 +49,7 @@
 				<g:link action="contact" > <!--<img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" />--><g:message code="product.contact"/></g:link></span> - 
 			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span> - 
 			<span class="helpIcon">
-				<g:link controller="docs" action="guide"> 
+				<g:link controller="docs" action="guide" target="_blank"> 
 				<!--<img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" />-->
 				<g:message code="product.help"/> <span class="smallText">(Spanish)</span></g:link>
 			</span><br/>
