@@ -21,9 +21,6 @@
         <li><g:message code="msg.faceted.view.title"/></li>
     </ul>
     
-	<!--<h2><g:message code="msg.faceted.view.title"/></h2>
-	<p class="backLink"><g:link action="index" id="${params.id}"><g:message code="msg.back.to.project.link"/></g:link></p>-->
-	
     <table width="100%">
             <tr valign="top" class="exhibit">
                 <td ex:role="viewPanel">
