@@ -28,10 +28,6 @@
                 <div id="tree" name="selNodes">
                 </div>
             </div>
-            
-            <div id="visualize">
-                <div class="centerButton"><a id="visulize-button">Visualize</a></div>
-            </div>
             <!-- <div id="layerLegend">
                 <div class="introLegend">   
                     <a href="javascript:void(0);" onclick="javascript:mapLabLayers($('#legend'))">Legend</a>

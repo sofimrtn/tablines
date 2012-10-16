@@ -15,7 +15,6 @@ function  mapLabMap_initializateMap(mapLabMapComponent){
 function mapLabMap_initializateData(mapLabMapComponent){
 	var settings =  mapLabMapComponent.data("settings");
 	var selKeys = $("#"+settings.treeRef).data("selKeys")
-	console.log(selKeys)
 	$.ajax({
 		 async: false,
 		 dataType: 'text',
@@ -81,7 +80,6 @@ function mapLabMap_paintMap(mapLabMapComponent){
 		polygons.push(eval(polygon));
 		polygons[i].setMap(map); 
 		infoMap[0].push("<div class=\"phoneytext\">"+polygons[i].html+"</div>");
-		console.log(data[0][i].html);
 		google.maps.event.addListener(polygons[i], "click", function(event){
 				mapLabMap_showInfo(0,i, event.latLng, mapLabMapComponent);
 		});
