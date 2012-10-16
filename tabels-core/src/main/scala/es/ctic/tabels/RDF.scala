@@ -21,26 +21,26 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	def asBoolean : Literal = rdfType match {
 	    case XSD_BOOLEAN => this
 	    case XSD_STRING =>  if (value.toString.length > 0) LITERAL_TRUE else LITERAL_FALSE
-	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => if (value.toString.toDouble == 0.0) LITERAL_FALSE else LITERAL_TRUE
+	    case XSD_INT | XSD_INTEGER | XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => if (value.toString.toDouble == 0.0) LITERAL_FALSE else LITERAL_TRUE
 	}
 	
 	def asString : Literal = Literal(value)
 	
 	def asInt : Literal = rdfType match {
-	    case XSD_INT => this
-	   case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT => Literal(value.toString.toFloat.toInt, XSD_INT) // FIXME
+	    case XSD_INTEGER => this
+	   case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT | XSD_INT => Literal(value.toString.toFloat.toInt, XSD_INTEGER) // FIXME
 	    case XSD_STRING => try {
-	            Literal(value.toString.toFloat.toInt, XSD_INT)
+	            Literal(value.toString.toFloat.toInt, XSD_INTEGER)
             } catch {
-                case e : NumberFormatException => throw new TypeConversionException(this, XSD_INT)
+                case e : NumberFormatException => throw new TypeConversionException(this, XSD_INTEGER)
             }
-	    case XSD_BOOLEAN => if (truthValue) Literal(1, XSD_INT) else Literal(0, XSD_INT)
-	    case _ => throw new TypeConversionException(this, XSD_INT)
+	    case XSD_BOOLEAN => if (truthValue) Literal(1, XSD_INTEGER) else Literal(0, XSD_INTEGER)
+	    case _ => throw new TypeConversionException(this, XSD_INTEGER)
 	}
 	
 	def asFloat : Literal = rdfType match {
 	    case XSD_FLOAT => this
-	    case XSD_INT | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT) // FIXME
+	    case XSD_INT | XSD_INTEGER | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT) // FIXME
 	    case XSD_STRING => try {
 	            Literal(value.toString.toFloat, XSD_FLOAT)
             } catch {
@@ -51,7 +51,7 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	}
 	def asDouble : Literal = rdfType match {
 	    case XSD_DOUBLE => this
-	    case XSD_INT | XSD_FLOAT | XSD_DECIMAL => Literal(value.toString.toDouble, XSD_DOUBLE) // FIXME
+	    case XSD_INT | XSD_INTEGER | XSD_FLOAT | XSD_DECIMAL => Literal(value.toString.toDouble, XSD_DOUBLE) // FIXME
 	    case XSD_STRING => try {
 	            Literal(value.toString.toFloat, XSD_FLOAT)
             } catch {
@@ -65,14 +65,14 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 
 object Literal {
     
-    implicit def int2literal(i : Int) : Literal = Literal(i, XSD_INT)
+    implicit def int2literal(i : Int) : Literal = Literal(i, XSD_INTEGER)
     implicit def float2literal(f : Float) : Literal = Literal(f, XSD_FLOAT)
     implicit def double2literal(d : Double) : Literal = Literal(d, XSD_DOUBLE)
     implicit def boolean2literal(b : Boolean) : Literal = Literal(b, XSD_BOOLEAN)
     implicit def string2literal(s : String) : Literal = Literal(s)
     implicit def regex2literal(s : Regex) : Literal = Literal(s.toString)
    
-    implicit def literal2int(l : Literal) : Int = try { l.asInt.value.asInstanceOf[Int] } catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_INT)}
+    implicit def literal2int(l : Literal) : Int = try { l.asInt.value.asInstanceOf[Int] } catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_INTEGER)}
     implicit def literal2float(l : Literal) : Float = try {l.asFloat.value.asInstanceOf[Float]} catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_FLOAT)}
     implicit def literal2double(l : Literal) : Double = try {l.asDouble.value.asInstanceOf[Double]} catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_DOUBLE)}
     implicit def literal2long(l : Literal) : Long = try {l.asDouble.value.asInstanceOf[Long]} catch{case e:java.lang.ClassCastException => throw new TypeConversionException(l,XSD_DOUBLE)}
@@ -121,6 +121,8 @@ object RDF_TYPE extends NamedResource("http://www.w3.org/1999/02/22-rdf-syntax-n
 object XSD_STRING extends NamedResource("http://www.w3.org/2001/XMLSchema#string")
 object XSD_BOOLEAN extends NamedResource("http://www.w3.org/2001/XMLSchema#boolean")
 object XSD_INT extends NamedResource("http://www.w3.org/2001/XMLSchema#int")
+object XSD_INTEGER extends NamedResource("http://www.w3.org/2001/XMLSchema#integer")
+object XSD_LONG extends NamedResource("http://www.w3.org/2001/XMLSchema#long")
 object XSD_DOUBLE extends NamedResource("http://www.w3.org/2001/XMLSchema#double")
 object XSD_FLOAT extends NamedResource("http://www.w3.org/2001/XMLSchema#float")
 object XSD_DECIMAL extends NamedResource("http://www.w3.org/2001/XMLSchema#decimal")
