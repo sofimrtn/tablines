@@ -87,13 +87,13 @@ case class ODFCellValue (cell : OdfTableCell) extends CellValue with Logging {
     cell.getValueType() match{
 	  case "float"  => val value = cell.getDoubleValue
 	  						if(value.toInt == value)
-	  							Literal(value.toInt, XSD_INT)
-	  						else Literal(value.toString, XSD_DECIMAL)
+	  							Literal(value.toInt, XSD_INTEGER)
+	  						else Literal(value.toString, XSD_DOUBLE)
 	  case "string" =>Literal(cell.getStringValue, XSD_STRING)
 	  case "boolean" => Literal(cell.getBooleanValue, XSD_BOOLEAN)
 	  case "date" =>Literal(cell.getStringValue, XSD_DATE)
 	  case "percentage" =>Literal(cell.getPercentageValue, XSD_DECIMAL)
-	  case "currency" =>Literal(cell.getCurrencyValue, XSD_DECIMAL)
+	  case "currency" =>Literal(cell.getCurrencyValue, XSD_DOUBLE)
 	  case x => logger.info("Unrecognized cell format: '" + x + "'")
 	    		autodetectFormat(cell.getStringValue)
 	

@@ -107,8 +107,8 @@ abstract class CellValue {
    *
    */
   def autodetectFormat(rawStringValue : String) : Literal = rawStringValue match {
-      case intPattern() => Literal(rawStringValue, XSD_INT)
-      case decimalPattern() => Literal(rawStringValue, XSD_DECIMAL)
+      case intPattern() => Literal(rawStringValue, XSD_INTEGER)
+      case decimalPattern() => Literal(rawStringValue, XSD_DOUBLE)
       case x => Literal(rawStringValue, XSD_STRING)
   }
   
