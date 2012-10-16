@@ -30,10 +30,10 @@
                 <strong>Tabels</strong> allows you to submit content. You retain ownership of any intellectual 
                 property rights that you hold in that content. CTIC will not make derivative works
                 and will not profit from your uploaded content. However, CTIC does not give maintenance 
-                to your projects and does not provide data privacy and security mechanisms. The content
-                submitted to <strong>Tabels</strong> will be publicly available until the project is deleted. For your
+                to your projects and does not provide data privacy and security mechanisms. <strong>The content
+                submitted to Tabels will be publicly available until the project is deleted. For your
                 convenience and for service maintenance reasons, all content and projects
-                will be daily deleted.
+                will be daily deleted.</strong>
             </p>
             
             <p>Your are not allowed to misuse the <strong>Tabels</strong> Service. For example, don't try 
