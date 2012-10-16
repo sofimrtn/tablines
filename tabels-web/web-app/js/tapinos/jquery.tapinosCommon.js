@@ -10,14 +10,14 @@ function userError(element, msg) {
 
 function networkError(element) {
   html = "<p class='networkError'><img class='networkErrorIcon' src='images/skin/exclamation.png' width='16' height='16' alt='Network error'/>"
-  html += "Error de comunicaci&oacute;n con el servidor.</p>"
+  html += "Server communication error.</p>"
   element.html(html);
   return;
 }
 
 function divLoading(element) {
   html = "<p><img class='loadingIcon' src='images/spinner.gif' width='16' height='16' alt='Animated loading icon'/>";
-  html += "Cargando par&aacute;metros. Espere, por favor.</p>";
+  html += "Loading parameters . Wait, please.</p>";
   element.html(html);
   return;
 } 
