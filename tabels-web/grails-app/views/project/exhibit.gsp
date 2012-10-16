@@ -20,7 +20,7 @@
         <li><g:link action="index" id="${params.id}">Project ${params.id}</g:link></li>
         <li><g:message code="msg.faceted.view.title"/></li>
     </ul>
-    <div class="messagebox"><p>Only the first 100 results are shown in this faceted view</p></div>
+    <div class="messagebox"><p>Only the first 1000 results are shown in this faceted view</p></div>
     <table width="100%">
             <tr valign="top" class="exhibit">
                 <td ex:role="viewPanel">
