@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Tabels project</title>
+        <title>Tabels project - Delete Project</title>
         <meta name="layout" content="main" />
     </head>
     <body>
