@@ -61,14 +61,14 @@
 	</p>-->
 
     <g:form method="post" name="sparqlQueryForm" mapping="${formMapping}" id="${params.id}">
-		<g:if test="${namedGraphs.size() > 0}">
+		<!--<g:if test="${namedGraphs.size() > 0}">
 	        <p><g:message code="msg.sparql.available.named.graphs"/></p>
 	        <ul>
 	            <g:each in="${namedGraphs}" var="namedGraph">
 	                <li>${namedGraph}</li>
 	            </g:each>
 	        </ul>
-		</g:if>
+		</g:if>-->
     
         <p>
           <label for="query"><g:message code="form.sparql.query.text"/></label>

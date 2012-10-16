@@ -186,7 +186,7 @@
     	    		</ul>
     	    		<p>You can freely play with our geographic sample projects, such as again the 
     	    		<g:link action="index" id="safetyRegions">Safety regions project</g:link> and the
-    	            <g:link action="index" id="FloraOfAsturias">Flora of Asturias project</g:link>. The latter is
+    	            <g:link action="index" id="FloraOfAsturias">Flora of Asturias project</g:link>. The latter 
     	            is created from a shapefile, published by the Ministry of Agriculture, Food and Environment of Spain,
     	            comprising the botanic species in the region of Asturias.
     	            </p>
@@ -201,5 +201,8 @@
 		    </div>
 		    <div class="clear"></div>
 		</div>
+		<r:script>
+			$(".screenshot a").fancybox();
+		</r:script>
     </body>
 </html>

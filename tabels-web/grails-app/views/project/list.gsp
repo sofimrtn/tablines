@@ -33,7 +33,7 @@
 						})();
 		    		    $('#searchbox').blur(function() {if (!this.value || this.value == '') {this.value = '${message(code:"msg.filter.project.name")}'; $(this).css('color', '#cdc9c9');}});
 		    		    $('#searchbox').focus(function() {if (this.value == '${message(code:"msg.filter.project.name")}') {this.value = ''; $(this).css('color', '#000');}});
-		    		    $(#filter).click(function() {
+		    		    $('#filter').click(function() {
 		    		    	if($('#searchbox').val()=='${message(code:"msg.filter.project.name")}'){
 		    		    		$('#searchbox').value = '';
 		    		    	}
@@ -58,8 +58,18 @@
 	       		   <g:form action="create" method="post" class="createProject">
 	    		        <g:textField name="newProjectId" value="${message(code:'msg.new.project.name')}"/>
 	    		        <r:script>
-		    		        $('#newProjectId').blur(function() {if (this.value == '') {this.value = '${message(code:"msg.new.project.name")}'; $(this).css('color', '#cdc9c9');}});
-		    		        $('#newProjectId').focus(function() {if (this.value == '${message(code:"msg.new.project.name")}') {this.value = ''; $(this).css('color', '#000');}});
+		    		        $('#newProjectId').blur(function() {
+		    		        	if (this.value == '') {
+		    		        		this.value = '${message(code:"msg.new.project.name")}'; 
+		    		        		$(this).css('color', '#cdc9c9');
+		    		        	}
+		    		        });
+		    		        $('#newProjectId').focus(function() {
+		    		        	if (this.value == '${message(code:"msg.new.project.name")}') {
+		    		        		this.value = ''; 
+		    		        		$(this).css('color', '#000');
+		    		        	}
+		    		        });
 	    		        </r:script>
 	    		        <g:submitButton class="AddProjectButton" name="createProject" value="${message(code:'msg.create.project.button')}" />
 	    		    </g:form>
