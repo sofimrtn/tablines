@@ -51,6 +51,10 @@ class ProjectController {
     def disclaimer = {
         render(view:"disclaimer")
     }
+	
+	def faq = {
+		render(view:"faq")
+	}
     
     def index = {
 		

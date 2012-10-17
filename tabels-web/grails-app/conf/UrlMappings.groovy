@@ -5,6 +5,7 @@ class UrlMappings {
 		"/list"(controller: "project", action: "list")
 		"/contact"(controller: "project", action: "contact")
 		"/disclaimer"(controller: "project", action: "disclaimer")
+		"/faq"(controller: "project", action: "faq")
 		"/createProject"(controller: "project", action: "create")
 		"/clearCacheMap"(controller: "project", action: "clearCacheMap")
 		name globalSparql: "/sparql"(controller: "project", action: "sparql")
