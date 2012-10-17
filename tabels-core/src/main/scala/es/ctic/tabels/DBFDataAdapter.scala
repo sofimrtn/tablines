@@ -80,7 +80,7 @@ case class DBFCellValue(cell: Object) extends CellValue with Logging {
       
       case cell:java.lang.String => Literal(cell.trim, XSD_STRING)
       case cell:java.lang.Integer => Literal(cell, XSD_INT)
-      case cell:java.lang.Double => Literal(cell, XSD_DECIMAL)
+      case cell:java.lang.Double => Literal(cell, XSD_DOUBLE)
       case cell:java.util.Date => Literal(cell.toString, XSD_DATE)
       case cell:java.lang.Boolean => Literal(cell, XSD_BOOLEAN)
       case x =>
