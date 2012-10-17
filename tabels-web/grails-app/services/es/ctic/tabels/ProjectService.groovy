@@ -264,6 +264,32 @@ class ProjectService {
             ]
         }
     }
+
+    def hasStatisticalData(projectId){
+        def queryString = """
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+        PREFIX dq: <http://purl.org/linked-data/cube#> 
+        SELECT ?uri 
+        WHERE {
+            ?uri rdf:type qb:DataSet.
+        }
+        """
+        def queryExecution = QueryExecutionFactory.create(queryString, getModel(projectId))
+        return queryExecution.execSelect().collect{[uri: it.getResource("uri").URI]}.size() != 0
+    }
+
+    def hasGeographicalData(projectId){
+        def queryString = """
+        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+        PREFIX skos: <http://www.w3.org/2004/02/skos/core#> 
+        SELECT ?uri 
+        WHERE {
+            ?uri rdf:type skos:Concept.
+        }
+        """
+        def queryExecution = QueryExecutionFactory.create(queryString, getModel(projectId))
+        return queryExecution.execSelect().collect{[uri: it.getResource("uri").URI]}.size() != 0
+    }
     
     private String getLabel(Resource resource) {
         def SKOS_PREFLABEL = resource.model.createProperty("http://www.w3.org/2004/02/skos/core#prefLabel")
