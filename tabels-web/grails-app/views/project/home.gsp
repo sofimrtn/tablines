@@ -85,7 +85,7 @@
     				    architecture as a library.</p>
     			</div>
 
-				<h3 class="accordion inputbutton orange title">RDF mediation and reconciliation</h3>
+				<h3 class="accordion inputbutton orange title" >RDF mediation and reconciliation</h3>
     			<div>
     				<p><strong>Tabels</strong> also supports some data operations over RDF graphs. The language
     				    has special commands (called directives) empowering domain experts

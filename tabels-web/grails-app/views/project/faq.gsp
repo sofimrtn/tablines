@@ -6,7 +6,7 @@
     <body>
     	<div class="projectListBox homePage">
     		<h2>Frequently Asked Questions</h2>
-    		<h3>What is the end-user license for Tabels?</h3>            
+    		<h3>What is the Tabels license?</h3>            
             <p>Tabels is available as a free public online service.</p>
 
             <h3>Is Tabels available as open source?</h3>            
@@ -14,11 +14,11 @@
 
             <h3>If I create a project, will it stay online forever?</h3>            
             <p>No, we clean the projects everynight. 
-            Make sure you keep a local copy of the input files and the transformation program.</p>
+            Make sure you keep a local copy of the input and output data and your transformation program.</p>
            
-            <h3>If I upload some sensitive data, will it be publicly available?</h3>            
-            <p>All the projects in Tabels are public, including their input data. 
-            Make sure you do not upload sensitive information to Tabels.
+            <h3>If I upload some private data, will it be publicly available?</h3>            
+            <p>All the projects in Tabels are public, including their input data. You are 
+            the unique responsible with respect to your data. Take a look at the <g:link action="disclaimer">disclaimer</g:link>.            
             </p>
 
             <h3>How can I save my projects?</h3>            
@@ -27,30 +27,77 @@
             To download the transformation program you can copy the content using your favorite editor. </p>
 
             <h3>Why can't I modify the project?</h3>            
-            <p>Tabels includes a number of example projects which can not be modified. Every example project
+            <p>Tabels includes a number of sample projects which can not be modified. Every sample project
             is identified with the folder with lock icon 
             (<img width="50px" src="${resource(dir:'images',file:'tabels-folder-readonly.png')}" alt="folder with lock icon">).
-            If you create a new project, it will always be editable.
+            If you create a new project, it will always be editable by you and any other user.
             </p>
             
             <h3>Chart view does not work, any idea why is this happening?</h3>            
             <p>Depending on the nature of the input files, Tabels produces
-            different flavors of RDF. Chart view only consumes RDF that uses the RDF Data Cube
-            vocabulary. Take a look at <g:link action="list">eurostats example</g:link>
+            different flavors of RDF. Chart view only consumes DataCube-compliant data.
+            Take a look at the <g:link action="index" id="eurostats">eurostats</g:link> and 
+            <g:link action="index" id="MouseStatsQB">MouseStatsQB</g:link> projects
             to see the chart view in action.
             </p>      
             
 			<h3>Map view does not show any features.</h3>            
-            <p>The map view can display any resource that includes some geospatial information attached to it.
-            If you upload a shapefile and select the "MAPS" transformation program autogeneration, This will
-            often produce RDF that can be viewed under the map view.
+            <p>The map view can display any resource that includes geospatial information.
+            If you upload a shapefile and select the "MAPS" transformation program autogeneration, this will
+            produce map-visualizable RDF.
             </p>             
             
             <h3>Why only 1000 results are displayed under the faceted view?</h3>            
             <p>This limitation prevents the faceted view from presenting the user a long list of results. Use the 
             faceted view to filter rows according to selected values of different attributes. If
             you are interested in the "long list", the SPARQL endpoint might be what you are looking for.
+            And remember, this is an early prototype.
             </p>                   
+            
+            <h3>How can I contact you?</h3>            
+            <p>Please visit the <g:link action="contact">contact page</g:link> 
+            for more details on contacting us.
+            </p>         
+            
+            <h3>I have clicked on a URI resource and got a "project does not exist" message.</h3>            
+            <p>Each transformation program is specific to a project. 
+            If you are reusing a transformation program for a different project, 
+            make sure you update the namespaces of the project. In the PREFIX <code>project:</code> 
+            and <code>my:</code>,
+			rename the last segment of the namespace with the name of your project.           
+            </p>                             
+
+            <h3>I have uploaded a file, what's next?</h3>            
+            <p>You can try an autogeneration of the transformation program and select the
+            most appropriate for your kind of data. This program can be modified later.
+            And if you feel brave enough to start by yourself writing Tabels code or modify
+            the autogenerated program, do not forget to save it ;)             
+            </p>                             
+
+            <h3>Which input formats are supported by Tabels?</h3>            
+            <p>Tabels currently supports the following formats: 
+            <ul>
+            	<li>Spreadsheets: Microsoft Office (*.xls, *.xlsx) and Open Office (*.odf)</li>
+            	<li>Comma separated values: *.csv</li>
+            	<li>HTML tables: *.html</li>
+            	<li>PC-Axis: *.px</li>
+            	<li>Zipped ESRI shapefiles: *.shp.zip</li>
+            	<li>RDF data in RDF/XML, Turtle and N3 formats: *.rdf, *.turtle, *.n3</li>
+            </ul>            	             
+            </p> 
+            
+            <!-- 
+            <h3>Is it possible to modify the generated RDF?</h3>            
+            <p>Tabels empowers users to freely modify the RDF output from the transformation
+            by means of directives. See <g:link action="home" id="#mediation">RDF mediation and reconciliation</g:link>
+            for further information.                
+            </p> 
+             -->
+             
+            <h3>Can I upload my own RDF too?</h3>            
+            <p>Definitively, you can upload your own RDF file. Furthermore, you can merge
+            the RDF from another project using the @LOAD directive.
+            </p>                             
             
     	</div>
     </body>
