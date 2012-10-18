@@ -109,8 +109,8 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
       cell match {
 
         case cell:java.lang.String => Literal(cell.trim, XSD_STRING)
-        case cell:java.lang.Integer => Literal(cell, XSD_INT)
-        case cell:java.lang.Long => Literal(cell, XSD_INT)
+        case cell:java.lang.Integer => Literal(cell, XSD_INTEGER)
+        case cell:java.lang.Long => Literal(cell, XSD_INTEGER)
         case cell:java.lang.Double => Literal(cell, XSD_DOUBLE)
         case cell:java.util.Date => Literal(cell.toString, XSD_DATE)
         case cell:java.lang.Boolean => Literal(cell, XSD_BOOLEAN)

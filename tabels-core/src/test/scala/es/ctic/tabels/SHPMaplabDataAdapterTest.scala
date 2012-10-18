@@ -44,8 +44,8 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
     assertEquals(Literal("X"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
 
     // one for each column but picking random row
-    assertEquals(Literal(3, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
-    assertEquals(Literal(252481, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
+    assertEquals(Literal(3, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
+    assertEquals(Literal(252481, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
     assertEquals(Literal("Winsum", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 10)).getContent)
 
     assertEquals(Literal("http://www.w3.org/2003/01/geo/wgs84_pos#Point", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 23)).getContent)
@@ -53,7 +53,7 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
 
 
     // last row
-    assertEquals(Literal(7608, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 7603, col = 0)).getContent)
+    assertEquals(Literal(7608, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 7603, col = 0)).getContent)
   }
 }
 
@@ -91,7 +91,7 @@ class SHPMaplabDataAdapterBotanicTest extends JUnitSuite {
     assertEquals(Literal("COD"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
 
     // one for each column but picking random row
-    assertEquals(Literal(3, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
+    assertEquals(Literal(3, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
     assertEquals(Literal("13.1b", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
     assertEquals(Literal("Comunidades casmofiticas con S. trifurcata y S. paniculata", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 9)).getContent)
 
@@ -101,11 +101,11 @@ class SHPMaplabDataAdapterBotanicTest extends JUnitSuite {
 
 
     // last row
-    assertEquals(Literal(424, XSD_INT), dataAdapter.getValue(Point(filename1, sheet1, row = 424, col = 0)).getContent)
+    assertEquals(Literal(424, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 424, col = 0)).getContent)
 
 
     // sld sheet: attr index
-    assertEquals(Literal(1, XSD_INT), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 0)).getContent)
+    assertEquals(Literal(1, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 0)).getContent)
     // sld sheet: attr value
     assertEquals(Literal("6.2a", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet2, row = 0, col = 1)).getContent)
     // sld sheet: style in json public path

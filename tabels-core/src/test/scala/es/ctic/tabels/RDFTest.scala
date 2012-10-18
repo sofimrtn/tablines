@@ -27,11 +27,11 @@ class LiteralTest extends JUnitSuite {
       assertEquals(LITERAL_FALSE, LITERAL_FALSE.asBoolean)
       assertEquals(LITERAL_TRUE, Literal("hello").asBoolean)
       assertEquals(LITERAL_FALSE, Literal("").asBoolean)
-      assertEquals(LITERAL_TRUE, Literal("5", XSD_INT).asBoolean)
+      assertEquals(LITERAL_TRUE, Literal("5", XSD_INTEGER).asBoolean)
       assertEquals(LITERAL_TRUE, Literal("5.5", XSD_DOUBLE).asBoolean)
       assertEquals(LITERAL_TRUE, Literal("5.5", XSD_FLOAT).asBoolean)
       assertEquals(LITERAL_TRUE, Literal("5.5", XSD_DECIMAL).asBoolean)
-      assertEquals(LITERAL_FALSE, Literal("0", XSD_INT).asBoolean)
+      assertEquals(LITERAL_FALSE, Literal("0", XSD_INTEGER).asBoolean)
       assertEquals(LITERAL_FALSE, Literal("0.0", XSD_DOUBLE).asBoolean)
       assertEquals(LITERAL_FALSE, Literal("0.0", XSD_FLOAT).asBoolean)
       assertEquals(LITERAL_FALSE, Literal("0.0", XSD_DECIMAL).asBoolean)
@@ -39,13 +39,13 @@ class LiteralTest extends JUnitSuite {
   
   @Test def asInt {
       // see http://www.w3.org/TR/xpath-functions/#casting-to-numerics for details
-      assertEquals(Literal(10, XSD_INT), Literal(10, XSD_INT).asInt)
-      assertEquals(Literal(9, XSD_INT), Literal(9.81, XSD_DOUBLE).asInt)
-      assertEquals(Literal(-17, XSD_INT), Literal(-17.89, XSD_DOUBLE).asInt)
-      assertEquals(Literal(1, XSD_INT), LITERAL_TRUE.asInt)
-      assertEquals(Literal(0, XSD_INT), LITERAL_FALSE.asInt)
-      assertEquals(Literal(3, XSD_INT), Literal("3.14", XSD_DOUBLE).asInt)
-      assertEquals(Literal(3, XSD_INT), Literal("3.14", XSD_STRING).asInt)
+      assertEquals(Literal(10, XSD_INTEGER), Literal(10, XSD_INTEGER).asInt)
+      assertEquals(Literal(9, XSD_INTEGER), Literal(9.81, XSD_DOUBLE).asInt)
+      assertEquals(Literal(-17, XSD_INTEGER), Literal(-17.89, XSD_DOUBLE).asInt)
+      assertEquals(Literal(1, XSD_INTEGER), LITERAL_TRUE.asInt)
+      assertEquals(Literal(0, XSD_INTEGER), LITERAL_FALSE.asInt)
+      assertEquals(Literal(3, XSD_INTEGER), Literal("3.14", XSD_DOUBLE).asInt)
+      assertEquals(Literal(3, XSD_INTEGER), Literal("3.14", XSD_STRING).asInt)
      
   }
   

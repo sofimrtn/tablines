@@ -41,14 +41,14 @@ class ZIPDataAdapterTest extends JUnitSuite {
     assertEquals(Literal("OMSCHRIJVI"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
 
     // one for each column but picking random row
-    assertEquals(Literal(603.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
+    assertEquals(Literal(603.0, XSD_DOUBLE), dataAdapter.getValue(Point(filename1, sheet1, row = 3, col = 0)).getContent)
     assertEquals(Literal("Eemsmond", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
-    assertEquals(Literal(30123.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 2)).getContent)
+    assertEquals(Literal(30123.0, XSD_DOUBLE), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 2)).getContent)
     assertEquals(Literal("Fryslân", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 5, col = 3)).getContent)
 
 
     // last row
-    assertEquals(Literal(4723.0, XSD_DECIMAL), dataAdapter.getValue(Point(filename1, sheet1, row = 418, col = 0)).getContent)
+    assertEquals(Literal(4723.0, XSD_DOUBLE), dataAdapter.getValue(Point(filename1, sheet1, row = 418, col = 0)).getContent)
   }
 
 }
