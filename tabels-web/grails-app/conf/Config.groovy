@@ -61,14 +61,14 @@ grails.views.javascript.library="jquery"
 
 grails {
    mail {
-     host = "smtp.gmail.com"
-     port = 465
-     username = "ivan.minguez@gmail.com"
-     password = "yourpassword"
-     props = ["mail.smtp.auth":"true",             
-              "mail.smtp.socketFactory.port":"465",
-              "mail.smtp.socketFactory.class":"javax.net.ssl.SSLSocketFactory",
-              "mail.smtp.socketFactory.fallback":"false"]
+     host = "smtp.fundacionctic.org"
+     port = 25
+     username = "smtp"
+     password = "ptms"
+     grails.mail.ssl = "off"
+     props = ["mail.smtp.auth":"true",
+              "mail.smtp.socketFactory.port":"25",
+              "mail.smtp.starttls.enable":"false"]
    }
 }
 
