@@ -53,9 +53,7 @@ class ProjectController {
     }
 
     def sendFeedback = {
-        def email=params.email
-        System.out.println(email+" - "+msg)
-        def msg=params.name+' sent this comment about '+params.issue+': \n' + params.message
+        def msg=params.name+'('+params.email+') sent this comment about '+params.issue+': \n' + params.message
         sendMail {     
             to "ivan.minguez@fundacionctic.org"     
             subject params.subject     

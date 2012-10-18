@@ -27,7 +27,7 @@
 	            name: 'Name',
 	            email: 'Email',
 	            dropdownTitle: 'Issue',
-	            dropdownOptions: ['General', 'Website bug', 'Feature request'],
+	            dropdownOptions: ['General', 'Tabels bug', 'Feature request'],
 	            message : 'Message',
 	            submit : 'SEND',
 	            recievedMsg : 'Thank you for your message',
@@ -69,8 +69,7 @@
 			
 			<span class="contact">
 				<g:link action="contact" > <!--<img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" />--><g:message code="product.contact"/></g:link></span> - 
-			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span> -
-			<span class="faq"><g:link action="faq" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->FAQ</g:link></span> - 
+			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span> - 
 			<span class="helpIcon">
 				<g:link controller="docs" action="guide" target="_blank"> 
 				<!--<img src="${resource(dir:'images',file:'help.png')}" alt="${message(code:'product.documentation',default:'loading...')}" />-->
