@@ -82,7 +82,7 @@
             	<li>HTML tables: *.html</li>
             	<li>PC-Axis: *.px</li>
             	<li>Zipped ESRI shapefiles: *.shp.zip</li>
-            	<li>RDF data in RDF/XML, Turtle and N3 formats: *.rdf, *.turtle, *.n3</li>
+            	<li>RDF data in RDF/XML, Turtle and N3 formats: *.owl, *.rdf, *.ttl, *.n3, *.nt</li>
             </ul>            	             
             </p> 
             
