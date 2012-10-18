@@ -33,7 +33,7 @@ object DataAdapter {
     val ODFFilePattern = """.+\.ods$""".r
     val HTMLFilePattern = """.+\.html$""".r
     val DBFFilePattern =  """.+\.dbf$""".r
- //   val ZIPFilePattern =  """.+\.zip$""".r
+    val ZIPFilePattern =  """.+\.zip$""".r
     val ZIPSHPFilePattern =  """.+\.shp.zip$""".r
     val PXFilePattern =  """.+\.px$""".r
     
@@ -44,8 +44,8 @@ object DataAdapter {
             case ODFFilePattern() => new ODFDataAdapter(new File(url))
             case HTMLFilePattern() => new HTMLDataAdapter(new File(url))
             case DBFFilePattern() => new DBFDataAdapter(new File(url))
-        //    case ZIPFilePattern() => new ZIPDataAdapter(new File(url))
             case ZIPSHPFilePattern() => new SHPMaplabDataAdapter(new File(url))
+            case ZIPFilePattern() => new SHPMaplabDataAdapter(new File(url))
             case PXFilePattern() => new PXDataAdapter(new File(url))
             case _ => throw new UnrecognizedSpreadsheetFormatException(url)
         }
@@ -57,7 +57,7 @@ object DataAdapter {
                  | HTMLFilePattern()
                  | ODFFilePattern()
                  | DBFFilePattern()
-     //            | ZIPFilePattern()
+                 | ZIPFilePattern()
                  | ZIPSHPFilePattern()
                  | PXFilePattern()=> true
             case _ => false
