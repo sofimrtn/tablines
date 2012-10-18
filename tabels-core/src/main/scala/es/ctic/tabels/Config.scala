@@ -28,7 +28,7 @@ class Config extends Logging {
 
     // default: 12MB in bytes
     val maxFileSize = if(maxFileSizeReadFromConfiguration != null) maxFileSizeReadFromConfiguration else 12582912
-    val allowedExtensions = if(allowedExtensionsReadFromConfiguration != null) allowedExtensionsReadFromConfiguration else  "rdf,px,zip,csv,ods,xls,html"
+    val allowedExtensions = if(allowedExtensionsReadFromConfiguration != null) allowedExtensionsReadFromConfiguration else  "owl,rdf,nt,n3,ttl,px,zip,csv,ods,xls,html"
         
 }
 

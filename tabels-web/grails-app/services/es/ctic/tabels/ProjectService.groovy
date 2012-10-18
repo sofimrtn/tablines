@@ -198,9 +198,13 @@ class ProjectService {
 	    FileUtils.listFiles(getInputDir(projectId), ["owl", "rdf"] as String[], false).each {
 	        dataOutput.model.read(new FileInputStream(it), null, "RDF/XML")
 	    }
-	    FileUtils.listFiles(getInputDir(projectId), ["n3"] as String[], false).each {
+	    FileUtils.listFiles(getInputDir(projectId), ["n3","nt"] as String[], false).each {
 	        dataOutput.model.read(new FileInputStream(it), null, "N3")
 	    }
+		// read turtle
+		FileUtils.listFiles(getInputDir(projectId), ["ttl"] as String[], false).each {
+			dataOutput.model.read(new FileInputStream(it), null, "TTL")
+		}
 
         // execute the interpreter
 		def trace = interpreter.interpret(program, dataSource, dataOutput)
