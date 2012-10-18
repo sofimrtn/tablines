@@ -11,10 +11,32 @@
 		<link rel="stylesheet" href="${resource(dir:'css',file:'simple-hint.css')}">
         <link rel="stylesheet" href="${resource(dir:'css',file:'main.css')}" />
         <link rel="stylesheet" href="${resource(dir:'css',file:'buttons.css')}" />
+        <link rel="stylesheet" href="${resource(dir:'css',file:'contactable.css')}" />
+        <r:require modules="contactable"/>
         <g:layoutHead />
 		<r:layoutResources/>
     </head>
     <body>
+     <div id="my-contact-div"></div>
+	<r:script>
+		jQuery(function(){
+			jQuery('#my-contact-div').contactable(
+	        {
+	            subject: 'feedback URL:'+location.href,
+	            url: 'sendFeedback',
+	            name: 'Name',
+	            email: 'Email',
+	            dropdownTitle: 'Issue',
+	            dropdownOptions: ['General', 'Website bug', 'Feature request'],
+	            message : 'Message',
+	            submit : 'SEND',
+	            recievedMsg : 'Thank you for your message',
+	            notRecievedMsg : 'Sorry but your message could not be sent, try again later',
+	            disclaimer: 'Please feel free to get in touch, we value your feedback',
+	            hideOnSubmit: false
+	        });
+		});
+	</r:script>
      <div id="wrapper">
         <div id="spinner" class="spinner" style="display:none;">
             <img src="${resource(dir:'images',file:'spinner.gif')}" alt="${message(code:'spinner.alt',default:'Loading...')}" />

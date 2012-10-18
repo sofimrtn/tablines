@@ -481,12 +481,39 @@ input[type=text] {
     -webkit-box-shadow: 0px 0px 8px #d9d9d9;
 }
 
-input[type=text]:focus {
+textarea{
+    border: 1px solid #c4c4c4;
+    font-size: 13px;
+    padding: 4px 4px 4px 4px;
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    box-shadow: 0px 0px 8px #d9d9d9;
+    -moz-box-shadow: 0px 0px 8px #d9d9d9;
+    -webkit-box-shadow: 0px 0px 8px #d9d9d9;
+}
+
+input[type=text]:focus, textarea:focus {
     outline: none;
     border: 1px solid #7bc1f7;
     box-shadow: 0px 0px 8px #7bc1f7;
     -moz-box-shadow: 0px 0px 8px #7bc1f7;
     -webkit-box-shadow: 0px 0px 8px #7bc1f7;
+}
+
+label, label span{
+    vertical-align: top;
+}
+
+
+.ss-q-title{
+    width: 100px;
+    display: inline-block;
+}
+
+.ss-required-asterisk{
+    font-size: 12px;
+    color:red;
 }
 
 .sourceUrlText{
@@ -661,4 +688,24 @@ color: #333;
 
 code {
     font-size: 14px;
+}
+
+.percentage{
+    width:200px !important;
+}
+
+#feedback{
+    background-color: #0c5276;
+    width:35px;
+    text-align: right;
+    position: fixed;
+    top: 150px;
+    left:-5px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+#feedback:hover{
+    background-color: #ee7c00;
 }

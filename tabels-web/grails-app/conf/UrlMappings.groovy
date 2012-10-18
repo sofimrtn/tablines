@@ -43,6 +43,7 @@ class UrlMappings {
 		
 		"/ws/mapArea"(uri:"/maplab/map.dispatch")
 		"/ws/tree"(uri:"/maplab/tree.dispatch")
+		"/sendFeedback"(controller: "project", action: "sendFeedback")
 
 		"500"(view:'/error')
 	}

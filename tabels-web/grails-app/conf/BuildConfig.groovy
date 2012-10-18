@@ -28,7 +28,7 @@ grails.project.dependency.resolution = {
         mavenRepo "http://www.scala-tools.org/repo-releases/"
     }
     plugins {
-        runtime ':uploadr:0.6-CTIC',//':tapinos-js:1.6',
+        runtime ':uploadr:0.6.0',//':tapinos-js:1.6',
                 ':svn:1.0.2',
                 //Added for tapinos-ws
                 ":jquery:1.7.1",
@@ -40,7 +40,8 @@ grails.project.dependency.resolution = {
                 ":jquery-tooltip:1.3",
                 ":jquery-ui:1.8.15",
                 ":jquery-svg:1.4.4.0",
-                ":resources:1.1.6"
+                ":resources:1.1.6",
+                ":mail:1.0"
     }
     dependencies {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.

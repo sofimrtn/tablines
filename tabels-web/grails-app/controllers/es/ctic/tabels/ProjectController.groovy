@@ -51,6 +51,18 @@ class ProjectController {
     def disclaimer = {
         render(view:"disclaimer")
     }
+
+    def sendFeedback = {
+        def email=params.email
+        System.out.println(email+" - "+msg)
+        def msg=params.name+' sent this comment about '+params.issue+': \n' + params.message
+        sendMail {     
+            to "ivan.minguez@fundacionctic.org"     
+            subject params.subject     
+            body msg 
+        }
+        response.sendError(200, 'success')
+    }
 	
 	def faq = {
 		render(view:"faq")

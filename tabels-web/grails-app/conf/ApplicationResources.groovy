@@ -53,5 +53,9 @@ modules = {
         resource url:'js/tapinos/jquery.tapinosTable.js'
         resource url:'css/tapinos.css'
     }
+    'contactable'{
+    	 dependsOn 'jquery'
+    	 resource url:'js/jquery.contactable.min.js'
+    }
 
 }

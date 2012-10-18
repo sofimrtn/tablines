@@ -10,7 +10,7 @@
 		</ul>
     	<div class="projectListBox homePage">
     		<div class="left">
-	    		<h2>Team and contact</h2>
+	    		<h2>Team and Contact</h2>
 			<p><strong>Tabels</strong> is an on-going work developed by researchers from <a href="http://fundacionctic.org/en">CTIC</a>. Please, contact
 	    		    any of us whether you have any question, suggestion or
 	    		    comment about <strong>Tabels</strong>, its features or the data-sensitive visualization toolkit.</p>
