@@ -16,6 +16,10 @@
 		            tabular formats such as PC-Axis, ESRI shapefile, analysis-tools formats and so forth. 
 		            Data tables are everywhere in our life. Calendars, maps, 
 		            forms, reports and charts are only some examples of this tables omnipresence in organizations everyday work.</p>
+		            
+		            <div style="text-align:center;"><iframe src="http://player.vimeo.com/video/51742089?color=ff9933" width="500" height="313" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> </div>
+		            
+		            
 					<p>The aim is to provide means to discover and to surface the data structures hidden 
 			   		in tables, and to enable users to combine data over and above the limits of files and formats. 
 			    	By transforming data tables to RDF datasets, the information integration achieves 
@@ -23,6 +27,8 @@
 			    	with enrichment and entity reconciliation opportunities. <strong>Tabels</strong> is not a mere 
 			    	transformation tool, but it facilitates end-user exploitation of data by supplying 
 			    	front-end interactive mechanisms.</p> 
+			    	
+			    	
 			    	<p>Give a <g:link action="list">try to our online demo service</g:link>
 	    		    and <g:link action="contact">tell us</g:link> about your experience!</p>
 
@@ -164,6 +170,9 @@
     				    the style (icons, colors, line format, etc.). These styles must be originally 
     				    expressed in the XML-based SLD standard (Styled Layer Descriptor) defined by the OGC
     				    consortium.</p>
+    			
+    			<div style="text-align:center;"><iframe src="http://player.vimeo.com/video/51742090?color=ff9933" width="500" height="313" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> </div>
+    				    
     				<p>To visualize these geospatial data, <strong>Tabels</strong> also integrates the Undermaps (Understanding Maps) 
     				    component. In a similar fashion as Understats works with multidimensional data described 
     				    with the Data Cube vocabulary, these HTML5 front-end widgets produce web-map visualizations 
