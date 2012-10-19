@@ -36,6 +36,8 @@ class InvalidInputFile(filename:String) extends RunTimeTabelsException("Unable t
 
 class InvalidInputFileCannotReadXls(filename:String) extends InvalidInputFile("Not valid Excel file " + filename)
 class InvalidInputFileCannotReadOds(filename:String) extends InvalidInputFile("Not valid ODS file " + filename)
+class InvalidInputFileCannotReadHTML(filename:String) extends InvalidInputFile("Not valid HTML file " + filename)
+
 
 class InvalidInputFileNoSldAttached(filename:String) extends InvalidInputFile("Shapefile zip is missing sld file " + filename)
 

@@ -8,8 +8,18 @@ import parsing._
 import org.xml.sax.InputSource
 
 class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
-    
+    try {
     private val root = HTML5Parser.loadXML(new InputSource(new FileReader(fl)))
+    }
+    catch {
+            case e : FileNotFoundException =>
+                logger.error("While reading HTML file " + file.getCanonicalPath, e)
+                throw new NoInputFiles
+            case e : Exception =>
+                logger.error("While reading HTML file " + file.getCanonicalPath, e)
+                throw new InvalidInputFileCannotReadHTML(file.getName)
+	   }
+	}
     private val tables : Seq[Node] = root \\ "table"
     
     private def getTable(tabName : String) : Node = tables(tabName.toInt)
