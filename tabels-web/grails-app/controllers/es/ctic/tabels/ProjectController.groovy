@@ -44,8 +44,8 @@ class ProjectController {
         render(view:"home")
     }
 
-    def contact = {
-        render(view:"contact")
+    def team = {
+        render(view:"team")
     }
 
     def disclaimer = {

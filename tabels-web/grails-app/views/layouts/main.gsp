@@ -65,9 +65,9 @@
 			<span class="helpIcon">
 				<g:link controller="project" action="home">Home</g:link>
 			</span> -
-			
-			<span class="contact">
-				<g:link action="contact" > <!--<img src="${resource(dir:'images',file:'contact.png')}" alt="${message(code:'product.contact',default:'loading...')}" />--><g:message code="product.contact"/></g:link></span> - 
+
+			<span class="contact"><a id="contact-link" onclick="$('#contactable-inner').click();" href="javascript:void(0)"><g:message code="product.contact"/></a></span> - 
+			<span class="team"><g:link action="team"><g:message code="product.team"/></g:link></span> - 
 			<span class="disclaimer"><g:link action="disclaimer" ><!--<img src="${resource(dir:'images',file:'disclaimer.png')}" alt="${message(code:'product.contact',default:'loading...')}" />-->Disclaimer</g:link></span> -
 			<span class="faq"><g:link action="faq" >FAQ</g:link></span> - 
 			<span class="helpIcon">
