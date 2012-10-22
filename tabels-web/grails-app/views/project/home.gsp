@@ -145,7 +145,7 @@
     	    		
     	    		<p>Have a look to our chart-exploitable projects from Data-Cube-compliant datasets. First, the 
     	    		<g:link action="index" id="MouseStatsQB">Mouse project</g:link> presents a spreadsheet file
-    	    		of an imaginary study of tumor growth in mices. The results of the experiments are translated
+    	    		of an imaginary study of tumor growth in mice. The results of the experiments are translated
     	    		into a multidimensional structure. Second, in the 
     	    		<g:link action="index" id="eurostat">Eurostats project</g:link>,
     	    		a statistical indicator published by EU regarding internet broad band
