@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-import java.io.{File,FileReader}
+import java.io.{File,FileReader,FileNotFoundException}
 import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 import scala.xml._
@@ -8,21 +8,22 @@ import parsing._
 import org.xml.sax.InputSource
 
 class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
-    try {
-    private val root = HTML5Parser.loadXML(new InputSource(new FileReader(fl)))
+     private val root = try {
+    HTML5Parser.loadXML(new InputSource(new FileReader(fl)))
+    
     }
     catch {
             case e : FileNotFoundException =>
-                logger.error("While reading HTML file " + file.getCanonicalPath, e)
+                logger.error("While reading HTML file " + fl.getCanonicalPath, e)
                 throw new NoInputFiles
             case e : Exception =>
-                logger.error("While reading HTML file " + file.getCanonicalPath, e)
-                throw new InvalidInputFileCannotReadHTML(file.getName)
+                logger.error("While reading HTML file " + fl.getCanonicalPath, e)
+                throw new InvalidInputFileCannotReadHTML(fl.getName)
 	   }
-	}
-    private val tables : Seq[Node] = root \\ "table"
     
+	private val tables : Seq[Node] = root \\ "table"
     private def getTable(tabName : String) : Node = tables(tabName.toInt)
+    
 
 	override val uri = fl.getCanonicalPath()
 	override def getValue(point : Point) : CellValue =

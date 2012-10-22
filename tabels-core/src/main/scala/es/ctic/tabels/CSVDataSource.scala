@@ -4,12 +4,22 @@ import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 import collection.JavaConversions._
 import au.com.bytecode.opencsv.CSVReader
-import java.io.{File,FileReader}
+import java.io.{File,FileReader,FileNotFoundException}
 import scala.collection.mutable.HashMap
 
 class CSVDataAdapter(file : File) extends DataAdapter with Logging {
-
-	private val table : CSVTable = readTable(file)
+	
+	private val table : CSVTable = try
+							{
+								readTable(file)
+							}catch {
+						            case e : FileNotFoundException =>
+						                logger.error("While reading CSV file " + file.getCanonicalPath, e)
+						                throw new NoInputFiles
+						            case e : Exception =>
+						                logger.error("While reading CSV file " + file.getCanonicalPath, e)
+						                throw new InvalidInputFileCannotReadCSV(file.getName)
+							   }
 	
 	private def readTable(file : File) : CSVTable = {
         logger.info("Reading CSV file " + file)
