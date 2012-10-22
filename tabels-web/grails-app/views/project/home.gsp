@@ -30,7 +30,7 @@
 			    	
 			    	
 			    	<p>Give a <g:link action="list">try to our online demo service</g:link>
-	    		    and <g:link action="contact">tell us</g:link> about your experience!</p>
+	    		    and <a id="contact-link" onclick="$('#contactable-inner').click();" href="javascript:void(0)">tell us</a> about your experience!</p>
 
 			    </div>
 
@@ -145,7 +145,7 @@
     	    		
     	    		<p>Have a look to our chart-exploitable projects from Data-Cube-compliant datasets. First, the 
     	    		<g:link action="index" id="MouseStatsQB">Mouse project</g:link> presents a spreadsheet file
-    	    		of an imaginary study of tumor growth in mouses. The results of the experiments are translated
+    	    		of an imaginary study of tumor growth in mice. The results of the experiments are translated
     	    		into a multidimensional structure. Second, in the 
     	    		<g:link action="index" id="eurostat">Eurostats project</g:link>,
     	    		a statistical indicator published by EU regarding internet broad band
