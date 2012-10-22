@@ -4,7 +4,12 @@
         <meta name="layout" content="main" />
     </head>
     <body>
+        <ul id="crumbs" class="crumbsBlock">
+            <li><g:link action="home">Home</g:link></li>
+            <li>Frequently Asked Questions</li>
+        </ul>
     	<div class="projectListBox homePage">
+
     		<h2>Frequently Asked Questions</h2>
     		
     		<ul>
@@ -77,9 +82,8 @@
             </p>                   
             
             <h3 id="contact">How can I contact you?</h3>            
-            <p>Please visit the <g:link action="contact">contact page</g:link> 
-            for more details on contacting us. You can also input your feedback
-            using the 
+            <p>Click <a id="contact-link" onclick="$('#contactable-inner').click();" href="javascript:void(0)">here</a> 
+            to contact us.
             </p>         
             
             <h3 id="projectDoesNotExist">I clicked on a URI resource and got a "project does not exist" message.</h3>            
