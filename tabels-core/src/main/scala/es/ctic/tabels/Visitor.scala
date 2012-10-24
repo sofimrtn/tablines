@@ -86,6 +86,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
 		iteratorStatement.accept(VisitorEvaluate(dataSource,events, relativeEvaluationContext))
     }
     else{
+ //Checking for missing dimensions  
     val requiredDimension = requiredDimensionMap(iteratorStatement.dimension)
     
     if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
@@ -105,10 +106,11 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
       for ((dimensionIterator, newEvaluationContext) <- filteredPairs){
     	logger.debug("Iteration through " + iteratorStatement.dimension+" in position "+dimensionIterator )
     	 
-    	
+
     	val next = filteredPairs.indexOf((dimensionIterator,newEvaluationContext))+ 1
+    	//FIXME: Modify window limit to be a pair of (string, string) so tabs and files can be windowed.
     	val windowLimit = filteredPairs.isDefinedAt(next) match{
-    	  case true => if (iteratorStatement.windowed) Some((filteredPairs.apply(next)._1.asInstanceOf[Int],iteratorStatement.dimension))
+    	  case true => if (iteratorStatement.windowed && (iteratorStatement.dimension==rows||iteratorStatement.dimension==cols)) Some((filteredPairs.apply(next)._1.asInstanceOf[Int],iteratorStatement.dimension))
     	  			   else evaluationContext.windowLimit
     	  case false => evaluationContext.windowLimit
     	}
