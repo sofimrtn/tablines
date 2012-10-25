@@ -115,19 +115,17 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   val featuresIterator: org.geotools.data.simple.SimpleFeatureIterator = featureSource.getFeatures.features
   while (featuresIterator.hasNext) {
     val feature: org.opengis.feature.simple.SimpleFeature = featuresIterator.next()
-    // trace("dM before insertion: "+dataMatrix)
-    // FIXME why does this until start in 1: suggestion: attribute(0) is the geometry
+
+    // FIXME why does this "until" start in 1: suggestion: attribute(0) is the geometry
     val currentAttributesInRow = 1 until feature.getAttributeCount map (index => feature.getAttribute(index)) // each row is an Object[]
 
     // get kml path
     val currentKmlPath = kmlConversionResults.get(feature.getID).getAbsolutePath
-    // val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPath)
 
     val currentKmlPublicPath = publicDirKml + kmlConversionResults.get(feature.getID).getName
     val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPublicPath)
 
     dataMatrix += currentRow
-    // trace("dM after insertion: "+dataMatrix)
   }
   featuresIterator.close
 
@@ -138,6 +136,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // If no sld, throw exception
   if (sldFound.isEmpty)       {
+    warn("No SLD found!")
     throw new InvalidInputFileNoSldAttached(file.getName)
   }
 
@@ -156,6 +155,9 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
     val indexOfStyleAttributeInHeaders = dbfHeaders.indexOf(firstAttributeInMap)
     trace("trying to find "+firstAttributeInMap+ " in "+dbfHeaders + ": "+indexOfStyleAttributeInHeaders)
+    if(indexOfStyleAttributeInHeaders == -1) {
+      warn("Attribute '%s' not found in dbf".format(firstAttributeInMap))
+    }
 
     val styleForFirstAttributeMap = sldMap.get(firstAttributeInMap)
     trace("style map: "+styleForFirstAttributeMap)
@@ -164,11 +166,14 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     trace ("new zipped map: " + zippedMap)
 
     trace("final public url root for json files: "+publicDirJson)
-    // (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,publicDirJson + zippedMap(index)._2 + ".json"))
-    (0 until zippedMap.length) map (index => Seq(indexOfStyleAttributeInHeaders,zippedMap(index)._2,publicDirJson + styleForFirstAttributeMap.get(zippedMap(index)._2).getName))
+    (0 until zippedMap.length) map (index => Seq(
+      indexOfStyleAttributeInHeaders,
+      zippedMap(index)._2,
+      publicDirJson + styleForFirstAttributeMap.get(zippedMap(index)._2).getName)
+    )
 
   }
-  trace("style matrix: "+styleMatrix)
+  trace("style matrix [%d,%d]:".format(styleMatrix.length,styleMatrix(0).length)+styleMatrix)
 
   // Delete extractedDir
   trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath)
@@ -194,7 +199,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     tabName match {
 
       case "dbf" => dbfHeaders.length
-      case "sld" => 3
+      case "sld" => styleMatrix(0).length
       case _ => throw new InvalidInputTab(tabName)
     }
   }
@@ -233,7 +238,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
           val cell = (styleMatrix(point.row) apply point.col).asInstanceOf[AnyRef]
           trace("cell: " + cell)
           SHPCellValue(cell)
-          // return SHPCellValue(styleMatrix(point.row) apply point.col)
+
         }
         case _ => throw new IndexOutOfBounds(point)
       }
