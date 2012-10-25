@@ -146,7 +146,7 @@ class TabelsParser extends JavaTokenParsers with Logging{
 
     
 	def quotedString : Parser[String] =
-         /*stringLiteral*/""""(\\["\\]|[^"\n])*"""".r ^^ { s => s.slice(1,s.length-1).replaceAll("""\\"""",""""""").replaceAll("""\\\\""","""\""") }
+         /*stringLiteral*/""""(\\["\\]|[^"\n])*"""".r ^^ { s => s.slice(1,s.length-1).replaceAll("""\\"""",""""""").replaceAll("""\\\\""","""\\""") }
          
     def langTag : Parser[String] = """[a-zA-Z][a-zA-Z\-]*""".r
 
