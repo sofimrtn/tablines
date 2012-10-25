@@ -161,11 +161,15 @@ class TabelsParser extends JavaTokenParsers with Logging{
 	def path : Parser[String] =  "\"" ~> """([^\"]+)""".r <~"\""  
 	
 	def iriRef : Parser[NamedResource] = "<" ~>  """([^<>"{}|^`\\\x00-\x20])*""".r <~ ">" ^^ NamedResource
-	
+		
 	//FIXME: Curi nodes not support sparql specification 
-	def curieRef : Parser[NamedResource] = (ident <~ ":") ~ ("""[a-zA-Z\-0-9]+[a-zA-Z\-\.?=_]*""".r) ^^
-	    { case prefix~local => if (prefixes.contains(prefix)) { prefixes(prefix) + local } else { throw new UndefinedPrefixException(prefix) } }
-	    
+	def curieRef : Parser[NamedResource] = (definedPrefix <~ ":") ~ ("""[a-zA-Z\-0-9]+[a-zA-Z\-\.?=_]*""".r) ^^
+	    { case prefix~local =>  prefix + local }
+	
+	def definedPrefix : Parser[NamedResource] = (ident ) ^^
+	    { case prefix=> if (prefixes.contains(prefix)) { prefixes(prefix) } else { throw new UndefinedPrefixException(prefix) } }
+	   
+	
 	def blankNode : Parser[BlankNode] =
 	    "[]" ^^ { _ => createFreshBlankNode() } |
 	    "_"~>":" ~> ident ^^ { internalId => BlankNode(Left(internalId)) }
@@ -316,7 +320,14 @@ class TabelsParser extends JavaTokenParsers with Logging{
 
     def functionExpression : Parser[Expression] =
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
-    		{case v~u => ResourceExpression(expression = v, uri = u)} |		
+    		{case v~u => ResourceExpression(expression = v, uri = u)} |
+    	((RESOURCE <~"(") ~> expression )~ (","~> curieRef <~")") ^^ 
+    		{case v~u => ResourceExpression(expression = v, uri = u)} |
+    	((RESOURCE <~"(") ~> expression )~ (","~> definedPrefix <~")") ^^ 
+    		{case v~p => ResourceExpression(expression = v, uri = p)} |
+        ((RESOURCE <~"(") ~> expression)<~")" ^^ 
+    		{case local =>if (prefixes.contains("my")) { ResourceExpression(expression = local, uri = prefixes("my")) } 
+    					  else { throw new UndefinedPrefixException("my") } }|		
         GET_ROW ~> "(" ~> variable <~ ")" ^^ 
     		{case v => GetRowExpression(variable = v) } |		
         GET_COL ~> "(" ~> variable <~ ")" ^^ 
@@ -413,8 +424,8 @@ class TabelsParser extends JavaTokenParsers with Logging{
     
     def verbTemplate : Parser[Either[RDFNode, Variable]] =
 		iriRef ^^ { Left(_) } |
-		curieRef ^^ { Left(_) } |
 		A ^^ { _ => Left(RDF_TYPE) } |
+		curieRef ^^ { Left(_) } |
 		variable ^^ { Right (_) }
        
 	def objectsTemplate : Parser[(Seq[Either[RDFNode, Variable]], Seq[TripleTemplate])] =
