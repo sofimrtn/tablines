@@ -188,7 +188,7 @@ class ScovoAutogenerator(defaultNamespace : Namespace = EX, projectId: String  =
     
 }
 
-class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String = "DefaultTabels") extends Autogenerator with Logging {
+class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String = "DefaultTabels") extends Autogenerator with Logging {
 
   implicit val evaluationContext = EvaluationContext()
 
@@ -249,10 +249,13 @@ class mapLabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val forStyleStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(matchStyleStmt))
     val inStyleSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetStyle, nestedStatement = Some(forStyleStmt))
     
-    logger.trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
+    trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
     
     val letGeometryResourceStmt = LetStatement(geometryResource, ResourceExpression(VariableReference(variables.dropRight(1).last), NamedResource("")))
     val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")),Some(letGeometryResourceStmt))
+    trace("typeResource: %s".format(typeResource))
+    trace("stylePosition: %s".format(stylePosition))
+    trace("letKmlResourceStmt: %s".format(letKmlResourceStmt))
     val letDataStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(variables(stylePosition)), my("style/")), Some(letKmlResourceStmt))
     val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letDataStyleStmt))
     val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
