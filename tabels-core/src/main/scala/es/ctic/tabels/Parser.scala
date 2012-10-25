@@ -15,8 +15,8 @@ import scala.util.parsing.input.CharSequenceReader
 import scala.collection._
 
 import java.io.File
-
-class TabelsParser extends JavaTokenParsers {
+import grizzled.slf4j.Logging
+class TabelsParser extends JavaTokenParsers with Logging{
 
 	val prefixes = mutable.HashMap.empty[String, NamedResource]
 	var blankNodeId : Int = 0
@@ -146,7 +146,7 @@ class TabelsParser extends JavaTokenParsers {
 
     
 	def quotedString : Parser[String] =
-         stringLiteral ^^ { s => s.slice(1,s.length-1) }
+         /*stringLiteral*/""""(\\["\\]|[^"\n])*"""".r ^^ { s => s.slice(1,s.length-1).replaceAll("""\\"""",""""""").replaceAll("""\\\\""","""\""") }
          
     def langTag : Parser[String] = """[a-zA-Z][a-zA-Z\-]*""".r
 
@@ -222,7 +222,7 @@ class TabelsParser extends JavaTokenParsers {
     def variableOrTuple : Parser[Tuple] = variable ^^ { v => Tuple(Seq(v)) } | tuple
     
     def regex : Parser[Regex] =
-      ("""\"[^"]*\"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
+      (""""(\\[^n]|[^"\n])*"""".r) ^^ {case r => new Regex( (r.drop(1)).dropRight(1) )}
     
     def startCondition : Parser[Option[Either[Expression,Position]]] =
       opt(STARTS ~>((WHEN ~> expression)^^{Left(_)}|(AT ~> position)^^{Right(_)}))
