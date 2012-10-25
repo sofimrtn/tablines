@@ -117,7 +117,7 @@ class SHPMaplabDataAdapterNoSldTest extends JUnitSuite {
 
 
   var dataAdapter : SHPMaplabDataAdapter = null
-  val filename1 : String = this.getClass.getResource("/es/ctic/tabels/one-point-no-sld.shp.zip").getFile.replace("%20"," ")
+  val filename1 : String = this.getClass.getResource("/es/ctic/tabels/point-nosld-one-point.shp.zip").getFile.replace("%20"," ")
   val sheet1 = "dbf"
   val sheet2 = "sld"
 
@@ -127,9 +127,34 @@ class SHPMaplabDataAdapterNoSldTest extends JUnitSuite {
     val file1 = new File(filename1)
     try  {
       dataAdapter = new SHPMaplabDataAdapter(file1)
+      fail("Should have thrown exception")
     } catch {
       case iie: InvalidInputFileNoSldAttached => assertTrue(true)
       case e: Exception => fail("Should return an InvalidInputFileNoSldAttached, but returned: "+e.getClass.getCanonicalName)
     }
+  }
+}
+
+class SHPMaplabDataAdapterNoDbfPointTest extends JUnitSuite {
+
+
+  var dataAdapter : SHPMaplabDataAdapter = null
+  val filename1 : String = this.getClass.getResource("/es/ctic/tabels/point-nodbf-one-point.shp.zip").getFile.replace("%20"," ")
+  val sheet1 = "dbf"
+  val sheet2 = "sld"
+
+  @Before def setUp {
+
+
+    System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
+    val file1 = new File(filename1)
+
+    dataAdapter = new SHPMaplabDataAdapter(file1)
+
+  }
+
+  @Test def testGetValue {
+    val stylePosition =  dataAdapter.getValue(new Point(filename1,"sld",0,0)).getContent.asInt
+    assertEquals(Literal(-1, XSD_INTEGER),stylePosition)
   }
 }
