@@ -146,7 +146,7 @@ class ProjectService {
         if (strategy == "SCOVO") {
             autogenerator = new ScovoAutogenerator(getDefaultNamespace(projectId), projectId)
         }else if (strategy == "MAPS") {
-                    autogenerator = new mapLabAutogenerator(getDefaultNamespace(projectId), projectId)
+                    autogenerator = new MaplabAutogenerator(getDefaultNamespace(projectId), projectId)
                 } else {
                     autogenerator = new BasicAutogenerator(getDefaultNamespace(projectId), projectId)
                 }
