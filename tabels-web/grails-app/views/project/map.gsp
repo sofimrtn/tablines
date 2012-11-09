@@ -3,7 +3,7 @@
 <head>
     <!--<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">-->
     <title>Tabels project - Map View</title>
-    <r:require modules="dynatree, infobubble, maplab"/>
+    <r:require modules="dynatree, infobubble"/>
 
     <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <meta name="layout" content="main" />	   

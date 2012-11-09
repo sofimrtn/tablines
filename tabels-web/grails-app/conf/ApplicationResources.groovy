@@ -26,12 +26,7 @@ modules = {
 		resource url:'http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js'
 		resource url:'css/dynatree.custom.css'
 	}
-	maplab {
-		dependsOn 'jquery'
-		resource url:'js/mapLabmap.js'
-		resource url:'js/mapLabTree.js'
-		resource url:'css/maplab.css'
-	}
+
 	googlemaps {
 		resource url:'http://maps.google.com/maps/api/js?sensor=true', attrs:[type:'js']
 	}
