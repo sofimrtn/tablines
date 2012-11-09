@@ -52,7 +52,7 @@ grails.project.dependency.resolution = {
             excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12'
         }
 
-        compile('es.ctic.maplab:maplab-ws:0.1'){
+        compile('es.ctic.undermaps:undermaps-ws:0.2'){
 		  excludes 'arq'
 		}
 		
