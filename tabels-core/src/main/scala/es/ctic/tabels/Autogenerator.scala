@@ -207,14 +207,13 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val tripleTemplatesShapeFileConcept = new ListBuffer[TripleTemplate]
     val filename = dataSource.filenames(0)
     val sheetData = dataSource.getTabs(filename)(0)
-    val sheetStyle = dataSource.getTabs(filename)(1)
+
+    val isStyleIncludedInShp = dataSource.getTabs(filename).contains("sld")
+
+    val sheetStyle = if(isStyleIncludedInShp) dataSource.getTabs(filename)(1) else ""
    
     logger.info("Autogenerating Tabels program for project "+ projectId +", file " + filename + ", sheet " + sheetData)
 
-    val stylePosition =  dataSource.getValue(new Point(filename,"sld",0,0)).getContent.asInt
-    
-    logger.trace("Style col number: "+ stylePosition)
-    
     val hasHeader = hasHeaderRow(dataSource, filename, sheetData)
     lazy val headerRow = dataSource.getRow(filename, sheetData, 0)
     val cols = dataSource.getCols(filename, sheetData)
@@ -242,29 +241,52 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val tupleData = Tuple(variables)
     val tupleType = Tuple(Seq(col,style,uri))
     
-    val letShapeFileConcept = LetStatement(shapeFileConcept, ResourceExpression(VariableReference(shapeFile), my()))
-    val letJsonStmt = LetStatement(jsonResource, ResourceExpression(VariableReference(uri), NamedResource("")),nestedStatement= Some(letShapeFileConcept))
-    val letStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(style), my("style/")),nestedStatement= Some(letJsonStmt))
-    val matchStyleStmt = MatchStatement(tupleType, nestedStatement= Some(letStyleStmt))
-    val forStyleStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(matchStyleStmt))
-    val inStyleSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetStyle, nestedStatement = Some(forStyleStmt))
-    
-    trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
-    
-    val letGeometryResourceStmt = LetStatement(geometryResource, ResourceExpression(VariableReference(variables.dropRight(1).last), NamedResource("")))
-    val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")),Some(letGeometryResourceStmt))
-    trace("typeResource: %s".format(typeResource))
-    trace("stylePosition: %s".format(stylePosition))
-    trace("letKmlResourceStmt: %s".format(letKmlResourceStmt))
-    val letDataStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(variables(stylePosition)), my("style/")), Some(letKmlResourceStmt))
-    val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letDataStyleStmt))
-    val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
-    val forDataStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(GetRowExpression(rowId)) else None, nestedStatement = Some(letDataStmt))
-    val inDataSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetData, nestedStatement = Some(forDataStmt))
-    
-    val blockStmt = BlockStatement(Seq(inDataSheetStmt,inStyleSheetStmt))
-    val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(blockStmt),variable=Some(shapeFile))
-    statements += inFileStmt
+
+
+
+    if(isStyleIncludedInShp) {
+
+      val letShapeFileConcept = LetStatement(shapeFileConcept, ResourceExpression(VariableReference(shapeFile), my()))
+      val letJsonStmt = LetStatement(jsonResource, ResourceExpression(VariableReference(uri), NamedResource("")),nestedStatement= Some(letShapeFileConcept))
+      val letStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(style), my("style/")),nestedStatement= Some(letJsonStmt))
+      val matchStyleStmt = MatchStatement(tupleType, nestedStatement= Some(letStyleStmt))
+      val forStyleStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), nestedStatement = Some(matchStyleStmt))
+
+      val inStyleSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetStyle, nestedStatement = Some(forStyleStmt))
+      val stylePosition =  dataSource.getValue(new Point(filename,sheetStyle,0,0)).getContent.asInt
+      logger.trace("Style col number: "+ stylePosition)
+      trace("Generating resource for style  from col: "+stylePosition+ "and column name"+variables(stylePosition) )
+
+      val letGeometryResourceStmt = LetStatement(geometryResource, ResourceExpression(VariableReference(variables.dropRight(1).last), NamedResource("")))
+      val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")),Some(letGeometryResourceStmt))
+      trace("typeResource: %s".format(typeResource))
+      trace("stylePosition: %s".format(stylePosition))
+      trace("letKmlResourceStmt: %s".format(letKmlResourceStmt))
+      val letDataStyleStmt = LetStatement(typeResource, ResourceExpression(VariableReference(variables(stylePosition)), my("style/")), Some(letKmlResourceStmt))
+      val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letDataStyleStmt))
+
+      val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
+      val forDataStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(GetRowExpression(rowId)) else None, nestedStatement = Some(letDataStmt))
+      val inDataSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetData, nestedStatement = Some(forDataStmt))
+
+      val blockStmt = BlockStatement(Seq(inDataSheetStmt,inStyleSheetStmt))
+      val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(blockStmt),variable=Some(shapeFile))
+      statements += inFileStmt
+    } else {
+
+      val letGeometryResourceStmt = LetStatement(geometryResource, ResourceExpression(VariableReference(variables.dropRight(1).last), NamedResource("")))
+      val letKmlResourceStmt = LetStatement(kmlResource, ResourceExpression(VariableReference(variables.last), NamedResource("")),Some(letGeometryResourceStmt))
+      val matchDataStmt = MatchStatement(tupleData, nestedStatement= Some(letKmlResourceStmt))
+
+      val letDataStmt = LetStatement(resource, ResourceExpression(VariableReference(rowId), my()), Some(matchDataStmt))
+      val forDataStmt = IteratorStatement(Dimension.rows, variable = Some(rowId), filter = if (hasHeader) Some(GetRowExpression(rowId)) else None, nestedStatement = Some(letDataStmt))
+      val inDataSheetStmt = SetInDimensionStatement(Dimension.sheets, fixedDimension = sheetData, nestedStatement = Some(forDataStmt))
+
+      val blockStmt = BlockStatement(Seq(inDataSheetStmt))
+      val inFileStmt = SetInDimensionStatement(Dimension.files, fixedDimension = filename, nestedStatement = Some(blockStmt),variable=Some(shapeFile))
+      statements += inFileStmt
+    }
+
 
     val resourceClass = NEOGEOSPATIAL("Feature")
     tripleTemplates += TripleTemplate(resource, RDF_TYPE, resourceClass)
@@ -276,8 +298,10 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val geometryTypeTriple = TripleTemplate(kmlResource,RDF_TYPE,geometryResource)
     tripleTemplates.remove(tripleTemplates.lastIndexOf(tripleTemplates.last))
     tripleTemplates++=Seq(geometryTriple,geometryTypeTriple)
-    
-    tripleTemplates += TripleTemplate(resource,DCT("subject"),typeResource)
+
+    if (isStyleIncludedInShp) {
+      tripleTemplates += TripleTemplate(resource,DCT("subject"),typeResource)
+    }
     val templateFeature = Template(tripleTemplates)
      
   
@@ -297,7 +321,11 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
     val collectionDefinitionTemplate = Template(Seq(TripleTemplate(my("collection"), RDF_TYPE, SKOS("ConceptScheme"))))
     val propertyDefinitionTemplate = Template(properties map (p => TripleTemplate(p,RDF_TYPE,RDF("Property"))))
 
-    val templates = List( templateFeature,templateType,templateShapeFile, propertyDefinitionTemplate/*, dcatTriples.dataSetMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetRDFDistributionMetadataTemplate(defaultNamespace,my),dcatTriples.dataSetTurtleDistributionMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetN3DistributionMetadataTemplate(defaultNamespace,my)*/)
+    val templates = if (isStyleIncludedInShp) {
+      List( templateFeature,templateType,templateShapeFile, propertyDefinitionTemplate/*, dcatTriples.dataSetMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetRDFDistributionMetadataTemplate(defaultNamespace,my),dcatTriples.dataSetTurtleDistributionMetadataTemplate(defaultNamespace,my), dcatTriples.dataSetN3DistributionMetadataTemplate(defaultNamespace,my)*/)
+    } else {
+      List(templateFeature,propertyDefinitionTemplate)
+    }
 
     val directives = Seq()
     val program = S(directives, prefixes, statements, templates)

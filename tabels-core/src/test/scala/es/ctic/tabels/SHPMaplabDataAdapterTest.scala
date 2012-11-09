@@ -4,6 +4,7 @@ import org.scalatest.junit.JUnitSuite
 import org.junit.{BeforeClass, Test, Before}
 import java.io.File
 import org.junit.Assert._
+import es.ctic.tabels.IndexOutOfBounds
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +21,9 @@ class SHPMaplabDataAdapterNLTest extends JUnitSuite {
   val sheet2 = "sld"
 
   @Before def setUp {
+    System.setProperty("tabels.path",".")
+    System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
+
     val file1 = new File(filename1)
     dataAdapter = new SHPMaplabDataAdapter(file1)
   }
@@ -66,6 +70,7 @@ class SHPMaplabDataAdapterBotanicTest extends JUnitSuite {
 
   @Before def setUp {
 
+    System.setProperty("tabels.path",".")
     System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
     val file1 = new File(filename1)
     dataAdapter = new SHPMaplabDataAdapter(file1)
@@ -121,17 +126,55 @@ class SHPMaplabDataAdapterNoSldTest extends JUnitSuite {
   val sheet1 = "dbf"
   val sheet2 = "sld"
 
-  @Test def testFileIsInvalid {
+  @Before def setUp {
+
 
     System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
+    System.setProperty("tabels.path",".")
     val file1 = new File(filename1)
-    try  {
-      dataAdapter = new SHPMaplabDataAdapter(file1)
-      fail("Should have thrown exception")
+
+    dataAdapter = new SHPMaplabDataAdapter(file1)
+
+  }
+
+
+
+  @Test def testGetValue {
+    try {
+      val stylePosition =  dataAdapter.getValue(new Point(filename1,"sld",0,0)).getContent.asInt
     } catch {
-      case iie: InvalidInputFileNoSldAttached => assertTrue(true)
-      case e: Exception => fail("Should return an InvalidInputFileNoSldAttached, but returned: "+e.getClass.getCanonicalName)
+      case ioob: IndexOutOfBounds => assertTrue(true);
+      case e: Exception => fail("Should return an IndexOutOfBounds, but returned %s".format(e.getClass.getCanonicalName))
     }
+
+  }
+
+  @Test def testGetTabs {
+
+    assertFalse(dataAdapter.getTabs().contains("sld"))
+
+  }
+
+  @Test def testGetCols {
+    try {
+      dataAdapter.getCols("sld")
+      fail("expected InvalidInputTab")
+    } catch {
+      case iit: InvalidInputTab => assertTrue(true);
+      case e: Exception => fail("Should return an InvalidInputTab, but returned %s".format(e.getClass.getCanonicalName))
+    }
+  }
+
+  @Test def testGetRows {
+
+    try {
+      dataAdapter.getRows("sld")
+      fail("expected InvalidInputTab")
+    } catch {
+      case iit: InvalidInputTab => assertTrue(true);
+      case e: Exception => fail("Should return an InvalidInputTab, but returned %s".format(e.getClass.getCanonicalName))
+    }
+
   }
 }
 
@@ -145,7 +188,7 @@ class SHPMaplabDataAdapterNoDbfPointTest extends JUnitSuite {
 
   @Before def setUp {
 
-
+    System.setProperty("tabels.path",".")
     System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
     val file1 = new File(filename1)
 

@@ -134,11 +134,8 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
   // Find .sld
   val sldFound = extractedZipDir.list().find(fileName => fileName.endsWith(".sld"))
 
-  // If no sld, throw exception
-  if (sldFound.isEmpty)       {
-    warn("No SLD found!")
-    throw new InvalidInputFileNoSldAttached(file.getName)
-  }
+  // If no sld, warn
+  if (sldFound.isEmpty) warn("No SLD found!")
 
   logger.trace("we found this sld in zip entries: " + sldFound)
 
@@ -167,13 +164,13 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
     trace("final public url root for json files: "+publicDirJson)
     (0 until zippedMap.length) map (index => Seq(
-      indexOfStyleAttributeInHeaders,
-      zippedMap(index)._2,
-      publicDirJson + styleForFirstAttributeMap.get(zippedMap(index)._2).getName)
+      indexOfStyleAttributeInHeaders,        // DBF column name associated with style
+      zippedMap(index)._2,                   // value
+      publicDirJson + styleForFirstAttributeMap.get(zippedMap(index)._2).getName) // public-uri.json
     )
 
   }
-  trace("style matrix [%d,%d]:".format(styleMatrix.length,styleMatrix(0).length)+styleMatrix)
+  trace("style matrix [%d,%s]:".format(styleMatrix.length,if(styleMatrix.isEmpty) "-" else ""+styleMatrix(0).length)+styleMatrix)
 
   // Delete extractedDir
   trace("Removing temp dir: "+ extractedZipDir.getAbsolutePath)
@@ -183,13 +180,13 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   override val uri = file.getCanonicalPath()
 
-  override def getTabs(): Seq[String] = Seq("dbf","sld")
+  override def getTabs(): Seq[String] = if (styleMatrix.isEmpty) Seq("dbf") else Seq("dbf","sld")
 
   override def getRows(tabName: String = "dbf"): Int = {
 
     tabName match {
       case "dbf" => dataMatrix.length + 1
-      case "sld" => styleMatrix.length
+      case "sld" => if(styleMatrix.isEmpty) throw new InvalidInputTab(tabName) else styleMatrix.length
       case _ => throw new InvalidInputTab(tabName)
     }
   }
@@ -199,7 +196,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     tabName match {
 
       case "dbf" => dbfHeaders.length
-      case "sld" => styleMatrix(0).length
+      case "sld" => if (styleMatrix.isEmpty) throw new InvalidInputTab(tabName) else styleMatrix(0).length
       case _ => throw new InvalidInputTab(tabName)
     }
   }
@@ -235,9 +232,13 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
           }
         }
         case "sld" => {
-          val cell = (styleMatrix(point.row) apply point.col).asInstanceOf[AnyRef]
-          trace("cell: " + cell)
-          SHPCellValue(cell)
+          try {
+            val cell = (styleMatrix(point.row) apply point.col).asInstanceOf[AnyRef]
+            trace("cell: " + cell)
+            SHPCellValue(cell)
+          } catch {
+            case e => throw new IndexOutOfBounds(point)
+          }
 
         }
         case _ => throw new IndexOutOfBounds(point)
