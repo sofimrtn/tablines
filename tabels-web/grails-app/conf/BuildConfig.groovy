@@ -28,7 +28,8 @@ grails.project.dependency.resolution = {
         mavenRepo "http://www.scala-tools.org/repo-releases/"
     }
     plugins {
-        runtime ':uploadr:0.6.0',//':tapinos-js:1.6',
+        runtime ':uploadr:0.6.0',
+				//':tapinos-js:1.7',
                 ':svn:1.0.2',
                 //Added for tapinos-ws
                 ":jquery:1.7.1",
@@ -55,8 +56,7 @@ grails.project.dependency.resolution = {
 		  excludes 'arq'
 		}
 		
- // compile('es.ctic.tapinos:tapinos-services:1.9.3')
-        compile('es.ctic.understats:understats:2.2'){
+        compile('es.ctic.understats:understats-ws:2.3'){
             excludes 'arq'
         }
         compile('commons-lang:commons-lang:2.6')
