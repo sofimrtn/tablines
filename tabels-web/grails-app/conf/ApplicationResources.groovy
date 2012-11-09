@@ -48,10 +48,13 @@ modules = {
         resource url:'js/tapinos/jquery.tapinosChart.js'
         resource url:'js/tapinos/jquery.tapinosCombos.js'
         resource url:'js/tapinos/jquery.tapinosMap.js'
+        resource url:'js/tapinos/jquery.undermaps.tree.js'
+        resource url:'js/tapinos/jquery.undermaps.gmaps.js'
         resource url:'js/tapinos/jquery.tapinosPermLinkBuilder.js'
         resource url:'js/tapinos/jquery.tapinosSelectSearch.js'
         resource url:'js/tapinos/jquery.tapinosTable.js'
         resource url:'css/tapinos.css'
+        resource url:'css/undermaps.css'
     }
     'contactable'{
     	 dependsOn 'jquery'
