@@ -149,6 +149,7 @@ class NumericExpressionsTest extends JUnitSuite {
     
     assertEquals(1 ,NumericFunctions.int(1))
     assertEquals(14 , NumericFunctions.int(14))
+    assertEquals(0 ,NumericFunctions.int(Literal("0",XSD_INT)),0)
     
     }
     
@@ -162,10 +163,12 @@ class NumericExpressionsTest extends JUnitSuite {
     @Test def float {
         assertEquals(1.0 ,NumericFunctions.float(1),0)
         assertEquals(14.0 , NumericFunctions.float(14),0)
+        assertEquals(0.3136143982410431 ,NumericFunctions.float(Literal("0.3136143982410431",XSD_FLOAT)),0)
     }
     
     @Test def double {
         assertEquals(1.0 ,NumericFunctions.double(1.0),0)
+        assertEquals(0.3136144 ,NumericFunctions.double(Literal("0.3136144",XSD_DOUBLE)),0)
     }
     
     @Test def doubleOrElse {

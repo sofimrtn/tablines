@@ -27,8 +27,8 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	def asString : Literal = Literal(value)
 	
 	def asInt : Literal = rdfType match {
-	    case XSD_INTEGER => this
-	   case XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT | XSD_INT => Literal(value.toString.toFloat.toInt, XSD_INTEGER) // FIXME
+	 //   case XSD_INTEGER => this
+	   case XSD_INTEGER | XSD_DOUBLE | XSD_DECIMAL | XSD_FLOAT | XSD_INT => Literal(value.toString.toFloat.toInt, XSD_INTEGER) // FIXME
 	    case XSD_STRING => try {
 	            Literal(value.toString.toFloat.toInt, XSD_INTEGER)
             } catch {
@@ -39,8 +39,8 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	}
 	
 	def asFloat : Literal = rdfType match {
-	    case XSD_FLOAT => this
-	    case XSD_INT | XSD_INTEGER | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT) // FIXME
+	   // case XSD_FLOAT => this
+	    case XSD_FLOAT | XSD_INT | XSD_INTEGER | XSD_DOUBLE | XSD_DECIMAL => Literal(value.toString.toFloat, XSD_FLOAT) // FIXME
 	    case XSD_STRING => try {
 	            Literal(value.toString.toFloat, XSD_FLOAT)
             } catch {
@@ -50,15 +50,15 @@ case class Literal(value : Any, rdfType: NamedResource = XSD_STRING, langTag : S
 	    case _ => throw new TypeConversionException(this, XSD_FLOAT)
 	}
 	def asDouble : Literal = rdfType match {
-	    case XSD_DOUBLE => this
-	    case XSD_INT | XSD_INTEGER | XSD_FLOAT | XSD_DECIMAL => Literal(value.toString.toDouble, XSD_DOUBLE) // FIXME
+	 //   case XSD_DOUBLE => this 
+	    case XSD_DOUBLE | XSD_INT | XSD_INTEGER | XSD_FLOAT | XSD_DECIMAL => Literal(value.toString.toDouble, XSD_DOUBLE) // FIXME
 	    case XSD_STRING => try {
-	            Literal(value.toString.toFloat, XSD_FLOAT)
+	            Literal(value.toString.toDouble, XSD_DOUBLE)
             } catch {
                 case e : NumberFormatException => throw new TypeConversionException(this, XSD_DOUBLE)
             }
-	    case XSD_BOOLEAN => if (truthValue) Literal(1.0, XSD_FLOAT) else Literal(0.0, XSD_FLOAT)
-		case _ => throw new TypeConversionException(this, XSD_FLOAT)
+	    case XSD_BOOLEAN => if (truthValue) Literal(1.0, XSD_DOUBLE) else Literal(0.0, XSD_DOUBLE)
+		case _ => throw new TypeConversionException(this, XSD_DOUBLE)
 	}
 	
 }
