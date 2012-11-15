@@ -23,12 +23,12 @@ class ProjectService {
 
     File projectsDir = new File(configObject.tabelsDir, "projects")
     
-    File getProjectDir(String projectId, Boolean evenIfItDoesNotExist = false) throws ProjectDoesNotExistException {
+    File getProjectDir(String projectId, Boolean evenIfItDoesNotExist = false) throws Exception {
         if (projectId == null || projectId.trim().equals("")) {
-            throw new ProjectDoesNotExistException("((empty))")
+            throw new ProjectInvalidNameException("((empty))")
         } else if (! (projectId ==~ /[\w-]+/ )) {
             log.error "Project name ${projectId} is invalid"
-            throw new ProjectDoesNotExistException(projectId)
+            throw new ProjectInvalidNameException(projectId)
         } else {
             File projectDir = new File(projectsDir, projectId)
             if (projectDir.exists() || evenIfItDoesNotExist) {
@@ -123,7 +123,7 @@ class ProjectService {
         modelCache.remove(projectId)
     }
     
-    def renameProject(String oldProjectId, String newProjectId) throws ProjectDoesNotExistException {
+    def renameProject(String oldProjectId, String newProjectId) throws Exception{
         log.info "Renaming project ${oldProjectId} to ${newProjectId}"
         FileUtils.moveDirectory(getProjectDir(oldProjectId), getProjectDir(newProjectId, true))
     }
@@ -343,6 +343,18 @@ class ProjectDoesNotExistException extends Exception {
     }
     
 }
+
+class ProjectInvalidNameException extends Exception {
+    
+    String projectId
+    
+    ProjectInvalidNameException(String projectId) {
+        super("The project name is not valid: ${projectId}")
+        this.projectId = projectId
+    }
+    
+}
+
 
 class FileTooLargeException extends Exception {
 		String fileName
