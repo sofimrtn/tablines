@@ -86,7 +86,7 @@
 		      <g:message code="msg.triples"/>: <span id="triplesCount"></span>
 		  </div>
 		  <div id="datasetInfoError">
-		      Ooops! There was a problem running the transformation
+		      <g:message code="msg.count.triples.error"/>
 	      </div>
 		</div>
 		<r:script>
