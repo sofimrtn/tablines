@@ -225,11 +225,28 @@ class ProjectController {
     def downloadSource = {
         String projectId = params.id // FIXME: validate
         HttpMethod method = new GetMethod(params.sourceUrl)
+        
         def client = new HttpClient();
         try {
             log.info "Downloading ${params.sourceUrl}"
             int statusCode = client.executeMethod(method)
-            String filename = "download-${System.currentTimeMillis()}.html"
+            String filename =""
+            log.info "Mime Type:"+ method.getResponseHeader("Content-Type").getValue().toLowerCase()
+             switch(method.getResponseHeader("Content-Type").getValue().toLowerCase() ){
+                case "application/rdf+xml": filename = "download-${System.currentTimeMillis()}.rdf"
+                                            break
+                case ["text/n3","text/plain"]: filename = "download-${System.currentTimeMillis()}.nt" //FIXME: N-Triples mime type is text/plain 
+                                            break
+                case "text/turtle": filename = "download-${System.currentTimeMillis()}.ttl"
+                                            break
+                case "text/csv": filename = "download-${System.currentTimeMillis()}.csv"
+                                            break
+                case ["application/excel","application/vnd.ms-excel","application/msexcel","application/x-msexcel","application/x-ms-excel","application/x-excel","application/x-dos_ms_excel","application/xls","application/x-xls"]: filename = "download-${System.currentTimeMillis()}.xls"
+                                            break
+                case "application/vnd.oasis.opendocument.spreadsheet": filename = "download-${System.currentTimeMillis()}.ods"
+                                            break                            
+                default: filename = "download-${System.currentTimeMillis()}.html"
+                }
             def downloadedFile = new File(projectService.getInputDir(projectId), filename)
             OutputStream os = new FileOutputStream(downloadedFile)
             log.debug "Writing ${params.sourceUrl} to file ${downloadedFile}"
