@@ -109,7 +109,7 @@
 
         <p><label for="dataset">Dataset:</label>
 
-        <select id="dataset" name="dataset" onchange="javascript:onDatasetChange(event)" class="inputbutton white medium">
+        <select id="dataset" name="dataset" class="inputbutton white medium">
         <g:each var="dataset" in="${datasets}">
           <option value="${dataset.uri}">${dataset.label}</option>
         </g:each>
