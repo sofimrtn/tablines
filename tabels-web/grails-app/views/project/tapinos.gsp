@@ -12,7 +12,6 @@
         <li><g:link action="index" id="${params.id}">Project ${params.id}</g:link></li>
         <li>Chart view</li>
     </ul>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 	<r:script>
        function getCurrentDataset() {
          return $("#dataset > option:selected").val();

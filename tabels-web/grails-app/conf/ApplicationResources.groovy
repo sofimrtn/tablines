@@ -26,6 +26,10 @@ modules = {
 		resource url:'http://wwwendt.de/tech/dynatree/jquery/jquery.cookie.js'
 		resource url:'css/dynatree.custom.css'
 	}
+	
+	googlejsapi {
+        resource url: 'https://www.google.com/jsapi', attrs: [type: 'js']
+	}
 
 	googlemaps {
 		// HACK until new version of resource grails plugin
@@ -54,7 +58,7 @@ modules = {
 	}
 
     'tapinos-js' {
-        dependsOn 'jquery,fancybox,protovis,jquery-ui,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip'
+        dependsOn 'jquery,fancybox,protovis,jquery-ui,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,googlejsapi'
 //        defaultBundle 'ui'
         resource url:'js/tapinos/jquery.tapinosCommon.js'
         resource url:'js/tapinos/jquery.tapinosChart.js'
