@@ -67,7 +67,7 @@ function mapLabTree_paintLegend (mapLabTreeComponent){
 	}*/
 		
 	if (selKeys.length == 0){
-		textLegend = textLegend + "<ul><li>No hay nada seleccionado</li></ul>";
+		textLegend = textLegend + "<ul><li>Nothing selected</li></ul>";
 	}else{		
 		textLegend = textLegend + "<ul class='legendlist'>";
 	
@@ -103,11 +103,12 @@ function mapLabTree_setDefaultSettings(settings){
 // ********************************************************
 // JQuery component
 // ********************************************************	
-$.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default	
 
 (function($) {
 // initialization function
    $.fn.mapLabTree = function(settings) {
+
+	   $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default	
    			
     	mapLabTree_setDefaultSettings(settings);
     	// save settings into the DOM tree

@@ -1,186 +1,6 @@
 // Tapinos Chart component
-
-function tapinosChart_paintHighChartsChart(element, data) {  
-      var settings = element.data("tapinosChartSettings");
-      seriesType = 'column';
-      if ( data.chartType=='LINES' ) {
-      	seriesType = 'line';
-      } else if ( data.chartType=='PIE' ) {
-      	seriesType = 'pie';
-      }
-      var options = {
-      	 title: {
-      	 	text: ''
-      	 },
-         chart: {
-            renderTo: element.attr("id"),
-            marginBottom: 50,
-            defaultSeriesType: seriesType,
-            zoomType: 'xy'            
-         },
-         xAxis: {
-        	 title: { text: data.xLabel }
-         },
-         yAxis: {
-        	 title: { text: data.yLabel },
-        	 min: data.yMin,
-        	 max: data.yMax,    
-         },
-		 legend: {},
-         series: {},
-         tooltip: {
-			borderWidth: 0,
-			formatter: function() {
-				var point = { "x": this.point.name, "y": this.y };
-				var series = { "seriesLabel": this.series.name };
-				return tapinosCommon_formatPoint(point, series, data, settings);
-			}
-         },      
-         plotOptions: {
-         	column: {},
-         	bar: {},
-         	line: {
-	        	series: {
-    	        	marker: {
-        	        	lineWidth: 2,
-            	    	lineColor: null // inherit from series
-            		}
-        		}
-    	 	},
-    	 	pie: {
-    	 		dataLabels: {
-    	 			formatter: function() {
-						if ( this.y>0 ) {
-							var point = { "x": this.point.name, "y": this.y };
-							var series = { "seriesLabel": this.series.name };
-							return "<strong>"+tapinosCommon_formatPoint(point, series, data, settings)+"</strong>";
-                  		} else {
-                  			return "";
-                  		}
-               		}
-    	 		}
-    	 	},
-    	 	series: {
-    	 		animation: {
-					duration: 1000,
-					easing: 'linear',
-				}
-    	 	}
-    	 },
-    	 exportButtons: {
-    	 	enabled: true
-    	 },
-    	 exporting: {
-   			url: "export.do?uuid="+(new Date().getTime())
-   		 }
-	  };	
-	
-	// Asignamos los valores de la grÃ¡fica
-    //options.title.text = data.title;
-    
-    options.series = new Array();
-    // Si solo tenemos una serie la partimos para simular varias y utilizar la leyenda en vez de etiqueta en el eje X (que da problemas con nombres largos)
-    if ( data.series.length==1 && seriesType=='column' && !data.xLabel.match(/^Territorio de la estad/) ) {
-   		for ( var pointIndex=0; pointIndex<data.series[0].points.length; pointIndex++ ) {
-   			var seriesLabel = data.series[0].points[pointIndex].x?data.series[0].points[pointIndex].x:'';   		    	   	
-   			var series = new Array( data.series[0].points.length );
-   			for( var seriesIndex=0; seriesIndex<series.length; seriesIndex++ ) {
-   				if ( seriesIndex==pointIndex ) {
-   					series[pointIndex] = data.series[0].points[pointIndex].y;
-   				} else {
-   					series[seriesIndex] = null;
-   				}
-   			}
-   			options.series.push({
-   				name: seriesLabel,
-   				data: series
-   			});
-   		}
-    	options.xAxis["categories"] = data.sortedX;
-    	options.xAxis['labels'] = { 'enabled': false };
-    	options.xAxis['tickWidth'] = 0;    	
-    	options.plotOptions.column['pointPadding'] = -0.4;
-    	options.plotOptions.bar['pointPadding'] = -0.4;
-    } else {    	
-    	if (data.chartType == "LINES" && settings.parseXAsDates == true) {
-    		options.xAxis["type"] = "datetime";
-    		/*if (settings.xTickInterval != undefined) { // undocumented option
-    			options.xAxis["tickInterval"] = settings.xTickInterval;
-    		}//*/
-    		// Si trabajamos con fechas indicamos intervalos anuales (365 dias * 24 horas * 3600 seg * 1000ms)
-    		options.xAxis["tickInterval"] = 31536000000;
-    	} else {
-    		options.xAxis["categories"] = data.sortedX;
-    	}
-    	for( seriesIndex in data.series ) {
-    		// Si tenemos el nombre de la serie lo asignamos
-    		var seriesLabel = data.series[seriesIndex].seriesLabel?data.series[seriesIndex].seriesLabel:'';    		
-      		var thisSeries = new Array(data.sortedX.length);
-      		for ( pointIndex in data.series[seriesIndex].points ) {
-      			var point = data.series[seriesIndex].points[pointIndex];
-      			var index = data.sortedX.indexOf(point.x);
-      			// Para grÃ¡ficos de tarta y con valor 0 no se aÃ±ade para que no salga en la leyenda
-      			if ( data.chartType!='PIE' || point.y!=0 ) { 
-      				// Otros grÃ¡ficos o si tiene valor distinto de 0 se aÃ±ade para que salga en la leyenda
-      				thisSeries[index] = new Array();
-      				thisSeries[index].push(data.chartType == "LINES" && settings.parseXAsDates == true ? Date.parse(point.x) : point.x);
-      				thisSeries[index].push(point.y);
-      			}
-      		}
-      		options.series.push({
-      			name: seriesLabel,
-      			data: cleanArray(thisSeries) // remove "undefined" points
-      		});
-		}
-		options['plotOptions']['column']['groupPadding'] = 0.1;
-	}
-    if (options.series.length == 1) {
-    	options['legend']['enabled'] = (seriesType=='pie');
-    	options['plotOptions']['column']['colorByPoint'] = true;
-    	options['plotOptions']['bar']['colorByPoint'] = true;
-    } else {
-    	options['plotOptions']['column']['colorByPoint'] = false;
-    	options['plotOptions']['bar']['colorByPoint'] = false;
-    	options.chart.marginBottom = 60 + (10*options.series.length);
-    }
-    var chart = $(element).data("highchartsChart");
-    
-    if (chart != undefined && typeof chart=='Object') {
-    		chart.destroy();
-    }
-    $(element).data("options", options);
-	chart = new Highcharts.Chart(options);
-	$(element).data("highchartsChart", chart);
-	
-
-	$('.highcharts-legend text').tooltip({ 
-	    	bodyHandler: function() { 
-	        	return $($(this).find('tspan')[1]).text(); 
-	    	}, 
-	    	showURL: false 
-	});
-	$('.highcharts-axis text').tooltip({ 
-	    	bodyHandler: function() { 
-	        	return $($(this).find('tspan')[1]).text(); 
-	    	}, 
-	    	showURL: false 
-	});
-	
-	if ( data.chartType=='LINES' ) {
-		settings.toggleChartTypeButton.hide();
-		settings.animateButton.show();
-	} else if ( data.chartType=='VERTICAL_BARS' ){
-		settings.toggleChartTypeButton.show();
-		settings.animateButton.hide();
-	} else {
-		settings.animateButton.hide();
-		settings.toggleChartTypeButton.hide();
-	}
-	return;
-}
-
 function tapinosChart_injectNoData(component, data) {
-	var html = "<p class='tapinosChart-noData'>No existen datos</p>";
+	var html = "<p class='tapinosChart-noData'>There are no data available</p>";
 	component.html(html);
 }
 
@@ -207,13 +27,15 @@ function tapinosChart_prepareChartRequest(component, chartConfig) {
 	if (settings.valueVar != undefined) {
 		params.valueVar = tapinosCommon_getStringParameter(settings.valueVar);
 	}
+	//Used in tapinosCombos.js
 	if (settings.seriesVar != undefined) {
 		params.seriesVar = tapinosCommon_getStringParameter(settings.seriesVar);
 	}
+	//Used in tapinosCombos.js
 	if (settings.seriesValues != undefined) {
-		//params.seriesValues = tapinosCommon_getArrayParameter(settings.seriesValues);
-		params.seriesValues =  tapinosCommon_getArrayParameter(settings.dimensionConstraints);
+		params.seriesValues = tapinosCommon_getArrayParameter(settings.seriesValues);
 	}
+	//Only used in tapinosMap.js lines 219 and 220 and this two lines
 	if (settings.seriesAggregateFunction != undefined) {
 		params.seriesAggregateFunction = tapinosCommon_getStringParameter(settings.seriesAggregateFunction);
 	}
@@ -225,12 +47,6 @@ function tapinosChart_prepareChartRequest(component, chartConfig) {
 	}
 	if (settings.dataset != undefined) {
 		params.dataset = tapinosCommon_getStringParameter(settings.dataset);
-	}
-	if (settings.endpoint != undefined) {
-		params.endpoint = tapinosCommon_getStringParameter(settings.endpoint);
-	}
-	if (settings.namedgraph != undefined) {
-		params.namedgraph = tapinosCommon_getStringParameter(settings.namedgraph);
 	}
 	return params;
 }
@@ -248,30 +64,16 @@ function tapinosChart_onChartServiceCallback(component) {
         		if (settings.doNotPaintChart == false) {
 	        		if (data.series.length == 0 || (data.series.length == 1 && data.series[0].points.length == 0)) {
 	        			tapinosChart_injectNoData(component, data);
-	        			settings.maximizeButton.hide();
-	        			settings.toggleChartTypeButton.hide();
 	        		} else if (data.valueVar == undefined || (data.series.length == 1 && data.series[0].points.length == 1)) {
 	        			tapinosChart_injectBigNumber(component, data);
-	        			settings.maximizeButton.hide();
-	        			settings.toggleChartTypeButton.hide();
 	        		} else {
-						if (settings.chartService == "highcharts"){
-							tapinosChart_paintHighChartsChart(component, data);
-							settings.maximizeButton.show();
-						} else { //default google charts
-							if (settings.chartService != "google"){
-								//TODO: add log
-							}
-							
 							tapinosChart_paintGoogleChart(component, data);
 	
 							$(window).bind("resize", function(event) {
 								tapinosChart_setGraphSizeGoogleChart(component);
 								tapinosChart_drawGoogleChart(component);
+								
 							});
-														
-						}
-
 	        		}
         		}
         		// Update the attached table (if available)
@@ -288,113 +90,6 @@ function tapinosChart_onChartServiceCallback(component) {
     };
 }
 
-//********************************************************
-// Maximization
-//********************************************************
-
-function tapinosChart_initializeMaximization(component) {
-	var settings = component.data("tapinosChartSettings");
-    settings.maximizeButton.fancybox({
-		"autoDimensions": false, "width": "95%", "height": "95%",
-		titleShow: false,
-		onComplete: tapinosChart_onCompleteMaximizationFunc(component),
-		onClosed: tapinosChart_onClosedMaximizationFunc(component),
-    });
-}
-
-function tapinosChart_onCompleteMaximizationFunc(component) {
-	return function() {
-		var settings = component.data("tapinosChartSettings");
-	    var chart = component.data("highchartsChart");
-	    var maximizeOptions = jQuery.extend(true, null, chart.options);
-	    if ( maximizeOptions.chart.defaultSeriesType=='bar' ) {
-	    // Si son barras horizontales le damos mÃ¡s margen izquierdo
-	    	maximizeOptions.chart.marginLeft = 250;
-      		maximizeOptions.xAxis.title.margin= 195;
-	    }
-	    settings.maximizeContainer.height('100%');       
-	    maximizeOptions.height = null;
-	    maximizeOptions.width = null;
-	    maximizeOptions.chart.renderTo = settings.maximizeContainer.attr("id");
-	    maximizeOptions.plotOptions.series.animation.duration = 1000;
-	    maximizeOptions['legend']['itemStyle']['fontSize'] = '10px';
-	    maximizeOptions['legend']['itemHiddenStyle']['fontSize'] = '10px';
-	    maximizeOptions['legend']['itemHoverStyle']['fontSize'] = '10px';
-	  	maximized_chart = new Highcharts.Chart(maximizeOptions);
-	  	component.data("highchartsMaximizedChart", maximized_chart);	
-	};
-}
-
-function tapinosChart_onClosedMaximizationFunc(component) {
-	return function() {
-		var settings = component.data("tapinosChartSettings");
-	    var maximized_chart = component.data("highchartsMaximizedChart");
-      	maximized_chart.destroy();
-      	settings.maximizeContainer.height('0');
-	};	
-}
-
-//********************************************************
-//Animation
-//********************************************************
-
-function tapinosChart_initializeAnimation(component) {
-	var settings = component.data("tapinosChartSettings");
-    settings.animateButton.click(function() {
-		var settings = component.data("tapinosChartSettings");
-	    var options = component.data("options");
-	    options.chart.renderTo = component.attr("id");
-	    options.plotOptions.series['animation']['duration'] = 5000;
-	    var chart = component.data("highchartsChart");
-	    chart.destroy();
-	    chart = new Highcharts.Chart(options);
-	    component.data("highchartsChart", chart);
-      });
-}
-
-//********************************************************
-//Toggle chart type
-//********************************************************
-
-function tapinosChart_initializeToggleChartType(component) {
-	var settings = component.data("tapinosChartSettings");
-    settings.toggleChartTypeButton.click(function() {
-		var settings = component.data("tapinosChartSettings");
-	    var chart = component.data("highchartsChart");
-      	if ( chart.options.chart.defaultSeriesType=='column' ) {
-      		var columnOptions = chart.options;
-      		chart.destroy();
-      		columnOptions.chart.renderTo = component.attr("id");
-			columnOptions.chart.defaultSeriesType='bar';
-      		columnOptions.chart.marginLeft = 100;
-      		// Al cambiar a tipo bar se permutan los ejes (ahora X es el eje vertical)
-      		columnOptions.xAxis.title.margin= 80;
-      		chart = new Highcharts.Chart(columnOptions);      		
-      	} else if ( chart.options.chart.defaultSeriesType=='bar' ) {
-      		var barOptions = chart.options;
-      		chart.destroy();
-      		barOptions.chart.renderTo = component.attr("id");
-      		barOptions.chart.defaultSeriesType='column';
-      		barOptions.chart.marginLeft = 70;
-      		barOptions.xAxis.title.margin= 5;
-      		barOptions.xAxis.title.align= "middle";
-      		chart = new Highcharts.Chart(barOptions);
-      	}
-      	component.data("highchartsChart", chart);
-      	$('.highcharts-legend text').tooltip({ 
-	    		bodyHandler: function() { 
-	        		return $($(this).find('tspan')[1]).text(); 
-	    		}, 
-	    		showURL: false 
-			});
-		$('.highcharts-axis text').tooltip({ 
-	    		bodyHandler: function() { 
-	        		return $($(this).find('tspan')[1]).text(); 
-	    		}, 
-	    		showURL: false 
-			});	    
-      });
-}
 
 //********************************************************
 // HTML inject 
@@ -431,8 +126,6 @@ function tapinosChart_setDefaultSettings(settings) {
 	}
 	if (settings.bigNumberSuffix == undefined) {
 		settings.bigNumberSuffix = "";		
-	} else { // DEPRECATED
-		settings.numberSuffix = settings.bigNumberSuffix;
 	}
 	if (settings.appendYLabel == undefined) {
 		settings.appendYLabel = true;
@@ -443,42 +136,43 @@ function tapinosChart_setDefaultSettings(settings) {
 	if (settings.prependXLabel == undefined) {
 		settings.prependXLabel = true;
 	}
-	if (settings.toggleChartTypeButton == undefined) {
-		settings.toggleChartTypeButton = $([]);
-	}
-	if (settings.animateButton == undefined) {
-		settings.animateButton = $([]);
-	}
-	if (settings.maximizeButton == undefined) {
-		settings.maximizeButton = $([]);
-	}
 	if (settings.doNotPaintChart == undefined) {
 		settings.doNotPaintChart = false;
 	}
-	if (settings.chartService == undefined) {
-		settings.chartService = "google";
+	if (settings.animationTime == undefined){
+		settings.animationTime = 250;
+	}	
+	//It would be double of animationTime
+	if (settings.animationTimeFirst == undefined){
+		settings.animationTimeFirst = 500;
 	}
+	if (settings.interpolateNulls == undefined){
+		settings.interpolateNulls = false;
+	}
+		
 }
 
 
 //********************************************************
 //Google Charts Component
 //********************************************************
-var time = 0;
+
 //Load the Visualization API and the piechart package.
 google.load('visualization', '1.0', {'packages':['corechart']});
 
 
 function tapinosChart_paintGoogleChart(element, data) {
-
-	  var chart = new google.visualization.ColumnChart(document.getElementById(element.attr('id')));
-	  if ( data.chartType=='LINES' ) {
-		  chart = new google.visualization.LineChart(document.getElementById(element.attr('id')));
-	  } else if ( data.chartType=='PIE' ) {
-		  chart = new google.visualization.PieChart(document.getElementById(element.attr('id')));
-		  time = 1000;
-	  }
-	  
+	var chart = new google.visualization.ColumnChart(document.getElementById(element.attr('id')));
+	var typechart = "ColumnChart";
+	if ( data.chartType=='LINES' ) {
+		typechart = "LineChart";
+		chart = new google.visualization.LineChart(document.getElementById(element.attr('id')));
+	} else if ( data.chartType=='PIE' ) {
+		chart = new google.visualization.PieChart(document.getElementById(element.attr('id')));
+		typechart = "PieChart";	  
+	}
+	element.data("typeChart", typechart);
+	
       var options = {
            	title: '', 
            	 
@@ -508,7 +202,7 @@ function tapinosChart_paintGoogleChart(element, data) {
             },
             
             animation:{
-	            duration: 500,
+	            duration: element.data("tapinosChartSettings").animationTime,
 	            easing: 'linear',
             },
             
@@ -516,7 +210,7 @@ function tapinosChart_paintGoogleChart(element, data) {
             is3D: true,
             
             //interpolateNulls is an option for Google LineChart
-            interpolateNulls: true,
+            interpolateNulls: element.data("tapinosChartSettings").interpolateNulls,
 
         };
 
@@ -536,6 +230,7 @@ function tapinosChart_paintGoogleChart(element, data) {
       
       $(element).data("options", options);
       $(element).data("GoogleChart", chart);
+      $(element).data("GoogleChartData", data);
 
       isMobile ? tapinosChart_dataGoogleChartMobile (element, data) : tapinosChart_dataGoogleChart(element, data);   
 }
@@ -546,31 +241,70 @@ function tapinosChart_drawGoogleChart(element) {
 }
  
 function tapinosChart_setGraphSizeGoogleChart(element) {
-	//Cambiar los valores
+	//TODO: change the fixed number
 	element.height((59*$(window).height())/100);
 	element.width((59 *$(window).width())/100);
 }
 
-/*************************************************DATOS**************************************************************/
+//********************************************************
+// DATA
+//********************************************************
 function tapinosChart_dataGoogleChart (element, data){
+	
+	var settings = element.data("tapinosChartSettings");
+	var time = settings.animationTime;
+	
 	dataTable = new google.visualization.DataTable();
 
 	dataTable.addColumn('string', data.xLabel);
 
 	tapinosChart_pushColumnsGoogleChart(dataTable, data);
-      
-    if (time == 0 )
-   		time = 250;
-    
+
     //initial value for row count is 0
 	tapinosChart_animatebypointsGoogleChart (0, element, dataTable, time, data);
 	
-	//TODO: review selectHandler function in other txt file
-	//google.visualization.events.addListener(element.data("GoogleChart"), 'select', selectHandler(element, data, dataTable));
+	var chart = element.data("GoogleChart");
+	element.data("dataTable", dataTable);
+
+	google.visualization.events.addListener(chart, 'select',  function() {
+		
+		selectHandle(element);
+		
+	});
 
 }
-
   
+function selectHandle(element){
+  	var typechart = element.data("typeChart");	
+  	var dataTable = element.data("dataTable");
+	var options = $(element).data("options");
+	var chart = element.data("GoogleChart");
+	var data = element.data("GoogleChartData");
+	
+	if ( typechart != "PieChart" ) {
+
+	    var selectedItem = chart.getSelection();
+	    
+		var item = selectedItem[0];
+    
+		if (typeof item.column != undefined) {
+	    	var columnIndex = item.column;  
+	
+	    	if (dataTable.getValue(0, columnIndex) != undefined){
+	    		for (var i=0; i<dataTable.getNumberOfRows(); i++){
+	    			dataTable.setCell(i, columnIndex, null);
+	    		}
+	    		tapinosChart_drawGoogleChart(element);
+	    	}else{
+	        	for (var i=0; i<dataTable.getNumberOfRows(); i++){
+	        		dataTable.setCell(i,columnIndex, data.series[columnIndex-1].points[i].y);
+	        	}
+	        	tapinosChart_drawGoogleChart(element);		        
+	        }
+	    }
+	}
+}
+
 function tapinosChart_pushColumnsGoogleChart(dataTable, data){
 	for (var i=0; i<data.series.length; i++){
 		var seriesLabel = data.series[i].seriesLabel?data.series[i].seriesLabel:'';  
@@ -640,17 +374,57 @@ function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time
 		tapinosChart_setGraphSizeGoogleChart(element);
 		tapinosChart_drawGoogleChart(element);
 		
+		var setTime = 0;
+		if (cont == 0 ){
+			setTime = element.data("tapinosChartSettings").animationTimeFirst;
+		}else{
+			setTime = time;
+		}
+		
 		if (cont < data.sortedX.length-1){
 			 window.setTimeout(function(){
 				 tapinosChart_animatebypointsGoogleChart (cont+1, element, dataTable, time, data);
-         },time);
+         },setTime);
 		}
 	
 }
-/************************************************* FIN DATOS ************************************************************/
+//********************************************************
+//Animation
+//********************************************************
 
-  
-/******************************************************MOVIL**************************************************************/
+function animategraphic(element){ 		
+	element.data("GoogleChart").clearChart();
+	tapinosChart_dataGoogleChart(element, element.data("GoogleChartData"));
+}
+//********************************************************
+// BUTTONS 
+//********************************************************
+function reverseChart(element){
+	var typeChart = element.data("typeChart");
+	var chart = element.data("GoogleChart");
+	var settings = element.data("tapinosChartSettings");
+
+	if (typeChart == "ColumnChart"){
+		element.data("typeChart", "BarChart");
+		chart = new google.visualization.BarChart(document.getElementById(element.attr('id')));
+	}
+	if (typeChart == "BarChart"){
+		//options.animation.easing = "in";
+		element.data("typeChart", "ColumnChart");
+		chart = new google.visualization.ColumnChart(document.getElementById(element.attr('id')));
+	}
+	
+	element.data("GoogleChart", chart);
+	google.visualization.events.addListener(chart, 'select',  function() {
+		selectHandle(element);	
+	});
+
+	tapinosChart_drawGoogleChart(element);
+}
+   
+//********************************************************
+// MOBILE 
+//********************************************************
   function tapinosChart_dataGoogleChartMobile (element, data){
 	dataTable = new google.visualization.DataTable();
 
@@ -678,7 +452,6 @@ function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time
 		tapinosChart_drawGoogleChart(element);
 }
   
-/**************************************************FIN MOVIL**************************************************************/
 //********************************************************
 //JQuery Component 
 //********************************************************
@@ -689,9 +462,6 @@ function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time
      this.each(function() {
    	var component = $(this);
        $(this).data("tapinosChartSettings", settings);
-       tapinosChart_initializeMaximization($(this));
-       tapinosChart_initializeAnimation($(this));
-       tapinosChart_initializeToggleChartType($(this));
     });
     return this;
   };
@@ -700,7 +470,7 @@ function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time
     this.each(function() {
 		var settings = $(this).data("tapinosChartSettings");
 		if (settings == undefined) {
-			alert('El componente de gráficos no está inicializado');
+			alert('The Chart Component is not yet initialized');
 		} else {
 	 		var requestData = tapinosChart_prepareChartRequest($(this), chartConfig);
 	 		if (settings.doNotPaintChart == false) {

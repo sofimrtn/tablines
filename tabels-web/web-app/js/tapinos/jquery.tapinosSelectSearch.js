@@ -1,7 +1,7 @@
 function tapinosSelectSearch_init(component, select) {
 	var html = '<div style="display:none">';
 	html += '<div id="datasetSearchDiv">';
-	html += '<label for="busqR">Introduzca a continuaci&oacute;n el t&eacute;rmino de su b&uacute;squeda:</label>';
+	html += '<label for="busqR">Enter search term:</label>';
 	html += '<input id="busqR"/>';
 	html += '</div>';
 	html += '</div>';

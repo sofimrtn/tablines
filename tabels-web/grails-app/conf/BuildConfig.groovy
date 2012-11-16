@@ -40,7 +40,6 @@ grails.project.dependency.resolution = {
                 ":jquery-tipsy:1.0.0a",
                 ":jquery-tooltip:1.3",
                 ":jquery-ui:1.8.15",
-                ":jquery-svg:1.4.4.0",
                 ":resources:1.1.6",
                 ":mail:1.0"
     }
@@ -56,7 +55,7 @@ grails.project.dependency.resolution = {
 		  excludes 'arq'
 		}
 		
-        compile('es.ctic.understats:understats-ws:2.3'){
+        compile('es.ctic.understats:understats-ws:2.4'){
             excludes 'arq'
         }
         compile('commons-lang:commons-lang:2.6')

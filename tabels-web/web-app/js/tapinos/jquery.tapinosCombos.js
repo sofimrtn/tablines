@@ -192,7 +192,7 @@ function tapinosCombos_injectCombos(component) {
 function tapinosCombos_injectOptions(select, minDimensionValueWeight) {
 	var dimensionValues = select.data('dimensionValues');
 	var dimensionUri = select.data('dimensionUri');
-   
+
 	// regular options
 	for ( dimensionValueIndex in dimensionValues ) {
         var dimensionValue = dimensionValues[dimensionValueIndex];
@@ -206,7 +206,7 @@ function tapinosCombos_injectOptions(select, minDimensionValueWeight) {
 
     // compare option
     if (dimensionValues.length > 1) {
-        var option = $("<option>").addClass('tapinosCombos_freeVarOption').val(tapinosCombosConfig.freeVarPrefix + dimensionUri).text("* Comparar");
+        var option = $("<option>").addClass('tapinosCombos_freeVarOption').val(tapinosCombosConfig.freeVarPrefix + dimensionUri).text("* Compare");
         select.append(option);
     }
 }
@@ -214,10 +214,10 @@ function tapinosCombos_injectOptions(select, minDimensionValueWeight) {
 function tapinosCombos_injectSeriesSwitchDivCode(component, seriesSwitchDiv) {
     var html =
         "<input class='tapinosCombos-seriesSwitchCheckbox' type='checkbox'></input>" +
-        "<span class='tapinosCombos-seriesSwitchCheckbox'>Intercambiar series</span>" +
-        "<p class='tapinosCombos-seriesSwitchMessage'>Est&aacute; viendo los datos por " +
-        "<span class='tapinosCombos-currentSeries'>SerieActual</span>. Tambi&eacute;n " +
-        "puede verlos por <a class='tapinosCombos-alternativeSeries' href='javascript:void(0)'>OtraSerie</a>.</p>";
+        "<span class='tapinosCombos-seriesSwitchCheckbox'>Switch series</span>" +
+        "<p class='tapinosCombos-seriesSwitchMessage'>You are seeing the data " +
+        "<span class='tapinosCombos-currentSeries'>SerieActual</span>. You can also " +
+        "see them  <a class='tapinosCombos-alternativeSeries' href='javascript:void(0)'>OtraSerie</a>.</p>";
     seriesSwitchDiv.html(html);
     	
     var seriesSwitchLink = $(".tapinosCombos-alternativeSeries", seriesSwitchDiv);
@@ -244,16 +244,15 @@ function tapinosCombos_onDimensionChange(event) {
     // $this is the select that has changed
     var combosDiv = $(this).parent().parent();
     var settings = combosDiv.data("tapinosCombosSettings");
-    console.log(settings);
     var seriesValues = [];
     if ( settings.series != undefined ) {
     		seriesValues = settings.series().seriesValues;
     }
     if (tapinosCombos_getFreeVars(combosDiv).length > 1 && seriesValues.length > 1) {
-        userError(settings.errorMsgsDiv,'S&oacute;lo puede elegir *comparar en una variable.');
+        userError(settings.errorMsgsDiv,'*Compare only available in one variable');
         clearDivs(settings.toClearIfFailure);    	
     } else if (tapinosCombos_getFreeVars(combosDiv).length > 2) {
-        userError(settings.errorMsgsDiv,'S&oacute;lo puede elegir *comparar en un m&aacute;ximo de dos variables.');
+        userError(settings.errorMsgsDiv,'*Compare only available in a maximum of two variables');
         clearDivs(settings.toClearIfFailure);
     } else {
         settings.errorMsgsDiv.html("");
@@ -319,7 +318,7 @@ function tapinosCombos_dimensionServiceCallback(data) {
 	if ($.isArray(data) && data.length == 0) {
 		clearDivs($(this));
 		clearDivs(settings.toClearIfFailure);
-		userError(settings.errorMsgsDiv, "No existen datos para este indicador, pruebe con alguno de los indicadores relacionados");
+		userError(settings.errorMsgsDiv, "There are no data available for this indicator, try again with some of the related indicators");
 	} else if (data != null) {
         // save the new data
         $(this).data("tapinosRawDimensions", data);

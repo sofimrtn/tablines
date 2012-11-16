@@ -28,7 +28,24 @@ modules = {
 	}
 
 	googlemaps {
-		resource url:'http://maps.google.com/maps/api/js?sensor=true', attrs:[type:'js']
+		// HACK until new version of resource grails plugin
+		// DOC http://jira.grails.org/browse/GPRESOURCES-131
+		// COMMIT https://github.com/grails-plugins/grails-resources/commit/7e8781eb5f13dc0b7f6abbbd65645d7f9ed749aa
+		resource url: 'http://maps.googleapis.com/maps/api/js', attrs: [type: 'js'], wrapper: { link -> org.apache.commons.lang.StringUtils.replaceOnce(link, '/js', '/js?sensor=false') }
+        resource url:'js/tapinos/jquery.undermaps.gmaps.js'	
+        resource url:'css/undermaps.css'			
+	}
+	
+	tree{
+		dependsOn 'dynatree'
+        resource url:'js/tapinos/jquery.undermaps.tree.js'
+	}
+	
+	maps {
+		dependsOn 'jquery'
+		dependsOn 'infobubble'
+		dependsOn 'googlemaps'
+		dependsOn 'tree'
 	}
 	
 	infobubble{
@@ -37,15 +54,13 @@ modules = {
 	}
 
     'tapinos-js' {
-        dependsOn 'jquery,fancybox,protovis,jquery-ui,jquery-svg,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip'
+        dependsOn 'jquery,fancybox,protovis,jquery-ui,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip'
 //        defaultBundle 'ui'
         resource url:'js/tapinos/jquery.tapinosCommon.js'
         resource url:'js/tapinos/jquery.tapinosChart.js'
         resource url:'js/tapinos/jquery.tapinosCombos.js'
-        resource url:'js/tapinos/jquery.tapinosMap.js'
-        resource url:'js/tapinos/jquery.undermaps.tree.js'
-        resource url:'js/tapinos/jquery.undermaps.gmaps.js'
         resource url:'js/tapinos/jquery.tapinosPermLinkBuilder.js'
+        resource url:'js/tapinos/jquery.tapinosDataExport.js'
         resource url:'js/tapinos/jquery.tapinosSelectSearch.js'
         resource url:'js/tapinos/jquery.tapinosTable.js'
         resource url:'css/tapinos.css'

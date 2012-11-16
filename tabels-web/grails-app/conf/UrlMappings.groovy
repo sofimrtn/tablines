@@ -40,6 +40,7 @@ class UrlMappings {
         "/ws/dimensions"(uri:"/tapinos/dimensions.dispatch")
         "/ws/mapArea"(uri:"/tapinos/mapArea.dispatch")
         "/ws/sanityChecker"(uri:"/tapinos/sanityChecker.dispatch")
+        "/ws/dataExport"(uri:"/tapinos/dataExport.dispatch")
 		
 		"/ws/mapArea"(uri:"/maplab/map.dispatch")
 		"/ws/tree"(uri:"/maplab/tree.dispatch")

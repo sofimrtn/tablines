@@ -2,7 +2,7 @@
 <head>
 	<title>Tabels project - Chart view</title>
     <meta name="layout" content="main" />
-    <r:require modules="tapinos-js,fancybox,protovis,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip" />
+    <r:require modules="tapinos-js,fancybox,protovis,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,dynatree" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'tapinos.css')}" />
 </head>
 <body>
@@ -32,7 +32,7 @@
            endpoint: "${endpoint}",
            namedgraph: "${namedgraph}",
            table: $("#table"),
-   chartService: "google",
+           chartService: "google",
          });
 
         
@@ -54,16 +54,27 @@
            // (Combos --> Chart --> Table)
            callback: function(chartParameters) { 
                // chartParameters.yLabel = "Porcentaje (%)";
-   $("#GooglechartsChart").tapinosChartDraw(chartParameters); 
-               $(".permalink").tapinosPermalinkRefresh();
+               $("#GooglechartsChart").tapinosChartDraw(chartParameters); 
+               $("#permalink").tapinosPermalinkRefresh();
                return; 
                }
          });
 
-         $(".permalink").tapinosPermalink({
+         $("#permalink").tapinosPermalink({
              selects: $("#dataset"),
+             endpoint: "${endpoint}",
              tapinosCombos: $("#dimensions"),
+             projectId: "${params.id}",
          });
+
+//obtener la uri del dataset seleccionado
+
+// $("#dataExport").attr("href", "ws/dataExport?" + $.param({datasetUri: getCurrentDataset()}));
+		 
+         $("#dataExport").tapinosDataExport({
+             selects: $("#dataset"),
+             endpoint: "${endpoint}"
+         });		 
 
          // Populate initial values
          $("#dimensions").tapinosCombosReload(getCurrentDataset());
@@ -117,13 +128,18 @@
         <div id="seriesSwitchDiv"></div>
 
         <h3>Chart visualization</h3>
-
         <div id="GooglechartsChart">
         </div>
 
         <h3>Table visualization</h3>
         <div id="table">
         </div>
+
+        <h3>Permalink</h3>		
+		<div id="toolBox" class="printHidden">
+		    <a id="permalink" href="javascript:void(0)">Permalink</a> | <a id="dataExport" href="javascript:void(0)" >Download all data</a>
+		</div>
+		
     </g:if>
     <g:else>
         <div class="messagebox"><p><g:message code="msg.why.nothing.in.tapinos.msg"/></p></div>

@@ -54,6 +54,12 @@ function tapinosPermalink_refresh(component) {
 	var traditional = true;
 	var settings = component.data("tapinosPermalinkSettings");
 	var params = {};
+	if (settings.endpoint != undefined){
+		params["endpoint"] = settings.endpoint;
+	}
+	if (settings.projectId != undefined){
+		params["id"] = settings.projectId;
+	}
 	if (settings.selects != undefined) {
 		settings.selects.each(function(i,o) {
 			var selectedValues = $.makeArray($("option:selected", o).map(function(index, o) { return o.value; }));
@@ -88,6 +94,9 @@ function tapinosPermalink_setDefaultSettings(settings) {
 	}
 	if (settings.autobindRadiobuttons == undefined) {
 		settings.autobindRadiobuttons = true;
+	}
+	if (settings.projectId == undefined) {
+		settings.projectId = "";
 	}
 }
 
