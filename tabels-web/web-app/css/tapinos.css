@@ -58,3 +58,19 @@ th{
 	margin-right:1em;
 	margin-left:1em;
 }
+
+.tapinosChart-bigNumber {
+/*	margin-left: 0px; */
+	font-size: 120px;
+/*	color: darkgray;
+	font-weight: bold;
+	text-align: center; */
+}
+
+.tapinosCombos-currentSeries {
+    font-weight: bold;
+}
+
+.tapinosCombos-alternativeSeries {
+    font-weight: bold;
+}
