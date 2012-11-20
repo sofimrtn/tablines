@@ -48,6 +48,14 @@ function tapinosChart_prepareChartRequest(component, chartConfig) {
 	if (settings.dataset != undefined) {
 		params.dataset = tapinosCommon_getStringParameter(settings.dataset);
 	}
+	
+	if (settings.endpoint != undefined) {
+		params.endpoint = tapinosCommon_getStringParameter(settings.endpoint);
+	}
+	if (settings.namedgraph != undefined) {
+		params.namedgraph = tapinosCommon_getStringParameter(settings.namedgraph);
+	}
+	
 	return params;
 }
 
