@@ -8,7 +8,7 @@ function getChartParameters(tapinosCombosComponent) {
     var settings = tapinosCombosComponent.data("tapinosCombosSettings");
     var data = tapinosCombosComponent.data("tapinosRawDimensions");
     var seriesSwitchDiv = settings.seriesSwitchDiv;
-    var seriesSwitchCheckbox = $("input", seriesSwitchDiv);
+    var seriesSwitchLink = settings.seriesSwitchLink;
     var dimensionConstraints =  tapinosCombos_getDimensionConstraints(tapinosCombosComponent);
     var userFreeVars = tapinosCombos_getFreeVars(tapinosCombosComponent);
     var freeVars = userFreeVars;
@@ -32,7 +32,7 @@ function getChartParameters(tapinosCombosComponent) {
     }
 
     // switch free vars if requested by the user
-   if (seriesSwitchDiv != null && seriesSwitchCheckbox.is(":checked")) {
+   if (seriesSwitchDiv != null &&  seriesSwitchLink.data("checked")==true) {
 	   var swp = chartConfig['seriesVar'];
 	   chartConfig['seriesVar'] = chartConfig['valueVar'];
 	   chartConfig['valueVar'] = swp;
@@ -43,7 +43,7 @@ function getChartParameters(tapinosCombosComponent) {
 		if (chartConfig['seriesVar'] != undefined) {
 		    var seriesLabel = tapinosCombos_getDimensionLabel(data, chartConfig['seriesVar']);
 		    var valueVarLabel = tapinosCombos_getDimensionLabel(data, chartConfig['valueVar']);
-		    tapinosCombos_updateSwitchingMessages(seriesSwitchDiv, seriesLabel, valueVarLabel);
+		    tapinosCombos_updateSwitchingMessages(seriesSwitchDiv, seriesLabel, valueVarLabel, settings);
 			seriesSwitchDiv.slideDown("slow");
 		} else {
 			seriesSwitchDiv.slideUp("slow");
@@ -176,10 +176,10 @@ function tapinosCombos_injectCombos(component) {
         
         // switch to advanced options
         if (select.hasClass("tapinosCombos_simplifiedSelect") == true) {
-        	var spanAdv = $("<span>").addClass("advOpt").text(" - Lista: ");
-        	var spanVFull = $("<span>").addClass("fullVersion").text("Completa");
+        	var spanAdv = $("<span>").addClass("advOpt").text(" - List: ");
+        	var spanVFull = $("<span>").addClass("fullVersion").text("Complete");
         	var spanVSep = $("<span>").addClass("sepVersion").text(" / ");
-        	var spanVLite = $("<span>").addClass("liteVersion").text("Reducida");
+        	var spanVLite = $("<span>").addClass("liteVersion").text("Reduce");
 
         	label.append(spanAdv).append(spanVFull).append(spanVSep).append(spanVLite);
         	var a = $("<a>").live().addClass('toggleOptionsLink').click(tapinosCombos_onToggleAdvancedOptionsClick);
@@ -212,25 +212,25 @@ function tapinosCombos_injectOptions(select, minDimensionValueWeight) {
 }
 
 function tapinosCombos_injectSeriesSwitchDivCode(component, seriesSwitchDiv) {
+    var settings = component.data("tapinosCombosSettings");
+	var alternativeSeriesClass = "tapinosCombos-alternativeSeries";
     var html =
-        "<input class='tapinosCombos-seriesSwitchCheckbox' type='checkbox'></input>" +
-        "<span class='tapinosCombos-seriesSwitchCheckbox'>Switch series</span>" +
-        "<p class='tapinosCombos-seriesSwitchMessage'>You are seeing the data " +
-        "<span class='tapinosCombos-currentSeries'>SerieActual</span>. You can also " +
-        "see them  <a class='tapinosCombos-alternativeSeries' href='javascript:void(0)'>OtraSerie</a>.</p>";
+    "<p class='tapinosCombos-seriesSwitchMessage'>You are looking data " +
+    "<span class='tapinosCombos-currentSeries'>ActualSerie</span>. You can also " +
+    "look them <a class='"+alternativeSeriesClass+"' href='javascript:void(0)'>AnotherSerie</a>.</p>";
     seriesSwitchDiv.html(html);
-    	
-    var seriesSwitchLink = $(".tapinosCombos-alternativeSeries", seriesSwitchDiv);
+
+    tapinosCombos_populateDefaultSeriesSwitchLink(settings, alternativeSeriesClass);
+
+    var seriesSwitchLink = settings.seriesSwitchLink;
+    seriesSwitchLink.data("componentRef", component);
+    seriesSwitchLink.data("checked", false);
     seriesSwitchLink.click(tapinosCombos_onSeriesSwitchLinkClick);
-    
-    var seriesSwitchCheckbox =  $(".tapinosCombos-seriesSwitchCheckbox", seriesSwitchDiv);
-    seriesSwitchCheckbox.data("componentRef", component);
-	seriesSwitchCheckbox.click(tapinosCombos_onSeriesSwitchCheckboxClick);
 }
 
-function tapinosCombos_updateSwitchingMessages(tapinosCombosSwitchDiv, currentSeriesLabel, alternativeSeriesLabel) {
+function tapinosCombos_updateSwitchingMessages(tapinosCombosSwitchDiv, currentSeriesLabel, alternativeSeriesLabel, settings) {
     var currentSeriesNode = $(".tapinosCombos-currentSeries", tapinosCombosSwitchDiv);
-    var alternativeSeriesNode = $(".tapinosCombos-alternativeSeries", tapinosCombosSwitchDiv);
+    var alternativeSeriesNode = settings.seriesSwitchLink;
     currentSeriesNode.html(currentSeriesLabel);
     alternativeSeriesNode.html(alternativeSeriesLabel);
 }
@@ -287,24 +287,17 @@ function tapinosCombos_onToggleAdvancedOptionsClick() {
 	select.val(prevSelectedOption);
 }
 
-function tapinosCombos_onSeriesSwitchCheckboxClick() {
-    // $this is the checkbox
-    // this is a hack to call the same callback as the selects, because
-    // we need the $this reference to be set to a select
+function tapinosCombos_onSeriesSwitchLinkClick() {
+	// $this is the a element
     var component = $(this).data("componentRef");
+    
+    var previous_checked = $(this).data("checked");
+    $(this).data("checked",!previous_checked);
+    
     var select = $("select", component)[0];
     select.hack = tapinosCombos_onDimensionChange;
     select.hack(null);
-    return;
-}
-
-function tapinosCombos_onSeriesSwitchLinkClick() {
-    // $this is the a element
-    var component = $(this).parent().parent();
-    var inputElements = $(".tapinosCombos-seriesSwitchCheckbox", component);
-    // invert the status of the checkbox
-    inputElements[0].checked = !(inputElements[0].checked);
-    inputElements.triggerHandler('click'); 
+    return; 
 }
 
 
@@ -352,7 +345,9 @@ function tapinosCombos_restoreState(component) {
        	});
     }    
 }
-
+function tapinosCombos_populateDefaultSeriesSwitchLink (settings, alternativeSeriesClass){
+	settings.seriesSwitchLink = $("."+alternativeSeriesClass, settings.seriesSwitchDiv); // Fixed default value
+}
 // ********************************************************
 // JQuery component
 // ********************************************************
