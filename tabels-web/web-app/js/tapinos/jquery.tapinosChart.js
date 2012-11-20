@@ -161,17 +161,17 @@ function tapinosChart_setDefaultSettings(settings) {
 google.load('visualization', '1.0', {'packages':['corechart']});
 
 
-function tapinosChart_paintGoogleChart(element, data) {
-	var chart = new google.visualization.ColumnChart(document.getElementById(element.attr('id')));
+function tapinosChart_paintGoogleChart(component, data) {
+	var chart = new google.visualization.ColumnChart(document.getElementById(component.attr('id')));
 	var typechart = "ColumnChart";
 	if ( data.chartType=='LINES' ) {
 		typechart = "LineChart";
-		chart = new google.visualization.LineChart(document.getElementById(element.attr('id')));
+		chart = new google.visualization.LineChart(document.getElementById(component.attr('id')));
 	} else if ( data.chartType=='PIE' ) {
-		chart = new google.visualization.PieChart(document.getElementById(element.attr('id')));
+		chart = new google.visualization.PieChart(document.getElementById(component.attr('id')));
 		typechart = "PieChart";	  
 	}
-	element.data("typeChart", typechart);
+	component.data("typeChart", typechart);
 	
       var options = {
            	title: '', 
@@ -202,7 +202,7 @@ function tapinosChart_paintGoogleChart(element, data) {
             },
             
             animation:{
-	            duration: element.data("tapinosChartSettings").animationTime,
+	            duration: component.data("tapinosChartSettings").animationTime,
 	            easing: 'linear',
             },
             
@@ -210,7 +210,7 @@ function tapinosChart_paintGoogleChart(element, data) {
             is3D: true,
             
             //interpolateNulls is an option for Google LineChart
-            interpolateNulls: element.data("tapinosChartSettings").interpolateNulls,
+            interpolateNulls: component.data("tapinosChartSettings").interpolateNulls,
 
         };
 
@@ -228,30 +228,30 @@ function tapinosChart_paintGoogleChart(element, data) {
     	  options.vAxes[0].textPosition = 'in';
       }
       
-      $(element).data("options", options);
-      $(element).data("GoogleChart", chart);
-      $(element).data("GoogleChartData", data);
+      $(component).data("options", options);
+      $(component).data("GoogleChart", chart);
+      $(component).data("GoogleChartData", data);
 
-      isMobile ? tapinosChart_dataGoogleChartMobile (element, data) : tapinosChart_dataGoogleChart(element, data);   
+      isMobile ? tapinosChart_dataGoogleChartMobile (component, data) : tapinosChart_dataGoogleChart(component, data);   
 }
 
-function tapinosChart_drawGoogleChart(element) {
+function tapinosChart_drawGoogleChart(component) {
 	view = new google.visualization.DataView(dataTable);
-	element.data("GoogleChart").draw(view, element.data("options"));
+	component.data("GoogleChart").draw(view, component.data("options"));
 }
  
-function tapinosChart_setGraphSizeGoogleChart(element) {
+function tapinosChart_setGraphSizeGoogleChart(component) {
 	//TODO: change the fixed number
-	element.height((59*$(window).height())/100);
-	element.width((59 *$(window).width())/100);
+	component.height((59*$(window).height())/100);
+	component.width((59 *$(window).width())/100);
 }
 
 //********************************************************
 // DATA
 //********************************************************
-function tapinosChart_dataGoogleChart (element, data){
+function tapinosChart_dataGoogleChart (component, data){
 	
-	var settings = element.data("tapinosChartSettings");
+	var settings = component.data("tapinosChartSettings");
 	var time = settings.animationTime;
 	
 	dataTable = new google.visualization.DataTable();
@@ -261,25 +261,25 @@ function tapinosChart_dataGoogleChart (element, data){
 	tapinosChart_pushColumnsGoogleChart(dataTable, data);
 
     //initial value for row count is 0
-	tapinosChart_animatebypointsGoogleChart (0, element, dataTable, time, data);
+	tapinosChart_animatebypointsGoogleChart (0, component, dataTable, time, data);
 	
-	var chart = element.data("GoogleChart");
-	element.data("dataTable", dataTable);
+	var chart = component.data("GoogleChart");
+	component.data("dataTable", dataTable);
 
 	google.visualization.events.addListener(chart, 'select',  function() {
 		
-		selectHandle(element);
+		selectHandle(component);
 		
 	});
 
 }
   
-function selectHandle(element){
-  	var typechart = element.data("typeChart");	
-  	var dataTable = element.data("dataTable");
-	var options = $(element).data("options");
-	var chart = element.data("GoogleChart");
-	var data = element.data("GoogleChartData");
+function selectHandle(component){
+  	var typechart = component.data("typeChart");	
+  	var dataTable = component.data("dataTable");
+	var options = $(component).data("options");
+	var chart = component.data("GoogleChart");
+	var data = component.data("GoogleChartData");
 	
 	if ( typechart != "PieChart" ) {
 
@@ -294,12 +294,12 @@ function selectHandle(element){
 	    		for (var i=0; i<dataTable.getNumberOfRows(); i++){
 	    			dataTable.setCell(i, columnIndex, null);
 	    		}
-	    		tapinosChart_drawGoogleChart(element);
+	    		tapinosChart_drawGoogleChart(component);
 	    	}else{
 	        	for (var i=0; i<dataTable.getNumberOfRows(); i++){
 	        		dataTable.setCell(i,columnIndex, data.series[columnIndex-1].points[i].y);
 	        	}
-	        	tapinosChart_drawGoogleChart(element);		        
+	        	tapinosChart_drawGoogleChart(component);		        
 	        }
 	    }
 	}
@@ -325,7 +325,7 @@ function tapinosChart_pushRowsGoogleChart(dataTable, data){
 }
 
 
-function tapinosChart_animatebyseriesGoogleChart(c, element, dataTable, time, data){
+function tapinosChart_animatebyseriesGoogleChart(c, component, dataTable, time, data){
 
 		var seriesLabel = data.series[c].seriesLabel?data.series[c].seriesLabel:'';    	
 		dataTable.addColumn ('number', seriesLabel);
@@ -341,17 +341,17 @@ function tapinosChart_animatebyseriesGoogleChart(c, element, dataTable, time, da
   		}
   		
   		view = new google.visualization.DataView(dataTable);
-  		tapinosChart_setGraphSizeGoogleChart(element);
-  		tapinosChart_drawGoogleChart(element);
+  		tapinosChart_setGraphSizeGoogleChart(component);
+  		tapinosChart_drawGoogleChart(component);
   		
   		if (c < data.series.length-1){
   			 window.setTimeout(function(){
-  				tapinosChart_animatebyseriesGoogleChart (c+1, element, dataTable, time, data);
+  				tapinosChart_animatebyseriesGoogleChart (c+1, component, dataTable, time, data);
              },time);
   		}	
 }
 
-function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time, data){
+function tapinosChart_animatebypointsGoogleChart (cont, component, dataTable, time, data){
 		
 	   dataTable.addRows(1);
 	   dataTable.setCell(cont, 0, data.sortedX[cont]); //setLabel
@@ -371,19 +371,19 @@ function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time
 		}
 		
 		view = new google.visualization.DataView(dataTable);
-		tapinosChart_setGraphSizeGoogleChart(element);
-		tapinosChart_drawGoogleChart(element);
+		tapinosChart_setGraphSizeGoogleChart(component);
+		tapinosChart_drawGoogleChart(component);
 		
 		var setTime = 0;
 		if (cont == 0 ){
-			setTime = element.data("tapinosChartSettings").animationTimeFirst;
+			setTime = component.data("tapinosChartSettings").animationTimeFirst;
 		}else{
 			setTime = time;
 		}
 		
 		if (cont < data.sortedX.length-1){
 			 window.setTimeout(function(){
-				 tapinosChart_animatebypointsGoogleChart (cont+1, element, dataTable, time, data);
+				 tapinosChart_animatebypointsGoogleChart (cont+1, component, dataTable, time, data);
          },setTime);
 		}
 	
@@ -392,40 +392,40 @@ function tapinosChart_animatebypointsGoogleChart (cont, element, dataTable, time
 //Animation
 //********************************************************
 
-function animategraphic(element){ 		
-	element.data("GoogleChart").clearChart();
-	tapinosChart_dataGoogleChart(element, element.data("GoogleChartData"));
+function animategraphic(component){ 		
+	component.data("GoogleChart").clearChart();
+	tapinosChart_dataGoogleChart(component, component.data("GoogleChartData"));
 }
 //********************************************************
 // BUTTONS 
 //********************************************************
-function reverseChart(element){
-	var typeChart = element.data("typeChart");
-	var chart = element.data("GoogleChart");
-	var settings = element.data("tapinosChartSettings");
+function reverseChart(component){
+	var typeChart = component.data("typeChart");
+	var chart = component.data("GoogleChart");
+	var settings = component.data("tapinosChartSettings");
 
 	if (typeChart == "ColumnChart"){
-		element.data("typeChart", "BarChart");
-		chart = new google.visualization.BarChart(document.getElementById(element.attr('id')));
+		component.data("typeChart", "BarChart");
+		chart = new google.visualization.BarChart(document.getElementById(component.attr('id')));
 	}
 	if (typeChart == "BarChart"){
 		//options.animation.easing = "in";
-		element.data("typeChart", "ColumnChart");
-		chart = new google.visualization.ColumnChart(document.getElementById(element.attr('id')));
+		component.data("typeChart", "ColumnChart");
+		chart = new google.visualization.ColumnChart(document.getElementById(component.attr('id')));
 	}
 	
-	element.data("GoogleChart", chart);
+	component.data("GoogleChart", chart);
 	google.visualization.events.addListener(chart, 'select',  function() {
-		selectHandle(element);	
+		selectHandle(component);	
 	});
 
-	tapinosChart_drawGoogleChart(element);
+	tapinosChart_drawGoogleChart(component);
 }
    
 //********************************************************
 // MOBILE 
 //********************************************************
-  function tapinosChart_dataGoogleChartMobile (element, data){
+  function tapinosChart_dataGoogleChartMobile (component, data){
 	dataTable = new google.visualization.DataTable();
 
 	dataTable.addColumn('string', data.xLabel);
@@ -448,8 +448,8 @@ function reverseChart(element){
 		c++;
 	}	
 		view = new google.visualization.DataView(dataTable);
-		tapinosChart_setGraphSizeGoogleChart(element);
-		tapinosChart_drawGoogleChart(element);
+		tapinosChart_setGraphSizeGoogleChart(component);
+		tapinosChart_drawGoogleChart(component);
 }
   
 //********************************************************

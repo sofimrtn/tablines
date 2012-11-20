@@ -1,24 +1,24 @@
 // Tapinos Common functions
 
-function userError(element, msg) {
-  if(element != null) {
+function userError(component, msg) {
+  if(component != null) {
     html = "<p class='userError'><img class='userErrorIcon' src='images/skin/exclamation.png' width='16' height='16' alt='User error'/>" + msg + "</p>";
-    element.html(html);
+    component.html(html);
   }
   return;
 }
 
-function networkError(element) {
+function networkError(component) {
   html = "<p class='networkError'><img class='networkErrorIcon' src='images/skin/exclamation.png' width='16' height='16' alt='Network error'/>"
   html += "Server communication error.</p>"
-  element.html(html);
+  component.html(html);
   return;
 }
 
-function divLoading(element) {
+function divLoading(component) {
   html = "<p><img class='loadingIcon' src='images/spinner.gif' width='16' height='16' alt='Animated loading icon'/>";
   html += "Loading parameters . Wait, please.</p>";
-  element.html(html);
+  component.html(html);
   return;
 } 
 
