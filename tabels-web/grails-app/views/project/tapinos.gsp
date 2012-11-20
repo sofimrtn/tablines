@@ -2,7 +2,7 @@
 <head>
 	<title>Tabels project - Chart view</title>
     <meta name="layout" content="main" />
-    <r:require modules="tapinos-js,fancybox,protovis,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,dynatree" />
+    <r:require modules="tapinos-js,fancybox,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,dynatree" />
     <link rel="stylesheet" href="${resource(dir:'css',file:'tapinos.css')}" />
 </head>
 <body>

@@ -73,7 +73,16 @@ function tapinosCommon_bindToggleMultiple(toggleButton, select, callback) {
 		}
 	});
 }
+
+function tapinosCommon_numberformatter(point, decimalDigits, decimal, group)
+{
+	var format = point.y;
 	
+	format = format.toFixed(decimalDigits); 
+	
+	return format;
+}	
+
 function tapinosCommon_formatPoint(point, series, chart, settings) {
 	if (settings == undefined) { settings = { "empty": "settings" }; }
 	var decimalDigits = settings.decimalDigits != undefined ? tapinosCommon_getNumberParameter(settings.decimalDigits, point, series, chart, settings) : 0;
@@ -81,10 +90,8 @@ function tapinosCommon_formatPoint(point, series, chart, settings) {
 	var prependXLabel = settings.prependXLabel != undefined ? settings.prependXLabel : false;
 	var appendMeasurementUnits = settings.appendMeasurementUnits != undefined ? settings.appendMeasurementUnits : false;
 	var appendYLabel = settings.appendYLabel != undefined ? settings.appendYLabel : false;
-	var format = pv.Format.number();
-	format.decimal(",");
-	format.group(".");
-	var title = format.fractionDigits(decimalDigits).format(point.y);
+	var title = tapinosCommon_numberformatter (point, decimalDigits, ",", ".");
+	
 	if (series != undefined && series.seriesLabel != undefined && prependSeriesLabel == true) {
 		title = series.seriesLabel + ": " + title;
 	}

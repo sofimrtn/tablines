@@ -34,7 +34,6 @@ grails.project.dependency.resolution = {
                 //Added for tapinos-ws
                 ":jquery:1.7.1",
                 ":fancybox:1.3.4",
-                ":protovis:3.3.1",
                 ":jquery-geturlparam:2.1",
                 ":jquery-datatables:1.8.2",
                 ":jquery-tipsy:1.0.0a",

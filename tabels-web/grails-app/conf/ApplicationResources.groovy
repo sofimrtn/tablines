@@ -58,7 +58,7 @@ modules = {
 	}
 
     'tapinos-js' {
-        dependsOn 'jquery,fancybox,protovis,jquery-ui,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,googlejsapi'
+        dependsOn 'jquery,fancybox,jquery-ui,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,googlejsapi'
 //        defaultBundle 'ui'
         resource url:'js/tapinos/jquery.tapinosCommon.js'
         resource url:'js/tapinos/jquery.tapinosChart.js'
