@@ -1,14 +1,14 @@
-function mapLabLayers(mapLabLayersComponent){
-	if (mapLabLayersComponent.css('display')=="none" || mapLabLayersComponent.css('opacity')==0){
-		mapLabLayersComponent.slideToggle("slow");
+function underMapsLayers(underMapsLayersComponent){
+	if (underMapsLayersComponent.css('display')=="none" || underMapsLayersComponent.css('opacity')==0){
+		underMapsLayersComponent.slideToggle("slow");
 	}else{
-		mapLabLayersComponent.slideToggle("slow");
+		underMapsLayersComponent.slideToggle("slow");
 	}
 }
 
-function  mapLabTree_initializateTree(mapLabTreeComponent){
-	var settings=mapLabTreeComponent.data("settings");
-	mapLabTreeComponent.dynatree({
+function  underMapsTree_initializateTree(underMapsTreeComponent){
+	var settings=underMapsTreeComponent.data("settings");
+	underMapsTreeComponent.dynatree({
 		checkbox: true,
 		// Override class name for checkbox icon, so radio buttons are displayed:
 		//classNames: {checkbox: "dynatree-radio"},
@@ -36,7 +36,7 @@ function  mapLabTree_initializateTree(mapLabTreeComponent){
 			
 			//$("#echoSelection").text(selKeys.join(", "));
 			
-			mapLabTreeComponent.data("selKeys", selKeys);
+			underMapsTreeComponent.data("selKeys", selKeys);
 			//selKeys contains all selected keys 
 			//alert (selKeys);			
 		},
@@ -48,13 +48,13 @@ function  mapLabTree_initializateTree(mapLabTreeComponent){
 	});
 	
 	var selKeys = new Array();
-	mapLabTreeComponent.data("selKeys", selKeys);
+	underMapsTreeComponent.data("selKeys", selKeys);
 }
 
-function mapLabTree_paintLegend (mapLabTreeComponent){
+function underMapsTree_paintLegend (underMapsTreeComponent){
 	var textLegend = "";	
-	var selKeys = mapLabTreeComponent.data("selKeys");
-	var settings = mapLabTreeComponent.data("settings");
+	var selKeys = underMapsTreeComponent.data("selKeys");
+	var settings = underMapsTreeComponent.data("settings");
 	var map = $("#" + settings.mapRef);
 	var legend = $("#" + setting.legendRef);
 
@@ -88,7 +88,7 @@ function mapLabTree_paintLegend (mapLabTreeComponent){
 
 }
 
-function mapLabTree_setDefaultSettings(settings){
+function underMapsTree_setDefaultSettings(settings){
 	if(settings.legendRef == undefined){
 		settings.legendRef = "legend";
 	}
@@ -106,16 +106,16 @@ function mapLabTree_setDefaultSettings(settings){
 
 (function($) {
 // initialization function
-   $.fn.mapLabTree = function(settings) {
+   $.fn.underMapsTree = function(settings) {
 
 	   $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default	
    			
-    	mapLabTree_setDefaultSettings(settings);
+    	underMapsTree_setDefaultSettings(settings);
     	// save settings into the DOM tree
         $(this).data("settings", settings);
          
 	   	this.each(function() {
-	   		mapLabTree_initializateTree($(this));
+	   		underMapsTree_initializateTree($(this));
 		});
 	}
 })(jQuery);
