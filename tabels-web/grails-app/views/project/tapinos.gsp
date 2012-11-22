@@ -32,6 +32,7 @@
            namedgraph: "${namedgraph}",
            table: $("#table"),
            chartService: "google",
+		   interactiveButtonsDiv: $("#playSwitchButton"),
          });
 
         
@@ -127,8 +128,9 @@
         <div id="seriesSwitchDiv"></div>
 
         <h3>Chart visualization</h3>
-        <div id="GooglechartsChart">
-        </div>
+        <div id="GooglechartsChart"></div>
+
+		<div id="playSwitchButton"></div>
 
         <h3>Table visualization</h3>
         <div id="table">

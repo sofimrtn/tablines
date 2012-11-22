@@ -43,6 +43,12 @@ select:hover {
 	margin: 0px auto;
 }
 
+#playSwitchButton{
+	text-align: center;
+	margin: 0px auto;
+	padding-top: 0.5em;
+}
+
 table{
 
 }

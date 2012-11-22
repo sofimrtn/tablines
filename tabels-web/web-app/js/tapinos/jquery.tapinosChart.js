@@ -158,6 +158,13 @@ function tapinosChart_setDefaultSettings(settings) {
 		settings.interpolateNulls = false;
 	}
 		
+	if (settings.switchChart == undefined){
+		settings.switchChart = "switchChart";
+	}
+	
+	if (settings.animateButton == undefined){
+		settings.animateButton = "animateButton";
+	}
 }
 
 
@@ -170,6 +177,7 @@ google.load('visualization', '1.0', {'packages':['corechart']});
 
 
 function tapinosChart_paintGoogleChart(component, data) {
+	var settings = component.data("tapinosChartSettings");
 	var chart = new google.visualization.ColumnChart(document.getElementById(component.attr('id')));
 	var typechart = "ColumnChart";
 	if ( data.chartType=='LINES' ) {
@@ -210,7 +218,7 @@ function tapinosChart_paintGoogleChart(component, data) {
             },
             
             animation:{
-	            duration: component.data("tapinosChartSettings").animationTime,
+	            duration: settings.animationTime,
 	            easing: 'linear',
             },
             
@@ -218,7 +226,7 @@ function tapinosChart_paintGoogleChart(component, data) {
             is3D: true,
             
             //interpolateNulls is an option for Google LineChart
-            interpolateNulls: component.data("tapinosChartSettings").interpolateNulls,
+            interpolateNulls: settings.interpolateNulls,
 
         };
 
@@ -241,6 +249,15 @@ function tapinosChart_paintGoogleChart(component, data) {
       $(component).data("GoogleChartData", data);
 
       isMobile ? tapinosChart_dataGoogleChartMobile (component, data) : tapinosChart_dataGoogleChart(component, data);   
+      
+      	
+      if (data.chartType=='VERTICAL_BARS' ){
+      		var switchChartButton = settings.switchChart;
+      		$("." + switchChartButton).show();
+      } else{
+      		var switchChartButton = settings.switchChart;
+      		$("." + switchChartButton).hide();
+      }
 }
 
 function tapinosChart_drawGoogleChart(component) {
@@ -399,15 +416,42 @@ function tapinosChart_animatebypointsGoogleChart (cont, component, dataTable, ti
 //********************************************************
 //Animation
 //********************************************************
-
-function animategraphic(component){ 		
+function tapinosChart_animategraphic(){ 	
+	var component = $(this).data("componentRef");	
 	component.data("GoogleChart").clearChart();
 	tapinosChart_dataGoogleChart(component, component.data("GoogleChartData"));
 }
 //********************************************************
 // BUTTONS 
 //********************************************************
-function reverseChart(component){
+function tapinosChart_injectInteractiveButtonsDivCode(component){
+	var settings = component.data("tapinosChartSettings");
+	var interactiveButtonsDiv = settings.interactiveButtonsDiv;
+	var html =
+	'<a class="'+ settings.animateButton+'" title="Animate chart" href="javascript:void(0)"><img alt="Animate" src="images/play.png"></a>' +
+	'<a class="'+ settings.switchChart+'" title="Switch columns chart" href="javascript:void(0)"><img alt="Switch" src="images/chart.png"></a>';
+	 
+	interactiveButtonsDiv.html(html);	
+	
+	var changeChartButton = $("."+settings.switchChart);
+    changeChartButton.data("componentRef", component);
+    changeChartButton.click(tapinosChart_onChangeChartButtonClick);
+    changeChartButton.css("display", "none");
+    
+    var animateButton = $(".animateButton");
+    animateButton.data("componentRef", component);
+    animateButton.click(tapinosChart_animategraphic);
+}
+
+
+function tapinosChart_onChangeChartButtonClick() {
+	// $this is the a element
+    var component = $(this).data("componentRef");
+	tapinosChart_reverseChart(component);
+}
+
+
+function tapinosChart_reverseChart(component){
 	var typeChart = component.data("typeChart");
 	var chart = component.data("GoogleChart");
 	var settings = component.data("tapinosChartSettings");
@@ -484,6 +528,10 @@ function reverseChart(component){
 	 		if (settings.doNotPaintChart == false) {
 	 			divLoading($(this));
 	 		}
+	 		if (settings.interactiveButtonsDiv != null) {
+	            settings.interactiveButtonsDiv.addClass("tapinosChart-interactiveButtons");
+	            tapinosChart_injectInteractiveButtonsDivCode($(this), settings.interactiveButtonsDiv);
+        	} // if
 	        $.ajax({
 	            url: settings.ws,
 	            context: this,
