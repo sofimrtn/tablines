@@ -245,6 +245,12 @@ function tapinosCombos_onDimensionChange(event) {
     var combosDiv = $(this).parent().parent();
     var settings = combosDiv.data("tapinosCombosSettings");
     var seriesValues = [];
+
+	if (event != "tapinosCombos_onSeriesSwitchLinkClick"){ //FIXME use real event
+	        settings.seriesSwitchDiv.hide();
+			settings.seriesSwitchLink.data("checked", false);
+	}
+
     if ( settings.series != undefined ) {
     		seriesValues = settings.series().seriesValues;
     }
@@ -296,7 +302,7 @@ function tapinosCombos_onSeriesSwitchLinkClick() {
     
     var select = $("select", component)[0];
     select.hack = tapinosCombos_onDimensionChange;
-    select.hack(null);
+    select.hack("tapinosCombos_onSeriesSwitchLinkClick");
     return; 
 }
 

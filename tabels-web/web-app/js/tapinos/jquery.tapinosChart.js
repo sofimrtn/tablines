@@ -68,20 +68,28 @@ function tapinosChart_onChartServiceCallback(component) {
 	return function(data) {
 		var settings = component.data("tapinosChartSettings");
         if (data != null) {
-        		clearDivs(settings.errorMsgsDiv);
+				clearDivs(settings.errorMsgsDiv);
+    			clearDivs(settings.interactiveButtonsDiv);
         		if (settings.doNotPaintChart == false) {
 	        		if (data.series.length == 0 || (data.series.length == 1 && data.series[0].points.length == 0)) {
 	        			tapinosChart_injectNoData(component, data);
 	        		} else if (data.valueVar == undefined || (data.series.length == 1 && data.series[0].points.length == 1)) {
 	        			tapinosChart_injectBigNumber(component, data);
 	        		} else {
+
+				 		if (settings.interactiveButtonsDiv != null) {
+				            settings.interactiveButtonsDiv.addClass("tapinosChart-interactiveButtons");
+				            tapinosChart_injectInteractiveButtonsDivCode($(this), settings.interactiveButtonsDiv);
+			        	} // if
+
+
 							tapinosChart_paintGoogleChart(component, data);
 	
 							$(window).bind("resize", function(event) {
 								tapinosChart_setGraphSizeGoogleChart(component);
-								tapinosChart_drawGoogleChart(component);
-								
+								tapinosChart_drawGoogleChart(component);							
 							});
+							
 	        		}
         		}
         		// Update the attached table (if available)
@@ -528,10 +536,7 @@ function tapinosChart_reverseChart(component){
 	 		if (settings.doNotPaintChart == false) {
 	 			divLoading($(this));
 	 		}
-	 		if (settings.interactiveButtonsDiv != null) {
-	            settings.interactiveButtonsDiv.addClass("tapinosChart-interactiveButtons");
-	            tapinosChart_injectInteractiveButtonsDivCode($(this), settings.interactiveButtonsDiv);
-        	} // if
+
 	        $.ajax({
 	            url: settings.ws,
 	            context: this,
