@@ -39,7 +39,7 @@ class InvalidInputFileCannotReadOds(filename:String) extends InvalidInputFile("N
 class InvalidInputFileCannotReadHTML(filename:String) extends InvalidInputFile("Not valid HTML file " + filename)
 class InvalidInputFileCannotReadCSV(filename:String) extends InvalidInputFile("Not valid CSV file " + filename)
 
-
+class InvalidInputFileNoShpAttached(filename:String) extends InvalidInputFile("Shapefile zip is missing shp file " + filename)
 class InvalidInputFileNoSldAttached(filename:String) extends InvalidInputFile("Shapefile zip is missing sld file " + filename)
 
 class UnrecognizedSpreadsheetFormatException(uri:String) extends RunTimeTabelsException("Unable to recognize spreadsheet file format: " + uri)

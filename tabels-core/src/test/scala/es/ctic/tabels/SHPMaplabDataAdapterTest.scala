@@ -4,7 +4,7 @@ import org.scalatest.junit.JUnitSuite
 import org.junit.{BeforeClass, Test, Before}
 import java.io.File
 import org.junit.Assert._
-import es.ctic.tabels.IndexOutOfBounds
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -199,5 +199,31 @@ class SHPMaplabDataAdapterNoDbfPointTest extends JUnitSuite {
   @Test def testGetValue {
     val stylePosition =  dataAdapter.getValue(new Point(filename1,"sld",0,0)).getContent.asInt
     assertEquals(Literal(-1, XSD_INTEGER),stylePosition)
+  }
+}
+
+
+class SHPMaplabDataAdapterDirectoryInZip extends JUnitSuite {
+
+
+  var dataAdapter : SHPMaplabDataAdapter = null
+  val filename1 : String = this.getClass.getResource("/es/ctic/tabels/northwest-spain.zip").getFile.replace("%20"," ")
+  val sheet1 = "dbf"
+  val sheet2 = "sld"
+
+  @Test def testInit {
+    try {
+      System.setProperty("tabels.path",".")
+      System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
+      val file1 = new File(filename1)
+
+      dataAdapter = new SHPMaplabDataAdapter(file1)
+      val stylePosition =  dataAdapter.getValue(new Point(filename1,"sld",0,0)).getContent.asInt
+      fail("expected InvalidInputFileNoShpAttached")
+    } catch {
+      case iifnsa: InvalidInputFileNoShpAttached => assertTrue(true);
+      case e: Exception => fail("Should return an InvalidInputFileNoShpAttached, but returned %s".format(e.getClass.getCanonicalName))
+  }
+
   }
 }

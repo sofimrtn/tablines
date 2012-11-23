@@ -41,9 +41,8 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
 
   // ****************
   // 1 - DBF Handling
-
-  // FIXME what should we do if no shp is found?
-  val shpFile = new File(extractedZipDir, shpFound.get)
+  // if no shp is found: throw exception
+  val shpFile = new File(extractedZipDir, shpFound.getOrElse(throw new InvalidInputFileNoShpAttached(file.getName)))
   val store = FileDataStoreFinder.getDataStore(shpFile)
   val featureSource = store.getFeatureSource()
 
