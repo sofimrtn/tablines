@@ -81,7 +81,7 @@
 		
 		<!--<g:link action="rdf" id="${params.id}"><img id="downloadRDFIcon" src="${resource(dir:'images',file:'download.png')}" alt="Download RDF"/></g:link> -->
 		<div id="datasetInfo">
-		  <div id="datasetInfoWaiting">Waiting...</div>
+		  <div id="datasetInfoWaiting"><img src="${resource(dir:'images',file:'loader.gif')}"> Waiting...</div>
 		  <div id="datasetInfoData">
 		      <g:message code="msg.triples"/>: <span id="triplesCount"></span>
 		  </div>
