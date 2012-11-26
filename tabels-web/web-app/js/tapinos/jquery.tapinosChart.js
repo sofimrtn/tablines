@@ -254,8 +254,19 @@ function tapinosChart_paintGoogleChart(component, data) {
       $(component).data("GoogleChart", chart);
       $(component).data("GoogleChartData", data);
 
+	  
+	  $('#interpolateDiv').hide(); //default behaviour is to hide the interpolate
+	  
       isMobile ? tapinosChart_dataGoogleChartMobile (component, data) : tapinosChart_dataGoogleChart(component, data);   
       
+      setInterpolable(component, data);
+		
+	  if (component.data("is_interpolable") && component.data("typeChart")=="LineChart"){
+		settings.interpolateDiv.show();
+		settings.interpolateCheckbox.change(function(){tapinosChart_onChangeInterpolateCheckbox(component);});
+	  }	
+
+
       	
       if (data.chartType=='VERTICAL_BARS' ){
       		var switchChartButton = settings.switchChart;
@@ -302,7 +313,30 @@ function tapinosChart_dataGoogleChart (component, data){
 		selectHandle(component);
 		
 	});
+}
 
+function tapinosChart_onChangeInterpolateCheckbox(component){
+	var settings = component.data("tapinosChartSettings");
+	settings.interpolateNulls = settings.interpolateCheckbox.is(':checked');
+	
+	
+	var data = component.data("GoogleChartData");
+	var options = component.data("options");
+	options.interpolateNulls = settings.interpolateNulls;
+	component.data("options", options);
+
+	tapinosChart_dataGoogleChart(component, data);  
+	 
+}
+
+function setInterpolable(component, data){
+	component.data("is_interpolable", false); // start the is_interpolable flag to false
+
+   for (var i=0; i < data.series.length; i++) {
+		if (data.series[i].points.length < data.sortedX.length){
+			component.data("is_interpolable", true);
+		}
+	}
 }
   
 function selectHandle(component){

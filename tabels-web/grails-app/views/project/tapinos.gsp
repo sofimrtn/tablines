@@ -33,6 +33,8 @@
            table: $("#table"),
            chartService: "google",
 		   interactiveButtonsDiv: $("#playSwitchButton"),
+		   interpolateDiv: $("#interpolateDiv"),
+		   interpolateCheckbox: $("#interpolate"),
          });
 
         
@@ -53,7 +55,7 @@
            // Callback to execute on dimension change events
            // (Combos --> Chart --> Table)
            callback: function(chartParameters) { 
-               // chartParameters.yLabel = "Porcentaje (%)";
+               // chartParameters.yLabel = "Percentage (%)";
                $("#GooglechartsChart").tapinosChartDraw(chartParameters); 
                $("#permalink").tapinosPermalinkRefresh();
                return; 
@@ -128,7 +130,11 @@
         <div id="seriesSwitchDiv"></div>
 
         <h3>Chart visualization</h3>
-        <div id="GooglechartsChart"></div>
+        <div id="GooglechartsChart">
+        </div>
+        <div id="interpolateDiv" style="display:none;">
+			<input type="checkbox" id="interpolate" />Interpolate
+        </div>
 
 		<div id="playSwitchButton"></div>
 
