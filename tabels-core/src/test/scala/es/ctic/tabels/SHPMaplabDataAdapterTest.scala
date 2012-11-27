@@ -227,3 +227,32 @@ class SHPMaplabDataAdapterDirectoryInZip extends JUnitSuite {
 
   }
 }
+
+class SHPMaplabDataAdapterMunicipios extends JUnitSuite {
+
+
+  var dataAdapter : SHPMaplabDataAdapter = null
+  val filename1 : String = this.getClass.getResource("/es/ctic/tabels/16-municipios-spain.shp.zip").getFile.replace("%20"," ")
+  val sheet1 = "dbf"
+  val sheet2 = "sld"
+
+  @Before def setUp {
+
+      System.setProperty("tabels.path",".")
+      System.setProperty("tabels.publicTomcatWritablePath","http://www.tabels.com")
+      val file1 = new File(filename1)
+
+      dataAdapter = new SHPMaplabDataAdapter(file1)
+  }
+
+  @Test def testGetCols {
+
+      assertEquals(4,dataAdapter.getCols(sheet1))
+  }
+
+  @Test def getValue {
+    // header
+    assertEquals(Literal("COD_NUCPOB"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 0)).getContent)
+    assertEquals(Literal("NOM_NUCPOB"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
+  }
+}

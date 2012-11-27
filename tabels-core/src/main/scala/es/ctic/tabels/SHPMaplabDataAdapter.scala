@@ -119,8 +119,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
     val currentAttributesInRow = 1 until feature.getAttributeCount map (index => feature.getAttribute(index)) // each row is an Object[]
 
     // get kml path
-    val currentKmlPath = kmlConversionResults.get(feature.getID).getAbsolutePath
-
+    // val currentKmlPath = kmlConversionResults.get(feature.getID).getAbsolutePath
     val currentKmlPublicPath = publicDirKml + kmlConversionResults.get(feature.getID).getName
     val currentRow = currentAttributesInRow.toList ::: List(geometryType,currentKmlPublicPath)
 
