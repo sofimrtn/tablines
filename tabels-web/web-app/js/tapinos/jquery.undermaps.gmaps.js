@@ -1,54 +1,54 @@
-function  underMapsMap_initializateMap(underMapsMapComponent){
+function  undermapsMap_initializateMap(undermapsMapComponent){
 
    var initialMapCenter = new google.maps.LatLng(0,0);
    var gmapsOptions = {
-      zoom: underMapsMapComponent.data("settings").mapZoom,
+      zoom: undermapsMapComponent.data("settings").mapZoom,
       center: initialMapCenter, // TODO change for settings value
-      mapTypeId: underMapsMapComponent.data("settings").mapType,
+      mapTypeId: undermapsMapComponent.data("settings").mapType,
     };
 
     var map = new google.maps.Map(document.getElementById("mapGoogle"), gmapsOptions);
     
-	underMapsMapComponent.data("underMapsGoogleMap", map);
+	undermapsMapComponent.data("undermapsGoogleMap", map);
 }
 
-function underMapsMap_initializateData(underMapsMapComponent){
-	var settings =  underMapsMapComponent.data("settings");
+function undermapsMap_initializateData(undermapsMapComponent){
+	var settings =  undermapsMapComponent.data("settings");
 	var selKeys = $("#"+settings.treeRef).data("selKeys")
 	$.ajax({
 		 async: false,
 		 dataType: 'text',
 		 //TODO Change for ws url
-		 url: underMapsMapComponent.data("settings").mapAreaWs, //'ws/map2.json',
+		 url: undermapsMapComponent.data("settings").mapAreaWs, //'ws/map2.json',
 		 data: {
 			 'types': selKeys,
 			 'endpoint': settings.endpoint,
 			 'namedgraph': settings.namedgraph
 		 },
 		 success: function(data) {
-			 underMapsMapComponent.data("requestData", data);
+			 undermapsMapComponent.data("requestData", data);
 		 },
 	});
 }
 
-function underMapsMap_showInfo(typeGeo, i, location, underMapsMapComponent){
+function undermapsMap_showInfo(typeGeo, i, location, undermapsMapComponent){
 
-	var infoMap = underMapsMapComponent.data("underMapsMapInfoMap");
-	var infowindow = underMapsMapComponent.data("underMapsMapInfoWindow");
-	var map = underMapsMapComponent.data("underMapsGoogleMap");
+	var infoMap = undermapsMapComponent.data("undermapsMapInfoMap");
+	var infowindow = undermapsMapComponent.data("undermapsMapInfoWindow");
+	var map = undermapsMapComponent.data("undermapsGoogleMap");
 	var location ="";
 	
 	switch (typeGeo){
-		case 0: var arrayPolygons = underMapsMapComponent.data("underMapsMapPolygons");
+		case 0: var arrayPolygons = undermapsMapComponent.data("undermapsMapPolygons");
 				var polygon = arrayPolygons[i];
-				location = underMapsMap_centerElement(polygon);
+				location = undermapsMap_centerElement(polygon);
 				break;
 				
-		case 1: var arrayPolyline = underMapsMapComponent.data("underMapsMapPolylines");
+		case 1: var arrayPolyline = undermapsMapComponent.data("undermapsMapPolylines");
 			    var polyline = arrayPolyline[i];
-			    location = underMapsMap_centerElement(polyline);	
+			    location = undermapsMap_centerElement(polyline);	
 				break;
-		case 2: var arrayMaker = underMapsMapComponent.data("underMapsMapMakers");
+		case 2: var arrayMaker = undermapsMapComponent.data("undermapsMapMakers");
 				var maker = arrayMaker[i];
 				location = maker.getPosition();
 				location = new google.maps.LatLng(location.lat()+0.01, location.lng()+0.01);
@@ -59,21 +59,21 @@ function underMapsMap_showInfo(typeGeo, i, location, underMapsMapComponent){
 	infowindow.setPosition(location);
 	//infowindow.open(map); // TODO change after demo
 
-	var infoBubble = underMapsMapComponent.data("underMapsMapInfoBubble");
+	var infoBubble = undermapsMapComponent.data("undermapsMapInfoBubble");
 	infoBubble.setContent(infoMap[typeGeo][i]);
 	infoBubble.setPosition(location);
 	infoBubble.open(map);
 }
 
-function underMapsMap_paintMap(underMapsMapComponent){
+function undermapsMap_paintMap(undermapsMapComponent){
 
 	var infoMap = new Array();
 	
-	var data = eval(underMapsMapComponent.data("requestData"));
+	var data = eval(undermapsMapComponent.data("requestData"));
 	var polygons = new Array();
 	var polylines = new Array();
 	var makers = new Array();	
-	var map = underMapsMapComponent.data("underMapsGoogleMap");
+	var map = undermapsMapComponent.data("undermapsGoogleMap");
 	
 	infoMap[0] = new Array();
 	$(data[0]).each(function(i,polygon){ 
@@ -81,7 +81,7 @@ function underMapsMap_paintMap(underMapsMapComponent){
 		polygons[i].setMap(map); 
 		infoMap[0].push("<div class=\"phoneytext\">"+polygons[i].html+"</div>");
 		google.maps.event.addListener(polygons[i], "click", function(event){
-				underMapsMap_showInfo(0,i, event.latLng, underMapsMapComponent);
+				undermapsMap_showInfo(0,i, event.latLng, undermapsMapComponent);
 		});
 	}); 
 	
@@ -91,7 +91,7 @@ function underMapsMap_paintMap(underMapsMapComponent){
 		polylines[i].setMap(map);
 		infoMap[1][i] = "<div class=\"phoneytext\">"+polylines[i].html+"</div>"; 
 		google.maps.event.addListener(polylines[i], "click", function(event){
-				underMapsMap_showInfo(1,i, event.latLng, underMapsMapComponent);
+				undermapsMap_showInfo(1,i, event.latLng, undermapsMapComponent);
 		});
 	} );
 	
@@ -101,7 +101,7 @@ function underMapsMap_paintMap(underMapsMapComponent){
 		makers[i].setMap(map); 
 		infoMap[2].push("<div class=\"phoneytext\">"+makers[i].html+"</div>");
 		google.maps.event.addListener(makers[i], "click", function(event){
-				underMapsMap_showInfo(2,i, event.latLng, underMapsMapComponent);
+				undermapsMap_showInfo(2,i, event.latLng, undermapsMapComponent);
 		});
 	});
 	
@@ -124,20 +124,20 @@ function underMapsMap_paintMap(underMapsMapComponent){
         arrowStyle: 0
       });
 	
-	underMapsMapComponent.data("underMapsMapInfoBubble", infoBubble);
+	undermapsMapComponent.data("undermapsMapInfoBubble", infoBubble);
 
-	underMapsMapComponent.data("underMapsMapInfoWindow", infowindow);
+	undermapsMapComponent.data("undermapsMapInfoWindow", infowindow);
 	
-	underMapsMapComponent.data("underMapsMapPolygons", polygons);
-	underMapsMapComponent.data("underMapsMapPolylines", polylines);
-	underMapsMapComponent.data("underMapsMapMakers", makers);
-	underMapsMapComponent.data("underMapsMapInfoMap", infoMap);
+	undermapsMapComponent.data("undermapsMapPolygons", polygons);
+	undermapsMapComponent.data("undermapsMapPolylines", polylines);
+	undermapsMapComponent.data("undermapsMapMakers", makers);
+	undermapsMapComponent.data("undermapsMapInfoMap", infoMap);
 	
-	underMapsMap_centerMap(underMapsMapComponent);  
+	undermapsMap_centerMap(undermapsMapComponent);  
 }
 
 
-function underMapsMap_centerElement(geoElement){
+function undermapsMap_centerElement(geoElement){
 	var bounds = new google.maps.LatLngBounds();
 	
 	geoElement.getPath().forEach(function (element, index){
@@ -146,11 +146,11 @@ function underMapsMap_centerElement(geoElement){
 	return bounds.getCenter();
 }
 
-function underMapsMap_centerMap(underMapsMapComponent){
-	var polygons = underMapsMapComponent.data("underMapsMapPolygons");
-	var polylines = underMapsMapComponent.data("underMapsMapPolylines");
-	var makers = underMapsMapComponent.data("underMapsMapMakers");
-	var map = underMapsMapComponent.data("underMapsGoogleMap");
+function undermapsMap_centerMap(undermapsMapComponent){
+	var polygons = undermapsMapComponent.data("undermapsMapPolygons");
+	var polylines = undermapsMapComponent.data("undermapsMapPolylines");
+	var makers = undermapsMapComponent.data("undermapsMapMakers");
+	var map = undermapsMapComponent.data("undermapsGoogleMap");
 
 	var bounds = new google.maps.LatLngBounds();
 
@@ -193,8 +193,8 @@ function underMapsMap_centerMap(underMapsMapComponent){
 	map.fitBounds(bounds);
 }
 
-function underMapsMap_emptyData(underMapsMapComponent){
-	var settings =  underMapsMapComponent.data("settings");
+function undermapsMap_emptyData(undermapsMapComponent){
+	var settings =  undermapsMapComponent.data("settings");
 	var selKeys = $("#"+settings.treeRef).data("selKeys")
 	if (selKeys.length == 0){
 		return true;
@@ -202,7 +202,7 @@ function underMapsMap_emptyData(underMapsMapComponent){
 	return false;
 }
 
-function underMapsMap_setDefaultSettings(settings) { 
+function undermapsMap_setDefaultSettings(settings) { 
     // set default values for settings
 	if(settings.mapAreaWs == undefined) {
 		settings.mapAreaWs = "ws/mapArea";
@@ -224,20 +224,20 @@ function underMapsMap_setDefaultSettings(settings) {
 	}
 }
 
-function underMapsReload(underMapsTreeComponent, underMapsMapComponent){
+function undermapsReload(undermapsTreeComponent, undermapsMapComponent){
 	
-	var selKeys = underMapsTreeComponent.data("selKeys");
+	var selKeys = undermapsTreeComponent.data("selKeys");
 	//TODO url to ws whit selected key
 	//and chage de settings ws?
 	
-	underMapsMap_initializateMap(underMapsMapComponent); 
+	undermapsMap_initializateMap(undermapsMapComponent); 
 	
 	if (selKeys.length != 0){
-	    underMapsMap_initializateData(underMapsMapComponent);
-		underMapsMap_paintMap(underMapsMapComponent); 
+	    undermapsMap_initializateData(undermapsMapComponent);
+		undermapsMap_paintMap(undermapsMapComponent); 
 	}
 	
-	//underMapsTree_paintLegend(underMapsTreeComponent);
+	//undermapsTree_paintLegend(undermapsTreeComponent);
 }
 
 // ********************************************************
@@ -245,19 +245,19 @@ function underMapsReload(underMapsTreeComponent, underMapsMapComponent){
 // ********************************************************
 (function($) {
     // initialization function
-   $.fn.underMapsMap = function(settings) {
+   $.fn.undermapsMap = function(settings) {
 	this.each(function() {
 		
-    	 underMapsMap_setDefaultSettings(settings);
+    	 undermapsMap_setDefaultSettings(settings);
          // save settings into the DOM tree
          $(this).data("settings", settings);
 		 
-        underMapsMap_initializateMap($(this)); 
+        undermapsMap_initializateMap($(this)); 
         
         //if map must paint something or not
-        if(!underMapsMap_emptyData($(this))){
-        	underMapsMap_initializateData($(this));
-        	underMapsMap_paintMap($(this)); 
+        if(!undermapsMap_emptyData($(this))){
+        	undermapsMap_initializateData($(this));
+        	undermapsMap_paintMap($(this)); 
         }         
 	});
     return this;

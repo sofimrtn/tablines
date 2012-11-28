@@ -1,14 +1,14 @@
-function underMapsLayers(underMapsLayersComponent){
-	if (underMapsLayersComponent.css('display')=="none" || underMapsLayersComponent.css('opacity')==0){
-		underMapsLayersComponent.slideToggle("slow");
+function undermapsLayers(undermapsLayersComponent){
+	if (undermapsLayersComponent.css('display')=="none" || undermapsLayersComponent.css('opacity')==0){
+		undermapsLayersComponent.slideToggle("slow");
 	}else{
-		underMapsLayersComponent.slideToggle("slow");
+		undermapsLayersComponent.slideToggle("slow");
 	}
 }
 
-function  underMapsTree_initializateTree(underMapsTreeComponent){
-	var settings=underMapsTreeComponent.data("settings");
-	underMapsTreeComponent.dynatree({
+function  undermapsTree_initializateTree(undermapsTreeComponent){
+	var settings=undermapsTreeComponent.data("settings");
+	undermapsTreeComponent.dynatree({
 		checkbox: true,
 		// Override class name for checkbox icon, so radio buttons are displayed:
 		//classNames: {checkbox: "dynatree-radio"},
@@ -36,7 +36,7 @@ function  underMapsTree_initializateTree(underMapsTreeComponent){
 			
 			//$("#echoSelection").text(selKeys.join(", "));
 			
-			underMapsTreeComponent.data("selKeys", selKeys);
+			undermapsTreeComponent.data("selKeys", selKeys);
 			//selKeys contains all selected keys 
 			//alert (selKeys);			
 		},
@@ -48,13 +48,13 @@ function  underMapsTree_initializateTree(underMapsTreeComponent){
 	});
 	
 	var selKeys = new Array();
-	underMapsTreeComponent.data("selKeys", selKeys);
+	undermapsTreeComponent.data("selKeys", selKeys);
 }
 
-function underMapsTree_paintLegend (underMapsTreeComponent){
+function undermapsTree_paintLegend (undermapsTreeComponent){
 	var textLegend = "";	
-	var selKeys = underMapsTreeComponent.data("selKeys");
-	var settings = underMapsTreeComponent.data("settings");
+	var selKeys = undermapsTreeComponent.data("selKeys");
+	var settings = undermapsTreeComponent.data("settings");
 	var map = $("#" + settings.mapRef);
 	var legend = $("#" + setting.legendRef);
 
@@ -88,7 +88,7 @@ function underMapsTree_paintLegend (underMapsTreeComponent){
 
 }
 
-function underMapsTree_setDefaultSettings(settings){
+function undermapsTree_setDefaultSettings(settings){
 	if(settings.legendRef == undefined){
 		settings.legendRef = "legend";
 	}
@@ -106,16 +106,16 @@ function underMapsTree_setDefaultSettings(settings){
 
 (function($) {
 // initialization function
-   $.fn.underMapsTree = function(settings) {
+   $.fn.undermapsTree = function(settings) {
 
 	   $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default	
    			
-    	underMapsTree_setDefaultSettings(settings);
+    	undermapsTree_setDefaultSettings(settings);
     	// save settings into the DOM tree
         $(this).data("settings", settings);
          
 	   	this.each(function() {
-	   		underMapsTree_initializateTree($(this));
+	   		undermapsTree_initializateTree($(this));
 		});
 	}
 })(jQuery);

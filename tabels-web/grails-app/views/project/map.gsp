@@ -28,7 +28,7 @@
             </div>
             <!-- <div id="layerLegend">
                 <div class="introLegend">   
-                    <a href="javascript:void(0);" onclick="javascript:underMapsLayers($('#legend'))">Legend</a>
+                    <a href="javascript:void(0);" onclick="javascript:undermapsLayers($('#legend'))">Legend</a>
                 </div>
                 <div id="legend"><ul><li>No hay nada seleccionado</li></ul></div>
             </div>
@@ -46,7 +46,7 @@
 	</div> 
     <r:script>
         //Tree must be defined before map
-        $("#tree").underMapsTree({
+        $("#tree").undermapsTree({
             treeWs: "<g:resource dir='ws' file='tree'/>",
             mapRef: "mapGoogle",
             legendRef: "legend",
@@ -54,7 +54,7 @@
             namedgraph: "${namedgraph}"
         });
         
-        $("#mapGoogle").underMapsMap({
+        $("#mapGoogle").undermapsMap({
             mapAreaWs: "<g:resource dir='ws' file='mapArea'/>",
             mapZoom : 2,
             treeRef: "tree",
@@ -62,7 +62,7 @@
             namedgraph: "${namedgraph}"
         });
         
-        window.onload = underMapsLayers($('#tree'));
+        window.onload = undermapsLayers($('#tree'));
         
         $('#generating-dialog').dialog({
 	        autoOpen: false,
@@ -71,7 +71,7 @@
 			draggable: false,
 		    show: {
 		        complete: function() { // callback function
-		            underMapsReload($('#tree'), $('#mapGoogle')); 
+		            undermapsReload($('#tree'), $('#mapGoogle')); 
 		            $('#generating-dialog').dialog('close'); // FIXME
 		            return true;	            
 		        }
