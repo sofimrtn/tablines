@@ -1,0 +1,444 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:my="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/"
+    xmlns:dcat="http://www.w3.org/ns/dcat#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:project="http://idi.fundacionctic.org/tabels/project/safetyRegions/"
+    xmlns:neogeogeometry="http://geovocab.org/geometry#"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:dis="http://disaster-fp7.eu/ontology/core#"
+    xmlns:neogeospatial="http://geovocab.org/spatial#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/#" > 
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Flevoland">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-3.json"/>
+    <skos:prefLabel>Flevoland</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/11">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.8.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Ronde_van_Noord-Holland"/>
+    <my:pROVNAAM>Noord-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30183</my:pROVCODE>
+    <my:oMSCHRIJVI>Zaanstreek-Waterland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">11</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Overijssel">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-7.json"/>
+    <skos:prefLabel>Overijssel</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/oMSCHRIJVI">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/16">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zuid-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.17.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Zuid-Holland_Zuid"/>
+    <my:pROVNAAM>Zuid-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30193</my:pROVCODE>
+    <my:oMSCHRIJVI>Hollands Midden</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">16</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/21">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Brabant"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.21.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Noord,_North_Brabant"/>
+    <my:pROVNAAM>Noord-Brabant</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30213</my:pROVCODE>
+    <my:oMSCHRIJVI>Brabant-Noord</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">21</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.12.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.6.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Limburg">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-6.json"/>
+    <skos:prefLabel>Limburg</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.16.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/6">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Gelderland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.9.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Gelderland"/>
+    <my:pROVNAAM>Gelderland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30153</my:pROVCODE>
+    <my:oMSCHRIJVI>Noord- en Oost-Gelderland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.23.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/25">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Flevoland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.6.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Flevoland"/>
+    <my:pROVNAAM>Flevoland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30163</my:pROVCODE>
+    <my:oMSCHRIJVI>Flevoland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">25</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.14.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.24.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zuid-Holland">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-2.json"/>
+    <skos:prefLabel>Zuid-Holland</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/2">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Fryslan"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.1.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Profronde_van_Fryslan"/>
+    <my:pROVNAAM>Fryslan</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30123</my:pROVCODE>
+    <my:oMSCHRIJVI>Frysln</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Fryslan">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-5.json"/>
+    <skos:prefLabel>Fryslan</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.15.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/15">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zuid-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.15.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Zuid-Holland_Zuid"/>
+    <my:pROVNAAM>Zuid-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30193</my:pROVCODE>
+    <my:oMSCHRIJVI>Haaglanden</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">15</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.5.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Utrecht">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-1.json"/>
+    <skos:prefLabel>Utrecht</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/22">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Brabant"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.22.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Noord,_North_Brabant"/>
+    <my:pROVNAAM>Noord-Brabant</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30213</my:pROVCODE>
+    <my:oMSCHRIJVI>Brabant-Zuidoost</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">22</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.7.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/geometry">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/19">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zeeland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.19.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Zeeland"/>
+    <my:pROVNAAM>Zeeland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30203</my:pROVCODE>
+    <my:oMSCHRIJVI>Zeeland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">19</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.25.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/7">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Gelderland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.10.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Gelderland"/>
+    <my:pROVNAAM>Gelderland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30153</my:pROVCODE>
+    <my:oMSCHRIJVI>Gelderland Midden</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.4.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/pROVCODE">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.8.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-10.json"/>
+    <skos:prefLabel>Noord-Holland</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Gelderland">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-12.json"/>
+    <skos:prefLabel>Gelderland</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/3">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Drenthe"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.3.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Drenthe"/>
+    <my:pROVNAAM>Drenthe</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30133</my:pROVCODE>
+    <my:oMSCHRIJVI>Drenthe</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/12">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.11.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Ronde_van_Noord-Holland"/>
+    <my:pROVNAAM>Noord-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30183</my:pROVCODE>
+    <my:oMSCHRIJVI>Kennemerland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">12</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.10.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/18">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zuid-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.18.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Zuid-Holland_Zuid"/>
+    <my:pROVNAAM>Zuid-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30193</my:pROVCODE>
+    <my:oMSCHRIJVI>Zuid-Holland-Zuid</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">18</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/safety-regions-no-encoding-op.shp.zip">
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Fryslan"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Brabant"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zuid-Holland"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Limburg"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Overijssel"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zeeland"/>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel>safety-regions-no-encoding-op.shp.zip</skos:prefLabel>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Gelderland"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Flevoland"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Drenthe"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Groningen"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Utrecht"/>
+    <skos:narrower rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.13.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/8">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Gelderland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.20.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Gelderland"/>
+    <my:pROVNAAM>Gelderland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30153</my:pROVCODE>
+    <my:oMSCHRIJVI>Gelderland-Zuid</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.20.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.22.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/4">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Overijssel"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.4.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Overijssel"/>
+    <my:pROVNAAM>Overijssel</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30143</my:pROVCODE>
+    <my:oMSCHRIJVI>IJsselland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.17.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/23">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Limburg"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.23.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Limburg"/>
+    <my:pROVNAAM>Limburg</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30223</my:pROVCODE>
+    <my:oMSCHRIJVI>Limburg-Noord</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">23</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Groningen">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-4.json"/>
+    <skos:prefLabel>Groningen</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/13">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.12.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Ronde_van_Noord-Holland"/>
+    <my:pROVNAAM>Noord-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30183</my:pROVCODE>
+    <my:oMSCHRIJVI>Amsterdam-Amstelland</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">13</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.2.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.9.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Drenthe">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-9.json"/>
+    <skos:prefLabel>Drenthe</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zeeland">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-8.json"/>
+    <skos:prefLabel>Zeeland</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/pROVNAAM">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/tDN_CODE">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/9">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Utrecht"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.14.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Utrecht"/>
+    <my:pROVNAAM>Utrecht</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30173</my:pROVCODE>
+    <my:oMSCHRIJVI>Utrecht</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.1.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/17">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Zuid-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.16.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Zuid-Holland_Zuid"/>
+    <my:pROVNAAM>Zuid-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30193</my:pROVCODE>
+    <my:oMSCHRIJVI>Rotterdam-Rijnmond</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">17</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/20">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Brabant"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.25.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Noord,_North_Brabant"/>
+    <my:pROVNAAM>Noord-Brabant</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30213</my:pROVCODE>
+    <my:oMSCHRIJVI>Midden-en-West-Brabant</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">20</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.3.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/10">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.7.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Ronde_van_Noord-Holland"/>
+    <my:pROVNAAM>Noord-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30183</my:pROVCODE>
+    <my:oMSCHRIJVI>Noord-Holland-Noord</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.19.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.18.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/kml">
+    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/5">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Overijssel"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.5.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Overijssel"/>
+    <my:pROVNAAM>Overijssel</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30143</my:pROVCODE>
+    <my:oMSCHRIJVI>Twente</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.11.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/24">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Limburg"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.24.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Limburg"/>
+    <my:pROVNAAM>Limburg</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30223</my:pROVCODE>
+    <my:oMSCHRIJVI>Zuid-Limburg</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">24</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/14">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Holland"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.13.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Ronde_van_Noord-Holland"/>
+    <my:pROVNAAM>Noord-Holland</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30183</my:pROVCODE>
+    <my:oMSCHRIJVI>Gooi en Vechtstreek</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">14</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.21.kml">
+    <rdf:type rdf:resource="http://geovocab.org/geometry#Polygon"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/1">
+    <dct:subject rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Groningen"/>
+    <neogeogeometry:geometry rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/kml/safety-regions-no-encoding.2.kml"/>
+    <my:res rdf:resource="http://dbpedia.org/resource/Groningen"/>
+    <my:pROVNAAM>Groningen</my:pROVNAAM>
+    <my:pROVCODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">30113</my:pROVCODE>
+    <my:oMSCHRIJVI>Groningen</my:oMSCHRIJVI>
+    <my:tDN_CODE rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1</my:tDN_CODE>
+    <rdf:type rdf:resource="http://geovocab.org/spatial#Feature"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/Noord-Brabant">
+    <skos:inScheme rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/collection"/>
+    <dis:prefStyle rdf:resource="http://idi.fundacionctic.org/tabels/project/safetyRegions/json/safety-regions-no-encoding-style-opacity-1-11.json"/>
+    <skos:prefLabel>Noord-Brabant</skos:prefLabel>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+  </rdf:Description>
+</rdf:RDF>

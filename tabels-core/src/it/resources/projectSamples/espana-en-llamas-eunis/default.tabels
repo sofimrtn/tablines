@@ -1,0 +1,3 @@
+@LOAD("http://idi.fundacionctic.org/tabels/project/eunis-natura2000-es-nw/data")
+@LOAD("http://idi.fundacionctic.org/tabels/project/espana-en-llamas/data")
+@LOAD("http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/data")

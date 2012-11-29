@@ -1,0 +1,155 @@
+/*PROJECT BRIEFING
+ *
+ *File description: 
+ *	   Top 250 movies from the IMDb web site.
+ *	   Author: IMDb
+ *	   Format: HTML
+ *	   Source: http://www.imdb.com/chart/top
+ *
+ *Program description: 
+ *	   The title column is proccessed to extract two diferent resources: title and year. Both are then disambiguated 
+ *	   against DBpedia. Rank and votes values are explicitly typed as integer values (xsd:int). The RDF
+ *     dataset is described by DCAT metadata. It is also generated a RDFDataCube structure to show the relation between
+ * 	   votes and rating for each movie.
+ *
+ *Output:
+ *     The generated RDF can be consumed via the SPARQL Endpoint, the Exhibit Faceted view and the chart view.
+ *
+*/
+
+
+PREFIX project: <http://idi.fundacionctic.org/tabels/project/imdb/>
+PREFIX my: <http://idi.fundacionctic.org/tabels/project/imdb/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+
+LET ?MovieComponent = resource("movie", my:component)
+LET ?ratingComponent = resource("rating", my:component)
+
+SET sheets "0"
+    FOR ?rowId IN rows FILTER get-row(?rowId)
+        MATCH [?rank,?rating,?title,?votes] IN horizontal
+		LET ?titleTrimmed = trim(substring-before(?title,"("))
+		LET ?resFilm= dbpedia-disambiguation(?titleTrimmed)
+		LET ?resourceMovie = resource(?titleTrimmed)
+		LET ?resourceRating = resource(?rating)
+		LET ?resourceVotes = resource(concat(?votes,"_",?titleTrimmed))
+		LET ?year = int(substring(?title,int-add(last-index-of(?title,"("),1),4))
+		LET ?resyear= dbpedia-disambiguation(?year)
+        LET ?rankInt = int(substring-before(?rank,"."))
+        LET ?votesInt = int(translate(?votes,",",""))
+
+//DCAT Metadata
+CONSTRUCT {
+    my:DataSet a dcat:Dataset .
+    my:DataSet dct:title "Imdb top 250 movies data set" .
+    my:DataSet rdfs:keyword "imdb, tabels, movie" .
+    my:DataSet dcat:distribution my:DatasetRDF .
+    my:DataSet dcat:distribution my:DatasetTurtle .
+    my:DataSet dcat:distribution my:DatasetN3
+}
+
+CONSTRUCT {
+    my:DatasetRDF a dcat:Distribution .
+    my:DatasetRDF dcat:accessURL project:data .
+    my:DatasetRDF dct:format _:B0 .
+    _:B0 a dct:IMT .
+    _:B0 rdf:value "application/rdf+xml" .
+    _:B0 rdfs:label "RDF+XML"
+}
+
+CONSTRUCT {
+    my:DatasetTurtle a dcat:Distribution .
+    my:DatasetTurtle dcat:accessURL project:data?format=ttl .
+    my:DatasetTurtle dct:format _:B1 .
+    _:B1 a dct:IMT .
+    _:B1 rdf:value "text/turtle" .
+    _:B1 rdfs:label "TURTLE"
+}
+
+CONSTRUCT {
+    my:DatasetN3 a dcat:Distribution .
+    my:DatasetN3 dcat:accessURL project:data?format=text .
+    my:DatasetN3 dct:format _:B2 .
+    _:B2 a dct:IMT .
+    _:B2 rdf:value "text/n3" .
+    _:B2 rdfs:label "N3"
+}
+
+//IMDb RDF
+CONSTRUCT {
+    ?resourceMovie a my:SomeResource .
+    ?resourceMovie rdfs:label ?titleTrimmed.
+    ?resourceMovie my:rank ?rankInt .
+    ?resourceMovie my:rating ?rating .
+    ?resourceMovie my:Film ?resFilm .
+    ?resourceMovie my:year ?resyear.
+    ?resourceMovie my:votes ?votesInt
+}
+
+CONSTRUCT {
+    my:SomeResource a rdfs:Class
+}
+
+CONSTRUCT {
+    my:rank a rdf:Property .
+    my:rating a rdf:Property .
+    my:title a rdf:Property .
+    my:votes a rdf:Property
+}
+
+//DataCube Dataset
+//DIMENSION Movie
+construct
+{
+  	?resourceMovie rdfs:label ?titleTrimmed .
+   	my:datastructure qb:component ?MovieComponent.
+  	my:directorMovieDataStructure qb:component ?MovieComponent.
+   	?MovieComponent qb:dimension my:Movie ;
+              	  	 qb:order "10". 
+    my:Movie rdfs:label "Movie" 
+}
+
+//DIMENSION rating
+construct
+{
+    ?resourceRating rdfs:label ?rating .
+  	my:datastructure qb:component ?ratingComponent.
+   	?ratingComponent qb:dimension my:Rating ;
+              	   qb:order "10". 
+    my:Rating rdfs:label "Rating" 
+}
+
+
+//TEMPLATE DATASET Top rated Movies
+//DATA SET
+construct 
+{ 
+   my:datastructure a qb:DataStructureDefinition ;
+  					qb:component [ qb:measure my:measure ] ;
+					qb:component [ qb:attribute scvxl:valuesMeasuredIn ] 
+}
+
+construct  
+{
+  my:TopRatedMovies a qb:DataSet ;
+  	 					   rdfs:label "Top rated Movies"@es ;
+        				   scvxl:valuesMeasuredIn "votes";
+        				   qb:structure my:datastructure .
+  my:measure rdfs:label "Top rated Movies" 
+}
+
+//OBSERVATION
+construct
+{
+   ?resourceVotes a qb:Observation ;
+   			       	 qb:dataSet my:TopRatedMovies;
+       				 my:measure ?votesInt;
+      				 my:Movie ?resourceMovie ;
+                     my:Rating ?resourceRating
+
+}

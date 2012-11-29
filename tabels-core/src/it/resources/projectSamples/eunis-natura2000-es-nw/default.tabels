@@ -1,0 +1,82 @@
+/*PROJECT BRIEFING
+ *
+ * Input: 
+ * 		Shapefile with a subset of the original EUNIS Natura 2000 Spatial data shapefile. 
+ *		Natura 2000 is described as "Natura 2000 is the key instrument to protect biodiversity in the European Union. 
+ *		It is an ecological network of protected areas, set up to ensure the survival of Europe's most valuable species 
+ *		and habitats. Natura 2000 is based on the 1979 Birds Directive and the 1992 Habitats Directive. 
+ *		The green infrastructure it provides safeguards numerous ecosystem services and ensures that Europe's 
+ *		natural systems remain healthy and resilient."
+ *  	
+ *		Author: European Environment Agency
+ *		Format: shapefile
+ *  	Source: http://www.eea.europa.eu/data-and-maps/data/natura-2
+ *
+ * Description: 		
+ *		Each polygon describes one protected area.
+ *		
+ * Output:
+ *		The generated RDF can be consumed via the SPARQL Endpoint, the Exhibit Faceted view and the Map view.
+ *
+*/
+PREFIX project: <http://idi.fundacionctic.org/tabels/project/eunis-natura2000-es-nw/>
+PREFIX my: <http://idi.fundacionctic.org/tabels/project/eunis-natura2000-es-nw/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/#>
+PREFIX neogeospatial: <http://geovocab.org/spatial#>
+PREFIX neogeogeometry: <http://geovocab.org/geometry#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dis: <http://disaster-fp7.eu/ontology/core#>
+
+SET ?shapeFile IN files "northwest-spain.shp.zip"{ 
+        SET sheets "dbf"
+            FOR ?feature IN rows FILTER get-row(?feature)
+                LET ?featureResource = resource(?feature)
+                MATCH [?sITECODE,?sITENAME,?rELEASEDA,?mS,?sITETYPE,?shapeLeng,?shapeArea,?geometry,?kml] IN horizontal 
+                LET ?geometryResource = resource(?kml,<>)
+                LET ?geometryType = resource(?geometry,<>)    		
+                LET ?defaultStyle = resource("style-default-polygon-green.json",<http://idi.fundacionctic.org/tabels/project/default-styles/json/>)                
+                LET ?shapefileConcept = resource(?shapeFile)                
+                LET ?defaultStyleConcept = resource("default style")
+
+}
+CONSTRUCT {
+    ?featureResource a neogeospatial:Feature .
+    ?featureResource my:sITECODE ?sITECODE .
+    ?featureResource my:sITENAME ?sITENAME .
+    ?featureResource my:rELEASE_DA ?rELEASEDA .
+    ?featureResource my:mS ?mS .
+    ?featureResource my:sITETYPE ?sITETYPE .
+    ?featureResource my:shape_Leng ?shapeLeng .
+    ?featureResource my:shape_Area ?shapeArea .
+    ?featureResource neogeogeometry:geometry ?geometryResource .
+    ?geometryResource a ?geometryType .
+    // associate feature with default style
+  	?featureResource dct:subject ?defaultStyleConcept
+}
+
+CONSTRUCT {
+    my:sITECODE a rdf:Property .
+    my:sITENAME a rdf:Property .
+    my:rELEASE_DA a rdf:Property .
+    my:mS a rdf:Property .
+    my:sITETYPE a rdf:Property .
+    my:shape_Leng a rdf:Property .
+    my:shape_Area a rdf:Property .
+    my:geometry a rdf:Property .
+    my:kml a rdf:Property
+}
+
+// parent skos:Concept without style
+CONSTRUCT {
+    ?shapefileConcept a skos:Concept .
+  	?shapefileConcept skos:prefLabel ?shapeFile .  	
+    ?defaultStyleConcept a skos:Concept .
+  	?defaultStyleConcept skos:inScheme my:collection .
+  	?defaultStyleConcept skos:prefLabel "default style" .
+  	?shapefileConcept skos:narrower ?defaultStyleConcept .
+  	?defaultStyleConcept dis:prefStyle ?defaultStyle
+}

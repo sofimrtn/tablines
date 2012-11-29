@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml:kml xmlns:kml="http://earth.google.com/kml/2.1">
+    <kml:Document id="featureCollection">
+        <kml:Placemark id="merge-filtered-three-times.133">
+            <kml:MultiGeometry>
+                <kml:Polygon>
+                    <kml:outerBoundaryIs>
+                        <kml:LinearRing>
+                            <kml:coordinates>-6.764647829966888,43.50009046774939 -6.756297118894723,43.50009098616829 -6.756657668281476,43.49991255724854 -6.758018052219375,43.499593170718484 -6.758599046695002,43.49935795823624 -6.7603282730955305,43.498018011990965 -6.761254786085322,43.49748779240763 -6.761785307395631,43.497519828309585 -6.76236765841994,43.49774822943744 -6.763055410904752,43.498589888624736 -6.76368554186686,43.49893375160129 -6.764106361973167,43.49927100849254 -6.764262647587136,43.49949994289629 -6.764664776071806,43.49987832861416 -6.764647829966888,43.50009046774939</kml:coordinates>
+                        </kml:LinearRing>
+                    </kml:outerBoundaryIs>
+                </kml:Polygon>
+            </kml:MultiGeometry>
+        </kml:Placemark>
+    </kml:Document>
+</kml:kml>

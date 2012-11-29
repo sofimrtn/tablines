@@ -1,0 +1,141 @@
+PREFIX project: <http://idi.fundacionctic.org/tabels/project/Muni_Madrid/>
+PREFIX my: <http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/#>
+PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+
+For ?tab in sheets
+    match [?title] in horizontal at B2
+    LET ?langTitle = setLangTag(substring-before(?title, "Y"),"es")
+	LET ?langSectTitle = setLangTag(concat(substring-before(?title,"SEGÚN"), "SEGÚN", substring-after(?title, "Y")),"es")
+    LET ?resDataSet = resource(concat(?tab, "Sexo"), <http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>)
+	LET ?resSectDataSet = resource(concat(?tab, "Sectores"), <http://idi.fundacionctic.org/tabels/project/Muni_Madridt/resource/>)
+	LET ?dataSectStructure = resource(concat(?tab, "Sectores"), <http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>)
+	LET ?dataStructure = resource(concat(?tab, "Sexo"), <http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>)
+	
+		{Not windowed For ?x in rows STARTS AT B6 UNTIL numeric-equal(get-row(?x),8)
+   				For ?heading in cols FILTER not matches(?heading, "")
+             		FOR ?data in cols
+                        For ?values in rows filter matches(?values, "[0-9]+")
+                           LET ?resDimension = resource(replace(?heading,"[\\W]", ""),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>) 
+                            LET ?dimensionValueLabel = ?heading
+                           {when numeric-greater-than(get-col(?heading),8) DO
+                               when numeric-equal(get-row(?heading),5) DO
+             					match ?dimensionClassLabel at J5
+                                LET ?resSectValue = resource(string-join(?tab;get-col(?values);get-row(?values);?values, "_"),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>) 
+                            	LET ?resSectorComponent = resource(concat(?tab,"_",?dimensionClassLabel),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/component_>)
+            					LET ?resDimensionClass = resource(?dimensionClassLabel,<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>);
+             				when AND(numeric-greater-than(get-col(?heading),2),numeric-less-than(get-col(?heading),9)) DO
+             					match ?dimensionClassSource at D5
+                                LET ?dimensionClassLabel= trim(if numeric-equal(get-row(?heading),5)then "SEXO" else if contains(?dimensionClassSource,"Y")then substring-after(?dimensionClassSource,"Y") else ?dimensionClassSource)        
+             					LET ?resValue = resource(string-join(?tab;get-col(?values);get-row(?values);?values, "_"),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>) 
+                            	LET ?resSexComponent = resource(concat(?tab,"_",?dimensionClassLabel),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/component_>)
+             					LET ?resDimensionClass = resource(?dimensionClassLabel,<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>)
+                            };
+                            
+									   
+   					SET ?y in cols "1"
+             			For ?stub in rows STARTS AT B9
+                            For ?values in cols STARTS AT 1 right of ?stub filter not matches(?values, "")
+                                LET ?resValue = resource(string-join(?tab;get-col(?values);get-row(?values);?values, "_"),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>) 
+                                    WHEN matches(replace(?stub,"\\.", ""),"[a-zA-Z ,]+")DO
+                                            LET ?resDimension = resource(replace(replace(?stub,"\\.", ""),",",""),<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>)
+                                            LET ?dimensionValueLabel = replace(?stub,"\\.","")
+                                            LET ?dimensionClassLabel = "Municipio"/*revisar*/
+                                            LET ?resComponent = resource(?dimensionClassLabel,<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/component_>)
+             								LET ?resDimensionClass = resource(?dimensionClassLabel,<http://idi.fundacionctic.org/tabels/project/Muni_Madrid/resource/>)
+                                            
+       }
+
+//Sector Dimensions Template
+construct{ 
+  ?resDimension rdfs:label ?dimensionValueLabel .
+  ?dataSectStructure qb:component ?resSectorComponent .
+  ?resSectorComponent qb:dimension ?resDimensionClass ;
+                qb:order "10". 
+  ?resDimensionClass rdfs:label ?dimensionClassLabel
+}
+
+//Sexo Dimensions Template
+construct{ 
+  ?resDimension rdfs:label ?dimensionValueLabel .
+  ?dataStructure qb:component ?resSexComponent .
+  ?resSexComponent qb:dimension ?resDimensionClass ;
+                qb:order "10". 
+  ?resDimensionClass rdfs:label ?dimensionClassLabel
+}
+//Edad Dimensions Template
+construct{ 
+  ?resDimension rdfs:label ?dimensionValueLabel .
+  ?dataStructure qb:component ?resComponent .
+  ?dataSectStructure qb:component ?resComponent .
+  ?resComponent qb:dimension ?resDimensionClass ;
+                qb:order "10". 
+  ?resDimensionClass rdfs:label ?dimensionClassLabel
+}
+
+//dataset Sexo y edad
+construct  
+{
+  ?resDataSet a qb:DataSet ;
+       	 	  rdfs:label ?langTitle ;
+              scvxl:valuesMeasuredIn "unidades";
+              qb:structure ?dataStructure .
+   my:measure rdfs:label ?langTitle  
+}
+
+// Observation ->Item
+construct
+{
+  ?resValue a qb:Observation ;
+             qb:dataSet ?resDataSet ;
+             my:measure ?values
+}
+
+construct
+{
+  ?resValue ?resDimensionClass ?resDimension .
+}
+
+         			
+construct
+{ 
+  ?dataStructure a qb:DataStructureDefinition ;
+  					 qb:component [ qb:measure my:measure ] ;
+					 qb:component [ qb:attribute scvxl:valuesMeasuredIn ] 
+}
+//dataset Sectores
+construct  
+{
+  ?resSectDataSet a qb:DataSet ;
+       	 	  rdfs:label ?langSectTitle ;
+              scvxl:valuesMeasuredIn "unidades";
+              qb:structure ?dataSectStructure .
+   my:measure rdfs:label ?langSectTitle 
+}
+
+// Observation ->Item
+construct
+{
+  ?resSectValue a qb:Observation ;
+             qb:dataSet ?resSectDataSet ;
+             my:measure ?values
+}
+
+construct
+{
+  ?resSectValue ?resDimensionClass ?resDimension .
+}
+
+         			
+construct
+{ 
+  ?dataSectStructure a qb:DataStructureDefinition ;
+  					 qb:component [ qb:measure my:measure ] ;
+					 qb:component [ qb:attribute scvxl:valuesMeasuredIn ] 
+}
+					

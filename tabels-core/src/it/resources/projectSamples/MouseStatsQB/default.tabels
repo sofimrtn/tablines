@@ -1,0 +1,143 @@
+/*PROJECT BRIEFING
+ *
+ *File description: 
+ *	   File containing information regarding (imaginary) experiments about tumor treatments run over mouse samples.
+ *     Author: CTIC
+ *	   Format; xls
+ *	   Source: CTIC
+ *
+ *Program description:
+ *     Definition of a iterative data structure pattern for each experiment day. The output Data-Cube-compliant graph 
+ *	   contains three dimensions(Mouse, Treatmen, Experiment day) two measures(tumor volume, average tumor volume) 
+ *	   and two dataset(evolution of individual tumor volume in time regarding treatment, evolution of average tumor 
+ *	   volume in time regarding treatment).
+ *
+ *Output:
+ *     The generated RDF can be consumed via the SPARQL Endpoint, the Exhibit Faceted view and the chart view.
+ *
+*/
+PREFIX project: <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/>
+PREFIX my: <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/>
+PREFIX scv: <http://purl.org/NET/scovo#>
+PREFIX scvxl: <http://idi.fundacionctic.org/scovoxl/scovoxl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/#>
+PREFIX qb: <http://purl.org/linked-data/cube#>
+
+
+LET ?ExpDayComponent = resource("experiment_day", <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/>)
+LET ?mouseComponent = resource("mouse", <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/>)
+LET ?treatmentComponent = resource("treatment", <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/>)
+        		
+set sheets "Hoja2"
+    FOR ?experimentDay IN rows STARTS AT A25 FILTER matches(?experimentDay, "DAY [0-9]+")
+    LET ?resourceExperimentDay = resource(?experimentDay, <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/>)
+	FOR ?treatment IN rows starts at 2 bottom of ?experimentDay filter matches(?treatment,"[a-zA-Z0-9.]+")
+		LET ?resourceTreatment = resource(concat("F1+",?treatment), <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/>)
+        LET ?mouse = int-substract(get-row( ?treatment),get-row(?experimentDay))
+        LET ?resourceMouse = resource(?mouse,<http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/>)
+		{
+            MATCH [?averageVolume,?deviation] IN horizontal AT 6 right of ?treatment FILTER matches(?averageVolume,"[0-9,.]+") 
+            LET ?resourceAverageVolume = resource(concat(?experimentDay,"_",?treatment,"_",?averageVolume), <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/>)
+            ;
+            MATCH [?height,?width,?depth,?death,?volume] IN horizontal AT 1 right of ?treatment FILTER matches(?volume,"[0-9,.]+")
+            LET ?resourceVolume = resource(concat(?experimentDay,"_",?mouse,"_",?volume), <http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/>)
+        }
+
+
+
+//DIMENSION EXPERIMENT DAY
+construct
+{
+  	?resourceExperimentDay rdfs:label ?experimentDay .
+   	my:datastructure qb:component ?ExpDayComponent.
+  	my:averageVolumeDataStructure qb:component ?ExpDayComponent.
+   	?ExpDayComponent qb:dimension my:ExperimentDay ;
+              	  	 qb:order "1". 
+    my:ExperimentDay rdfs:label "Experiment Day"; 
+              	     a scvxl:ContinuousDimension 
+}
+
+//DIMENSION TREATMENT
+construct
+{
+    ?resourceTreatment rdfs:label ?treatment .
+  	my:datastructure qb:component ?treatmentComponent.
+    my:averageVolumeDataStructure qb:component ?treatmentComponent.
+  	?treatmentComponent qb:dimension my:Treatment ;
+              	  		qb:order "10". 
+    my:Treatment rdfs:label "Treatment" 
+}
+
+//DIMENSION MOUSE
+construct
+{
+    ?resourceMouse rdfs:label ?mouse .
+   	my:datastructure qb:component ?mouseComponent.
+ 	?mouseComponent qb:dimension my:Mouse ;
+              	   qb:order "15". 
+    my:Mouse rdfs:label "Mouse"
+}
+
+
+//TEMPLATE DATASET Mouse-Day-Treatment
+//DATA SET
+construct 
+{ 
+   my:datastructure a qb:DataStructureDefinition ;
+  					qb:component [ qb:measure my:measure ] ;
+					qb:component [ qb:attribute scvxl:valuesMeasuredIn ] 
+}
+
+construct  
+{
+  my:IndividualTumorVolume a qb:DataSet ;
+  	 					   rdfs:label "Individual Tumor Volume"@es ;
+        				   scvxl:valuesMeasuredIn "Volume";
+        				   qb:structure my:datastructure .
+  my:measure rdfs:label "Individual Tumor Volume" 
+}
+
+//OBSERVATION
+construct
+{
+   ?resourceVolume a qb:Observation ;
+   			       	 qb:dataSet my:IndividualTumorVolume;
+       				 my:measure ?volume;
+      				 my:Mouse ?resourceMouse ;
+        			 my:Treatment ?resourceTreatment  ;
+        			 my:ExperimentDay ?resourceExperimentDay
+
+}
+
+//TEMPLATE DATASET Day-Treatment
+//DATA SET
+CONSTRUCT { 
+   my:averageVolumeDataStructure a qb:DataStructureDefinition ;
+  					qb:component [ qb:measure my:measure ] ;
+					qb:component [ qb:attribute scvxl:valuesMeasuredIn ] 
+                      
+}
+construct  
+{
+  my:AverageTumorVolume a qb:DataSet ;
+  	 					rdfs:label "Average Tumor Volume"@es ;
+        				scvxl:valuesMeasuredIn "Volume";
+        				qb:structure my:averageVolumeDataStructure .
+  my:measure rdfs:label "Average Tumor Volume" 
+}
+
+//OBSERVATION
+construct
+{
+   ?resourceAverageVolume a qb:Observation ;
+   			       		  qb:dataSet my:AverageTumorVolume;
+       				 	  my:measure ?averageVolume;
+      				 	  my:Treatment ?resourceTreatment  ;
+        			 	  my:ExperimentDay ?resourceExperimentDay
+
+}

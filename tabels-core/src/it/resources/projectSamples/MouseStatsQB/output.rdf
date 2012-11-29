@@ -1,0 +1,1147 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:my="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/"
+    xmlns:dcat="http://www.w3.org/ns/dcat#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:scv="http://purl.org/NET/scovo#"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:scvxl="http://idi.fundacionctic.org/scovoxl/scovoxl#"
+    xmlns:qb="http://purl.org/linked-data/cube#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/#"
+    xmlns:project="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/" > 
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_13_181.048">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">181</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_2_462">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#int">462</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_10_145.86">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/10"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">145</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_8_1458.24">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1458</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_12_280.488">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">280</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_12_3421.275">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3421</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_4_1945.23">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/4"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1945</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">12</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/Mouse">
+    <rdfs:label>Mouse</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A0">
+    <qb:measure rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/measure"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19">
+    <rdfs:label>DAY 19</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_12_218.68">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">218</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_0.21_451.7912">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">451</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_10_1612.764">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/10"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1612</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21">
+    <rdfs:label>DAY 21</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_13_854.182">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">854</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/averageVolumeDataStructure">
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/treatment"/>
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/experiment_day"/>
+    <qb:component rdf:nodeID="A1"/>
+    <qb:component rdf:nodeID="A2"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#DataStructureDefinition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_18_280.098">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">280</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_19_591.426">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">591</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_11_754.908">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/11"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">754</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_9_789.684">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">789</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_9_375.44">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">375</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">13</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_14_314.28">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">314</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_20_736.164">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">736</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_7_1019.175">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1019</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/datastructure">
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/mouse"/>
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/treatment"/>
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/experiment_day"/>
+    <qb:component rdf:nodeID="A3"/>
+    <qb:component rdf:nodeID="A0"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#DataStructureDefinition"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_3_1864.434">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1864</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_19_2162.149">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2162</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_20_1561.434">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1561</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_9_249.865">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">249</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/ExperimentDay">
+    <rdf:type rdf:resource="http://idi.fundacionctic.org/scovoxl/scovoxl#ContinuousDimension"/>
+    <rdfs:label>Experiment Day</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/measure">
+    <rdfs:label>Average Tumor Volume</rdfs:label>
+    <rdfs:label>Individual Tumor Volume</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_20_146.16">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">146</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_8_773.726">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">773</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_0.01_1204.3367">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1204</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_7_4008">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4008</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_18_1549.032">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1549</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_2_1128.6">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1128</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_0.05_401.1175">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">401</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10">
+    <rdfs:label>DAY 10</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_7_309.741">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">309</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_0.05_1856.033">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1856</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/10">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">3</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_0.01_227.8752">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">227</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.05</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_15_619.2">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">619</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_14_1638">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#int">1638</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_2_323.584">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">323</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">18</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_3_128.52">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">128</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_13_954.954">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">954</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_0.21_867.8645">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">867</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/Treatment">
+    <rdfs:label>Treatment</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_4_631.764">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/4"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">631</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_4_2057.94">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/4"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2057</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17">
+    <rdfs:label>DAY 17</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_0.05_2623.5745">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2623</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_PBS_369.9368">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">369</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_15_549.585">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">549</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_PBS_1607.5786">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1607</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_0.21_1794.1036">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1794</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_7_1269.39">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1269</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_0.05_765.72815">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">765</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_PBS_2680.16">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2680</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/4">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">4</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/11">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">11</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_20_252.909">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">252</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_3_1870.26">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1870</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_0.01_655.9575">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">655</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_6_431.68">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/6"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">431</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">19</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_9_748.44">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">748</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_21_794.64">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">794</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_2_180.18">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">180</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_14_1612.53">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1612</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_3_1495.916">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1495</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_0.05_209.69083">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">209</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_4_219.051">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/4"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">219</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_15_2094.4">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2094</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_8_213.864">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">213</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume">
+    <qb:structure rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/averageVolumeDataStructure"/>
+    <scvxl:valuesMeasuredIn>Volume</scvxl:valuesMeasuredIn>
+    <rdfs:label xml:lang="es">Average Tumor Volume</rdfs:label>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#DataSet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_8_233.935">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">233</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_18_1385.328">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1385</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_0.21_1802.36">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1802</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/mouse">
+    <qb:order>15</qb:order>
+    <qb:dimension rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/Mouse"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_12_2095.236">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2095</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_8_75.85">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">75</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/5">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">5</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_22_366.86">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/22"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">366</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_18_246.016">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">246</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_16_1804.656">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/16"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1804</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_13_3462.56">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3462</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_20_164.406">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">164</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_17_260.205">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/17"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">260</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/treatment">
+    <qb:order>10</qb:order>
+    <qb:dimension rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/Treatment"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_2_3118.08">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3118</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_7_3200.4">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3200</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_0.01_2406.7454">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2406</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/16">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">16</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_6_333.06">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/6"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">333</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_8_752.93">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">752</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_21_214.2">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">214</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/21">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">21</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/22">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">22</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_19_289.872">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">289</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_0.21_1610.4335">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1610</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_6_419.244">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/6"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">419</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS">
+    <rdfs:label>PBS</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_16_426.79">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/16"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">426</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <qb:attribute rdf:resource="http://idi.fundacionctic.org/scovoxl/scovoxl#valuesMeasuredIn"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_3_2242.24">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2242</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/6">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">6</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_PBS_226.5362">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">226</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_0.05_2679.4587">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2679</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_12_299.108">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">299</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_17_515.736">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/17"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">515</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_16_220.66">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/16"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">220</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/17">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">17</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/component/experiment_day">
+    <qb:order>1</qb:order>
+    <qb:dimension rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/ExperimentDay"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_5_293.436">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/5"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">293</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_5_423.36">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/5"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">423</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_10_604.8">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/10"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">604</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_PBS_705.9756">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">705</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_10_891.12">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/10"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">891</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14">
+    <rdfs:label>DAY 14</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_12_2813.625">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/12"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2813</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">20</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_18_501.6">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">501</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">7</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A2">
+    <qb:measure rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/measure"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_18_2830.08">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/18"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2830</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">14</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume">
+    <qb:structure rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/datastructure"/>
+    <scvxl:valuesMeasuredIn>Volume</scvxl:valuesMeasuredIn>
+    <rdfs:label xml:lang="es">Individual Tumor Volume</rdfs:label>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#DataSet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_14_2646">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2646</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_21_316.008">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">316</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_PBS_1685.6">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1685</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_22_190.8">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/22"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">190</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_15_4898.88">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4898</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_2_1381.59">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/2"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1381</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_0.01_323.3202">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">323</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_9_3589.41">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3589</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.01</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_13_346.122">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">346</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_19_434.808">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">434</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_19_2133.6755">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2133</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_0.01_1703.3052">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1703</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_11_89.1">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/11"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">89</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/8">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_17_489.44">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/17"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">489</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_0.21_149.5318">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">149</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/AverageTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A3">
+    <qb:attribute rdf:resource="http://idi.fundacionctic.org/scovoxl/scovoxl#valuesMeasuredIn"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_16_798.525">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/16"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">798</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_13_716.68">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/13"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">716</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12">
+    <rdfs:label>DAY 12</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19_15_2196">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_19"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#int">2196</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_15_162.792">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">162</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_14_214.76">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">214</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/15">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#int">15</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21">
+    <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.21</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_9_355.572">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/9"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">355</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_14_1645.12">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.05"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/14"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1645</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21_20_3509.055">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_21"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/20"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3509</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_7_186.984">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.21"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/7"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">186</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14_4_360.84">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_14"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/4"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">360</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10_5_173.25">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_10"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/5"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">173</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17_19_666.248">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_17"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+0.01"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/19"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">666</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12_3_267.84">
+    <my:ExperimentDay rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/DAY_12"/>
+    <my:Treatment rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/F1+PBS"/>
+    <my:Mouse rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/3"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">267</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/MouseStatsQB/resource/IndividualTumorVolume"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+</rdf:RDF>

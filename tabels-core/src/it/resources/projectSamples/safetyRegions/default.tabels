@@ -1,0 +1,79 @@
+/*PROJECT BRIEFING
+ *
+ * Input: 
+ * 		Shapefile describing the safety regions of the Netherlands.    
+ *		Author: Jan-Willem van Aalst
+ *		Format: ESRI shapefile
+ * 		License: Creative Commons license Attribution-Share Alike 3.0 Unported ( CC BY-SA 3.0 )
+ *  	Source: http://imergis.nl/shp/2012-Veiligheidsregios-watergrenzen-Shp.zip
+ *
+ * Description: 		
+ *		Each feature in the shapefile is a resource by itself. The RDF description of each resource includes facts (gathered from the dbf file), style and geometry.
+ *		Tabels automatically generates a random styles associated to each Dutch Province.
+ *		Every safety region is disambiguated against DBPedia, enriching the original information in the shapefile.
+ *		
+ * Output:
+ *		The generated RDF can be consumed via the SPARQL Endpoint, the Exhibit Faceted view and the Map view.
+ *
+*/
+PREFIX project: <http://idi.fundacionctic.org/tabels/project/safetyRegions/>
+PREFIX my: <http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/#>
+PREFIX neogeospatial: <http://geovocab.org/spatial#>
+PREFIX neogeogeometry: <http://geovocab.org/geometry#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dis: <http://disaster-fp7.eu/ontology/core#>
+
+SET ?shapeFile IN files "safety-regions-no-encoding-op.shp.zip"{ 
+        SET sheets "dbf"
+            FOR ?feature IN rows FILTER get-row(?feature)
+                LET ?featureResource = resource(?feature,<http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/>)
+                MATCH [?tDNCODE,?oMSCHRIJVI,?pROVCODE,?pROVNAAM,?geometry,?kml] IN horizontal 
+                LET ?styleConcept = resource(?pROVNAAM,<http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/>)
+                LET ?provdes = dbpedia-disambiguation(?pROVNAAM)
+                LET ?geometryResource = resource(?kml,<>)
+                LET ?geometryType = resource(?geometry,<>) ; 
+        SET sheets "sld"
+            FOR ?feature IN rows
+                MATCH [?col,?style,?json] IN horizontal 
+                LET ?styleConcept = resource(?style,<http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/style/>)
+                LET ?styleResource = resource(?json,<>)
+                LET ?shapefileConcept = resource(?shapeFile,<http://idi.fundacionctic.org/tabels/project/safetyRegions/resource/>)    }
+CONSTRUCT {
+    ?featureResource a neogeospatial:Feature ;
+    				 my:tDN_CODE ?tDNCODE ;
+    				 my:oMSCHRIJVI ?oMSCHRIJVI ;
+    				 my:pROVCODE ?pROVCODE ;
+    				 my:pROVNAAM ?pROVNAAM ;
+    				 my:res ?provdes ;
+    				 neogeogeometry:geometry ?geometryResource ;
+					 dct:subject ?styleConcept .
+    ?geometryResource a ?geometryType .
+    
+}
+
+CONSTRUCT {
+    ?styleConcept a skos:Concept ;
+				  skos:prefLabel ?style ;
+				  dis:prefStyle ?styleResource ;
+    			  skos:inScheme my:collection .
+    ?shapefileConcept skos:prefLabel ?shapeFile
+}
+
+CONSTRUCT {
+    ?shapefileConcept a skos:Concept ;
+					  skos:narrower ?styleConcept
+}
+
+CONSTRUCT {
+    my:tDN_CODE a rdf:Property .
+    my:oMSCHRIJVI a rdf:Property .
+    my:pROVCODE a rdf:Property .
+    my:pROVNAAM a rdf:Property .
+    my:geometry a rdf:Property .
+    my:kml a rdf:Property
+}

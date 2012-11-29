@@ -1,0 +1,97 @@
+/*PROJECT BRIEFING
+ *
+ * Input: 
+ * 		Shapefile describing different flora types in the region of Asturias.     	
+ *  	Author: The Ministry of Agriculture, Food and Environment of Spain.
+ *		Format: ESRI shapefile (GIS format)
+ *  	Source: http://www.magrama.gob.es/es/biodiversidad/servicios/banco-datos-naturaleza/informacion-disponible/habitat.aspx
+ *
+ * Description: 		
+ *		Each feature in the shapefile is a resource by itself. The RDF description of each resource includes facts (gathered from dbf file), style and geometry.
+ *		Tabels automatically generates random styles associated to the different flora species. In addition the program
+ *		links each style with the name of the flora type to improve the visualization experience of the map.
+ *		
+ * Output:
+ *		The generated RDF can be consumed via the SPARQL Endpoint, the Exhibit Faceted view and the Map view.
+ *
+*/
+PREFIX project: <http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/>
+PREFIX my: <http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+PREFIX dct: <http://purl.org/dc/terms/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/#>
+PREFIX neogeospatial: <http://geovocab.org/spatial#>
+PREFIX neogeogeometry: <http://geovocab.org/geometry#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dis: <http://disaster-fp7.eu/ontology/core#>
+
+SET ?shapeFile IN files "flora-of-asturias.shp.zip"{ 
+        SET sheets "dbf"
+            FOR ?feature IN rows FILTER get-row(?feature)
+                LET ?featureResource = resource(?feature,<http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/resource/>)
+                MATCH [?cODIGO,?iGN50,?sGE50,?nOMBRE50,?shapeLeng,?shapeArea,?cODHABITAT,?cODIGOUE,?cONCEPTO,?pRIORITARI,?iNDNATURAL,?cOBERTURA,?tIPOCOBER,?geometry,?kml] IN horizontal 
+                LET ?styleConcept = resource(?cODHABITAT,<http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/resource/style/>)
+                LET ?geometryResource = resource(?kml,<>)
+                LET ?geometryType = resource(?geometry,<>) 
+                LET ?conceptLabel = replace(substring-before(substring-after(replace(?cONCEPTO,"$","+"),"+"),"+"),"-"," "); 
+        SET sheets "sld"
+            FOR ?feature IN rows
+                MATCH [?col,?style,?json] IN horizontal 
+                LET ?styleConcept = resource(?style,<http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/resource/style/>)
+                LET ?styleResource = resource(?json,<>)
+                LET ?shapefileConcept = resource(?shapeFile,<http://idi.fundacionctic.org/tabels/project/FloraOfAsturias/resource/>)    }
+CONSTRUCT {
+    ?featureResource a neogeospatial:Feature ;
+      				 my:cODIGO ?cODIGO ;
+      				 my:iGN50 ?iGN50 ;
+      				 my:sGE50 ?sGE50 ;
+      				 my:nOMBRE50 ?nOMBRE50 ;
+      				 my:shape_Leng ?shapeLeng ;
+      				 my:shape_Area ?shapeArea ;
+      				 my:cODHABITAT ?cODHABITAT ;
+      				 my:cODIGO_UE ?cODIGOUE ;
+      				 my:cONCEPTO ?cONCEPTO ;
+      				 my:pRIORITARI ?pRIORITARI ;
+      				 my:iNDNATURAL ?iNDNATURAL ;
+      				 my:cOBERTURA ?cOBERTURA ;
+      				 my:tIPO_COBER ?tIPOCOBER ;
+      				 neogeogeometry:geometry ?geometryResource ;
+      				 dct:subject ?styleConcept .
+    ?geometryResource a ?geometryType .
+}
+
+CONSTRUCT {
+    ?styleConcept a skos:Concept ;    
+      			  dis:prefStyle ?styleResource ;
+    			  skos:inScheme my:collection .
+    ?shapefileConcept skos:prefLabel ?shapeFile
+}
+
+CONSTRUCT{
+    ?styleConcept skos:prefLabel ?conceptLabel 
+}
+
+CONSTRUCT {
+    ?shapefileConcept a skos:Concept ;
+					  skos:narrower ?styleConcept
+}
+
+CONSTRUCT {
+    my:cODIGO a rdf:Property .
+    my:iGN50 a rdf:Property .
+    my:sGE50 a rdf:Property .
+    my:nOMBRE50 a rdf:Property .
+    my:shape_Leng a rdf:Property .
+    my:shape_Area a rdf:Property .
+    my:cODHABITAT a rdf:Property .
+    my:cODIGO_UE a rdf:Property .
+    my:cONCEPTO a rdf:Property .
+    my:pRIORITARI a rdf:Property .
+    my:iNDNATURAL a rdf:Property .
+    my:cOBERTURA a rdf:Property .
+    my:tIPO_COBER a rdf:Property .
+    my:geometry a rdf:Property .
+    my:kml a rdf:Property
+}

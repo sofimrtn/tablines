@@ -1,0 +1,2249 @@
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dcat="http://www.w3.org/ns/dcat#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:scv="http://purl.org/NET/scovo#"
+    xmlns:my="http://idi.fundacionctic.org/tabels/project/eurostat/resource/"
+    xmlns:project="http://idi.fundacionctic.org/tabels/project/eurostat/"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:scvxl="http://idi.fundacionctic.org/scovoxl/scovoxl#"
+    xmlns:qb="http://purl.org/linked-data/cube#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/#" > 
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4215587600">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5587600</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5215851300">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5851300</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6215935000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5935000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3281518428">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1518428</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/41410122126">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10122126</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/127215279">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">215279</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/615143302">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">143302</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3232605958">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2605958</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6822618000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">22618000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5252310243">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2310243</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1026494065">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">494065</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/TIME">
+    <rdfs:label>TIME</rdfs:label>
+    <rdf:type rdf:resource="http://idi.fundacionctic.org/scovoxl/scovoxl#ContinuousDimension"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/101210892519">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10892519</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/417507719">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">507719</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO">
+    <rdfs:label>Estonia</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/51107601796">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">107601796</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO">
+    <rdfs:label>Poland</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/21312816164">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12816164</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/41315687000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15687000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/227279635">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">279635</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2373010573">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">73010573</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9292980000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2980000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO">
+    <rdfs:label>Belgium</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME">
+    <rdfs:label>2009M01</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/572035468">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2035468</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/51316617641">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16617641</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1241359744">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1359744</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1221310096">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1310096</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3381530947">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">81530947</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/103115314512">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">115314512</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME">
+    <rdfs:label>2006M07</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8292916401">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2916401</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/79352739">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">352739</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8281565500">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1565500</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/661770184">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1770184</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5292959500">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2959500</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/55730373">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">730373</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO">
+    <rdfs:label>Slovenia</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9221965593">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1965593</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/component_TIME">
+    <qb:order>1</qb:order>
+    <qb:dimension rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/TIME"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/716394973">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">394973</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3149402180">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9402180</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/35435199">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">435199</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/81319495186">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19495186</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6241754653">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1754653</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4389041247">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">89041247</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/22050493">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50493</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7293009978">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3009978</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/672026185">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2026185</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/915186340">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">186340</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/116155738">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">155738</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME">
+    <rdfs:label>2010M07</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/743041315">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3041315</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/962142057">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2142057</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/71411888074">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11888074</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/726449024">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">449024</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4292842500">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2842500</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO">
+    <rdfs:label>Finland</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/83107924861">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">107924861</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/471961164">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1961164</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO">
+    <rdfs:label>Lithuania</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/927841898">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">841898</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/91128658446">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">128658446</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10222002307">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2002307</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8216221800">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6221800</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/82119949213">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">119949213</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2251087424">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1087424</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4241596644">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1596644</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/416343076">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">343076</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO">
+    <rdfs:label>Czech Republic</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9191968049">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1968049</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7234892494">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4892494</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7191728021">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1728021</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/101321261000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">21261000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6221786052">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1786052</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1017684052">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">684052</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/920117500">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">117500</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1072150221">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2150221</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/23013102298">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13102298</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/820110769">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">110769</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/818158552">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">158552</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/527516935">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">516935</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6281625745">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1625745</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5233659289">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3659289</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1043373143">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3373143</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9281555100">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1555100</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/415107556">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">107556</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/710948814">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">948814</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/101133062126">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">133062126</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5241672312">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1672312</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7129477901">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9477901</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/16860508">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">860508</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/45580226">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">580226</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2221440180">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1440180</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4111017475">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1017475</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9242087713">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2087713</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/271703605">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1703605</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/916422617">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">422617</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10112252653">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2252653</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10826161950">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">26161950</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/92124673591">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">124673591</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO">
+    <rdfs:label>European Union (15 countries)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/49298291">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">298291</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/310652832">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">652832</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5128793517">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8793517</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME">
+    <rdfs:label>2008M01</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO">
+    <rdfs:label>Slovakia</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/627589897">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">589897</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/951047652">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1047652</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/61113446213">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">113446213</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/11550566">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">50566</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/327372393">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">372393</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO">
+    <rdfs:label>European Union (25 countries)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME">
+    <rdfs:label>2010M01</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9252937203">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2937203</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5111245974">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1245974</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5395356495">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">95356495</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/219995784">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">995784</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/518130113">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">130113</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/626426070">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">426070</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9825642020">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25642020</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1062268468">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2268468</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1147690503">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7690503</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A0">
+    <qb:attribute rdf:resource="http://idi.fundacionctic.org/scovoxl/scovoxl#valuesMeasuredIn"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/117286059">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">286059</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO">
+    <rdfs:label>Bulgaria</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/326307985">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">307985</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7221818547">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1818547</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3292575700">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2575700</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/52083767">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">83767</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/426347492">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">347492</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/772049975">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2049975</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/111297090">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">297090</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10252999761">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2999761</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3241565869">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1565869</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1125784862">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5784862</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/83018353965">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18353965</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/943254833">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3254833</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/761867535">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1867535</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/361252269">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1252269</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2126652665">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6652665</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/517546082">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">546082</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/85986434">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">986434</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/618139501">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">139501</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/226279660">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">279660</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3215418971">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5418971</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/32056400">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">56400</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/75905340">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">905340</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4251949021">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1949021</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10292981962">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2981962</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO">
+    <rdfs:label>Spain</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME">
+    <rdfs:label>2008M07</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/52104561360">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">104561360</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2281426351">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1426351</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6129157465">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9157465</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/862003843">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2003843</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1027893221">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">893221</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6111506614">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1506614</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6252507625">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2507625</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5281618098">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1618098</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4233199663">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3199663</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/217359564">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">359564</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO">
+    <rdfs:label>Luxembourg</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/410752856">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">752856</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/71318763211">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18763211</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/461497420">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1497420</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/171606531">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1606531</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/69329436">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">329436</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/610890371">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">890371</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5821618300">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">21618300</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/110372172">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">372172</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/972115652">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2115652</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4281619029">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1619029</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/91210325172">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10325172</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/73104478992">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">104478992</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3251424007">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1424007</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3817401503">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17401503</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/917650874">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">650874</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6292861000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2861000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/63017393628">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17393628</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6191640444">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1640444</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="A1">
+    <qb:measure rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/measure"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/component_GEO">
+    <qb:order>10</qb:order>
+    <qb:dimension rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/GEO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO">
+    <rdfs:label>Netherlands</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3191172067">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1172067</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME">
+    <rdfs:label>2007M01</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME">
+    <rdfs:label>2009M07</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/926483925">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">483925</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5221723271">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1723271</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/21568014">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68014</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10236115850">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6115850</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/39268586">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">268586</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/31586260">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">86260</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/42068950">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68950</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate">
+    <qb:structure rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rateStructure"/>
+    <scvxl:valuesMeasuredIn>NOT_REPORTED</scvxl:valuesMeasuredIn>
+    <rdfs:label xml:lang="es">Broadband penetration rate</rdfs:label>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#DataSet"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1268658781">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">68658781</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1812608400">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12608400</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1214741829">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4741829</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO">
+    <rdfs:label>Austria</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/843134076">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3134076</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/103019610363">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19610363</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1018166259">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">166259</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO">
+    <rdfs:label>Greece</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO">
+    <rdfs:label>European Union (27 countries)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10192057820">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2057820</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/727772024">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">772024</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/31314117236">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14117236</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/720108554">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">108554</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2231994460">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1994460</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/827803189">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">803189</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9216359524">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6359524</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rateStructure">
+    <qb:component rdf:nodeID="A0"/>
+    <qb:component rdf:nodeID="A1"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#DataStructureDefinition"/>
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/component_TIME"/>
+    <qb:component rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/component_GEO"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/126228962">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">228962</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/51410727651">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10727651</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2278614140">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">78614140</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO">
+    <rdfs:label>Italy</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/93111829782">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">111829782</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7111753434">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1753434</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9112105077">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2105077</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2180047141">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80047141</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/12051943">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">51943</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/372025538">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2025538</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4191428726">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1428726</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3127480342">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">7480342</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/617588347">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">588347</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10242175679">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2175679</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/427476666">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovakia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">476666</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/526383521">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">383521</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8111916630">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1916630</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/715166681">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">166681</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO">
+    <rdfs:label>France</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3221524854">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1524854</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/81412395106">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12395106</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4221655519">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1655519</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7824100288">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24100288</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/872084000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2084000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/62098109">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">98109</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1016434655">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">434655</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/109357797">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">357797</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/13011622929">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11622929</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/261087520">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1087520</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO">
+    <rdfs:label>Ireland</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/11311297543">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11297543</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO">
+    <rdfs:label>Germany (including  former GDR from 1991)</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/91412870838">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12870838</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/815176024">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">176024</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/515124263">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">124263</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/61411304522">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">11304522</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/101413274398">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">13274398</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3288347916">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">88347916</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/516370772">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">370772</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Denmark_GEO">
+    <rdfs:label>Denmark</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/93018969191">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">18969191</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/91320410090">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20410090</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2148497422">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Italy_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8497422</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1364322194">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">64322194</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/717609408">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">609408</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9235681833">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5681833</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/62110085499">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">110085499</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1292069685">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2069685</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/316263602">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">263602</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/216241550">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">241550</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/102128936775">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">128936775</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1281308459">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1308459</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME">
+    <rdfs:label>2011M01</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7216221800">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6221800</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/918166759">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">166759</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/19222987">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">222987</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO">
+    <rdfs:label>Latvia</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/21898765">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">98765</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/242354850">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2354850</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8252803294">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2803294</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10101035772">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1035772</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1231504274">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1504274</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/642938605">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2938605</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/61317688008">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/France_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17688008</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/73017756507">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">17756507</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/561626330">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Czech_Republic_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1626330</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/71119375156">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">119375156</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/211487889">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">487889</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1020121880">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">121880</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8191879181">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1879181</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8221893785">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Austria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1893785</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/826465353">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Slovenia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">465353</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/5191576937">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1576937</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/810991158">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">991158</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/142172246">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2172246</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME">
+    <rdfs:label>2007M07</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4297316806">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">97316806</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/measure">
+    <rdfs:label>Broadband penetration rate I131=Number of broadband access lines</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7281626700">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1626700</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/GEO">
+    <rdfs:label>GEO</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/342509456">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2509456</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1051125590">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1125590</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO">
+    <rdfs:label>Romania</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/29246887">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">246887</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2292347850">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2347850</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/311760858">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Greece_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">760858</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8824977400">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">24977400</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO">
+    <rdfs:label>Hungary</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10216416886">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6416886</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/510841590">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">841590</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO">
+    <rdfs:label>Portugal</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4199846053">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">99846053</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO">
+    <rdfs:label>Cyprus</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/89348404">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">348404</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7241868453">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1868453</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/9101022220">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1022220</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/210517324">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Ireland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">517324</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2241470810">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1470810</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO">
+    <rdfs:label>United Kingdom</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/7252649371">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Romania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2649371</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/72115820445">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__25_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">115820445</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/418120973">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120973</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/25345577">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">345577</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/3190207122">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">90207122</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/816437050">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">437050</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Sweden_GEO">
+    <rdfs:label>Sweden</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/542811591">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2811591</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/10281559400">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Finland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1559400</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8241975233">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Portugal_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1975233</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2814902200">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14902200</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/817633583">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">633583</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/442714335">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Belgium_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2714335</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8129846069">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9846069</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/119760271">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Hungary_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">760271</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6234478465">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4478465</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/718153995">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">153995</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4128155021">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Spain_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8155021</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Malta_GEO">
+    <rdfs:label>Malta</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/33014464253">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">14464253</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/8235166956">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Poland_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5166956</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/4819579000">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Germany__including__former_GDR_from_1991__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">19579000</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/11880105">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2006M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80105</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/317431449">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Lithuania_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">431449</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/53016710169">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16710169</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2215192200">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Netherlands_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5192200</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/318112927">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2007M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Luxembourg_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">112927</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/59316969">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">316969</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/6399625349">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__15_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">99625349</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/1015194455">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2011M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Cyprus_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">194455</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/65853089">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Bulgaria_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">853089</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/616395896">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2009M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Latvia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">395896</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/43015630005">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2008M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/United_Kingdom_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15630005</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/81123738941">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M01_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/European_Union__27_countries__GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">123738941</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://idi.fundacionctic.org/tabels/project/eurostat/resource/99348716">
+    <my:TIME rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/2010M07_TIME"/>
+    <my:GEO rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Estonia_GEO"/>
+    <my:measure rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">348716</my:measure>
+    <qb:dataSet rdf:resource="http://idi.fundacionctic.org/tabels/project/eurostat/resource/Broadband_penetration_rate"/>
+    <rdf:type rdf:resource="http://purl.org/linked-data/cube#Observation"/>
+  </rdf:Description>
+</rdf:RDF>
