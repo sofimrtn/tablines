@@ -71,7 +71,7 @@ class ProjectService {
     
     def listProjects() {
         FileUtils.forceMkdir(projectsDir)
-        return projectsDir.listFiles().collect { it.name }
+        return projectsDir.listFiles().collect { it.name }.sort()
     }
     
     def listInputs(String projectId) {
