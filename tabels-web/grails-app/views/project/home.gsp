@@ -34,7 +34,7 @@
 
 			    </div>
 
-				<h3 class="accordion inputbutton orange title"> <strong>Tabels</strong> language</h3>
+				<h3 id="language" class="accordion inputbutton orange title"> <strong>Tabels</strong> language</h3>
 				<div>
 					<div class="screenshot">
 			    		<a href="${resource(dir:'images',file:'code-screenshot.png')}"><img src="${resource(dir:'images',file:'code-screenshot.png')}" alt="Code Screenshot" /></a>
@@ -74,7 +74,7 @@
 			    	as the XPath operations.</p>
 		    	</div>
 		    	
-				<h3 class="accordion inputbutton orange title">APIs and data access</h3>
+				<h3 id="api" class="accordion inputbutton orange title">APIs and data access</h3>
     			<div>
     				<div class="screenshot">
 			    		<a href="${resource(dir:'images',file:'architecture.png')}"><img src="${resource(dir:'images',file:'architecture.png')}" alt="Tabels architecture" /></a>
@@ -91,7 +91,7 @@
     				    architecture as a library.</p>
     			</div>
 
-				<h3 class="accordion inputbutton orange title" >RDF mediation and reconciliation</h3>
+				<h3 id="mediation" class="accordion inputbutton orange title" >RDF mediation and reconciliation</h3>
     			<div>
     				<p><strong>Tabels</strong> also supports some data operations over RDF graphs. The language
     				    has special commands (called directives) empowering domain experts
@@ -125,7 +125,7 @@
     	    		</p>
     			</div>
 
-				<h3 class="accordion inputbutton orange title">Charts and statistics</h3>
+				<h3 id="charts" class="accordion inputbutton orange title">Charts and statistics</h3>
 				<div>
 					<div class="screenshot screenshotLeft">
 			    		<a href="${resource(dir:'images',file:'chart-screenshot.png')}"><img src="${resource(dir:'images',file:'chart-screenshot.png')}" alt="Chart Screenshot" /></a>
@@ -155,7 +155,7 @@
 			    			
 		    	</div>
 				
-				<h3 class="accordion inputbutton orange title">Maps and geographic data</h3>
+				<h3 id="maps" class="accordion inputbutton orange title">Maps and geographic data</h3>
 				<div>
 					<div class="screenshot">
 			    		<a href="${resource(dir:'images',file:'map-screenshot.png')}"><img src="${resource(dir:'images',file:'map-screenshot.png')}" alt="Map Screenshot" /></a>
