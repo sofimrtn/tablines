@@ -194,7 +194,7 @@ div .CodeMirror {
 #step1 {
     clear:left;
     float: left;
-    width: 45%;
+    width: 48%;
     border: 0.2em #666 solid ;
     padding: 1em;
     border-radius: 1em;
@@ -211,7 +211,7 @@ div .CodeMirror {
 
 #step2 {
     float: right;
-    width: 45%;
+    width: 41%;
     border: 0.2em #666 solid ;
     padding: 1em;
     border-radius: 1em;
