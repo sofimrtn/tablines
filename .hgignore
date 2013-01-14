@@ -23,6 +23,8 @@ syntax: regexp
 /docs/.*\.html$
 /docs/.*\.png$
 .*\iml$
+.*\ipr$
+.*\iws$
 syntax: glob
 tabels-web/grails-app/.DS_Store
 .idea
