@@ -10,7 +10,7 @@ scalacOptions += "-deprecation"
 
 //libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.5.8"
 
-libraryDependencies += "org.clapper" %% "grizzled-slf4j" % "0.6.6"
+libraryDependencies += "org.clapper" %% "grizzled-slf4j" % "0.6.10"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "it,test"
 
