@@ -4,7 +4,7 @@ import org.scalatest.junit.JUnitSuite
 import org.junit.{Test,Before}
 import org.junit.Assert._
 
-class JenaDataOutputTest extends JUnitSuite {
+class JenaDataOutputITest extends JUnitSuite {
     
     var dataOutput : JenaDataOutput = null
     
