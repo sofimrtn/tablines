@@ -5,6 +5,9 @@ tabels-web/bin
 tabels-core/project/boot
 tabels-core/project/target
 tabels-core/target
+tabels-core/.worksheet
+tabels-core/.cache
+tabels-core/.idea_modules
 project/boot
 target
 .scala_dependencies
