@@ -6,7 +6,7 @@ import collection.JavaConversions._
 import org.odftoolkit.odfdom.doc.{OdfSpreadsheetDocument, table, OdfDocument}
 
 import org.odftoolkit.odfdom.doc.table._
-import java.util.Arrays
+import java.util.{Calendar, Arrays}
 import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 import javax.xml.xpath.XPathFactory
@@ -14,7 +14,7 @@ import javax.xml.xpath.XPathConstants
 
 import org.w3c.dom._
 import javax.xml.xpath._
-
+import java.text.SimpleDateFormat
 
 
 class ODFDataAdapter(file : File) extends DataAdapter with Logging {
@@ -91,12 +91,13 @@ case class ODFCellValue (cell : OdfTableCell) extends CellValue with Logging {
 	  						else Literal(value.toString, XSD_DOUBLE)
 	  case "string" =>Literal(cell.getStringValue, XSD_STRING)
 	  case "boolean" => Literal(cell.getBooleanValue, XSD_BOOLEAN)
-	  case "date" =>Literal(cell.getStringValue, XSD_DATE)
+	  case "date" =>val xsdDateFormater = new SimpleDateFormat("yyyy-MM-dd")
+                Literal(xsdDateFormater.format(cell.getDateValue.getTime), XSD_DATE)
 	  case "percentage" =>Literal(cell.getPercentageValue, XSD_DECIMAL)
 	  case "currency" =>Literal(cell.getCurrencyValue, XSD_DOUBLE)
 	  case x => logger.info("Unrecognized cell format: '" + x + "'")
 	    		autodetectFormat(cell.getStringValue)
-	
+
 	}
     }
    

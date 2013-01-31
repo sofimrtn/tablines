@@ -4,14 +4,15 @@ import java.io.{File,FileNotFoundException}
 import scala.collection.mutable.HashMap
 import collection.JavaConversions._
 import jxl._
-import java.util.Arrays
+import java.util.{Calendar, Arrays}
 import jxl.read.biff.BiffException
 import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
+import java.text.SimpleDateFormat
 
 
 class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
-    //FIXME
+
 	val ws = new WorkbookSettings()
 	ws.setEncoding("CP1252")
 	
@@ -81,9 +82,11 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
 	  						else Literal(value.toFloat, XSD_DOUBLE)
 	  case CellType.BOOLEAN_FORMULA => Literal(cell.asInstanceOf[BooleanFormulaCell].getValue().toString, XSD_BOOLEAN)
 	  case CellType.STRING_FORMULA =>Literal(cell.asInstanceOf[StringFormulaCell].getString(), XSD_STRING)
-	  case CellType.DATE =>Literal(cell.asInstanceOf[DateCell].getDate(), XSD_DATE)
-	  case CellType.DATE_FORMULA =>Literal(cell.asInstanceOf[DateFormulaCell].getDate(), XSD_DATE)
-	  case CellType.EMPTY => autodetectFormat(cell.getContents)
+	  case CellType.DATE => val xsdDateFormater = new SimpleDateFormat("yyyy-MM-dd")
+                         Literal(xsdDateFormater.format(cell.asInstanceOf[DateCell].getDate()), XSD_DATE)
+	  case CellType.DATE_FORMULA =>val xsdDateFormater = new SimpleDateFormat("yyyy-MM-dd")
+                               Literal(xsdDateFormater.format(cell.asInstanceOf[DateFormulaCell].getDate()), XSD_DATE)
+    case CellType.EMPTY => autodetectFormat(cell.getContents)
 	
 	}
     }
