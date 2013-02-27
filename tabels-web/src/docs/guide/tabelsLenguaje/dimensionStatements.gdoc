@@ -3,7 +3,19 @@ Este tipo de sentencias tabels permiten iterar por una dimension del origen de d
     {code}
         FOR [_?variable_ IN] _dimension_ [STARTS AT _position_|STARTS WHEN _expression_] [FILTER _expresion_] [UNTIL _expression_|WHILE _expression_] 
     {code}
-    
+
+Utilizando STARTS AT o FILTER podemos saltar la primera fila/columna. 
+
+Ejemplo de salto de la primera fila utilizando STARTS AT. En este caso, A2 hace referencia a la primera celda de la segunda columna:
+	{code}
+		FOR ?rowId IN rows STARTS AT A2
+	{code}
+
+Ejemplo de salto  de la primera fila mediante FILTER. En este caso get-row(?rowId) devuelve la fila actual, contando desde 0, de forma que es falso para la primera fila y cierto para el resto.
+    {code}
+		FOR ?rowId IN rows FILTER get-row(?rowId)
+	{code}
+
     
 h4. Sentencias de selección de dimensión
 
