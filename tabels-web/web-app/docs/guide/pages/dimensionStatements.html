@@ -72,7 +72,7 @@ function addJsClass() {
                 <div class="project">
                     <h1>2.1 Sentencias de dimensiones - Reference Documentation</h1>
 
-                    <p><strong>Authors:</strong> </p>
+                    <p><strong>Authors:</strong> Fundación CTIC</p>
 
                     <p><strong>Version:</strong> 0.6</p>
 
@@ -86,7 +86,9 @@ function addJsClass() {
 <h2 id="dimensionStatements">2.1 Sentencias de dimensiones</h2>
 <h4>Sentencias de iteración</h4>
 Este tipo de sentencias tabels permiten iterar por una dimension del origen de datos. La sintaxis de la sentencia de iteración es:    
-    <div class="code"><pre>FOR &#91; <em class="italic">?variable</em>  IN&#93;  <em class="italic">dimension</em>  &#91;STARTS AT  <em class="italic">position</em> |STARTS WHEN  <em class="italic">expression</em> &#93; &#91;FILTER  <em class="italic">expresion</em> &#93; &#91;UNTIL  <em class="italic">expression</em> |WHILE  <em class="italic">expression</em> &#93;</pre></div><p class="paragraph"/>    
+    <div class="code"><pre>FOR &#91; <em class="italic">?variable</em>  IN&#93;  <em class="italic">dimension</em>  &#91;STARTS AT  <em class="italic">position</em> |STARTS WHEN  <em class="italic">expression</em> &#93; &#91;FILTER  <em class="italic">expresion</em> &#93; &#91;UNTIL  <em class="italic">expression</em> |WHILE  <em class="italic">expression</em> &#93;</pre></div><p class="paragraph"/>Utilizando STARTS AT o FILTER podemos saltar la primera fila/columna.<p class="paragraph"/>Ejemplo de salto de la primera fila utilizando STARTS AT. En este caso, A2 hace referencia a la primera celda de la segunda columna:
+	<div class="code"><pre>FOR ?rowId IN rows STARTS AT A2</pre></div><p class="paragraph"/>Ejemplo de salto  de la primera fila mediante FILTER. En este caso get-row(?rowId) devuelve la fila actual, contando desde 0, de forma que es falso para la primera fila y cierto para el resto.
+    <div class="code"><pre>FOR ?rowId IN rows FILTER get&#45;row(?rowId)</pre></div><p class="paragraph"/>    
 <h4>Sentencias de selección de dimensión</h4><p class="paragraph"/>    <div class="code"><pre>SET &#91; <em class="italic">?variable</em> &#93; IN dimension value</pre></div>
 
 
