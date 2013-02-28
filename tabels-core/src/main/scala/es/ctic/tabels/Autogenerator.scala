@@ -192,7 +192,7 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
 
   implicit val evaluationContext = EvaluationContext()
 
-  val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()),("neogeospatial", NEOGEOSPATIAL()),("neogeogeometry", NEOGEOGEOMETRY()),("skos", SKOS()),("dis",DIS()))
+  val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()),("neogeospatial", NEOGEOSPATIAL()),("neogeogeometry", NEOGEOGEOMETRY()),("skos", SKOS()),("emergel",EMERGEL()))
   val my = Namespace(defaultNamespace().toString.substring(1,(defaultNamespace().toString).length - 1) + "resource/")
   
   
@@ -307,7 +307,7 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
   
     tripleTemplatesStyle += TripleTemplate(typeResource,RDF_TYPE,SKOS("Concept"))
     tripleTemplatesStyle += TripleTemplate(typeResource,SKOS("prefLabel"),style)
-    tripleTemplatesStyle += TripleTemplate(typeResource,DIS("prefStyle"),jsonResource)
+    tripleTemplatesStyle += TripleTemplate(typeResource,EMERGEL("prefStyle"),jsonResource)
     tripleTemplatesStyle += TripleTemplate(typeResource,SKOS("inScheme"),my("collection"))
     
     val templateType = Template(tripleTemplatesStyle)
