@@ -26,6 +26,14 @@ class ProjectController {
 	
 	static {
 		System.setProperty("tabels.publicTomcatWritablePath", ConfigurationHolder.config.grails.serverURL+"/project")
+        // disable cache
+        def mapCacheEnabled = System.getProperty("tabels.mapCacheEnabled")
+        org.apache.log4j.Logger.getLogger(this).info  "Checking MapService cache flag. Value: ${mapCacheEnabled}"
+        if(mapCacheEnabled != null && !mapCacheEnabled) {
+            org.apache.log4j.Logger.getLogger(this).info "Disabling MapService cache"
+
+            MapService.setCacheEnabled(false)
+        }
 	}
     
     private def indexModel(String projectId) throws ProjectDoesNotExistException {
