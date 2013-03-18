@@ -100,6 +100,7 @@ abstract class CellValue {
     val intPattern = """[0-9]+""".r
 
   def getContent : Literal
+  def getStyle : CellStyle
 
   /**
    * When there is no formatting information, this method does it
@@ -112,4 +113,32 @@ abstract class CellValue {
       case x => Literal(rawStringValue, XSD_STRING)
   }
   
+}
+
+case class CellStyle(backGColor:(Int,Int,Int)=(255,255,255), font:CellFont=CellFont(), border_top:Option[CellBorder]= None,border_right:Option[CellBorder]= None,border_bottom:Option[CellBorder]= None,border_left:Option[CellBorder]= None) {
+
+  def == (cellStyle: CellStyle) : Boolean = {
+      if(backGColor==cellStyle.backGColor && font==cellStyle.font && border_top==cellStyle.border_top && border_right==cellStyle.border_right && border_bottom==cellStyle.border_bottom && border_left==cellStyle.border_left)
+        true
+      else false
+  }
+}
+
+case class CellBorder(color: (Int,Int,Int)=(0,0,0), style: String="solid"){
+
+  def ==(cellBorder : CellBorder):Boolean ={
+      if (color==cellBorder && style==cellBorder.style)
+        true
+      else false
+  }
+
+}
+case class CellFont(color:(Int,Int,Int)=(0,0,0), style: FontStyle.FontStyle=FontStyle.none , size: Float=12.toFloat){
+
+  def ==(cellFont: CellFont):Boolean ={
+      if (color==cellFont.color && style==cellFont.style && size==cellFont.size)
+        true
+      else false
+  }
+
 }

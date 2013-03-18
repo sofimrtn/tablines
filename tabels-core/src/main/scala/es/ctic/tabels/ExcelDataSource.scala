@@ -4,11 +4,13 @@ import java.io.{File,FileNotFoundException}
 import scala.collection.mutable.HashMap
 import collection.JavaConversions._
 import jxl._
+import jxl.format.Border
 import java.util.{Calendar, Arrays}
 import jxl.read.biff.BiffException
 import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 import java.text.SimpleDateFormat
+import org.geotools.xml.styling.sldComplexTypes._ElseFilter
 
 
 class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
@@ -90,18 +92,38 @@ case class ExcelCellValue (cell : Cell) extends CellValue with Logging {
 	
 	}
     }
-    /*if (cell.getCellFormat == null) Literal(cell.getContents)      
-    else cell.getCellFormat.getFormat.getFormatString match {
-        case "" => autodetectFormat
-        case "@" => Literal(cell.getContents, XSD_STRING)
-        case "0" => Literal(cell.getContents, XSD_INT)
-        case decimalFormatPattern() => Literal(cell.getContents, XSD_DECIMAL)
-        
-        case str if str endsWith "%" => Literal(cell.getContents.dropRight(1), XSD_DECIMAL)
-        case str if str contains "$" => Literal(cell.getContents.drop(1), XSD_DECIMAL)
-        case "d-mmm-yy" => Literal(cell.getContents, XSD_DATE) // FIXME: parse date
-        case x => logger.info("Unrecognized cell format: '" + x + "'")
-                  return Literal(cell.getContents, XSD_STRING)
-    }*/
+
+  override def getStyle : CellStyle ={
+
+    val format = cell.getCellFormat
+
+    if (format!=null) {
+      val fontStyle = if (cell.getType==CellType.EMPTY)
+                        FontStyle.none
+                      else if ((format.getFont.getBoldWeight!=0)&&format.getFont.isItalic)
+                        FontStyle.italic_bold
+                      else if(format.getFont.isItalic &&(format.getFont.getBoldWeight==0))
+                        FontStyle.italic
+                      else if(!format.getFont.isItalic && (format.getFont.getBoldWeight!=0))
+                        FontStyle.bold
+                      else FontStyle.none
+
+      val fontColor = if (cell.getType==CellType.EMPTY)
+                         (0,0,0)
+                      else  (format.getFont.getColour.getDefaultRGB.getRed,format.getFont.getColour.getDefaultRGB.getGreen,format.getFont.getColour.getDefaultRGB.getBlue)
+
+      val fontSize = if (cell.getType==CellType.EMPTY)
+                      0.toFloat
+                     else format.getFont.getPointSize
+
+      CellStyle((cell.getCellFormat.getBackgroundColour.getDefaultRGB.getRed,cell.getCellFormat.getBackgroundColour.getDefaultRGB.getGreen,cell.getCellFormat.getBackgroundColour.getDefaultRGB.getBlue),CellFont(fontColor, fontStyle , fontSize),
+            if(format.getBorderLine(jxl.format.Border.TOP).getDescription=="none") None else Some(CellBorder((format.getBorderColour(jxl.format.Border.TOP).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.TOP).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.TOP).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.TOP).getDescription)),
+            if(format.getBorderLine(jxl.format.Border.RIGHT).getDescription=="none") None else Some(CellBorder((format.getBorderColour(jxl.format.Border.RIGHT).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.RIGHT).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.RIGHT).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.RIGHT).getDescription)),
+            if(format.getBorderLine(jxl.format.Border.BOTTOM).getDescription=="none") None else Some(CellBorder((format.getBorderColour(jxl.format.Border.BOTTOM).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.BOTTOM).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.BOTTOM).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.BOTTOM).getDescription)),
+            if(format.getBorderLine(jxl.format.Border.LEFT).getDescription=="none")None else Some(CellBorder((format.getBorderColour(jxl.format.Border.LEFT).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.LEFT).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.LEFT).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.LEFT).getDescription)))
+    }
+    else CellStyle()
+  }
+
     
 }

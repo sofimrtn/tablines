@@ -1,16 +1,11 @@
 package es.ctic.tabels
 
 import java.io.{File,FileNotFoundException}
-import scala.collection.mutable.HashMap
 import collection.JavaConversions._
-import org.odftoolkit.odfdom.doc.{OdfSpreadsheetDocument, table, OdfDocument}
+import org.odftoolkit.odfdom.doc.{OdfSpreadsheetDocument, OdfDocument}
 
 import org.odftoolkit.odfdom.doc.table._
-import java.util.{Calendar, Arrays}
-import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
-import javax.xml.xpath.XPathFactory
-import javax.xml.xpath.XPathConstants
 
 import org.w3c.dom._
 import javax.xml.xpath._
@@ -24,10 +19,10 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
 				
 			} catch {
             case e : FileNotFoundException =>
-                logger.error("While reading Excel file " + file.getCanonicalPath, e)
+                logger.error("While reading ods file " + file.getCanonicalPath, e)
                 throw new NoInputFiles
             case e : Exception =>
-              logger.error("While reading Excel file " + file.getCanonicalPath, e)
+              logger.error("While reading ods file " + file.getCanonicalPath, e)
               throw new InvalidInputFileCannotReadOds(file.getName)
 	   }
 	
@@ -101,6 +96,9 @@ case class ODFCellValue (cell : OdfTableCell) extends CellValue with Logging {
 	}
     }
    
-    
+  override def getStyle : CellStyle ={
+    //FIXME: Not able to retrieve font and border style with odfdom library
+    CellStyle((cell.getCellBackgroundColor.getAWTColor.getRed,cell.getCellBackgroundColor.getAWTColor.getGreen,cell.getCellBackgroundColor.getAWTColor.getBlue)/*getAWTColor.getRGB*/,CellFont())
+  }
 }
 

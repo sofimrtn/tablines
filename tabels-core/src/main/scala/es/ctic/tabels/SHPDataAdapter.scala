@@ -119,6 +119,7 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
           autodetectFormat(cell.toString)
       }
     }
+    override def getStyle : CellStyle = CellStyle()
   }
 
 }

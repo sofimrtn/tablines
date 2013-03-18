@@ -46,7 +46,10 @@ class ExcelDataAdapterIntegrationTest extends JUnitSuite {
 		assertEquals(Literal("9", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 10, col = 1)).getContent)
 		assertEquals(Literal("zocalo", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 11, col = 1)).getContent)
 	}
-	
+
+  @Test def getStyle {
+    assertEquals(Literal("Formatted"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getStyle)
+  }
 }
 
 class ExcelDataAdapterTest extends JUnitSuite {

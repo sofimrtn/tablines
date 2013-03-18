@@ -8,8 +8,12 @@ object Dimension extends Enumeration {
 	
 	val cols = Value("cols")
 	val rows = Value("rows")
-	val sheets = Value("sheets") // aka: "tabs"
+
+  val table = Value("table")
+
+  val sheets = Value("sheets") // aka: "tabs"
 	val files = Value("files")
+
 
 }
 
