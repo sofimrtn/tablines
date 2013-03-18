@@ -22,8 +22,8 @@ class LinkedDataTagLib {
 				}
 				break
 			case Literal:
-				def literal = args.rdfNode as Literal       
-				out << literal.value.toString()      
+				def literal = args.rdfNode as Literal 
+				out << literal.getLexicalForm()    
 				if (!literal.language.equals("")) {
 				    out << "<span class='rdfLang'>@${literal.language}</span>"
 				}
