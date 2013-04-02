@@ -210,8 +210,5 @@
 		    </div>
 		    <div class="clear"></div>
 		</div>
-		<r:script>
-			$(".screenshot a").fancybox();
-		</r:script>
     </body>
 </html>

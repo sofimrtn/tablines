@@ -23,3 +23,10 @@ $( ".accordion" ).click(function() {
 	$(this).next('div').slideToggle();
 	return true;
 });
+
+$(".screenshot a").fancybox();
+
+// Show a concrete div in the homepage
+$(document).ready(function(){
+	$(document.location.hash).next('div').show();
+})
