@@ -5,14 +5,7 @@ import grizzled.slf4j.Logging
 import scala.xml._
 import parsing._
 import org.xml.sax.InputSource
-import cz.vutbr.web.{css,csskit,domassign}
-import javax.xml.parsers.{DocumentBuilderFactory}
-import org.w3c.dom.{Element, Document}
-
-import org.jdom.Document
-import org.jdom.input.DOMBuilder
-import org.jdom.output.DOMOutputter
-
+import javax.xml.parsers.DocumentBuilderFactory
 
 
 class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
@@ -37,10 +30,12 @@ class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
 	override val uri = fl.getCanonicalPath()
 	override def getValue(point : Point) : CellValue =
 	    try {
+        /*  FIXME
           val docFactory = DocumentBuilderFactory.newInstance
+          docFactory.setValidating(false)
           val docBuilder = docFactory.newDocumentBuilder
-          val doc = docBuilder.parse(fl)
-	        new HtmlCellValue(((getTable(point.tab) \\ "tr")(point.row) \ "td")(point.col), doc)
+          val doc = docBuilder.parse(fl)   */
+	        new HtmlCellValue(((getTable(point.tab) \\ "tr")(point.row) \ "td")(point.col)/*FIXME, doc*/,fl)
         } catch {
             case e : IndexOutOfBoundsException => throw new IndexOutOfBounds(point)
         }
@@ -70,7 +65,7 @@ object HTML5Parser extends NoBindingFactoryAdapter {
 }
 
 
-class HtmlCellValue(node : Node, domDoc:org.w3c.dom.Document) extends CellValue with Logging {
+class HtmlCellValue(node : Node/*FIXME, domDoc:org.w3c.dom.Document*/,fl:File) extends CellValue with Logging {
 	
 	def scalaNodeToW3c(node: Node) : org.w3c.dom.Element = {
     logger.info("node: " +node.toString)
@@ -90,6 +85,12 @@ class HtmlCellValue(node : Node, domDoc:org.w3c.dom.Document) extends CellValue 
   override def getContent : Literal = autodetectFormat(node.text)
 
   override def getStyle : CellStyle = {
+    /*FIXME*/
+    val docDomFactory = DocumentBuilderFactory.newInstance
+    docDomFactory.setValidating(false)
+    val docDomBuilder = docDomFactory.newDocumentBuilder
+    val domDoc = docDomBuilder.parse(fl)
+    /**/
    val domStyleMap = cz.vutbr.web.css.CSSFactory.assignDOM(domDoc,new java.net.URL("http://"),"",true)
 
     val docFactory = DocumentBuilderFactory.newInstance

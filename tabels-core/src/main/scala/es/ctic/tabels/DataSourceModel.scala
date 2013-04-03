@@ -136,9 +136,9 @@ case class CellBorder(color: (Int,Int,Int)=(0,0,0), style: String="solid"){
 case class CellFont(color:(Int,Int,Int)=(0,0,0), style: FontStyle.FontStyle=FontStyle.none , size: Float=12.toFloat){
 
   def ==(cellFont: CellFont):Boolean ={
-      if (color==cellFont.color && style==cellFont.style && size==cellFont.size)
-        true
-      else false
+    if (color==cellFont.color && style==cellFont.style && size==cellFont.size)
+      true
+    else false
   }
 
 }
