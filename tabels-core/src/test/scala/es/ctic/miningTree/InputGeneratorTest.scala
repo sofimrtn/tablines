@@ -23,11 +23,11 @@ class InputGeneratorTest extends JUnitSuite {
   val sheet1 = "Hoja1"
 
   @Before def setUp {
-    inputGenerator = InputGenerator(inputPath)
+    inputGenerator = InputGenerator(Some(inputPath))
     dataAdapter = DataAdapter.createAdapter(filename1)
   }
   @Test def generateInputDataTest{
-    assertEquals(true,inputGenerator.generateInputData)
+    assertEquals(true,inputGenerator.generateInputData(Seq(dataAdapter)))
   }
 
   @Test def isTextTest{

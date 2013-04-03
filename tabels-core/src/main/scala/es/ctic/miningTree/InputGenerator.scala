@@ -6,38 +6,27 @@ import es.ctic.tabels._
 import es.ctic.tabels.Point
 
 
-case class InputGenerator(sourcePath:String, outputPath: Option[String] = None ) extends Logging{
+case class InputGenerator(outputPath: Option[String] = None ) extends Logging{
+
 
   //FIXME: Just reading Excel files
   //Read files from input dir
-  val files = new File(sourcePath).listFiles.filter(_.getName.endsWith(".xls"))
+  //val files = new File(sourcePath).listFiles.filter(_.getName.endsWith(".xls"))
 
-
-
-  def generateInputData ={
-
- //Open Results file and write variable names
- /* val writer = new FileWriter(outputPath.getOrElse(sourcePath) +"result.txt")
-  writer.append("unmatchesStyle, unmatchesType, isText, hasBlankSurround, isBorderLineCell, isHeader\n")
-  writer.flush */
-
-  //Create adapter for each file
-  val dataAdapters = files.map(file => DataAdapter.createAdapter(file.getCanonicalPath))
-
-  //Iterate through each cell of the data adapters running cell-test and writing results into the file
-  dataAdapters.foreach(adapter =>
-                          adapter.getTabs.foreach(tab =>{
-                          val writer = new FileWriter(outputPath.getOrElse(sourcePath)+adapter.uri.replaceAll(".*/", "") + tab +"_" + adapter.getRows(tab)+"_"+ adapter.getCols(tab)+".txt")
-                          writer.append("unmatchesStyle, unmatchesType, isText, hasBlankSurround, isBorderLineCell, isBlank, isHeader\n")
-                          writer.flush
-                          (0 until adapter.getRows(tab)).foreach(row =>
-                          (0 until adapter.getCols(tab)).foreach(col=> runCellTest(adapter, adapter.getValue(Point(adapter.uri,tab,col,row)),Point(adapter.uri,tab,col,row),writer))
-                          )
-                          writer.close()/*writer.append("\n")*/}))
-  //writer.close()
+  def generateInputData(dataAdapters:Seq[DataAdapter]) ={
+    //Iterate through each cell of the data adapters running cell-test and writing results into the file
+    dataAdapters.foreach(adapter =>
+      adapter.getTabs.foreach(tab =>{
+        //Open Results file and write variable names
+        val writer = new FileWriter(outputPath.getOrElse("")+adapter.uri.replaceAll(".*/", "") + tab +"_" + adapter.getRows(tab)+"_"+ adapter.getCols(tab)+".txt")
+        writer.append("unmatchesStyle, unmatchesType, isText, hasBlankSurround, isBorderLineCell, isBlank, isHeader\n")
+        writer.flush
+        (0 until adapter.getRows(tab)).foreach(row =>
+          (0 until adapter.getCols(tab)).foreach(col=> runCellTest(adapter, adapter.getValue(Point(adapter.uri,tab,col,row)),Point(adapter.uri,tab,col,row),writer))
+        )
+        writer.close()/*writer.append("\n")*/}))
+    //writer.close()
   }
-
-
 
   def runCellTest(adapter:DataAdapter, cell:CellValue, point:Point, writer:FileWriter) = {
 
@@ -102,9 +91,9 @@ case class InputGenerator(sourcePath:String, outputPath: Option[String] = None )
 
   def getContextCells (adapter:DataAdapter, point:Point) : Seq[CellValue] = {
 
-      val contexPoints = Seq(point.TopPoint, point.RightPoint, point.BottomPoint, point.LeftPoint)
-      //Filter those context points out of bounds and get cellValue for each inbound point
-      (contexPoints.filter(cPoint => (cPoint.col>=0 && cPoint.row>=0 && cPoint.row<adapter.getRows(point.tab) && cPoint.col<adapter.getCols(point.tab)))).map(validPoint => adapter.getValue(validPoint))
+    val contexPoints = Seq(point.TopPoint, point.RightPoint, point.BottomPoint, point.LeftPoint)
+    //Filter those context points out of bounds and get cellValue for each inbound point
+    (contexPoints.filter(cPoint => (cPoint.col>=0 && cPoint.row>=0 && cPoint.row<adapter.getRows(point.tab) && cPoint.col<adapter.getCols(point.tab)))).map(validPoint => adapter.getValue(validPoint))
   }
 
 

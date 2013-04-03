@@ -6,7 +6,7 @@ import weka.core.{Instances, Attribute, FastVector, Instance}
 import java.io.File
 import grizzled.slf4j.Logging
 
-class TableClassification(trainingData:File) extends Logging{
+object ClassificationModel extends Logging{
 
   //Creating classifier
   val options = new Array[String](1)
@@ -14,17 +14,14 @@ class TableClassification(trainingData:File) extends Logging{
   val classificationTree = new J48()         // new instance of tree
   classificationTree.setOptions(options)     // set the options
 
-  val files = trainingData.listFiles.filter(_.getName.endsWith(".xls"))
-  val adapters = files.map(file => DataAdapter.createAdapter(file.getCanonicalPath) )
-
-
-
-  classificationTree.buildClassifier(new DataAdapterToArff generateArff(adapters))
-
+  def createModel(trainingData:File)={
+    val files = trainingData.listFiles.filter(_.getName.endsWith(".xls"))
+    val adapters = files.map(file => DataAdapter.createAdapter(file.getCanonicalPath))
+    //logger.error("training set: " + (new DataAdapterToArff).generateArff(adapters))
+    classificationTree.buildClassifier(new DataAdapterToArff generateArff(adapters))
+  }
 
   def classifyAdapter(inputAdapter: DataAdapter)  = {
-
-    logger.error("training set: " + (new DataAdapterToArff).generateArff(adapters))
 
     val classValues = new FastVector()
     classValues.addElement("NO_DATA")
@@ -36,11 +33,11 @@ class TableClassification(trainingData:File) extends Logging{
       (0 until inputAdapter.getRows(tab)).foreach(row =>
         (0 until inputAdapter.getCols(tab)).foreach(col=>{
 
-          val point =  Point(inputAdapter.uri,tab,col,row)
-          val cell = inputAdapter.getValue(point)
+         val point =  Point(inputAdapter.uri,tab,col,row)
+         val cell = inputAdapter.getValue(point)
 
-          classifyCell(inputAdapter, cell,point)
-          logger.error("CELDA CLASIFICADA: "+ classifyCell(inputAdapter, cell,point))
+         classifyCell(inputAdapter, cell,point)
+         logger.error("CELDA CLASIFICADA: "+ classifyCell(inputAdapter, cell,point))
 
         }
         )

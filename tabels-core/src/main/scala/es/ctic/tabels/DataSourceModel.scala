@@ -2,7 +2,7 @@ package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
 import java.io.File
-import es.ctic.miningTree.TableClassification
+import es.ctic.miningTree.ClassificationModel
 
 abstract class DataSource {
 
@@ -101,7 +101,8 @@ abstract class CellValue {
     val intPattern = """[0-9]+""".r
 
   def getClassification(inputAdapter:DataAdapter, cell: CellValue,point: Point,trainingPath:File) : String ={
-    new TableClassification(trainingPath).classifyCell(inputAdapter, cell,point)
+    ClassificationModel.createModel(trainingPath)
+    ClassificationModel.classifyCell(inputAdapter, cell,point)
 
   }
   def getContent : Literal
