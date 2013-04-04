@@ -1,16 +1,10 @@
 package es.ctic.tabels
 
 import java.io.{File,FileNotFoundException}
-import scala.collection.mutable.HashMap
-import collection.JavaConversions._
 import jxl._
-import jxl.format.Border
-import java.util.{Calendar, Arrays}
 import jxl.read.biff.BiffException
-import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 import java.text.SimpleDateFormat
-import org.geotools.xml.styling.sldComplexTypes._ElseFilter
 
 
 class ExcelDataAdapter(file : File) extends DataAdapter with Logging {

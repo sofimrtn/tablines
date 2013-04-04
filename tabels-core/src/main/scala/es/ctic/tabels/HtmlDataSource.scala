@@ -67,21 +67,7 @@ object HTML5Parser extends NoBindingFactoryAdapter {
 
 class HtmlCellValue(node : Node/*FIXME, domDoc:org.w3c.dom.Document*/,fl:File) extends CellValue with Logging {
 	
-	def scalaNodeToW3c(node: Node) : org.w3c.dom.Element = {
-    logger.info("node: " +node.toString)
-    val docFactory = DocumentBuilderFactory.newInstance
 
-    val docBuilder = docFactory.newDocumentBuilder
-
-    val doc = docBuilder.parse(new InputSource(node.toString))
-     doc.createElement(node.toString)
-
-
-
-    //logger.info("Document: " +doc.getDocumentElement.toString)
-
-    doc.getDocumentElement
-  }
   override def getContent : Literal = autodetectFormat(node.text)
 
   override def getStyle : CellStyle = {
@@ -91,20 +77,22 @@ class HtmlCellValue(node : Node/*FIXME, domDoc:org.w3c.dom.Document*/,fl:File) e
     val docDomBuilder = docDomFactory.newDocumentBuilder
     val domDoc = docDomBuilder.parse(fl)
     /**/
-   val domStyleMap = cz.vutbr.web.css.CSSFactory.assignDOM(domDoc,new java.net.URL("http://"),"",true)
+    val domStyleMap = cz.vutbr.web.css.CSSFactory.assignDOM(domDoc,new java.net.URL("http://"),"",true)
 
     val docFactory = DocumentBuilderFactory.newInstance
 
     val docBuilder = docFactory.newDocumentBuilder
 
     val doc = docBuilder.newDocument()
-   val domNode = new NodeExtras(node).toJdkNode(doc).asInstanceOf[org.w3c.dom.Element]
-   val style = domStyleMap.get(domNode)
-    logger.info("Node scala: " +node.toString())
-    logger.info("Node dom: " + domNode.toString)
-    logger.info("Style Map: " +domStyleMap.keySet().toString)
+    val domNode = new NodeExtras(node).toJdkNode(doc).asInstanceOf[org.w3c.dom.Element]
+    val style = domStyleMap.get(domNode)
+
+    logger.debug("Node scala: " +node.toString())
+    logger.debug("Node dom: " + domNode.toString)
+    logger.debug("Style Map: " +domStyleMap.keySet().toString)
+
     style.getProperty("border",true)
-   CellStyle()
+    CellStyle()
   }
 }
  /*Convert Scala XML to Java DOM ->http://icodesnip.com/snippet/scala/convert-scala-xml-to-java-dom*/
@@ -126,20 +114,20 @@ class NodeExtras(n: Node) extends Logging {
         val r = doc.createElement(label)
         for (a <- attributes) {
           r.setAttribute(a.key, a.value.text)
-          logger.info("atribute: "+ a.key +" = "+ a.value.text)
+          logger.debug("atribute: "+ a.key +" = "+ a.value.text)
         }
         for (c <- children) {
-          logger.info("children: "+ c.label)
+          logger.debug("children: "+ c.label)
           r.appendChild(new NodeExtras(c).toJdkNode(doc))
         }
         r
-      case Text(text) => logger.info("text: "+ text)
+      case Text(text) => logger.debug("text: "+ text)
                         doc.createTextNode(text)
 
-      case Comment(comment) => logger.info("comment: "+ comment)
+      case Comment(comment) => logger.debug("comment: "+ comment)
                             doc.createComment(comment)
       // not sure
-      case a: Atom[_] => logger.info("ATOM: "+ a.data.toString)
+      case a: Atom[_] => logger.debug("ATOM: "+ a.data.toString)
                         doc.createTextNode(a.data.toString)
       // XXX: other types
       //case x => throw new Exception(x.getClass.getName)
