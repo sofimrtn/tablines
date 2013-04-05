@@ -17,7 +17,7 @@ object ClassificationModel extends Logging{
   def createModel(trainingData:File)={
     val files = trainingData.listFiles.filter(_.getName.endsWith(".xls"))
     val adapters = files.map(file => DataAdapter.createAdapter(file.getCanonicalPath))
-    //logger.error("training set: " + (new DataAdapterToArff).generateArff(adapters))
+    logger.debug("training set: " + (new DataAdapterToArff).generateArff(adapters))
     classificationTree.buildClassifier(new DataAdapterToArff generateArff(adapters))
   }
 
