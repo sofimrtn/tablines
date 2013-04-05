@@ -1,6 +1,6 @@
 name := "Tabels core"
 
-version := "0.4-SNAPSHOT"
+version := "0.5"
 
 organization := "es.ctic.tabels"
 
@@ -79,11 +79,11 @@ libraryDependencies += "es.ctic.undermaps" % "undermaps-geotools" % "0.4-SNAPSHO
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
 
-//publishTo <<= (version) { version: String =>
-//  val nexus = "http://devit.fundacionctic.org:8081/nexus/content/repositories/"
-//  if (version.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "private-snapshots/") 
-//  else                                   Some("releases"  at nexus + "private-releases/")
-//}
+publishTo <<= (version) { version: String =>
+  val nexus = "http://devit.fundacionctic.org:8081/nexus/content/repositories/"
+  if (version.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "private-snapshots/") 
+  else                                   Some("releases"  at nexus + "private-releases/")
+}
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 

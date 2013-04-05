@@ -17,8 +17,15 @@ grails.project.dependency.resolution = {
         grailsHome()
         grailsPlugins()
         grailsCentral()
-        mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
-        mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public-snapshots"
+        
+        /*Internal semantic web nexus repository (deployed by Diego Berrueta and now deprecated)*/
+        //mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public"
+        //mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public-snapshots"
+
+        /*CTIC official nexus repository*/
+        mavenRepo "http://devit.fundacionctic.org:8081/nexus/content/groups/public"
+        mavenRepo "http://devit.fundacionctic.org:8081/nexus/content/groups/private"
+        
         mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
@@ -46,15 +53,15 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         // runtime 'mysql:mysql-connector-java:5.1.13'
-        compile('es.ctic.tabels:tabels-core_2.9.1:0.4-SNAPSHOT') {
+        compile('es.ctic.tabels:tabels-core_2.9.1:0.6-SNAPSHOT') {
             excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12'
         }
 
-        compile('es.ctic.undermaps:undermaps-ws:0.3'){
+        compile('es.ctic.undermaps:undermaps-ws:0.5-SNAPSHOT'){
 		  excludes 'arq'
 		}
 		
-        compile('es.ctic.understats:understats-ws:2.4'){
+        compile('es.ctic.understats:understats-ws:2.6-SNAPSHOT'){
             excludes 'arq'
         }
         compile('commons-lang:commons-lang:2.6')
