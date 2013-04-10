@@ -210,5 +210,8 @@
 		    </div>
 		    <div class="clear"></div>
 		</div>
+	    <r:script>
+			jQuery(".screenshot a").fancybox();
+	    </r:script>
     </body>
 </html>
