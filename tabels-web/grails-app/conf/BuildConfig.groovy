@@ -33,6 +33,10 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://repository.jboss.com/maven2/"
         mavenRepo "http://resources.smile.deri.ie/maven-repository/"
         mavenRepo "http://www.scala-tools.org/repo-releases/"
+
+        //GeoTools repository
+        mavenRepo "http://download.osgeo.org/webdav/geotools/"
+        
     }
     plugins {
         runtime ':uploadr:0.6.0',
@@ -68,7 +72,7 @@ grails.project.dependency.resolution = {
         compile('commons-io:commons-io:2.1')
         compile('commons-httpclient:commons-httpclient:3.0')
         compile('org.scala-lang:scala-library:2.9.2')
-        compile('org.fundacionctic.su4j:su4j-endpoint:1.1') {
+        compile('org.fundacionctic.su4j:su4j-endpoint:1.2') {
             excludes 'jena', 'arq', 'jena-core', 'jena-arq', 'jena-tdb', 'slf4j-log4j12', 'slf4j-jdk14'
         }
         compile('org.fundacionctic.ext:pubby:0.3.3.1') {
