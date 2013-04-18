@@ -215,6 +215,9 @@ class TabelsParserTest extends TabelsParser with JUnitSuite {
           assertFail(expression, "RESOURCE (y, <http://ontorule-project.eu/resources/steeldata#coil>)")
           assertFail(expression, "RESOURCE (?y, http://ontorule-project.eu/resources/steeldata#coil>)")
 
+       // isResourceExpression
+       //assertParse(expression,"IS_RESOURCE(?y)", IsResourceExpression(expression = VariableReference(Variable("?y"))))
+
       //RegexExpression
         //This test can't be done because Regex does not support the equal operation between regular expressions
         //assertParse(expression, "matches (?y, \"hola\")", RegexExpression(VariableReference(Variable("?y")),new Regex("hola")))

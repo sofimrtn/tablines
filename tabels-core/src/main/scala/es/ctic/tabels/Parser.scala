@@ -72,6 +72,7 @@ class TabelsParser extends JavaTokenParsers with Logging{
     
     // functions
 	def RESOURCE = "resource".ignoreCase
+  def IS_RESOURCE = "is-resource".ignoreCase
 	def GET_ROW = "get-row".ignoreCase
 	def GET_COL = "get-col".ignoreCase
     def ADD = "add".ignoreCase
@@ -273,7 +274,8 @@ class TabelsParser extends JavaTokenParsers with Logging{
       DBPediaDisambiguation1 |
       setLangTag |
       matches |
-      boolean
+      boolean |
+      isResource
     
     import NumericFunctions._
 
@@ -319,6 +321,8 @@ class TabelsParser extends JavaTokenParsers with Logging{
     trim
 
     def functionExpression : Parser[Expression] =
+     /* (((IS_RESOURCE <~"(") ~> expression) <~")") ^^
+        {case u => IsResourceExpression(expression = u)} | */
         ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
     		{case v~u => ResourceExpression(expression = v, uri = u)} |
     	((RESOURCE <~"(") ~> expression )~ (","~> curieRef <~")") ^^ 

@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-import java.net.URLEncoder
+import java.net.{URL, URLEncoder}
 
 /*
  * TABELS Expressions
@@ -12,6 +12,7 @@ object MiscellaneaFunctions extends FunctionCollection{
 	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
 	 val boolean = "boolean" isDefinedBy { (x : Boolean) => x  }
+   val isResource = "is-resource" isDefinedBy {(ec: EvaluationContext, uri:String) => new NamedResource(uri)}
 }
 
 case class VariableReference(variable:Variable) extends Expression{
@@ -36,7 +37,7 @@ case class GetColExpression(variable:Variable) extends Expression {
 }
 
 /*
- * RDF Expresion
+ * RDF Expressions
  */
 
 case class ResourceExpression(expression:Expression, uri : NamedResource) extends Expression {
@@ -46,6 +47,15 @@ case class ResourceExpression(expression:Expression, uri : NamedResource) extend
   override def prettyPrint = "resource(" + expression.toString + "," + uri.toString + ")"
 
 }
+
+/*case class IsResourceExpression(expression:Expression) extends Expression {
+  
+  override def evaluate(evaluationContext : EvaluationContext) =
+  	new NamedResource(expression.evaluateAsStringValue(evaluationContext))
+
+  override def prettyPrint = "resource(" + expression.toString + ")"
+
+}   */
 
 case class LiteralExpression(literal : Literal) extends Expression{
     

@@ -25,7 +25,6 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
      assertFalse(MiscellaneaFunctions.boolean(false))
      
    
-     } 
-     
+     }
 
 }
