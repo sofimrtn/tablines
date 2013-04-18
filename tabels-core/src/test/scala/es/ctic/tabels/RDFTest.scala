@@ -72,15 +72,39 @@ class LiteralTest extends JUnitSuite {
   
 }
 	class NamedResourceTest extends JUnitSuite {
-	  val prefixes = Seq(("foo" ,NamedResource("http://example.org/foo/")),("ex" ,NamedResource("http://example.org/")))
+
+
+    val prefixes = Seq(("foo" ,NamedResource("http://example.org/foo/")),("ex" ,NamedResource("http://example.org/")))
 	  val resource1 = NamedResource("http://example.org/foo/bar")
 	  val resource2 = NamedResource("http://example.org/doo")
 	  val resource3 = NamedResource("http://example.com/doo")
-	  @Test def toCurie {
-		  assertEquals(Some("foo:bar"),resource1.toCurie(prefixes))
-		  assertEquals(Some("foo:bar"),resource1.toCurie(prefixes.reverse))
-		  assertEquals(Some("ex:doo"),resource2.toCurie(prefixes))
-		  assertEquals(None,resource3.toCurie(prefixes))
-	  }
+
+      @Test def toCurie {
+        assertEquals(Some("foo:bar"),resource1.toCurie(prefixes))
+        assertEquals(Some("foo:bar"),resource1.toCurie(prefixes.reverse))
+        assertEquals(Some("ex:doo"),resource2.toCurie(prefixes))
+        assertEquals(None,resource3.toCurie(prefixes))
+      }
+
+     @Test def exceptionThrowingTest {
+       val resource4 = NamedResource("http://localhost:8080/tabels/project")
+       try {
+         val resource5 = NamedResource("http://localhost")
+       } catch {
+         case e:ServerReferedURIException => assert(true)
+         case _ => fail()
+       }
+
+       val resource6 = NamedResource("http://localhost:8080/tabels/project/test/")
+
+       try {
+         val resource7 = NamedResource("fadsf//localhost:8080/tabels/project/test/")
+       } catch {
+         case e:NotValidUriException => assert(true)
+         case _ => fail()
+       }
+
+     }
+
 	}
 

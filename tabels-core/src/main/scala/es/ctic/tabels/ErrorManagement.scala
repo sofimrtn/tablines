@@ -58,7 +58,7 @@ class IllegalArgumentException(msg:String) extends RunTimeTabelsException(msg)
 
 class ZeroDivisionException extends InvalidFucntionParameterException("Division by Zero")
 
-class ServerReferedURIException(uri:String) extends CompileTimeTabelsException("Not valid URI - " + uri)
+class ServerReferedURIException(uri:String) extends CompileTimeTabelsException("Not valid URI - Security policy has been violated: " + uri)
 
 class LuceneQueryException(msg:String) extends RunTimeTabelsException(msg)
 

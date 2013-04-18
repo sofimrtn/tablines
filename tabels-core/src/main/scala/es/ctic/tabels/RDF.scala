@@ -2,6 +2,7 @@ package es.ctic.tabels
 
 import scala.util.matching.Regex
 import java.net.URL
+import grizzled.slf4j.Logging
 
 sealed abstract class RDFNode {
     
@@ -82,21 +83,47 @@ object Literal {
 
 }
 
-abstract sealed class Resource() extends RDFNode {
+abstract sealed class Resource() extends RDFNode  {
     
 }
 //FIXMe to be lazy
-case class NamedResource(uri : String) extends Resource {
+case class NamedResource(uri : String) extends Resource with Logging {
    
 	try
     { 
       if(uri!="")new URL(uri).toURI
-      if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
-  		throw new ServerReferedURIException(uri)
+
+      val whitelistStartsWith = List(
+        "http://idi.fundacionctic.org/scovoxl/scovoxl",
+        "http://idi.fundacionctic.org/tabels/project",
+        "http://idi.fundacionctic.org/map-styles/symbols/",
+        "http://localhost:8080/tabels/project"
+        )
+
+      val blacklistContains = List(
+        "fundacionctic"
+        )
+      val blacklistStartsWith = List(
+        "192.",
+        "10.",
+        "192.168.",
+        "127.0.0.1",
+        "localhost"
+      )
+
+
+      if(( blacklistStartsWith.exists(entry => uri.toLowerCase.split("://")(1).startsWith(entry)) || blacklistContains.exists(entry => uri.toLowerCase.contains(entry))) &&
+        !whitelistStartsWith.exists(entry => uri.toLowerCase.startsWith(entry)))
+        throw new ServerReferedURIException(uri)
+
+
+      // if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
+  		// throw new ServerReferedURIException(uri)
     }
     catch 
-    { 
-      case e => throw new NotValidUriException("<" + uri + ">")
+    {
+      case srue:ServerReferedURIException => throw srue
+      case _ => new NotValidUriException("<" + uri + ">")
     }
     override def toString() = "<" + uri + ">"
     
