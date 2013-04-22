@@ -1,18 +1,24 @@
 package es.ctic.tabels
 
 import java.net.{URL, URLEncoder}
+import grizzled.slf4j.Logging
 
 /*
  * TABELS Expressions
  */
 
-object MiscellaneaFunctions extends FunctionCollection{
+object MiscellaneaFunctions extends FunctionCollection with Logging{
 	 lazy val lucene = new Lucene
      val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String, workMode: String) => lucene.query(ec,query, workMode) }
 	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
 	 val boolean = "boolean" isDefinedBy { (x : Boolean) => x  }
-   val isResource = "is-resource" isDefinedBy {(ec: EvaluationContext, uri:String) => new NamedResource(uri)}
+   val isResource = "is-resource" isDefinedBy {(uri:String) => new NamedResource(uri)}
+   val canBeResource = "can-be-resource" isDefinedBy {(uri:String) => try{ new NamedResource(uri)
+                                                                           true
+                                                                      }catch{ case _=> false}
+   }
+
 }
 
 case class VariableReference(variable:Variable) extends Expression{

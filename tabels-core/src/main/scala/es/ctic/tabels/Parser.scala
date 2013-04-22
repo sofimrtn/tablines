@@ -275,7 +275,8 @@ class TabelsParser extends JavaTokenParsers with Logging{
       setLangTag |
       matches |
       boolean |
-      isResource
+      isResource |
+      canBeResource
     
     import NumericFunctions._
 
