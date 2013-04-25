@@ -381,28 +381,31 @@ class ProjectController {
         String projectId = params.id
         try{
 			def model = projectService.getModel(projectId)
-	        
-	        if (request.method == "HEAD") {
-	            render HttpServletResponse.SC_OK // otherwise Grails will return 404, see http://adhockery.blogspot.com/2011/08/grails-gotcha-beware-head-requests-when.html
-	        } else {
-	            log.debug "Serializing RDF response, ${model.size()} triples"
-				withFormat {
+			String formatString = null
+			withFormat {
 				    rdfxml {
 						response.contentType = "application/rdf+xml"
-					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.rdf")
-			            model.write(response.outputStream, "RDF/XML")
+						response.setHeader("Content-Disposition", "attachment; filename=${projectId}.rdf")
+					    formatString = "RDF/XML"
 					}
 				    ttl {
 						response.contentType = "text/turtle"
-					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.ttl")
-			            model.write(response.outputStream, "TURTLE")
+						response.setHeader("Content-Disposition", "attachment; filename=${projectId}.ttl")
+					    formatString = "TURTLE"
 					}
 				    text {
 						response.contentType = "text/plain"
-					    response.setHeader("Content-Disposition", "attachment; filename=${projectId}.nt")
-			            model.write(response.outputStream, "N-TRIPLE")
+						response.setHeader("Content-Disposition", "attachment; filename=${projectId}.nt")
+					    formatString = "N-TRIPLE"
 					}
-				} ?: response.sendError(response.SC_UNSUPPORTED_MEDIA_TYPE)
+			} ?: response.sendError(response.SC_UNSUPPORTED_MEDIA_TYPE)
+	        
+	        if (request.method == "HEAD") {
+	        	render HttpServletResponse.SC_OK// otherwise Grails will return 404, see http://adhockery.blogspot.com/2011/08/grails-gotcha-beware-head-requests-when.html
+	        } else {
+	            log.debug "Serializing RDF response, ${model.size()} triples"
+				model.write(response.outputStream, formatString)
+					
 	        }
         } catch (ProjectDoesNotExistException e) {
             log.error("While trying to access project ${e.projectId}", e)
