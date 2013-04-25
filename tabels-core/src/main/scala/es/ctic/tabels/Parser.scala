@@ -216,12 +216,12 @@ class TabelsParser extends JavaTokenParsers with Logging{
         { case v~d~s~p => SetInDimensionStatement(variable = v, dimension = d, fixedDimension = s, nestedStatement = p) }
       
 	
-	def letStatement : Parser[LetStatement] = 
-		(LET ~> variable) ~ ("=" ~>expression) ~ opt(tabelsStatement) ^^
-        {case v1~exp~pat => LetStatement(variable = v1, expression = exp, nestedStatement = pat) }
-        
+    def letStatement : Parser[LetStatement] =
+      (LET ~> variable) ~ ("=" ~>expression) ~ opt(tabelsStatement) ^^
+          {case v1~exp~pat => LetStatement(variable = v1, expression = exp, nestedStatement = pat) }
+
     def matchStatement : Parser[MatchStatement] = 
-		(MATCH ~> variableOrTuple) ~ opt(AT ~> position) ~ filterCondition ~ opt(tabelsStatement) ^^
+		  (MATCH ~> variableOrTuple) ~ opt(AT ~> position) ~ filterCondition ~ opt(tabelsStatement) ^^
         { case t~p~fc~pat => MatchStatement(tuple = t, position = p, filter = fc, nestedStatement = pat) }
         
     def variableOrTuple : Parser[Tuple] = variable ^^ { v => Tuple(Seq(v)) } | tuple
@@ -270,143 +270,77 @@ class TabelsParser extends JavaTokenParsers with Logging{
     import MiscellaneaFunctions._
     
     def miscellaneaFunctions : Parser[Expression] = 
-      DBPediaDisambiguation3 |
-      DBPediaDisambiguation1 |
+      DBPediaDisambiguation3 | DBPediaDisambiguation1 |
       setLangTag |
       matches |
       boolean |
-      isResource |
-      canBeResource
+      isResource | canBeResource
     
     import NumericFunctions._
 
     def numericFunctions : Parser[Expression] = 
-    numericAdd | 
-    numericSubstract |
-    numericMultiply |
-    numericDivide | 
-    numericIntegerDivide |
-    numericMod |
-    equal |
-    greaterThan |
-    lessThan |
-    abs |
-    floor |
-    round |
-    ceiling |
-    int | intOrElse |
-    float |
-    double | doubleOrElse | isDouble| canBeDouble |
-    intAdd | intSubstract | intMultiply | intDivide | isInt | canBeInt
+      numericAdd |
+      numericSubstract |
+      numericMultiply |
+      numericDivide |
+      numericIntegerDivide |
+      numericMod |
+      equal |
+      greaterThan |
+      lessThan |
+      abs |
+      floor |
+      round |
+      ceiling |
+      int | intOrElse |
+      float |
+      double | doubleOrElse | isDouble| canBeDouble |
+      intAdd | intSubstract | intMultiply | intDivide | isInt | canBeInt
     
     import StringFunctions._
     
     def stringFunctions : Parser[Expression] =
-    startsWith |
-    normalizeSpace |
-    upperCase |
-    compare |
-    levenshteinDistance |
-    translate |
-    lowerCase |
-    replace |
-    contains |
-    endsWith |
-    substringAfter |
-    substringBefore |
-    stringLength |
-    substring2 |
-    substring3 |
-    string |
-    firstIndexOf | lastIndexOf |
-    trim
+      startsWith |
+      normalizeSpace |
+      upperCase |
+      compare |
+      levenshteinDistance |
+      translate |
+      lowerCase |
+      replace |
+      contains |
+      endsWith |
+      substringAfter |
+      substringBefore |
+      stringLength |
+      substring2 |
+      substring3 |
+      string |
+      firstIndexOf | lastIndexOf |
+      trim
 
     def functionExpression : Parser[Expression] =
-     /* (((IS_RESOURCE <~"(") ~> expression) <~")") ^^
-        {case u => IsResourceExpression(expression = u)} | */
-        ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^ 
+      ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^
     		{case v~u => ResourceExpression(expression = v, uri = u)} |
     	((RESOURCE <~"(") ~> expression )~ (","~> curieRef <~")") ^^ 
     		{case v~u => ResourceExpression(expression = v, uri = u)} |
     	((RESOURCE <~"(") ~> expression )~ (","~> definedPrefix <~")") ^^ 
     		{case v~p => ResourceExpression(expression = v, uri = p)} |
-        ((RESOURCE <~"(") ~> expression)<~")" ^^ 
+      ((RESOURCE <~"(") ~> expression)<~")" ^^
     		{case local =>if (prefixes.contains("my")) { ResourceExpression(expression = local, uri = prefixes("my")) } 
-    					  else { throw new UndefinedPrefixException("my") } }|		
-        GET_ROW ~> "(" ~> variable <~ ")" ^^ 
+    					  else { throw new UndefinedPrefixException("my") } }|
+      GET_ROW ~> "(" ~> variable <~ ")" ^^
     		{case v => GetRowExpression(variable = v) } |		
-        GET_COL ~> "(" ~> variable <~ ")" ^^ 
+      GET_COL ~> "(" ~> variable <~ ")" ^^
     		{case v => GetColExpression(variable = v) }|		
-        ((IF ~> expression) ~ (THEN~> expression) ~ (ELSE ~> expression)) ^^ 
+      ((IF ~> expression) ~ (THEN~> expression) ~ (ELSE ~> expression)) ^^
     		{case condition ~ trueExpression ~ falseExpression => TernaryOperationExpression(condition, trueExpression, falseExpression)}|		
-       // ((MATCHES<~"(") ~>expression ~ (","~> regex <~")") ) ^^ 
-    	//	{case e~r => RegexExpression(expression = e, re = r)} |
-    	//((ADD <~"(") ~>variable ~ (","~> expression <~")") ) ^^ 
-     	//	{case v~e => AddVariableExpression(v, e)}|
      	(CONCAT~> "("~>repsep(expression, ",")<~")")^^
     		{e => ConcatExpression(e)}|
     	(STRING_JOIN~> "("~>repsep(expression, ";")~("," ~>expression)<~")")^^
     		{case re~qs => StringJoinExpression(re, qs)}|
-    //	(DBPEDIA_DISAMBIGUATION~> "("~>expression<~")")^^
-    //		{DBPediaDisambiguation}|
-    //	(SUBSTRING~> "("~>expression~("," ~>expression)~ opt("," ~>expression) <~")")^^
-    //		{case re~startLoc~length => SubStringExpression(re, startLoc, length)}|
-    //	(STRING_LENGTH~> "("~>expression<~")")^^
-    //		{case re => StringLengthExpression(re)}|
-    //	(CONTAINS~> "("~>(expression<~",") ~ expression<~")")^^
-    //		{case container ~content => ContainsExpression(container, content)}|
-   // 	(STARTS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
-   // 		{case container ~start => StartsWithExpression(container, start)}|
-   // 	(ENDS_WITH~> "("~>(expression<~",") ~ expression<~")")^^
-   // 		{case container ~end => StartsWithExpression(container, end)}|
-   // 	(SUBSTRING_BEFORE~> "("~>(expression<~",") ~ expression<~")")^^
-   // 		{case container ~suffix => SubstringBeforeExpression(container, suffix)}|
-   // 	(SUBSTRING_AFTER~> "("~>(expression<~",") ~ expression<~")")^^
-   // 		{case container ~prefix => SubstringAfterExpression(container, prefix)}|
-   // 	(REPLACE~> "("~>(expression<~",")~(regex<~"," )~ (expression<~")"))^^
-   // 		{case input ~ re ~ replacement => ReplaceExpression(input, re, replacement)}|
-    //(UPPER~> (CASE~>"("~>(expression<~")")))^^
-    //		{case expression => UpperCaseExpression(expression)}|
-    //	(LOWER~> (CASE~>"("~>(expression<~")")))^^
-    //		{case expression => LowerCaseExpression(expression)}|
-    //	(TRANSLATE~>"("~>(expression<~",")~(expression<~"," )~ (expression<~")"))^^
-    //		{case input ~ pattern ~ replacement => TranslateExpression(input, pattern, replacement)}|
-    //	(LEVENSHTEIN_DISTANCE~> "("~>(expression<~",") ~ expression<~")")^^
-    //		{case exp1 ~exp2 => LevenshteinDistanceExpression(exp1, exp2)}|
-    //	(NUMERIC_ADD~>"("~>(expression<~",")~ (expression<~")"))^^
-    //		{case expression1 ~ expression2 => NumericAddExpression(expression1, expression2)}|
-    //	(NUMERIC_SUBSTRACT~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => NumericSubtractExpression(expression1, expression2)}|
-   //	(NUMERIC_MULTIPLY~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => NumericMultiplyExpression(expression1, expression2)}|
-   // 	(NUMERIC_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => NumericDivideExpression(expression1, expression2)}|
-   // 	(NUMERIC_INTEGER_DIVIDE~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => NumericIntegerDivideExpression(expression1, expression2)}|
-   // 	(NUMERIC_MOD~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => NumericModExpression(expression1, expression2)}|
-   // 	(NUMERIC_EQUAL~>"("~>(expression<~",")~ (expression<~")"))^^
-  //  		{case expression1 ~ expression2 => EqualThanExpression(expression1, expression2)}|
-   // 	(NUMERIC_GREATER_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => BiggerThanExpression(expression1, expression2)}|
-   // 	(NUMERIC_LESS_THAN~>"("~>(expression<~",")~ (expression<~")"))^^
-   // 		{case expression1 ~ expression2 => SmallerThanExpression(expression1, expression2)}|
-   // 	(INT ~> "("~>expression ~opt("," ~> quotedString)<~")")^^
-   // 		{case exp ~ sep =>IntExpression(exp, sep)}|
-   // 	(FLOAT ~> "("~>expression~opt("," ~> quotedString)<~")")^^
-   // 		{case exp ~ sep =>FloatExpression(exp, sep)}|
     	(DECIMAL ~> "("~>expression~opt("," ~> quotedString)<~")")^^
     		{case exp ~ sep =>DecimalExpression(exp, sep)}|
-   // 	(ABS ~> "("~>expression<~")")^^
-   // 		{AbsExpression}|
-   // 	(FLOOR ~> "("~>expression<~")")^^
-   // 		{FloorExpression}|
-   // 	(CEIL ~> "("~>expression<~")")^^
-   // 		{CeilExpression}|
-   // 	(ROUND ~> "("~>expression<~")")^^
-    //		{RoundExpression}|
-  //  	(BOOLEAN ~> "("~>expression<~")")^^
-   // 		{BooleanExpression}|
     	(NOT ~> expression)^^
     		{NotExpression}|
     	(AND~>"(" ~>((expression <~",")  ~ expression)<~")" )^^
@@ -428,10 +362,10 @@ class TabelsParser extends JavaTokenParsers with Logging{
 	      for ((pred,obj) <- predObjs._1) yield TripleTemplate(Left(bn),pred,obj) }/***Revisar***/
     
     def verbTemplate : Parser[Either[RDFNode, Variable]] =
-		iriRef ^^ { Left(_) } |
-		A ^^ { _ => Left(RDF_TYPE) } |
-		curieRef ^^ { Left(_) } |
-		variable ^^ { Right (_) }
+      iriRef ^^ { Left(_) } |
+      A ^^ { _ => Left(RDF_TYPE) } |
+      curieRef ^^ { Left(_) } |
+      variable ^^ { Right (_) }
        
 	def objectsTemplate : Parser[(Seq[Either[RDFNode, Variable]], Seq[TripleTemplate])] =
 	  rep1sep(eitherRDFNodeOrVariable, ",") ^^ { case objs => (objs, Seq()) } |

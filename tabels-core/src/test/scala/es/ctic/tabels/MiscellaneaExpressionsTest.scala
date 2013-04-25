@@ -42,7 +42,7 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
   @Test def canBeResource{
 
     assertTrue(MiscellaneaFunctions.canBeResource("http://localhost:8080/tabels/project/test"))
-    assertTrue(MiscellaneaFunctions.canBeResource("xxtp:/localhost:8080/tabels/project/test"))
+    assertTrue(MiscellaneaFunctions.canBeResource(":/localhost:8080/tabels/project/test"))
     assertTrue(MiscellaneaFunctions.canBeResource("http://localho$¿st:8080/tabÑels/project/test"))
     assertTrue(MiscellaneaFunctions.canBeResource(""))
 

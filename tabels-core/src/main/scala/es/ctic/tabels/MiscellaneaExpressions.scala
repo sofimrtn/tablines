@@ -54,24 +54,11 @@ case class ResourceExpression(expression:Expression, uri : NamedResource) extend
 
 }
 
-/*case class IsResourceExpression(expression:Expression) extends Expression {
-  
-  override def evaluate(evaluationContext : EvaluationContext) =
-  	new NamedResource(expression.evaluateAsStringValue(evaluationContext))
-
-  override def prettyPrint = "resource(" + expression.toString + ")"
-
-}   */
-
 case class LiteralExpression(literal : Literal) extends Expression{
     
   override def evaluate(evaluationContext : EvaluationContext) = literal
   override def prettyPrint =  literal.toString
 }
-
-
-
-
 
 /*
  * BOOLEAN Expressions 

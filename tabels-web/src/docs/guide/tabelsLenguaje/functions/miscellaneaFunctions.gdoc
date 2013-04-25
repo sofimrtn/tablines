@@ -27,16 +27,24 @@ h4. Funciones RDF
 
  # resource
     {code}
-        resource(string: String, uri:String) : Resource
+        resource(string: String[, uri:String]) : Resource
     {code}
-    Devuelve el recurso resultante de añadirle a la URI _uri_ la cadena _string_. La función elimina todos los caracteres no válidos de la cadena _string_.
-
+    Devuelve el recurso resultante de añadirle a la URI _uri_ la cadena _string_. La función elimina todos los caracteres no válidos de la cadena _string_. Los prefijos definidos en el programa tabels son valores válidos para el parámetro _uri_. Si en la llamada a la expresión no se indica un valor para _uri_ se intenta completar el recurso con el prefijo _my_.
+ # is-resource
+    {code}
+        is-resource(uri:String) : Resource
+    {code}
+    Devuelve el recurso creado a partir de la cadena contenida en el parámetro _uri_.
+ # can-be-resource
+    {code}
+        can-be-resource(uri:String) : Boolean
+    {code}
+    Devuelve un valor booleano indicando si la cadena contenida en _uri_ es una URI válida según RFC2396.
  # literal
     {code}
         literal(string: String) : Resource
     {code}
     Devuelve el literal indicaco en la cadena _string_.
-    
  # setLangTag
     {code}
         setLangTag(literal: String, lang: String) : Literal
