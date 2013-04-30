@@ -34,7 +34,7 @@ tabels-web/grails-app/.DS_Store
 .classpath
 .project
 .settings/*
-tabels-core/build.sbt
+tabels-core/local.sbt
 
 syntax: regexp
 ^tabels-web/web-app/docs/css/main\.css$
