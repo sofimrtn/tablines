@@ -105,6 +105,4 @@ resolvers += "CTIC snapshots" at
 resolvers += "Open Source Geospatial Foundation Repository" at
 "http://download.osgeo.org/webdav/geotools/"
 
-// local mvn repo
-resolvers += "Local Maven Repository" at "file:///home/gillagher/.m2/repository"
 
