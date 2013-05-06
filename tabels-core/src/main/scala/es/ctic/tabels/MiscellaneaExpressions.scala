@@ -13,8 +13,12 @@ object MiscellaneaFunctions extends FunctionCollection with Logging{
 	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
 	 val boolean = "boolean" isDefinedBy { (x : Boolean) => x  }
-   val isResource = "is-resource" isDefinedBy {(uri:String) => new NamedResource(uri)}
-   val canBeResource = "can-be-resource" isDefinedBy {(uri:String) => try{ new NamedResource(uri)
+   val isResource = "is-resource" isDefinedBy {(uri:String) => if (uri.equalsIgnoreCase(""))
+                                                                   throw new NotValidUriException(uri)
+                                                                else new NamedResource(uri)}
+   val canBeResource = "can-be-resource" isDefinedBy {(uri:String) => try{ if (uri.equalsIgnoreCase(""))
+                                                                              throw new NotValidUriException(uri)
+                                                                           else new NamedResource(uri)
                                                                            true
                                                                       }catch{ case _=> false}
    }
