@@ -192,7 +192,7 @@ class MaplabAutogenerator(defaultNamespace : Namespace = EX, projectId: String =
 
   implicit val evaluationContext = EvaluationContext()
 
-  val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()),("neogeospatial", NEOGEOSPATIAL()),("neogeogeometry", NEOGEOGEOMETRY()),("skos", SKOS()),("emergel",EMERGEL()))
+  val prefixes = Seq(("project", defaultNamespace()), ("my", defaultNamespace("resource/")), ("rdf", RDF()), ("rdfs", RDFS()),("dcat", DCAT()), ("dct", DCT()), ("foaf", FOAF()),("spatial", NEOGEOSPATIAL()),("geom", NEOGEOGEOMETRY()),("skos", SKOS()),("emergel",EMERGEL()))
   val my = Namespace(defaultNamespace().toString.substring(1,(defaultNamespace().toString).length - 1) + "resource/")
   
   
