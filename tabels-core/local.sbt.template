@@ -1,0 +1,4 @@
+// Rename this file to local.sbt and configure it with your local Maven repository directory
+// local mvn repo
+// resolvers += "Local Maven Repository" at "file:///home/FIXME/.m2/repository"
+
