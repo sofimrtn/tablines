@@ -29,7 +29,7 @@ class TableClassificationTest extends JUnitSuite {
   }
   @Test def classifyAdapter{
 
-    assertEquals("BOX_HEAD",dataAdapter.getValue(new Point(filename1, sheet1, row = 0, col = 1)).getClassification(dataAdapter,dataAdapter.getValue(new Point(filename1, sheet1, row = 0, col = 1)),new Point(filename1, sheet1, row = 0, col = 1),trainingPath))
+    assertEquals("BOX_HEAD",dataAdapter.getValue(new Point(filename1, sheet1, row = 0, col = 1)).getClassification(dataAdapter,new Point(filename1, sheet1, row = 0, col = 1),trainingPath))
   }
 
   @Test def classifyCell{
