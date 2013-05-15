@@ -10,7 +10,6 @@ import es.ctic.tabels.DataAdapter
  * User: alfonso
  * Date: 19/02/13
  * Time: 10:51
- * To change this template use File | Settings | File Templates.
  */
 class dataAdapterToArffTest extends JUnitSuite {
 
@@ -24,7 +23,7 @@ class dataAdapterToArffTest extends JUnitSuite {
     dataAdapter = DataAdapter.createAdapter(filename1)
   }
   @Test def generateArff{
-    assertEquals("@relation dataAdapter\n\n@attribute unmatchesStyle {false,true}\n@attribute unmatchesType {false,true}\n@attribute isText {false,true}\n@attribute hasBlankSurround {false,true}\n@attribute isBorderLineCell {false,true}\n@attribute isBlank {false,true}\n@attribute isHeader {DATA_MATRIX,BOX_HEAD,STUB_HEAD}\n\n@data\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?\nfalse,false,true,false,true,false,?",dataAdapterToArff.generateArff(Seq(dataAdapter)).toString())
+    assertEquals("@relation dataAdapter\n\n@attribute unmatchesStyle {false,true}\n@attribute unmatchesType {false,true}\n@attribute isText {false,true}\n@attribute hasBlankSurround {false,true}\n@attribute isBorderLineCell {false,true}\n@attribute isBlank {false,true}\n@attribute isHeader {BLANK,DATA_MATRIX,BOX_HEAD,STUB_HEAD}\n\n@data\ntrue,true,true,false,true,false,BOX_HEAD\ntrue,true,true,false,true,false,BOX_HEAD\nfalse,true,false,false,true,false,STUB_HEAD\ntrue,true,false,false,true,false,DATA_MATRIX\nfalse,true,false,false,true,false,STUB_HEAD\nfalse,true,false,false,true,false,DATA_MATRIX\nfalse,true,false,false,true,false,STUB_HEAD\nfalse,true,false,false,true,false,DATA_MATRIX\nfalse,true,false,false,true,false,STUB_HEAD\nfalse,true,false,false,true,false,DATA_MATRIX\ntrue,true,false,true,true,false,STUB_HEAD\nfalse,false,false,false,true,false,DATA_MATRIX\ntrue,true,false,true,true,true,STUB_HEAD\ntrue,true,false,true,true,false,DATA_MATRIX\ntrue,true,false,true,true,true,STUB_HEAD\ntrue,true,false,true,true,false,DATA_MATRIX\ntrue,true,false,true,true,false,STUB_HEAD\nfalse,true,false,false,true,false,DATA_MATRIX\nfalse,true,true,false,true,false,STUB_HEAD\nfalse,true,false,false,true,false,DATA_MATRIX\nfalse,false,true,false,true,false,STUB_HEAD\nfalse,true,true,false,true,false,DATA_MATRIX\nfalse,false,true,false,true,false,STUB_HEAD\nfalse,false,true,false,true,false,DATA_MATRIX\nfalse,false,true,false,true,false,BOX_HEAD",dataAdapterToArff.generateArff(Seq(dataAdapter)).toString())
   }
 
 

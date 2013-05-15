@@ -20,7 +20,7 @@ class DataAdapterToArff extends Logging{
   booleanValues.addElement("false")
   booleanValues.addElement("true")
   val classValues = new FastVector()
-  classValues.addElement("NOT_RELEVANT")
+  classValues.addElement("BLANK")
   classValues.addElement("DATA_MATRIX")
   classValues.addElement("BOX_HEAD")
   classValues.addElement("STUB_HEAD")
@@ -64,8 +64,10 @@ class DataAdapterToArff extends Logging{
             vals(4) = booleanValues.indexOf(inputGenerator.isBorderLineCell(adapter, point).toString())
 
             vals(5) = booleanValues.indexOf(inputGenerator.isBlank(cell).toString())
-            if(row==0) vals(6) = classValues.indexOf("BOX_HEAD")
-            else vals(6) = classValues.indexOf("DATA_MATRIX")
+            if(vals(5)==1) vals(6) = classValues.indexOf("BLANK")
+            else if(row==0) vals(6) = classValues.indexOf("BOX_HEAD")
+              else if(col==0) vals(6) = classValues.indexOf("STUB_HEAD")
+                 else vals(6) = classValues.indexOf("DATA_MATRIX")
 
             dataSet.add(new Instance(1.0, vals))
 

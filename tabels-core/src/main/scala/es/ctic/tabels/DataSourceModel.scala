@@ -100,9 +100,9 @@ abstract class CellValue {
     val decimalPattern = """[0-9]*\.[0-9]+""".r
     val intPattern = """[0-9]+""".r
 
-  def getClassification(inputAdapter:DataAdapter, cell: CellValue,point: Point,trainingPath:File) : String ={
+  def getClassification(inputAdapter:DataAdapter, point: Point,trainingPath:File) : String ={
     ClassificationModel.createModel(trainingPath)
-    ClassificationModel.classifyCell(inputAdapter, cell,point)
+    ClassificationModel.classifyCell(inputAdapter, point)
 
   }
   def getContent : Literal
