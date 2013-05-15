@@ -139,7 +139,7 @@ class Lucene extends Logging{
  
     val parser = new QueryParser(Version.LUCENE_33,"label", aWrapper)
     try{
-    	var queryLucen = rdfType match {
+    	val queryLucen = rdfType match {
     	  case Some(typeResource) => val booleanQuery = new BooleanQuery()
     	                             booleanQuery.add(parser.parse(q),Occur.MUST)
     	                             booleanQuery.add(new TermQuery(new Term("type", typeResource.uri)),Occur.MUST)
@@ -150,7 +150,7 @@ class Lucene extends Logging{
 	    
 	    lazy val firstResult = NamedResource(isearcher.doc(hits(0).doc).get("resource"))
 
-	    val resourceNotDisambiguated = NamedResource("http://example.org/ResourceNotDisambiguated?query="+URLEncoder.encode(q.toString))
+	    val resourceNotDisambiguated = NamedResource("http://example.org/ResourceNotDisambiguated?query="+URLEncoder.encode(q.toString,"UTF-8"))
 	    
 	    lazy val auxSeqResource = new ListBuffer[NamedResource]
          hits.foreach{hit =>auxSeqResource+=NamedResource(isearcher.doc(hit.doc).get("resource"))}
