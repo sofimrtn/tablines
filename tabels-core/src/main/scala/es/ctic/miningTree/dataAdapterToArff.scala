@@ -65,8 +65,8 @@ class DataAdapterToArff extends Logging{
 
             vals(5) = booleanValues.indexOf(inputGenerator.isBlank(cell).toString())
             if(vals(5)==1) vals(6) = classValues.indexOf("BLANK")
-            else if(row==0) vals(6) = classValues.indexOf("BOX_HEAD")
-              else if(col==0) vals(6) = classValues.indexOf("STUB_HEAD")
+            else if(row==0||row==1) vals(6) = classValues.indexOf("BOX_HEAD")
+              //else if(col==0) vals(6) = classValues.indexOf("STUB_HEAD")
                  else vals(6) = classValues.indexOf("DATA_MATRIX")
 
             dataSet.add(new Instance(1.0, vals))

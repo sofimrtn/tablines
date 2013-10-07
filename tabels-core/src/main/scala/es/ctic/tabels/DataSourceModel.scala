@@ -94,8 +94,46 @@ case class Point(path : String, tab: String, col: Int, row: Int){
   def moveVertically(delta : Int) : Point = Point(path, tab, col, row + delta)
 }
 	
+abstract class TabelsCell{
 
-abstract class CellValue {
+  def getContent:  Any
+  def getStyle : CellStyle
+}
+abstract class CellHeading extends TabelsCell {
+  var cellType: String = null
+  var range=1
+  def getClassification: String
+  def getCellType: String
+  def getValueType: NamedResource
+  def getDataType: Option[NamedResource]
+  def getDataStyle: Option[Seq[CellStyle]]
+  def setRange(rang:Int) = range=rang
+
+}
+
+class CellBoxHeading(content:Any, classification:String, valueType:NamedResource, style:CellStyle, dataType:Option[NamedResource], dataStyle:Option[Seq[CellStyle]] ) extends CellHeading {
+
+  override def getContent: Any = content
+  override def getStyle : CellStyle = style
+  override def getClassification: String = classification
+  override def getCellType: String = getCellType
+  override def getValueType: NamedResource = valueType
+  override def getDataType: Option[NamedResource] = dataType
+  override def getDataStyle: Option[Seq[CellStyle]] = dataStyle
+  override def toString() : String = content.toString()
+
+  //Override the Any.equals(Any):Boolean method to compare by content not by object hash
+  override def equals(cell :Any): Boolean =  cell.isInstanceOf[CellBoxHeading] match{
+                                                  case true =>  this.equals(cell.asInstanceOf[CellBoxHeading])
+                                                  case false => this.equals(cell.toString)
+                                              }
+  def equals(cell :CellBoxHeading): Boolean =  content.toString==cell.getContent.toString
+  def equals(cell :String): Boolean =  content.toString==cell
+
+
+}
+
+abstract class CellValue extends TabelsCell {
   
     val decimalPattern = """[0-9]*\.[0-9]+""".r
     val intPattern = """[0-9]+""".r
@@ -111,7 +149,6 @@ abstract class CellValue {
   /**
    * When there is no formatting information, this method does it
    * best to parse the cell value
-   *
    */
   def autodetectFormat(rawStringValue : String) : Literal = rawStringValue match {
       case intPattern() => Literal(rawStringValue, XSD_INTEGER)

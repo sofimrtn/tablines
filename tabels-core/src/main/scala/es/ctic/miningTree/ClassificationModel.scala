@@ -5,9 +5,10 @@ import weka.classifiers.trees.J48
 import weka.core.{Instances, Attribute, FastVector, Instance}
 import java.io.File
 import grizzled.slf4j.Logging
-import scala.Array
+import scala.{None, Array}
 import es.ctic.tabels.Point
 import es.ctic.tabels.NamedResource
+import scala.collection.mutable.{ArraySeq,LinkedHashMap}
 
 object ClassificationModel extends Logging{
 
@@ -21,7 +22,7 @@ object ClassificationModel extends Logging{
   classificationTree.setOptions(options)
 
   /*
-  * trainingData <File> : should be the directory path where the trainning sample is located.
+  * trainingData <File> : should be the directory path where the training sample is located.
   *
   *
   */
@@ -33,25 +34,58 @@ object ClassificationModel extends Logging{
     classificationTree.buildClassifier(new DataAdapterToArff generateArff(adapters))
   }
 
-  def classifyAdapter(inputAdapter: DataAdapter):scala.collection.mutable.LinkedHashMap[String,Array[Array[(Any,String, NamedResource,CellStyle)]]]  = {
+  def classifyAdapter(inputAdapter: DataAdapter):LinkedHashMap[String,ArraySeq[ArraySeq[CellHeading]]]  = {
 
     val classValues = new FastVector()
-    classValues.addElement("BLANK")
-    classValues.addElement("DATA_MATRIX")
-    classValues.addElement("BOX_HEAD")
-    classValues.addElement("STUB_HEAD")
-    val classificationTable =  new scala.collection.mutable.LinkedHashMap[String,Array[Array[(Any,String, NamedResource,CellStyle)]]]
+    classValues.addElement(Classification.blank)
+    classValues.addElement(Classification.dataMatrix)
+    classValues.addElement(Classification.boxHead)
+    classValues.addElement(Classification.stubHead)
+    val classificationTable =  new scala.collection.mutable.LinkedHashMap[String,ArraySeq[ArraySeq[CellHeading]]]
     inputAdapter.getTabs.foreach(tab =>{
-      val rowArray =  new Array[Array[(Any,String, NamedResource,CellStyle)]](inputAdapter.getRows(tab))
+      val rowArray =  new ArraySeq[ArraySeq[CellHeading]](inputAdapter.getRows(tab))
       (0 until inputAdapter.getRows(tab)).foreach(row =>{
-        val colArray = new Array[(Any,String, NamedResource,CellStyle)](inputAdapter.getCols(tab))
+        val colArray = new ArraySeq[CellHeading](inputAdapter.getCols(tab))
         (0 until inputAdapter.getCols(tab)).foreach(col=>{
 
           val point =  Point(inputAdapter.uri,tab,col,row)
           val cell = inputAdapter.getValue(point)
+          val classification = classifyCell(inputAdapter, point)
 
-          colArray(col)=(cell.getContent.value,classifyCell(inputAdapter, point),cell.getContent.rdfType,cell.getStyle)
-          logger.debug("TUPLA: "+ colArray(col)._1+" - "+ colArray(col)._2+" - "+ colArray(col)._3)
+          //BOX and STUB condition
+          val dataPoint = Classification.withName(classification) match{
+            case Classification.boxHead => (row+1 until inputAdapter.getRows(tab)).find(line => classifyCell(inputAdapter, Point(inputAdapter.uri,tab,col,line))==Classification.dataMatrix.toString) match{
+                                                case Some(dIndex)=> Some(Point(inputAdapter.uri,tab,col,dIndex))
+                                                case None => None
+                                            }
+
+            case Classification.stubHead => (col+1 until inputAdapter.getCols(tab)).find(line => classifyCell(inputAdapter, Point(inputAdapter.uri,tab,line,row))==Classification.dataMatrix.toString)  match{
+                                                case Some(dIndex)=> Some(Point(inputAdapter.uri,tab,col,dIndex))
+                                                case None => None
+                                              }
+            case default => None
+          }
+
+          //get the first data cell under this head
+          val dataCell = dataPoint match{
+            case Some(p)=> Some(inputAdapter.getValue(p))
+            case None => None
+          }
+          //get the type of the first data cell under this head
+          val dataCellType = dataCell match{
+            case Some(c)=> Some(c.getContent.rdfType)
+            case None => None
+          }
+          //get the style of the first data cell under this head
+          val dataCellStyle = dataCell match{
+            case Some(c)=> Some(Seq(c.getStyle))
+            case None => None
+          }
+
+          val cellStructure = new CellBoxHeading(cell.getContent.value,classification,cell.getContent.rdfType,cell.getStyle,dataCellType,dataCellStyle)
+
+          colArray(col)=cellStructure
+          logger.debug("CELLSTRUCTURE: "+ cellStructure)
 
         }//END OF COL ITERATION
         )
@@ -71,10 +105,11 @@ object ClassificationModel extends Logging{
     booleanValues.addElement("false")
     booleanValues.addElement("true")
     val classValues = new FastVector()
-    classValues.addElement("BLANK")
-    classValues.addElement("DATA_MATRIX")
-    classValues.addElement("BOX_HEAD")
-    classValues.addElement("STUB_HEAD")
+    classValues.addElement(Classification.blank.toString)
+    classValues.addElement(Classification.dataMatrix.toString)
+    classValues.addElement(Classification.boxHead.toString)
+    classValues.addElement(Classification.stubHead.toString)
+
 
     val atts = new FastVector()
     atts.addElement(new Attribute("unmatchesStyle",booleanValues))

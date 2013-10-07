@@ -1,4 +1,4 @@
-package es.ctic.tabels
+package es.ctic.grider.dataStructure
 
 import java.io.{File,FileNotFoundException}
 import scala.collection.mutable.HashMap
