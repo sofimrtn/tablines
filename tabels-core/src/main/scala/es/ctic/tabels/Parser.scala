@@ -302,6 +302,7 @@ class TabelsParser extends JavaTokenParsers with Logging{
     def stringFunctions : Parser[Expression] =
       startsWith |
       normalizeSpace |
+      normalizeUnicode1 | normalizeUnicode2 |
       upperCase |
       compare |
       levenshteinDistance |
@@ -313,8 +314,7 @@ class TabelsParser extends JavaTokenParsers with Logging{
       substringAfter |
       substringBefore |
       stringLength |
-      substring2 |
-      substring3 |
+      substring2 | substring3 |
       string |
       firstIndexOf | lastIndexOf |
       trim
