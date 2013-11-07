@@ -56,7 +56,8 @@ object StringFunctions extends FunctionCollection {
 																	     		}
 																				newX.toString}
      										}
-    // FIXME: encode-for-uri is missing
+
+  val encodeForUri = "encode-for-uri" isDefinedBy { (x:String) => URLEncode.encode(x)}
     // FIXME: iri-to-uri is missing
     // FIXME: escape-html-uri is missing
     

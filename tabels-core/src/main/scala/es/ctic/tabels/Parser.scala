@@ -303,6 +303,7 @@ class TabelsParser extends JavaTokenParsers with Logging{
       startsWith |
       normalizeSpace |
       normalizeUnicode1 | normalizeUnicode2 |
+      encodeForUri |
       upperCase |
       compare |
       levenshteinDistance |
