@@ -2,6 +2,7 @@ package es.ctic.tabels
 
 import scala.util.matching.Regex
 import java.text.Normalizer
+import java.net.URLEncoder
 /*
  * STRING FUNCTIONS
  * 
@@ -57,7 +58,7 @@ object StringFunctions extends FunctionCollection {
 																				newX.toString}
      										}
 
-  val encodeForUri = "encode-for-uri" isDefinedBy { (x:String) => URLEncode.encode(x)}
+  val encodeForUri = "encode-for-uri" isDefinedBy { (x:String) => URLEncoder.encode(x)}
     // FIXME: iri-to-uri is missing
     // FIXME: escape-html-uri is missing
     
