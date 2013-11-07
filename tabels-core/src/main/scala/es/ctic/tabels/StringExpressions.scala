@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import scala.util.matching.Regex
+import java.text.Normalizer
 /*
  * STRING FUNCTIONS
  * 
@@ -24,6 +25,24 @@ object StringFunctions extends FunctionCollection {
           									 }
     val stringLength = "string-length" isDefinedBy { (x:String) => x.length()}
     val normalizeSpace = "normalize-space" isDefinedBy { x : String => x.replaceAll("\\s+"," ").trim() }
+    val normalizeUnicode2 = "normalize-unicode" isDefinedBy { (x : String, form: String) =>
+                                                              val str = if (x.trim.length==0) x.trim else x //If x is the empty string(full of blank spaces) replace it by the real empty string
+                                                              form.trim.toUpperCase match {
+                                                                case "NFC" => Normalizer.normalize(str,Normalicer.form.NFC)
+                                                                case "NFD" => Normalizer.normalize(str,Normalicer.form.NFD)
+                                                                case "NFKC "=> Normalizer.normalize(str,Normalicer.form.NFKC)
+                                                                case "NFKD" => Normalizer.normalize(str,Normalicer.form.NFKD)
+                                                                // FIXME: How to implement the Fully normalization option?
+                                                                // case "FULLY-NORMALIZED"=> ??
+                                                                case "" => x
+                                                                case default => throw (new IllegalArgumentException("The unicode normalization form "+form+" is not supported"))
+                                                              }
+                                                            }
+    val normalizeUnicode1 = "normalize-unicode" isDefinedBy { x : String =>
+                                                Normalizer.normalize(
+
+                                                  if (x.trim.length==0) x.trim else x //If x is the empty string(full of blank spaces) replace it by the real empty string
+                                                  ,"NFC") }
     // FIXME: normalize-unicode is missing
     val upperCase = "upper-case" isDefinedBy { (x:String) => x.toUpperCase}
     val lowerCase = "lower-case" isDefinedBy { (x:String) => x.toLowerCase()}
