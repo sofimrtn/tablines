@@ -76,7 +76,7 @@ case class NotExpression(expression:Expression) extends Expression{
 	 else
 		LITERAL_TRUE
 
-    override def prettyPrint = "not(" + expression.toString + ")"
+    override def prettyPrint = "not " + expression.toString + " "
 
 }
 
