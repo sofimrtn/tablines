@@ -1,6 +1,6 @@
 package es.ctic.tabels
 
-import java.net.{URL, URLEncoder}
+import java.net.URLEncoder
 import grizzled.slf4j.Logging
 
 /*
