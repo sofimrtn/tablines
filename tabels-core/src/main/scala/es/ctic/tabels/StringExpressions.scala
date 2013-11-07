@@ -28,10 +28,10 @@ object StringFunctions extends FunctionCollection {
     val normalizeUnicode2 = "normalize-unicode" isDefinedBy { (x : String, form: String) =>
                                                               val str = if (x.trim.length==0) x.trim else x //If x is the empty string(full of blank spaces) replace it by the real empty string
                                                               form.trim.toUpperCase match {
-                                                                case "NFC" => Normalizer.normalize(str,Normalicer.form.NFC)
-                                                                case "NFD" => Normalizer.normalize(str,Normalicer.form.NFD)
-                                                                case "NFKC "=> Normalizer.normalize(str,Normalicer.form.NFKC)
-                                                                case "NFKD" => Normalizer.normalize(str,Normalicer.form.NFKD)
+                                                                case "NFC" => Normalizer.normalize(str,Normalizer.Form.NFC)
+                                                                case "NFD" => Normalizer.normalize(str,Normalizer.Form.NFD)
+                                                                case "NFKC "=> Normalizer.normalize(str,Normalizer.Form.NFKC)
+                                                                case "NFKD" => Normalizer.normalize(str,Normalizer.Form.NFKD)
                                                                 // FIXME: How to implement the Fully normalization option?
                                                                 // case "FULLY-NORMALIZED"=> ??
                                                                 case "" => x
@@ -42,8 +42,8 @@ object StringFunctions extends FunctionCollection {
                                                 Normalizer.normalize(
 
                                                   if (x.trim.length==0) x.trim else x //If x is the empty string(full of blank spaces) replace it by the real empty string
-                                                  ,"NFC") }
-    // FIXME: normalize-unicode is missing
+                                                  ,Normalizer.Form.NFC) }
+
     val upperCase = "upper-case" isDefinedBy { (x:String) => x.toUpperCase}
     val lowerCase = "lower-case" isDefinedBy { (x:String) => x.toLowerCase()}
     val translate = "translate" isDefinedBy { (x:String, y:String, z:String) =>{ 
