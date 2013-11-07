@@ -126,7 +126,7 @@ class TabelsParser extends JavaTokenParsers with Logging{
     
 	def parens[X] (innerParser : Parser[X]) : Parser[X] = "(" ~> innerParser <~ ")"
 
-    def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9]*""".r ^^ Variable
+    def variable : Parser[Variable] = """\?[a-zA-Z][a-zA-Z0-9_]*""".r ^^ Variable
 	
     def tupleType: Parser[TupleType] = (HORIZONTAL|VERTICAL) ^^ {t => TupleType.withName(t.toLowerCase)}
     
