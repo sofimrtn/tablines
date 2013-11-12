@@ -3,7 +3,8 @@ package es.ctic.tabels
 import org.scalatest.junit.JUnitSuite
 import org.junit.{Test,Before}
 import org.junit.Assert._
-import java.io.File
+import java.io.{FileInputStream, File}
+import org.apache.poi.hssf.usermodel.{HSSFWorkbook, HSSFFormulaEvaluator}
 
 class ExcelDataAdapterIntegrationTest extends JUnitSuite {
 	
@@ -29,7 +30,7 @@ class ExcelDataAdapterIntegrationTest extends JUnitSuite {
 	}
 	
 	@Test def getValue {
-		assertEquals(Literal("Formatted"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent)
+		assertEquals(Literal("Formatted").toString(), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 1)).getContent.toString())
 
 		assertEquals(Literal("3.1415", XSD_DOUBLE), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
 		assertEquals(Literal(3, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 1)).getContent)
@@ -43,8 +44,8 @@ class ExcelDataAdapterIntegrationTest extends JUnitSuite {
 		assertEquals(Literal("2011-10-13", XSD_DATE), dataAdapter.getValue(Point(filename1, sheet1, row = 8, col = 1)).getContent)
 
 		assertEquals(Literal(6, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 9, col = 1)).getContent)
-		assertEquals(Literal("9", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 10, col = 1)).getContent)
-		assertEquals(Literal("zocalo", XSD_STRING), dataAdapter.getValue(Point(filename1, sheet1, row = 11, col = 1)).getContent)
+		assertEquals(Literal("9", XSD_STRING).toString(), dataAdapter.getValue(Point(filename1, sheet1, row = 10, col = 1)).getContent.toString())
+		assertEquals(Literal("zocalo", XSD_STRING).toString(), dataAdapter.getValue(Point(filename1, sheet1, row = 11, col = 1)).getContent.toString())
 	}
 
   @Test def getStyle {
@@ -55,12 +56,12 @@ class ExcelDataAdapterIntegrationTest extends JUnitSuite {
 class ExcelDataAdapterTest extends JUnitSuite {
 
 	@Test def decimalFormatPattern {
-	     assertFalse( "Testing '0'",ExcelCellValue(null).decimalFormatPattern.findFirstIn("0").isEmpty)
-	     assertFalse( "Testing '0.00'",ExcelCellValue(null).decimalFormatPattern.findFirstIn("0.00").isEmpty)
-	     assertFalse( "Testing '#,##0'",ExcelCellValue(null).decimalFormatPattern.findFirstIn("#,##0").isEmpty)
-	     assertFalse( "Testing '#,##0.00'",ExcelCellValue(null).decimalFormatPattern.findFirstIn("#,##0.00").isEmpty)
-	     assertFalse( "Testing '0.00;[Red]0.00'",ExcelCellValue(null).decimalFormatPattern.findFirstIn("0.00;[Red]0.00").isEmpty)
-	     assertTrue( "Testing '1.00;[Red]0.00'",ExcelCellValue(null).decimalFormatPattern.findFirstIn("1.00;[Red]0.00").isEmpty)
+	     assertFalse( "Testing '0'",ExcelCellValue(null,null).decimalFormatPattern.findFirstIn("0").isEmpty)
+	     assertFalse( "Testing '0.00'",ExcelCellValue(null,null).decimalFormatPattern.findFirstIn("0.00").isEmpty)
+	     assertFalse( "Testing '#,##0'",ExcelCellValue(null,null).decimalFormatPattern.findFirstIn("#,##0").isEmpty)
+	     assertFalse( "Testing '#,##0.00'",ExcelCellValue(null,null).decimalFormatPattern.findFirstIn("#,##0.00").isEmpty)
+	     assertFalse( "Testing '0.00;[Red]0.00'",ExcelCellValue(null,null).decimalFormatPattern.findFirstIn("0.00;[Red]0.00").isEmpty)
+	     assertTrue( "Testing '1.00;[Red]0.00'",ExcelCellValue(null,null).decimalFormatPattern.findFirstIn("1.00;[Red]0.00").isEmpty)
 	    
 	  }
 
