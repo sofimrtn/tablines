@@ -266,7 +266,7 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
           autodetectFormat(cell.toString)
       }
     }
-    override def getStyle : CellStyle = CellStyle()
+   // override def getStyle : CellStyle = CellStyle()
   }
 
 }

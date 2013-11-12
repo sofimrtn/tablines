@@ -57,5 +57,5 @@ case class PXTable(matrix : Seq[Array[String]]) {
 case class PXCellValue(value : String) extends CellValue {
   
     override def getContent : Literal = autodetectFormat(value)
-    override def getStyle : CellStyle = CellStyle()
+   // override def getStyle : CellStyle = CellStyle()
 }

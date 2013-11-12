@@ -29,7 +29,8 @@ abstract class DataAdapter {
 object DataAdapter {
     
     val CSVFilePattern = """.+\.csv$""".r
-    val ExcelFilePattern = """.+\.xls$""".r // FIXME: match .xlsx files too
+    val ExcelXLSFilePattern = """.+\.xls$""".r // FIXME: match .xlsx files too
+    val ExcelXLSXFilePattern = """.+\.xlsx$""".r
     val ODFFilePattern = """.+\.ods$""".r
     val HTMLFilePattern = """.+\.html$""".r
     val DBFFilePattern =  """.+\.dbf$""".r
@@ -40,7 +41,8 @@ object DataAdapter {
     def createAdapter(url : String) : DataAdapter =
         url match {
             case CSVFilePattern() => new CSVDataAdapter(new File(url))
-            case ExcelFilePattern() => new ExcelDataAdapter(new File(url))
+            case ExcelXLSFilePattern() => new ExcelDataAdapter(new File(url))
+            case ExcelXLSFilePattern() => new ExcelDataAdapter(new File(url))
             case ODFFilePattern() => new ODFDataAdapter(new File(url))
             case HTMLFilePattern() => new HTMLDataAdapter(new File(url))
             case DBFFilePattern() => new DBFDataAdapter(new File(url))
@@ -100,7 +102,7 @@ abstract class CellValue {
     val intPattern = """[0-9]+""".r
 
   def getContent : Literal
-  def getStyle : CellStyle
+ // def getStyle : CellStyle
 
   /**
    * When there is no formatting information, this method does it

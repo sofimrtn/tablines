@@ -96,9 +96,9 @@ case class ODFCellValue (cell : OdfTableCell) extends CellValue with Logging {
 	}
     }
    
-  override def getStyle : CellStyle ={
+  /*override def getStyle : CellStyle ={
     //FIXME: Not able to retrieve font and border style with odfdom library
     CellStyle((cell.getCellBackgroundColor.getAWTColor.getRed,cell.getCellBackgroundColor.getAWTColor.getGreen,cell.getCellBackgroundColor.getAWTColor.getBlue)/*getAWTColor.getRGB*/,CellFont())
-  }
+  } */
 }
 

@@ -70,7 +70,7 @@ class HtmlCellValue(node : Node/*FIXME, domDoc:org.w3c.dom.Document*/,fl:File) e
 
   override def getContent : Literal = autodetectFormat(node.text)
 
-  override def getStyle : CellStyle = {
+ /* override def getStyle : CellStyle = {
     /*FIXME*/
     val docDomFactory = DocumentBuilderFactory.newInstance
     docDomFactory.setValidating(false)
@@ -93,7 +93,7 @@ class HtmlCellValue(node : Node/*FIXME, domDoc:org.w3c.dom.Document*/,fl:File) e
 
     style.getProperty("border",true)
     CellStyle()
-  }
+  }  */
 }
  /*Convert Scala XML to Java DOM ->http://icodesnip.com/snippet/scala/convert-scala-xml-to-java-dom*/
 

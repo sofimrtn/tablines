@@ -88,5 +88,5 @@ case class DBFCellValue(cell: Object) extends CellValue with Logging {
           autodetectFormat(cell.toString)
     }
   }
-  override def getStyle : CellStyle = CellStyle()
+  //override def getStyle : CellStyle = CellStyle()
 }
