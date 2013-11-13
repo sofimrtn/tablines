@@ -4,7 +4,7 @@
     {code}
     Devuelve una URI con la palabra query desambiguada frente los contenidos en la DBPedia. Mediante la cadena workMode se pueden escoger 3 modos de deasmbiguación distintos:
     * FIRST : Devuelve el primer resultado de la desambiguación contra la DBPedia.
-    * VERY-BREST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.
+    * VERY-BEST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.
     * SINGLE : Devuelve el primer resultado de la desambiguación contra la DBPedia si es un resultado único.
     En caso de no especificarse modo de  funcionamiento por defecto devuelve el primer valor resultante de la desambiguación.
     
@@ -75,3 +75,9 @@ h4. Operadores lógicos
         if(condition:boolean) then result1: Resource else result2: Resource
     {code}
     Devuelve el recurso _result1_ si la _condition_ es igual a *true* y _result2_ en caso de que _condition_ sea *false*.
+
+# boolean
+    {code}
+        boolean(expresion: Expresion): Boolean
+    {code}
+    Devuelve la evaluación de la expresión pasada como argumento interpretandola cómo *true* o *false*.

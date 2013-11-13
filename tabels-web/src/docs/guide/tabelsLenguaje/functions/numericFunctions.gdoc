@@ -115,13 +115,19 @@ Devuelve operando convertido a Int. En caso de no poder realizarse la conversion
 {code}
     is-int(operando : any) : Boolean
 {code}
-El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.
+El resultado de esta función es *TRUE* si el operando es de tipo entero. En cualquier otro caso devuelve *FALSE*.
 
 #can-be-int(operando : any) : Boolean
 {code}
     can-be-int(operando : any) : Boolean
 {code}
 Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+
+# int-or-else
+    {code}
+        int-or-else(operando: any, default: Int) : Int
+    {code}
+    Si el _operando_ de esta función puede ser promocionado al tipo entero el resultado será el mismo _operando_, sino devolverá _defaul_ como resultado.
 
 # float
 {code}
@@ -146,6 +152,11 @@ El resultado de esta función es TRUE si el operando es de tipo double. En cualq
 {code}
     can-be-double(operando : any) : Boolean
 {code}
-Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado *TRUE*; en caso contrario el resultado será *FALSE*.
 
+# double-or-else
+    {code}
+        double-or-else(operando: any, default: Double) : Double
+    {code}
+    Si el _operando_ de esta función puede ser promocionado al tipo double el resultado será el mismo _operando_, sino devolverá _defaul_ como resultado.
    
