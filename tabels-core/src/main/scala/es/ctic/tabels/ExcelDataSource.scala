@@ -1,38 +1,40 @@
 package es.ctic.tabels
 
 import java.io.{FileInputStream, File, FileNotFoundException}
-import es.ctic.tabels.Point
-import scala.Cell
-import es.ctic.tabels.ExcelCellValue
 
 import scala.collection.JavaConversions._
 
-import org.apache.poi.hssf.usermodel.HSSFDateUtil
 import org.apache.poi.hssf.usermodel._
 import grizzled.slf4j.Logging
 import java.text.SimpleDateFormat
-import org.apache.poi.ss.usermodel.DateUtil
-import org.apache.poi.ss.usermodel
+import org.apache.poi.ss.usermodel.{FormulaEvaluator, Row, Workbook, DateUtil,Cell}
+import org.apache.poi.xssf.usermodel.{XSSFFormulaEvaluator, XSSFWorkbook}
+import scala.util.matching.Regex
 
 
 class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
 
-	//val ws = new WorkbookSettings()
-	//ws.setEncoding("CP1252")
+	private val workbook = openWorkbook(file)
+  private val evaluator =   openEvaluator
 
-  private val workbook = openWorkbook(file)
-	
-	
-	private def openWorkbook(file : File) : HSSFWorkbook = {
+  private def openEvaluator :FormulaEvaluator = workbook match
+      { case  workbook:HSSFWorkbook => new HSSFFormulaEvaluator(workbook).asInstanceOf[FormulaEvaluator]
+        case  workbook:XSSFWorkbook => new XSSFFormulaEvaluator(workbook).asInstanceOf[FormulaEvaluator]
+      }
+	private def openWorkbook(file : File) : Workbook = {
         try {
-            return new HSSFWorkbook(new FileInputStream(file))
-            //return Workbook.getWorkbook(file,ws)
+          file.getName match {
+            case f if f.matches(""".+\.xls$""")  => new HSSFWorkbook(new FileInputStream(file))
+            case f if f.matches(""".+\.xlsx$""") => new XSSFWorkbook(new FileInputStream(file))
+            case _ => throw new InvalidInputFileCannotReadXls(file.getName)
+          }
+
         } catch {
             case e : FileNotFoundException =>
                 logger.error("While reading Excel file " + file.getCanonicalPath, e)
                 throw new NoInputFiles
             case e: Exception =>
-                logger.error("While reading Excel file " + file.getCanonicalPath, e)
+                logger.error("While reading Excel file " + file.getCanonicalPath , e)
                 throw new InvalidInputFileCannotReadXls(file.getName)
 	   }
 	}
@@ -42,9 +44,8 @@ class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
   override def getValue(point : Point) : CellValue = {
 	logger.trace("Getting value at " + point)
 	try{
-		val sheet : HSSFSheet = workbook.getSheet(point.tab)
+		val sheet = workbook.getSheet(point.tab)
 		val cell = sheet.getRow(point.row).getCell(point.col )
-    val evaluator = new HSSFFormulaEvaluator(workbook) // needed if cell is a formula
 	    return ExcelCellValue(cell, evaluator)
 	}catch{
 	  case e=>throw new IndexOutOfBounds(point)
@@ -64,19 +65,19 @@ class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
   override def getCols(tabName : String) : Int = {
     val sheet = workbook.getSheet(tabName)
     //Iterate through files looking for the one with the biggest number of columns
-    sheet.rowIterator().seq.foldLeft(0)((max,row) => if (row.asInstanceOf[HSSFRow].getLastCellNum > max) row.asInstanceOf[HSSFRow].getLastCellNum else max )
+    sheet.rowIterator().seq.foldLeft(0)((max,row) => if (row.getLastCellNum > max) row.getLastCellNum else max )
   }
 
 }
 
-case class ExcelCellValue (cell:HSSFCell, evaluator: HSSFFormulaEvaluator) extends CellValue with Logging {
+case class ExcelCellValue (cell:Cell, evaluator: FormulaEvaluator) extends CellValue with Logging {
     
   val decimalFormatPattern = """^(?:#,##)?0(?:\.0+)?(?:;.*)?$""".r
 
   override def getContent : Literal ={
     logger.trace("Actual cell type is: " + cell.getCellType() + " and its value is: "+cell)
     cell.getCellType() match{
-	  case HSSFCell.CELL_TYPE_NUMERIC =>
+	  case Cell.CELL_TYPE_NUMERIC =>
                 if (DateUtil.isCellDateFormatted(cell)){
                   val xsdDateFormater = new SimpleDateFormat("yyyy-MM-dd")
                   val value = xsdDateFormater.format(cell.getDateCellValue)
@@ -88,16 +89,15 @@ case class ExcelCellValue (cell:HSSFCell, evaluator: HSSFFormulaEvaluator) exten
                     Literal(value.toInt, XSD_INTEGER)
                   else Literal(value.toString, XSD_DOUBLE)
                 }
-	  case HSSFCell.CELL_TYPE_STRING =>Literal(cell.getRichStringCellValue, XSD_STRING)
-	  case HSSFCell.CELL_TYPE_BOOLEAN => Literal(cell.getBooleanCellValue().toString(), XSD_BOOLEAN)
-	  case HSSFCell.CELL_TYPE_FORMULA =>{
+	  case Cell.CELL_TYPE_STRING =>Literal(cell.getRichStringCellValue, XSD_STRING)
+	  case Cell.CELL_TYPE_BOOLEAN => Literal(cell.getBooleanCellValue().toString(), XSD_BOOLEAN)
+	  case Cell.CELL_TYPE_FORMULA =>{
         val evaluatedCell=  evaluator.evaluate(cell)
         evaluatedCell.getCellType match{
-           case HSSFCell.CELL_TYPE_NUMERIC =>
-
+           case Cell.CELL_TYPE_NUMERIC =>
+             //FIXME date formula not recognniced as date
             /* if (DateUtil.isCellDateFormatted(new HSSFCell(cell.getSheet, evaluatedCell))){
                val xsdDateFormater = new SimpleDateFormat("yyyy-MM-dd")
-               //FIXME date formula result problem
                //val value = xsdDateFormater.format(evaluatedCell.getJavaDate)
                Literal(evaluatedCell.toString, XSD_DATE)
              }else{ */
@@ -106,14 +106,14 @@ case class ExcelCellValue (cell:HSSFCell, evaluator: HSSFFormulaEvaluator) exten
                  Literal(value.toInt, XSD_INTEGER)
                else Literal(value.toString, XSD_DOUBLE)
              //}
-           case HSSFCell.CELL_TYPE_STRING => Literal(evaluatedCell.getStringValue, XSD_STRING)
-           case HSSFCell.CELL_TYPE_BOOLEAN => Literal(evaluatedCell.getBooleanValue().toString(), XSD_BOOLEAN)
-           case HSSFCell.CELL_TYPE_BLANK => Literal("", XSD_STRING)
-           case HSSFCell.CELL_TYPE_ERROR => Literal("", XSD_STRING)
+           case Cell.CELL_TYPE_STRING => Literal(evaluatedCell.getStringValue, XSD_STRING)
+           case Cell.CELL_TYPE_BOOLEAN => Literal(evaluatedCell.getBooleanValue().toString(), XSD_BOOLEAN)
+           case Cell.CELL_TYPE_BLANK => Literal("", XSD_STRING)
+           case Cell.CELL_TYPE_ERROR => Literal("", XSD_STRING)
            }
          }
-    case HSSFCell.CELL_TYPE_BLANK => Literal("", XSD_STRING)
-    case HSSFCell.CELL_TYPE_ERROR => Literal("", XSD_STRING)
+    case Cell.CELL_TYPE_BLANK => Literal("", XSD_STRING)
+    case Cell.CELL_TYPE_ERROR => Literal("", XSD_STRING)
 	}
     }
 
