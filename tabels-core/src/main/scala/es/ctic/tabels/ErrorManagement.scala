@@ -20,6 +20,10 @@ class SemanticException(variable : Set[Variable])
 class UndefinedPrefixException(prefix : String)
     extends CompileTimeTabelsException("Undefined prefix '" + prefix + "'")
 
+class NotValidUriException(uri:String) extends CompileTimeTabelsException("Not valid URI: " + uri)
+
+class ServerReferedURIException(uri:String) extends CompileTimeTabelsException("Not valid URI - Security policy has been violated: " + uri)
+
 class TemplateInstantiationException(msg:String) extends RunTimeTabelsException(msg)
 
 class UnboundVariableException(variable: Variable) extends RunTimeTabelsException("Found unbound variable " + variable)
@@ -48,8 +52,6 @@ class TypeConversionException(literal:Literal, targetType:Resource) extends RunT
 
 class CannotConvertResourceToLiteralException(resource : Resource) extends RunTimeTabelsException("Cannot convert resource " + resource + " to literal")
 
-class NotValidUriException(uri:String) extends CompileTimeTabelsException("Not valid URI: " + uri)
-
 
 /*functions exceptions*/
 class InvalidFucntionParameterException(parameter : String) extends RunTimeTabelsException("Invalid function parameter value: " + parameter)
@@ -57,8 +59,6 @@ class InvalidFucntionParameterException(parameter : String) extends RunTimeTabel
 class IllegalArgumentException(msg:String) extends RunTimeTabelsException(msg)
 
 class ZeroDivisionException extends InvalidFucntionParameterException("Division by Zero")
-
-class ServerReferedURIException(uri:String) extends CompileTimeTabelsException("Not valid URI - Security policy has been violated: " + uri)
 
 class LuceneQueryException(msg:String) extends RunTimeTabelsException(msg)
 

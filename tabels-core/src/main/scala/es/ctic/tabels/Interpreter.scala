@@ -1,6 +1,5 @@
 package es.ctic.tabels
 
-import es.ctic.tabels.Dimension._
 import scala.collection.immutable.HashMap
 import scala.collection.immutable.List
 import scala.collection.mutable.ListBuffer

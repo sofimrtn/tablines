@@ -32,23 +32,7 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   val requiredDimensionMap = Map(Dimension.files -> null, Dimension.sheets -> Dimension.files, Dimension.rows -> Dimension.sheets, Dimension.cols -> Dimension.sheets )
   
   def calculateNewEvaluationContext(dimensionStatement: DimensionStatement, dimensionIterator: String) : EvaluationContext = {
-	/* 
-    var calculatedDimension = dimensionIterator
-    var calculatedEvaluationContext = evaluationContext
-   
-    //FIX ME: find a better way to do it
-    if (dimensionStatement.isInstanceOf[IteratorStatement] && !dimensionStatement.asInstanceOf[IteratorStatement].startCond.isEmpty && dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.isRight){
-		val startPos =  dimensionStatement.asInstanceOf[IteratorStatement].startCond.get.right.get.calculatePoint(evaluationContext)
-		dimensionStatement.dimension match{
-		  case Dimension.rows => calculatedDimension = (dimensionIterator.toInt + startPos.row - evaluationContext.cursor.row).toString
-		  						 calculatedEvaluationContext = calculatedEvaluationContext.addDimension(Dimension.cols,startPos.col.toString)
-		  
-		  case Dimension.cols =>calculatedDimension = (dimensionIterator.toInt + startPos.col - evaluationContext.cursor.col).toString
-		  						calculatedEvaluationContext = calculatedEvaluationContext.addDimension(Dimension.rows,startPos.row.toString)
-		}
-    
-    }*/
-     
+
      val newEvaluationContext = evaluationContext.addDimension(dimensionStatement.dimension,dimensionIterator)/*calculatedEvaluationContext.addDimension(dimensionStatement.dimension, calculatedDimension)*/
      val cursor : Point = newEvaluationContext.cursor
      val value : Literal = dimensionStatement.dimension match{
@@ -207,22 +191,13 @@ case class VisitorEvaluate(dataSource : DataSource,events :ListBuffer[Event],eva
   override def visit(whenConditionalStatement : WhenConditionalStatement) = {
    
     logger.debug("Visting whenConditional statement " + whenConditionalStatement.condition)
-    
-   // val requiredDimension = requiredDimensionMap(whenConditionalStatement.dimension)
-    
-  /*  if( requiredDimension!=null && !evaluationContext.dimensions.contains(requiredDimension)){
-	  IteratorStatement(variable = Some(Variable("?_" + requiredDimension)), dimension = requiredDimension, nestedStatement = Some(whenConditionalStatement)).accept(this)
-	} 
-    else {
-*/     
+
       whenConditionalStatement.condition match{
         case Some(v) =>if(v.fold(expr => expr.evaluateAsTruthValue(evaluationContext),
         						 pos => (pos.calculatePoint(evaluationContext).col == evaluationContext.cursor.col) && (pos.calculatePoint(evaluationContext).row == evaluationContext.cursor.row)))
         					whenConditionalStatement.nestedStatement.map(p => p.accept(VisitorEvaluate(dataSource,events, evaluationContext)))
-        case None =>	
-     // }
-      	
-	  
+        case None =>
+
     }
 	  
 	

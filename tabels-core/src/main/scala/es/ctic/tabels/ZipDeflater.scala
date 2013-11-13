@@ -4,7 +4,6 @@ import grizzled.slf4j.Logging
 import java.util.zip.ZipFile
 import java.io._
 import scala.collection.JavaConversions._
-import org.apache.commons.io.FileUtils
 
 /**
  * Created with IntelliJ IDEA.

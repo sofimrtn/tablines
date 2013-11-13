@@ -5,7 +5,6 @@ import grizzled.slf4j.Logging
 import scala.xml._
 import parsing._
 import org.xml.sax.InputSource
-import javax.xml.parsers.DocumentBuilderFactory
 
 
 class HTMLDataAdapter(fl : File) extends DataAdapter with Logging {
@@ -69,31 +68,6 @@ class HtmlCellValue(node : Node/*FIXME, domDoc:org.w3c.dom.Document*/,fl:File) e
 	
 
   override def getContent : Literal = autodetectFormat(node.text)
-
- /* override def getStyle : CellStyle = {
-    /*FIXME*/
-    val docDomFactory = DocumentBuilderFactory.newInstance
-    docDomFactory.setValidating(false)
-    val docDomBuilder = docDomFactory.newDocumentBuilder
-    val domDoc = docDomBuilder.parse(fl)
-    /**/
-    val domStyleMap = cz.vutbr.web.css.CSSFactory.assignDOM(domDoc,new java.net.URL("http://"),"",true)
-
-    val docFactory = DocumentBuilderFactory.newInstance
-
-    val docBuilder = docFactory.newDocumentBuilder
-
-    val doc = docBuilder.newDocument()
-    val domNode = new NodeExtras(node).toJdkNode(doc).asInstanceOf[org.w3c.dom.Element]
-    val style = domStyleMap.get(domNode)
-
-    logger.debug("Node scala: " +node.toString())
-    logger.debug("Node dom: " + domNode.toString)
-    logger.debug("Style Map: " +domStyleMap.keySet().toString)
-
-    style.getProperty("border",true)
-    CellStyle()
-  }  */
 }
  /*Convert Scala XML to Java DOM ->http://icodesnip.com/snippet/scala/convert-scala-xml-to-java-dom*/
 
@@ -144,7 +118,4 @@ class ElemExtras(e: Elem) extends NodeExtras(e) {
     doc
   }
 }
-
-//implicit def nodeExtras(n: scala.xml.Node):org.w3c.dom.Node  = new NodeExtras(n)
-//implicit def elemExtras(e: Elem) = new ElemExtras(e)
 

@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat
 
 
 class ODFDataAdapter(file : File) extends DataAdapter with Logging {
-    //FIXME
 	val ws =try {
 				OdfSpreadsheetDocument.loadDocument(file)
 				
@@ -93,12 +92,8 @@ case class ODFCellValue (cell : OdfTableCell) extends CellValue with Logging {
 	  case x => logger.info("Unrecognized cell format: '" + x + "'")
 	    		autodetectFormat(cell.getStringValue)
 
-	}
-    }
-   
-  /*override def getStyle : CellStyle ={
-    //FIXME: Not able to retrieve font and border style with odfdom library
-    CellStyle((cell.getCellBackgroundColor.getAWTColor.getRed,cell.getCellBackgroundColor.getAWTColor.getGreen,cell.getCellBackgroundColor.getAWTColor.getBlue)/*getAWTColor.getRGB*/,CellFont())
-  } */
+	  }
+  }
+
 }
 

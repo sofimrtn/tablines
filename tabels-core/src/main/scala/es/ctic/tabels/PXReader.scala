@@ -75,13 +75,11 @@ class PXReader(file : File)/* with Logging */{
   def  readAll :Seq[Array[String]] ={
     val numRows = readHeadings.length + getDataRowsSize
     val numCols =readStub.length + getDataColsSize
-    //println(".......DIMENSIONES->Filas: "+numRows+" Columnas: "+numCols)
-    
+
     val pxHeadings: Seq[Array[String]] = readHeadings map(dimension => calculateHeaders(readHeadings.indexOf(dimension)).asInstanceOf[Array[String]])
     val pxContent: Seq[Array[String]] = ((0 until getDataRowsSize) map (stubIndex => calculateStubs(stubIndex))).toList.zip(readData).map(pair => pair._1++pair._2)
     val pxTable=pxHeadings++pxContent
-    //pxTable.foreach(row => {row.foreach(pos=> print(" -"+pos+"- "));println("||")})
-    return pxTable
+    pxTable
     }
   
   def readMetaData:Seq[Array[String]]={return Seq(("Title"+:readTitle) toArray,("Contents"+:readContent) toArray,("Units"+:readUnits) toArray, ("Source"+:readSource) toArray)}

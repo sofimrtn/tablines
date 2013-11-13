@@ -2,11 +2,8 @@ package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
 import scala.util.matching.Regex
-import es.ctic.tabels.RelativePos._
 import es.ctic.tabels.TupleType._
 
-import MiscellaneaFunctions._
-import NumericFunctions._
 import StringFunctions._
 
 import scala.util.parsing.combinator._

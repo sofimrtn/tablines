@@ -6,7 +6,6 @@ import grizzled.slf4j.Logging
 import java.util.zip.ZipFile
 import collection.mutable
 import org.geotools.data._
-import org.geotools.data.simple._
 import es.ctic.maplab.sld2googlemaps.Sld2GmapsConverter
 import es.ctic.maplab.shp2kml.Shp2KmlConverter
 import org.apache.commons.io.FileUtils
@@ -266,7 +265,6 @@ class SHPMaplabDataAdapter(file: File) extends DataAdapter with Logging {
           autodetectFormat(cell.toString)
       }
     }
-   // override def getStyle : CellStyle = CellStyle()
   }
 
 }

@@ -1,38 +1,29 @@
 package es.ctic.tabels
-import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.analysis.LimitTokenCountAnalyzer
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.index.IndexWriterConfig
-//import org.apache.lucene.queryParser.ParseException;
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.search.BooleanQuery
 import org.apache.lucene.search.BooleanClause.Occur
 import org.apache.lucene.search.TermQuery
 import org.apache.lucene.index.Term
 import org.apache.lucene.search.IndexSearcher
-import org.apache.lucene.search.Query
-import org.apache.lucene.search.ScoreDoc
-import org.apache.lucene.search.TopScoreDocCollector
-import org.apache.lucene.store.Directory
-import org.apache.lucene.store.RAMDirectory
 import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.util.Version
 import org.apache.lucene.analysis.PerFieldAnalyzerWrapper
 import org.apache.lucene.index.IndexWriterConfig.OpenMode
 import grizzled.slf4j.Logging
-import java.io.{File,FileNotFoundException,FileInputStream,FileOutputStream}
+import java.io.{File,FileInputStream,FileOutputStream}
 import java.net.{URLEncoder, URL}
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream
 import org.apache.commons.io.FileUtils
-import scala.io.Source
-import com.hp.hpl.jena.rdf.model.{ModelFactory,Model}
+import com.hp.hpl.jena.rdf.model.Model
 import com.hp.hpl.jena.vocabulary.RDFS
 import com.hp.hpl.jena.vocabulary.RDF
 import com.hp.hpl.jena.tdb.TDBFactory
 import scala.collection.mutable.ListBuffer
-import collection.JavaConversions._
 
 class Lucene extends Logging{
   
@@ -62,7 +53,6 @@ class Lucene extends Logging{
   
     def loadDocs(iwriter: IndexWriter) {
        
-    //val model = ModelFactory.createDefaultModel()
     logger.info("Creating temporary Jena model in dir " + modelDir)
     FileUtils.forceMkdir(modelDir)
     val model = TDBFactory.createModel(modelDir.getAbsolutePath)
@@ -133,7 +123,6 @@ class Lucene extends Logging{
     // Now search the index:
     val isearcher = new IndexSearcher(directory, true) // read-only=true
     // Parse a simple query that searches for "text":
-    var buffList = new ListBuffer[NamedResource]
     val  aWrapper = new PerFieldAnalyzerWrapper(analyzer)
     		aWrapper.addAnalyzer("type", new org.apache.lucene.analysis.WhitespaceAnalyzer(Version.LUCENE_33))
  
@@ -182,7 +171,7 @@ class Lucene extends Logging{
 	}
 	catch{ 
 		case e : org.apache.lucene.queryParser.ParseException =>
-					 //logger.error ("Parsing lucene query: " + q , e)
+					 logger.trace("Parsing lucene query: " + q , e)
 					 throw new LuceneQueryException(q.toString())
 		return NamedResource("http://example.org/ResourceNotDisambiguated?query="+q.toString)
     }

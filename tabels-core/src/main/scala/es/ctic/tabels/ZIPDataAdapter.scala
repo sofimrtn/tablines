@@ -2,8 +2,6 @@ package es.ctic.tabels
 
 import java.io._
 import grizzled.slf4j.Logging
-import java.util
-import util.zip.{ZipFile, ZipEntry}
 import scala.collection.JavaConversions._
 
 

@@ -7,9 +7,8 @@ import scala.collection.JavaConversions._
 import org.apache.poi.hssf.usermodel._
 import grizzled.slf4j.Logging
 import java.text.SimpleDateFormat
-import org.apache.poi.ss.usermodel.{FormulaEvaluator, Row, Workbook, DateUtil,Cell}
+import org.apache.poi.ss.usermodel.{FormulaEvaluator, Workbook, DateUtil,Cell}
 import org.apache.poi.xssf.usermodel.{XSSFFormulaEvaluator, XSSFWorkbook}
-import scala.util.matching.Regex
 
 
 class ExcelDataAdapter(file : File) extends DataAdapter with Logging {
@@ -95,7 +94,7 @@ case class ExcelCellValue (cell:Cell, evaluator: FormulaEvaluator) extends CellV
         val evaluatedCell=  evaluator.evaluate(cell)
         evaluatedCell.getCellType match{
            case Cell.CELL_TYPE_NUMERIC =>
-             //FIXME date formula not recognniced as date
+             //FIXME date formula not recogniced as date
             /* if (DateUtil.isCellDateFormatted(new HSSFCell(cell.getSheet, evaluatedCell))){
                val xsdDateFormater = new SimpleDateFormat("yyyy-MM-dd")
                //val value = xsdDateFormater.format(evaluatedCell.getJavaDate)
@@ -117,39 +116,4 @@ case class ExcelCellValue (cell:Cell, evaluator: FormulaEvaluator) extends CellV
 	}
     }
 
-
-  //FIXME Method needed for grider tool
- /* override def getStyle : CellStyle ={
-
-    val format = cell.getCellStyle
-
-    if (format!=null) {
-      val fontStyle = if (cell.getType==CellType.EMPTY)
-                        FontStyle.none
-                      else if ((format.getFont.getBoldWeight!=0)&&format.getFont.isItalic)
-                        FontStyle.italic_bold
-                      else if(format.getFont.isItalic &&(format.getFont.getBoldWeight==0))
-                        FontStyle.italic
-                      else if(!format.getFont.isItalic && (format.getFont.getBoldWeight!=0))
-                        FontStyle.bold
-                      else FontStyle.none
-
-      val fontColor = if (cell.getType==CellType.EMPTY)
-                         (0,0,0)
-                      else  (format.getFont.getColour.getDefaultRGB.getRed,format.getFont.getColour.getDefaultRGB.getGreen,format.getFont.getColour.getDefaultRGB.getBlue)
-
-      val fontSize = if (cell.getType==CellType.EMPTY)
-                      0.toFloat
-                     else format.getFont.getPointSize
-
-      CellStyle((cell.getCellFormat.getBackgroundColour.getDefaultRGB.getRed,cell.getCellFormat.getBackgroundColour.getDefaultRGB.getGreen,cell.getCellFormat.getBackgroundColour.getDefaultRGB.getBlue),CellFont(fontColor, fontStyle , fontSize),
-            if(format.getBorderLine(jxl.format.Border.TOP).getDescription=="none") None else Some(CellBorder((format.getBorderColour(jxl.format.Border.TOP).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.TOP).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.TOP).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.TOP).getDescription)),
-            if(format.getBorderLine(jxl.format.Border.RIGHT).getDescription=="none") None else Some(CellBorder((format.getBorderColour(jxl.format.Border.RIGHT).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.RIGHT).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.RIGHT).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.RIGHT).getDescription)),
-            if(format.getBorderLine(jxl.format.Border.BOTTOM).getDescription=="none") None else Some(CellBorder((format.getBorderColour(jxl.format.Border.BOTTOM).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.BOTTOM).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.BOTTOM).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.BOTTOM).getDescription)),
-            if(format.getBorderLine(jxl.format.Border.LEFT).getDescription=="none")None else Some(CellBorder((format.getBorderColour(jxl.format.Border.LEFT).getDefaultRGB.getRed,format.getBorderColour(jxl.format.Border.LEFT).getDefaultRGB.getGreen,format.getBorderColour(jxl.format.Border.LEFT).getDefaultRGB.getBlue),format.getBorderLine(jxl.format.Border.LEFT).getDescription)))
-    }
-    else CellStyle()
-  }        */
-
-    
 }

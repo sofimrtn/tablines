@@ -1,6 +1,5 @@
 package es.ctic.tabels
 
-import es.ctic.tabels.Dimension._
 import java.io.File
 
 abstract class DataSource {
@@ -100,7 +99,6 @@ abstract class CellValue {
     val intPattern = """[0-9]+""".r
 
   def getContent : Literal
- // def getStyle : CellStyle
 
   /**
    * When there is no formatting information, this method does it

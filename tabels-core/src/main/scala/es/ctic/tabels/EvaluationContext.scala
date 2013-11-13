@@ -1,7 +1,6 @@
 package es.ctic.tabels
 
 import es.ctic.tabels.Dimension._
-import scala.collection.mutable.ListBuffer
 import scala.collection.immutable.HashMap
 
 case class EvaluationContext (dimensionMap : Map[Dimension, String] = new HashMap(), bindings: Bindings = Bindings(),wLimit: Option[(Int,Dimension)]=None) {

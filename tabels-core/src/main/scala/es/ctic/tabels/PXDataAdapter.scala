@@ -1,11 +1,8 @@
 package es.ctic.tabels
 
-import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
-import collection.JavaConversions._
 
-import java.io.{File,FileReader}
-import scala.collection.mutable.HashMap
+import java.io.File
 
 class PXDataAdapter(file : File) extends DataAdapter with Logging {
 
@@ -57,5 +54,4 @@ case class PXTable(matrix : Seq[Array[String]]) {
 case class PXCellValue(value : String) extends CellValue {
   
     override def getContent : Literal = autodetectFormat(value)
-   // override def getStyle : CellStyle = CellStyle()
 }

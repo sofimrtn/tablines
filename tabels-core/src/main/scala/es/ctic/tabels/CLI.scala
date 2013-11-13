@@ -2,8 +2,7 @@ package es.ctic.tabels
 
 import grizzled.slf4j.Logging
 import java.io.{File,FileOutputStream,OutputStream,PrintStream}
-import org.apache.commons.cli.{Options,CommandLineParser,PosixParser,CommandLine,HelpFormatter}
-import scala.collection.JavaConversions
+import org.apache.commons.cli.{Options,PosixParser,CommandLine,HelpFormatter}
 
 object CLI extends Logging {
 

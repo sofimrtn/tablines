@@ -2,14 +2,10 @@ package es.ctic.tabels
 
 import java.io._
 import grizzled.slf4j.Logging
-import java.{lang, util}
-import util.zip.{ZipFile, ZipEntry}
-import collection.{mutable, JavaConversions}
-import scala.collection.JavaConversions._
+import java.util
+import util.zip.ZipFile
+import collection.mutable
 import org.geotools.data._
-import org.geotools.data.simple._
-import scala.collection
-import scala.collection
 
 
 /**
@@ -119,7 +115,6 @@ class SHPDataAdapter(file: File) extends DataAdapter with Logging {
           autodetectFormat(cell.toString)
       }
     }
-   // override def getStyle : CellStyle = CellStyle()
   }
 
 }

@@ -1,14 +1,10 @@
 package es.ctic.tabels
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
+
+
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.query.ResultSetFormatter
 
-import scala.collection.JavaConversions._
-import scala.collection._
 
 class DBPediaQuery {
   

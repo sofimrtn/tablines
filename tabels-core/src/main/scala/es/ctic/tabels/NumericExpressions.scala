@@ -85,39 +85,10 @@ object NumericFunctions extends FunctionCollection {
     												}
 }
     														  
-															
 
-
-//FIX ME: Type control
-/*case class IntExpression(expression : Expression, separator :Option[String] = None) extends Expression{
-  
-  override def evaluate(evaluationContext:EvaluationContext) = {
-    val evaluatedExpression =  expression.evaluateAsStringValue(evaluationContext)
-    separator match{
-      case Some(sep) =>
-        try  Literal(Integer.parseInt(evaluatedExpression.replaceAllLiterally(sep, ""), 10), XSD_INT)
-      case None =>  try  Literal(Integer.parseInt(evaluatedExpression, 10), XSD_INT)
-    }
-    
-  }   
-  override def prettyPrint = "int(" + expression.toString + ")"
-	
-}*/
-/*case class FloatExpression(expression : Expression, separator :Option[String] = None) extends Expression{
-  
-  override def evaluate(evaluationContext:EvaluationContext) = {
-    val evaluatedExpression =  expression.evaluateAsStringValue(evaluationContext)
-    separator match{
-      case Some(sep) => try  Literal(java.lang.Float.valueOf(evaluatedExpression.replaceAllLiterally(sep, "")), XSD_FLOAT)
-      case None =>  try  Literal(java.lang.Float.valueOf(evaluatedExpression), XSD_FLOAT)
-    }
-  }   
-  override def prettyPrint = "float(" + expression.toString + ")"
-	
-}*/
 
 case class DecimalExpression(expression : Expression, separator :Option[String] = None) extends Expression{
- //FIX ME: Decimal is a subgroup of float it is not supposed to support numbers in a simplified syntax.
+ //FIXME: Decimal is a subgroup of float it is not supposed to support numbers in a simplified syntax.
    override def evaluate(evaluationContext:EvaluationContext) = {
     val evaluatedExpression =  expression.evaluateAsStringValue(evaluationContext)
     separator match{

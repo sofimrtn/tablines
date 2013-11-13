@@ -4,10 +4,7 @@ import grizzled.slf4j.Logging
 import org.apache.commons.io.FileUtils
 import org.apache.commons.configuration.CompositeConfiguration
 import org.apache.commons.configuration.SystemConfiguration
-import org.apache.commons.configuration.PropertiesConfiguration
 import java.io.File
-import scala.collection.mutable.Map
-import scala.collection.mutable.HashSet
 
 class SemanticCheck() extends Logging {
     

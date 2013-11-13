@@ -1,18 +1,10 @@
 package es.ctic.tabels
 
-import java.io.{InputStream, File, FileNotFoundException, FileInputStream}
-import scala.collection.mutable.HashMap
-import collection.JavaConversions._
+import java.io.{File, FileNotFoundException, FileInputStream}
 import com.linuxense.javadbf._
 
-import java.util.Arrays
-import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
-import javax.xml.xpath.XPathFactory
-import javax.xml.xpath.XPathConstants
 
-import org.w3c.dom._
-import javax.xml.xpath._
 
 /** Handles DBF files. This class loads the complete DBF on memory.
   * 
@@ -88,5 +80,4 @@ case class DBFCellValue(cell: Object) extends CellValue with Logging {
           autodetectFormat(cell.toString)
     }
   }
-  //override def getStyle : CellStyle = CellStyle()
 }

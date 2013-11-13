@@ -1,11 +1,9 @@
 package es.ctic.tabels
 
-import es.ctic.tabels.Dimension._
 import grizzled.slf4j.Logging
 import collection.JavaConversions._
 import au.com.bytecode.opencsv.CSVReader
 import java.io.{File,FileReader,FileNotFoundException}
-import scala.collection.mutable.HashMap
 
 class CSVDataAdapter(file : File) extends DataAdapter with Logging {
 	
@@ -52,5 +50,4 @@ case class CSVTable(matrix : Seq[Array[String]]) {
 case class CSVCellValue(value : String) extends CellValue {
   
     override def getContent : Literal = autodetectFormat(value)
-   // override def getStyle : CellStyle = CellStyle()
 }

@@ -1,8 +1,5 @@
 package es.ctic.tabels
 
-import scala.math.min
-import scala.math.max
-
 object Levenshtein {
  
   def stringDistance(s1: String, s2: String): Int = {

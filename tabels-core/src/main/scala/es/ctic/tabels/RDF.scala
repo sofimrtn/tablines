@@ -116,7 +116,6 @@ case class NamedResource(uri : String) extends Resource with Logging {
         !whitelistStartsWith.exists(entry => uri.toLowerCase.startsWith(entry)))
         throw new ServerReferedURIException(uri)
 
-
       // if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
   		// throw new ServerReferedURIException(uri)
     }
