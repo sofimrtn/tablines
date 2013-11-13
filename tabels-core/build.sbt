@@ -17,9 +17,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "1.6.1" % "it,test"
 libraryDependencies += "junit" % "junit" % "4.8.1" % "it,test"
 
 //XLS  and XLSX readers
-libraryDependencies += "net.sourceforge.jexcelapi" % "jxl" % "2.6.12"
-
-libraryDependencies += "org.apache.poi" % "poi" % "3.5-beta3"
+libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.10-beta2"
 
 libraryDependencies += "org.daisy.libs" % "jstyleparser" % "1.7.0"
 
