@@ -20,6 +20,7 @@ libraryDependencies += "junit" % "junit" % "4.8.1" % "it,test"
 //Data input readers
 //Excel reader ->  Apache License Version 2.0
 //Solved problem with xmlbeans 2.3.0 - dependency conflict when using tabels core in tabels web project
+//MORE INFO: https://issues.apache.org/jira/browse/XMLBEANS-484
 //MORE INFO: http://stackoverflow.com/questions/6097279/java-lang-linkageerror-loader-constraint-violation-in-grails-project
 //MORE INFO: http://mail-archives.apache.org/mod_mbox/xmlbeans-dev/201207.mbox/%3C853963532.44477.1342130314758.JavaMail.jiratomcat@issues-vm%3E
 libraryDependencies += "org.apache.poi" % "poi-ooxml" % "3.10-beta2" exclude("org.apache.xmlbeans", "xmlbeans")
