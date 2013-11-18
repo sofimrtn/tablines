@@ -340,7 +340,7 @@ class ProjectController {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())
         } catch(Exception e){
-			log.error "Failed to execute transformation: ${e.message}", e
+			log.error "Action Dataset - Failed to execute transformation: ${e.message}", e
 			flash.error = "msg.transformation.failed"
 			flash.args = [e.message]
             response.status = HttpURLConnection.HTTP_INTERNAL_ERROR
@@ -369,7 +369,7 @@ class ProjectController {
 			render(view: "index", model: indexModel(projectId))
 			//render(status: 404, text: e.getMessage())
         } catch(RunTimeTabelsException e){
-			log.error "Failed to execute transformation: ${e.message}", e
+			log.error "Action Autogenerate - Failed to execute transformation: ${e.message}", e
 			flash.error = "msg.transformation.failed"
 			flash.args = [e.message]
             response.status = HttpURLConnection.HTTP_INTERNAL_ERROR
@@ -411,7 +411,7 @@ class ProjectController {
             log.error("While trying to access project ${e.projectId}", e)
             render(status: 404, text: e.getMessage())
         } catch(RunTimeTabelsException e){
-			log.error "Failed to execute transformation: ${e.message}", e
+			log.error "Action Data - Failed to execute transformation: ${e.message}", e
 			flash.error = "msg.transformation.failed"
 			flash.args = [e.message]
             response.status = HttpURLConnection.HTTP_INTERNAL_ERROR
