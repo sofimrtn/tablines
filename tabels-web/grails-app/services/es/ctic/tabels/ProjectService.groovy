@@ -129,7 +129,7 @@ class ProjectService {
     }
     
     def boolean isCacheValid(String projectId) throws ProjectDoesNotExistException {
-        if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list().length == 0) {
+        if (getOutputCache(projectId).exists() == false || getInputDir(projectId).list() == null || getInputDir(projectId).list().length == 0) {
             return false
         } else {
             return getInputDir(projectId).listFiles().every { FileUtils.isFileOlder(it, getOutputCache(projectId)) } && FileUtils.isFileOlder(getProgramFile(projectId), getOutputCache(projectId))
