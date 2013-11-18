@@ -160,9 +160,13 @@ Devuelve operando convertido a Int. En caso de no poder realizarse la conversion
 <ol>
 <li>is-int</li>
 </ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
-El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
+El resultado de esta función es <strong class="bold">TRUE</strong> si el operando es de tipo entero. En cualquier otro caso devuelve <strong class="bold">FALSE</strong>.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
 <div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
 Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+<ol>
+<li>int-or-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;object">int</span>&#45;or&#45;<span class="java&#45;keyword">else</span>(operando: any, <span class="java&#45;keyword">default</span>: Int) : Int</pre></div>
+    Si el  <em class="italic">operando</em>  de esta función puede ser promocionado al tipo entero el resultado será el mismo  <em class="italic">operando</em> , sino devolverá  <em class="italic">defaul</em>  como resultado.
 <ol>
 <li>float</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">float</span>(operando : numeric) : <span class="java&#45;object">Float</span></pre></div>
@@ -177,8 +181,11 @@ Devuelve operando convertido a Double. En caso de no poder realizarse la convers
 </ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
 El resultado de esta función es TRUE si el operando es de tipo double. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-double(operando : any) : Boolean
 <div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
-Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.<p class="paragraph"/>   
-
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado <strong class="bold">TRUE</strong>; en caso contrario el resultado será <strong class="bold">FALSE</strong>.
+<ol>
+<li>double-or-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;object">double</span>&#45;or&#45;<span class="java&#45;keyword">else</span>(operando: any, <span class="java&#45;keyword">default</span>: <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+    Si el  <em class="italic">operando</em>  de esta función puede ser promocionado al tipo double el resultado será el mismo  <em class="italic">operando</em> , sino devolverá  <em class="italic">defaul</em>  como resultado.<p class="paragraph"/>
 
 
                 <div style="clear:both;margin-top:15px;"></div>

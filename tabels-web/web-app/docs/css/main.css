@@ -1,6 +1,6 @@
-@import "custom.css";
-@import "tools.css";
-@import "skin.css";
+@import url('custom.css');
+@import url('tools.css');
+@import url('skin.css');
 
 /*
 ////////////////////////////////////////////////////////////////////////////////

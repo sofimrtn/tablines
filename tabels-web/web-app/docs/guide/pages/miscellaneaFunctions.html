@@ -90,7 +90,7 @@ function addJsClass() {
     Devuelve una URI con la palabra query desambiguada frente los contenidos en la DBPedia. Mediante la cadena workMode se pueden escoger 3 modos de deasmbiguación distintos:
 <ul class="star">
 <li>FIRST : Devuelve el primer resultado de la desambiguación contra la DBPedia.</li>
-<li>VERY-BREST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.</li>
+<li>VERY-BEST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.</li>
 <li>SINGLE : Devuelve el primer resultado de la desambiguación contra la DBPedia si es un resultado único.</li>
 </ul><p class="paragraph"/>    En caso de no especificarse modo de  funcionamiento por defecto devuelve el primer valor resultante de la desambiguación.
 <ol>
@@ -104,8 +104,16 @@ function addJsClass() {
 <h4>Funciones RDF </h4>
 <ol>
 <li>resource</li>
-</ol><p class="paragraph"/>    <div class="code"><pre>resource(string: <span class="java&#45;object">String</span>, uri:<span class="java&#45;object">String</span>) : Resource</pre></div>
-    Devuelve el recurso resultante de añadirle a la URI  <em class="italic">uri</em>  la cadena  <em class="italic">string</em> . La función elimina todos los caracteres no válidos de la cadena  <em class="italic">string</em> .
+</ol><p class="paragraph"/>    <div class="code"><pre>resource(string: <span class="java&#45;object">String</span>&#91;, uri:<span class="java&#45;object">String</span>&#93;) : Resource</pre></div>
+    Devuelve el recurso resultante de añadirle a la URI  <em class="italic">uri</em>  la cadena  <em class="italic">string</em> . La función elimina todos los caracteres no válidos de la cadena  <em class="italic">string</em> . Los prefijos definidos en el programa tabels son valores válidos para el parámetro  <em class="italic">uri</em> . Si en la llamada a la expresión no se indica un valor para  <em class="italic">uri</em>  se intenta completar el recurso con el prefijo  <em class="italic">my</em> .
+<ol>
+<li>is-resource</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>is&#45;resource(uri:<span class="java&#45;object">String</span>) : Resource</pre></div>
+    Devuelve el recurso creado a partir de la cadena contenida en el parámetro  <em class="italic">uri</em> .
+<ol>
+<li>can-be-resource</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>can&#45;be&#45;resource(uri:<span class="java&#45;object">String</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve un valor booleano indicando si la cadena contenida en  <em class="italic">uri</em>  es una URI válida según RFC2396.
 <ol>
 <li>literal</li>
 </ol><p class="paragraph"/>    <div class="code"><pre>literal(string: <span class="java&#45;object">String</span>) : Resource</pre></div>
@@ -131,6 +139,10 @@ function addJsClass() {
 <li>if-then-else</li>
 </ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
     Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
+<ol>
+<li>boolean</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;object">boolean</span>(expresion: Expresion): <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve la evaluación de la expresión pasada como argumento interpretandola cómo <strong class="bold">true</strong> o <strong class="bold">false</strong>.
 
 
 

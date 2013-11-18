@@ -290,9 +290,13 @@ Devuelve operando convertido a Int. En caso de no poder realizarse la conversion
 <ol>
 <li>is-int</li>
 </ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
-El resultado de esta función es TRUE si el operando es de tipo entero. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
+El resultado de esta función es <strong class="bold">TRUE</strong> si el operando es de tipo entero. En cualquier otro caso devuelve <strong class="bold">FALSE</strong>.<p class="paragraph"/>#can-be-int(operando : any) : Boolean
 <div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">int</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
 Si el operando de esta función puede ser promocionado al tipo entero la función dará como resultado TRUE; en caso contrario el resultado será FALSE.
+<ol>
+<li>int-or-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;object">int</span>&#45;or&#45;<span class="java&#45;keyword">else</span>(operando: any, <span class="java&#45;keyword">default</span>: Int) : Int</pre></div>
+    Si el  <em class="italic">operando</em>  de esta función puede ser promocionado al tipo entero el resultado será el mismo  <em class="italic">operando</em> , sino devolverá  <em class="italic">defaul</em>  como resultado.
 <ol>
 <li>float</li>
 </ol><p class="paragraph"/><div class="code"><pre><span class="java&#45;object">float</span>(operando : numeric) : <span class="java&#45;object">Float</span></pre></div>
@@ -307,8 +311,11 @@ Devuelve operando convertido a Double. En caso de no poder realizarse la convers
 </ol><p class="paragraph"/><div class="code"><pre>is&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
 El resultado de esta función es TRUE si el operando es de tipo double. En cualquier otro caso devuelve FALSE.<p class="paragraph"/>#can-be-double(operando : any) : Boolean
 <div class="code"><pre>can&#45;be&#45;<span class="java&#45;object">double</span>(operando : any) : <span class="java&#45;object">Boolean</span></pre></div>
-Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado TRUE; en caso contrario el resultado será FALSE.<p class="paragraph"/>   
-
+Si el operando de esta función puede ser promocionado al tipo double la función dará como resultado <strong class="bold">TRUE</strong>; en caso contrario el resultado será <strong class="bold">FALSE</strong>.
+<ol>
+<li>double-or-else</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;object">double</span>&#45;or&#45;<span class="java&#45;keyword">else</span>(operando: any, <span class="java&#45;keyword">default</span>: <span class="java&#45;object">Double</span>) : <span class="java&#45;object">Double</span></pre></div>
+    Si el  <em class="italic">operando</em>  de esta función puede ser promocionado al tipo double el resultado será el mismo  <em class="italic">operando</em> , sino devolverá  <em class="italic">defaul</em>  como resultado.<p class="paragraph"/>
 
 
 <h2 id="stringFunctions">2.4.2 Expresiones con Cadenas</h2>
@@ -410,7 +417,7 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
     Devuelve una URI con la palabra query desambiguada frente los contenidos en la DBPedia. Mediante la cadena workMode se pueden escoger 3 modos de deasmbiguación distintos:
 <ul class="star">
 <li>FIRST : Devuelve el primer resultado de la desambiguación contra la DBPedia.</li>
-<li>VERY-BREST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.</li>
+<li>VERY-BEST : Devuelve el primer resultado de la desambiguación contra la DBPedia si la diferencia entre el primero y el sgundo es suficientemente grande.</li>
 <li>SINGLE : Devuelve el primer resultado de la desambiguación contra la DBPedia si es un resultado único.</li>
 </ul><p class="paragraph"/>    En caso de no especificarse modo de  funcionamiento por defecto devuelve el primer valor resultante de la desambiguación.
 <ol>
@@ -424,8 +431,16 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 <h4>Funciones RDF </h4>
 <ol>
 <li>resource</li>
-</ol><p class="paragraph"/>    <div class="code"><pre>resource(string: <span class="java&#45;object">String</span>, uri:<span class="java&#45;object">String</span>) : Resource</pre></div>
-    Devuelve el recurso resultante de añadirle a la URI  <em class="italic">uri</em>  la cadena  <em class="italic">string</em> . La función elimina todos los caracteres no válidos de la cadena  <em class="italic">string</em> .
+</ol><p class="paragraph"/>    <div class="code"><pre>resource(string: <span class="java&#45;object">String</span>&#91;, uri:<span class="java&#45;object">String</span>&#93;) : Resource</pre></div>
+    Devuelve el recurso resultante de añadirle a la URI  <em class="italic">uri</em>  la cadena  <em class="italic">string</em> . La función elimina todos los caracteres no válidos de la cadena  <em class="italic">string</em> . Los prefijos definidos en el programa tabels son valores válidos para el parámetro  <em class="italic">uri</em> . Si en la llamada a la expresión no se indica un valor para  <em class="italic">uri</em>  se intenta completar el recurso con el prefijo  <em class="italic">my</em> .
+<ol>
+<li>is-resource</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>is&#45;resource(uri:<span class="java&#45;object">String</span>) : Resource</pre></div>
+    Devuelve el recurso creado a partir de la cadena contenida en el parámetro  <em class="italic">uri</em> .
+<ol>
+<li>can-be-resource</li>
+</ol><p class="paragraph"/>    <div class="code"><pre>can&#45;be&#45;resource(uri:<span class="java&#45;object">String</span>) : <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve un valor booleano indicando si la cadena contenida en  <em class="italic">uri</em>  es una URI válida según RFC2396.
 <ol>
 <li>literal</li>
 </ol><p class="paragraph"/>    <div class="code"><pre>literal(string: <span class="java&#45;object">String</span>) : Resource</pre></div>
@@ -451,6 +466,10 @@ Devuelve la cadena original sin los espacios situados al comienzo y al final de 
 <li>if-then-else</li>
 </ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;keyword">if</span>(condition:<span class="java&#45;object">boolean</span>) then result1: Resource <span class="java&#45;keyword">else</span> result2: Resource</pre></div>
     Devuelve el recurso  <em class="italic">result1</em>  si la  <em class="italic">condition</em>  es igual a <strong class="bold">true</strong> y  <em class="italic">result2</em>  en caso de que  <em class="italic">condition</em>  sea <strong class="bold">false</strong>.
+<ol>
+<li>boolean</li>
+</ol><p class="paragraph"/>    <div class="code"><pre><span class="java&#45;object">boolean</span>(expresion: Expresion): <span class="java&#45;object">Boolean</span></pre></div>
+    Devuelve la evaluación de la expresión pasada como argumento interpretandola cómo <strong class="bold">true</strong> o <strong class="bold">false</strong>.
 
 
 
