@@ -1,4 +1,4 @@
-The present repository contains two dependent projects. 
+.. note:: The present repository contains two dependent projects. 
 
 Tabels Core
 ===========
