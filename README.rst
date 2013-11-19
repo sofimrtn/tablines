@@ -3,7 +3,7 @@
 Tabels Core
 ===========
 
-CTIC Foundation tool developed in Scala language under the terms of Apache License version 2.0.  Tabels Core helds the capability to map from supported tabular formats to RDF documents; the mapping between them should be specified by a ``transformation program`` by the means of a DSL developed with the only purpose of these mappings. More information about the DSL can be found in the online release help (in Spanish).
+`CTIC Foundation <http://www.fundacionctic.org/>`_ tool developed in Scala language under the terms of `Apache License, version 2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>`_.  Tabels Core helds the capability to map from supported tabular formats to RDF documents; the mapping between them should be specified by a ``transformation program`` by the means of a DSL developed with the only purpose of these mappings. More information about the DSL can be found in the `online release help (in Spanish) <http://idi.fundacionctic.org/tabels/docs/guide/>`_.
 
 Valid input formats:
   * Excel files: .xls, .xlsx
@@ -64,7 +64,7 @@ The options suported are:
 Tabels Web
 ==========
 
-Developed by CTIC Foundation as a demonstrator for the interoperability capabilities of a group of technologies related to Linked Data, tabels web is a platform, grails powered, which integrates online tabels core, tapinos-ws, tapinos-js, undermaps and a bunch of linked data explotation tools.
+Developed by `CTIC Foundation <http://www.fundacionctic.org/>`_ as a demonstrator for the interoperability capabilities of a group of technologies related to Linked Data, tabels web is a platform, grails powered, which integrates online tabels core, tapinos-ws, tapinos-js, undermaps and a bunch of linked data explotation tools.
 
 Technological Enviroment:
   * Grails 2.0.4 
