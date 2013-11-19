@@ -51,7 +51,7 @@ Running Tabels Core
 ===================
 Once tabels core has been downloaded from the repository it can be used through the command line::
 
-  sbt "run_main es.ctic.tabels.CLI [OPTIONS] [SPREADSHEET FILES]""
+  sbt "run_main es.ctic.tabels.CLI [OPTIONS] [SPREADSHEET FILES]"
 
 The options suported are: 
   * -t: path to the Tabels program
@@ -67,7 +67,7 @@ Tabels Web
 Developed by CTIC foundation as a demonstrator for the interoperability capabilities of a group of technologies related to Linked Data, tabels web is a platform, grails powered, which integrates online tabels core, tapinos-ws, tapinos-js, undermaps and a bunch of linked data explotation tools.
 
 Technological Enviroment:
-  * Grails 2. 
+  * Grails 2.0.4 
 
 Dependencies:
   * uploadr 0.6.0
