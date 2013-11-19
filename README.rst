@@ -50,6 +50,7 @@ Dependencies:
 Running Tabels Core
 ===================
 Once tabels core has been downloaded from the repository it can be used through the command line::
+
   sbt "run_main es.ctic.tabels.CLI [OPTIONS] [SPREADSHEET FILES]""
 
 The options suported are: 
@@ -96,7 +97,9 @@ Running Tabels Web
 ==================
 
 To run tabels web on a localhost execute the grails command on the project folder::
+
   grails run-app
 
 Otherwise, it is posible to generate a .war file to be deployed at any server with the grails command::
+
   grails war
