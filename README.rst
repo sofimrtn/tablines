@@ -3,7 +3,7 @@
 Tabels Core
 ===========
 
-CTIC Foundation tool developed in Scala language under the terms of Apache License version 2.0.  The real core of both projects, helds the capability to map from supported tabular formats to RDF documents; the mapping between them should be specified by a ``transformation program`` by the means of a DSL developed with the only purpose of these mappings. More information about the DSL can be found in the online release help (in Spanish).
+CTIC Foundation tool developed in Scala language under the terms of Apache License version 2.0.  Tabels Core helds the capability to map from supported tabular formats to RDF documents; the mapping between them should be specified by a ``transformation program`` by the means of a DSL developed with the only purpose of these mappings. More information about the DSL can be found in the online release help (in Spanish).
 
 Valid input formats:
   * Excel files: .xls, .xlsx
@@ -54,9 +54,9 @@ Once tabels core has been downloaded from the repository it can be used through 
   sbt "run_main es.ctic.tabels.CLI [OPTIONS] [SPREADSHEET FILES]"
 
 The options suported are: 
-  * -t: path to the Tabels program
+  * -t: path to the input Tabels program
   * -o: path to the output RDF file
-  * -d: path to the debug HTML output file
+  * -d: path to the ouput debug HTML file
 
 
 =========================================================================================================
@@ -64,7 +64,7 @@ The options suported are:
 Tabels Web
 ==========
 
-Developed by CTIC foundation as a demonstrator for the interoperability capabilities of a group of technologies related to Linked Data, tabels web is a platform, grails powered, which integrates online tabels core, tapinos-ws, tapinos-js, undermaps and a bunch of linked data explotation tools.
+Developed by CTIC Foundation as a demonstrator for the interoperability capabilities of a group of technologies related to Linked Data, tabels web is a platform, grails powered, which integrates online tabels core, tapinos-ws, tapinos-js, undermaps and a bunch of linked data explotation tools.
 
 Technological Enviroment:
   * Grails 2.0.4 
@@ -91,7 +91,7 @@ Dependencies:
   * su4j-endpoint 1.2
   * pubby 0.3.3.1
   * jena 2.6.4
-  * arq 2.8.8'
+  * arq 2.8.8
 
 Running Tabels Web
 ==================
@@ -100,6 +100,6 @@ To run tabels web on a localhost execute the grails command on the project folde
 
   grails run-app
 
-Otherwise, it is posible to generate a .war file to be deployed at any server with the grails command::
+Otherwise, it is posible to generate a .war file to be deployed at any application server with the grails command::
 
   grails war
