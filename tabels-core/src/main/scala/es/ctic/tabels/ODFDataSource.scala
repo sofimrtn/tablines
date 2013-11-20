@@ -56,8 +56,11 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
     val xpath = dom.getXPath
   	val sheet = workbook.getTableByName(tabName)
   	val xExpression = xpath.compile("//table:table[@table:name = '"+ tabName +"']/table:table-row/@table:number-rows-repeated")
- 	
-  	return sheet.getRowCount - xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].item(0).getNodeValue.toInt - 1
+    val rowCount = sheet.getRowCount
+    val rowRepeated = xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].item(0).getNodeValue.toInt
+    logger.trace("row count " + rowCount + " row repeated " + rowRepeated)
+
+    rowCount - rowRepeated
   }
   
   override def getCols(tabName : String) : Int = {
@@ -66,8 +69,11 @@ class ODFDataAdapter(file : File) extends DataAdapter with Logging {
     val xpath = dom.getXPath
   	val sheet = workbook.getTableByName(tabName)
   	val xExpression = xpath.compile("//table:table[@table:name = '"+ tabName +"']/table:table-column/@table:number-columns-repeated")
- 	
-  	return sheet.getColumnCount - xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].item(0).getNodeValue.toInt
+    val columnCount = sheet.getColumnCount
+    val columnRepeated = xExpression.evaluate(dom,XPathConstants.NODESET).asInstanceOf[NodeList].item(0).getNodeValue.toInt
+    logger.trace("col count " + columnCount + " col repeated " +  columnRepeated)
+
+    columnCount - columnRepeated
   }
 
 }
