@@ -27,11 +27,12 @@ class ProjectController {
 	static {
 		System.setProperty("tabels.publicTomcatWritablePath", ConfigurationHolder.config.grails.serverURL+"/project")
         // disable cache
-        def mapCacheEnabled = System.getProperty("tabels.mapCacheEnabled")
-        org.apache.log4j.Logger.getLogger(this).info  "Checking MapService cache flag. Value: ${mapCacheEnabled}"
-        if(mapCacheEnabled != null && !mapCacheEnabled) {
+        def mapCacheEnabledPropertyValue = System.getProperty("tabels.mapCacheEnabled")
+        // only false when not null or value is different than true
+        def mapCacheEnabled = mapCacheEnabledPropertyValue ? new Boolean(mapCacheEnabledPropertyValue) : true
+        org.apache.log4j.Logger.getLogger(this).info  "Checking MapService cache flag. Value is: ${mapCacheEnabled}"
+        if (!mapCacheEnabled) {
             org.apache.log4j.Logger.getLogger(this).info "Disabling MapService cache"
-
             MapService.setCacheEnabled(false)
         }
 	}
