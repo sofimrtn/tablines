@@ -84,14 +84,14 @@ libraryDependencies += "com.linuxense" % "javadbf" % "0.4.0"
 libraryDependencies += "log4j" % "log4j" % "1.2.16"
 
 // undermaps-geotools -> The Apache Software License, Version 2.0
-libraryDependencies += "es.ctic.undermaps" % "undermaps-geotools" % "0.4-SNAPSHOT"
+libraryDependencies += "es.ctic.undermaps" % "undermaps-geotools" % "0.6"
 
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
 
 publishTo <<= (version) { version: String =>
   val nexus = "http://devit.fundacionctic.org:8081/nexus/content/repositories/"
-  if (version.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "private-snapshots/")
-  else                                   Some("releases"  at nexus + "private-releases/")
+  if (version.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "snapshots/")
+  else                                   Some("releases"  at nexus + "releases/")
 }
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
@@ -100,11 +100,11 @@ resolvers += "3rd party repo" at
 "http://devit.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
 
 resolvers += "CTIC releases" at
-"http://devit.fundacionctic.org:8081/nexus/content/repositories/private-releases/"
+"http://devit.fundacionctic.org:8081/nexus/content/repositories/releases/"
 
 // undermaps-geotools resolver
 resolvers += "CTIC snapshots" at
-"http://devit.fundacionctic.org:8081/nexus/content/repositories/private-snapshots/"
+"http://devit.fundacionctic.org:8081/nexus/content/repositories/snapshots/"
 
 // Geotools resolver
 resolvers += "Open Source Geospatial Foundation Repository" at

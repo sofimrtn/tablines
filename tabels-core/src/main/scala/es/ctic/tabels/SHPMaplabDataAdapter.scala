@@ -6,8 +6,8 @@ import grizzled.slf4j.Logging
 import java.util.zip.ZipFile
 import collection.mutable
 import org.geotools.data._
-import es.ctic.maplab.sld2googlemaps.Sld2GmapsConverter
-import es.ctic.maplab.shp2kml.Shp2KmlConverter
+import es.ctic.undermaps.geotools.sld2googlemaps.Sld2GmapsConverter
+import es.ctic.undermaps.geotools.shp2kml.Shp2KmlConverter
 import org.apache.commons.io.FileUtils
 
 
