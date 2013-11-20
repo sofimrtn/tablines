@@ -65,7 +65,7 @@ grails.project.dependency.resolution = {
 		  excludes 'arq'
 		}
 		
-        compile('es.ctic.understats:understats-ws:2.6-SNAPSHOT'){
+        compile('es.ctic.understats:tapinos-rdf-ws:2.7'){
             excludes 'arq'
         }
         compile('commons-lang:commons-lang:2.6') // Apache Lincese version 2.0
