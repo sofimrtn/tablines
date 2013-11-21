@@ -23,7 +23,7 @@ grails.project.dependency.resolution = {
         //mavenRepo "http://wopr.fundacionctic.org:8081/nexus/content/groups/public-snapshots"
 
         /*CTIC official nexus repository*/
-        mavenRepo "http://devit.fundacionctic.org:8081/nexus/content/groups/public"
+        mavenRepo "http://repository.fundacionctic.org/content/groups/public"
         
         mavenCentral()
         //mavenRepo "http://snapshots.repository.codehaus.org"
@@ -58,7 +58,7 @@ grails.project.dependency.resolution = {
             excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12'
         }
 
-        compile('es.ctic.undermaps:undermaps-ws:0.5-SNAPSHOT'){
+        compile('es.ctic.tapinos:maplab-ws:0.5'){
 		  excludes 'arq'
 		}
 		
