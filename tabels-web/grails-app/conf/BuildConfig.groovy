@@ -70,7 +70,7 @@ grails.project.dependency.resolution = {
         compile('commons-httpclient:commons-httpclient:3.0')    // Apache Lincese version 2.0
         compile('org.scala-lang:scala-library:2.9.2')           // BSD like license
         compile('org.fundacionctic.su4j:su4j-endpoint:1.3'){    // Apache Lincese version 2.0
-            excludes 'jena', 'arq', 'jena-core', 'jena-arq', 'jena-tdb', 'slf4j-log4j12', 'slf4j-jdk14'
+            excludes 'jena', 'arq', 'jena-core', 'jena-arq', 'jena-tdb', 'slf4j-api','slf4j-log4j12', 'slf4j-jdk14'
         }
         compile('org.fundacionctic.ext:pubby:0.3.3.1') {
             excludes 'arq'
