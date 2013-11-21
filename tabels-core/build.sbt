@@ -96,15 +96,8 @@ publishTo <<= (version) { version: String =>
 
 credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
-resolvers += "3rd party repo" at
-"http://devit.fundacionctic.org:8081/nexus/content/repositories/thirdparty/"
-
-resolvers += "CTIC releases" at
-"http://devit.fundacionctic.org:8081/nexus/content/repositories/releases/"
-
-// undermaps-geotools resolver
-resolvers += "CTIC snapshots" at
-"http://devit.fundacionctic.org:8081/nexus/content/repositories/snapshots/"
+resolvers += "ctic-nexus public" at
+"http://repository.fundacionctic.org/content/groups/public/"
 
 // Geotools resolver
 resolvers += "Open Source Geospatial Foundation Repository" at
