@@ -11,6 +11,7 @@ class ODFDataAdapterIntegrationTest extends JUnitSuite {
 	val filename1 : String = this.getClass.getResource("/es/ctic/tabels/Test2.ods").getFile.replace("%20"," ")
 	val sheet1 = "Hoja1"
 	val sheet2 = "Hoja2"
+  val sheet3 = "Hoja3"
 	
 	@Before def setUp {
 		val file1 = new File(filename1)
@@ -27,8 +28,10 @@ class ODFDataAdapterIntegrationTest extends JUnitSuite {
 	}
 	
 	@Test def getRows {
-		//assertEquals(0, dataAdapter.getRows(sheet1))
-		assertEquals(0, dataAdapter.getRows(sheet2))
+		assertEquals(12, dataAdapter.getRows(sheet1))
+    //FIXME why does the library return row count = 1 when the sheet is empety? Find a way to solve this
+		assertEquals(1, dataAdapter.getRows(sheet2))
+    assertEquals(1, dataAdapter.getRows(sheet3))
 	}
 	
 	@Test def getValue {
