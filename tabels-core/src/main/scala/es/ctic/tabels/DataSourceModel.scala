@@ -28,6 +28,7 @@ abstract class DataAdapter {
 object DataAdapter {
     
     val CSVFilePattern = """.+\.csv$""".r
+    val TSVFilePattern = """.+\.(tsv|tab)$""".r
     val ExcelFilePattern = """.+\.xlsx?$""".r
     val ODFFilePattern = """.+\.ods$""".r
     val HTMLFilePattern = """.+\.html$""".r
@@ -46,11 +47,16 @@ object DataAdapter {
             case ZIPSHPFilePattern() => new SHPMaplabDataAdapter(new File(url))
             case ZIPFilePattern() => new SHPMaplabDataAdapter(new File(url))
             case PXFilePattern() => new PXDataAdapter(new File(url))
-            case _ => throw new UnrecognizedSpreadsheetFormatException(url)
+            //There is a problem with regex matching size on the jvm. We alredy reached the limit so we ned to do the following cases in a differente place
+            // check: https://issues.scala-lang.org/browse/SI-1133
+            case _ => url match{
+                            case TSVFilePattern() => new TSVDataAdapter(new File(url))
+                            case _=> throw new UnrecognizedSpreadsheetFormatException(url)
+                            }
         }
     
     def findAllRecognizedFilesFromDirectory(dir : File) : Seq[File] =
-        dir.listFiles.toList.filter(_.getName match {
+        dir.listFiles.toList.filter(f=> f.getName match {
             case CSVFilePattern()
                  | ExcelFilePattern()
                  | HTMLFilePattern()
@@ -59,7 +65,10 @@ object DataAdapter {
                  | ZIPFilePattern()
                  | ZIPSHPFilePattern()
                  | PXFilePattern()=> true
-            case _ => false
+            case _ => f.getName match {
+                              case TSVFilePattern() => true
+                              case _ =>false
+                              }
         })
 
 }

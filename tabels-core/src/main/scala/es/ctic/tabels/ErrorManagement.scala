@@ -42,6 +42,7 @@ class InvalidInputFileCannotReadXls(filename:String) extends InvalidInputFile("N
 class InvalidInputFileCannotReadOds(filename:String) extends InvalidInputFile("Not valid ODS file " + filename)
 class InvalidInputFileCannotReadHTML(filename:String) extends InvalidInputFile("Not valid HTML file " + filename)
 class InvalidInputFileCannotReadCSV(filename:String) extends InvalidInputFile("Not valid CSV file " + filename)
+class InvalidInputFileCannotReadTSV(filename:String) extends InvalidInputFile("Not valid TSV file " + filename)
 
 class InvalidInputFileNoShpAttached(filename:String) extends InvalidInputFile("Shapefile zip is missing shp file " + filename)
 class InvalidInputFileNoSldAttached(filename:String) extends InvalidInputFile("Shapefile zip is missing sld file " + filename)
