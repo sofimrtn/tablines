@@ -18,3 +18,5 @@ class DataAdaptersDelegateTest extends JUnitSuite {
     }
     
 }
+
+//TODO: Add test for autodetect format method (double with comma or dot, etc.)

@@ -1,6 +1,7 @@
 package es.ctic.tabels
 
 import java.io.File
+import grizzled.slf4j.Logging
 
 abstract class DataSource {
 
@@ -102,10 +103,14 @@ case class Point(path : String, tab: String, col: Int, row: Int){
 }
 	
 
-abstract class CellValue {
+abstract class CellValue extends Logging{
   
-    val decimalPattern = """[0-9]*\.[0-9]+""".r
-    val intPattern = """[0-9]+""".r
+    //val date1Pattern =  """^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$""".r //Date format yyyy-mm-dd o yyyy/mm/dd/ o yyyy.mm.dd
+    //val date2Pattern = """^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$""".r  //Date format mm-dd-yyy o mm/dd/yyy o mm.dd.yyy
+    //val date3Pattern = """^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$""".r  //Date format dd-mm-yyy o dd/mm/yyy o dd.mm.yyy
+    val decimalPattern = """(-)?(\d+)?(\.|,)\d+""".r
+    val intPattern = """(-)?[0-9]+""".r
+    val percentagePattern = """(-)?[0-9]+%""".r
 
   def getContent : Literal
 
@@ -114,10 +119,19 @@ abstract class CellValue {
    * best to parse the cell value
    *
    */
-  def autodetectFormat(rawStringValue : String) : Literal = rawStringValue match {
-      case intPattern() => Literal(rawStringValue, XSD_INTEGER)
-      case decimalPattern() => Literal(rawStringValue, XSD_DOUBLE)
-      case x => Literal(rawStringValue, XSD_STRING)
+
+  def autodetectFormat(rawStringValue : String) : Literal ={
+    logger.info("Trying to autodetect format of value " + rawStringValue)
+
+    val result : Literal = rawStringValue.trim match {
+      case lit if(lit.matches(intPattern.toString)) =>  Literal(rawStringValue.toInt, XSD_INTEGER)
+      case lit if(lit.matches(decimalPattern.toString))  =>  Literal(rawStringValue.replace(",",".").toDouble, XSD_DOUBLE)  //If the double number is formed with "," instead of "." it's replaced here
+      case lit if(lit.matches(percentagePattern.toString)) => Literal((rawStringValue.replace("%", "").trim.toDouble/100).toDouble , XSD_DECIMAL)
+      //TODO: Add date format recognition with the above defined patterns
+      case default =>  Literal(rawStringValue, XSD_STRING)
+    }
+
+    return result
   }
   
 }

@@ -35,17 +35,17 @@ class PXDataAdapterTest extends JUnitSuite {
     
     //Content
     assertEquals(Literal("Total@Sexo"), dataAdapter.getValue(Point(filename1, sheet1, row = 1, col = 1)).getContent)
-    assertEquals(Literal("40854", XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 2)).getContent)
-    assertEquals(Literal("3465", XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 5, col = 3)).getContent)
+    assertEquals(Literal(40854, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 2, col = 2)).getContent)
+    assertEquals(Literal(3465, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 5, col = 3)).getContent)
 
 
     // dimensionLimits
     assertEquals(Literal(""), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 0)).getContent)
     assertEquals(Literal("APATRIDAS@País de nacionalidad"), dataAdapter.getValue(Point(filename1, sheet1, row = 129, col = 0)).getContent)
     assertEquals(Literal("2011@Año"), dataAdapter.getValue(Point(filename1, sheet1, row = 0, col = 42)).getContent)
-    assertEquals(Literal("17", XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 129, col = 42)).getContent)
+    assertEquals(Literal(17, XSD_INTEGER), dataAdapter.getValue(Point(filename1, sheet1, row = 129, col = 42)).getContent)
     
-    assertEquals(Literal("602", XSD_INTEGER), dataAdapter2.getValue(Point(filename2, sheet1, row = 2, col = 7)).getContent)
+    assertEquals(Literal(602, XSD_INTEGER), dataAdapter2.getValue(Point(filename2, sheet1, row = 2, col = 7)).getContent)
     assertEquals(Literal("Suministro de agua pública por país, periodo y sector"), dataAdapter2.getValue(Point(filename2, sheet2, row = 0, col = 1)).getContent)
     assertEquals(Literal("millones de metros cúbicos."), dataAdapter2.getValue(Point(filename2, sheet2, row = 2, col = 1)).getContent)
     assertEquals(Literal("EUROSTAT"), dataAdapter2.getValue(Point(filename2, sheet2, row = 3, col = 1)).getContent)
