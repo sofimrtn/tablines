@@ -17,7 +17,20 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
      assertEquals(Literal("Tritonshorn", XSD_STRING, "gr") ,MiscellaneaFunctions.setLangTag("Tritonshorn","gr"))
    
      }
-    @Test def isResource{
+
+  @Test def resource{
+
+    assertEquals(NamedResource("http://localhost:8080/tabels/project/test") ,ResourceExpression(LiteralExpression("http://localhost:8080/tabels/project/test"),NamedResource("")).evaluate(null))
+    assertEquals(NamedResource("http://example.org/tabels/project/test") ,ResourceExpression(LiteralExpression("tabels/project/test"),NamedResource("http://example.org/")).evaluate(null))
+    assertEquals(NamedResource("http://example.org/tabels/project/test#test1") ,ResourceExpression(LiteralExpression("tabels/project/test#test1"),NamedResource("http://example.org/")).evaluate(null))
+    assertEquals(NamedResource("http://example.org/tabels/proj+ect/test#test1") ,ResourceExpression(LiteralExpression("tabels/proj ect/test#test1"),NamedResource("http://example.org/")).evaluate(null))
+    assertEquals(NamedResource("http://example.org/tabels/proj+ect/test#tes%25C3%25B1t1") ,ResourceExpression(LiteralExpression("tabels/proj ect/test#tesñt1"),NamedResource("http://example.org/")).evaluate(null))
+    assertEquals(NamedResource("http://example.org/tabels/proj+ect/test#test1") ,ResourceExpression(LiteralExpression("proj ect/test#test1"),NamedResource("http://example.org/tabels/")).evaluate(null))
+    assertEquals(NamedResource("http://localhost:8080/tabels/project/test/") ,ResourceExpression(LiteralExpression("http://localhost:8080/tabels/project/test/"),NamedResource("")).evaluate(null))
+
+  }
+
+  @Test def isResource{
 
     /*White List urls tests*/
     assertEquals(NamedResource("http://localhost:8080/tabels/project/test") ,MiscellaneaFunctions.isResource("http://localhost:8080/tabels/project/test"))
@@ -26,10 +39,9 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
     assertEquals(NamedResource("http://idi.fundacionctic.org/map-styles/symbols/") ,MiscellaneaFunctions.isResource("http://idi.fundacionctic.org/map-styles/symbols/"))
     assertEquals(NamedResource("http://idi.fundacionctic.org/scovoxl/scovoxl") ,MiscellaneaFunctions.isResource("http://idi.fundacionctic.org/scovoxl/scovoxl"))
 
-    /*Valid url test*/
+    /*Valid urI test*/
     assertEquals(NamedResource("http://example.org") ,MiscellaneaFunctions.isResource("http://example.org"))
-
-    //assertEquals(NamedResource("http://localho$¿st:8080/tabÑels/project/test"),MiscellaneaFunctions.isResource("http://localho$¿st:8080/tabÑels/project/test"))
+    assertEquals(NamedResource("http://example.org/tabÑels/project/test"),MiscellaneaFunctions.isResource("http://example.org/tabÑels/project/test"))
 
     /*Black List tests*/
     //assertEquals(NamedResource("http://192.168.1.0/tabels/project/test"),MiscellaneaFunctions.isResource("http://192.168.1.0/tabels/project/test"))
@@ -42,8 +54,8 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
   @Test def canBeResource{
 
     assertTrue(MiscellaneaFunctions.canBeResource("http://localhost:8080/tabels/project/test"))
-    assertTrue(MiscellaneaFunctions.canBeResource(":/localhost:8080/tabels/project/test"))
-    assertTrue(MiscellaneaFunctions.canBeResource("http://localho$¿st:8080/tabÑels/project/test"))
+    assertFalse(MiscellaneaFunctions.canBeResource(":/localhost:8080/tabels/project/test"))
+    assertFalse(MiscellaneaFunctions.canBeResource("http://localho$¿st:8080/tabÑels/project/test"))
     assertFalse(MiscellaneaFunctions.canBeResource(""))
 
     /*Black List tests*/

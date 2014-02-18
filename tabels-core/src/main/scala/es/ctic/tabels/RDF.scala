@@ -1,7 +1,7 @@
 package es.ctic.tabels
 
 import scala.util.matching.Regex
-import java.net.URL
+import java.net.{URLEncoder, URI, URL}
 import grizzled.slf4j.Logging
 
 sealed abstract class RDFNode {
@@ -87,52 +87,79 @@ abstract sealed class Resource() extends RDFNode  {
     
 }
 //FIXMe to be lazy
-case class NamedResource(uri : String) extends Resource with Logging {
-   
-	try
-    { 
-      if(uri!="")new URL(uri).toURI
+case class NamedResource(givenUri : String) extends Resource with Logging {
 
-      val whitelistStartsWith = List(
-        "http://idi.fundacionctic.org/scovoxl/scovoxl",
-        "http://idi.fundacionctic.org/tabels/project",
-        "http://idi.fundacionctic.org/map-styles/symbols/",
-        "http://localhost:8080/tabels/project"
-        )
-
-      val blacklistContains = List(
-        "fundacionctic"
-        )
-      val blacklistStartsWith = List(
-        "192.",
-        "10.",
-        "192.168.",
-        "127.0.0.1",
-        "localhost"
-      )
-
-
-      if(( blacklistStartsWith.exists(entry => uri.toLowerCase.split("://")(1).startsWith(entry)) || blacklistContains.exists(entry => uri.toLowerCase.contains(entry))) &&
-        !whitelistStartsWith.exists(entry => uri.toLowerCase.startsWith(entry)))
-        throw new ServerReferedURIException(uri)
-
-      // if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
-  		// throw new ServerReferedURIException(uri)
-    }
-    catch 
+  val uri = try
     {
-      case srue:ServerReferedURIException => throw srue
-      case _ => new NotValidUriException("<" + uri + ">")
+      //TODO: avoid blank named resources. It's allowed to because of the resource expression sintax :
+      //      resource(?fullURI,'') => generates a resource without prepending anything
+      //      resource(?y) => generates a resource prepending de default prefix (my)
+      if(givenUri.trim!=""){
+        val url = new URL(givenUri)
+        val protocol = url.getProtocol
+        val user = if (url.getUserInfo != null) url.getUserInfo  else null
+        val port = if (url.getPort != null)  url.getPort else -1
+        val host = URLEncoder.encode(url.getHost,"UTF-8")
+        val prePath = url.getPath.split("/").map(URLEncoder.encode(_,"UTF-8")).mkString("/")
+        val elongedPath = if (url.getPath.count( _=='/') > prePath.count( _=='/'))  prePath + "/"  else prePath
+        val path = if (elongedPath.length > 0) elongedPath else null
+        val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
+        val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
+        new URI(protocol,user,host,port,path,query,fragment).toString
+
+      }
+      else ""
     }
+  catch
+    {
+         case e => throw new NotValidUriException("<" + givenUri + ">")
+    }
+
+  logger.info("Creating new Namedresource: " + this.toString )
+
+  val whitelistStartsWith = List( // Exceptions to the black listed urls
+    "http://idi.fundacionctic.org/scovoxl/scovoxl",
+    "http://idi.fundacionctic.org/tabels/project",
+    "http://idi.fundacionctic.org/map-styles/symbols/",
+    "http://localhost:8080/tabels/project"
+  )
+
+  val blacklistContains = List( // urls referencing ctic foundation are balclkisted
+    "fundacionctic"
+  )
+  val blacklistStartsWith = List( // urls referencing internal addresses ar blacklisted
+    "192.",
+    "10.",
+    "192.168.",
+    "127.0.0.1",
+    "localhost"
+  )
+  if (givenUri!="")
+    try //Check here if the the given uri is not in conflict with the blacklist urls
+      {
+         if(( blacklistStartsWith.exists(entry => givenUri.toLowerCase.split("://")(1).startsWith(entry)) || blacklistContains.exists(entry => givenUri.toLowerCase.contains(entry))) &&
+          !whitelistStartsWith.exists(entry => givenUri.toLowerCase.startsWith(entry)))
+          throw new ServerReferedURIException(givenUri)
+
+
+        // if(!(uri.toLowerCase.contains("http://idi.fundacionctic.org/scovoxl/scovoxl")|uri.toLowerCase.contains("/idi.fundacionctic.org/tabels/project"))&(uri.toLowerCase.contains("192.168.")|uri.toLowerCase.contains("fundacionctic")))
+        // throw new ServerReferedURIException(uri)
+      }
+    catch
+      {
+        case srue:ServerReferedURIException => throw srue
+      }
+
     override def toString() = "<" + uri + ">"
     
     def toAbbrString(prefixes : Seq[(String,NamedResource)]) : String = toCurie(prefixes) getOrElse toString()
     
     def toCurie(prefixes : Seq[(String,NamedResource)]) : Option[String] =
         if (this == RDF_TYPE) Some("a")
-        else {val filterePrefix = prefixes.filter(uri startsWith _._2.uri)
-        	  if (!filterePrefix.isEmpty){
-        		  val prefix = filterePrefix.maxBy(ns => ns._2.uri)
+        else {val filteredPrefix = prefixes.filter(uri startsWith _._2.uri)
+        	  if (!filteredPrefix.isEmpty){
+        		  val prefix = filteredPrefix.maxBy(ns => ns._2.uri)
+              logger.info("prefix: " +  prefix._2.uri)
         		  Some(uri.replace(prefix._2.uri, prefix._1 + ":"))
         	  }
         	  else None//Some("uri")

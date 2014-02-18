@@ -1,18 +1,38 @@
 package es.ctic.tabels
 
-import java.net.URLEncoder
+import java.net.{URL, URI, URLEncoder}
 import grizzled.slf4j.Logging
 
 /*
  * TABELS Expressions
  */
 
-object MiscellaneaFunctions extends FunctionCollection with Logging{
+object MiscellaneaFunctions extends FunctionCollection with Logging {
 	 lazy val lucene = new Lucene
-     val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String, workMode: String) => lucene.query(ec,query, workMode) }
+   val DBPediaDisambiguation3 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String, workMode: String) => lucene.query(ec,query, workMode) }
 	 val DBPediaDisambiguation1 = "DBPedia-Disambiguation" isDefinedBy {(ec: EvaluationContext,query: String) => lucene.query(ec,query) }
 	 val setLangTag = "setLangTag" isDefinedBy {(lit: String, lang: String) => Literal(value = lit, rdfType = XSD_STRING, langTag = lang)}
 	 val boolean = "boolean" isDefinedBy { (x : Boolean) => x  }
+   val resource1 = "resource" isDefinedBy {(uri:String) => new NamedResource(uri)}
+
+   val resource2 = "resource" isDefinedBy {(expression:String, uri:String) =>  try
+                                                                               {
+                                                                                 val url = new URL((uri + expression) )
+                                                                                 val protocol = url.getProtocol
+                                                                                 val user = if (url.getUserInfo != null) url.getUserInfo  else null
+                                                                                 val port = if (url.getPort != null)  url.getPort else -1
+                                                                                 val host = URLEncoder.encode(url.getHost,"UTF-8")
+                                                                                 val prePath = url.getPath.split("/").map(URLEncoder.encode(_,"UTF-8")).mkString("/")
+                                                                                 val elongedPath = if (url.getPath.count( _=='/') > prePath.count( _=='/'))  prePath + "/"  else prePath
+                                                                                 val path = if (elongedPath.length > 0) elongedPath else null
+                                                                                 val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
+                                                                                 val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
+
+                                                                                 NamedResource(new URI(protocol,user,host,port,path,query,fragment).toString )
+                                                                               }
+                                                                               catch
+                                                                                 { case e => throw e}}
+
    val isResource = "is-resource" isDefinedBy {(uri:String) => if (uri.equalsIgnoreCase(""))
                                                                    throw new NotValidUriException(uri)
                                                                 else new NamedResource(uri)}
@@ -50,10 +70,27 @@ case class GetColExpression(variable:Variable) extends Expression {
  * RDF Expressions
  */
 
-case class ResourceExpression(expression:Expression, uri : NamedResource) extends Expression {
+case class ResourceExpression(expression:Expression, uri : NamedResource) extends Expression with Logging {
   
-  override def evaluate(evaluationContext : EvaluationContext) =try{ uri + expression.evaluateAsStringValue(evaluationContext)}
-  																catch{ case e =>  uri + ((URLEncoder.encode(expression.evaluateAsStringValue(evaluationContext),"cp1252")).replaceAll("%[0-9a-fA-F][0-9a-fA-F]|\\+", "_"))}
+  override def evaluate(evaluationContext : EvaluationContext) =
+    try
+      {
+      val url = new URL((uri.uri + expression.evaluateAsStringValue(evaluationContext)) )
+      val protocol = url.getProtocol
+      val user = if (url.getUserInfo != null) url.getUserInfo  else null
+      val port = if (url.getPort != null)  url.getPort else -1
+      val host = URLEncoder.encode(url.getHost,"UTF-8")
+      val prePath = url.getPath.split("/").map(URLEncoder.encode(_,"UTF-8")).mkString("/")
+      val elongedPath = if (url.getPath.count( _=='/') > prePath.count( _=='/'))  prePath + "/"  else prePath
+      val path = if (elongedPath.length > 0) elongedPath else null
+      val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
+      val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
+
+      NamedResource(new URI(protocol,user,host,port,path,query,fragment).toString )
+    }
+    catch
+    { case e => throw e}
+
   override def prettyPrint = "resource(" + expression.toString + "," + uri.toString + ")"
 
 }
