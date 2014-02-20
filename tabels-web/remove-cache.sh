@@ -6,3 +6,5 @@ rm -rf ~/.grails/ivy-cache/es.ctic.maplab
 rm -rf ~/.ivy2/cache/es.ctic.maplab/
 rm -rf ~/.grails/ivy-cache/es.ctic.undermaps
 rm -rf ~/.ivy2/cache/es.ctic.undermaps/
+rm -rf ~/.grails/ivy-cache/es.ctic.tapinos
+rm -rf ~/.ivy2/cache/es.ctic.tapinos/
