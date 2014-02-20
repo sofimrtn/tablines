@@ -23,7 +23,7 @@ function  undermapsTree_initializateTree(undermapsTreeComponent){
 			  	namedgraph: settings.namedgraph
 			}
 	    },
-		
+
 		// The following options are only required, if we have more than one tree on one page:
 		// initId: "treeData",
 		cookieId: "dynatree-Cb3",
@@ -33,26 +33,26 @@ function  undermapsTree_initializateTree(undermapsTreeComponent){
 			var selKeys = $.map(node.tree.getSelectedNodes(), function(node){
 				return node.data.key;
 			});
-			
+
 			//$("#echoSelection").text(selKeys.join(", "));
-			
+
 			undermapsTreeComponent.data("selKeys", selKeys);
-			//selKeys contains all selected keys 
-			//alert (selKeys);			
+			//selKeys contains all selected keys
+			//alert (selKeys);
 		},
 		strings: {
         	loading: "Loading…",
        		loadError: "No geospatial data found"
     	}
-	
+
 	});
-	
+
 	var selKeys = new Array();
 	undermapsTreeComponent.data("selKeys", selKeys);
 }
 
 function undermapsTree_paintLegend (undermapsTreeComponent){
-	var textLegend = "";	
+	var textLegend = "";
 	var selKeys = undermapsTreeComponent.data("selKeys");
 	var settings = undermapsTreeComponent.data("settings");
 	var map = $("#" + settings.mapRef);
@@ -61,29 +61,29 @@ function undermapsTree_paintLegend (undermapsTreeComponent){
 	if ($("div#legend").find("ul")!= null) {
 		$("div#legend").find("ul").empty();
 	}
-	
+
 	/*if ($("div#legend").find("p")!= null) {
 		$("div#legend").find("p").empty();
 	}*/
-		
+
 	if (selKeys.length == 0){
 		textLegend = textLegend + "<ul><li>Nothing selected</li></ul>";
-	}else{		
+	}else{
 		textLegend = textLegend + "<ul class='legendlist'>";
-	
+
 		var data = map.data("requestData");
-		
-		
-		for (var i=0; i < selKeys.length; i++){		
+
+
+		for (var i=0; i < selKeys.length; i++){
 			var aux = eval ("data.series["+i+"]." + selKeys[i] );
 			textLegend = textLegend + "<li>";
-			textLegend = textLegend + "<img src='icons/"+ aux +"'/>";	
+			textLegend = textLegend + "<img src='icons/"+ aux +"'/>";
 			textLegend = textLegend + "</li>";
 		}
-			
+
 		textLegend = textLegend + "</ul>";
 	}
-	
+
 	legend.append(textLegend);
 
 }
@@ -102,18 +102,18 @@ function undermapsTree_setDefaultSettings(settings){
 
 // ********************************************************
 // JQuery component
-// ********************************************************	
+// ********************************************************
 
 (function($) {
 // initialization function
    $.fn.undermapsTree = function(settings) {
 
-	   $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default	
-   			
+	   $.ui.dynatree.nodedatadefaults["icon"] = false; // Turn off icons by default
+
     	undermapsTree_setDefaultSettings(settings);
     	// save settings into the DOM tree
         $(this).data("settings", settings);
-         
+
 	   	this.each(function() {
 	   		undermapsTree_initializateTree($(this));
 		});

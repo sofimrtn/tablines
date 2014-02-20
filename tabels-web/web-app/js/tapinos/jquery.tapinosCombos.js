@@ -1,6 +1,6 @@
 // Tapinos dynamic comboboxes component
 
-var tapinosCombosConfig = { 
+var tapinosCombosConfig = {
     freeVarPrefix: "__FREE_VAR__"
 }
 
@@ -20,13 +20,13 @@ function getChartParameters(tapinosCombosComponent) {
         'dimensionConstraints': dimensionConstraints,
         'dataset': tapinosCombosComponent.data("tapinosCombosDataset")
     }
-    
+
     if (settings.series != undefined) {
    		var series = settings.series();
    		chartConfig['seriesVar'] = series.seriesVar;
    		chartConfig['seriesValues'] = series.seriesValues;
     }
-    
+
     if (userFreeVars.length == 2 && chartConfig.seriesVar == undefined) {
     	chartConfig['seriesVar'] = freeVars[1];
     }
@@ -37,7 +37,7 @@ function getChartParameters(tapinosCombosComponent) {
 	   chartConfig['seriesVar'] = chartConfig['valueVar'];
 	   chartConfig['valueVar'] = swp;
 	}
-    
+
     // shows or hides the series switch div
     if (seriesSwitchDiv != null) {
 		if (chartConfig['seriesVar'] != undefined) {
@@ -49,14 +49,14 @@ function getChartParameters(tapinosCombosComponent) {
 			seriesSwitchDiv.slideUp("slow");
 		}
     }
-    
+
 	// this must be done at the end (after series switching)
     chartConfig['chartType'] = tapinosCombos_chooseChartType(chartConfig, data);
-    
+
     if ($(".tapinosCombos_simplifiedSelect", tapinosCombosComponent).length > 0) {
     	chartConfig['minDimensionValueWeight'] = settings.minDimensionValueWeight;
     }
-    
+
     return chartConfig;
 }
 
@@ -70,24 +70,24 @@ function tapinosCombos_chooseChartType(chartConfig, data) {
 
 
 function tapinosCombos_getDimensionValues(tapinosCombosComponent) {
-   return $.makeArray($("select > option:selected", tapinosCombosComponent).map(function() { 
-       return $(this).val(); 
+   return $.makeArray($("select > option:selected", tapinosCombosComponent).map(function() {
+       return $(this).val();
        } ));
-}	
+}
 
 function tapinosCombos_getFreeVars(tapinosCombosComponent) {
   var freeValueVar = tapinosCombosComponent.data("tapinosCombosSettings").freeValueVar;
   var freeVarsFromConfig = freeValueVar != null ? [freeValueVar]: [];
-  var freeVarsFromCombos = tapinosCombos_getDimensionValues(tapinosCombosComponent).filter(function(d) { 
-    return d.indexOf(tapinosCombosConfig.freeVarPrefix) == 0; }).map(function(d) { 
-      return d.slice(tapinosCombosConfig.freeVarPrefix.length); 
+  var freeVarsFromCombos = tapinosCombos_getDimensionValues(tapinosCombosComponent).filter(function(d) {
+    return d.indexOf(tapinosCombosConfig.freeVarPrefix) == 0; }).map(function(d) {
+      return d.slice(tapinosCombosConfig.freeVarPrefix.length);
     });
   return freeVarsFromConfig.concat(freeVarsFromCombos);
 }
-    
+
 function tapinosCombos_getDimensionConstraints(tapinosCombosComponent) {
-    var dimensionsConstraintsFromCombos = tapinosCombos_getDimensionValues(tapinosCombosComponent).filter(function(d) { 
-        return d.indexOf(tapinosCombosConfig.freeVarPrefix) == -1; 
+    var dimensionsConstraintsFromCombos = tapinosCombos_getDimensionValues(tapinosCombosComponent).filter(function(d) {
+        return d.indexOf(tapinosCombosConfig.freeVarPrefix) == -1;
     });
     var fixedVars = tapinosCombosComponent.data("tapinosCombosSettings").fixedVars();
     var dimensionsConstraintsFromConfig = fixedVars.map(function(d) { return d.value; });
@@ -95,12 +95,12 @@ function tapinosCombos_getDimensionConstraints(tapinosCombosComponent) {
 }
 
 function tapinosCombos_isContinuousDimension(dimensionUri, rawDimensions) {
-    return rawDimensions.filter(function(d) { return d.uri == dimensionUri; })[0].continuous;
+    return rawDimensions.filter(function(d) { return d.id == dimensionUri; })[0].continuous;
 }
 
 function tapinosCombos_getDimensionLabel(data, dimensionUri) {
     for ( dimensionIndex in data ) {
-        if (data[dimensionIndex].uri == dimensionUri) {
+        if (data[dimensionIndex].id == dimensionUri) {
             return data[dimensionIndex].label;
         }
     }
@@ -121,12 +121,12 @@ function tapinosCombos_populateDefaultSettings(settings) {
 
 function tapinosCombos_getRequestData(component, datasetURI) {
     var settings = component.data("tapinosCombosSettings");
-	var requestData = {'endpoint': component.data("tapinosCombosSettings").endpoint, 
+	var requestData = {'endpoint': component.data("tapinosCombosSettings").endpoint,
 			'namedgraph': component.data("tapinosCombosSettings").namedgraph,
 			'dataset': datasetURI, 'dimensionConstraint': [] };
 	if (settings.fixedVars != undefined) {
 		var fixedVars = settings.fixedVars();
-		$.each(fixedVars, function(index, value) { 
+		$.each(fixedVars, function(index, value) {
 			requestData.dimensionConstraint.push(value.value);
 		});
 	}
@@ -143,6 +143,61 @@ function tapinosCombos_getRequestData(component, datasetURI) {
 // HTML injection
 // ********************************************************
 
+
+
+
+
+function tapinosCombos_injectCombosHierarchical(component, json, position_to_change) {
+
+    // numero de selects que hay en el DIV
+    var select_size = component.find('select').length;
+
+    // limpiar los selects que hay hacia adelante de la posicion que hay que cambiar
+    for (var i=select_size;i>=position_to_change;i--) {
+        component.find('select').eq(i).remove();
+    }
+
+    var s = $("<select />");
+    var future_options = [];
+    if (position_to_change == 0){ // caso especial, el primer combo
+        for(var i=0;i<json.rows.length;i++){
+            var obj = json.rows[i].key;
+            if (obj[0] === 1) {
+             future_options.push(obj[1]);
+            }
+        }
+    } else {
+        for(var i=0;i<json.rows.length;i++){
+            var nivel = json.rows[i].key[0];
+            var key_value = json.rows[i].key[1];
+            var select_value = component.find('select').eq(position_to_change-1).val();
+            if ((nivel === position_to_change) && (key_value == select_value)) {
+                future_options = json.rows[i].value;
+            }
+        }
+
+    }
+
+    // Añadir solo si tiene contenido
+    if (future_options.length != 0){
+        $.each(future_options, function(index, value) {
+            $("<option />", {value: value, text: value}).appendTo(s);
+        });
+
+        s.appendTo(component);
+
+        // que no haya una opción seleccionada por defecto
+        s.prop("selectedIndex", -1);
+
+        s.change(function() {
+			tapinosCombos_injectCombosHierarchical(component, json, position_to_change+1);
+            // Valor listo para enviarse al servidor
+            var selectedVal = $(component).find(':selected').val();
+        });
+    }
+}
+
+
 function tapinosCombos_injectCombos(component) {
     var data = $(component).data("tapinosRawDimensions");
     var settings = $(component).data("tapinosCombosSettings");
@@ -152,41 +207,52 @@ function tapinosCombos_injectCombos(component) {
     var constrainedVarsFromConfig = fixedVarsFunc.map(function(d) { return d.dimension; });
 
     component.empty();
-    for ( dimensionIndex in data ) {	
-  	    var varUri = data[dimensionIndex].uri;
+
+    for ( dimensionIndex in data ) {
+    	var varUri = data[dimensionIndex].id;
   	    if ( constrainedVarsFromConfig.indexOf(varUri) != -1) { continue; } // this var fixed by external constraints
   	    if ( varUri == freeValueVar ) { continue; } // this var is the free value var
   	    if ( settings.series != undefined && varUri == settings.series().seriesVar ) { continue; } // skip series var
+  	    if ( data[dimensionIndex].hierarchical == true ) {
 
-  	    var label = $("<label>").attr("for", "selectDimension_" + dimensionIndex).text(data[dimensionIndex].label);
-  	    var select = $("<select>").attr("id", "selectDimension_" + dimensionIndex);
-  	    select.data('dimensionValues', data[dimensionIndex].dimensionValues);
-  	    select.data('dimensionUri', varUri);
-  	    select.data('tapinosCombos', component);
-        tapinosCombos_injectOptions(select, settings.minDimensionValueWeight);
-        if (data[dimensionIndex].dimensionValues.length < 2) {
-        	select.attr("disabled", true);
-        } else if (initiallyFreeVars > 0) {
-        	$(".tapinosCombos_freeVarOption", select).attr("selected", true);
-  		    initiallyFreeVars--;
-        }
-        
-    
-        component.append($("<span>").append(label).append(select));
-        
-        // switch to advanced options
-        if (select.hasClass("tapinosCombos_simplifiedSelect") == true) {
-        	var spanAdv = $("<span>").addClass("advOpt").text(" - List: ");
-        	var spanVFull = $("<span>").addClass("fullVersion").text("Complete");
-        	var spanVSep = $("<span>").addClass("sepVersion").text(" / ");
-        	var spanVLite = $("<span>").addClass("liteVersion").text("Reduce");
+			var label = $("<label>").text(data[dimensionIndex].label);
+			var div = $("<div>").attr("id", "selectDimension_" + dimensionIndex).append(label);
+	        component.append(div);
 
-        	label.append(spanAdv).append(spanVFull).append(spanVSep).append(spanVLite);
-        	var a = $("<a>").live().addClass('toggleOptionsLink').click(tapinosCombos_onToggleAdvancedOptionsClick);
-        	a.data('select', select);
-        	$('.fullVersion').wrap(a);
-        }
+			tapinosCombos_injectCombosHierarchical(div, data[dimensionIndex].dimensionValues, 0);
+
+  	    } else {
+
+			var label = $("<label>").attr("for", "selectDimension_" + dimensionIndex).text(data[dimensionIndex].label);
+			var select = $("<select>").attr("id", "selectDimension_" + dimensionIndex);
+			select.data('dimensionValues', data[dimensionIndex].dimensionValues);
+			select.data('dimensionUri', varUri);
+			select.data('tapinosCombos', component);
+			tapinosCombos_injectOptions(select, settings.minDimensionValueWeight);
+			if (data[dimensionIndex].dimensionValues.length < 2) {
+        		select.attr("disabled", true);
+			} else if (initiallyFreeVars > 0) {
+        		$(".tapinosCombos_freeVarOption", select).attr("selected", true);
+				initiallyFreeVars--;
+			}
+
+			component.append($("<span>").append(label).append(select));
+
+			// switch to advanced options
+			if (select.hasClass("tapinosCombos_simplifiedSelect") == true) {
+        		var spanAdv = $("<span>").addClass("advOpt").text(" - List: ");
+				var spanVFull = $("<span>").addClass("fullVersion").text("Complete");
+				var spanVSep = $("<span>").addClass("sepVersion").text(" / ");
+				var spanVLite = $("<span>").addClass("liteVersion").text("Reduce");
+
+				label.append(spanAdv).append(spanVFull).append(spanVSep).append(spanVLite);
+				var a = $("<a>").live().addClass('toggleOptionsLink').click(tapinosCombos_onToggleAdvancedOptionsClick);
+				a.data('select', select);
+				$('.fullVersion').wrap(a);
+			}
+		} // else
     }
+
 }
 
 function tapinosCombos_injectOptions(select, minDimensionValueWeight) {
@@ -255,13 +321,13 @@ function tapinosCombos_onDimensionChange(event) {
     }
     if (tapinosCombos_getFreeVars(combosDiv).length > 1 && seriesValues.length > 1) {
         userError(settings.errorMsgsDiv,'*Compare only available in one variable');
-        clearDivs(settings.toClearIfFailure);    	
+        clearDivs(settings.toClearIfFailure);
     } else if (tapinosCombos_getFreeVars(combosDiv).length > 2) {
         userError(settings.errorMsgsDiv,'*Compare only available in a maximum of two variables');
         clearDivs(settings.toClearIfFailure);
     } else {
         settings.errorMsgsDiv.html("");
-        // User input is valid at this point. Pass the control back to 
+        // User input is valid at this point. Pass the control back to
         // him to handle chart parameters as he wishes.
         var callback = settings.callback;
         callback(getChartParameters(combosDiv));
@@ -274,10 +340,10 @@ function tapinosCombos_onToggleAdvancedOptionsClick() {
 	var settings = component.data('tapinosCombosSettings');
 	var prevSelectedOption = select.val();
 	select.empty();
-	
+
 	var a = $("<a>").live().addClass('toggleOptionsLink').click(tapinosCombos_onToggleAdvancedOptionsClick);
 	a.data('select', select);
-	
+
 	if (select.hasClass("tapinosCombos_simplifiedSelect")) {
 		select.removeClass("tapinosCombos_simplifiedSelect");
 		tapinosCombos_injectOptions(select, undefined);
@@ -295,14 +361,14 @@ function tapinosCombos_onToggleAdvancedOptionsClick() {
 function tapinosCombos_onSeriesSwitchLinkClick() {
 	// $this is the a element
     var component = $(this).data("componentRef");
-    
+
     var previous_checked = $(this).data("checked");
     $(this).data("checked",!previous_checked);
-    
+
     var select = $("select", component)[0];
     select.hack = tapinosCombos_onDimensionChange;
     select.hack(event);
-    return; 
+    return;
 }
 
 
@@ -325,7 +391,7 @@ function tapinosCombos_dimensionServiceCallback(data) {
         tapinosCombos_restoreState($(this));
 
         // Attach event handlers dynamically
-        $("select", this).each(function() { 
+        $("select", this).each(function() {
             $(this).bind('change', tapinosCombos_onDimensionChange);
         });
         // Simulate a change in the first combo
@@ -348,7 +414,7 @@ function tapinosCombos_restoreState(component) {
     			$(select).val(decodeURIComponent(initValueForThisSelect));
     		}
        	});
-    }    
+    }
 }
 function tapinosCombos_populateDefaultSeriesSwitchLink (settings, alternativeSeriesClass){
 	settings.seriesSwitchLink = $("."+alternativeSeriesClass, settings.seriesSwitchDiv); // Fixed default value
@@ -364,7 +430,7 @@ function tapinosCombos_populateDefaultSeriesSwitchLink (settings, alternativeSer
         $(this).data("tapinosCombosSettings", settings);
     	$(this).data("skipRestoreState", false);
         $(this).addClass("tapinosCombos");
-        
+
         if (settings.seriesSwitchDiv != null) {
             settings.seriesSwitchDiv.addClass("tapinosCombos-seriesSwitch");
             tapinosCombos_injectSeriesSwitchDivCode($(this), settings.seriesSwitchDiv);
@@ -384,15 +450,15 @@ function tapinosCombos_populateDefaultSeriesSwitchLink (settings, alternativeSer
           data: tapinosCombos_getRequestData($(this), datasetURI),
           traditional: true,
           success: tapinosCombos_dimensionServiceCallback,
-          error: function() { 
-            networkError($(this).data("tapinosCombosSettings").errorMsgsDiv); 
+          error: function() {
+            networkError($(this).data("tapinosCombosSettings").errorMsgsDiv);
             clearDivs($(this).data("tapinosCombosSettings").toClearIfFailure);
             return; }
         });
      });
      return this;
    };
-   
+
   $.fn.tapinosCombosGetStateParams = function() {
 	  var state = {};
 	  this.each(function() {

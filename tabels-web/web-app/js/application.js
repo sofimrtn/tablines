@@ -28,3 +28,12 @@ $( ".accordion" ).click(function() {
 $(document).ready(function(){
 	$(document.location.hash).next('div').show();
 })
+if (typeof jQuery !== 'undefined') {
+	(function($) {
+		$('#spinner').ajaxStart(function() {
+			$(this).fadeIn();
+		}).ajaxStop(function() {
+			$(this).fadeOut();
+		});
+	})(jQuery);
+}

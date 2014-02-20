@@ -8,7 +8,7 @@ function  undermapsMap_initializateMap(undermapsMapComponent){
     };
 
     var map = new google.maps.Map(document.getElementById("mapGoogle"), gmapsOptions);
-    
+
 	undermapsMapComponent.data("undermapsGoogleMap", map);
 }
 
@@ -37,16 +37,16 @@ function undermapsMap_showInfo(typeGeo, i, location, undermapsMapComponent){
 	var infowindow = undermapsMapComponent.data("undermapsMapInfoWindow");
 	var map = undermapsMapComponent.data("undermapsGoogleMap");
 	var location ="";
-	
+
 	switch (typeGeo){
 		case 0: var arrayPolygons = undermapsMapComponent.data("undermapsMapPolygons");
 				var polygon = arrayPolygons[i];
 				location = undermapsMap_centerElement(polygon);
 				break;
-				
+
 		case 1: var arrayPolyline = undermapsMapComponent.data("undermapsMapPolylines");
 			    var polyline = arrayPolyline[i];
-			    location = undermapsMap_centerElement(polyline);	
+			    location = undermapsMap_centerElement(polyline);
 				break;
 		case 2: var arrayMaker = undermapsMapComponent.data("undermapsMapMakers");
 				var maker = arrayMaker[i];
@@ -68,47 +68,47 @@ function undermapsMap_showInfo(typeGeo, i, location, undermapsMapComponent){
 function undermapsMap_paintMap(undermapsMapComponent){
 
 	var infoMap = new Array();
-	
+
 	var data = eval(undermapsMapComponent.data("requestData"));
 	var polygons = new Array();
 	var polylines = new Array();
-	var makers = new Array();	
+	var makers = new Array();
 	var map = undermapsMapComponent.data("undermapsGoogleMap");
-	
+
 	infoMap[0] = new Array();
-	$(data[0]).each(function(i,polygon){ 
+	$(data[0]).each(function(i,polygon){
 		polygons.push(eval(polygon));
-		polygons[i].setMap(map); 
+		polygons[i].setMap(map);
 		infoMap[0].push("<div class=\"phoneytext\">"+polygons[i].html+"</div>");
 		google.maps.event.addListener(polygons[i], "click", function(event){
 				undermapsMap_showInfo(0,i, event.latLng, undermapsMapComponent);
 		});
-	}); 
-	
+	});
+
 	infoMap[1] = new Array();
-	$(data[1]).each(function(i,polyline){ 
+	$(data[1]).each(function(i,polyline){
 		polylines.push(eval(polyline));
 		polylines[i].setMap(map);
-		infoMap[1][i] = "<div class=\"phoneytext\">"+polylines[i].html+"</div>"; 
+		infoMap[1][i] = "<div class=\"phoneytext\">"+polylines[i].html+"</div>";
 		google.maps.event.addListener(polylines[i], "click", function(event){
 				undermapsMap_showInfo(1,i, event.latLng, undermapsMapComponent);
 		});
 	} );
-	
+
 	infoMap[2] = new Array();
-	$(data[2]).each(function(i,maker){ 
+	$(data[2]).each(function(i,maker){
 		makers.push(eval(maker));
-		makers[i].setMap(map); 
+		makers[i].setMap(map);
 		infoMap[2].push("<div class=\"phoneytext\">"+makers[i].html+"</div>");
 		google.maps.event.addListener(makers[i], "click", function(event){
 				undermapsMap_showInfo(2,i, event.latLng, undermapsMapComponent);
 		});
 	});
-	
+
 	var infowindow = new google.maps.InfoWindow({
 		disableAutoPan: false,
 	});
-	
+
     var infoBubble = new InfoBubble({
         position: new google.maps.LatLng(-35, 151),
         shadowStyle: 1,
@@ -123,23 +123,23 @@ function undermapsMap_paintMap(undermapsMapComponent){
         backgroundClassName: 'phoney',
         arrowStyle: 0
       });
-	
+
 	undermapsMapComponent.data("undermapsMapInfoBubble", infoBubble);
 
 	undermapsMapComponent.data("undermapsMapInfoWindow", infowindow);
-	
+
 	undermapsMapComponent.data("undermapsMapPolygons", polygons);
 	undermapsMapComponent.data("undermapsMapPolylines", polylines);
 	undermapsMapComponent.data("undermapsMapMakers", makers);
 	undermapsMapComponent.data("undermapsMapInfoMap", infoMap);
-	
-	undermapsMap_centerMap(undermapsMapComponent);  
+
+	undermapsMap_centerMap(undermapsMapComponent);
 }
 
 
 function undermapsMap_centerElement(geoElement){
 	var bounds = new google.maps.LatLngBounds();
-	
+
 	geoElement.getPath().forEach(function (element, index){
 		bounds.extend(element);
 	});
@@ -154,7 +154,7 @@ function undermapsMap_centerMap(undermapsMapComponent){
 
 	var bounds = new google.maps.LatLngBounds();
 
-	$(polygons).each(function(i,fpolygon){ 
+	$(polygons).each(function(i,fpolygon){
 	  if (fpolygon != null){
 	    $(fpolygon).each(function(j, polygon){
 	    	if (polygon != null){
@@ -167,8 +167,8 @@ function undermapsMap_centerMap(undermapsMapComponent){
 	    });
 	}
 	});
-	
-	$(polylines).each(function(i,fpolyline){ 
+
+	$(polylines).each(function(i,fpolyline){
 	  if (fpolyline != null){
 	    $(fpolyline).each(function(j, polyline){
 	    	if (polyline != null){
@@ -181,11 +181,11 @@ function undermapsMap_centerMap(undermapsMapComponent){
 	    });
 	}
 	});
-	
-	$(makers).each(function(i,maker){ 
+
+	$(makers).each(function(i,maker){
 	  if (maker != null){
-		var element = maker.getPosition();	
-		bounds.extend(element);	
+		var element = maker.getPosition();
+		bounds.extend(element);
 	  }
 	});
 
@@ -202,12 +202,12 @@ function undermapsMap_emptyData(undermapsMapComponent){
 	return false;
 }
 
-function undermapsMap_setDefaultSettings(settings) { 
+function undermapsMap_setDefaultSettings(settings) {
     // set default values for settings
 	if(settings.mapAreaWs == undefined) {
 		settings.mapAreaWs = "ws/mapArea";
 	}
-	
+
 	if(settings.mapZoom == undefined) {
 		settings.mapZoom = 0;
 	}
@@ -215,7 +215,7 @@ function undermapsMap_setDefaultSettings(settings) {
 	if(settings.mapType == undefined) {
 		settings.mapType = google.maps.MapTypeId.ROADMAP;
 	}
-	
+
 	if(settings.treeRef == undefined){
 		settings.treeRef = "tree";
 	}
@@ -225,18 +225,18 @@ function undermapsMap_setDefaultSettings(settings) {
 }
 
 function undermapsReload(undermapsTreeComponent, undermapsMapComponent){
-	
+
 	var selKeys = undermapsTreeComponent.data("selKeys");
 	//TODO url to ws whit selected key
 	//and chage de settings ws?
-	
-	undermapsMap_initializateMap(undermapsMapComponent); 
-	
+
+	undermapsMap_initializateMap(undermapsMapComponent);
+
 	if (selKeys.length != 0){
 	    undermapsMap_initializateData(undermapsMapComponent);
-		undermapsMap_paintMap(undermapsMapComponent); 
+		undermapsMap_paintMap(undermapsMapComponent);
 	}
-	
+
 	//undermapsTree_paintLegend(undermapsTreeComponent);
 }
 
@@ -247,18 +247,18 @@ function undermapsReload(undermapsTreeComponent, undermapsMapComponent){
     // initialization function
    $.fn.undermapsMap = function(settings) {
 	this.each(function() {
-		
+
     	 undermapsMap_setDefaultSettings(settings);
          // save settings into the DOM tree
          $(this).data("settings", settings);
-		 
-        undermapsMap_initializateMap($(this)); 
-        
+
+        undermapsMap_initializateMap($(this));
+
         //if map must paint something or not
         if(!undermapsMap_emptyData($(this))){
         	undermapsMap_initializateData($(this));
-        	undermapsMap_paintMap($(this)); 
-        }         
+        	undermapsMap_paintMap($(this));
+        }
 	});
     return this;
    };

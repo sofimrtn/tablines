@@ -48,14 +48,14 @@ function tapinosChart_prepareChartRequest(component, chartConfig) {
 	if (settings.dataset != undefined) {
 		params.dataset = tapinosCommon_getStringParameter(settings.dataset);
 	}
-	
+
 	if (settings.endpoint != undefined) {
 		params.endpoint = tapinosCommon_getStringParameter(settings.endpoint);
 	}
 	if (settings.namedgraph != undefined) {
 		params.namedgraph = tapinosCommon_getStringParameter(settings.namedgraph);
 	}
-	
+
 	return params;
 }
 
@@ -84,12 +84,12 @@ function tapinosChart_onChartServiceCallback(component) {
 
 
 							tapinosChart_paintGoogleChart(component, data);
-	
+
 							$(window).bind("resize", function(event) {
 								tapinosChart_setGraphSizeGoogleChart(component);
-								tapinosChart_drawGoogleChart(component);							
+								tapinosChart_drawGoogleChart(component);
 							});
-							
+
 	        		}
         		}
         		// Update the attached table (if available)
@@ -108,12 +108,12 @@ function tapinosChart_onChartServiceCallback(component) {
 
 
 //********************************************************
-// HTML inject 
+// HTML inject
 //********************************************************
 
 function tapinosChart_updateDownloadLinks(ws, chartConfig, linkElements, format) {
 	var traditional = true;
-	var params = $.extend(true, { "format": format }, chartConfig); 
+	var params = $.extend(true, { "format": format }, chartConfig);
 	linkElements.each(function() {
 		$(this).attr("href", ws + "?" + $.param(params, traditional));
 	});
@@ -141,7 +141,7 @@ function tapinosChart_setDefaultSettings(settings) {
 		settings.numberSuffix = "";
 	}
 	if (settings.bigNumberSuffix == undefined) {
-		settings.bigNumberSuffix = "";		
+		settings.bigNumberSuffix = "";
 	}
 	if (settings.appendYLabel == undefined) {
 		settings.appendYLabel = true;
@@ -157,7 +157,7 @@ function tapinosChart_setDefaultSettings(settings) {
 	}
 	if (settings.animationTime == undefined){
 		settings.animationTime = 250;
-	}	
+	}
 	//It would be double of animationTime
 	if (settings.animationTimeFirst == undefined){
 		settings.animationTimeFirst = 500;
@@ -165,11 +165,11 @@ function tapinosChart_setDefaultSettings(settings) {
 	if (settings.interpolateNulls == undefined){
 		settings.interpolateNulls = false;
 	}
-		
+
 	if (settings.switchChart == undefined){
 		settings.switchChart = "switchChart";
 	}
-	
+
 	if (settings.animateButton == undefined){
 		settings.animateButton = "animateButton";
 	}
@@ -193,13 +193,13 @@ function tapinosChart_paintGoogleChart(component, data) {
 		chart = new google.visualization.LineChart(document.getElementById(component.attr('id')));
 	} else if ( data.chartType=='PIE' ) {
 		chart = new google.visualization.PieChart(document.getElementById(component.attr('id')));
-		typechart = "PieChart";	  
+		typechart = "PieChart";
 	}
 	component.data("typeChart", typechart);
-	
+
       var options = {
-           	title: '', 
-           	 
+           	title: '',
+
             hAxes:[
                      {title: data.xLabel,
                       textPosition : 'out'}
@@ -207,32 +207,32 @@ function tapinosChart_paintGoogleChart(component, data) {
             vAxes:[{
              	 title: data.yLabel,
              	 minValue : data.yMin,
-             	 maxValue : data.yMax, 
+             	 maxValue : data.yMax,
              	 textPosition: 'out',
-                  
+
             }],
             pointSize: 5,
-            
+
             legend: {
             	position: 'bottom',
             	textStyle: {fontSize: 10}
             },
-            
+
             chartArea:{
              	left:"10%",
              	top:"10%",
              	width:"80%",
              	height: "75%"
             },
-            
+
             animation:{
 	            duration: settings.animationTime,
 	            easing: 'linear',
             },
-            
+
             //is3D is an options for Google PieChart
             is3D: true,
-            
+
             //interpolateNulls is an option for Google LineChart
             interpolateNulls: settings.interpolateNulls,
 
@@ -249,25 +249,25 @@ function tapinosChart_paintGoogleChart(component, data) {
     	  options.hAxes[0].textPosition = 'in';
     	  options.vAxes[0].textPosition = 'in';
       }
-      
+
       $(component).data("options", options);
       $(component).data("GoogleChart", chart);
       $(component).data("GoogleChartData", data);
 
-	  
+
 	  $('#interpolateDiv').hide(); //default behaviour is to hide the interpolate
-	  
-      isMobile ? tapinosChart_dataGoogleChartMobile (component, data) : tapinosChart_dataGoogleChart(component, data);   
-      
+
+      isMobile ? tapinosChart_dataGoogleChartMobile (component, data) : tapinosChart_dataGoogleChart(component, data);
+
       setInterpolable(component, data);
-		
+
 	  if (component.data("is_interpolable") && component.data("typeChart")=="LineChart"){
 		settings.interpolateDiv.show();
 		settings.interpolateCheckbox.change(function(){tapinosChart_onChangeInterpolateCheckbox(component);});
-	  }	
+	  }
 
 
-      	
+
       if (data.chartType=='VERTICAL_BARS' ){
       		var switchChartButton = settings.switchChart;
       		$("." + switchChartButton).show();
@@ -281,7 +281,7 @@ function tapinosChart_drawGoogleChart(component) {
 	view = new google.visualization.DataView(dataTable);
 	component.data("GoogleChart").draw(view, component.data("options"));
 }
- 
+
 function tapinosChart_setGraphSizeGoogleChart(component) {
 	//TODO: change the fixed number
 	component.height((59*$(window).height())/100);
@@ -292,10 +292,10 @@ function tapinosChart_setGraphSizeGoogleChart(component) {
 // DATA
 //********************************************************
 function tapinosChart_dataGoogleChart (component, data){
-	
+
 	var settings = component.data("tapinosChartSettings");
 	var time = settings.animationTime;
-	
+
 	dataTable = new google.visualization.DataTable();
 
 	dataTable.addColumn('string', data.xLabel);
@@ -304,29 +304,29 @@ function tapinosChart_dataGoogleChart (component, data){
 
     //initial value for row count is 0
 	tapinosChart_animatebypointsGoogleChart (0, component, dataTable, time, data);
-	
+
 	var chart = component.data("GoogleChart");
 	component.data("dataTable", dataTable);
 
 	google.visualization.events.addListener(chart, 'select',  function() {
-		
+
 		selectHandle(component);
-		
+
 	});
 }
 
 function tapinosChart_onChangeInterpolateCheckbox(component){
 	var settings = component.data("tapinosChartSettings");
 	settings.interpolateNulls = settings.interpolateCheckbox.is(':checked');
-	
-	
+
+
 	var data = component.data("GoogleChartData");
 	var options = component.data("options");
 	options.interpolateNulls = settings.interpolateNulls;
 	component.data("options", options);
 
-	tapinosChart_dataGoogleChart(component, data);  
-	 
+	tapinosChart_dataGoogleChart(component, data);
+
 }
 
 function setInterpolable(component, data){
@@ -338,36 +338,36 @@ function setInterpolable(component, data){
 		}
 	}
 }
-  
+
 function selectHandle(component){
-  	var typechart = component.data("typeChart");	
+  	var typechart = component.data("typeChart");
   	var dataTable = component.data("dataTable");
 	var options = $(component).data("options");
 	var chart = component.data("GoogleChart");
 	var data = component.data("GoogleChartData");
 	var dataTableBackUp = component.data("dataTableBackUp");
-	
+
 	if ( typechart != "PieChart" ) {
 
 	    var selectedItem = chart.getSelection();
-	    
+
 		var item = selectedItem[0];
-    
+
 		if (typeof item.column != undefined) {
-	    	var columnIndex = item.column;  
-	
+	    	var columnIndex = item.column;
+
 	    	if (dataTable.getValue(0, columnIndex) != undefined){
 	    		for (var i=0; i<dataTable.getNumberOfRows(); i++){
 	    			dataTable.setCell(i, columnIndex, null);
 	    		}
 	    		tapinosChart_drawGoogleChart(component);
 	    	}else{
-	    					
+
 				for (var i=0; i<dataTable.getNumberOfRows(); i++){
 	        		dataTable.setCell(i,columnIndex, dataTableBackUp.getValue(i,columnIndex));
 	        	}
-	        	
-	        	tapinosChart_drawGoogleChart(component);		        
+
+	        	tapinosChart_drawGoogleChart(component);
 	        }
 	    }
 	}
@@ -375,8 +375,8 @@ function selectHandle(component){
 
 function tapinosChart_pushColumnsGoogleChart(dataTable, data){
 	for (var i=0; i<data.series.length; i++){
-		var seriesLabel = data.series[i].seriesLabel?data.series[i].seriesLabel:'';  
-		//TODO: why always numbers?  	
+		var seriesLabel = data.series[i].seriesLabel?data.series[i].seriesLabel:'';
+		//TODO: why always numbers?
 		dataTable.addColumn ('number', seriesLabel);
 	}
 }
@@ -387,7 +387,7 @@ function tapinosChart_pushRowsGoogleChart(dataTable, data){
 			dataTable.addRows(1);
 
 			dataTable.setCell(j, 0, data.sortedX[j]);
-			
+
 			j++;
 		}
 }
@@ -395,35 +395,35 @@ function tapinosChart_pushRowsGoogleChart(dataTable, data){
 
 function tapinosChart_animatebyseriesGoogleChart(c, component, dataTable, time, data){
 
-		var seriesLabel = data.series[c].seriesLabel?data.series[c].seriesLabel:'';    	
+		var seriesLabel = data.series[c].seriesLabel?data.series[c].seriesLabel:'';
 		dataTable.addColumn ('number', seriesLabel);
 
   		for ( pointIndex in data.series[c].points ) {
-  			
+
   			var point = data.series[c].points[pointIndex];
   			var index = data.sortedX.indexOf(point.x);
-  		
-  			if ( data.chartType!='PIE' || point.y!=0 ) { 
+
+  			if ( data.chartType!='PIE' || point.y!=0 ) {
   				dataTable.setCell(index, c+1, point.y);
   			}
   		}
-  		
+
   		view = new google.visualization.DataView(dataTable);
   		tapinosChart_setGraphSizeGoogleChart(component);
   		tapinosChart_drawGoogleChart(component);
-  		
+
   		if (c < data.series.length-1){
   			 window.setTimeout(function(){
   				tapinosChart_animatebyseriesGoogleChart (c+1, component, dataTable, time, data);
              },time);
-  		}	
+  		}
 }
 
 function tapinosChart_animatebypointsGoogleChart (cont, component, dataTable, time, data){
-		
+
 	   dataTable.addRows(1);
 	   dataTable.setCell(cont, 0, data.sortedX[cont]); //setLabel
-	   
+
 	   //TODO: improve performance of this code
 	   for (var i=0; i < data.series.length; i++) {
 			var value = null; //default value
@@ -434,27 +434,27 @@ function tapinosChart_animatebypointsGoogleChart (cont, component, dataTable, ti
 					break;
 				}
 			}
-			
+
 			dataTable.setCell(cont, i+1, value);
 		}
-		
+
 		view = new google.visualization.DataView(dataTable);
 		tapinosChart_setGraphSizeGoogleChart(component);
 		tapinosChart_drawGoogleChart(component);
-		
+
 		var setTime = 0;
 		if (cont == 0 ){
 			setTime = component.data("tapinosChartSettings").animationTimeFirst;
 		}else{
 			setTime = time;
 		}
-		
+
 		if (cont < data.sortedX.length-1){
 			 window.setTimeout(function(){
 				 tapinosChart_animatebypointsGoogleChart (cont+1, component, dataTable, time, data);
          },setTime);
 		}
-	
+
 		//clone dataTable Object
 		var	dataTableBackUp = new google.visualization.DataTable();
 		dataTableBackUp = $.extend(true, {}, dataTable);
@@ -463,13 +463,13 @@ function tapinosChart_animatebypointsGoogleChart (cont, component, dataTable, ti
 //********************************************************
 //Animation
 //********************************************************
-function tapinosChart_animategraphic(){ 	
-	var component = $(this).data("componentRef");	
+function tapinosChart_animategraphic(){
+	var component = $(this).data("componentRef");
 	component.data("GoogleChart").clearChart();
 	tapinosChart_dataGoogleChart(component, component.data("GoogleChartData"));
 }
 //********************************************************
-// BUTTONS 
+// BUTTONS
 //********************************************************
 function tapinosChart_injectInteractiveButtonsDivCode(component){
 	var settings = component.data("tapinosChartSettings");
@@ -477,14 +477,14 @@ function tapinosChart_injectInteractiveButtonsDivCode(component){
 	var html =
 	'<a class="'+ settings.animateButton+'" title="Animate chart" href="javascript:void(0)"><img alt="Animate" src="images/play.png"></a>' +
 	'<a class="'+ settings.switchChart+'" title="Switch columns chart" href="javascript:void(0)"><img alt="Switch" src="images/chart.png"></a>';
-	 
-	interactiveButtonsDiv.html(html);	
-	
+
+	interactiveButtonsDiv.html(html);
+
 	var changeChartButton = $("."+settings.switchChart);
     changeChartButton.data("componentRef", component);
     changeChartButton.click(tapinosChart_onChangeChartButtonClick);
     changeChartButton.css("display", "none");
-    
+
     var animateButton = $(".animateButton");
     animateButton.data("componentRef", component);
     animateButton.click(tapinosChart_animategraphic);
@@ -512,17 +512,17 @@ function tapinosChart_reverseChart(component){
 		component.data("typeChart", "ColumnChart");
 		chart = new google.visualization.ColumnChart(document.getElementById(component.attr('id')));
 	}
-	
+
 	component.data("GoogleChart", chart);
 	google.visualization.events.addListener(chart, 'select',  function() {
-		selectHandle(component);	
+		selectHandle(component);
 	});
 
 	tapinosChart_drawGoogleChart(component);
 }
-   
+
 //********************************************************
-// MOBILE 
+// MOBILE
 //********************************************************
   function tapinosChart_dataGoogleChartMobile (component, data){
 	dataTable = new google.visualization.DataTable();
@@ -530,29 +530,29 @@ function tapinosChart_reverseChart(component){
 	dataTable.addColumn('string', data.xLabel);
 
 	tapinosChart_pushColumnsGoogleChart(dataTable, data);
-	
+
 	var c = 0;
 	for (seriesXLabel in data.sortedX){
 		dataTable.addRows(1);
 		dataTable.setCell(c, 0, data.sortedX[c]);
-		
+
 		for (var index=0; index < data.series.length; index++) {
-				
+
 				var point = data.series[index].points[c];
-			
-				if ( data.chartType!='PIE' || point.y!=0 ) { 
+
+				if ( data.chartType!='PIE' || point.y!=0 ) {
 					dataTable.setCell(c, index+1, point.y);
 				}
-			}		
+			}
 		c++;
-	}	
+	}
 		view = new google.visualization.DataView(dataTable);
 		tapinosChart_setGraphSizeGoogleChart(component);
 		tapinosChart_drawGoogleChart(component);
 }
-  
+
 //********************************************************
-//JQuery Component 
+//JQuery Component
 //********************************************************
 
 (function($) {
@@ -583,8 +583,8 @@ function tapinosChart_reverseChart(component){
 	            data: requestData,
 	            traditional: true,
 	            success: tapinosChart_onChartServiceCallback($(this)),
-	            error: function() { 
-	                networkError($(this).data("tapinosChartSettings").errorMsgsDiv); 
+	            error: function() {
+	                networkError($(this).data("tapinosChartSettings").errorMsgsDiv);
 	                clearDivs($(this).data("tapinosChartSettings").toClearIfFailure);
 	                return; }
 	          });
@@ -597,10 +597,7 @@ function tapinosChart_reverseChart(component){
     return this;
 
   };
-  
+
   $.fn.tapinosChartIsBigNumber = function() {
 	   var bigNumberParagraph = $("p", $(this));
 	   return bigNumberParagraph.length > 0;
-  };
-
-})(jQuery);

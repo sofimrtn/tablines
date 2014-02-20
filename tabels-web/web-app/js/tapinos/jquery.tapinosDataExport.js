@@ -1,7 +1,7 @@
 function tapinosDataExport_restoreState(component) {
    var settings = component.data("tapinosDataExportSettings");
 	if (settings.selects != undefined) {
-		settings.selects.each(function(i,o) { tapinosDataExport_restoreSelect(o); });		
+		settings.selects.each(function(i,o) { tapinosDataExport_restoreSelect(o); });
 	}
 }
 
@@ -46,44 +46,48 @@ function tapinosDataExport_refresh(component) {
 			params[o.name] = selectedValues;
 		});
 	}
-	var url = "ws/dataExport?" + $.param(params, traditional);
-	component.attr("href", url);	
+	var url = settings.ws + "?" + $.param(params, traditional);
+	component.attr("href", url);
 }
 
 function tapinosDataExport_setDefaultSettings(settings) {
 	if (settings.selects == undefined) {
 		settings.selects = $("select.tapinosDataExport-autodetect");
 	}
-	
+
 	if (settings.autobindSelects == undefined) {
 		settings.autobindSelects = true;
+	}
+
+	if (settings.ws == undefined) {
+		settings.ws = "ws/dataExport";
 	}
 }
 
 (function($) {
-    
+
     // initialization function
    $.fn.tapinosDataExport = function(settings) {
 	   if (settings == undefined) { settings = {}; }
-	   tapinosDataExport_setDefaultSettings(settings);   
+	   tapinosDataExport_setDefaultSettings(settings);
      this.each(function() {
          // save settings into the DOM tree
     	 $(this).data("tapinosDataExportSettings", settings);
-    	 
+
     	 tapinosDataExport_restoreState($(this));
     	 tapinosDataExport_refresh($(this));
     	 tapinosDataExport_autobind($(this));
-    	 
+
      }); // each
      return this;
    };
 
    // refresh the link
-   $.fn.tapinosDataExportRefresh = function() {	   
+   $.fn.tapinosDataExportRefresh = function() {
 	   this.each(function() {
 		   tapinosDataExport_refresh($(this));
 	   });
 	   return this;
-    };   
-   
+    };
+
 })(jQuery);
