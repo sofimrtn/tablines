@@ -13,91 +13,87 @@
         <li>Chart view</li>
     </ul>
 	<r:script>
-       function getCurrentDataset() {
-         return $("#dataset > option:selected").val();
-       }    
 
-       $(document).ready(function() {
-  // initialize(); //only for googleMaps
-         $("#dataset").each(function() { 
-           $(this).bind('change', function() {
-             $("#dimensions").tapinosCombosReload(getCurrentDataset());
-           });
-         });
+       function getCurrentDataset() {
+         return $("#dataset > option:selected").val();
+       }
 
-   $("#GooglechartsChart").tapinosChart({
-           // jQuery object: a Tapinos Table to refresh (opt)
-           ws: "<g:resource dir='ws' file='chart'/>",
-           endpoint: "${endpoint}",
-           namedgraph: "${namedgraph}",
-           table: $("#table"),
-           chartService: "google",
+       $(document).ready(function() {
+  // initialize(); //only for googleMaps
+
+         $("#dataset").each(function() {
+           $(this).bind('change', function() {
+             $("#dimensions").tapinosCombosReload(getCurrentDataset());
+           });
+         });
+
+   $("#GooglechartsChart").tapinosChart({
+           // jQuery object: a Tapinos Table to refresh (opt)
+           ws: "/tabels/ws/chart",
+           namedgraph: "${namedgraph}",
+           table: $("#table"),
+           chartService: "google",
 		   interactiveButtonsDiv: $("#playSwitchButton"),
 		   interpolateDiv: $("#interpolateDiv"),
 		   interpolateCheckbox: $("#interpolate"),
-         });
+		   decimalDigits: 0
+         });
 
-        
 
-         $("#dimensions").tapinosCombos({
-           // String: Dimension Web Service URI
-           ws: "<g:resource dir='ws' file='dimensions'/>",
-           endpoint: "${endpoint}",
-           namedgraph: "${namedgraph}",
-           // jQuery object: A div to insert error messages
-           errorMsgsDiv: $("#errors"),
-           // jQuery object: A checkbox to switch values/series variables (opt)
-           //seriesSwitchCheckbox: $("#seriesSwitchCheckbox"),
-           seriesSwitchDiv: $("#seriesSwitchDiv"),
-           // Array of jQuery objects to empty() if failure {userError, networkError} (opt)
-           toClearIfFailure: $("#table"), //TODO: checking if googlecharts should be added
-           URLFieldSavedState: "tapinosCombos",
-           // Callback to execute on dimension change events
-           // (Combos --> Chart --> Table)
-           callback: function(chartParameters) { 
-               // chartParameters.yLabel = "Percentage (%)";
-               $("#GooglechartsChart").tapinosChartDraw(chartParameters); 
-               $("#permalink").tapinosPermalinkRefresh();
-               return; 
-               }
-         });
 
-         $("#permalink").tapinosPermalink({
-             selects: $("#dataset"),
-             endpoint: "${endpoint}",
-             tapinosCombos: $("#dimensions"),
+         $("#dimensions").tapinosCombos({
+           // String: Dimension Web Service URI
+           ws: "ws/dimensions",
+           namedgraph: "${namedgraph}",
+           // jQuery object: A div to insert error messages
+           errorMsgsDiv: $("#errors"),
+           // jQuery object: A checkbox to switch values/series variables (opt)
+           //seriesSwitchCheckbox: $("#seriesSwitchCheckbox"),
+           seriesSwitchDiv: $("#seriesSwitchDiv"),
+           // Array of jQuery objects to empty() if failure {userError, networkError} (opt)
+           toClearIfFailure: $("#table"), //TODO: checking if googlecharts should be added
+           URLFieldSavedState: "tapinosCombos",
+           // Callback to execute on dimension change events
+           // (Combos --> Chart --> Table)
+           callback: function(chartParameters) {
+               // chartParameters.yLabel = "Percentage (%)";
+               $("#GooglechartsChart").tapinosChartDraw(chartParameters);
+               $("#permalink").tapinosPermalinkRefresh();
+               return;
+               }
+         });
+
+         $("#permalink").tapinosPermalink({
+             selects: $("#dataset"),
+             tapinosCombos: $("#dimensions"),
              projectId: "${params.id}",
-         });
+         });
 
-//obtener la uri del dataset seleccionado
+         $("#dataExport").tapinosDataExport({
+             selects: $("#dataset"),
+             ws: "ws/dataExport",
+         });
 
-// $("#dataExport").attr("href", "ws/dataExport?" + $.param({datasetUri: getCurrentDataset()}));
-		 
-         $("#dataExport").tapinosDataExport({
-             selects: $("#dataset"),
-             endpoint: "${endpoint}"
-         });		 
+         // Populate initial values
+         $("#dimensions").tapinosCombosReload(getCurrentDataset());
 
-         // Populate initial values
-         $("#dimensions").tapinosCombosReload(getCurrentDataset());
+         // Link builder
+         function tapinosCombosState() {
+            return $("#dimensions").tapinosCombosGetState()[0].toSource();
+         }
 
-         // Link builder
-         function tapinosCombosState() {
-            return $("#dimensions").tapinosCombosGetState()[0].toSource();
-         }
+         function datasetState() {
+             return getCurrentDataset().toSource();
+         }
 
-         function datasetState() {
-             return getCurrentDataset().toSource();
-         }
-
-         //var linkBuilder = new TapinosPermLinkBuilder({
-         //            'tapinosCombos': function () {
-         //                return $("#dimensions").tapinosCombosGetState()[0].toSource();
-         //              },
-         //            'dataset': function() {
-         //                return getCurrentDataset().toSource();
-         //            }});
-       });
+         //var linkBuilder = new TapinosPermLinkBuilder({
+         //            'tapinosCombos': function () {
+         //                return $("#dimensions").tapinosCombosGetState()[0].toSource();
+         //              },
+         //            'dataset': function() {
+         //                return getCurrentDataset().toSource();
+         //            }});
+       });
 </r:script>
             
 	<!--<h2>Chart view</h2>

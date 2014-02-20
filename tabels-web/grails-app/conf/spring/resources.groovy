@@ -14,7 +14,8 @@ beans = {
 		rdfLocale = ref("locale")
 		labelProperty = "http://www.w3.org/2000/01/rdf-schema#label"
 	}
-	
+
+
 	// we need to declare Tapinos services, we cannot use bean autodetection
 	// because we're redefining the Autocomplete one, and if we use autodetection,
 	// it will crash due to duplicate instances

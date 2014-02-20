@@ -37,6 +37,7 @@ class UrlMappings {
 		"/upload/$action/$id?"(controller: "upload")
 
         "/ws/chart"(uri:"/tapinos/chart.dispatch")
+        "/ws/autocomplete"(uri:"/tapinos/autocomplete.dispatch")
         "/ws/dimensions"(uri:"/tapinos/dimensions.dispatch")
         "/ws/mapArea"(uri:"/tapinos/mapArea.dispatch")
         "/ws/sanityChecker"(uri:"/tapinos/sanityChecker.dispatch")

@@ -38,9 +38,9 @@ grails.project.dependency.resolution = {
         
     }
     plugins {
-        runtime ':uploadr:0.6.0',                               // Apache Lincese version 2.0
-				//':tapinos-js:1.7',
-                ':svn:1.0.2',                                   // Apache Lincese version 2.0
+        runtime ':uploadr:0.6.0',                               // Apache License version 2.0
+				':tapinos-js:1.8',
+                ':svn:1.0.2',                                   // Apache License version 2.0
                 //Added for tapinos-ws
                 ":jquery:1.7.1",                                //MIT License
                 ":fancybox:1.3.4",                              //MIT License
@@ -49,13 +49,13 @@ grails.project.dependency.resolution = {
                 ":jquery-tipsy:1.0.0a",                         //MIT License
                 ":jquery-tooltip:1.3",                          //Dual licensed under: GPL, MIT
                 ":jquery-ui:1.8.15",                            //Dual licensed under: GPL, MIT
-                ":resources:1.1.6",                             // Apache Lincese version 2.0
-                ":mail:1.0"                                     // Apache Lincese version 2.0
+                ":resources:1.1.6",                             // Apache License version 2.0
+                ":mail:1.0"                                     // Apache License version 2.0
     }
     dependencies {
 
         compile('es.ctic.tabels:tabels-core_2.9.1:0.6-SNAPSHOT') { // Apache Lincese version 2.0
-            excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12'
+            excludes 'jena', 'arq', 'xml-apis', 'xml-apis-xerces','slf4j-log4j12','xmlbeans'
         }
 
         compile('es.ctic.tapinos:maplab-ws:0.5'){

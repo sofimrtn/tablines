@@ -36,7 +36,7 @@ modules = {
 		// DOC http://jira.grails.org/browse/GPRESOURCES-131
 		// COMMIT https://github.com/grails-plugins/grails-resources/commit/7e8781eb5f13dc0b7f6abbbd65645d7f9ed749aa
 		resource url: 'http://maps.googleapis.com/maps/api/js', attrs: [type: 'js'], wrapper: { link -> org.apache.commons.lang.StringUtils.replaceOnce(link, '/js', '/js?sensor=false') }
-        resource url:'js/tapinos/jquery.undermaps.gmaps.js'	
+        resource url:'js/tapinos/jquery.undermaps.gmaps.js'
         resource url:'css/undermaps.css'			
 	}
 	
@@ -59,17 +59,8 @@ modules = {
 
     'tapinos-js' {
         dependsOn 'jquery,fancybox,jquery-ui,jquery-tipsy,jquery-datatables,jquery-geturlparam,jquery-tooltip,googlejsapi'
-//        defaultBundle 'ui'
-        resource url:'js/tapinos/jquery.tapinosCommon.js'
-        resource url:'js/tapinos/jquery.tapinosChart.js'
-        resource url:'js/tapinos/jquery.tapinosCombos.js'
-        resource url:'js/tapinos/jquery.tapinosPermLinkBuilder.js'
-        resource url:'js/tapinos/jquery.tapinosDataExport.js'
-        resource url:'js/tapinos/jquery.tapinosSelectSearch.js'
-        resource url:'js/tapinos/jquery.tapinosTable.js'
-        resource url:'css/tapinos.css'
-        resource url:'css/undermaps.css'
     }
+
     'contactable'{
     	 dependsOn 'jquery'
     	 resource url:'js/jquery.contactable.min.js'
