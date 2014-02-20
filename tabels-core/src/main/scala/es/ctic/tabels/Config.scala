@@ -25,9 +25,9 @@ class Config extends Logging {
 
     val localTomcatWritablePath = tabelsDir + "/projects"
 
-    // default: 12MB in bytes
-    val maxFileSize = if(maxFileSizeReadFromConfiguration != null) maxFileSizeReadFromConfiguration else 12582912
-    val allowedExtensions = if(allowedExtensionsReadFromConfiguration != null) allowedExtensionsReadFromConfiguration else  "owl,rdf,nt,n3,ttl,px,zip,csv,tsv,tab,ods,xls,xlsx,html"
+    // default: 12MB in bytes, updated to 20MB
+    val maxFileSize = if(maxFileSizeReadFromConfiguration != null) maxFileSizeReadFromConfiguration else 20971520//12582912
+    val allowedExtensions = if(allowedExtensionsReadFromConfiguration != null) allowedExtensionsReadFromConfiguration else "owl,rdf,nt,n3,ttl,px,zip,csv,tsv,tab,ods,xls,xlsx,html"
         
 }
 
