@@ -320,12 +320,12 @@ class TabelsParser extends JavaTokenParsers with Logging{
     def functionExpression : Parser[Expression] =
       ((RESOURCE <~"(") ~> expression )~ (","~> iriRef <~")") ^^
     		{case v~u => ResourceExpression(expression = v, uri = u)} |
-    	((RESOURCE <~"(") ~> expression )~ (","~> curieRef <~")") ^^ 
+    	((RESOURCE <~"(") ~> expression )~ (","~> curieRef <~")") ^^
     		{case v~u => ResourceExpression(expression = v, uri = u)} |
-    	((RESOURCE <~"(") ~> expression )~ (","~> definedPrefix <~")") ^^ 
+    	((RESOURCE <~"(") ~> expression )~ (","~> definedPrefix <~")") ^^
     		{case v~p => ResourceExpression(expression = v, uri = p)} |
       ((RESOURCE <~"(") ~> expression)<~")" ^^
-    		{case local =>if (prefixes.contains("my")) { ResourceExpression(expression = local, uri = prefixes("my")) } 
+    		{case local =>if (prefixes.contains("my")) {ResourceExpression(local, prefixes("my")) }
     					  else { throw new UndefinedPrefixException("my") } }|
       GET_ROW ~> "(" ~> variable <~ ")" ^^
     		{case v => GetRowExpression(variable = v) } |		

@@ -31,6 +31,8 @@ libraryDependencies += "org.apache.xmlbeans" % "xmlbeans" % "2.6.0"
 //ODF reader -> Apache License Version 2.0
 libraryDependencies += "org.odftoolkit" % "odfdom-java" % "0.8.7"
 
+libraryDependencies += "org.odftoolkit" % "simple-odf" % "0.6.6"
+
 //XML -> Apache License Version 2.0
 libraryDependencies += "xerces" % "xercesImpl" % "2.9.1"  // Apache Software License
 
