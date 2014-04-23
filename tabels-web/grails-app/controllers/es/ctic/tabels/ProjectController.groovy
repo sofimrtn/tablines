@@ -26,7 +26,7 @@ class ProjectController {
 	
 	static {
 		System.setProperty("tabels.publicTomcatWritablePath", ConfigurationHolder.config.grails.serverURL+"/project")
-        // disable cache
+        // disable cache only if tabels.mapCacheEnabled=false
         def mapCacheEnabledPropertyValue = System.getProperty("tabels.mapCacheEnabled")
         // only false when not null or value is different than true
         def mapCacheEnabled = mapCacheEnabledPropertyValue ? new Boolean(mapCacheEnabledPropertyValue) : true
