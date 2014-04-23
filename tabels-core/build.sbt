@@ -1,3 +1,47 @@
+import AssemblyKeys._ // put this at the top of the file
+
+assemblySettings
+
+test in assembly := {}
+
+// uncomment to exclude scala libraries
+// assembleArtifact in packageScala := false
+
+excludedJars in assembly <<= (fullClasspath in assembly) map { cp =>
+  cp filter {x =>  Set(
+  "servlet-api-2.5-20081211.jar",
+  "ant-1.6.5.jar",
+  "jsp-api-2.0.jar", 
+  "stax-api-1.0.1.jar",
+  "asm-3.2.jar", 
+  "javax.servlet-2.5.0.v201103041518.jar", 
+  "commons-beanutils-1.7.0.jar",
+  "commons-beanutils-core-1.8.0.jar", 
+  "minlog-1.2.jar",
+  "xml-apis-1.3.04.jar",
+  "xmlParserAPIs-2.0.2.jar",
+  "commons-beanutils-1.8.3.jar").contains(x.data.getName)}
+}
+
+mergeStrategy in assembly <<= (mergeStrategy in assembly) { (old) =>
+  {
+    // case PathList("javax", "servlet", xs @ _*) => MergeStrategy.first
+    case "application.conf" => MergeStrategy.concat
+    case ".gitignore"     => MergeStrategy.discard
+    case "log4j.properties"     => MergeStrategy.first
+    case "about.html" => MergeStrategy.discard
+    case "overview.html" => MergeStrategy.discard
+    case "logback.xml" =>MergeStrategy.first
+    case "META-INF/ECLIPSEF.RSA" => MergeStrategy.first
+    case "META-INF/registryFile.jai" => MergeStrategy.first
+    case "about.properties" => MergeStrategy.first
+    case "plugin.properties" => MergeStrategy.first
+    case "plugin.xml" => MergeStrategy.first
+    case "about.mappings" => MergeStrategy.first
+    case x => old(x)
+  }
+}
+
 name := "Tabels core"
 
 version := "0.6-SNAPSHOT"
@@ -104,5 +148,6 @@ resolvers += "ctic-nexus public" at
 // Geotools resolver
 resolvers += "Open Source Geospatial Foundation Repository" at
 "http://download.osgeo.org/webdav/geotools/"
+
 
 
