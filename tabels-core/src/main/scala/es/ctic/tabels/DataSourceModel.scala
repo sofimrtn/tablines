@@ -86,7 +86,7 @@ class DataAdaptersDelegate(fl : Seq[File], baseDir : Option[File] = None) extend
     
     def relativizeFilename(file : File) : String = baseDir match {
         case Some(prefix) if (file.getCanonicalPath().startsWith(prefix.getCanonicalPath())) => prefix.toURI().relativize(file.toURI()).getPath()
-        case None => file.getCanonicalPath()
+        case _ => file.getCanonicalPath()
     }
     
 }
