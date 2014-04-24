@@ -68,19 +68,24 @@ object CLI extends Logging {
 			val os : OutputStream = if (cmd hasOption "o") new FileOutputStream(cmd getOptionValue "o") else System.out
 			dataOutput.model.write(os, outputFormatValidated)
 			if (cmd hasOption "o") { os.close() }
+			System.exit(0)
 		} catch {
 		    case e : org.apache.commons.cli.ParseException =>
 		      System.err.println(e.getMessage)
               new HelpFormatter().printHelp("tabels [OPTIONS] [SPREADSHEET FILES]", options );
+              System.exit(1)
 		    case e : ParseException =>
 		      System.err.println(e.getMessage)
 		      System.err.println(e.line)
 		      System.err.println(" " * (e.column-1) + "^^")
+		      System.exit(2)
 		    case e : TabelsException =>
 		      logger.error("User error", e)
 		      System.err.println(e.getMessage)
-			case e : Exception => logger.error("Internal error", e)
+		      System.exit(3)
+			case e : Exception => 
+			  logger.error("Internal error", e)
+			  System.exit(4)
 		}
 	}
-
 }
