@@ -57,6 +57,7 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
     assertFalse(MiscellaneaFunctions.canBeResource(":/localhost:8080/tabels/project/test"))
     assertFalse(MiscellaneaFunctions.canBeResource("http://localho$¿st:8080/tabÑels/project/test"))
     assertTrue(MiscellaneaFunctions.canBeResource("https://www.fundacionctic.org/sobre-ctic/recursos-humanos#"))
+    assertTrue(MiscellaneaFunctions.canBeResource("mailto:foo@example.org"))
     assertFalse(MiscellaneaFunctions.canBeResource(""))
 
     /*Black List tests*/

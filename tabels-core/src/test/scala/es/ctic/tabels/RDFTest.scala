@@ -78,8 +78,13 @@ class LiteralTest extends JUnitSuite {
 	  val resource1 = NamedResource("http://example.org/foo/bar")
 	  val resource2 = NamedResource("http://example.org/doo")
 	  val resource3 = NamedResource("http://example.com/doo")
+    val resource4 = NamedResource("mailto:foo@example.org")
+    val resource5 = NamedResource("phone:678548479")
+    val resource6 = NamedResource("fax:678548479")
+    val resource7 = NamedResource("http://example.org/tabÑels/project/test")
 
-      @Test def toCurie {
+
+    @Test def toCurie {
         assertEquals(Some("foo:bar"),resource1.toCurie(prefixes))
         assertEquals(Some("foo:bar"),resource1.toCurie(prefixes.reverse))
         assertEquals(Some("ex:doo"),resource2.toCurie(prefixes))

@@ -88,31 +88,39 @@ abstract sealed class Resource() extends RDFNode  {
 }
 //FIXMe to be lazy
 case class NamedResource(givenUri : String) extends Resource with Logging {
+  val mailPattern = """^mailto:[A-Za-z0-9\._%+-]+@([A-Za-z0-9-]+\.)+[A-Za-z]{2,4}$"""//.r
+  val phonePattern = """^tel:+?[0-9]{9,20}$"""
 
+  //uri regex Source: http://snipplr.com/view/6889/regular-expressions-for-uri-validationparsing/
+  val URIPattern = """^([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\d*))?(/(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?|(/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?$"""
   val uri = try
-    {
-      //TODO: avoid blank named resources. It's allowed to because of the resource expression sintax :
-      //      resource(?fullURI,'') => generates a resource without prepending anything
-      //      resource(?y) => generates a resource prepending de default prefix (my)
-      if(givenUri.trim!=""){
-        val url = new URL(givenUri)
-        val protocol = url.getProtocol
-        val user = if (url.getUserInfo != null) url.getUserInfo  else null
-        val port = if (url.getPort != null)  url.getPort else -1
-        val host = URLEncoder.encode(url.getHost,"UTF-8")
-        val prePath = url.getPath.split("/").map(URLEncoder.encode(_,"UTF-8")).mkString("/")
-        val elongedPath = if (url.getPath.count( _=='/') > prePath.count( _=='/'))  prePath + "/"  else prePath
-        val path = if (elongedPath.length > 0) elongedPath else null
-        val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
-        val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
-        new URI(protocol,user,host,port,path,query,fragment).toString
-
+    { givenUri match {
+        //TODO: avoid blank named resources. It's allowed to because of the resource expression sintax :
+        //      resource(?fullURI,<>) => generates a resource without prepending anything
+        //      resource(?y) => generates a resource prepending de default prefix (my)
+        case "" => ""
+        case regularUri if regularUri matches (URIPattern) =>{
+          logger.info(givenUri + " matches regular URI pattern: " + URIPattern )
+          new URI(givenUri.trim).toString
+        }
+        case default => {
+          logger.debug(givenUri + " matches regular URI pattern"+ mailPattern )
+          val url = new URL(givenUri.trim)
+          val protocol = url.getProtocol
+          val user = if (url.getUserInfo != null) url.getUserInfo else null
+          val port = if (url.getPort != null) url.getPort else -1
+          val host = url.getHost
+          val prePath = url.getPath
+          val path = if (prePath.length > 0) prePath else null
+          val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery, "UTF-8") else null
+          val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef, "UTF-8") else null
+          new URI(protocol, user, host, port, path, query, fragment).toString
+        }
       }
-      else ""
     }
   catch
     {
-         case e => throw new NotValidUriException("<" + givenUri + ">")
+         case e => throw new NotValidUriException(e getMessage)
     }
 
   logger.info("Creating new Namedresource: " + this.toString )
@@ -137,7 +145,7 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
   if (givenUri!="")
     try //Check here if the the given uri is not in conflict with the blacklist urls
       {
-         if(( blacklistStartsWith.exists(entry => givenUri.toLowerCase.split("://")(1).startsWith(entry)) || blacklistContains.exists(entry => givenUri.toLowerCase.contains(entry))) &&
+         if(( blacklistStartsWith.exists(entry => givenUri.toLowerCase.split(":")(1).replace("//","").startsWith(entry)) || blacklistContains.exists(entry => givenUri.toLowerCase.contains(entry))) &&
           !whitelistStartsWith.exists(entry => givenUri.toLowerCase.startsWith(entry)))
           throw new ServerReferedURIException(givenUri)
 
