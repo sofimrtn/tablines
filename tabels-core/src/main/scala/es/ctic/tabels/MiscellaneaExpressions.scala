@@ -21,10 +21,9 @@ object MiscellaneaFunctions extends FunctionCollection with Logging {
                                                                                  val protocol = url.getProtocol
                                                                                  val user = if (url.getUserInfo != null) url.getUserInfo  else null
                                                                                  val port = if (url.getPort != null)  url.getPort else -1
-                                                                                 val host = URLEncoder.encode(url.getHost,"UTF-8")
-                                                                                 val prePath = url.getPath.split("/").map(URLEncoder.encode(_,"UTF-8")).mkString("/")
-                                                                                 val elongedPath = if (url.getPath.count( _=='/') > prePath.count( _=='/'))  prePath + "/"  else prePath
-                                                                                 val path = if (elongedPath.length > 0) elongedPath else null
+                                                                                 val host = url.getHost
+                                                                                 val prePath = url.getPath
+                                                                                 val path = if (prePath.length > 0) prePath else null
                                                                                  val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
                                                                                  val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
 
@@ -79,10 +78,9 @@ case class ResourceExpression(expression:Expression, uri : NamedResource) extend
       val protocol = url.getProtocol
       val user = if (url.getUserInfo != null) url.getUserInfo  else null
       val port = if (url.getPort != null)  url.getPort else -1
-      val host = URLEncoder.encode(url.getHost,"UTF-8")
-      val prePath = url.getPath.split("/").map(URLEncoder.encode(_,"UTF-8")).mkString("/")
-      val elongedPath = if (url.getPath.count( _=='/') > prePath.count( _=='/'))  prePath + "/"  else prePath
-      val path = if (elongedPath.length > 0) elongedPath else null
+      val host =url.getHost
+      val prePath = url.getPath
+      val path = if (prePath.length > 0) prePath else null
       val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
       val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
 
