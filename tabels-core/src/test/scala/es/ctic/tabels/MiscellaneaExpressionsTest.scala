@@ -56,6 +56,7 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
     assertTrue(MiscellaneaFunctions.canBeResource("http://localhost:8080/tabels/project/test"))
     assertFalse(MiscellaneaFunctions.canBeResource(":/localhost:8080/tabels/project/test"))
     assertFalse(MiscellaneaFunctions.canBeResource("http://localho$¿st:8080/tabÑels/project/test"))
+    assertTrue(MiscellaneaFunctions.canBeResource("https://www.fundacionctic.org/sobre-ctic/recursos-humanos#"))
     assertFalse(MiscellaneaFunctions.canBeResource(""))
 
     /*Black List tests*/
@@ -63,7 +64,6 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
     assertFalse(MiscellaneaFunctions.canBeResource("http://10.168.1.0/tabels/project/test"))
     assertFalse(MiscellaneaFunctions.canBeResource("http://localhost:8080/url/de/prueba"))
     assertFalse(MiscellaneaFunctions.canBeResource("http://127.0.0.1:8080/url/de/prueba"))
-    assertFalse(MiscellaneaFunctions.canBeResource("http://blackListExample.fundacionctic/url/de/prueba"))
 
   }
 

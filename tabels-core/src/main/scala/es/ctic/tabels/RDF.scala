@@ -124,8 +124,8 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
     "http://localhost:8080/tabels/project"
   )
 
-  val blacklistContains = List( // urls referencing ctic foundation are balclkisted
-    "fundacionctic"
+  val blacklistContains = List( // urls conteining an specific wrd or ip are blacklisted
+    "192.168."
   )
   val blacklistStartsWith = List( // urls referencing internal addresses ar blacklisted
     "192.",
