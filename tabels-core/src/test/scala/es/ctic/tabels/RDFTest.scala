@@ -82,6 +82,7 @@ class LiteralTest extends JUnitSuite {
     val resource5 = NamedResource("phone:678548479")
     val resource6 = NamedResource("fax:678548479")
     val resource7 = NamedResource("http://example.org/tabÑels/project/test")
+    val resource8 = NamedResource("http://example.org/tab els/project/test")
 
 
     @Test def toCurie {

@@ -23,9 +23,9 @@ class MiscellaneaExpressionsTest extends JUnitSuite {
     assertEquals(NamedResource("http://localhost:8080/tabels/project/test") ,ResourceExpression(LiteralExpression("http://localhost:8080/tabels/project/test"),NamedResource("")).evaluate(null))
     assertEquals(NamedResource("http://example.org/tabels/project/test") ,ResourceExpression(LiteralExpression("tabels/project/test"),NamedResource("http://example.org/")).evaluate(null))
     assertEquals(NamedResource("http://example.org/tabels/project/test#test1") ,ResourceExpression(LiteralExpression("tabels/project/test#test1"),NamedResource("http://example.org/")).evaluate(null))
-    assertEquals(NamedResource("http://example.org/tabels/proj+ect/test#test1") ,ResourceExpression(LiteralExpression("tabels/proj ect/test#test1"),NamedResource("http://example.org/")).evaluate(null))
-    assertEquals(NamedResource("http://example.org/tabels/proj+ect/test#tes%25C3%25B1t1") ,ResourceExpression(LiteralExpression("tabels/proj ect/test#tesñt1"),NamedResource("http://example.org/")).evaluate(null))
-    assertEquals(NamedResource("http://example.org/tabels/proj+ect/test#test1") ,ResourceExpression(LiteralExpression("proj ect/test#test1"),NamedResource("http://example.org/tabels/")).evaluate(null))
+    assertEquals(NamedResource("http://example.org/tabels/proj ect/test#test1").toString ,ResourceExpression(LiteralExpression("tabels/proj ect/test#test1"),NamedResource("http://example.org/")).evaluate(null).toString)
+    assertEquals(NamedResource("http://example.org/tabels/proj ect/test#tes%C3%B1t1").toString ,ResourceExpression(LiteralExpression("tabels/proj ect/test#tesñt1"),NamedResource("http://example.org/")).evaluate(null).toString())
+    assertEquals(NamedResource("http://example.org/tabels/proj%20ect/test#test1").toString ,ResourceExpression(LiteralExpression("proj ect/test#test1"),NamedResource("http://example.org/tabels/")).evaluate(null).toString)
     assertEquals(NamedResource("http://localhost:8080/tabels/project/test/") ,ResourceExpression(LiteralExpression("http://localhost:8080/tabels/project/test/"),NamedResource("")).evaluate(null))
 
   }

@@ -17,17 +17,7 @@ object MiscellaneaFunctions extends FunctionCollection with Logging {
 
    val resource2 = "resource" isDefinedBy {(expression:String, uri:String) =>  try
                                                                                {
-                                                                                 val url = new URL((uri + expression) )
-                                                                                 val protocol = url.getProtocol
-                                                                                 val user = if (url.getUserInfo != null) url.getUserInfo  else null
-                                                                                 val port = if (url.getPort != null)  url.getPort else -1
-                                                                                 val host = url.getHost
-                                                                                 val prePath = url.getPath
-                                                                                 val path = if (prePath.length > 0) prePath else null
-                                                                                 val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
-                                                                                 val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
-
-                                                                                 NamedResource(new URI(protocol,user,host,port,path,query,fragment).toString )
+                                                                                 NamedResource(uri + expression )
                                                                                }
                                                                                catch
                                                                                  { case e => throw e}}
@@ -74,17 +64,7 @@ case class ResourceExpression(expression:Expression, uri : NamedResource) extend
   override def evaluate(evaluationContext : EvaluationContext) =
     try
       {
-      val url = new URL((uri.uri + expression.evaluateAsStringValue(evaluationContext)) )
-      val protocol = url.getProtocol
-      val user = if (url.getUserInfo != null) url.getUserInfo  else null
-      val port = if (url.getPort != null)  url.getPort else -1
-      val host =url.getHost
-      val prePath = url.getPath
-      val path = if (prePath.length > 0) prePath else null
-      val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery,"UTF-8") else null
-      val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef,"UTF-8") else null
-
-      NamedResource(new URI(protocol,user,host,port,path,query,fragment).toString )
+        uri + expression.evaluateAsStringValue(evaluationContext)
     }
     catch
     { case e => throw e}

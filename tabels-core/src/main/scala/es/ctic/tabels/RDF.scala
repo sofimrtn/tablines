@@ -1,7 +1,7 @@
 package es.ctic.tabels
 
 import scala.util.matching.Regex
-import java.net.{URLEncoder, URI, URL}
+import java.net.{URLDecoder, URLEncoder, URI, URL}
 import grizzled.slf4j.Logging
 
 sealed abstract class RDFNode {
@@ -92,7 +92,7 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
   val phonePattern = """^tel:+?[0-9]{9,20}$"""
 
   //uri regex Source: http://snipplr.com/view/6889/regular-expressions-for-uri-validationparsing/
-  val URIPattern = """^([a-z0-9+.-]+):(?://(?:((?:[a-z0-9-._~!$&'()*+,;=:]|%[0-9A-F]{2})*)@)?((?:[a-z0-9-._~!$&'()*+,;=]|%[0-9A-F]{2})*)(?::(\d*))?(/(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?|(/?(?:[a-z0-9-._~!$&'()*+,;=:@]|%[0-9A-F]{2})+(?:[a-z0-9-._~!$&'()*+,;=:@/]|%[0-9A-F]{2})*)?)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:/?@]|%[0-9A-F]{2})*))?$"""
+  val URIPattern = """^([a-zA-Z0-9+.-]+):(?://(?:((?:[a-zA-Z0-9-._~!$&'()*+,;=:]|%[0-9a-zA-F]{2})*)@)?((?:[a-zA-Z0-9-._~!$&'()*+,;=]|%[0-9a-zA-F]{2})*)(?::(\d*))?(/(?:[a-zA-Z0-9-._~!$&'()*+,;=:@/]|%[0-9a-zA-F]{2})*)?|(/?(?:[a-zA-Z0-9-._~!$&'()*+,;=:@]|%[0-9a-zA-F]{2})+(?:[a-zA-Z0-9-._~!$&'()*+,;=:@/]|%[0-9a-zA-F]{2})*)?)(?:\?((?:[a-zA-Z0-9-._~!$&'()*+,;=:/?@]|%[0-9a-zA-F]{2})*))?(?:#((?:[a-zA-Z0-9-._~!$&'()*+,;=:/?@]|%[0-9a-zA-F]{2})*))?$"""
   val uri = try
     { givenUri match {
         //TODO: avoid blank named resources. It's allowed to because of the resource expression sintax :
@@ -100,7 +100,7 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
         //      resource(?y) => generates a resource prepending de default prefix (my)
         case "" => ""
         case regularUri if regularUri matches (URIPattern) =>{
-          logger.info(givenUri + " matches regular URI pattern: " + URIPattern )
+          logger.debug(givenUri + " matches regular URI pattern: " + URIPattern )
           new URI(givenUri.trim).toString
         }
         case default => {
@@ -112,8 +112,8 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
           val host = url.getHost
           val prePath = url.getPath
           val path = if (prePath.length > 0) prePath else null
-          val query = if (url.getQuery != null) URLEncoder.encode(url.getQuery, "UTF-8") else null
-          val fragment = if (url.getRef != null) URLEncoder.encode(url.getRef, "UTF-8") else null
+          val query = if (url.getQuery != null) URLEncoder.encode(URLDecoder.decode(url.getQuery,"UTF-8"), "UTF-8") else null
+          val fragment = if (url.getRef != null) URLEncoder.encode(URLDecoder.decode(url.getRef,"UTF-8"), "UTF-8") else null
           new URI(protocol, user, host, port, path, query, fragment).toString
         }
       }
@@ -123,7 +123,7 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
          case e => throw new NotValidUriException(e getMessage)
     }
 
-  logger.info("Creating new Namedresource: " + this.toString )
+  logger.trace("Creating new Namedresource: " + this.toString )
 
   val whitelistStartsWith = List( // Exceptions to the black listed urls
     "http://idi.fundacionctic.org/scovoxl/scovoxl",
@@ -167,7 +167,7 @@ case class NamedResource(givenUri : String) extends Resource with Logging {
         else {val filteredPrefix = prefixes.filter(uri startsWith _._2.uri)
         	  if (!filteredPrefix.isEmpty){
         		  val prefix = filteredPrefix.maxBy(ns => ns._2.uri)
-              logger.info("prefix: " +  prefix._2.uri)
+              logger.trace("prefix: " +  prefix._2.uri)
         		  Some(uri.replace(prefix._2.uri, prefix._1 + ":"))
         	  }
         	  else None//Some("uri")
