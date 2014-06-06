@@ -13,9 +13,14 @@ object CLI extends Logging {
 	
 	def main(args: Array[String]) {
 	    val options = new Options()
-	    options.addOption("t", true, "path to the Tabels program")
-	    options.addOption("o", true, "path to the output RDF file")
-	    options.addOption("d", true, "path to the debug HTML output file")
+	    options.addOption("t", "tabels_program", true, 
+	    	"path to the Tabels program")
+	    options.addOption("o", "output_file", true, 
+	    	"path to the output RDF file")
+	    options.addOption("of", "output_format", true, 
+	    	"format to the output RDF file (N3, TTL, RDF/XML). Default output format is RDF/XML")
+	    options.addOption("d", "debug_html_file", true, 
+	    	"path to the debug HTML output file")
 	    val cliParser = new PosixParser();
 		try {
             val cmd : CommandLine = cliParser.parse(options, args)
@@ -52,10 +57,16 @@ object CLI extends Logging {
 			    tos.print(prettyPrinter.toString())
 			    tos.close()
 		    }
-
-			logger.debug("Writing output (" + dataOutput.model.size + " triples)")
+		    val defaultFormat = "RDF/XML"
+		    val outputFormat: String = Option(cmd getOptionValue "of").getOrElse(defaultFormat)
+		    val possibleValues = Set("RDF/XML", "RDF/XML-ABBREV", "N-TRIPLE", "TURTLE", "TTL", "N3")
+		    val outputFormatValidated = outputFormat match {
+		    	case validFormat if possibleValues.contains(validFormat) => validFormat
+		    	case _ => throw new org.apache.commons.cli.ParseException("wrong format " + outputFormat)
+		    }
+			logger.debug("Writing output (" + dataOutput.model.size + " triples) in " + outputFormat + " format")
 			val os : OutputStream = if (cmd hasOption "o") new FileOutputStream(cmd getOptionValue "o") else System.out
-			dataOutput.model.write(os, "RDF/XML")
+			dataOutput.model.write(os, outputFormatValidated)
 			if (cmd hasOption "o") { os.close() }
 		} catch {
 		    case e : org.apache.commons.cli.ParseException =>
