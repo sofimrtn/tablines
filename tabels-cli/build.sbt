@@ -64,6 +64,12 @@ libraryDependencies += "commons-cli" % "commons-cli" % "1.2"
 // troubleshooting: log4j#log4j;1.2.16   -> The Apache Software License, Version 2.0
 libraryDependencies += "log4j" % "log4j" % "1.2.16"
 
+artifact in (Compile, assembly) ~= { art =>
+  art.copy(`classifier` = Some("assembly"))
+}
+
+addArtifact(artifact in (Compile, assembly), assembly)
+
 publishTo := Some(Resolver.file("My local maven repo", file(Path.userHome + "/.m2/repository")))
 
 publishTo <<= (version) { version: String =>
