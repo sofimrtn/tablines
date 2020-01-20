@@ -1,9 +1,12 @@
-.. note:: The present repository contains two dependent projects. 
+Tablines
+========
 
-Tablines 
+This repository is a fork from a project developed by the `CTIC Foundation <http://www.fundacionctic.org/>` called Tabels. It is formed by 3 dependent modules: Tabels-core, Tabels-CLI and Tabels-Web.
+
+Tabels-Core 
 ===========
 
-This tool was initially developed by `CTIC Foundation <http://www.fundacionctic.org/>`. 
+
 The tool has been implemented in Scala language under the terms of `Apache License, version 2.0 <http://www.apache.org/licenses/LICENSE-2.0.html>`.  
 Tablines helds the capability to map from supported tabular formats to RDF documents; the mapping between them should be specified by a ``transformation program`` by the means of a DSL developed with the only purpose of these mappings. 
 
